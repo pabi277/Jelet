@@ -44,6 +44,8 @@ target/
 .ruff_cache/
 .nox/
 .tox/
+__pycache__/
+*.pyc
 *.log
 *.tmp
 *.swp

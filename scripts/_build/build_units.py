@@ -3,6 +3,8 @@
 including pyqIds mapped from the 2024 & 2025 question banks."""
 import json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
+from q2022 import Q2022
+from q2023 import Q2023
 from q2024 import Q2024
 from q2025 import Q2025
 
@@ -500,9 +502,9 @@ UNITS = [
 def build_units():
     outdir = "_data/units"
     os.makedirs(outdir, exist_ok=True)
-    # Map unitId -> list of pyqIds from both years
+    # Map unitId -> list of pyqIds from all four years
     pyq_map = {}
-    for year, data in [("2024", Q2024), ("2025", Q2025)]:
+    for year, data in [("2022", Q2022), ("2023", Q2023), ("2024", Q2024), ("2025", Q2025)]:
         for (qnum, subj, unit, cat, page, stem, opts, correct, diff, tags, figkey) in data:
             qid = f"jelet-{year}-q{qnum:03d}"
             pyq_map.setdefault(unit, []).append(qid)

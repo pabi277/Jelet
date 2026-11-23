@@ -6,6 +6,10 @@
   "estimatedMinutes": 25,
   "examFrequency": "medium",
   "pyqIds": [
+    "jelet-2022-q056",
+    "jelet-2022-q057",
+    "jelet-2023-q051",
+    "jelet-2023-q053",
     "jelet-2024-q043"
   ],
   "sections": [

@@ -101,7 +101,7 @@ def main():
     manual_verified = 0
     struct_errors = 0
 
-    for year in ["2024", "2025"]:
+    for year in ["2022", "2023", "2024", "2025"]:
         sol_path = os.path.join(DATA, "solutions", f"{year}.solutions.json")
         if not os.path.exists(sol_path):
             errors.append(f"Solutions file missing: {sol_path}")

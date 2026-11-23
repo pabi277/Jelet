@@ -5,7 +5,9 @@
   "title": "Reflection of Light",
   "estimatedMinutes": 20,
   "examFrequency": "low",
-  "pyqIds": [],
+  "pyqIds": [
+    "jelet-2023-q070"
+  ],
   "sections": [
     {
       "anchor": "plane-mirror",

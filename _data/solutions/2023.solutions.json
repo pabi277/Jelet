@@ -1,0 +1,2507 @@
+{
+  "paperId": "jelet-2023",
+  "year": 2023,
+  "keyTier": "official",
+  "solutions": {
+    "jelet-2023-q001": {
+      "conceptSummary": "Solve using matrices for JELET 2023 Q1.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves matrices."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $4$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q002": {
+      "conceptSummary": "Solve using matrices for JELET 2023 Q2.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves matrices."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $A^{99}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q003": {
+      "conceptSummary": "Solve using determinants for JELET 2023 Q3.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves determinants."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $-6$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q004": {
+      "conceptSummary": "Solve using complex-numbers for JELET 2023 Q4.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves complex-numbers."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) Singular matrix."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q005": {
+      "conceptSummary": "Solve using vector-algebra for JELET 2023 Q5.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves vector-algebra."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $a_1 b_2 = b_1 a_2$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q006": {
+      "conceptSummary": "Solve using linear-system for JELET 2023 Q6.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves linear-system."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is question is voided."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: W."
+      }
+    },
+    "jelet-2023-q007": {
+      "conceptSummary": "Solve using complex-numbers for JELET 2023 Q7.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves complex-numbers."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $i$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q008": {
+      "conceptSummary": "Solve using complex-numbers for JELET 2023 Q8.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves complex-numbers."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $30/2$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q009": {
+      "conceptSummary": "Solve using coordinate-geometry for JELET 2023 Q9.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves coordinate-geometry."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $3x - y = 2\\sqrt{3}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q010": {
+      "conceptSummary": "Solve using parabola for JELET 2023 Q10.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves parabola."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $4\\sqrt{5}$ units."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q011": {
+      "conceptSummary": "Solve using hyperbola for JELET 2023 Q11.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves hyperbola."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $(-1 \\pm \\sqrt{10}, 2)$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q012": {
+      "conceptSummary": "Solve using vector-algebra for JELET 2023 Q12.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves vector-algebra."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\vec{a} - \\vec{b}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q013": {
+      "conceptSummary": "Solve using vector-algebra for JELET 2023 Q13.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves vector-algebra."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $(2\\hat{i} + 2\\hat{j} + 2\\hat{k})$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q014": {
+      "conceptSummary": "Solve using limit for JELET 2023 Q14.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves limit."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\pi$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q015": {
+      "conceptSummary": "Solve using continuity for JELET 2023 Q15.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves continuity."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $A = 0$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q016": {
+      "conceptSummary": "Solve using differentiability for JELET 2023 Q16.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves differentiability."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\dfrac{3x}{x+2}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q017": {
+      "conceptSummary": "Solve using limit for JELET 2023 Q17.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves limit."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $\\dfrac{3b}{a}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q018": {
+      "conceptSummary": "Solve using rolle-theorem for JELET 2023 Q18.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves rolle-theorem."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $-2$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q019": {
+      "conceptSummary": "Solve using parametric-curves for JELET 2023 Q19.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves parametric-curves."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $\\dfrac{6}{17}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q020": {
+      "conceptSummary": "Solve using parametric-curves for JELET 2023 Q20.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves parametric-curves."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) parallel to $x$-axis."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q021": {
+      "conceptSummary": "Solve using maxima-minima for JELET 2023 Q21.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves maxima-minima."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $|c| > |b|\\sqrt{2}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q022": {
+      "conceptSummary": "Solve using partial-differentiation for JELET 2023 Q22.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves partial-differentiation."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $2$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q023": {
+      "conceptSummary": "Solve using partial-differentiation for JELET 2023 Q23.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves partial-differentiation."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $a = 4b$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q024": {
+      "conceptSummary": "Solve using integration for JELET 2023 Q24.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves integration."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $0$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q025": {
+      "conceptSummary": "Solve using definite-integral for JELET 2023 Q25.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves definite-integral."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $0$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q026": {
+      "conceptSummary": "Solve using area for JELET 2023 Q26.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves area."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\dfrac{2}{3}$ sq. unit."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q027": {
+      "conceptSummary": "Solve using ode for JELET 2023 Q27.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves ode."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $\\Phi(y/x) = xc$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q028": {
+      "conceptSummary": "Solve using ode for JELET 2023 Q28.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves ode."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $4e^{3x} + 3e^{-4y} = 7$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q029": {
+      "conceptSummary": "Solve using probability for JELET 2023 Q29.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves probability."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\dfrac{2}{3}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q030": {
+      "conceptSummary": "Solve using probability for JELET 2023 Q30.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves probability."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $A$ and $B$ are independent."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q031": {
+      "conceptSummary": "Solve using symmetric for JELET 2023 Q31.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves symmetric."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $X^{3}Z^{4} - Z^{4}X^{3}$, (C) $Y^{99}Z^{99} + Z^{99}Y^{99}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: AC."
+      }
+    },
+    "jelet-2023-q032": {
+      "conceptSummary": "Solve using determinant for JELET 2023 Q32.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves determinant."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $a, b, c$ are in G.P., (D) $\\alpha$ is a root of $ax^{2} + 2bx + c = 0$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: BD."
+      }
+    },
+    "jelet-2023-q033": {
+      "conceptSummary": "Solve using complex-numbers for JELET 2023 Q33.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves complex-numbers."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $z = 0$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q034": {
+      "conceptSummary": "Solve using coordinate-geometry for JELET 2023 Q34.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves coordinate-geometry."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $(1, 4)$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q035": {
+      "conceptSummary": "Solve using vectors for JELET 2023 Q35.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves vectors."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\sqrt{59}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q036": {
+      "conceptSummary": "Solve using limit for JELET 2023 Q36.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves limit."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $f(x) = 1$ for $|x| > 1$, (C) $f(x) = -1$ for $|x| < 1$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: AC."
+      }
+    },
+    "jelet-2023-q037": {
+      "conceptSummary": "Solve using tangent-normal for JELET 2023 Q37.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves tangent-normal."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $a > 0, b < 0$, (C) $a < 0, b > 0$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: BC."
+      }
+    },
+    "jelet-2023-q038": {
+      "conceptSummary": "Solve using partial-differentiation for JELET 2023 Q38.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves partial-differentiation."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\dfrac{\\partial z}{\\partial x} = \\dfrac{y}{x}$, (D) $\\dfrac{\\partial z}{\\partial x} = \\dfrac{x}{x^{2}+y^{2}}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: BD."
+      }
+    },
+    "jelet-2023-q039": {
+      "conceptSummary": "Solve using definite-integral for JELET 2023 Q39.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves definite-integral."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\dfrac{3\\pi}{2}$, (C) $\\dfrac{7\\pi}{6}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: BC."
+      }
+    },
+    "jelet-2023-q040": {
+      "conceptSummary": "Solve using ode for JELET 2023 Q40.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves ode."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $y = 0$, (C) $y = -4x$, (D) $xy = cy + c_1$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: ACD."
+      }
+    },
+    "jelet-2023-q041": {
+      "conceptSummary": "Solve using dimensions for JELET 2023 Q41.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves dimensions."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $LT^{-1}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q042": {
+      "conceptSummary": "Solve using kinematics for JELET 2023 Q42.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves kinematics."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $1\\,\\text{N}$ along $y$-axis."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q043": {
+      "conceptSummary": "Solve using kinematics for JELET 2023 Q43.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves kinematics."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\dfrac{L_1 + L_2}{v_1 - v_2}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q044": {
+      "conceptSummary": "Solve using rotation for JELET 2023 Q44.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves rotation."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\omega \\propto \\theta^{2/3}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q045": {
+      "conceptSummary": "Solve using newton-laws for JELET 2023 Q45.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves newton-laws."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\dfrac{5}{2}\\,\\text{kg}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q046": {
+      "conceptSummary": "Solve using centre-of-mass for JELET 2023 Q46.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves centre-of-mass."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is question is voided."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: W."
+      }
+    },
+    "jelet-2023-q047": {
+      "conceptSummary": "Solve using kinetic-theory for JELET 2023 Q47.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves kinetic-theory."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $C$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q048": {
+      "conceptSummary": "Solve using thermodynamics for JELET 2023 Q48.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves thermodynamics."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\ln 2$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q049": {
+      "conceptSummary": "Solve using electrostatics for JELET 2023 Q49.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves electrostatics."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\dfrac{q}{3\\varepsilon_0}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q050": {
+      "conceptSummary": "Solve using electrostatics for JELET 2023 Q50.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves electrostatics."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $\\sqrt{\\dfrac{2Kq_1q_2}{Mr_0}}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q051": {
+      "conceptSummary": "Solve using refraction for JELET 2023 Q51.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves refraction."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\dfrac{5}{3}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q052": {
+      "conceptSummary": "Solve using lens for JELET 2023 Q52.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves lens."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $500\\,\\text{mm}$ and $550\\,\\text{mm}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q053": {
+      "conceptSummary": "Solve using refraction for JELET 2023 Q53.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves refraction."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\mu = \\sqrt{3},\\; \\theta = 30^{\\circ}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q054": {
+      "conceptSummary": "Solve using shm for JELET 2023 Q54.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves shm."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $180^{\\circ}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q055": {
+      "conceptSummary": "Solve using fluid for JELET 2023 Q55.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves fluid."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) the Iron cube will weigh more than the aluminium cube."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q056": {
+      "conceptSummary": "Solve using current-density for JELET 2023 Q56.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves current-density."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\sqrt{2}D_1$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q057": {
+      "conceptSummary": "Solve using magnetic-field for JELET 2023 Q57.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves magnetic-field."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $1:1$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q058": {
+      "conceptSummary": "Solve using magnetic-field for JELET 2023 Q58.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves magnetic-field."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $3 \\times 10^{-3}\\,\\text{T}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q059": {
+      "conceptSummary": "Solve using magnetic-field for JELET 2023 Q59.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves magnetic-field."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $\\dfrac{2Br}{\\mu_0 e}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q060": {
+      "conceptSummary": "Solve using circuits for JELET 2023 Q60.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves circuits."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $100\\,\\Omega$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q061": {
+      "conceptSummary": "Solve using circuits for JELET 2023 Q61.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves circuits."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $(\\dfrac{r}{R}, \\dfrac{E^{2}}{4R})$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q062": {
+      "conceptSummary": "Solve using photoelectric for JELET 2023 Q62.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves photoelectric."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $a - bR^{2}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q063": {
+      "conceptSummary": "Solve using radioactivity for JELET 2023 Q63.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves radioactivity."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $\\dfrac{\\lambda m L}{M}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q064": {
+      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q64.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves atomic-structure."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $3\\lambda$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q065": {
+      "conceptSummary": "Solve using radioactivity for JELET 2023 Q65.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves radioactivity."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $\\dfrac{A-Z-11}{Z-1}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q066": {
+      "conceptSummary": "Solve using spring for JELET 2023 Q66.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves spring."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) The energy is conserved in this process., (C) If $x = 0.5\\,\\text{m}$, $k = 24\\,\\text{N/m}$, $F = 10\\,\\text{N}$, then speed of the block is $1\\,\\text{m/s}$., (D) At $x = F/k$, acceleration of the block will be zero.."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: ACD."
+      }
+    },
+    "jelet-2023-q067": {
+      "conceptSummary": "Solve using work-energy for JELET 2023 Q67.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves work-energy."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) proportional to $x$., (D) directed away from equilibrium position.."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: BD."
+      }
+    },
+    "jelet-2023-q068": {
+      "conceptSummary": "Solve using circuits for JELET 2023 Q68.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves circuits."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) Immediately after switch on, the current in the circuit is $E/R$., (C) The current through the resistor decreases exponentially to zero., (D) The voltage across the capacitor remains constant.."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: ACD."
+      }
+    },
+    "jelet-2023-q069": {
+      "conceptSummary": "Solve using electrostatics for JELET 2023 Q69.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves electrostatics."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) The total charge $Q$ on the sphere is $\\dfrac{\\pi \\rho_0 R^{3}}{4}$., (C) The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{4}} r$.."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: AC."
+      }
+    },
+    "jelet-2023-q070": {
+      "conceptSummary": "Solve using wave-optics for JELET 2023 Q70.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves wave-optics."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) On the screen, there will be coloured fringes except central fringe., (C) For destructive interference at point $P$, the condition will be $\\dfrac{b^{2}}{2d} = (n+\\frac{1}{2})\\lambda$ ($n = 1,2,\\ldots$)., (D) For constructive interference at point $P$, the condition will be $\\dfrac{b^{2}}{2d} = n\\lambda$.."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: ACD."
+      }
+    },
+    "jelet-2023-q071": {
+      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q71.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves atomic-structure."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $-13.6\\,\\text{eV}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q072": {
+      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q72.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves atomic-structure."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\dfrac{9}{2}r_2$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q073": {
+      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q73.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves atomic-structure."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $3, 6, 14, 0$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q074": {
+      "conceptSummary": "Solve using electrochemistry for JELET 2023 Q74.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves electrochemistry."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\dfrac{2N_A}{5}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q075": {
+      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q75.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves atomic-structure."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) at an angle $45^{\\circ}$ with $Z$ axis."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q076": {
+      "conceptSummary": "Solve using chemical-bonding for JELET 2023 Q76.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves chemical-bonding."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\text{N}_2 > \\text{O}_2 > \\text{O}_2^{-}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q077": {
+      "conceptSummary": "Solve using chemical-bonding for JELET 2023 Q77.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves chemical-bonding."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $\\text{XeO}_4$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q078": {
+      "conceptSummary": "Solve using solutions for JELET 2023 Q78.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves solutions."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $9\\,\\text{L}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q079": {
+      "conceptSummary": "Solve using stoichiometry for JELET 2023 Q79.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves stoichiometry."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $0.01\\,\\text{M}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q080": {
+      "conceptSummary": "Solve using equilibrium for JELET 2023 Q80.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves equilibrium."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $10^{9}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q081": {
+      "conceptSummary": "Solve using chemical-bonding for JELET 2023 Q81.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves chemical-bonding."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q082": {
+      "conceptSummary": "Solve using equilibrium for JELET 2023 Q82.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves equilibrium."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $(RT)^{1/2}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q083": {
+      "conceptSummary": "Solve using chemical-bonding for JELET 2023 Q83.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves chemical-bonding."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\text{XeF}_2, \\text{CO}_2$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q084": {
+      "conceptSummary": "Solve using organic for JELET 2023 Q84.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves organic."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $1$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q085": {
+      "conceptSummary": "Solve using organic for JELET 2023 Q85.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves organic."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (D) $2$-methylbutan-$2$-ol."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: D."
+      }
+    },
+    "jelet-2023-q086": {
+      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q86.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves atomic-structure."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $n_2 = 2, n_1 = 1$, (C) $n_2 = 4, n_1 = 1$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: AC."
+      }
+    },
+    "jelet-2023-q087": {
+      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q87.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves atomic-structure."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $2, 1, -1, +\\frac{1}{2}$, (C) $3, 1, 0, -\\frac{1}{2}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: BC."
+      }
+    },
+    "jelet-2023-q088": {
+      "conceptSummary": "Solve using equilibrium for JELET 2023 Q88.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves equilibrium."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is question is voided."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: W."
+      }
+    },
+    "jelet-2023-q089": {
+      "conceptSummary": "Solve using metallurgy for JELET 2023 Q89.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves metallurgy."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $\\text{SiO}_2 + \\text{CaO} = \\text{CaSiO}_3$, (D) flux + gangue = slag."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: CD."
+      }
+    },
+    "jelet-2023-q090": {
+      "conceptSummary": "Solve using acids-bases for JELET 2023 Q90.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves acids-bases."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) Arrhenius acid, (B) Bronsted acid, (C) Lewis base."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: ABC."
+      }
+    },
+    "jelet-2023-q091": {
+      "conceptSummary": "Solve using ac-circuits for JELET 2023 Q91.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves ac-circuits."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $15\\,\\text{V}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q092": {
+      "conceptSummary": "Solve using ac-circuits for JELET 2023 Q92.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves ac-circuits."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $V_1 = 10,\\; V_2 = \\dfrac{10}{3}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q093": {
+      "conceptSummary": "Solve using ac-circuits for JELET 2023 Q93.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves ac-circuits."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $12.25\\,\\text{V}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q094": {
+      "conceptSummary": "Solve using dc-circuits for JELET 2023 Q94.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves dc-circuits."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is question is voided."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: W."
+      }
+    },
+    "jelet-2023-q095": {
+      "conceptSummary": "Solve using dc-circuits for JELET 2023 Q95.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves dc-circuits."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) $4\\,\\mu\\text{F}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q096": {
+      "conceptSummary": "Solve using transformers for JELET 2023 Q96.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves transformers."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) increases."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q097": {
+      "conceptSummary": "Solve using transformers for JELET 2023 Q97.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves transformers."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (A) damage of the transformer."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: A."
+      }
+    },
+    "jelet-2023-q098": {
+      "conceptSummary": "Solve using electrical-machines for JELET 2023 Q98.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves electrical-machines."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (C) $80\\,\\text{Nm}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: C."
+      }
+    },
+    "jelet-2023-q099": {
+      "conceptSummary": "Solve using electrical-machines for JELET 2023 Q99.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves electrical-machines."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) torque will change but power will remain constant.."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    },
+    "jelet-2023-q100": {
+      "conceptSummary": "Solve using ac-circuits for JELET 2023 Q100.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the problem type",
+          "bodyLatex": "Question involves ac-circuits."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Apply the method",
+          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determine the answer",
+          "bodyLatex": "The correct answer is (B) $50\\,\\text{W}$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Auto-generated from question data; answer key: B."
+      }
+    }
+  }
+}
