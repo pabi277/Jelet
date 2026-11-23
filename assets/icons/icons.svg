@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  icons.svg — JELET Study Hub (v3) · Unified icon sprite
+  All icons share a single 24x24 viewBox, stroke="currentColor",
+  fill="none", stroke-width="1.75" (crisp, theme-adaptive via currentColor).
+  Reference inline with:  <svg><use href="./assets/icons/icons.svg#icon-today"/></svg>
+  Mockup chrome (bezels, notches, fake status bars) is NEVER rendered.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+
+  <!-- ===== Navigation (5 global destinations) ===== -->
+  <symbol id="icon-today" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="7" height="9" rx="1.5"/>
+    <rect x="14" y="3" width="7" height="5" rx="1.5"/>
+    <rect x="14" y="12" width="7" height="9" rx="1.5"/>
+    <rect x="3" y="16" width="7" height="5" rx="1.5"/>
+  </symbol>
+
+  <symbol id="icon-learn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 1 4 17.5z"/>
+    <path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 0 1.5-1.5z"/>
+    <path d="M8 8h3M8 11h3"/>
+  </symbol>
+
+  <symbol id="icon-practice" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="8.5"/>
+    <circle cx="12" cy="12" r="4.5"/>
+    <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <symbol id="icon-papers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+    <path d="M14 3v4h4"/>
+    <path d="M9 12h6M9 15.5h6"/>
+  </symbol>
+
+  <symbol id="icon-you" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="8" r="3.6"/>
+    <path d="M4.5 20a7.5 7.5 0 0 1 15 0"/>
+  </symbol>
+
+  <!-- ===== Subject accents ===== -->
+  <symbol id="icon-math" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 5l14 14M19 5L5 19"/>
+    <path d="M7 7h10M7 17h10" opacity="0.55"/>
+  </symbol>
+  <symbol id="icon-phys" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/>
+    <ellipse cx="12" cy="12" rx="9" ry="3.6"/>
+    <ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/>
+    <ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/>
+  </symbol>
+  <symbol id="icon-chem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 3h6"/>
+    <path d="M10 3v6.2L6.2 17a2 2 0 0 0 1.8 3h8a2 2 0 0 0 1.8-3L14 9.2V3"/>
+    <path d="M8 15h8"/>
+  </symbol>
+  <symbol id="icon-feee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="7" y="7" width="10" height="10" rx="1.5"/>
+    <rect x="10" y="10" width="4" height="4" rx="0.6"/>
+    <path d="M10 3v3M14 3v3M10 18v3M14 18v3M3 10h3M3 14h3M18 10h3M18 14h3"/>
+  </symbol>
+
+  <!-- ===== Utility ===== -->
+  <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="6.5"/>
+    <path d="M16 16l4.5 4.5"/>
+  </symbol>
+  <symbol id="icon-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 4h10v16l-5-3.4L7 20z"/>
+  </symbol>
+  <symbol id="icon-play" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <path d="M8 5.5v13l11-6.5z"/>
+  </symbol>
+  <symbol id="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 5l7 7-7 7"/>
+  </symbol>
+  <symbol id="icon-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 5l-7 7 7 7"/>
+  </symbol>
+  <symbol id="icon-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3c2.5 3 4 5 4 8a4 4 0 0 1-8 0c0-1.2.4-2.2 1-3 0 1.6 1 2.6 2 2.6 0-2.6-.5-4.6-1-4.6z"/>
+    <path d="M12 21a6 6 0 0 0 6-6c0-3-2-5-3-6"/>
+  </symbol>
+  <symbol id="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="5" y="11" width="14" height="9" rx="2"/>
+    <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+  </symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12.5l4.5 4.5L19 7"/>
+  </symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 6l12 12M18 6L6 18"/>
+  </symbol>
+  <symbol id="icon-timer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="13" r="8"/>
+    <path d="M12 13V9M9 2h6M12 5V2"/>
+  </symbol>
+  <symbol id="icon-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/>
+  </symbol>
+  <symbol id="icon-formula" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 5h12M6 19h12M6 5c4 6 10 6 12 0M6 19c4-6 10-6 12 0"/>
+  </symbol>
+  <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 4v10M8 10l4 4 4-4M5 19h14"/>
+  </symbol>
+
+</svg>

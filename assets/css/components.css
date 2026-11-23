@@ -1,0 +1,444 @@
+/* ==========================================================================
+   components.css — JELET Study Hub (v3) · Reusable UI Components
+   --------------------------------------------------------------------------
+   Cards, badges, OMR palette, math blocks, SVG figure frames, AI sheet,
+   buttons, chips. Consumes ONLY tokens from tokens.css — zero raw hex.
+   ========================================================================== */
+
+/* ------------------------------------------------------------------ *
+ * Generic surface / card
+ * ------------------------------------------------------------------ */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-s);
+  padding: var(--space-l);
+}
+
+.card--subtle {
+  background: var(--bg-surface-subtle);
+}
+
+.card__title {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  margin: 0 0 var(--space-xs);
+}
+
+.card__meta {
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ *
+ * Hero card (Today focus hero)
+ * ------------------------------------------------------------------ */
+.hero-card {
+  background: var(--bg-hero-gradient);
+  color: var(--text-on-brand);
+  border-radius: var(--radius-xl);
+  padding: var(--space-l);
+  box-shadow: var(--shadow-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.hero-card__eyebrow {
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.hero-card__title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ *
+ * Buttons & CTAs
+ * ------------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: var(--tap-min);
+  padding: var(--space-s) var(--space-l);
+  border: 1px solid transparent;
+  border-radius: var(--radius-s);
+  font: inherit;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn--primary {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+.btn--primary:active { background: var(--brand-primary-hover); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--brand-primary);
+  border-color: var(--border-strong);
+}
+
+.btn--block { width: 100%; }
+
+/* ------------------------------------------------------------------ *
+ * Pills, chips, segmented toggle
+ * ------------------------------------------------------------------ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-3xs) var(--space-s);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  background: var(--bg-surface-subtle);
+  color: var(--text-secondary);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: var(--tap-min);
+  padding: var(--space-2xs) var(--space-m);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  scroll-snap-align: start;
+}
+
+.chip--active {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+  border-color: var(--brand-primary);
+}
+
+/* Horizontal snap-scroll filter row */
+.chip-row {
+  display: flex;
+  gap: var(--space-s);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-xs);
+  scrollbar-width: none;
+}
+.chip-row::-webkit-scrollbar { display: none; }
+
+/* Segmented toggle (Independent vs With assistance) */
+.segmented {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xs);
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-pill);
+  padding: var(--space-3xs);
+}
+.segmented__opt {
+  min-height: var(--tap-min);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+}
+.segmented__opt.is-active {
+  background: var(--bg-surface);
+  color: var(--brand-primary);
+  box-shadow: var(--shadow-s);
+}
+
+/* ------------------------------------------------------------------ *
+ * Status badges
+ * ------------------------------------------------------------------ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-3xs) var(--space-s);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+}
+.badge--correct { background: var(--status-correct-bg); color: var(--status-correct-fg); }
+.badge--partial { background: var(--status-partial-bg); color: var(--status-partial-fg); }
+.badge--wrong   { background: var(--status-wrong-bg);   color: var(--status-wrong-fg); }
+.badge--review  { background: var(--status-review-bg);  color: var(--status-review-fg); }
+.badge--brand   { background: var(--brand-tint);        color: var(--brand-primary); }
+
+/* ------------------------------------------------------------------ *
+ * Subject cards (colored left accent stripe)
+ * ------------------------------------------------------------------ */
+.subject-card {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-l);
+  padding: var(--space-l) var(--space-l) var(--space-l) calc(var(--space-xl) + var(--space-xs));
+  box-shadow: var(--shadow-s);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.subject-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: var(--subject-stripe, var(--brand-primary));
+}
+
+.subject-card[data-subject="MATH"]  { --subject-stripe: var(--math-stripe);  --subject-tint: var(--math-tint); }
+.subject-card[data-subject="PHYS"]  { --subject-stripe: var(--phys-stripe);  --subject-tint: var(--phys-tint); }
+.subject-card[data-subject="CHEM"]  { --subject-stripe: var(--chem-stripe);  --subject-tint: var(--chem-tint); }
+.subject-card[data-subject="FEEE"]  { --subject-stripe: var(--feee-stripe);  --subject-tint: var(--feee-tint); }
+
+.subject-card__title {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  margin: 0 0 var(--space-2xs);
+}
+.subject-card__count {
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Progress / mastery bar */
+.meter {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface-subtle);
+  overflow: hidden;
+}
+.meter__fill {
+  height: 100%;
+  width: 0;
+  border-radius: var(--radius-pill);
+  background: var(--brand-primary);
+  transition: width 0.3s ease;
+}
+
+/* ------------------------------------------------------------------ *
+ * OMR palette (100-Q grid)
+ * ------------------------------------------------------------------ */
+.omr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--omr-cell-min), 1fr));
+  gap: var(--space-xs);
+}
+
+.omr-cell {
+  aspect-ratio: 1 / 1;
+  min-height: var(--omr-cell-min);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-s);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.omr-cell[data-state="answered"] {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+  border-color: var(--brand-primary);
+}
+.omr-cell[data-state="review"] {
+  background: var(--status-review-bg);
+  color: var(--status-review-fg);
+  border-color: var(--status-review-fg);
+}
+
+/* ------------------------------------------------------------------ *
+ * Math blocks (KaTeX containment — never page-level horizontal scroll)
+ * ------------------------------------------------------------------ */
+.math-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-s) var(--space-m);
+}
+.math-scroll .katex { font-size: 1.05em; }
+
+/* Worked example callout */
+.worked-example {
+  background: var(--bg-worked-example);
+  border-radius: var(--radius-m);
+  padding: var(--space-l);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ------------------------------------------------------------------ *
+ * SVG figure frame (tap-to-zoom, currentColor-adaptive)
+ * ------------------------------------------------------------------ */
+.figure-frame {
+  max-width: 100%;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface);
+  padding: var(--space-s);
+  overflow: hidden;
+}
+.figure-frame svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  stroke: currentColor;
+}
+
+/* ------------------------------------------------------------------ *
+ * Option cards (A–D radio / checkbox, 48px+ thumb target)
+ * ------------------------------------------------------------------ */
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  min-height: var(--tap-min);
+  padding: var(--space-s) var(--space-m);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.option__letter {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface-subtle);
+  font-weight: var(--fw-bold);
+}
+.option[data-selected="true"] {
+  border-color: var(--brand-primary);
+  background: var(--brand-tint);
+}
+.option[data-selected="true"] .option__letter {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+/* ------------------------------------------------------------------ *
+ * AI tutor sheet content
+ * ------------------------------------------------------------------ */
+.ai-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-m);
+  border-radius: var(--radius-m);
+  background: var(--status-correct-bg);
+  color: var(--status-correct-fg);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+}
+
+.ai-prompt-preview {
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-m);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.exam-trap {
+  border-radius: var(--radius-m);
+  padding: var(--space-m);
+  background: var(--status-partial-bg);
+  color: var(--status-partial-fg);
+  font-size: var(--fs-caption);
+}
+
+/* ------------------------------------------------------------------ *
+ * Stat tiles (desktop dashboard)
+ * ------------------------------------------------------------------ */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-m);
+}
+.stat-tile {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-l);
+  padding: var(--space-l);
+  box-shadow: var(--shadow-s);
+}
+.stat-tile__value {
+  font-family: var(--font-mono);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-primary);
+}
+.stat-tile__label {
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+
+/* Desktop bento: 2-column subject grid */
+@media (min-width: 768px) {
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-m);
+  }
+  .stat-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* View placeholder (Phase 01 shell; full views arrive in later phases) */
+.view { animation: fade-in 0.2s ease; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.view__placeholder {
+  color: var(--text-secondary);
+  font-size: var(--fs-body);
+  padding: var(--space-l) 0;
+}
