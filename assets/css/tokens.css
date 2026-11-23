@@ -1,0 +1,175 @@
+/* ==========================================================================
+   tokens.css — JELET Study Hub (v3) · SINGLE SOURCE OF TRUTH
+   --------------------------------------------------------------------------
+   This file is the ONLY place raw hex / literal color values are allowed.
+   Every other stylesheet MUST consume these CSS custom properties.
+   `scripts/check_tokens_and_links.mjs` fails CI if any hex value appears
+   outside this file.
+
+   Phone-First Modern Web: base = phone (360px–430px), enhanced via min-width.
+   Light Mode is the default; AMOLED-friendly Dark Mode via [data-theme="dark"].
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------ *
+   * 2.1  Color Palette — Light Mode (default)
+   * ------------------------------------------------------------------ */
+  --bg-canvas:            #F6F8F8;
+  --bg-surface:           #FFFFFF;
+  --bg-surface-subtle:    #EEF4F3;
+  --bg-hero-gradient:     linear-gradient(135deg, #0B4F4A 0%, #12786F 100%);
+  --bg-worked-example:    #EAF6F4;
+
+  --brand-primary:        #0F6E66;
+  --brand-primary-hover:  #0B5650;
+  --brand-tint:           #E0F2F0;
+
+  --text-primary:         #0F172A;
+  --text-secondary:       #475569;
+  --text-muted:           #64748B;
+  --text-on-brand:        #FFFFFF;
+
+  /* Hero gradient overlay + on-hero text (Today focus hero card) */
+  --on-hero:              #FFFFFF;
+  --hero-overlay:         rgba(255, 255, 255, 0.18);
+
+  --border-subtle:        #E2EBEA;
+  --border-strong:        #C5D6D4;
+
+  --status-correct-bg:    #DCFCE7;  --status-correct-fg:    #15803D;
+  --status-partial-bg:    #FEF3C7;  --status-partial-fg:    #B45309;
+  --status-wrong-bg:      #FEE2E2;  --status-wrong-fg:      #B91C1C;
+  --status-review-bg:     #EDE9FE;  --status-review-fg:     #6D28D9;
+
+  /* ------------------------------------------------------------------ *
+   * 2.2  Subject Identity Accents (badge tint bg + left stripe fg)
+   * ------------------------------------------------------------------ */
+  --math-tint:      #DCFCE7;  --math-stripe:      #10B981;
+  --phys-tint:      #E0F2FE;  --phys-stripe:      #0284C7;
+  --chem-tint:      #FEF3C7;  --chem-stripe:      #D97706;
+  --feee-tint:      #F3E8FF;  --feee-stripe:      #7C3AED;
+
+  /* ------------------------------------------------------------------ *
+   * 2.3  Spacing scale (4px base rhythm, thumb-zone friendly)
+   * ------------------------------------------------------------------ */
+  --space-3xs:  2px;
+  --space-2xs:  4px;
+  --space-xs:   8px;
+  --space-s:    12px;
+  --space-m:    16px;
+  --space-l:    20px;
+  --space-xl:   24px;
+  --space-2xl:  32px;
+  --space-3xl:  40px;
+
+  /* ------------------------------------------------------------------ *
+   * 2.4  Radii
+   * ------------------------------------------------------------------ */
+  --radius-xs:   4px;
+  --radius-s:    8px;
+  --radius-m:    12px;
+  --radius-l:    16px;
+  --radius-xl:   22px;
+  --radius-pill: 999px;
+  --radius-sheet: 20px;
+
+  /* ------------------------------------------------------------------ *
+   * 2.5  Typography
+   * ------------------------------------------------------------------ */
+  --font-sans:    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --fs-question:   16px;   /* 1rem · prevents iOS/Android auto-zoom */
+  --fs-option:     15.5px; /* 0.96875rem · option card text */
+  --fs-body:       15px;
+  --fs-caption:    12px;
+  --fs-micro:      11px;
+  --fs-h1:         clamp(1.5rem, 5vw, 2rem);
+  --fs-h2:         clamp(1.25rem, 4vw, 1.625rem);
+  --fs-h3:         clamp(1.05rem, 3.4vw, 1.25rem);
+
+  --lh-tight:      1.3;
+  --lh-normal:     1.45;
+  --lh-prose:      1.6;
+
+  --fw-regular:    400;
+  --fw-medium:     500;
+  --fw-semibold:   600;
+  --fw-bold:       700;
+
+  /* ------------------------------------------------------------------ *
+   * 2.6  Shadows (soft, low-elevation)
+   * ------------------------------------------------------------------ */
+  --shadow-s:  0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-m:  0 2px 8px rgba(15, 23, 42, 0.08);
+  --shadow-l:  0 8px 24px rgba(15, 23, 42, 0.12);
+  --shadow-sheet: 0 -8px 30px rgba(15, 23, 42, 0.18);
+
+  /* ------------------------------------------------------------------ *
+   * 2.7  z-index scale
+   * ------------------------------------------------------------------ */
+  --z-base:      0;
+  --z-sticky:    100;
+  --z-topbar:    200;
+  --z-bottomnav: 200;
+  --z-overlay:   900;
+  --z-sheet:     950;
+  --z-toast:     1000;
+
+  /* ------------------------------------------------------------------ *
+   * 2.8  Layout metrics
+   * ------------------------------------------------------------------ */
+  --bottom-nav-h:    64px;
+  --topbar-h:        56px;
+  --sheet-max-h:     82dvh;
+  --icon-rail-w:     72px;
+  --rail-w:          240px;
+  --content-max:     1280px;
+  --reading-max:     740px;
+
+  --tap-min:         48px;   /* thumb-zone minimum tap target */
+  --omr-cell-min:    40px;   /* OMR palette cell minimum */
+}
+
+/* ==========================================================================
+   AMOLED-friendly Dark Mode  ([data-theme="dark"])
+   #070C0C canvas — pure-black backgrounds save battery on OLED phones.
+   ========================================================================== */
+[data-theme="dark"] {
+  --bg-canvas:            #070C0C;
+  --bg-surface:           #101919;
+  --bg-surface-subtle:    #172424;
+  --bg-hero-gradient:     linear-gradient(135deg, #0B3834 0%, #115E57 100%);
+  --bg-worked-example:    #112927;
+
+  --brand-primary:        #22A89B;
+  --brand-primary-hover:  #2CC0B2;
+  --brand-tint:           #143330;
+
+  --text-primary:         #ECF4F3;
+  --text-secondary:       #9BB0AE;
+  --text-muted:           #6E8583;
+  --text-on-brand:        #051312;
+
+  /* Hero gradient overlay + on-hero text (dark hero is a deep teal) */
+  --on-hero:              #ECF4F3;
+  --hero-overlay:         rgba(255, 255, 255, 0.14);
+
+  --border-subtle:        #1E302F;
+  --border-strong:        #2F4A48;
+
+  --status-correct-bg:    #12301F;  --status-correct-fg:    #4ADE80;
+  --status-partial-bg:    #35270E;  --status-partial-fg:    #FBBF24;
+  --status-wrong-bg:      #361518;  --status-wrong-fg:      #F87171;
+  --status-review-bg:     #271B3D;  --status-review-fg:     #C4B5FD;
+
+  --math-tint:      #133323;  --math-stripe:      #10B981;
+  --phys-tint:      #122B3D;  --phys-stripe:      #0284C7;
+  --chem-tint:      #362811;  --chem-stripe:      #D97706;
+  --feee-tint:      #2A1B3D;  --feee-stripe:      #7C3AED;
+
+  --shadow-s:  0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-m:  0 2px 8px rgba(0, 0, 0, 0.55);
+  --shadow-l:  0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-sheet: 0 -8px 30px rgba(0, 0, 0, 0.7);
+}

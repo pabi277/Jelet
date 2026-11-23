@@ -1,0 +1,73 @@
+# ============================================================================
+# JELET Study Hub (v3) — .gitignore
+# Zero-Copyright GitHub Law: NO copyrighted material may ever reach GitHub.
+# This file is the strict public-repo boundary. Never commit, copy into the
+# repo, or deploy to GitHub Pages ANY textbook, PDF, EPUB, ZIP, coaching
+# sheet, market guidebook, or third-party scanned reference.
+# ============================================================================
+
+# --- Copyrighted / private reference material (NEVER tracked) ---
+*.pdf
+*.epub
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+
+# Private read-only reference stores (reference books, guidebooks, scans)
+.cache/
+private_refs/
+
+# Any explicit private-reference folder names that may appear
+05_Reference_Books_PRIVATE_NO_GITHUB/
+
+# --- Dataset / generated artifacts kept out of Git ---
+# Large generated datasets & build outputs (follow repo conventions)
+dist/
+build/
+coverage/
+node_modules/
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+.vite/
+.parcel-cache/
+out/
+target/
+
+# --- Logs, caches, and local tooling ---
+.cache/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.nox/
+.tox/
+*.log
+*.tmp
+*.swp
+*.swo
+
+# --- Editor / OS noise ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.code-workspace
+
+# --- Local environment & secrets ---
+.env
+.env.*
+*.local
+
+# --- AI key vault: BYOK keys NEVER leave the device / backups ---
+# (kept as a reminder; the runtime store lives in IndexedDB / localStorage,
+#  never in a tracked file)
+*.key
+*.pem
+secrets/
+
+# Keep the verified Markdown specs, UI references (PNGs), and app source
+# (HTML/CSS/JS/_data JSON/scripts/tests) tracked — everything above is the
+# only exclusion boundary.
