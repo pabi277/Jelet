@@ -1,0 +1,57 @@
+{
+  "unitId": "C05",
+  "subjectId": "CHEM",
+  "officialCode": "Chem-E",
+  "title": "Chemical Equilibrium",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2025-q077",
+    "jelet-2025-q089"
+  ],
+  "sections": [
+    {
+      "anchor": "equilibrium",
+      "heading": "1. Equilibrium Constant & Le Chatelier",
+      "proseLatex": "$K_p, K_c$. Le Chatelier's principle: system shifts to counteract changes in concentration, pressure, temperature.",
+      "keyFormulas": [
+        {
+          "formulaId": "C05-F01",
+          "label": "Le Chatelier's Principle",
+          "latex": "Shift opposes the imposed change",
+          "aiExplainContext": "Predict equilibrium shift direction."
+        }
+      ]
+    },
+    {
+      "anchor": "industrial",
+      "heading": "2. Industrial Processes",
+      "proseLatex": "Haber ($\\text{NH}_3$), Ostwald ($\\text{HNO}_3$), Contact ($\\text{H}_2\\text{SO}_4$) — conditions and catalysts.",
+      "keyFormulas": [
+        {
+          "formulaId": "C05-F02",
+          "label": "Haber Process",
+          "latex": "$N_2 + 3H_2 \\rightleftharpoons 2NH_3$, $\\Delta H < 0$",
+          "aiExplainContext": "Optimized with high pressure, moderate T, iron catalyst."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "C05-EX01",
+      "problemLatex": "Which equilibrium shifts right on decreasing volume?",
+      "stepsLatex": [
+        "Volume decrease favors fewer gas moles.",
+        "Only (C) has fewer gas moles on product side."
+      ],
+      "answerLatex": "(C)"
+    }
+  ],
+  "wbjeebTraps": [
+    "$K_p = K_c(RT)^{\\Delta n}$.",
+    "Exothermic reactions: lower T increases $K$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

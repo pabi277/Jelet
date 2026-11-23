@@ -1,0 +1,46 @@
+{
+  "unitId": "P01",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-A",
+  "title": "Units, Dimensions & Measurement",
+  "estimatedMinutes": 20,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q041",
+    "jelet-2025-q041",
+    "jelet-2025-q042"
+  ],
+  "sections": [
+    {
+      "anchor": "units",
+      "heading": "1. SI Units & Dimensional Analysis",
+      "proseLatex": "CGS, MKS, SI units. Dimensions used to check equation consistency and derive relations.",
+      "keyFormulas": [
+        {
+          "formulaId": "P01-F01",
+          "label": "Dimensional Consistency",
+          "latex": "[Both sides] must match",
+          "aiExplainContext": "Verify equations dimensionally."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P01-EX01",
+      "problemLatex": "Find the dimension of $a$ in $(P + a/V^2)(V-b) = RT$.",
+      "stepsLatex": [
+        "$[P] = [ML^{-1}T^{-2}]$, $[V] = [L^3]$.",
+        "$[a/V^2] = [ML^{-1}T^{-2}]$.",
+        "$[a] = [ML^3T^{-2}]$."
+      ],
+      "answerLatex": "$[ML^3T^{-2}]$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Dimensional analysis cannot determine dimensionless constants.",
+    "Units must be consistent in every term of an equation."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

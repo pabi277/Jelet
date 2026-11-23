@@ -1,0 +1,46 @@
+{
+  "unitId": "P10",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-J",
+  "title": "Transmission of Heat",
+  "estimatedMinutes": 20,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q049",
+    "jelet-2024-q051",
+    "jelet-2024-q068",
+    "jelet-2025-q063"
+  ],
+  "sections": [
+    {
+      "anchor": "conduction",
+      "heading": "1. Conduction & Thermal Conductivity",
+      "proseLatex": "$Q = KAt\\Delta T/L$. $K$ is thermal conductivity with SI unit $W/(m\\cdot K)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P10-F01",
+          "label": "Heat Conduction",
+          "latex": "$Q = \\frac{KA\\Delta T}{L}\\cdot t$",
+          "aiExplainContext": "Fourier's law of heat conduction."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P10-EX01",
+      "problemLatex": "Two rods, same material. Lengths ratio 1:2, radii ratio 2:3. Same $\\Delta T$. Find heat flow ratio.",
+      "stepsLatex": [
+        "$Q \\propto A/L \\propto r^2/L$.",
+        "$Q_1/Q_2 = (4/9)(2/1) = 8/9$."
+      ],
+      "answerLatex": "$8:9$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Conduction requires a temperature gradient.",
+    "Convection dominates in fluids; radiation needs no medium."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

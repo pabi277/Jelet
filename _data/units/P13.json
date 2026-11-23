@@ -1,0 +1,55 @@
+{
+  "unitId": "P13",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-M",
+  "title": "Refraction of Light",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q043"
+  ],
+  "sections": [
+    {
+      "anchor": "snell-law",
+      "heading": "1. Snell's Law & Refractive Index",
+      "proseLatex": "$n = \\sin i / \\sin r$. Light speed in medium $= c/n$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P13-F01",
+          "label": "Snell's Law",
+          "latex": "$n_1\\sin\\theta_1 = n_2\\sin\\theta_2$",
+          "aiExplainContext": "Boundary condition for refraction."
+        }
+      ]
+    },
+    {
+      "anchor": "tir",
+      "heading": "2. Total Internal Reflection",
+      "proseLatex": "TIR occurs when going from denser to rarer medium at angle $>\\theta_c = \\sin^{-1}(n_2/n_1)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P13-F02",
+          "label": "Critical Angle",
+          "latex": "$\\theta_c = \\sin^{-1}(n_2/n_1)$",
+          "aiExplainContext": "Threshold angle for total internal reflection."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P13-EX01",
+      "problemLatex": "Find critical angle for glass-air interface ($n = 1.5$).",
+      "stepsLatex": [
+        "$\\theta_c = \\sin^{-1}(1/1.5) = \\sin^{-1}(2/3)$."
+      ],
+      "answerLatex": "$\\theta_c = \\sin^{-1}(2/3)$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Refractive index decreases with wavelength (dispersion).",
+    "Optical fibres use TIR for light guidance."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

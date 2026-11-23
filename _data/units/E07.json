@@ -1,0 +1,55 @@
+{
+  "unitId": "E07",
+  "subjectId": "FEEE",
+  "officialCode": "FEEE-G",
+  "title": "Analog Circuits (OP-AMP)",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2025-q098"
+  ],
+  "sections": [
+    {
+      "anchor": "opamp-ideal",
+      "heading": "1. Ideal OP-AMP Characteristics",
+      "proseLatex": "Infinite input impedance, zero output impedance, infinite gain. Virtual ground / virtual short.",
+      "keyFormulas": [
+        {
+          "formulaId": "E07-F01",
+          "label": "Virtual Ground",
+          "latex": "$V_+ = V_-$ (negative feedback)",
+          "aiExplainContext": "Key concept for OP-AMP circuit analysis."
+        }
+      ]
+    },
+    {
+      "anchor": "configs",
+      "heading": "2. OP-AMP Configurations",
+      "proseLatex": "Inverting, non-inverting, voltage follower, summing adder, subtractor, integrator, differentiator.",
+      "keyFormulas": [
+        {
+          "formulaId": "E07-F02",
+          "label": "Non-inverting Gain",
+          "latex": "$A_v = 1 + R_f/R_1$",
+          "aiExplainContext": "Gain of the non-inverting amplifier."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "E07-EX01",
+      "problemLatex": "Which OP-AMP config has zero phase difference?",
+      "stepsLatex": [
+        "Non-inverting amplifier: output in phase with input."
+      ],
+      "answerLatex": "Non-inverting amplifier"
+    }
+  ],
+  "wbjeebTraps": [
+    "Inverting amplifier: 180° phase shift.",
+    "Integrator and differentiator have frequency-dependent gain."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

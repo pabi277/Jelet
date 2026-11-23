@@ -1,0 +1,60 @@
+{
+  "unitId": "C02",
+  "subjectId": "CHEM",
+  "officialCode": "Chem-B",
+  "title": "Chemical Bonding",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q074",
+    "jelet-2024-q084",
+    "jelet-2024-q085",
+    "jelet-2024-q087",
+    "jelet-2025-q072"
+  ],
+  "sections": [
+    {
+      "anchor": "bond-types",
+      "heading": "1. Electrovalent, Covalent & Coordinate Bonds",
+      "proseLatex": "Ionic (electrovalent), covalent (electron sharing), coordinate (one-sided sharing).",
+      "keyFormulas": [
+        {
+          "formulaId": "C02-F01",
+          "label": "Bond Types",
+          "latex": "Ionic: transfer; Covalent: sharing; Coordinate: donation",
+          "aiExplainContext": "Three fundamental bond types."
+        }
+      ]
+    },
+    {
+      "anchor": "crystals",
+      "heading": "2. Crystal Types & H-Bonding",
+      "proseLatex": "Ionic, covalent, molecular crystals. Hydrogen bonding in HF, water, ice.",
+      "keyFormulas": [
+        {
+          "formulaId": "C02-F02",
+          "label": "H-Bond",
+          "latex": "$\\text{X}-\\text{H}\\cdots\\text{Y}$ (electronegative X, Y)",
+          "aiExplainContext": "Directional intermolecular force."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "C02-EX01",
+      "problemLatex": "How many types of P-Cl bonds in PCl5?",
+      "stepsLatex": [
+        "Trigonal bipyramidal: 2 axial + 3 equatorial.",
+        "2 distinct bond types."
+      ],
+      "answerLatex": "2"
+    }
+  ],
+  "wbjeebTraps": [
+    "Axial and equatorial positions are chemically distinct in trigonal bipyramidal geometry.",
+    "Ice is less dense than water due to H-bonding."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

@@ -1,0 +1,66 @@
+{
+  "unitId": "M09",
+  "subjectId": "MATH",
+  "officialCode": "Math-I",
+  "title": "Integral Calculus",
+  "estimatedMinutes": 35,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q004",
+    "jelet-2024-q022",
+    "jelet-2024-q023",
+    "jelet-2024-q024",
+    "jelet-2024-q025",
+    "jelet-2024-q038",
+    "jelet-2025-q006",
+    "jelet-2025-q009",
+    "jelet-2025-q028",
+    "jelet-2025-q033",
+    "jelet-2025-q040"
+  ],
+  "sections": [
+    {
+      "anchor": "indefinite",
+      "heading": "1. Indefinite Integration",
+      "proseLatex": "Standard forms, substitution, integration by parts ($\\int u\\,dv = uv - \\int v\\,du$), partial fractions.",
+      "keyFormulas": [
+        {
+          "formulaId": "M09-F01",
+          "label": "Integration by Parts",
+          "latex": "$\\int u\\,dv = uv - \\int v\\,du$",
+          "aiExplainContext": "Choose $u$ and $dv$ wisely (LIATE rule)."
+        }
+      ]
+    },
+    {
+      "anchor": "definite",
+      "heading": "2. Definite Integrals & Properties",
+      "proseLatex": "Evaluate $\\int_a^b f(x)\\,dx = F(b) - F(a)$. Odd functions integrate to 0 over symmetric intervals.",
+      "keyFormulas": [
+        {
+          "formulaId": "M09-F02",
+          "label": "Symmetry Property",
+          "latex": "$\\int_{-a}^a f(x)\\,dx = 0$ if $f$ is odd",
+          "aiExplainContext": "Use parity to simplify definite integrals."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M09-EX01",
+      "problemLatex": "If $g'(x) = g(x)$, find $\\int g(x)[f(x)+f'(x)]\\,dx$.",
+      "stepsLatex": [
+        "$g(x) = Ce^x$.",
+        "$\\int g(f+f')\\,dx = gf - \\int g'f\\,dx + \\int gf\\,dx = gf + c$."
+      ],
+      "answerLatex": "$f(x)g(x) + c$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Integration by parts: choose $u$ to simplify upon differentiation.",
+    "Odd functions over symmetric intervals vanish."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

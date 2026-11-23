@@ -1,0 +1,312 @@
+{
+  "schemaVersion": "3.0.0",
+  "generatedAt": "2026-11-23T00:00:00Z",
+  "syllabusBulletinRef": "WBJEEB JELET-2026 Information Bulletin (2026-03-18)",
+  "totals": {
+    "papers": 2,
+    "questions": 200,
+    "markableQuestions": 195,
+    "unmarkableQuestions": 5,
+    "units": 42
+  },
+  "papers": [
+    {
+      "paperId": "jelet-2024",
+      "year": 2024,
+      "title": "JELET 2024 · Paper I",
+      "examDate": "2024-07-14",
+      "durationMinutes": 120,
+      "maxMarks": 120,
+      "maxTwelfths": 1440,
+      "questionCount": 100,
+      "voidedQuestions": [
+        49,
+        58
+      ],
+      "keyTier": "official",
+      "keyDocumentRef": "WBE/Ex-71 (01-08-2024)",
+      "bookletSeries": "A",
+      "officialPdfSha256": null,
+      "dataFile": "./_data/papers/2024.json",
+      "solutionsFile": "./_data/solutions/2024.solutions.json",
+      "packBytesEstimate": 420000
+    },
+    {
+      "paperId": "jelet-2025",
+      "year": 2025,
+      "title": "JELET 2025 · Paper I",
+      "examDate": "2025-10-18",
+      "durationMinutes": 120,
+      "maxMarks": 120,
+      "maxTwelfths": 1440,
+      "questionCount": 100,
+      "voidedQuestions": [
+        41,
+        79,
+        84
+      ],
+      "keyTier": "official",
+      "keyDocumentRef": "JEEB/Reg-171/25 (16-11-2025)",
+      "bookletSeries": "A",
+      "officialPdfSha256": null,
+      "dataFile": "./_data/papers/2025.json",
+      "solutionsFile": "./_data/solutions/2025.solutions.json",
+      "packBytesEstimate": 420000
+    }
+  ],
+  "units": [
+    {
+      "unitId": "M01",
+      "subjectId": "MATH",
+      "officialCode": "Math-A",
+      "title": "Matrices up to Order 3"
+    },
+    {
+      "unitId": "M02",
+      "subjectId": "MATH",
+      "officialCode": "Math-B",
+      "title": "Determinants up to Order 3"
+    },
+    {
+      "unitId": "M03",
+      "subjectId": "MATH",
+      "officialCode": "Math-C",
+      "title": "Complex Numbers"
+    },
+    {
+      "unitId": "M04",
+      "subjectId": "MATH",
+      "officialCode": "Math-D",
+      "title": "Co-ordinate Geometry (2D)"
+    },
+    {
+      "unitId": "M05",
+      "subjectId": "MATH",
+      "officialCode": "Math-E",
+      "title": "Vector Algebra"
+    },
+    {
+      "unitId": "M06",
+      "subjectId": "MATH",
+      "officialCode": "Math-F",
+      "title": "Differential Calculus"
+    },
+    {
+      "unitId": "M07",
+      "subjectId": "MATH",
+      "officialCode": "Math-G",
+      "title": "Application of Derivative"
+    },
+    {
+      "unitId": "M08",
+      "subjectId": "MATH",
+      "officialCode": "Math-H",
+      "title": "Partial Differentiation"
+    },
+    {
+      "unitId": "M09",
+      "subjectId": "MATH",
+      "officialCode": "Math-I",
+      "title": "Integral Calculus"
+    },
+    {
+      "unitId": "M10",
+      "subjectId": "MATH",
+      "officialCode": "Math-J",
+      "title": "Ordinary Differential Equations"
+    },
+    {
+      "unitId": "M11",
+      "subjectId": "MATH",
+      "officialCode": "Math-K",
+      "title": "Probability"
+    },
+    {
+      "unitId": "P01",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-A",
+      "title": "Units, Dimensions & Measurement"
+    },
+    {
+      "unitId": "P02",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-B",
+      "title": "Kinematics"
+    },
+    {
+      "unitId": "P03",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-C",
+      "title": "Laws of Motion"
+    },
+    {
+      "unitId": "P04",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-D",
+      "title": "Work, Power & Energy"
+    },
+    {
+      "unitId": "P05",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-E",
+      "title": "Gravitation"
+    },
+    {
+      "unitId": "P06",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-F",
+      "title": "Elasticity"
+    },
+    {
+      "unitId": "P07",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-G",
+      "title": "Surface Tension"
+    },
+    {
+      "unitId": "P08",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-H",
+      "title": "Fluid Mechanics / Hydrostatics"
+    },
+    {
+      "unitId": "P09",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-I",
+      "title": "Thermal Expansion of Solids"
+    },
+    {
+      "unitId": "P10",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-J",
+      "title": "Transmission of Heat"
+    },
+    {
+      "unitId": "P11",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-K",
+      "title": "Thermodynamics"
+    },
+    {
+      "unitId": "P12",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-L",
+      "title": "Reflection of Light"
+    },
+    {
+      "unitId": "P13",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-M",
+      "title": "Refraction of Light"
+    },
+    {
+      "unitId": "P14",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-N",
+      "title": "Lens"
+    },
+    {
+      "unitId": "P15",
+      "subjectId": "PHYS",
+      "officialCode": "Phys-O",
+      "title": "Photoelectricity"
+    },
+    {
+      "unitId": "C01",
+      "subjectId": "CHEM",
+      "officialCode": "Chem-A",
+      "title": "Atomic Structure"
+    },
+    {
+      "unitId": "C02",
+      "subjectId": "CHEM",
+      "officialCode": "Chem-B",
+      "title": "Chemical Bonding"
+    },
+    {
+      "unitId": "C03",
+      "subjectId": "CHEM",
+      "officialCode": "Chem-C",
+      "title": "Acids, Bases & Salts"
+    },
+    {
+      "unitId": "C04",
+      "subjectId": "CHEM",
+      "officialCode": "Chem-D",
+      "title": "Oxidation, Reduction & Electrochemistry"
+    },
+    {
+      "unitId": "C05",
+      "subjectId": "CHEM",
+      "officialCode": "Chem-E",
+      "title": "Chemical Equilibrium"
+    },
+    {
+      "unitId": "C06",
+      "subjectId": "CHEM",
+      "officialCode": "Chem-F",
+      "title": "Metallurgy"
+    },
+    {
+      "unitId": "C07",
+      "subjectId": "CHEM",
+      "officialCode": "Chem-G",
+      "title": "Water"
+    },
+    {
+      "unitId": "C08",
+      "subjectId": "CHEM",
+      "officialCode": "Chem-H",
+      "title": "Organic Chemistry"
+    },
+    {
+      "unitId": "E01",
+      "subjectId": "FEEE",
+      "officialCode": "FEEE-A",
+      "title": "Electrical Components & Measuring Instruments"
+    },
+    {
+      "unitId": "E02",
+      "subjectId": "FEEE",
+      "officialCode": "FEEE-B",
+      "title": "Transformers"
+    },
+    {
+      "unitId": "E03",
+      "subjectId": "FEEE",
+      "officialCode": "FEEE-C",
+      "title": "Electrical Machines"
+    },
+    {
+      "unitId": "E04",
+      "subjectId": "FEEE",
+      "officialCode": "FEEE-D",
+      "title": "DC Sources & Circuits"
+    },
+    {
+      "unitId": "E05",
+      "subjectId": "FEEE",
+      "officialCode": "FEEE-E",
+      "title": "AC Sources & Circuits"
+    },
+    {
+      "unitId": "E06",
+      "subjectId": "FEEE",
+      "officialCode": "FEEE-F",
+      "title": "Basic Semiconductor Devices"
+    },
+    {
+      "unitId": "E07",
+      "subjectId": "FEEE",
+      "officialCode": "FEEE-G",
+      "title": "Analog Circuits (OP-AMP)"
+    },
+    {
+      "unitId": "E08",
+      "subjectId": "FEEE",
+      "officialCode": "FEEE-H",
+      "title": "Digital Electronics"
+    }
+  ],
+  "practiceSets": []
+}

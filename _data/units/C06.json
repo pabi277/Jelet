@@ -1,0 +1,53 @@
+{
+  "unitId": "C06",
+  "subjectId": "CHEM",
+  "officialCode": "Chem-F",
+  "title": "Metallurgy",
+  "estimatedMinutes": 25,
+  "examFrequency": "low",
+  "pyqIds": [],
+  "sections": [
+    {
+      "anchor": "extraction",
+      "heading": "1. Ores, Gangue & Extraction Principles",
+      "proseLatex": "Minerals, ores, gangue, flux, slag. Extraction of iron, copper, and aluminium.",
+      "keyFormulas": [
+        {
+          "formulaId": "C06-F01",
+          "label": "Extraction Methods",
+          "latex": "Carbon reduction, electrolysis, self-reduction",
+          "aiExplainContext": "Key methods for metal extraction."
+        }
+      ]
+    },
+    {
+      "anchor": "alloys",
+      "heading": "2. Alloys & Their Uses",
+      "proseLatex": "Brass, bronze, german silver, duralumin, nichrome, stainless steel — compositions and applications.",
+      "keyFormulas": [
+        {
+          "formulaId": "C06-F02",
+          "label": "Alloy Composition",
+          "latex": "Brass: Cu + Zn; Bronze: Cu + Sn",
+          "aiExplainContext": "Common alloy compositions."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "C06-EX01",
+      "problemLatex": "Name the alloy: Cu + Zn.",
+      "stepsLatex": [
+        "Brass is copper-zinc alloy."
+      ],
+      "answerLatex": "Brass"
+    }
+  ],
+  "wbjeebTraps": [
+    "Aluminium is extracted by electrolysis of molten $\\text{Al}_2\\text{O}_3$ in cryolite.",
+    "Alloys generally have properties superior to pure metals."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

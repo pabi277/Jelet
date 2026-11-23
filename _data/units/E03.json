@@ -1,0 +1,57 @@
+{
+  "unitId": "E03",
+  "subjectId": "FEEE",
+  "officialCode": "FEEE-C",
+  "title": "Electrical Machines",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q093",
+    "jelet-2024-q100",
+    "jelet-2025-q093"
+  ],
+  "sections": [
+    {
+      "anchor": "dc-motors",
+      "heading": "1. DC Motors",
+      "proseLatex": "Shunt, series, compound motors. Back-EMF, torque-speed characteristics, speed control.",
+      "keyFormulas": [
+        {
+          "formulaId": "E03-F01",
+          "label": "Back-EMF",
+          "latex": "$E_b = V - I_a R_a$",
+          "aiExplainContext": "Generated EMF opposing the supply in a motor."
+        }
+      ]
+    },
+    {
+      "anchor": "induction",
+      "heading": "2. Single-Phase Induction Motors",
+      "proseLatex": "Rotating magnetic field, synchronous speed $N_s = 120f/P$. Construction and speed control.",
+      "keyFormulas": [
+        {
+          "formulaId": "E03-F02",
+          "label": "Synchronous Speed",
+          "latex": "$N_s = \\frac{120f}{P}$",
+          "aiExplainContext": "Speed of the rotating magnetic field."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "E03-EX01",
+      "problemLatex": "Which machine has the highest efficiency?",
+      "stepsLatex": [
+        "Transformers reach 95-99% efficiency — highest among electrical machines."
+      ],
+      "answerLatex": "Transformer"
+    }
+  ],
+  "wbjeebTraps": [
+    "DC series motor: high starting torque, variable speed.",
+    "Shunt motor: approximately constant speed."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

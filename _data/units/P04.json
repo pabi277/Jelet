@@ -1,0 +1,60 @@
+{
+  "unitId": "P04",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-D",
+  "title": "Work, Power & Energy",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q047",
+    "jelet-2024-q057",
+    "jelet-2024-q061",
+    "jelet-2024-q065",
+    "jelet-2025-q054"
+  ],
+  "sections": [
+    {
+      "anchor": "work-energy",
+      "heading": "1. Work-Energy Theorem",
+      "proseLatex": "Work done $= \\vec{F}\\cdot\\vec{d}$. KE $= \\frac{1}{2}mv^2$, PE $= mgh$. Work-energy theorem: $W_{\\text{net}} = \\Delta KE$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P04-F01",
+          "label": "Work-Energy Theorem",
+          "latex": "$W_{\\text{net}} = \\frac{1}{2}mv_f^2 - \\frac{1}{2}mv_i^2$",
+          "aiExplainContext": "Net work equals change in kinetic energy."
+        }
+      ]
+    },
+    {
+      "anchor": "conservation",
+      "heading": "2. Conservation of Mechanical Energy",
+      "proseLatex": "When only conservative forces act, total mechanical energy is conserved.",
+      "keyFormulas": [
+        {
+          "formulaId": "P04-F02",
+          "label": "Energy Conservation",
+          "latex": "$KE_i + PE_i = KE_f + PE_f$",
+          "aiExplainContext": "Use when no non-conservative forces."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P04-EX01",
+      "problemLatex": "A disc rolls up an incline with velocity $V$. Find max height.",
+      "stepsLatex": [
+        "$KE = \\frac{1}{2}mv^2 + \\frac{1}{2}I\\omega^2 = \\frac{3}{4}mv^2$ (disc).",
+        "$mgh = \\frac{3}{4}mv^2 \\Rightarrow h = 3v^2/(4g)$."
+      ],
+      "answerLatex": "$3v^2/(4g)$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Rolling KE includes both translation and rotation.",
+    "Work is a scalar: $W = Fd\\cos\\theta$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

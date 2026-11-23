@@ -1,0 +1,62 @@
+{
+  "unitId": "C03",
+  "subjectId": "CHEM",
+  "officialCode": "Chem-C",
+  "title": "Acids, Bases & Salts",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q071",
+    "jelet-2024-q081",
+    "jelet-2024-q086",
+    "jelet-2025-q075",
+    "jelet-2025-q078",
+    "jelet-2025-q087",
+    "jelet-2025-q090"
+  ],
+  "sections": [
+    {
+      "anchor": "ph-scale",
+      "heading": "1. pH Scale & Acid-Base Indicators",
+      "proseLatex": "$\\text{pH} = -\\log[H^+]$. Acidic: pH < 7, basic: pH > 7. Indicators change color at endpoints.",
+      "keyFormulas": [
+        {
+          "formulaId": "C03-F01",
+          "label": "pH Formula",
+          "latex": "$\\text{pH} = -\\log_{10}[H^+]$",
+          "aiExplainContext": "Measure acidity of a solution."
+        }
+      ]
+    },
+    {
+      "anchor": "stoichiometry",
+      "heading": "2. Mole Concept, Normality & Molarity",
+      "proseLatex": "Avogadro's number, mole concept. Normality $= $ eq/L, molarity $= $ mol/L, molality $= $ mol/kg.",
+      "keyFormulas": [
+        {
+          "formulaId": "C03-F02",
+          "label": "Molarity",
+          "latex": "$M = \\frac{\\text{moles}}{\\text{litres}}$",
+          "aiExplainContext": "Concentration measure for solutions."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "C03-EX01",
+      "problemLatex": "Solution X has pH 6, Y has pH 7. How many times is X more acidic than Y?",
+      "stepsLatex": [
+        "$[H^+]_X = 10^{-6}$, $[H^+]_Y = 10^{-7}$.",
+        "Ratio $= 10^{-6}/10^{-7} = 10$."
+      ],
+      "answerLatex": "10 times"
+    }
+  ],
+  "wbjeebTraps": [
+    "pH is a logarithmic scale — each unit change = 10× change in $[H^+]$.",
+    "Salt hydrolysis: salt of weak acid + strong base gives basic solution."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

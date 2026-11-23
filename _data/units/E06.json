@@ -1,0 +1,56 @@
+{
+  "unitId": "E06",
+  "subjectId": "FEEE",
+  "officialCode": "FEEE-F",
+  "title": "Basic Semiconductor Devices",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2025-q096",
+    "jelet-2025-q097"
+  ],
+  "sections": [
+    {
+      "anchor": "band-diagrams",
+      "heading": "1. Energy Bands & Semiconductors",
+      "proseLatex": "Conductor, insulator, semiconductor. Intrinsic vs extrinsic ($n$-type, $p$-type).",
+      "keyFormulas": [
+        {
+          "formulaId": "E06-F01",
+          "label": "Doping Types",
+          "latex": "$n$-type: donor (electrons); $p$-type: acceptor (holes)",
+          "aiExplainContext": "Extrinsic semiconductor classification."
+        }
+      ]
+    },
+    {
+      "anchor": "devices",
+      "heading": "2. Diode, BJT, MOSFET & CMOS",
+      "proseLatex": "PN junction, Zener. BJT: $I_E = I_B + I_C$, $\\alpha, \\beta$ relations. MOSFET & CMOS fundamentals.",
+      "keyFormulas": [
+        {
+          "formulaId": "E06-F02",
+          "label": "BJT Current Relation",
+          "latex": "$I_E = I_B + I_C$",
+          "aiExplainContext": "Current conservation in a bipolar transistor."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "E06-EX01",
+      "problemLatex": "PNP transistor: $I_e = 10$ mA, $I_b = 0.1$ mA. Find $I_c$.",
+      "stepsLatex": [
+        "$I_c = I_e - I_b = 10 - 0.1 = 9.9$ mA."
+      ],
+      "answerLatex": "$9.9$ mA"
+    }
+  ],
+  "wbjeebTraps": [
+    "$\\alpha = I_C/I_E$, $\\beta = I_C/I_B$, $\\beta = \\alpha/(1-\u0007lpha)$.",
+    "CMOS uses complementary NMOS and PMOS for low static power."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

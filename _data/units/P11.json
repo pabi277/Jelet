@@ -1,0 +1,62 @@
+{
+  "unitId": "P11",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-K",
+  "title": "Thermodynamics",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q053",
+    "jelet-2024-q070",
+    "jelet-2025-q057",
+    "jelet-2025-q058",
+    "jelet-2025-q061",
+    "jelet-2025-q062",
+    "jelet-2025-q069"
+  ],
+  "sections": [
+    {
+      "anchor": "first-law",
+      "heading": "1. First Law & Internal Energy",
+      "proseLatex": "$\\Delta U = Q - W$. $Q$ is heat added, $W$ is work done by the system.",
+      "keyFormulas": [
+        {
+          "formulaId": "P11-F01",
+          "label": "First Law",
+          "latex": "$\\Delta U = Q - W$",
+          "aiExplainContext": "Energy conservation for thermodynamic systems."
+        }
+      ]
+    },
+    {
+      "anchor": "processes",
+      "heading": "2. Thermodynamic Processes",
+      "proseLatex": "Isothermal ($PV = $ const), isobaric ($P = $ const), isochoric ($V = $ const), adiabatic ($PV^\\gamma = $ const).",
+      "keyFormulas": [
+        {
+          "formulaId": "P11-F02",
+          "label": "Adiabatic Relation",
+          "latex": "$PV^\\gamma = \\text{const}$",
+          "aiExplainContext": "No heat exchange in adiabatic processes."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P11-EX01",
+      "problemLatex": "System goes $a \\to b$ via $acb$: $Q = 200$ J, $W = 80$ J. Via $adb$: $Q = 144$ J. Find $W$.",
+      "stepsLatex": [
+        "$\\Delta U = 200 - 80 = 120$ J (path independent).",
+        "$W = Q - \\Delta U = 144 - 120 = 24$ J."
+      ],
+      "answerLatex": "$24$ J"
+    }
+  ],
+  "wbjeebTraps": [
+    "Internal energy is a state function; $Q$ and $W$ are path-dependent.",
+    "For ideal gas: $C_p - C_v = R$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

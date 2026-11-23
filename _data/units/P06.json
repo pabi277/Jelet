@@ -1,0 +1,57 @@
+{
+  "unitId": "P06",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-F",
+  "title": "Elasticity",
+  "estimatedMinutes": 20,
+  "examFrequency": "low",
+  "pyqIds": [
+    "jelet-2024-q044",
+    "jelet-2025-q055"
+  ],
+  "sections": [
+    {
+      "anchor": "stress-strain",
+      "heading": "1. Stress-Strain & Hooke's Law",
+      "proseLatex": "Stress $= F/A$, strain $= \\Delta L/L$. Hooke's law: stress $\\propto$ strain within elastic limit.",
+      "keyFormulas": [
+        {
+          "formulaId": "P06-F01",
+          "label": "Young's Modulus",
+          "latex": "$Y = \\frac{F/A}{\\Delta L/L} = \\frac{FL}{A\\Delta L}$",
+          "aiExplainContext": "Ratio of stress to longitudinal strain."
+        }
+      ]
+    },
+    {
+      "anchor": "moduli",
+      "heading": "2. Moduli & Elastic Energy",
+      "proseLatex": "Young's $Y$, Bulk $K$, Rigidity $\\eta$ moduli. Elastic potential energy $= \\frac{1}{2}F\\Delta L$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P06-F02",
+          "label": "Elastic Energy",
+          "latex": "$U = \\frac{1}{2}\\cdot\\text{stress}\\cdot\\text{strain}\\cdot\\text{volume}$",
+          "aiExplainContext": "Energy stored in a deformed body."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P06-EX01",
+      "problemLatex": "Two wires same dimensions, different materials. Compare Young's moduli from graph.",
+      "stepsLatex": [
+        "Slope of load-extension graph $\\propto 1/Y$.",
+        "Steeper slope = higher $Y$."
+      ],
+      "answerLatex": "$Y_A > Y_B$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Hooke's law applies only within the elastic limit.",
+    "Poisson's ratio $= \\frac{\\text{lateral strain}}{\\text{longitudinal strain}}$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

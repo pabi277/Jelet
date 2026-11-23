@@ -1,0 +1,4974 @@
+{
+  "paperId": "jelet-2024",
+  "year": 2024,
+  "bookletSeries": "A",
+  "sections": [
+    {
+      "subjectId": "MATH",
+      "title": "Mathematics",
+      "qStart": 1,
+      "qEnd": 40,
+      "cat1Range": [
+        1,
+        30
+      ],
+      "cat2Range": [
+        31,
+        40
+      ],
+      "maxMarks": 50
+    },
+    {
+      "subjectId": "PHYS",
+      "title": "Physics",
+      "qStart": 41,
+      "qEnd": 70,
+      "cat1Range": [
+        41,
+        65
+      ],
+      "cat2Range": [
+        66,
+        70
+      ],
+      "maxMarks": 35
+    },
+    {
+      "subjectId": "CHEM",
+      "title": "Chemistry",
+      "qStart": 71,
+      "qEnd": 90,
+      "cat1Range": [
+        71,
+        85
+      ],
+      "cat2Range": [
+        86,
+        90
+      ],
+      "maxMarks": 25
+    },
+    {
+      "subjectId": "FEEE",
+      "title": "Fundamentals of Electrical & Electronics Engineering",
+      "qStart": 91,
+      "qEnd": 100,
+      "cat1Range": [
+        91,
+        100
+      ],
+      "cat2Range": null,
+      "maxMarks": 10
+    }
+  ],
+  "questions": [
+    {
+      "id": "jelet-2024-q001",
+      "qNumber": 1,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "If $A$ and $B$ are real orthogonal matrices of the same order and $\\det(A) + \\det(B) = 0$, then $A + B$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "a singular matrix.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "a symmetric matrix.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "an orthogonal matrix.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$(A + B)^{-1}$ exists.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q1)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "orthogonal-matrix",
+        "determinant",
+        "singular"
+      ]
+    },
+    {
+      "id": "jelet-2024-q002",
+      "qNumber": 2,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "For the matrix $A = \\begin{bmatrix} 0 & 3 \\\\ 4 & -1 \\\\ 2 & 0 \\\\ 6 \\end{bmatrix}$, which of the following is correct ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\operatorname{rank} A = 0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\operatorname{rank} A = 1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\operatorname{rank} A^{'} = 2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\operatorname{rank} A = 3$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q2)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "rank",
+        "matrix",
+        "order"
+      ]
+    },
+    {
+      "id": "jelet-2024-q003",
+      "qNumber": 3,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "If $A = \\begin{bmatrix} 3 & -4 \\\\ 1 & -1 \\end{bmatrix}$, then $A^{K}$ (where $K$ is any positive integer) is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\begin{bmatrix} 1+2K & -4K \\\\ K & 1-2K \\end{bmatrix}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\begin{bmatrix} 1+2K & -4K \\\\ K & 1-3K \\end{bmatrix}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\begin{bmatrix} 1+K^{2} & -4K^{2} \\\\ K & 1-3K^{2} \\end{bmatrix}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\begin{bmatrix} 1 & 0 \\\\ 0 & K \\end{bmatrix}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q3)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "matrix-power",
+        "cayley-hamilton",
+        "eigenvalue"
+      ]
+    },
+    {
+      "id": "jelet-2024-q004",
+      "qNumber": 4,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "If $\\dfrac{x^{2}+3x}{x+1} = \\dfrac{a+3}{x+1} + \\dfrac{s}{x-3} + \\dfrac{t}{x+4}$, then $t$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$33$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$22$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$21$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$-33$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q4)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "partial-fractions",
+        "algebra"
+      ]
+    },
+    {
+      "id": "jelet-2024-q005",
+      "qNumber": 5,
+      "subjectId": "MATH",
+      "unitId": "M02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "If $\\Delta = \\begin{vmatrix} x & b \\\\ b & x \\end{vmatrix}$ and $\\Delta_{2} = \\begin{vmatrix} a & x \\\\ a & x \\end{vmatrix}$, then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\Delta = 3(\\Delta_{2})^{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{d\\Delta}{dx} = 3(\\Delta_{2})^{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{d\\Delta}{dx} = 3(\\Delta)^{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\Delta = 3(\\Delta_{2})^{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q5)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "determinant",
+        "differentiation"
+      ]
+    },
+    {
+      "id": "jelet-2024-q006",
+      "qNumber": 6,
+      "subjectId": "MATH",
+      "unitId": "M02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "If $\\begin{vmatrix} a^{2}+ab & b^{2}+bc \\\\ ac+c^{2} & ab \\end{vmatrix} = K a^{2}b^{2}c^{2}$, where $a, b, c$ are real numbers, then $K =$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$4$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$8$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$16$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q6)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "determinant",
+        "factorization"
+      ]
+    },
+    {
+      "id": "jelet-2024-q007",
+      "qNumber": 7,
+      "subjectId": "MATH",
+      "unitId": "M03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "If $x = e^{i\\theta}$ and $y = e^{i\\phi}$, then the value of $\\dfrac{x^{m}}{y^{n}}$, where $m, n$ are integers, is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2\\cos(m\\phi - n\\theta)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2\\cos(m\\theta - n\\phi)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2\\cos(m - n)\\theta$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$2\\cos(m - n)\\phi$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q7)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "complex-number",
+        "de-moivre",
+        "exponential-form"
+      ]
+    },
+    {
+      "id": "jelet-2024-q008",
+      "qNumber": 8,
+      "subjectId": "MATH",
+      "unitId": "M03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "If the ratio $\\dfrac{Z - i}{Z - 1}$, where $Z$ represents a complex number, is purely imaginary, then the point $Z$ lies on",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "an ellipse",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "a circle",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "a hyperbola",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "a parabola",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q8)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "complex-number",
+        "locus",
+        "circle"
+      ]
+    },
+    {
+      "id": "jelet-2024-q009",
+      "qNumber": 9,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "If the normal to the curve $xy = e^{2}$ at the point $(e, e)$ meets the curve again at the point $(e^{t}, e^{t_{2}})$, then which of the following is true ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$(t t_{2})^{2} + 1 = 0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$t t_{2} = -1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$t t_{2} = 1$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$(t t_{2})^{2} - 1 = 0$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q9)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "normal",
+        "curve",
+        "tangent-normal"
+      ]
+    },
+    {
+      "id": "jelet-2024-q010",
+      "qNumber": 10,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "The length of the tangent drawn from any point on the circle $x^{2} + y^{2} + 2gx + 2fy + c = 0$ to the circle $x^{2} + y^{2} + 2gx + 2fy + c' = 0$, is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\sqrt{c - c'}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\sqrt{c' - c}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\sqrt{c - c'}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\sqrt{c^{2} + c'^{2} - 2cc'}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q10)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "circle",
+        "tangent-length",
+        "coaxial"
+      ]
+    },
+    {
+      "id": "jelet-2024-q011",
+      "qNumber": 11,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "If $|A + B| = |A - B|$, then the angle between the vectors $A$ and $B$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{\\pi}{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{\\pi}{3}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{\\pi}{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{3\\pi}{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q11)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "vectors",
+        "dot-product",
+        "angle"
+      ]
+    },
+    {
+      "id": "jelet-2024-q012",
+      "qNumber": 12,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "Three vectors $\\vec{a}, \\vec{b}, \\vec{c}$ satisfy the condition $\\vec{a} + \\vec{b} + \\vec{c} = 0$, where $|\\vec{a}| = 3, |\\vec{b}| = 4, |\\vec{c}| = 2$, then the value of $\\vec{a}\\cdot\\vec{b} + \\vec{b}\\cdot\\vec{c} + \\vec{c}\\cdot\\vec{a}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$-\\dfrac{28}{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$-\\dfrac{29}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-\\dfrac{29}{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$-\\dfrac{26}{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q12)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "vectors",
+        "dot-product",
+        "triple-sum"
+      ]
+    },
+    {
+      "id": "jelet-2024-q013",
+      "qNumber": 13,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "A particle acted on by constant forces $4\\hat{i} + \\hat{j} - 3\\hat{k}$ and $3\\hat{i} + \\hat{j} - \\hat{k}$ is displaced from the point $\\hat{i} + 2\\hat{j} + 3\\hat{k}$ to the point $5\\hat{i} + 4\\hat{j} + \\hat{k}$, then the work done by the forces is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$36$ units",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$40$ units",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$42$ units",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$60$ units",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q13)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "vectors",
+        "work",
+        "dot-product"
+      ]
+    },
+    {
+      "id": "jelet-2024-q014",
+      "qNumber": 14,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "The domain of the function $f(x) = \\sin^{-1}(\\log_{2} x)$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$[-2, -1] \\cup [1, 2]$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$[-\\sqrt{2}, -1] \\cup [1, \\sqrt{2}]$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$[-\\sqrt{2}, -1] \\cup [1, \\sqrt{2}]$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$[-2, -1] \\cup [1, \\sqrt{2}]$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q14)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "domain",
+        "inverse-trigonometric",
+        "logarithm"
+      ]
+    },
+    {
+      "id": "jelet-2024-q015",
+      "qNumber": 15,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "$\\lim_{h \\to 0} \\dfrac{f(a + h) - f(a - h)}{2h}$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$f(a)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$f'(a)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2f'(a)$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$f(a) + f'(a)$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q15)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "limit",
+        "derivative",
+        "first-principle"
+      ]
+    },
+    {
+      "id": "jelet-2024-q016",
+      "qNumber": 16,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "The value of $\\lim_{x \\to \\pi} f(x)$, for which $f(x) = \\dfrac{x - \\pi}{x - \\pi}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$7$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{7}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-7$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$0$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q16)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "limit",
+        "removable-discontinuity"
+      ]
+    },
+    {
+      "id": "jelet-2024-q017",
+      "qNumber": 17,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "Let $f : [a, b] \\to \\mathbb{R}$ be a continuous function on $[a, b]$ and $f$ is differentiable on $(a, b)$. If $f'(x) = 0$, for all $x \\in (a, b)$, then which of the following is correct ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$f(x) = kx$, for some constant $k$ and for all $x \\in [a, b]$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$f(x) = \\text{constant}$, for all $x \\in [a, b]$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$f(x) = kx^{2}$, for some constant $k$ and for all $x \\in [a, b]$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "None of the above",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q17)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "mean-value-theorem",
+        "derivative",
+        "constant-function"
+      ]
+    },
+    {
+      "id": "jelet-2024-q018",
+      "qNumber": 18,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "The function $f(x) = 2\\log_{2}(x - 2) - x^{2} + 4x + 1$, increases in the interval",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$(1, 2)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$(2, 3)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$(1, 4)$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$(2, 4)$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q18)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "increasing-function",
+        "derivative",
+        "logarithm"
+      ]
+    },
+    {
+      "id": "jelet-2024-q019",
+      "qNumber": 19,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "The maximum value of $xy$ subject to the condition $3x + 4y = 5$, is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{25}{48}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{25}{48}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{25}{48}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{26}{48}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q19)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "maxima-minima",
+        "lagrange",
+        "constraint"
+      ]
+    },
+    {
+      "id": "jelet-2024-q020",
+      "qNumber": 20,
+      "subjectId": "MATH",
+      "unitId": "M08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "If $u = \\tan^{-1}\\left(\\dfrac{y}{x}\\right)$, then the value of $\\dfrac{\\partial u}{\\partial x} + \\dfrac{\\partial u}{\\partial y}$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{x}{x^{2}+y^{2}} + \\dfrac{y}{x^{2}+y^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{\\partial u}{\\partial x} + \\dfrac{\\partial u}{\\partial y} = \\dfrac{x - y}{x^{2}+y^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{x} + \\dfrac{1}{y}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{\\partial u}{\\partial x} + \\dfrac{\\partial u}{\\partial y} = 2\\cot u$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q20)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "partial-differentiation",
+        "inverse-trigonometric"
+      ]
+    },
+    {
+      "id": "jelet-2024-q021",
+      "qNumber": 21,
+      "subjectId": "MATH",
+      "unitId": "M08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "If $u(x, y, z) = \\log(x^{3} + y^{3} + z^{3} - 3xyz)$, then $\\dfrac{\\partial u}{\\partial x} + \\dfrac{\\partial u}{\\partial y} + \\dfrac{\\partial u}{\\partial z}$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{x+y+z}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{(x+y+z)^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{x+y+z}{(x+y+z)^{2}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q21)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "partial-differentiation",
+        "logarithm",
+        "euler"
+      ]
+    },
+    {
+      "id": "jelet-2024-q022",
+      "qNumber": 22,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "The value of $\\displaystyle\\int_{-1}^{1} (x + e^{x})\\,dx$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2(e - 1)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2(e + 1)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2e - 1$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$2e + 1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q22)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "definite-integral",
+        "exponential"
+      ]
+    },
+    {
+      "id": "jelet-2024-q023",
+      "qNumber": 23,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "If $\\displaystyle\\int \\dfrac{\\cos 4x + 1}{\\cot x - \\tan x}\\,dx = k\\cos 4x + c$, then $k =$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{8}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q23)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "integration",
+        "trigonometric",
+        "identity"
+      ]
+    },
+    {
+      "id": "jelet-2024-q024",
+      "qNumber": 24,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "The value of $\\displaystyle\\int_{0}^{\\pi/2} \\dfrac{dx}{1 + \\tan x}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{\\pi}{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{\\pi}{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q24)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "definite-integral",
+        "king-property",
+        "trigonometric"
+      ]
+    },
+    {
+      "id": "jelet-2024-q025",
+      "qNumber": 25,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "The area in the first quadrant bounded by the ellipse $\\dfrac{x^{2}}{16} + \\dfrac{y^{2}}{9} = 1$, is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2\\pi$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$3\\pi$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$4\\pi$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$5\\pi$ sq. unit",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q25)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "area",
+        "ellipse",
+        "integration"
+      ]
+    },
+    {
+      "id": "jelet-2024-q026",
+      "qNumber": 26,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "The equation of the curve passing through the origin and having slope $\\dfrac{\\sin x}{2y}$ at each point $(x, y)$ with $x \\neq 0$, is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$-x^{2}y + \\cos x = \\dfrac{\\pi}{4}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$x^{2}y + \\cos x = \\dfrac{\\pi}{4}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$x^{2}y - \\sin x = \\dfrac{\\pi}{2} + 1$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$x^{2}y + \\sin x = \\dfrac{\\pi}{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q26)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ode",
+        "variable-separable",
+        "curve"
+      ]
+    },
+    {
+      "id": "jelet-2024-q027",
+      "qNumber": 27,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "The transformation $x = e^{t}$ reduces the differential equation $\\dfrac{d^{2}y}{dx^{2}} - 2\\dfrac{dy}{dx} + 2y = x^{3}$ to $a\\dfrac{d^{2}y}{dt^{2}} + b\\dfrac{dy}{dt} + cy = e^{t}$, where $a, b, c$ are",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$a = 1, b = -3, c = 2$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$a = -1, b = 3, c = -2$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$a = 1, b = 4, c = 3$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$a = -1, b = -3, c = -2$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q27)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ode",
+        "transformation",
+        "cauchy-euler"
+      ]
+    },
+    {
+      "id": "jelet-2024-q028",
+      "qNumber": 28,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "The solution of the differential equation $\\dfrac{dy}{dx} = \\dfrac{x}{y}$, where $y(4) = 3$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "a circle",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "a straight line",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "an ellipse",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "a parabola",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q28)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "ode",
+        "variable-separable",
+        "curve"
+      ]
+    },
+    {
+      "id": "jelet-2024-q029",
+      "qNumber": 29,
+      "subjectId": "MATH",
+      "unitId": "M11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "A fair coin is tossed twice. The probability of getting at least one head is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{4}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{3}{4}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q29)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "probability",
+        "coin-toss",
+        "complement"
+      ]
+    },
+    {
+      "id": "jelet-2024-q030",
+      "qNumber": 30,
+      "subjectId": "MATH",
+      "unitId": "M11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "If $P(A) = P(B) = \\dfrac{1}{2}$ and $P(A \\cap B) = \\dfrac{1}{4}$, then the value of $P(A^{c} \\cup B^{c})$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{3}{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q30)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "probability",
+        "de-morgan",
+        "complement"
+      ]
+    },
+    {
+      "id": "jelet-2024-q031",
+      "qNumber": 31,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "Consider two square matrices $A$ and $B$ such that $A^{2} = A$ and $A + B = I$, where $I$ is the identity matrix. Then which of the following is/are true ? (Here $0$ is the null matrix.)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$B^{2} = B$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$AB = 0$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$BA = 0$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "only (A) and (B) are correct but (C) is false.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q31)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "matrix",
+        "idempotent",
+        "identity"
+      ]
+    },
+    {
+      "id": "jelet-2024-q032",
+      "qNumber": 32,
+      "subjectId": "MATH",
+      "unitId": "M02",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "If the elements of a $3 \\times 3$ matrix $A$ are polynomial of $x$ and if for $x = a$, three rows become identical, then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$(x - a)$ is a factor of $\\det(A)$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$(x - a)^{2}$ is a factor of $\\det(A)$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$(x - a)^{3}$ is a factor of $\\det(A)$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$(x - a)$ is not a factor of $\\det(A)$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q32)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "determinant",
+        "factor",
+        "polynomial"
+      ]
+    },
+    {
+      "id": "jelet-2024-q033",
+      "qNumber": 33,
+      "subjectId": "MATH",
+      "unitId": "M03",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "Suppose $Z$ is a complex number and $\\bar{Z}$ is the complex conjugate of $Z$. Then the values of $|Z|$ satisfying $iZ^{2} - \\bar{Z} = 0$ are",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$3$ or $4$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q33)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "complex-number",
+        "conjugate",
+        "modulus"
+      ]
+    },
+    {
+      "id": "jelet-2024-q034",
+      "qNumber": 34,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "Which of the following is/are a rectangular hyperbola ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$xy = c^{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{x^{2}}{a^{2}} - \\dfrac{y^{2}}{b^{2}} = 1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{x^{2}}{a^{2}} + \\dfrac{y^{2}}{b^{2}} = 1$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$x^{2} - y^{2} = c^{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q34)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "hyperbola",
+        "rectangular",
+        "conic"
+      ]
+    },
+    {
+      "id": "jelet-2024-q035",
+      "qNumber": 35,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "The value of $[\\vec{a}\\,\\vec{b}\\,\\vec{c}]$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2[\\vec{a}\\,\\vec{b}\\,\\vec{c}]$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2[\\vec{a}\\,\\vec{b}\\,\\vec{c}]$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$0$ if $\\vec{a}, \\vec{b}, \\vec{c}$ are coplanar.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$[\\vec{a}\\,\\vec{b}\\,\\vec{c}]$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q35)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "scalar-triple-product",
+        "coplanar"
+      ]
+    },
+    {
+      "id": "jelet-2024-q036",
+      "qNumber": 36,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "For the function $f : \\mathbb{R} \\to \\mathbb{R}$ defined by $f(x) = |x - 1| + |x - 2|$, which of the following is/are correct ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$f(x)$ is continuous in $\\mathbb{R}$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$f(x)$ is continuous in $\\mathbb{R}$ but not derivable in $\\mathbb{R}$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$f(x)$ is continuous in $\\mathbb{R}$ but derivable in $\\mathbb{R}$ except $x = 1$ and $2$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$f(x)$ is not continuous at $x = 1$ and $2$ but derivable in $\\mathbb{R}$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q36)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "continuity",
+        "differentiability",
+        "modulus"
+      ]
+    },
+    {
+      "id": "jelet-2024-q037",
+      "qNumber": 37,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "For the function $f : \\mathbb{R} \\to \\mathbb{R}$, given by $f(x) = x^{3} - 6x^{2} + 24x + 4$, which of the following is correct ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$f(x)$ attains only a maximum at $x = 2$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$f(x)$ attains only a minimum at $x = -1$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$f(x)$ attains both maximum and minimum at $x = -2$ and $x = -1$, respectively.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$f(x)$ has neither a maximum nor a minimum for any $x \\in \\mathbb{R}$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q37)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "maxima-minima",
+        "derivative",
+        "cubic"
+      ]
+    },
+    {
+      "id": "jelet-2024-q038",
+      "qNumber": 38,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "$\\displaystyle\\int_{-\\pi}^{\\pi} (a\\cos x + bx + cx^{2})\\,dx$ depends on",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "only $a$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "only $b$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "only $c$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "only $a, c$ not $b$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q38)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "definite-integral",
+        "odd-even",
+        "symmetry"
+      ]
+    },
+    {
+      "id": "jelet-2024-q039",
+      "qNumber": 39,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "The solution(s) of the differential equation $\\dfrac{d^{2}y}{dx^{2}} + y = 0$ is (are)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$y = \\sin x$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$y = \\cos x$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$y = 2\\cos x + 3\\sin x$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$y = \\dfrac{\\sin x + \\cos x}{y}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q39)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "ode",
+        "second-order",
+        "trigonometric"
+      ]
+    },
+    {
+      "id": "jelet-2024-q040",
+      "qNumber": 40,
+      "subjectId": "MATH",
+      "unitId": "M11",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "If $P(A) = \\dfrac{3}{4}$, $P(B) = \\dfrac{1}{2}$ and $P(A \\cap B) = \\dfrac{1}{8}$, then $P(B^{c})$ equals",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{15}{16}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{5}{6}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{4}{5}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{15}{10}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q40)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "probability",
+        "complement",
+        "basic"
+      ]
+    },
+    {
+      "id": "jelet-2024-q041",
+      "qNumber": 41,
+      "subjectId": "PHYS",
+      "unitId": "P01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "If velocity, time and force were chosen as basic quantities, then the dimension of mass will be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$[FT^{2}V^{-2}]$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$[FTV^{-1}]$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$[F^{2}T^{-2}V^{2}]$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$[FTV]$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q41)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "dimensions",
+        "dimensional-analysis"
+      ]
+    },
+    {
+      "id": "jelet-2024-q042",
+      "qNumber": 42,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "A particle is thrown with initial speed $u$ at an angle $\\theta$ with the horizontal line. It follows a parabolic path as shown in the figure. Which of the following represents the speed-time graphs ($v_{x}$ and $v_{y}$ are the speed along $x$-axis and $y$-axis, respectively) ?",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q42.svg",
+        "alt": "Figure for JELET 2024 Q42",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$v_{x}$ constant, $v_{y}$ linearly varying",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$v_{x}$ linearly varying, $v_{y}$ constant",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "both $v_{x}$ and $v_{y}$ constant",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "both $v_{x}$ and $v_{y}$ linearly varying",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q42)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "kinematics",
+        "projectile",
+        "graph"
+      ]
+    },
+    {
+      "id": "jelet-2024-q043",
+      "qNumber": 43,
+      "subjectId": "PHYS",
+      "unitId": "P13",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "A beam of light moving through medium 1 is refracted in another medium 2 as shown in figure. If the wavelength of the light in medium 1 is $\\lambda_{1}$, and in medium 2 is $\\lambda_{2}$, then $\\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}$ equals",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q43.svg",
+        "alt": "Figure for JELET 2024 Q43",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\lambda_{2} = 2\\lambda_{1}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{\\lambda_{2}}{\\lambda_{1}} = \\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{\\cos\\alpha_{2}}{\\cos\\alpha_{1}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{\\lambda_{2}}{\\lambda_{1}} = \\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q43)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "refraction",
+        "snells-law",
+        "wavelength"
+      ]
+    },
+    {
+      "id": "jelet-2024-q044",
+      "qNumber": 44,
+      "subjectId": "PHYS",
+      "unitId": "P06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A load of $4\\,\\text{kg}$ is suspended from a ceiling through a steel wire of radius $2\\,\\text{mm}$. The tensile stress developed in the wire when equilibrium is achieved will be (Assume $g = 3.1\\pi\\,\\text{ms}^{-2}$)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$3.1 \\times 10^{6}\\,\\text{Nm}^{-2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2.8 \\times 10^{4}\\,\\text{Nm}^{-2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$6.8 \\times 10^{8}\\,\\text{Nm}^{-2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$9.8 \\times 10^{3}\\,\\text{Nm}^{-2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q44)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "elasticity",
+        "stress",
+        "tensile"
+      ]
+    },
+    {
+      "id": "jelet-2024-q045",
+      "qNumber": 45,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A particle moves with constant speed $v$ along a circle of radius $R$. If the angular momentum of the particle about centre $C$ is $L_{C}$, and about a point $O$ is $L_{O}$, then $\\dfrac{L_{C}}{L_{O}}$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\cos^{2}\\theta$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1 + \\cos\\theta$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\cos^{2}\\theta$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{\\cos^{2}\\theta}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q45)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "angular-momentum",
+        "circular-motion",
+        "vector"
+      ]
+    },
+    {
+      "id": "jelet-2024-q046",
+      "qNumber": 46,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A particle starts moving from rest in a straight line with acceleration $a$. The maximum velocity attained by the particle during the motion is (acceleration varies as shown)",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q46.svg",
+        "alt": "Figure for JELET 2024 Q46",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$225\\,\\text{ms}^{-1}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$120\\,\\text{ms}^{-1}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$100\\,\\text{ms}^{-1}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$125\\,\\text{ms}^{-1}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q46)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "kinematics",
+        "velocity",
+        "acceleration-graph"
+      ]
+    },
+    {
+      "id": "jelet-2024-q047",
+      "qNumber": 47,
+      "subjectId": "PHYS",
+      "unitId": "P04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A drilling machine of power $P$ is used to drill a hole in a metal block of mass $M$ and specific heat $s\\,\\text{J kg}^{-1}\\,^{\\circ}\\text{C}^{-1}$. If $20\\%$ of the power is lost due to heating of the machine, the rise in temperature of the block (in $^{\\circ}\\text{C}$) in $t$ seconds will be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{0.8Pt}{Ms}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{0.4Pt}{Ms}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{0.2Pt}{Ms}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{0.8P}{Mst}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q47)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "work-power-energy",
+        "heat",
+        "power"
+      ]
+    },
+    {
+      "id": "jelet-2024-q048",
+      "qNumber": 48,
+      "subjectId": "PHYS",
+      "unitId": "P09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "Suppose the same liquid is heated in two vessels $A$ and $B$ having coefficient of linear expansion $\\alpha_{A}$ and $\\alpha_{B}$ respectively. If coefficient of apparent expansion of the liquid in the two vessels are $\\gamma_{A}$ and $\\gamma_{B}$ and if $\\alpha_{A} > \\alpha_{B}$ then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\gamma_{A} > \\gamma_{B}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\gamma_{A} < \\gamma_{B}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\gamma_{A} = \\gamma_{B}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "None of these",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q48)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "thermal-expansion",
+        "apparent-expansion"
+      ]
+    },
+    {
+      "id": "jelet-2024-q049",
+      "qNumber": 49,
+      "subjectId": "PHYS",
+      "unitId": "P10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "A metal rod consists of two parts of equal cross-section $A$, but length of one is $l$ and that of the other is $2l$ and their thermal conductivities are respectively $k$ and $2k$, as shown in the figure. The temperatures at the two ends of the rod are $t_{1}$ and $t_{2}$ ($t_{1} > t_{2}$) as shown. What is the heat current at the steady state ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{2kA(t_{1} - t_{2})}{3l}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{2kA(t_{1} - t_{2})}{2l}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{kA(t_{1} - t_{2})}{2l}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{3kA(t_{1} - t_{2})}{2l}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "voided",
+        "correct": [
+          "W"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q49)"
+      },
+      "difficulty": "voided",
+      "tags": [
+        "thermal-conduction",
+        "steady-state",
+        "voided"
+      ]
+    },
+    {
+      "id": "jelet-2024-q050",
+      "qNumber": 50,
+      "subjectId": "PHYS",
+      "unitId": "P14",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "An eye specialist prescribed spectacles of power $+1.5\\,\\text{D}$ to a patient of hypermetropic eye. What is the near point of his defective eye ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$40\\,\\text{cm}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$30\\,\\text{cm}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$50\\,\\text{cm}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$15\\,\\text{cm}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q50)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "lens",
+        "power",
+        "hypermetropia"
+      ]
+    },
+    {
+      "id": "jelet-2024-q051",
+      "qNumber": 51,
+      "subjectId": "PHYS",
+      "unitId": "P10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "The thermal conductivity of a rod depends on",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "length",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "mass",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "area of cross-section",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "material of the rod",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q51)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "thermal-conductivity",
+        "material"
+      ]
+    },
+    {
+      "id": "jelet-2024-q052",
+      "qNumber": 52,
+      "subjectId": "PHYS",
+      "unitId": "P14",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "An equiconvex lens of focal length $f$ is broken into four parts and then re-arranged as shown in the figure. After rearrangement, the equivalent focal length of the lens system is",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q52.svg",
+        "alt": "Figure for JELET 2024 Q52",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{f}{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{f}{4}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$f$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$4f$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q52)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "lens",
+        "focal-length",
+        "rearrangement"
+      ]
+    },
+    {
+      "id": "jelet-2024-q053",
+      "qNumber": 53,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 14,
+      "stemLatex": "The first law of thermodynamics is a statement of",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "conservation of heat",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "conservation of work",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "conservation of momentum",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "conservation of energy",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q53)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "thermodynamics",
+        "first-law"
+      ]
+    },
+    {
+      "id": "jelet-2024-q054",
+      "qNumber": 54,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 14,
+      "stemLatex": "In the above figure all the strings are massless and the pulley is frictionless. Which of the following statement(s) is/are correct ?",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q54.svg",
+        "alt": "Figure for JELET 2024 Q54",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$T > T_{2} > T_{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$T < T_{2} < T_{3}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$T = T_{2} = T_{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$T_{2} > T_{1} = T_{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q54)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "strings-pulley",
+        "tension",
+        "equilibrium"
+      ]
+    },
+    {
+      "id": "jelet-2024-q055",
+      "qNumber": 55,
+      "subjectId": "PHYS",
+      "unitId": "P15",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 14,
+      "stemLatex": "In an experiment on photoelectric effect the stopping potential $V_{0}$ is plotted against the frequency $(\\nu)$ of the light incident on a metal surface as shown in the figure. The work function of the surface of the metal is obtained from",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q55.svg",
+        "alt": "Figure for JELET 2024 Q55",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "slope of the line $AC$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "product of the slope of the line $AC$ and charge of the electron.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "product of the intercept $OA$ and the charge of the electron.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "intercept $OA$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q55)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "photoelectric",
+        "work-function",
+        "stopping-potential"
+      ]
+    },
+    {
+      "id": "jelet-2024-q056",
+      "qNumber": 56,
+      "subjectId": "PHYS",
+      "unitId": "P08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "A solid cylinder of height $H$, radius $R$ and density $\\rho$, floats vertically on the surface of a liquid of density $\\sigma$. The cylinder will be set into oscillatory motion by applying a small downward instantaneous force on it. The frequency of this small oscillation is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\sigma}{\\rho H}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\rho}{\\sigma H}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\sigma}{\\rho R}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\rho}{\\sigma R}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q56)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "oscillation",
+        "buoyancy",
+        "fluid"
+      ]
+    },
+    {
+      "id": "jelet-2024-q057",
+      "qNumber": 57,
+      "subjectId": "PHYS",
+      "unitId": "P04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "The figure shows the variation of potential energy $V(x)$ of a particle with distance $x$. The particle has",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q57.svg",
+        "alt": "Figure for JELET 2024 Q57",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "two equilibrium points, one stable and another unstable.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "two equilibrium points, both stable.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "three equilibrium points, one stable, two unstable.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "three equilibrium points, two stable, one unstable.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q57)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "potential-energy",
+        "equilibrium",
+        "graph"
+      ]
+    },
+    {
+      "id": "jelet-2024-q058",
+      "qNumber": 58,
+      "subjectId": "PHYS",
+      "unitId": "P05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "The radius of the earth is approximately $6400\\,\\text{km}$. The height at which the acceleration due to gravity differs from $g$ (acceleration due to gravity at the Earth's surface) by approximately $2\\%$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$62.5\\,\\text{km}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$63.9\\,\\text{km}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$64.2\\,\\text{km}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$65.3\\,\\text{km}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "voided",
+        "correct": [
+          "W"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q58)"
+      },
+      "difficulty": "voided",
+      "tags": [
+        "gravitation",
+        "variation-of-g",
+        "voided"
+      ]
+    },
+    {
+      "id": "jelet-2024-q059",
+      "qNumber": 59,
+      "subjectId": "PHYS",
+      "unitId": "P05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "Two satellites $S_{1}$ and $S_{2}$ revolve round a planet in coplanar circular orbits in the same sense. Their periods of revolution are $1\\,\\text{h}$ and $8\\,\\text{h}$, respectively. The radius of the orbit of $S_{1}$ is $10^{4}\\,\\text{km}$. When $S_{2}$ is closest to $S_{1}$, then the angular speed of $S_{2}$ as observed by an astronaut in $S_{1}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{\\pi}{2}\\,\\text{rad h}^{-1}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\pi\\,\\text{rad h}^{-1}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{\\pi}{4}\\,\\text{rad h}^{-1}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{\\pi}{3}\\,\\text{rad h}^{-1}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q59)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "gravitation",
+        "satellite",
+        "relative-angular-speed"
+      ]
+    },
+    {
+      "id": "jelet-2024-q060",
+      "qNumber": 60,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "A man standing on a road has to hold his umbrella at $30^{\\circ}$ with the vertical to keep the rain away. He throws the umbrella and starts running at $10\\,\\text{km/h}$. He finds that rain drops are hitting his head vertically. The speed of rain with respect to the ground $V_{rg}$ and with respect to the man $V_{rm}$ are respectively",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$V_{rg} = 20\\,\\text{km/h}, V_{rm} = 10\\sqrt{3}\\,\\text{km/h}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$V_{rg} = 10\\,\\text{km/h}, V_{rm} = 20\\,\\text{km/h}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$V_{rg} = 10\\sqrt{3}\\,\\text{km/h}, V_{rm} = 20\\sqrt{3}\\,\\text{km/h}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$V_{rg} = 10\\,\\text{km/h}, V_{rm} = 20\\sqrt{3}\\,\\text{km/h}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q60)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "kinematics",
+        "relative-velocity",
+        "rain-umbrella"
+      ]
+    },
+    {
+      "id": "jelet-2024-q061",
+      "qNumber": 61,
+      "subjectId": "PHYS",
+      "unitId": "P04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "A body of mass $m$ falls from a height $H$. The variations of its potential energy $(V)$ and kinetic energy $(K)$ as a function of time $(t)$ is",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q61.svg",
+        "alt": "Figure for JELET 2024 Q61",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$V$ decreases, $K$ increases, both bounded by $mgH$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$V$ constant, $K$ increases",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$V$ increases, $K$ decreases",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$V$ and $K$ both constant",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q61)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "energy",
+        "potential-kinetic",
+        "graph"
+      ]
+    },
+    {
+      "id": "jelet-2024-q062",
+      "qNumber": 62,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "A particle is moving in a $X$-$Y$ plane where $X$ and $Y$ coordinates are time dependent as follows: $X(t) = At^{4} + Bt$ and $Y(t) = Ct^{3} + D$ (Here $A = 1.00\\,\\text{m/s}^{4}$, $B = -2.00\\,\\text{m/s}$, $C = 2.00\\,\\text{m/s}^{3}$ and $D = 10\\,\\text{m}$). The position of the particle at $t = 2\\,\\text{sec}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$(10\\,\\text{m})\\hat{i} + (12\\,\\text{m})\\hat{j}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$(-5\\,\\text{m})\\hat{i} + (15\\,\\text{m})\\hat{j}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$(-10\\,\\text{m})\\hat{i} + (15\\,\\text{m})\\hat{j}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$(12\\,\\text{m})\\hat{i} + (26\\,\\text{m})\\hat{j}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q62)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "kinematics",
+        "position-vector",
+        "polynomial"
+      ]
+    },
+    {
+      "id": "jelet-2024-q063",
+      "qNumber": 63,
+      "subjectId": "PHYS",
+      "unitId": "P05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 17,
+      "stemLatex": "A body of mass $m$ is lifted up from the earth surface to a height $R$. The potential energy of the body with respect to the earth surface is [Assume acceleration due to gravity on earth surface is $g_{0}$]",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$mg_{0}R$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{mg_{0}R}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-\\dfrac{mg_{0}R}{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$-mg_{0}R$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q63)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "gravitation",
+        "potential-energy",
+        "earth"
+      ]
+    },
+    {
+      "id": "jelet-2024-q064",
+      "qNumber": 64,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 17,
+      "stemLatex": "The mass of the bob of a simple pendulum (amplitude is small enough) is made doubled. Then the time period of the pendulum will be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "doubled",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "four times of the original one",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "half of the original one",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "no change of time period",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q64)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "simple-pendulum",
+        "time-period"
+      ]
+    },
+    {
+      "id": "jelet-2024-q065",
+      "qNumber": 65,
+      "subjectId": "PHYS",
+      "unitId": "P04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 17,
+      "stemLatex": "The dependence of the potential energy $(V)$ of a particle on its displacement $(x)$ is given in figure. The force $(F)$ acting on the particle is",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q65.svg",
+        "alt": "Figure for JELET 2024 Q65",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$F = -kx$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$F = +kx$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$F = -kx^{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$F = -kx + F_{0}$, where $F_{0}$ is a constant depending on $V_{0}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q65)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "force",
+        "potential-energy",
+        "graph"
+      ]
+    },
+    {
+      "id": "jelet-2024-q066",
+      "qNumber": 66,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 17,
+      "stemLatex": "A particle of mass $m$ is moving along $x$-axis in a medium where the retarding force is proportional to its velocity. If the particle starts with an initial velocity $V_{0}$, then velocity $(V)$ versus displacement $(x)$ curve will look like",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q66.svg",
+        "alt": "Figure for JELET 2024 Q66",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$V$ decreases exponentially with $x$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$V$ decreases linearly with $x$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$V$ remains constant",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$V$ increases with $x$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q66)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "kinematics",
+        "retarding-force",
+        "velocity-displacement"
+      ]
+    },
+    {
+      "id": "jelet-2024-q067",
+      "qNumber": 67,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "A block of mass $1\\,\\text{kg}$ is held stationary against a rough vertical plate due to the acceleration $(a)$ of the plate, as shown in the figure. The coefficient of friction between block and plate will be",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q67.svg",
+        "alt": "Figure for JELET 2024 Q67",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{g}{a}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{a}{g}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{a}{g}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{g}{a}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q67)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "friction",
+        "equilibrium",
+        "block-plate"
+      ]
+    },
+    {
+      "id": "jelet-2024-q068",
+      "qNumber": 68,
+      "subjectId": "PHYS",
+      "unitId": "P10",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "Three rods $A, B, C$ made of the same material are joined as shown in the figure. Rods $A$ and $B$ have the same length and cross sectional area. Rod $C$ has length and cross sectional area both twice of those of rod $A$. The end of $A$ is kept at $0\\,^{\\circ}\\text{C}$ and those of $B$ and $C$ at $100\\,^{\\circ}\\text{C}$. Find the temperature at the junction of three rods.",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q68.svg",
+        "alt": "Figure for JELET 2024 Q68",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$66.67\\,^{\\circ}\\text{C}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$33.33\\,^{\\circ}\\text{C}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$50\\,^{\\circ}\\text{C}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$25\\,^{\\circ}\\text{C}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q68)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "thermal-conduction",
+        "junction",
+        "rods"
+      ]
+    },
+    {
+      "id": "jelet-2024-q069",
+      "qNumber": 69,
+      "subjectId": "PHYS",
+      "unitId": "P07",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "Eight small water drops of equal radii combine to form a big drop. The ratio of final surface energy to the total initial surface energy is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$1 : 64$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1 : 8$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$1 : 2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1 : 4$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q69)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "surface-tension",
+        "surface-energy",
+        "drops"
+      ]
+    },
+    {
+      "id": "jelet-2024-q070",
+      "qNumber": 70,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "$PV$ plots of adiabatic processes for two different gases are shown in the figure. Gas 1 and gas 2 will be",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q70.svg",
+        "alt": "Figure for JELET 2024 Q70",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "He and $N_{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$N_{2}$ and He",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$CO_{2}$ and $O_{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$CO_{2}$ and Ar",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q70)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "thermodynamics",
+        "adiabatic",
+        "gases"
+      ]
+    },
+    {
+      "id": "jelet-2024-q071",
+      "qNumber": 71,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "The number of atoms in $52\\,\\text{gm}$ of $'He'$ are",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$78.299 \\times 10^{24}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$7.82 \\times 10^{23}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$7.829 \\times 10^{24}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$7.829 \\times 10^{22}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q71)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "mole-concept",
+        "avogadro",
+        "atoms"
+      ]
+    },
+    {
+      "id": "jelet-2024-q072",
+      "qNumber": 72,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "Which principle/rule decides the distribution of electrons in different shells ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Aufbau principle",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Pauli's exclusion principle",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Hund's rule",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "All of these",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q72)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "atomic-structure",
+        "aufbau",
+        "electronic-config"
+      ]
+    },
+    {
+      "id": "jelet-2024-q073",
+      "qNumber": 73,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "Radius of 1st Bohr orbit of $H$ is $0.529\\,\\text{\\AA}$. The most probable radius (in $\\text{pm}$) for finding the electron in $He^{+}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0.0265$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$52.9$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$26.5$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$105.8$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q73)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "atomic-structure",
+        "bohr-radius",
+        "he-ion"
+      ]
+    },
+    {
+      "id": "jelet-2024-q074",
+      "qNumber": 74,
+      "subjectId": "CHEM",
+      "unitId": "C02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "The edge length of NaCl crystal unit cell is $508\\,\\text{pm}$. If radius of $Na^{+}$ is $110\\,\\text{pm}$, the radius of $Cl^{-}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$288\\,\\text{pm}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$398\\,\\text{pm}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$144\\,\\text{pm}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$618\\,\\text{pm}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q74)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "chemical-bonding",
+        "crystal",
+        "ionic-radius"
+      ]
+    },
+    {
+      "id": "jelet-2024-q075",
+      "qNumber": 75,
+      "subjectId": "CHEM",
+      "unitId": "C04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "How many electrons are delivered at the cathode during electrolysis by a current of $1\\,\\text{A}$ in $10$ minutes ? (charge of electron $= 1.6 \\times 10^{-19}\\,\\text{C}$)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$3.75 \\times 10^{21}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$3.75 \\times 10^{20}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$7.50 \\times 10^{21}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$6.0 \\times 10^{23}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q75)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "electrochemistry",
+        "faraday",
+        "electrons"
+      ]
+    },
+    {
+      "id": "jelet-2024-q076",
+      "qNumber": 76,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "Phenol is treated with Bromine water. Choose the correct statement.",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Ortho-bromophenol is produced as major product.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Para-bromophenol is produced as major product.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2,4,6$-tribromophenol is precipitated and reaction requires $Fe/FeBr_{3}$ as catalyst.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$2,4,6$-tribromophenol is precipitated and reaction does not require any catalyst.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q76)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "organic",
+        "phenol",
+        "bromination"
+      ]
+    },
+    {
+      "id": "jelet-2024-q077",
+      "qNumber": 77,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "Number of stereoisomers of $2,3$-dibromobutane is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$3$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$4$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$5$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q77)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "organic",
+        "stereoisomer",
+        "dibromobutane"
+      ]
+    },
+    {
+      "id": "jelet-2024-q078",
+      "qNumber": 78,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "Chemical formula of carbolic acid is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{OH}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{COOH}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{NO}_{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{C}_{6}\\text{H}_{5}\\text{OH}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q78)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "organic",
+        "carbolic-acid",
+        "phenol"
+      ]
+    },
+    {
+      "id": "jelet-2024-q079",
+      "qNumber": 79,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "Which of the following compounds will give white precipitate when treated with ammoniacal silver nitrate solution ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{HgCl}_{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{Hg}_{2}\\text{Cl}_{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{CH}_{3}\\text{COOH}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{HC}\\equiv\\text{C}-\\text{CH}=\\text{CH}-\\text{CH}_{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q79)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "organic",
+        "tollens",
+        "alkyne"
+      ]
+    },
+    {
+      "id": "jelet-2024-q080",
+      "qNumber": 80,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "In the reaction sequence: $\\text{CaC}_{2} + \\text{H}_{2}\\text{O} \\xrightarrow{} A \\xrightarrow{\\text{HgSO}_{4}} B \\xrightarrow{\\text{H}_{2}/\\text{Ni}} C \\xrightarrow{\\text{dil. H}_{2}\\text{SO}_{4}} C'$, '$C'$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{HCHO}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{CH}_{3}\\text{CHO}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{CH}_{3}\\text{OH}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{C}_{2}\\text{H}_{5}\\text{OH}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q80)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "organic",
+        "reaction-sequence",
+        "alcohol"
+      ]
+    },
+    {
+      "id": "jelet-2024-q081",
+      "qNumber": 81,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "The solubility of $BaSO_{4}$ in water is $2.33 \\times 10^{-3}\\,\\text{gram/litre}$. Its solubility product will be (Mol. wt. of $BaSO_{4} = 233$)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$5.43 \\times 10^{-6}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1 \\times 10^{-10}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$1 \\times 10^{-5}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1 \\times 10^{-20}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q81)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "solubility-product",
+        "ksp",
+        "baSO4"
+      ]
+    },
+    {
+      "id": "jelet-2024-q082",
+      "qNumber": 82,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "What is the hybridization of $S$ in $SF_{4}$ ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$sp^{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$sp^{3}d$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$sp^{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$sp^{3}d^{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q82)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "hybridization",
+        "sf4",
+        "vsepr"
+      ]
+    },
+    {
+      "id": "jelet-2024-q083",
+      "qNumber": 83,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 21,
+      "stemLatex": "Phenol is allowed to react with phthalic anhydride in presence of $H_{2}SO_{4}$ and finally the reaction mixture is made alkaline with $NaOH$. The product formed is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Alizarin",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Methyl orange",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Fluorescein",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Phenolphthalein",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q83)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "organic",
+        "phenolphthalein",
+        "indicator"
+      ]
+    },
+    {
+      "id": "jelet-2024-q084",
+      "qNumber": 84,
+      "subjectId": "CHEM",
+      "unitId": "C02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 21,
+      "stemLatex": "Which of the following molecules have one lone pair of electrons ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$SO_{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$XeF_{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$SiF_{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$H_{2}S$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q84)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "chemical-bonding",
+        "lone-pair",
+        "molecule"
+      ]
+    },
+    {
+      "id": "jelet-2024-q085",
+      "qNumber": 85,
+      "subjectId": "CHEM",
+      "unitId": "C02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 21,
+      "stemLatex": "Smallest internuclear distance is found in",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$O_{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$O_{2}^{+}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$O_{2}^{-}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$O_{2}^{2-}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q85)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "chemical-bonding",
+        "bond-order",
+        "internuclear-distance"
+      ]
+    },
+    {
+      "id": "jelet-2024-q086",
+      "qNumber": 86,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "Correct statement(s) w.r.t. $H_{3}BO_{3}$ is/are",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "It is a monobasic acid.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "It is a tribasic acid.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "It is a strong acid.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "It is a strong acid in presence of glycerol.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q86)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "acids-bases",
+        "h3bo3",
+        "monobasic"
+      ]
+    },
+    {
+      "id": "jelet-2024-q087",
+      "qNumber": 87,
+      "subjectId": "CHEM",
+      "unitId": "C02",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "Which of the following species have linear geometry ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{NH}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{H}_{2}\\text{O}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{CO}_{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{BeCl}_{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q87)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "chemical-bonding",
+        "linear-geometry",
+        "vsepr"
+      ]
+    },
+    {
+      "id": "jelet-2024-q088",
+      "qNumber": 88,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "Which of the following compounds will liberate hydrogen gas, when reacted with sodium metal ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Dimethyl ether",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Methanol",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Propanoic acid",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Methyl propanoate",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q88)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "organic",
+        "sodium",
+        "hydrogen-gas"
+      ]
+    },
+    {
+      "id": "jelet-2024-q089",
+      "qNumber": 89,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "Which of the following compounds will give positive iodoform test ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{CH}_{3}\\text{OH}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{CH}_{3}\\text{COCH}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{CH}_{3}\\text{CH}_{2}\\text{OH}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{C}_{6}\\text{H}_{5}\\text{OCH}_{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q89)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "organic",
+        "iodoform",
+        "ketone-alcohol"
+      ]
+    },
+    {
+      "id": "jelet-2024-q090",
+      "qNumber": 90,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "An organic saturated alcohol is optically active. Its IUPAC nomenclature may be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "2-butanol",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "2-methyl-2-butanol",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "3-methyl-2-butanol",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "3-pentanol",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q90)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "organic",
+        "optical-activity",
+        "iupac"
+      ]
+    },
+    {
+      "id": "jelet-2024-q091",
+      "qNumber": 91,
+      "subjectId": "FEEE",
+      "unitId": "E01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "The cross-sectional area of the coil of a PMMC instrument with a spring constant of $0.28 \\times 10^{-6}\\,\\text{Nm/rad}$ is $7.2 \\times 10^{-4}\\,\\text{m}^{2}$. The air gap flux density is $3.6\\,\\text{mWb/m}^{2}$. The number of turns required to produce a deflection of $60^{\\circ}$ when a current of $10\\,\\text{mA}$ flows through the coil would be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$136$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$44$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$22$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$11$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q91)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "pmmc",
+        "instrument",
+        "turns"
+      ]
+    },
+    {
+      "id": "jelet-2024-q092",
+      "qNumber": 92,
+      "subjectId": "FEEE",
+      "unitId": "E02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "The leakage flux in a transformer depends on",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "applied voltage",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "load current",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "frequency",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "mutual flux",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q92)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "transformer",
+        "leakage-flux",
+        "load"
+      ]
+    },
+    {
+      "id": "jelet-2024-q093",
+      "qNumber": 93,
+      "subjectId": "FEEE",
+      "unitId": "E03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "A single phase IM with identical main and auxiliary windings can be made self-starting by connecting",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "a capacitor in series with the main winding.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "a capacitor in series with the auxiliary winding.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "a capacitor across the supply terminals.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "the main and auxiliary winding in series.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q93)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "induction-motor",
+        "capacitor-start",
+        "self-starting"
+      ]
+    },
+    {
+      "id": "jelet-2024-q094",
+      "qNumber": 94,
+      "subjectId": "FEEE",
+      "unitId": "E04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "Consider the following circuit: The node voltage $V_{1}$, $V_{2}$ and $E$ are respectively",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q94.svg",
+        "alt": "Figure for JELET 2024 Q94",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$V_{1} = -14\\,\\text{V}, V_{2} = 18\\,\\text{V}, E = -2\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$V_{1} = +14\\,\\text{V}, V_{2} = -2\\,\\text{V}, E = -2\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$V_{1} = +14\\,\\text{V}, V_{2} = 2\\,\\text{V}, E = 0\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$V_{1} = -14\\,\\text{V}, V_{2} = -2\\,\\text{V}, E = 0\\,\\text{V}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q94)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "dc-circuit",
+        "node-voltage",
+        "kcl"
+      ]
+    },
+    {
+      "id": "jelet-2024-q095",
+      "qNumber": 95,
+      "subjectId": "FEEE",
+      "unitId": "E05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "The voltage $V = 5\\cos(40t + 60^{\\circ})$ is applied to a $0.5\\,\\text{H}$ inductor. The steady state current through the inductor is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$i(t) = 4\\sin(40t + 60^{\\circ})\\,\\text{A}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$i(t) = 0.25\\cos(40t + 30^{\\circ})\\,\\text{A}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$i(t) = 0.25\\cos(40t - 30^{\\circ})\\,\\text{A}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$i(t) = 0.25\\cos(40t + 60^{\\circ})\\,\\text{A}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q95)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ac-circuit",
+        "inductor",
+        "phase"
+      ]
+    },
+    {
+      "id": "jelet-2024-q096",
+      "qNumber": 96,
+      "subjectId": "FEEE",
+      "unitId": "E04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "Assuming that the diode in the given circuit is ideal, the voltage $V$ is",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q96.svg",
+        "alt": "Figure for JELET 2024 Q96",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$4\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$5\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$7.5\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$12.1\\,\\text{V}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q96)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "diode",
+        "circuit",
+        "ideal-diode"
+      ]
+    },
+    {
+      "id": "jelet-2024-q097",
+      "qNumber": 97,
+      "subjectId": "FEEE",
+      "unitId": "E04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "In the circuit shown, the output voltage $V_{0}$ is",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q97.svg",
+        "alt": "Figure for JELET 2024 Q97",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$-9\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$-10\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$+10\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$+9\\,\\text{V}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q97)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "circuit",
+        "output-voltage",
+        "transistor"
+      ]
+    },
+    {
+      "id": "jelet-2024-q098",
+      "qNumber": 98,
+      "subjectId": "FEEE",
+      "unitId": "E08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "For the logic circuit shown, the required input condition $(A, B, C)$ to make the output $X = 0$ is",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q98.svg",
+        "alt": "Figure for JELET 2024 Q98",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$1, 1, 1$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1, 0, 1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$0, 1, 1$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$0, 0, 1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q98)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "digital",
+        "logic-gate",
+        "output"
+      ]
+    },
+    {
+      "id": "jelet-2024-q099",
+      "qNumber": 99,
+      "subjectId": "FEEE",
+      "unitId": "E05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "The phase angle between $v_{1} = -10\\cos(\\omega t + 40^{\\circ})$ and $v_{2} = 8\\sin(\\omega t - 20^{\\circ})$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$30^{\\circ}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$60^{\\circ}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-60^{\\circ}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$20^{\\circ}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q99)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "ac-circuit",
+        "phase-angle",
+        "phasor"
+      ]
+    },
+    {
+      "id": "jelet-2024-q100",
+      "qNumber": 100,
+      "subjectId": "FEEE",
+      "unitId": "E03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "A DC motor develops a torque of $120\\,\\text{Nm}$ at $20\\,\\text{rps}$. At $30\\,\\text{rps}$, the torque developed by the motor is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$160\\,\\text{Nm}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$120\\,\\text{Nm}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$80\\,\\text{Nm}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$40\\,\\text{Nm}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q100)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "dc-motor",
+        "torque",
+        "speed"
+      ]
+    }
+  ]
+}

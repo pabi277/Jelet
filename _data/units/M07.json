@@ -1,0 +1,63 @@
+{
+  "unitId": "M07",
+  "subjectId": "MATH",
+  "officialCode": "Math-G",
+  "title": "Application of Derivative",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q009",
+    "jelet-2024-q018",
+    "jelet-2024-q019",
+    "jelet-2024-q037",
+    "jelet-2025-q025",
+    "jelet-2025-q026",
+    "jelet-2025-q035"
+  ],
+  "sections": [
+    {
+      "anchor": "geometric-meaning",
+      "heading": "1. Tangents, Normals & Rate of Change",
+      "proseLatex": "The derivative $f'(x)$ gives the slope of the tangent. Rate of change of a quantity is its derivative.",
+      "keyFormulas": [
+        {
+          "formulaId": "M07-F01",
+          "label": "Tangent Slope",
+          "latex": "Slope of tangent at $x_0$: $f'(x_0)$",
+          "aiExplainContext": "Geometric interpretation of the derivative."
+        }
+      ]
+    },
+    {
+      "anchor": "maxima-minima",
+      "heading": "2. Maxima & Minima",
+      "proseLatex": "For maxima/minima: $f'(x) = 0$ and $f''(x) < 0$ (max) or $> 0$ (min).",
+      "keyFormulas": [
+        {
+          "formulaId": "M07-F02",
+          "label": "Optimization Condition",
+          "latex": "$f'(x) = 0,\\; f''(x) \\neq 0$",
+          "aiExplainContext": "Find and classify critical points."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M07-EX01",
+      "problemLatex": "Maximize the volume of a cylinder inscribed in a cone of volume $p$.",
+      "stepsLatex": [
+        "Optimize $r_c = 2r/3$, $h_c = h/3$.",
+        "$V_{cyl} = 4\\pi r^2h/27$.",
+        "Ratio $p:q = 9:4$."
+      ],
+      "answerLatex": "$9:4$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Check second derivative for max vs min.",
+    "Boundary values may also give extrema."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

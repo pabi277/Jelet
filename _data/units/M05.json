@@ -1,0 +1,62 @@
+{
+  "unitId": "M05",
+  "subjectId": "MATH",
+  "officialCode": "Math-E",
+  "title": "Vector Algebra",
+  "estimatedMinutes": 30,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q011",
+    "jelet-2024-q012",
+    "jelet-2024-q013",
+    "jelet-2024-q035",
+    "jelet-2025-q011",
+    "jelet-2025-q019",
+    "jelet-2025-q023"
+  ],
+  "sections": [
+    {
+      "anchor": "operations",
+      "heading": "1. Addition, Subtraction & Scalar Multiplication",
+      "proseLatex": "Vectors add component-wise; scalar multiplication scales each component.",
+      "keyFormulas": [
+        {
+          "formulaId": "M05-F01",
+          "label": "BAC-CAB Rule",
+          "latex": "$\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = \\vec{b}(\u000bec{a}\\cdot\\vec{c}) - \\vec{c}(\u000bec{a}\\cdot\\vec{b})$",
+          "aiExplainContext": "Expand triple cross products."
+        }
+      ]
+    },
+    {
+      "anchor": "triple-products",
+      "heading": "2. Triple Products",
+      "proseLatex": "Scalar triple product $\\vec{a}\\cdot(\\vec{b}\\times\\vec{c})$ gives volume; vector triple product gives a vector in the plane.",
+      "keyFormulas": [
+        {
+          "formulaId": "M05-F02",
+          "label": "Vector Triple Product Sum",
+          "latex": "$\\sum \\hat{i}\\times(\\vec{a}\\times\\hat{i}) = 2\\vec{a}$",
+          "aiExplainContext": "Sum over unit vectors."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M05-EX01",
+      "problemLatex": "Evaluate $\\hat{i}\\times(\\vec{a}\\times\\hat{i}) + \\hat{j}\\times(\\vec{a}\\times\\hat{j}) + \\hat{k}\\times(\\vec{a}\\times\\hat{k})$.",
+      "stepsLatex": [
+        "Each term: $\\vec{a} - \\hat{i}(\\hat{i}\\cdot\\vec{a})$.",
+        "Sum: $3\\vec{a} - \\vec{a} = 2\\vec{a}$."
+      ],
+      "answerLatex": "$2\\vec{a}$"
+    }
+  ],
+  "wbjeebTraps": [
+    "BAC-CAB is the key to simplifying cross-product triples.",
+    "Vector triple product lies in the plane of the two inner vectors."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

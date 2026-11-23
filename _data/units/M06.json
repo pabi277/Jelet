@@ -1,0 +1,69 @@
+{
+  "unitId": "M06",
+  "subjectId": "MATH",
+  "officialCode": "Math-F",
+  "title": "Differential Calculus",
+  "estimatedMinutes": 35,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q014",
+    "jelet-2024-q015",
+    "jelet-2024-q016",
+    "jelet-2024-q017",
+    "jelet-2024-q036",
+    "jelet-2025-q007",
+    "jelet-2025-q008",
+    "jelet-2025-q012",
+    "jelet-2025-q017",
+    "jelet-2025-q018",
+    "jelet-2025-q024",
+    "jelet-2025-q032",
+    "jelet-2025-q036"
+  ],
+  "sections": [
+    {
+      "anchor": "limits-continuity",
+      "heading": "1. Limits & Continuity",
+      "proseLatex": "Standard limits, indeterminate forms, L'Hospital's rule. A function is continuous at $a$ if $\\lim_{x\\to a}f(x) = f(a)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M06-F01",
+          "label": "Standard Limit",
+          "latex": "$\\lim_{x\\to 0}\\frac{\\sin x}{x} = 1$",
+          "aiExplainContext": "Fundamental limit for trigonometric functions."
+        }
+      ]
+    },
+    {
+      "anchor": "derivatives",
+      "heading": "2. Derivatives & Mean Value Theorems",
+      "proseLatex": "Product/quotient/chain rules. Rolle's and Lagrange's MVT connect derivatives to function values.",
+      "keyFormulas": [
+        {
+          "formulaId": "M06-F02",
+          "label": "L'Hospital's Rule",
+          "latex": "$\\lim f/g = \\lim f'/g'$ for 0/0 or $\\infty/\\infty$ forms",
+          "aiExplainContext": "Evaluate indeterminate limits."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M06-EX01",
+      "problemLatex": "If $f(x) = a|\\sin 2x| + b|e^{3x}| + c|2x - \\beta^2|$ is differentiable at $x=0$, find the condition.",
+      "stepsLatex": [
+        "$|\\sin 2x|$: not differentiable at 0 unless $a = 0$.",
+        "$|e^{3x}| = e^{3x}$: differentiable everywhere.",
+        "$|2x - \\beta^2|$: not differentiable at 0 unless $c = 0$."
+      ],
+      "answerLatex": "$2a + 3b = 0$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Modulus functions are not differentiable at points where the argument is zero.",
+    "L'Hospital's rule applies only to 0/0 or $\\infty/\\infty$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

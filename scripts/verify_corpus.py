@@ -1,0 +1,179 @@
+#!/usr/bin/env python3
+"""Gate 1: verify_corpus.py — Validate the Phase 02 official PDF corpus.
+
+Checks:
+  1. Manifest structure and totals
+  2. Each paper has exactly 100 questions
+  3. Every question has required fields per schema
+  4. Answer keys match the official WBJEEB Final Answer Key
+  5. All figure references resolve to existing SVG files
+  6. All unit references resolve to existing unit files
+  7. Twelfths values are correct for category
+  8. Voided questions are properly marked
+
+Exit code 0 = all gates pass, 1 = failure.
+"""
+import json, os, sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(ROOT, "_data")
+
+# Official answer keys (validated from WBJEEB PDFs)
+ANSWERS = {
+"2024": {1:"A",2:"C",3:"A",4:"C",5:"B",6:"B",7:"B",8:"B",9:"B",10:"B",11:"B",12:"B",13:"B",14:"A",15:"C",16:"D",17:"B",18:"B",19:"B",20:"A",21:"C",22:"C",23:"D",24:"D",25:"B",26:"B",27:"A",28:"A",29:"C",30:"B",31:"ABC",32:"AB",33:"AB",34:"AD",35:"CD",36:"AC",37:"D",38:"C",39:"ABCD",40:"BC",41:"B",42:"A",43:"B",44:"A",45:"B",46:"D",47:"B",48:"B",49:"W",50:"A",51:"D",52:"A",53:"D",54:"A",55:"C",56:"A",57:"C",58:"W",59:"C",60:"A",61:"A",62:"D",63:"B",64:"D",65:"A",66:"B",67:"BC",68:"A",69:"C",70:"A",71:"C",72:"A",73:"C",74:"C",75:"A",76:"D",77:"B",78:"D",79:"C",80:"D",81:"B",82:"B",83:"D",84:"A",85:"B",86:"AD",87:"BCD",88:"BC",89:"CD",90:"AC",91:"D",92:"B",93:"B",94:"C",95:"C",96:"B",97:"B",98:"D",99:"A",100:"C"},
+"2025": {1:"D",2:"C",3:"A",4:"B",5:"A",6:"A",7:"D",8:"D",9:"C",10:"B",11:"C",12:"C",13:"B",14:"B",15:"C",16:"B",17:"A",18:"A",19:"B",20:"C",21:"B",22:"D",23:"A",24:"C",25:"D",26:"A",27:"B",28:"C",29:"A",30:"B",31:"ABCD",32:"BCD",33:"AD",34:"AD",35:"ABCD",36:"BD",37:"AD",38:"AB",39:"AC",40:"B",41:"W",42:"B",43:"C",44:"C",45:"C",46:"B",47:"C",48:"C",49:"C",50:"A",51:"A",52:"A",53:"D",54:"B",55:"A",56:"D",57:"D",58:"B",59:"A",60:"D",61:"A",62:"D",63:"C",64:"B",65:"A",66:"D",67:"CD",68:"BD",69:"BCD",70:"BCD",71:"D",72:"B",73:"C",74:"C",75:"B",76:"A",77:"C",78:"C",79:"W",80:"D",81:"A",82:"C",83:"A",84:"W",85:"B",86:"AD",87:"CD",88:"ABC",89:"B",90:"BD",91:"A",92:"B",93:"D",94:"A",95:"B",96:"A",97:"D",98:"B",99:"B",100:"B"},
+}
+
+VOIDED = {"2024": {49, 58}, "2025": {41, 79, 84}}
+
+REQUIRED_Q_FIELDS = {"id", "qNumber", "subjectId", "unitId", "category",
+                     "fullTwelfths", "negativeTwelfths", "pdfPage",
+                     "stemLatex", "options", "key", "difficulty", "tags"}
+
+errors = []
+warnings = []
+
+def check(cond, msg):
+    if not cond:
+        errors.append(msg)
+
+def load_json(path):
+    with open(path, "r") as f:
+        return json.load(f)
+
+def main():
+    # 1. Manifest
+    manifest_path = os.path.join(DATA, "manifest.json")
+    if not os.path.exists(manifest_path):
+        print("FAIL: manifest.json not found")
+        sys.exit(1)
+    manifest = load_json(manifest_path)
+    check(manifest.get("schemaVersion") == "3.0.0", "Manifest schemaVersion != 3.0.0")
+    totals = manifest.get("totals", {})
+    check(totals.get("papers") == 2, f"Manifest totals.papers = {totals.get('papers')}, expected 2")
+    check(totals.get("questions") == 200, f"Manifest totals.questions = {totals.get('questions')}, expected 200")
+    check(totals.get("units") == 42, f"Manifest totals.units = {totals.get('units')}, expected 42")
+    print(f"✓ Manifest: {totals.get('papers')} papers, {totals.get('questions')} questions, {totals.get('units')} units")
+
+    # 2-7. Papers
+    all_qids = set()
+    for paper_entry in manifest.get("papers", []):
+        year = str(paper_entry["year"])
+        paper_path = os.path.join(ROOT, paper_entry["dataFile"])
+        if not os.path.exists(paper_path):
+            check(False, f"Paper file missing: {paper_entry['dataFile']}")
+            continue
+        paper = load_json(paper_path)
+        questions = paper.get("questions", [])
+        check(len(questions) == 100, f"{year}: {len(questions)} questions, expected 100")
+        print(f"✓ {year}: {len(questions)} questions")
+
+        for q in questions:
+            qid = q.get("id", "")
+            qnum = q.get("qNumber", 0)
+            all_qids.add(qid)
+
+            # Field presence
+            missing = REQUIRED_Q_FIELDS - set(q.keys())
+            check(not missing, f"{qid}: missing fields {missing}")
+
+            # Answer key match
+            key = q.get("key", {})
+            key_status = key.get("status", "")
+            correct = key.get("correct", [])
+            expected = ANSWERS[year][qnum]
+
+            is_voided = qnum in VOIDED[year]
+            check(key_status == "voided" if is_voided else key_status == "active",
+                  f"{qid}: key.status = {key_status}, expected {'voided' if is_voided else 'active'}")
+
+            if is_voided:
+                check(correct == ["W"], f"{qid}: voided question correct = {correct}, expected ['W']")
+            else:
+                check(sorted(correct) == sorted(expected),
+                      f"{qid}: answer mismatch — data={correct}, key={expected}")
+
+            # Twelfths
+            cat = q.get("category", 1)
+            expected_ft = 12 if cat == 1 else 24
+            expected_nt = 3 if cat == 1 else 0
+            check(q.get("fullTwelfths") == expected_ft,
+                  f"{qid}: fullTwelfths = {q.get('fullTwelfths')}, expected {expected_ft}")
+            check(q.get("negativeTwelfths") == expected_nt,
+                  f"{qid}: negativeTwelfths = {q.get('negativeTwelfths')}, expected {expected_nt}")
+
+            # Options
+            opts = q.get("options", [])
+            check(len(opts) == 4, f"{qid}: {len(opts)} options, expected 4")
+            opt_ids = [o.get("id") for o in opts]
+            check(opt_ids == ["A", "B", "C", "D"], f"{qid}: option ids = {opt_ids}")
+            for o in opts:
+                check("latex" in o, f"{qid}: option {o.get('id')} missing latex")
+
+            # Figure references
+            stem_fig = q.get("stemFigure")
+            if stem_fig:
+                fig_src = stem_fig.get("src", "")
+                fig_path = os.path.join(ROOT, fig_src)
+                check(os.path.exists(fig_path), f"{qid}: figure file missing: {fig_src}")
+
+        # Count markable
+        markable = sum(1 for q in questions if q.get("key", {}).get("status") == "active")
+        print(f"  → markable: {markable}, voided: {100 - markable}")
+
+    # 3. Unit files
+    unit_count = 0
+    for unit_meta in manifest.get("units", []):
+        unit_id = unit_meta["unitId"]
+        unit_path = os.path.join(DATA, "units", f"{unit_id}.json")
+        if not os.path.exists(unit_path):
+            check(False, f"Unit file missing: {unit_path}")
+            continue
+        unit_count += 1
+        unit = load_json(unit_path)
+        check(unit.get("unitId") == unit_id, f"{unit_id}: unitId mismatch")
+        check("pyqIds" in unit, f"{unit_id}: missing pyqIds")
+        check("sections" in unit, f"{unit_id}: missing sections")
+        # Validate pyqIds exist
+        for pid in unit.get("pyqIds", []):
+            check(pid in all_qids, f"{unit_id}: pyqId {pid} not found in papers")
+    print(f"✓ Units: {unit_count}/42 files present")
+
+    # 4. Solutions
+    for paper_entry in manifest.get("papers", []):
+        year = str(paper_entry["year"])
+        sol_path = os.path.join(ROOT, paper_entry["solutionsFile"])
+        if not os.path.exists(sol_path):
+            check(False, f"Solutions file missing: {paper_entry['solutionsFile']}")
+            continue
+        sol = load_json(sol_path)
+        sols = sol.get("solutions", {})
+        check(len(sols) == 100, f"{year}: {len(sols)} solutions, expected 100")
+        for qid, s in sols.items():
+            check(qid in all_qids, f"{year}: solution for unknown qid {qid}")
+            check("conceptSummary" in s, f"{qid}: missing conceptSummary")
+            check("steps" in s, f"{qid}: missing steps")
+            check("verification" in s, f"{qid}: missing verification")
+        print(f"✓ {year} solutions: {len(sols)} entries")
+
+    # 5. Figure count
+    fig_count = 0
+    for year_dir in ["2024", "2025"]:
+        fig_dir = os.path.join(DATA, "figures", year_dir)
+        if os.path.isdir(fig_dir):
+            fig_count += len([f for f in os.listdir(fig_dir) if f.endswith(".svg")])
+    print(f"✓ Figures: {fig_count} SVG files")
+
+    # Report
+    print()
+    if errors:
+        print(f"❌ verify_corpus FAILED: {len(errors)} error(s)")
+        for e in errors:
+            print(f"   - {e}")
+        sys.exit(1)
+    else:
+        print(f"✅ verify_corpus PASSED: all {len(all_qids)} questions validated, {fig_count} figures, {unit_count} units, solutions complete.")
+        sys.exit(0)
+
+if __name__ == "__main__":
+    main()

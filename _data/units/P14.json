@@ -1,0 +1,58 @@
+{
+  "unitId": "P14",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-N",
+  "title": "Lens",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q050",
+    "jelet-2024-q052",
+    "jelet-2025-q060"
+  ],
+  "sections": [
+    {
+      "anchor": "lens-formula",
+      "heading": "1. Lens Formula & Image Formation",
+      "proseLatex": "$1/v - 1/u = 1/f$. Convex lens converges; concave diverges.",
+      "keyFormulas": [
+        {
+          "formulaId": "P14-F01",
+          "label": "Lens Formula",
+          "latex": "$\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$",
+          "aiExplainContext": "Thin lens equation with sign convention."
+        }
+      ]
+    },
+    {
+      "anchor": "combination",
+      "heading": "2. Lens Combination",
+      "proseLatex": "For two lenses in contact: $1/f = 1/f_1 + 1/f_2$. Equivalent focal length.",
+      "keyFormulas": [
+        {
+          "formulaId": "P14-F02",
+          "label": "Combination Power",
+          "latex": "$\\frac{1}{f} = \\frac{1}{f_1} + \\frac{1}{f_2}$",
+          "aiExplainContext": "Additive powers for thin lenses in contact."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P14-EX01",
+      "problemLatex": "Plano-convex lens ($\\mu_1$) fits plano-concave ($\\mu_2$). Find focal length.",
+      "stepsLatex": [
+        "$1/f = (\\mu_1-1)/R + (\\mu_2-1)/(-R) = (\\mu_1-\\mu_2)/R$.",
+        "$f = R/(\\mu_1-\\mu_2)$."
+      ],
+      "answerLatex": "$R/(\\mu_1-\\mu_2)$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Sign convention matters: object distances are negative.",
+    "Lens power $= 1/f$ in diopters."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

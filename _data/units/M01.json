@@ -1,0 +1,64 @@
+{
+  "unitId": "M01",
+  "subjectId": "MATH",
+  "officialCode": "Math-A",
+  "title": "Matrices up to Order 3",
+  "estimatedMinutes": 35,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q001",
+    "jelet-2024-q002",
+    "jelet-2024-q003",
+    "jelet-2024-q031",
+    "jelet-2025-q002",
+    "jelet-2025-q003",
+    "jelet-2025-q021",
+    "jelet-2025-q031"
+  ],
+  "sections": [
+    {
+      "anchor": "types-and-transpose",
+      "heading": "1. Symmetric, Skew-Symmetric & Orthogonal Properties",
+      "proseLatex": "For any square matrix $A$, $A = \\frac{1}{2}(A + A^T) + \\frac{1}{2}(A - A^T)$. The sum is symmetric and the difference is skew-symmetric.",
+      "keyFormulas": [
+        {
+          "formulaId": "M01-F01",
+          "label": "Commutator of Symmetric Matrices",
+          "latex": "$A^T = A,\\; B^T = B \\implies (AB - BA)^T = -(AB - BA) \\text{ (Skew-symmetric)}",
+          "aiExplainContext": "Prove using transpose reversal law $(AB)^T = B^T A^T$."
+        }
+      ]
+    },
+    {
+      "anchor": "adjoint-inverse",
+      "heading": "2. Adjoint, Inverse & Cayley-Hamilton",
+      "proseLatex": "For a non-singular $3\\times3$ matrix, $A^{-1} = \\frac{1}{|A|}\\operatorname{adj}A$. Cayley-Hamilton: $A$ satisfies its own characteristic equation.",
+      "keyFormulas": [
+        {
+          "formulaId": "M01-F02",
+          "label": "Adjoint Product",
+          "latex": "$A \\cdot \\operatorname{adj} A = |A| I_3$",
+          "aiExplainContext": "Direct definition of the adjoint matrix."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M01-EX01",
+      "problemLatex": "If $A = \\begin{bmatrix} 1 & 5 \\\\ 3 & t \\end{bmatrix}$, evaluate $|A^{2009} - 5A^{2008}|$.",
+      "stepsLatex": [
+        "Factor out $A^{2008}$: $|A^{2008}(A - 5I)| = |A|^{2008} \\cdot |A - 5I|$.",
+        "Compute using Cayley-Hamilton properties.",
+        "Result: $-6$ (given $t$)."
+      ],
+      "answerLatex": "$-6$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Scalar determinant trap: $|kA| = k^n|A|$ where $n$ is matrix order.",
+    "Odd-order skew-symmetric determinant is ALWAYS 0."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

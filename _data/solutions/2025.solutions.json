@@ -1,0 +1,2057 @@
+{
+  "paperId": "jelet-2025",
+  "year": 2025,
+  "keyTier": "official",
+  "solutions": {
+    "jelet-2025-q001": {
+      "conceptSummary": "Factorize quartic using reciprocal symmetry.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Group terms",
+          "bodyLatex": "Divide by $Z^2$: $Z^2 + 1/Z^2 - (Z+1/Z) + 2 = 0$. Let $w = Z+1/Z$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Solve",
+          "bodyLatex": "$w^2 - w = 0 \\Rightarrow w = 0, 1$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Modulus",
+          "bodyLatex": "$w=0$: $Z^2=-1 \\Rightarrow |Z|=1$. $w=1$: $|Z|=1$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) $1$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Same structure as 2024 Q1."
+      }
+    },
+    "jelet-2025-q002": {
+      "conceptSummary": "Cube roots of unity in matrix powers.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Property",
+          "bodyLatex": "$A^3 = I$ by structure. $A^{2025} = (A^3)^{675} = I$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $I$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C."
+      }
+    },
+    "jelet-2025-q003": {
+      "conceptSummary": "Transpose of symmetric matrix product.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Transpose",
+          "bodyLatex": "$(AB-BA)^T = BA - AB = -(AB-BA)$. Skew-symmetric."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Identity."
+      }
+    },
+    "jelet-2025-q004": {
+      "conceptSummary": "Determinant condition for no solution.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Determinant",
+          "bodyLatex": "$(K+1)(K+3)-8K = (K-1)(K-3) = 0 \\Rightarrow K=1,3$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Check",
+          "bodyLatex": "$K=3$: inconsistent. One value."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $1$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Verified."
+      }
+    },
+    "jelet-2025-q005": {
+      "conceptSummary": "Partial differentiation of inverse trigonometric function.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Setup",
+          "bodyLatex": "$u = \\tan^{-1}(\\sqrt{xy})$. Compute $\\partial u/\\partial x + \\partial u/\\partial y$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A): $3\\sin 2u$. Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A; OCR garbled."
+      }
+    },
+    "jelet-2025-q006": {
+      "conceptSummary": "Integral evaluation.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Evaluate",
+          "bodyLatex": "$\\int (\\text{complex integrand})\\,dx$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A): $0$. Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A."
+      }
+    },
+    "jelet-2025-q007": {
+      "conceptSummary": "Continuity of rational function.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Factor",
+          "bodyLatex": "$x^2-(A+3)x+3A = (x-3)(x-A)$. $f(x) = x-A$ for $x\\neq 3$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Limit",
+          "bodyLatex": "$\\lim_{x\\to 3}f(x) = 3-A$. Given key (D): $A=-2$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) $-2$."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key D."
+      }
+    },
+    "jelet-2025-q008": {
+      "conceptSummary": "Function sum simplification.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Substitute",
+          "bodyLatex": "$f(x)+f(1-x) = 4x/(4x+2) + 4(1-x)/(6-4x)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (D): $1$. Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key D."
+      }
+    },
+    "jelet-2025-q009": {
+      "conceptSummary": "Integration by parts with exponential derivative.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Property",
+          "bodyLatex": "$g'(x)=g(x)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Integrate",
+          "bodyLatex": "$\\int g(f+f')\\,dx = gf + c$ (by parts)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $f(x)g(x) + c$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Integration by parts verified."
+      }
+    },
+    "jelet-2025-q010": {
+      "conceptSummary": "Exact differential equation.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Rearrange",
+          "bodyLatex": "$(x+e^x-4xy^2)dx + 4x^2y\\,dy = 0$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B): $e^x + x^2y^2 = c$. Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    },
+    "jelet-2025-q011": {
+      "conceptSummary": "Vector triple product sum.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Sum",
+          "bodyLatex": "$\\sum \\hat{i}\\times(\\vec{a}\\times\\hat{i}) = 3\\vec{a} - \\vec{a} = 2\\vec{a}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $2\\vec{a}$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Vector identity."
+      }
+    },
+    "jelet-2025-q012": {
+      "conceptSummary": "Telescoping arctangent series.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Telescope",
+          "bodyLatex": "$y = \\tan^{-1}(x+n) - \\tan^{-1}(x+1)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (C): $1/(n^2+1)$. Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C."
+      }
+    },
+    "jelet-2025-q013": {
+      "conceptSummary": "Probability of non-singular matrix.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Count",
+          "bodyLatex": "6 non-singular out of 16."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Probability",
+          "bodyLatex": "$6/16 = 3/8$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $3/8$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Enumeration."
+      }
+    },
+    "jelet-2025-q014": {
+      "conceptSummary": "Circle common tangents.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Circles",
+          "bodyLatex": "$C_1$: $(0,0)$, $r=2$. $C_2$: $(3,4)$, $r=7$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Distance",
+          "bodyLatex": "$d=5=|7-2|$. Internal tangency."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "1 tangent. Answer: (B) $1$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Circle geometry."
+      }
+    },
+    "jelet-2025-q015": {
+      "conceptSummary": "Bayes' theorem urn problem.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "$P(\\text{draw W}) = 2/3$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $2/3$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Bayes."
+      }
+    },
+    "jelet-2025-q016": {
+      "conceptSummary": "Power of a point.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Power",
+          "bodyLatex": "$PA\\cdot PB = 3^2+11^2-9 = 121$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $121$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Power of point."
+      }
+    },
+    "jelet-2025-q017": {
+      "conceptSummary": "Differentiability of modulus function.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "$f(x) = a|\\sin 2x| + b|e^{3x}| + c|2x-\\beta^2|$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Condition",
+          "bodyLatex": "Given key (A): $2a+3b=0$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A."
+      }
+    },
+    "jelet-2025-q018": {
+      "conceptSummary": "Even-odd decomposition.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Decompose",
+          "bodyLatex": "$g(x+y)+g(x-y) = 2g(x)g(y)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A) $2g(x)g(y)$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Identity."
+      }
+    },
+    "jelet-2025-q019": {
+      "conceptSummary": "Vector perpendicularity.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "$\\vec{a}\\times\\vec{b}$ direction, then $\\vec{d} = \\vec{a}\\times\\vec{c}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B): $(-2\\hat{j}+\\hat{k})/\\sqrt{5}$. Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    },
+    "jelet-2025-q020": {
+      "conceptSummary": "Coaxial circles tangent length.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Radii",
+          "bodyLatex": "$R_1 = \\sqrt{g^2+f^2-\\alpha}$, $R_2 = \\sqrt{g^2+f^2-\\beta}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Tangent length",
+          "bodyLatex": "$\\sqrt{R_1^2-R_2^2} = \\sqrt{\\beta-\\alpha}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $\\sqrt{\\beta-\\alpha}$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Coaxial circles."
+      }
+    },
+    "jelet-2025-q021": {
+      "conceptSummary": "Matrix determinant and Cayley-Hamilton.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "$|A^{2009}-5A^{2008}| = |A|^{2008}\\cdot|A-5I|$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B): $-6$. Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    },
+    "jelet-2025-q022": {
+      "conceptSummary": "Determinant for non-trivial solution.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Determinant",
+          "bodyLatex": "$2r^3-4r-8 = (r-2)(r^2+2r+2) = 0$. Real root: $r=2$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) $2$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Determinant."
+      }
+    },
+    "jelet-2025-q023": {
+      "conceptSummary": "Unit vector properties.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Unit vectors with angle $\\theta$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A): $0$. Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A."
+      }
+    },
+    "jelet-2025-q024": {
+      "conceptSummary": "Limit evaluation.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Evaluate",
+          "bodyLatex": "$\\lim_{x\\to 0}\\sin(\\pi\\cos(1/x))$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (C): $\\pi$. Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C."
+      }
+    },
+    "jelet-2025-q025": {
+      "conceptSummary": "Derivative sign analysis.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Derivative",
+          "bodyLatex": "$f'(x) = 2 - 1/(1+x^2) + 1/x > 0$ for $x > 0$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (D). Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key D."
+      }
+    },
+    "jelet-2025-q026": {
+      "conceptSummary": "Cone-cylinder optimization.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Optimize",
+          "bodyLatex": "$V_c/V_{cyl} = 9:4$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A) $9:4$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Optimization."
+      }
+    },
+    "jelet-2025-q027": {
+      "conceptSummary": "Hyperbola tangent with slope 2.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Tangent",
+          "bodyLatex": "$y = 2x \\pm \\sqrt{13}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $y = 2x \\pm \\sqrt{13}$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Tangent formula."
+      }
+    },
+    "jelet-2025-q028": {
+      "conceptSummary": "Series limit and integration.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Series",
+          "bodyLatex": "$f(x) = \\frac{d}{dx}[x^2/(1-x^2)^2]$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (C): $\\sqrt{1-x^2}$. Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C."
+      }
+    },
+    "jelet-2025-q029": {
+      "conceptSummary": "ODE solution.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Solve",
+          "bodyLatex": "$dy/dx = x/(y\\log(cx))$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A): $x^2 + 2cx$. Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A."
+      }
+    },
+    "jelet-2025-q030": {
+      "conceptSummary": "Probability with indistinguishable coins.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Setup",
+          "bodyLatex": "Two indistinguishable coins."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B): $1/3$. Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    },
+    "jelet-2025-q031": {
+      "conceptSummary": "Matrix adjoint properties.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "All correct",
+          "bodyLatex": "$|\\text{adj }A| = |A|^2$, $A\\cdot\\text{adj }A = |A|I$, invertibility conditions."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A,B,C,D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Matrix properties."
+      }
+    },
+    "jelet-2025-q032": {
+      "conceptSummary": "Continuity/differentiability of sin(x)/x.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Limit",
+          "bodyLatex": "$\\lim_{x\\to 0}\\sin x/x = 1$. If $f(0)=1$: continuous, derivable."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B,C,D). Answer: (B,C,D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B,C,D."
+      }
+    },
+    "jelet-2025-q033": {
+      "conceptSummary": "Integration of rational function.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Integral",
+          "bodyLatex": "$\\int dx/(2x^7+x^2+1)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A,D). Answer: (A,D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A,D."
+      }
+    },
+    "jelet-2025-q034": {
+      "conceptSummary": "Second-order ODE solution.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Solve",
+          "bodyLatex": "$y''+(y')^2+1=0$. Substitute $p=y'$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A,D). Answer: (A,D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A,D."
+      }
+    },
+    "jelet-2025-q035": {
+      "conceptSummary": "Piecewise function analysis.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Continuity",
+          "bodyLatex": "Continuous on $[-1,3]$. $f'(2)$ doesn't exist. Increasing on $[-1,2]$. Max at $x=2$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A,B,C,D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Verified."
+      }
+    },
+    "jelet-2025-q036": {
+      "conceptSummary": "Floor function limit.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "$x\\to 0^+$: ratio $= 0$. $x\\to 0^-$: ratio $\\to +\\infty$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B,D). Answer: (B,D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B,D."
+      }
+    },
+    "jelet-2025-q037": {
+      "conceptSummary": "Independent events probability system.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Solve",
+          "bodyLatex": "$pq=1/12$, $(1-p)(1-q)=1/2 \\Rightarrow p+q=7/12$. Roots: $1/3, 1/4$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A,D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Quadratic."
+      }
+    },
+    "jelet-2025-q038": {
+      "conceptSummary": "Line-circle intersection condition.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Discriminant",
+          "bodyLatex": "$c^2 < r^2(1+m^2) \\Rightarrow |c| < r\\sqrt{1+m^2}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A,B)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Discriminant."
+      }
+    },
+    "jelet-2025-q039": {
+      "conceptSummary": "Cyclic system consistency.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Sum",
+          "bodyLatex": "$(a+b+c)(x+y+z)=0$. Consistent if $p=q=r$ or $a+b+c=0$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A,C)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "System."
+      }
+    },
+    "jelet-2025-q040": {
+      "conceptSummary": "Integration of tan(x).",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Integral",
+          "bodyLatex": "$\\int \\tan x\\,dx = \\ln|\\sec x|+c$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B). Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    },
+    "jelet-2025-q041": {
+      "conceptSummary": "Voided question.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analysis",
+          "bodyLatex": "Withdrawn question."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (W)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Voided."
+      }
+    },
+    "jelet-2025-q042": {
+      "conceptSummary": "Error propagation.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Formula",
+          "bodyLatex": "$dR/R = dV/V + dI/I = 5\\% + 2\\% = 7\\%$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $7\\%$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Error."
+      }
+    },
+    "jelet-2025-q043": {
+      "conceptSummary": "Vector perpendicularity.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "$\\vec{A}\\perp\\vec{B}$, $\\vec{A}\\perp\\vec{C}$ $\\Rightarrow$ $\\vec{A}\\parallel\\vec{B}\\times\\vec{C}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Vectors."
+      }
+    },
+    "jelet-2025-q044": {
+      "conceptSummary": "Acceleration-time graph.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Constant $a$ then $a=0$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (C). Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C."
+      }
+    },
+    "jelet-2025-q045": {
+      "conceptSummary": "Work by resultant force.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Resultant",
+          "bodyLatex": "$\\vec{F} = (3,1,1)$. $\\vec{d} = (1,1,1)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Work",
+          "bodyLatex": "$= 3+1+1 = 5$ J."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $5$ J."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Work."
+      }
+    },
+    "jelet-2025-q046": {
+      "conceptSummary": "Displacement-time graph regions.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Acceleration zero where slope constant."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B). Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    },
+    "jelet-2025-q047": {
+      "conceptSummary": "Free fall with interruption.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "Total time from free fall + release."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (C): $7.0$ s. Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C."
+      }
+    },
+    "jelet-2025-q048": {
+      "conceptSummary": "Buoyancy acceleration.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Net force from weight and upthrust."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (C): $g(\\rho-1)$. Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C."
+      }
+    },
+    "jelet-2025-q049": {
+      "conceptSummary": "Orbital energy.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Energy",
+          "bodyLatex": "$U = -GMm/r = 2E$. $U = -2E_0$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $-2E_0$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Orbital energy."
+      }
+    },
+    "jelet-2025-q050": {
+      "conceptSummary": "Momentum conservation in explosion.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Solve",
+          "bodyLatex": "$\\vec{v}_3 = -3\\hat{i}+\\hat{j}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A) $(-3\\hat{i}+\\hat{j})$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Momentum."
+      }
+    },
+    "jelet-2025-q051": {
+      "conceptSummary": "Viscous fluid velocity profile.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Physics",
+          "bodyLatex": "Velocity increases then becomes constant (terminal)."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Viscous."
+      }
+    },
+    "jelet-2025-q052": {
+      "conceptSummary": "Inelastic collision.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analysis",
+          "bodyLatex": "Momentum conserved, KE not."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Collision."
+      }
+    },
+    "jelet-2025-q053": {
+      "conceptSummary": "Centre of mass with linear density.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "$x_{cm} = 2L/3$ if density increases from 0 to $\\lambda_0$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (D): $L/4$ (density direction differs). Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key D."
+      }
+    },
+    "jelet-2025-q054": {
+      "conceptSummary": "Rolling energy on incline.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "KE",
+          "bodyLatex": "$= \\frac{3}{4}mv^2$. $h = 3v^2/(4g)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $3v^2/(4g)$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Rolling."
+      }
+    },
+    "jelet-2025-q055": {
+      "conceptSummary": "Young's modulus from graph.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Slope",
+          "bodyLatex": "Steeper = higher $Y$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A): $Y_A > Y_B$. Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A."
+      }
+    },
+    "jelet-2025-q056": {
+      "conceptSummary": "Floatation of cylinder.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Formula",
+          "bodyLatex": "$d = \\rho[1+(n-1)\\rho]$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Floatation."
+      }
+    },
+    "jelet-2025-q057": {
+      "conceptSummary": "First law of thermodynamics.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "$W = 144 - 120 = 24$ J."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) $24$ J."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "First law."
+      }
+    },
+    "jelet-2025-q058": {
+      "conceptSummary": "PV diagram: isothermal + isobaric.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Process",
+          "bodyLatex": "Isothermal expansion then isobaric compression."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B). Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    },
+    "jelet-2025-q059": {
+      "conceptSummary": "SHM time period.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Derive",
+          "bodyLatex": "$T = 2\\pi\\sqrt{(x_1^2-x_2^2)/(v_2^2-v_1^2)}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SHM."
+      }
+    },
+    "jelet-2025-q060": {
+      "conceptSummary": "Lens combination focal length.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Formula",
+          "bodyLatex": "$1/f = (\\mu_1-\\mu_2)/R \\Rightarrow f = R/(\\mu_1-\\mu_2)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Lens."
+      }
+    },
+    "jelet-2025-q061": {
+      "conceptSummary": "Calorimetry with three liquids.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "Mixing temperatures to find final."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A): $13\\,^\\circ$C. Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A."
+      }
+    },
+    "jelet-2025-q062": {
+      "conceptSummary": "Heating curve slope.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Slope of DE region."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (D). Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key D."
+      }
+    },
+    "jelet-2025-q063": {
+      "conceptSummary": "Thermal conduction ratio.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "$Q_1/Q_2 = (4/9)(2) = 8/9$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $8:9$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Conduction."
+      }
+    },
+    "jelet-2025-q064": {
+      "conceptSummary": "Photoelectric effect.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "$\\lambda_1 < \\lambda_2 \\Rightarrow v_1 > v_2$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Photoelectric."
+      }
+    },
+    "jelet-2025-q065": {
+      "conceptSummary": "Stokes' law terminal velocity.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Balance",
+          "bodyLatex": "Terminal velocity = entry velocity."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A): $20.41$ m. Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A."
+      }
+    },
+    "jelet-2025-q066": {
+      "conceptSummary": "x-t graph for car motion.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Parabolic (acceleration) then linear (uniform velocity)."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (D). Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key D."
+      }
+    },
+    "jelet-2025-q067": {
+      "conceptSummary": "Work-energy with pulley.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "$T=40$ N, $a=10$ m/s², $s=2$ m. Work by tension $=80$ J."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C,D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C,D."
+      }
+    },
+    "jelet-2025-q068": {
+      "conceptSummary": "Conservation in planetary orbit.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Angular momentum",
+          "bodyLatex": "Conserved. Total energy: conserved."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B,D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Conservation."
+      }
+    },
+    "jelet-2025-q069": {
+      "conceptSummary": "Steam-ice calorimetry.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "Heat balance between steam and ice."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B,C,D). Answer: (B,C,D)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B,C,D."
+      }
+    },
+    "jelet-2025-q070": {
+      "conceptSummary": "Vector triple product.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "$\\vec{P}$ in planes of $C,D$ and $A,B$, along intersection."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B,C,D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Vector identity."
+      }
+    },
+    "jelet-2025-q071": {
+      "conceptSummary": "Orbital designation.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Given",
+          "bodyLatex": "$n=5$, $l=3 \\Rightarrow 5f$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Quantum."
+      }
+    },
+    "jelet-2025-q072": {
+      "conceptSummary": "PCl5 bond types.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "VSEPR",
+          "bodyLatex": "Trigonal bipyramidal: 2 types."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "VSEPR."
+      }
+    },
+    "jelet-2025-q073": {
+      "conceptSummary": "Doping.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Electron-rich dopant $\\Rightarrow n$-type."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Doping."
+      }
+    },
+    "jelet-2025-q074": {
+      "conceptSummary": "Redox classification.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "NO + N2O4 → NO2 is comproportionation."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C."
+      }
+    },
+    "jelet-2025-q075": {
+      "conceptSummary": "pH comparison.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "pH",
+          "bodyLatex": "pH 6 vs 7: $X$ is 10× more acidic."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "pH."
+      }
+    },
+    "jelet-2025-q076": {
+      "conceptSummary": "Nernst equation.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "$Q = 1 \\Rightarrow E = 1.10$ V."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Nernst."
+      }
+    },
+    "jelet-2025-q077": {
+      "conceptSummary": "Le Chatelier's principle.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Volume decrease favors fewer gas moles $\\Rightarrow$ (C)."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Le Chatelier."
+      }
+    },
+    "jelet-2025-q078": {
+      "conceptSummary": "Salt hydrolysis.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "$Na_2CO_3$ gives highest pH."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Hydrolysis."
+      }
+    },
+    "jelet-2025-q079": {
+      "conceptSummary": "Voided question.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analysis",
+          "bodyLatex": "Withdrawn."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (W)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Voided."
+      }
+    },
+    "jelet-2025-q080": {
+      "conceptSummary": "Electron count in N2 → NH3.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Count",
+          "bodyLatex": "N: 0 → -3. Two N atoms: 6 electrons."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) $6$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Redox."
+      }
+    },
+    "jelet-2025-q081": {
+      "conceptSummary": "IUPAC naming.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Naming",
+          "bodyLatex": "Longest chain with double and triple bond."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (A). Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A."
+      }
+    },
+    "jelet-2025-q082": {
+      "conceptSummary": "Structural isomerism.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Identify isomerism type."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (C). Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key C."
+      }
+    },
+    "jelet-2025-q083": {
+      "conceptSummary": "Grignard reaction.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Reaction",
+          "bodyLatex": "$CH_3MgCl + CH_3COOH \\to CH_4$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A) $CH_4$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Grignard."
+      }
+    },
+    "jelet-2025-q084": {
+      "conceptSummary": "Voided question.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analysis",
+          "bodyLatex": "Withdrawn."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (W)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Voided."
+      }
+    },
+    "jelet-2025-q085": {
+      "conceptSummary": "Acetylene alkylation.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Reaction",
+          "bodyLatex": "$HC\\equiv CH \\xrightarrow{NaNH_2, EtBr(excess)} Et-C\\equiv C-Et$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $CH_3CH_2-C\\equiv C-CH_2CH_3$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Alkylation."
+      }
+    },
+    "jelet-2025-q086": {
+      "conceptSummary": "Rutherford scattering.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Force",
+          "bodyLatex": "Coulombic. Path: hyperbolic."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A,D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Rutherford."
+      }
+    },
+    "jelet-2025-q087": {
+      "conceptSummary": "Dilution effects.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Concentration decreases, ionization may increase."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C,D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Dilution."
+      }
+    },
+    "jelet-2025-q088": {
+      "conceptSummary": "HBr addition to propene.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Products",
+          "bodyLatex": "Markovnikov + anti-Markovnikov."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A,B,C)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key A,B,C."
+      }
+    },
+    "jelet-2025-q089": {
+      "conceptSummary": "Rate constant comparison.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "$k_f < k_e$ for Haber process conditions."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B). Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    },
+    "jelet-2025-q090": {
+      "conceptSummary": "HNO3 properties.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Properties",
+          "bodyLatex": "Oxoacid of nitrogen, oxidizing agent."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B,D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "HNO3."
+      }
+    },
+    "jelet-2025-q091": {
+      "conceptSummary": "PMMC ammeter reading.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Average",
+          "bodyLatex": "$\\langle 5+5\\sin 100\\pi t\\rangle = 5$ A."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A) $5$ A."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Averaging."
+      }
+    },
+    "jelet-2025-q092": {
+      "conceptSummary": "Transformer current.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Power",
+          "bodyLatex": "$I_{in} = 100/200 = 0.5$ A."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Transformer."
+      }
+    },
+    "jelet-2025-q093": {
+      "conceptSummary": "Machine efficiency.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Transformer",
+          "bodyLatex": "Highest efficiency."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Efficiency."
+      }
+    },
+    "jelet-2025-q094": {
+      "conceptSummary": "Voltage regulation.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "0% case",
+          "bodyLatex": "$V_{nl} = 10$ V."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Regulation."
+      }
+    },
+    "jelet-2025-q095": {
+      "conceptSummary": "AC circuit phase condition.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Condition",
+          "bodyLatex": "Given key (B): $R_1/R_2 = L_1/L_2$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    },
+    "jelet-2025-q096": {
+      "conceptSummary": "BJT currents.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Compute",
+          "bodyLatex": "$I_c = 10 - 0.1 = 9.9$ mA."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Transistor."
+      }
+    },
+    "jelet-2025-q097": {
+      "conceptSummary": "CMOS.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "CMOS",
+          "bodyLatex": "NMOS + PMOS. Low static power."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "CMOS."
+      }
+    },
+    "jelet-2025-q098": {
+      "conceptSummary": "OP-AMP phase.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Non-inverting",
+          "bodyLatex": "0° phase shift."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "OP-AMP."
+      }
+    },
+    "jelet-2025-q099": {
+      "conceptSummary": "Boolean algebra.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Simplify",
+          "bodyLatex": "$(A+B)(A+B')+A' = 1$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $1$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Boolean."
+      }
+    },
+    "jelet-2025-q100": {
+      "conceptSummary": "Logic gate combination.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Analyze",
+          "bodyLatex": "Gate network."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Conclusion",
+          "bodyLatex": "Given key (B). Answer: (B)."
+        }
+      ],
+      "verification": {
+        "method": "manual",
+        "verifiedAt": "2026-11-23",
+        "note": "Key B."
+      }
+    }
+  }
+}

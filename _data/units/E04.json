@@ -1,0 +1,57 @@
+{
+  "unitId": "E04",
+  "subjectId": "FEEE",
+  "officialCode": "FEEE-D",
+  "title": "DC Sources & Circuits",
+  "estimatedMinutes": 30,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q094",
+    "jelet-2024-q096",
+    "jelet-2024-q097"
+  ],
+  "sections": [
+    {
+      "anchor": "theorems",
+      "heading": "1. Network Theorems",
+      "proseLatex": "KCL, KVL, Superposition, Thevenin's, Norton's, Maximum Power Transfer.",
+      "keyFormulas": [
+        {
+          "formulaId": "E04-F01",
+          "label": "Thevenin's Theorem",
+          "latex": "Any linear network = voltage source + series resistance",
+          "aiExplainContext": "Simplify complex networks."
+        }
+      ]
+    },
+    {
+      "anchor": "transients",
+      "heading": "2. RC & RL Transients",
+      "proseLatex": "Time constants: $\\tau = RC$ (charging/discharging), $\\tau = L/R$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E04-F02",
+          "label": "Time Constant",
+          "latex": "$\\tau = RC$ or $L/R$",
+          "aiExplainContext": "Rate of charging/discharging in transient circuits."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "E04-EX01",
+      "problemLatex": "Maximum power transfer condition.",
+      "stepsLatex": [
+        "$R_{load} = R_{source}$ for maximum power."
+      ],
+      "answerLatex": "$R_{load} = R_{source}$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Superposition applies only to linear circuits.",
+    "5 time constants $\\approx$ fully charged/discharged."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

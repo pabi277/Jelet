@@ -1,0 +1,62 @@
+{
+  "unitId": "M02",
+  "subjectId": "MATH",
+  "officialCode": "Math-B",
+  "title": "Determinants up to Order 3",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q005",
+    "jelet-2024-q006",
+    "jelet-2024-q032",
+    "jelet-2025-q004",
+    "jelet-2025-q022",
+    "jelet-2025-q039"
+  ],
+  "sections": [
+    {
+      "anchor": "expansion",
+      "heading": "1. Expansion & Minors/Cofactors",
+      "proseLatex": "Expand order-2 and order-3 determinants using minors and cofactors with alternating signs.",
+      "keyFormulas": [
+        {
+          "formulaId": "M02-F01",
+          "label": "Determinant Expansion",
+          "latex": "$|A| = \\sum_j (-1)^{i+j} a_{ij} M_{ij}$",
+          "aiExplainContext": "Cofactor expansion along row or column."
+        }
+      ]
+    },
+    {
+      "anchor": "cramers-rule",
+      "heading": "2. Cramer's Rule & Linear Systems",
+      "proseLatex": "For $n$ unknowns, $x_i = \\Delta_i / \\Delta$ where $\\Delta_i$ is the determinant with column $i$ replaced by constants.",
+      "keyFormulas": [
+        {
+          "formulaId": "M02-F02",
+          "label": "Cramer's Rule",
+          "latex": "$x = \\Delta_x/\\Delta,\\; y = \\Delta_y/\\Delta,\\; z = \\Delta_z/\\Delta$",
+          "aiExplainContext": "Solve 3-variable systems via determinants."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M02-EX01",
+      "problemLatex": "Solve: $2rx - 2y + 3z = 0$, $x + ry + 2z = 0$, $2x + rz = 0$ has non-trivial solution. Find $r$.",
+      "stepsLatex": [
+        "Determinant $= 2r^3 - 4r - 8 = 0$.",
+        "Factor: $(r-2)(r^2+2r+2) = 0$.",
+        "Real root: $r = 2$."
+      ],
+      "answerLatex": "$r = 2$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Non-trivial solution $\\iff$ determinant $= 0$.",
+    "Check consistency when determinant $= 0$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

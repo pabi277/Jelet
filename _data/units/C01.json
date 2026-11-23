@@ -1,0 +1,62 @@
+{
+  "unitId": "C01",
+  "subjectId": "CHEM",
+  "officialCode": "Chem-A",
+  "title": "Atomic Structure",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q072",
+    "jelet-2024-q073",
+    "jelet-2024-q082",
+    "jelet-2025-q071",
+    "jelet-2025-q073",
+    "jelet-2025-q084",
+    "jelet-2025-q086"
+  ],
+  "sections": [
+    {
+      "anchor": "quantum",
+      "heading": "1. Quantum Numbers & Orbitals",
+      "proseLatex": "Quantum numbers $(n,l,m,s)$. $l = 0,1,2,3 \\to s,p,d,f$. Aufbau, Pauli, Hund's rule.",
+      "keyFormulas": [
+        {
+          "formulaId": "C01-F01",
+          "label": "Quantum Numbers",
+          "latex": "$n=1,2,...$; $l=0,...,n-1$; $m=-l,...,+l$",
+          "aiExplainContext": "Define the state of an electron."
+        }
+      ]
+    },
+    {
+      "anchor": "hybridization",
+      "heading": "2. Hybridization & Molecular Geometry",
+      "proseLatex": "$sp^3$ (tetrahedral), $sp^2$ (trigonal planar), $sp$ (linear) hybridization and geometry.",
+      "keyFormulas": [
+        {
+          "formulaId": "C01-F02",
+          "label": "Hybridization",
+          "latex": "$\\text{Steric number} = \\text{bonds} + \\text{lone pairs}$",
+          "aiExplainContext": "Determine hybridization from electron domains."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "C01-EX01",
+      "problemLatex": "An orbital with $n=5$, $l=3$ is designated as:",
+      "stepsLatex": [
+        "$l = 3 \\Rightarrow f$ orbital.",
+        "Designation: $5f$."
+      ],
+      "answerLatex": "$5f$"
+    }
+  ],
+  "wbjeebTraps": [
+    "$l = 0,1,2,3$ correspond to $s,p,d,f$.",
+    "Hund's rule: fill degenerate orbitals singly first."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

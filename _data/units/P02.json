@@ -1,0 +1,64 @@
+{
+  "unitId": "P02",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-B",
+  "title": "Kinematics",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q042",
+    "jelet-2024-q046",
+    "jelet-2024-q060",
+    "jelet-2024-q062",
+    "jelet-2024-q066",
+    "jelet-2025-q044",
+    "jelet-2025-q046",
+    "jelet-2025-q047",
+    "jelet-2025-q066"
+  ],
+  "sections": [
+    {
+      "anchor": "graphs",
+      "heading": "1. Position-Time & Velocity-Time Graphs",
+      "proseLatex": "Slope of x-t gives velocity; slope of v-t gives acceleration. Area under v-t gives displacement.",
+      "keyFormulas": [
+        {
+          "formulaId": "P02-F01",
+          "label": "Graph Interpretation",
+          "latex": "$v = dx/dt$, $a = dv/dt$",
+          "aiExplainContext": "Read kinematic quantities from graphs."
+        }
+      ]
+    },
+    {
+      "anchor": "circular",
+      "heading": "2. Circular Motion",
+      "proseLatex": "Angular displacement, velocity, acceleration. Centripetal acceleration $= v^2/r$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P02-F02",
+          "label": "Centripetal Acceleration",
+          "latex": "$a_c = v^2/r = \\omega^2 r$",
+          "aiExplainContext": "Uniform circular motion formula."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P02-EX01",
+      "problemLatex": "Car accelerates uniformly for 4 s, then moves at uniform velocity. Describe the x-t graph.",
+      "stepsLatex": [
+        "Phase 1: $x = \\frac{1}{2}at^2$ (parabolic).",
+        "Phase 2: $x = v(t-4)$ (linear)."
+      ],
+      "answerLatex": "Parabolic then linear"
+    }
+  ],
+  "wbjeebTraps": [
+    "Area under v-t = displacement.",
+    "Slope of x-t = velocity, slope of v-t = acceleration."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

@@ -1,0 +1,42 @@
+{
+  "unitId": "P09",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-I",
+  "title": "Thermal Expansion of Solids",
+  "estimatedMinutes": 15,
+  "examFrequency": "low",
+  "pyqIds": [
+    "jelet-2024-q048"
+  ],
+  "sections": [
+    {
+      "anchor": "expansion",
+      "heading": "1. Linear, Areal & Volume Expansion",
+      "proseLatex": "$\\\\Delta L = L\\alpha\\Delta T$, $\\\\Delta A = A\\beta\\Delta T$, $\\\\Delta V = V\\gamma\\Delta T$. Relations: $\\beta = 2\\alpha$, $\\gamma = 3\\alpha$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P09-F01",
+          "label": "Expansion Coefficients",
+          "latex": "$\\beta = 2\\alpha,\\; \\gamma = 3\\alpha$",
+          "aiExplainContext": "Approximate relations for isotropic solids."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P09-EX01",
+      "problemLatex": "Find $\\gamma$ for a solid given $\\alpha$.",
+      "stepsLatex": [
+        "$\\gamma = 3\\alpha$ (for isotropic solids)."
+      ],
+      "answerLatex": "$\\gamma = 3\\alpha$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Density decreases with temperature as $\\rho \\propto 1/V$.",
+    "Expansion coefficients vary with temperature."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}
