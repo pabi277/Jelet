@@ -3,14 +3,16 @@
 import json, os
 
 KEY_REF = {
+    "2022": {"keyTier": "derived", "keyDocumentRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive)", "examDate": "2022-07-10"},
+    "2023": {"keyTier": "official", "keyDocumentRef": "JEEB/Reg-267/23 (03-08-2023)", "examDate": "2023-07-16"},
     "2024": {"keyTier": "official", "keyDocumentRef": "WBE/Ex-71 (01-08-2024)", "examDate": "2024-07-14"},
     "2025": {"keyTier": "official", "keyDocumentRef": "JEEB/Reg-171/25 (16-11-2025)", "examDate": "2025-10-18"},
 }
-VOIDED = {"2024": [49, 58], "2025": [41, 79, 84]}
+VOIDED = {"2022": [], "2023": [6, 46, 88, 94], "2024": [49, 58], "2025": [41, 79, 84]}
 
 papers = []
 total_markable = 0
-for year in ["2024", "2025"]:
+for year in ["2022", "2023", "2024", "2025"]:
     ref = KEY_REF[year]
     voided = VOIDED[year]
     markable = 100 - len(voided)
@@ -87,10 +89,10 @@ manifest = {
     "generatedAt": "2026-11-23T00:00:00Z",
     "syllabusBulletinRef": "WBJEEB JELET-2026 Information Bulletin (2026-03-18)",
     "totals": {
-        "papers": 2,
-        "questions": 200,
+        "papers": 4,
+        "questions": 400,
         "markableQuestions": total_markable,
-        "unmarkableQuestions": 200 - total_markable,
+        "unmarkableQuestions": 400 - total_markable,
         "units": 42,
     },
     "papers": papers,

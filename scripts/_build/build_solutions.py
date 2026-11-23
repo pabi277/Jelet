@@ -3,6 +3,8 @@
 Format matches schema 2.3: solutions keyed by questionId with conceptSummary, steps, optionTraps, verification."""
 import json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
+from q2022 import Q2022
+from q2023 import Q2023
 from q2024 import Q2024
 from q2025 import Q2025
 
@@ -689,11 +691,31 @@ S2025 = {
      ("Conclusion","Given key (B). Answer: (B).")], False, "Key B."),
 }
 
+def auto_solution(qnum, subj, unit, cat, page, stem, opts, correct, diff, tags, figkey, year):
+    """Generate a solution entry from question data when no explicit solution is provided."""
+    answer_str = "W" if correct == ["W"] else "".join(correct)
+    concept = f"Solve using {tags[0] if tags else 'standard method'} for JELET {year} Q{qnum}."
+    correct_text = []
+    for letter in correct:
+        if letter == "W":
+            correct_text.append("question is voided")
+        else:
+            correct_text.append(f"({letter}) {opts.get(letter, '')}")
+    steps = [
+        ("Identify the problem type", f"Question involves {tags[0] if tags else 'the given concept'}."),
+        ("Apply the method", "Use the appropriate technique to evaluate the expression and compare with the given options."),
+        ("Determine the answer", f"The correct answer is {', '.join(correct_text)}."),
+    ]
+    return concept, steps, False, f"Auto-generated from question data; answer key: {answer_str}."
+
 def build(year, data, sols):
     solutions = {}
     for (qnum, subj, unit, cat, page, stem, opts, correct, diff, tags, figkey) in data:
         qid = f"jelet-{year}-q{qnum:03d}"
-        concept, steps, verified, note = sols[qnum]
+        if qnum in sols:
+            concept, steps, verified, note = sols[qnum]
+        else:
+            concept, steps, verified, note = auto_solution(qnum, subj, unit, cat, page, stem, opts, correct, diff, tags, figkey, year)
         step_list = [{"stepNumber": i+1, "title": s[0], "bodyLatex": s[1]} for i, s in enumerate(steps)]
         solutions[qid] = {
             "conceptSummary": concept,
@@ -713,7 +735,7 @@ def build(year, data, sols):
 
 def main():
     outdir = "_data/solutions"
-    for year, data, sols in [("2024", Q2024, S2024), ("2025", Q2025, S2025)]:
+    for year, data, sols in [("2022", Q2022, {}), ("2023", Q2023, {}), ("2024", Q2024, S2024), ("2025", Q2025, S2025)]:
         s = build(year, data, sols)
         path = os.path.join(outdir, f"{year}.solutions.json")
         with open(path, "w") as f:

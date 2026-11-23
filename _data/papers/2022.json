@@ -1,0 +1,4962 @@
+{
+  "paperId": "jelet-2022",
+  "year": 2022,
+  "bookletSeries": "A",
+  "sections": [
+    {
+      "subjectId": "MATH",
+      "title": "Mathematics",
+      "qStart": 1,
+      "qEnd": 40,
+      "cat1Range": [
+        1,
+        30
+      ],
+      "cat2Range": [
+        31,
+        40
+      ],
+      "maxMarks": 50
+    },
+    {
+      "subjectId": "PHYS",
+      "title": "Physics",
+      "qStart": 41,
+      "qEnd": 70,
+      "cat1Range": [
+        41,
+        65
+      ],
+      "cat2Range": [
+        66,
+        70
+      ],
+      "maxMarks": 35
+    },
+    {
+      "subjectId": "CHEM",
+      "title": "Chemistry",
+      "qStart": 71,
+      "qEnd": 90,
+      "cat1Range": [
+        71,
+        85
+      ],
+      "cat2Range": [
+        86,
+        90
+      ],
+      "maxMarks": 25
+    },
+    {
+      "subjectId": "FEEE",
+      "title": "Fundamentals of Electrical & Electronics Engineering",
+      "qStart": 91,
+      "qEnd": 100,
+      "cat1Range": [
+        91,
+        100
+      ],
+      "cat2Range": null,
+      "maxMarks": 10
+    }
+  ],
+  "questions": [
+    {
+      "id": "jelet-2022-q001",
+      "qNumber": 1,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "Let $A = \\begin{bmatrix} 0 & \\sqrt{2} & 0 \\\\ \\sqrt{2} & 0 & 1 \\\\ 0 & 1 & 0 \\end{bmatrix}$ and $Q^{T}AQ$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "a diagonal matrix",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "not a diagonal matrix",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "an orthogonal matrix",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "a null matrix",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q1)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "matrices",
+        "diagonalization",
+        "orthogonal-transformation"
+      ]
+    },
+    {
+      "id": "jelet-2022-q002",
+      "qNumber": 2,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "If $A = \\begin{bmatrix} 2 & 2 \\\\ 2 & 4 \\end{bmatrix}$ and $I$ is the unit matrix of order $2$, then $A^{2}$ equals",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$A - I$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$4A - 3I$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$3A - 4I$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$A + I$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q2)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "matrices",
+        "cayley-hamilton",
+        "matrix-power"
+      ]
+    },
+    {
+      "id": "jelet-2022-q003",
+      "qNumber": 3,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "Let $A = \\begin{bmatrix} 3 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & -1 \\end{bmatrix}$. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$A$ is non-diagonalizable",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$A$ is singular matrix",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$A$ is diagonalizable",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$A^{T}A = I_{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q3)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "matrices",
+        "diagonalizable",
+        "eigenvalues"
+      ]
+    },
+    {
+      "id": "jelet-2022-q004",
+      "qNumber": 4,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "Let $A = \\begin{bmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 0 & 0 \\end{bmatrix}$. Then $A^{3} - A^{2} - A + I$, ($I$ is the identity matrix of order $3$) is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Identity matrix of order $3$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "null matrix of order $3$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "non-null matrix of order $3$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q4)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "matrices",
+        "nilpotent",
+        "matrix-power"
+      ]
+    },
+    {
+      "id": "jelet-2022-q005",
+      "qNumber": 5,
+      "subjectId": "MATH",
+      "unitId": "M02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "Let $\\Delta = \\begin{vmatrix} a & b & f \\\\ c & d & g \\\\ e & h & i \\end{vmatrix}$, then $\\dfrac{\\Delta}{a}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{BC - F^{2}}{a^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{BC - F^{2}}{a}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{BC - F^{2}}{2a^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{BC - F^{2}}{2a}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q5)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "determinants",
+        "cofactors",
+        "expansion"
+      ]
+    },
+    {
+      "id": "jelet-2022-q006",
+      "qNumber": 6,
+      "subjectId": "MATH",
+      "unitId": "M02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "If $\\begin{vmatrix} -ab & -ac \\\\ -bc & c^{2} \\\\ ca & bc \\end{vmatrix} = Ka^{2}b^{2}c^{2}$, then $K =$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$3$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$4$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q6)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "determinants",
+        "matrix",
+        "expansion"
+      ]
+    },
+    {
+      "id": "jelet-2022-q007",
+      "qNumber": 7,
+      "subjectId": "MATH",
+      "unitId": "M03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "Let $z = 1 + i\\tan\\dfrac{3\\pi}{5}$. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{3\\pi}{5}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{3\\pi}{5}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{2\\pi}{5}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{4\\pi}{5}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q7)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "complex-numbers",
+        "modulus",
+        "argument"
+      ]
+    },
+    {
+      "id": "jelet-2022-q008",
+      "qNumber": 8,
+      "subjectId": "MATH",
+      "unitId": "M03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "If $iz^{3} + z^{2} - z + i = 0$, then $|z| =$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$3$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q8)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "complex-numbers",
+        "roots",
+        "modulus"
+      ]
+    },
+    {
+      "id": "jelet-2022-q009",
+      "qNumber": 9,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "The locus of the point which moves in such a way that the difference of its distance from the point $(3, 0)$ and $(9, 0)$ is $4$ units is a conic section whose eccentricity is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{5}{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{5}{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{3}{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q9)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "coordinate-geometry",
+        "hyperbola",
+        "eccentricity"
+      ]
+    },
+    {
+      "id": "jelet-2022-q010",
+      "qNumber": 10,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "A triangle $ABC$ of area $\\Delta$ is inscribed in the parabola $y^{2} = 4ax$ ($a > 0$) such that the vertex of the parabola is at $A$, and the base $BC$ is a focal chord. The difference of ordinates of $B$ and $C$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{\\Delta}{a}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{2\\Delta}{a}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{\\Delta}{2a}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{3\\Delta}{2a}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q10)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "parabola",
+        "focal-chord",
+        "area"
+      ]
+    },
+    {
+      "id": "jelet-2022-q011",
+      "qNumber": 11,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "Consider a branch of the hyperbola $x^{2} - 2y^{2} - 2\\sqrt{2}x - 4\\sqrt{2}y - 6 = 0$ with vertex $A$. Let $B$ be one of the end points of its latus rectum. If $C$ is the focus of the hyperbola, nearer to $A$, then the area of the triangle $ABC$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{2}{3}$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{3\\sqrt{2}}{2} - 1$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{\\sqrt{2}}{3}$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{3\\sqrt{2}}{2} + 1$ sq. unit",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q11)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "hyperbola",
+        "latus-rectum",
+        "area"
+      ]
+    },
+    {
+      "id": "jelet-2022-q012",
+      "qNumber": 12,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "If $\\vec{\\alpha} = \\hat{i} + 2\\hat{j} + 2\\hat{k}$, $|\\vec{\\beta}| = 5$ and the angle between $\\vec{\\alpha}$ and $\\vec{\\beta}$ is $\\dfrac{\\pi}{6}$, then the area of the triangle formed by $\\vec{\\alpha}$ and $\\vec{\\beta}$ as two sides is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{15}{4}$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$15$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{15\\sqrt{3}}{4}$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$15\\sqrt{3}$ sq. unit",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q12)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "vector-algebra",
+        "cross-product",
+        "area"
+      ]
+    },
+    {
+      "id": "jelet-2022-q013",
+      "qNumber": 13,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "A force of magnitude $\\sqrt{6}$ acting along the line joining the points $A(2, -1, 1)$ and $B(3, 1, 2)$ displaces a particle from $A$ to $B$. The work done by the force is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\sqrt{6}$ unit",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$6$ unit",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$6\\sqrt{6}$ unit",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$36$ unit",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q13)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "vector-algebra",
+        "work",
+        "dot-product"
+      ]
+    },
+    {
+      "id": "jelet-2022-q014",
+      "qNumber": 14,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "Let $f(x)$ be twice differentiable function such that $f''(x) = -f(x)$ and $f'(x) = g(x)$, $h(x) = [f(x)]^{2} + [g(x)]^{2}$. If $h(5) = 11$, then $h(10)$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$22$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$11$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$4$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q14)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "differentiation",
+        "ode",
+        "conservation"
+      ]
+    },
+    {
+      "id": "jelet-2022-q015",
+      "qNumber": 15,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "The equation $10^{x} + 5^{x} = 8^{x} + 7^{x}$ has",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "no solution in $\\mathbb{R}$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "only solution at $x = 0$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "has non-zero integral solution",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "all positive integers as solution",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q15)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "exponential",
+        "equations",
+        "analysis"
+      ]
+    },
+    {
+      "id": "jelet-2022-q016",
+      "qNumber": 16,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "$\\displaystyle\\lim_{x \\to 0} \\left(\\dfrac{1}{x}\\right)^{\\frac{1}{x}}$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "does not exist",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "is $0$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "is $e^{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "is $e^{1/2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q16)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "limit",
+        "exponential",
+        "l'hospital"
+      ]
+    },
+    {
+      "id": "jelet-2022-q017",
+      "qNumber": 17,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "Consider the function $f(x) = |x|$, $x \\in \\mathbb{R}$. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Rolle's theorem is always applicable to $f$ in $[a, b]$ ($a < b$)",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Rolle's theorem is applicable to $f$ in $[a, b]$ when $0 < a < b$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Rolle's theorem is applicable to $f$ in $[a, b]$ if $a < b < 0$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Rolle's theorem is never applicable to $f$ in $[a, b]$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q17)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "rolle-theorem",
+        "differentiability",
+        "absolute-value"
+      ]
+    },
+    {
+      "id": "jelet-2022-q018",
+      "qNumber": 18,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "On the curve $y = x^{3}$, consider the chord joining $A(-1, -1)$ and $B(2, 8)$. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "there is a point on the curve at which the tangent is parallel to chord $AB$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "there is no point satisfying the stipulation mentioned in (A).",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "there are two points on the curve at which the tangents are parallel to chord $AB$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "tangents at every point on the curve is perpendicular to $AB$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q18)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "mean-value-theorem",
+        "tangent",
+        "chord"
+      ]
+    },
+    {
+      "id": "jelet-2022-q019",
+      "qNumber": 19,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "A rectangle is inscribed in a right-angle triangle so as to have one angle coincident with the right angle. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "the area is maximum when the opposite corner bisects the hypotenuse.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "the area is maximum when the opposite corner intersects the hypotenuse in the ratio $2:1$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "the area is maximum when the opposite corner coincides with centroid of the triangle.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "area is not maximum anywhere.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q19)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "maxima-minima",
+        "rectangle",
+        "triangle"
+      ]
+    },
+    {
+      "id": "jelet-2022-q020",
+      "qNumber": 20,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "The tangent at any point $P$ to the parabola $y^{2} = 4ax$ meets the directrix at the point $K$. Then the angle which $KP$ subtends at the focus is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$30^{\\circ}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$45^{\\circ}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$90^{\\circ}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$60^{\\circ}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q20)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "parabola",
+        "tangent",
+        "directrix"
+      ]
+    },
+    {
+      "id": "jelet-2022-q021",
+      "qNumber": 21,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "A man of $2$ m height walks at a uniform speed of $6$ km/h, away from a lamp post of $6$ m high. The rate at which the length of his shadow increases is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2$ km/h",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1$ km/h",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$6$ km/h",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$3$ km/h",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q21)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "rates",
+        "shadow",
+        "related-rates"
+      ]
+    },
+    {
+      "id": "jelet-2022-q022",
+      "qNumber": 22,
+      "subjectId": "MATH",
+      "unitId": "M08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "If $u = \\dfrac{x}{y} + \\dfrac{y}{x}$, then $\\dfrac{\\partial u}{\\partial x}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$a$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$b$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{a}{b}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{b}{a}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q22)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "partial-differentiation",
+        "homogeneous"
+      ]
+    },
+    {
+      "id": "jelet-2022-q023",
+      "qNumber": 23,
+      "subjectId": "MATH",
+      "unitId": "M08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "Let $v(x, y) = \\sin^{-1}\\dfrac{y}{x}$. Then $x\\dfrac{\\partial v}{\\partial x} + y\\dfrac{\\partial v}{\\partial y}$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "does not exist",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "exists and is $0$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "exists and is $\tan v$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "exists and is $\\cot v$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q23)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "partial-differentiation",
+        "homogeneous-function"
+      ]
+    },
+    {
+      "id": "jelet-2022-q024",
+      "qNumber": 24,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "$\\displaystyle\\int \\dfrac{dx}{x^{n}(1 + x^{m})^{1/n}} = \\dfrac{K}{x} + C$, where $C$ is an arbitrary constant. Then $K =$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{n}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{m}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{n-1}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{m-1}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q24)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "integration",
+        "substitution",
+        "binomial"
+      ]
+    },
+    {
+      "id": "jelet-2022-q025",
+      "qNumber": 25,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "If $f(x) = |x^{2} - x| + |x - 2|$, then $\\displaystyle\\int_{0}^{3} f(x)\\,dx =$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{21}{4}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{19}{4}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{26}{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{22}{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q25)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "definite-integral",
+        "absolute-value",
+        "piecewise"
+      ]
+    },
+    {
+      "id": "jelet-2022-q026",
+      "qNumber": 26,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "$\\displaystyle\\int \\dfrac{dx}{\\sqrt{x+1} - \\sqrt{x-1}} =$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{2(\\sqrt{x}-1)}{\\sqrt{1-x}} + C$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{2(1+x)}{\\sqrt{1-x}} + C$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{2(\\sqrt{x}+1)}{\\sqrt{1-x}} + C$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{2\\sqrt{x}}{\\sqrt{1-x}} + C$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q26)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "integration",
+        "rationalization",
+        "substitution"
+      ]
+    },
+    {
+      "id": "jelet-2022-q027",
+      "qNumber": 27,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "The equation of curve passing through the point $(1, 1)$ and having slope at tangent at any point $(x, y)$ as $\\dfrac{-\\cos x}{x(1 + \\tan\\frac{x}{2})}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$x = e^{\\sin^{-1}(\\tan\\frac{x}{2})}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$x = e^{\\sin^{-1}(\\cot\\frac{x}{2})}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$x = e^{\\cos^{-1}(\\tan\\frac{x}{2})}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$x = e^{\\tan^{-1}(\\cot\\frac{x}{2})}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q27)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ode",
+        "curve",
+        "slope"
+      ]
+    },
+    {
+      "id": "jelet-2022-q028",
+      "qNumber": 28,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "If $\\dfrac{dy}{dx} + y = 2e^{2x}$, then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$y = (A + Bx)e^{x} + \\dfrac{2x}{9}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$y = (A + Bx)e^{2x} + \\dfrac{9}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$y = (A + Bx)e^{-x} + \\dfrac{9}{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$y = A\\cos x + B\\sin x + \\dfrac{9}{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q28)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ode",
+        "linear",
+        "particular-integral"
+      ]
+    },
+    {
+      "id": "jelet-2022-q029",
+      "qNumber": 29,
+      "subjectId": "MATH",
+      "unitId": "M11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "A number is chosen at random from the numbers $1, 2, 3, \\ldots, 36$. The probability that this number is divisible by $6$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{6}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{2}{6}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{9}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q29)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "probability",
+        "divisibility",
+        "counting"
+      ]
+    },
+    {
+      "id": "jelet-2022-q030",
+      "qNumber": 30,
+      "subjectId": "MATH",
+      "unitId": "M11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 8,
+      "stemLatex": "The probability that at least one of $A$ and $B$ occurs is $0.6$. If $A$ and $B$ occurs simultaneously with probability $0.3$, then $P(A') + P(B')$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0.9$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$0.15$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$1.1$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1.2$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q30)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "probability",
+        "complement",
+        "inclusion-exclusion"
+      ]
+    },
+    {
+      "id": "jelet-2022-q031",
+      "qNumber": 31,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "Let $A = \\begin{bmatrix} \\lambda & 1 & 0 \\\\ 3 & -2 & 1 \\\\ 0 & \\lambda+1 & 0 \\end{bmatrix}$. Rank of $A$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2$ for $\\lambda = 0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$3$ for $\\lambda \\neq 0, 2, -1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$3$ for $\\lambda = 2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$3$ for $\\lambda = -1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q31)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "matrices",
+        "rank",
+        "determinant"
+      ]
+    },
+    {
+      "id": "jelet-2022-q032",
+      "qNumber": 32,
+      "subjectId": "MATH",
+      "unitId": "M02",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "Under which of the following conditions the system of equations $ax + by + cz = 0$, $bx + cy + az = 0$, $cx + ay + bz = 0$ has non-trivial solution?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$a + b + c = 0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$a = b = c$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$abc = 1$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$a^{2} + b^{2} + c^{2} = 0$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q32)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "linear-system",
+        "determinant",
+        "homogeneous"
+      ]
+    },
+    {
+      "id": "jelet-2022-q033",
+      "qNumber": 33,
+      "subjectId": "MATH",
+      "unitId": "M03",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "If $2\\cos\\theta = x + \\dfrac{1}{x}$ and $2\\cos\\phi = y + \\dfrac{1}{y}$, then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{x}{y} + \\dfrac{y}{x} = 2\\cos(\\theta - \\phi)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{x}{y} + \\dfrac{y}{x} = \\cos(\\theta + \\phi)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{x}{y} - \\dfrac{y}{x} = 2\\cos(\\theta - \\phi)$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{x}{y} - \\dfrac{y}{x} = \\cos(\\theta + \\phi)$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q33)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "complex-numbers",
+        "trigonometry",
+        "roots"
+      ]
+    },
+    {
+      "id": "jelet-2022-q034",
+      "qNumber": 34,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "If the latus rectum of the hyperbola $\\dfrac{x^{2}}{a^{2}} - \\dfrac{y^{2}}{b^{2}} = 1$ subtend a right angle at the centre of the hyperbola, then eccentricity of the hyperbola is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{\\sqrt{5}+1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{\\sqrt{5}+2}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "less than $2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "greater than $2$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q34)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "hyperbola",
+        "latus-rectum",
+        "eccentricity"
+      ]
+    },
+    {
+      "id": "jelet-2022-q035",
+      "qNumber": 35,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "The vector $\\vec{a} \\times (\\vec{b} \\times \\vec{c})$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "coplanar with $\\vec{a}$ and $\\vec{b}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "coplanar with $\\vec{b}$ and $\\vec{c}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "perpendicular to $\\vec{a}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "perpendicular to $\\vec{c}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q35)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "vector-algebra",
+        "triple-product",
+        "identity"
+      ]
+    },
+    {
+      "id": "jelet-2022-q036",
+      "qNumber": 36,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "If $x + |y| = 2y$, then $y$ as a function of $x$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "defined for all real $x$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "not defined for any real $x$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "differentiable for all $x$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "such that $\\dfrac{dy}{dx} = \\dfrac{1}{3}$ for $x < 0$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q36)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "functions",
+        "absolute-value",
+        "differentiability"
+      ]
+    },
+    {
+      "id": "jelet-2022-q037",
+      "qNumber": 37,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "The equation(s) of the tangents to the ellipse $\\dfrac{x^{2}}{16} + \\dfrac{y^{2}}{9} = 1$ parallel to the line $y = x$ is (are)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$y = x + 5$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$y = x + 3$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$y = x - 3$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$y = x - 5$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q37)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ellipse",
+        "tangent",
+        "parallel-lines"
+      ]
+    },
+    {
+      "id": "jelet-2022-q038",
+      "qNumber": 38,
+      "subjectId": "MATH",
+      "unitId": "M08",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "Let $f(x, y) = \\begin{cases} \\dfrac{xy}{x^{2}+y^{2}}, & x^{2}+y^{2} \\neq 0 \\\\ 0, & x^{2}+y^{2} = 0 \\end{cases}$. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "neither $f_x$ nor $f_y$ exists at $(0, 0)$ but $f$ is continuous at $(0, 0)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$f_x(0, 0) = 1$ but $f_y$ does not exist at $(0, 0)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$f$ is continuous at $(0, 0)$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$f_x, f_y$ exist at $(0, 0)$ and both are $0$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q38)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "partial-differentiation",
+        "continuity",
+        "limits"
+      ]
+    },
+    {
+      "id": "jelet-2022-q039",
+      "qNumber": 39,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "If $\\displaystyle\\int \\dfrac{\\sin x + \\cos x}{\\sqrt{\\sin x \\cos x}}\\,dx = f(x) + C$, then $f(x)$ equals",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\sqrt{2}\\sin^{-1}(\\sin x - \\cos x)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$-\\sqrt{2}\\cos^{-1}(\\sin x - \\cos x)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\sin^{-1}(\\sin x - \\cos x)$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\cos^{-1}(\\sin x - \\cos x)$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q39)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "integration",
+        "trigonometric",
+        "substitution"
+      ]
+    },
+    {
+      "id": "jelet-2022-q040",
+      "qNumber": 40,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 10,
+      "stemLatex": "If $x\\,dy = y(dx + y\\,dy)$, $y(1) = 1$, then $y(-3)$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$3$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-1$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$4$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q40)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ode",
+        "variable-separable",
+        "initial-condition"
+      ]
+    },
+    {
+      "id": "jelet-2022-q041",
+      "qNumber": 41,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "The equation of a wave is given by $y = A\\sin(\\omega t - kx)$ where the symbols $A$, $\\omega$ and $k$ have their usual meanings. The dimension of $p$ and $q$ in $y = A\\sin(pt - qx)$ are respectively",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$L, T^{-1}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$L^{-1}, T$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$L, T$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "dimensionless, $T^{-1}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q41)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "dimensions",
+        "waves",
+        "dimensional-analysis"
+      ]
+    },
+    {
+      "id": "jelet-2022-q042",
+      "qNumber": 42,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "The length, breadth and thickness of a strip are given by $L = (10.0 \\pm 0.1)\\,\\text{cm}$, $h = (1.00 \\pm 0.01)\\,\\text{cm}$, $t = (0.1 \\pm 0.001)\\,\\text{cm}$. The most probable error in volume will be",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q42.svg",
+        "alt": "Figure for JELET 2022 Q42",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0.03\\,\\text{cm}^{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$0.111\\,\\text{cm}^{3}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$0.012\\,\\text{cm}^{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$0.12\\,\\text{cm}^{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q42)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "errors",
+        "error-analysis",
+        "volume"
+      ]
+    },
+    {
+      "id": "jelet-2022-q043",
+      "qNumber": 43,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "The area of the triangle having vertices at $P(1, 3, 2)$, $Q(2, -1, 1)$ and $R(-1, 2, 3)$ will be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{\\sqrt{107}}{2}$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\sqrt{107}$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$3\\sqrt{2}$ sq. unit",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{2}{\\sqrt{107}}$ sq. unit",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q43)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "vector-algebra",
+        "cross-product",
+        "area"
+      ]
+    },
+    {
+      "id": "jelet-2022-q044",
+      "qNumber": 44,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "The kinetic energy of a particle moving along a circle of radius $R$ is $ax$ where $\\alpha$ is a constant and $x$ is the distance covered. The force acting in the radial direction is proportional to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{x}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{x^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$x$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "independent of $x$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q44)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "rotation",
+        "force",
+        "centripetal"
+      ]
+    },
+    {
+      "id": "jelet-2022-q045",
+      "qNumber": 45,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "The trajectory of a point particle in a projectile motion is given by the equation $y = 2x - 5x^{2}$, where $y$ is height and $x$ is horizontal distance. With what velocity was the particle projected? ($g = -10\\,\\text{m/s}^{2}$)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\hat{i} + \\hat{j}\\,\\text{m/s}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2\\hat{i} + \\hat{j}\\,\\text{m/s}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\hat{i} + 2\\hat{j}\\,\\text{m/s}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$3\\hat{i} + \\hat{j}\\,\\text{m/s}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q45)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "kinematics",
+        "projectile",
+        "trajectory"
+      ]
+    },
+    {
+      "id": "jelet-2022-q046",
+      "qNumber": 46,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A constant force $F$ is applied to the block of mass $m$ connected to the spring of spring constant $k$ as shown in figure. Initially ($t = 0$), the block is at rest. The amplitude of oscillation of $m$ will be",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q46.svg",
+        "alt": "Figure for JELET 2022 Q46",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{F}{k}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{F}{m\\omega}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{F}{m\\omega^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{F}{m\\omega}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q46)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "spring",
+        "oscillation",
+        "amplitude"
+      ]
+    },
+    {
+      "id": "jelet-2022-q047",
+      "qNumber": 47,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A block of mass $1.0\\,\\text{kg}$ moving on a smooth horizontal surface with speed $2\\,\\text{m/s}$ enters a rough surface. The retarding force $(F)$ on the block is given by $F = \\dfrac{k}{x}$; $10\\,\\text{m} < x < 100\\,\\text{m}$, where $k = 0.5\\,\\text{J}$. The kinetic energy of the block at $x = 100\\,\\text{m}$ will be (given, $\\ln 10 = 2.3$)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$1.15\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$0.85\\,\\text{J}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q47)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "work-energy",
+        "force",
+        "integration"
+      ]
+    },
+    {
+      "id": "jelet-2022-q048",
+      "qNumber": 48,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A uniform disc of mass $M$ and radius $R$ can rotate in vertical plane about its horizontal axis. A point mass $m$ is glued to the disc at point $P$, as shown in figure. If the system is released from rest, the angular velocity of the disc when the point mass reaches the bottom most point $P_{2}$ is",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q48.svg",
+        "alt": "Figure for JELET 2022 Q48",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\sqrt{\\dfrac{4mg}{(2M+m)R}}$ rad/sec",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\sqrt{\\dfrac{4mg}{(m+M)R}}$ rad/sec",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\sqrt{\\dfrac{4mg}{(2m+M)R}}$ rad/sec",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\sqrt{\\dfrac{4mg}{(M+m)R}}$ rad/sec",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q48)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "rotation",
+        "energy-conservation",
+        "angular-velocity"
+      ]
+    },
+    {
+      "id": "jelet-2022-q049",
+      "qNumber": 49,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "Two identical point masses are placed on $y$ axis at $y = a$ and $y = -a$. The variation of the magnitude of the gravitational potential $|V(x)|$ as a function of $x$ is given by",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q49.svg",
+        "alt": "Figure for JELET 2022 Q49",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "graph A",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "graph B",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "graph C",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "graph D",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q49)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "gravitation",
+        "potential",
+        "graph"
+      ]
+    },
+    {
+      "id": "jelet-2022-q050",
+      "qNumber": 50,
+      "subjectId": "PHYS",
+      "unitId": "P08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "If the change in volume is $0.4\\%$ due to a change in length is $1\\%$ when a stress is applied along the length of the rod, the Poisson ratio of the material is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0.3$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$0.6$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$0.8$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "cannot be determined",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q50)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "elasticity",
+        "poisson-ratio",
+        "stress-strain"
+      ]
+    },
+    {
+      "id": "jelet-2022-q051",
+      "qNumber": 51,
+      "subjectId": "PHYS",
+      "unitId": "P08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "A large open tank has two holes in the wall. One is a square hole of side $L$ at a depth $y$ and the other is a circular hole of radius $R$ at a depth $2y$. If the rate of water flow through both the holes are equal, then $R$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{L}{\\sqrt{2\\pi}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{L}{2\\pi}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{L}{\\pi}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{L}{24\\pi}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q51)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "fluid",
+        "torricelli",
+        "flow-rate"
+      ]
+    },
+    {
+      "id": "jelet-2022-q052",
+      "qNumber": 52,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "A small sphere falls from rest in a viscous liquid. Heat is produced during its fall due to friction with the liquid. If $R$ be the radius of the sphere, then the rate of production of heat at terminal velocity is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "proportional to $R^{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "proportional to $R^{5}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "proportional to $R^{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "independent of $R$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q52)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "fluid",
+        "viscosity",
+        "terminal-velocity"
+      ]
+    },
+    {
+      "id": "jelet-2022-q053",
+      "qNumber": 53,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "A well lagged wire of length $L$ and cross-sectional area $S$ has its ends maintained at temperatures $T_{1}$ and $T_{2}$. The thermal conductivity of the wire is given by $K = \\beta + T$ where $T$ is the temperature and $\\beta$ and $\\gamma$ are constants. Then the rate of flow of heat along the wire is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{S\\beta}{L}(T_{1}-T_{2})$ if $\\gamma = 0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{S\\gamma}{L}(T_{1}+T_{2})$ if $\\beta = 0$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{S\\beta}{L}(T_{1}-T_{2})$ if $\\gamma = 0, \\beta = 0$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{S\\gamma}{L}(T_{1}+T_{2})$ if $\\beta = 0$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q53)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "thermodynamics",
+        "heat-conduction",
+        "conductivity"
+      ]
+    },
+    {
+      "id": "jelet-2022-q054",
+      "qNumber": 54,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "A one litre glass flask contains some mercury. It is found that at different temperatures, the volume of air in the empty space in the flask remains the same. What is the volume of mercury in the flask? (The co-efficient of linear expansion of glass is $9 \\times 10^{-6}\\,^{\\circ}\\text{C}^{-1}$ and the volume expansion of mercury is $1.8 \\times 10^{-4}\\,^{\\circ}\\text{C}^{-1}$)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$50\\,\\text{cm}^{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$150\\,\\text{cm}^{3}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$450\\,\\text{cm}^{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$400\\,\\text{cm}^{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q54)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "thermal-expansion",
+        "expansion",
+        "volume"
+      ]
+    },
+    {
+      "id": "jelet-2022-q055",
+      "qNumber": 55,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 14,
+      "stemLatex": "Consider an isobaric process of a monoatomic gas as shown in figure. The ratio of work done by the gas to the heat absorbed by it, when it undergoes a change from state $A$ to state $B$ is",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q55.svg",
+        "alt": "Figure for JELET 2022 Q55",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{2}{5}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{5}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{3}{5}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q55)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "thermodynamics",
+        "isobaric",
+        "work-heat"
+      ]
+    },
+    {
+      "id": "jelet-2022-q056",
+      "qNumber": 56,
+      "subjectId": "PHYS",
+      "unitId": "P13",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 14,
+      "stemLatex": "The angle of prism and refractive index of its material are $A$ and $\\cot\\dfrac{A}{2}$. Then $\\cos\\delta_{m}$ is ($\\delta_{m}$ : angle of minimum deviation) ($A < \\pi/2$)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\sin 2A$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\cos 2A$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-\\cos 2A$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\sin A$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q56)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "refraction",
+        "prism",
+        "minimum-deviation"
+      ]
+    },
+    {
+      "id": "jelet-2022-q057",
+      "qNumber": 57,
+      "subjectId": "PHYS",
+      "unitId": "P13",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 14,
+      "stemLatex": "A vessel of height $H$ contains a liquid of refractive index $\\mu$. A spot $P$ at the bottom of the vessel creates an image $P'$ at a distance $d$ from the top of the vessel when viewed from the top. The liquid gradually drains out from a hole at the bottom. If $x$ represents the height of the water from the bottom at any instant, then the graph $d$ versus $x$ will be like",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q57.svg",
+        "alt": "Figure for JELET 2022 Q57",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "graph A",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "graph B",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "graph C",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "graph D",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q57)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "refraction",
+        "apparent-depth",
+        "graph"
+      ]
+    },
+    {
+      "id": "jelet-2022-q058",
+      "qNumber": 58,
+      "subjectId": "PHYS",
+      "unitId": "P14",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "A point source of monochromatic light $S$ is kept at the centre of the bottom of a cylinder of radius $15\\,\\text{cm}$. The cylinder contains liquid of refractive index $\\mu$ to a height of $7.0\\,\\text{cm}$. If the area of liquid surface through which the light emerges in air is $200\\,\\text{cm}^{2}$, then $\\mu^{2}$ equals to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0.23$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1.77$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$1.33$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1.5$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q58)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "refraction",
+        "total-internal-reflection",
+        "critical-angle"
+      ]
+    },
+    {
+      "id": "jelet-2022-q059",
+      "qNumber": 59,
+      "subjectId": "PHYS",
+      "unitId": "P14",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "A thin biconvex lens of radius $10\\,\\text{cm}$ and index $\\dfrac{3}{2}$ is placed on a horizontal plane mirror. The space between the lens and the mirror is filled with a liquid of refractive index $\\mu$. If the system has a focal length of $25\\,\\text{cm}$, then $\\mu$ equals to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$1.0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1.5$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$1.6$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1.3$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q59)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "lens",
+        "mirror",
+        "liquid-lens"
+      ]
+    },
+    {
+      "id": "jelet-2022-q060",
+      "qNumber": 60,
+      "subjectId": "PHYS",
+      "unitId": "P15",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "Given that a photon of light of wavelength $10,000\\,\\text{\\AA}$ has an energy equal to $1.243\\,\\text{eV}$. When light of wavelength $5000\\,\\text{\\AA}$ and intensity $I_{0}$ falls on a photo electric cell, the surface current is $0.4\\,\\mu\\text{A}$ and the stopping potential is $1.36\\,\\text{V}$. Then the work function is approximately",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0.43\\,\\text{eV}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1.54\\,\\text{eV}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$0.57\\,\\text{eV}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1.12\\,\\text{eV}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q60)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "photoelectric",
+        "work-function",
+        "stopping-potential"
+      ]
+    },
+    {
+      "id": "jelet-2022-q061",
+      "qNumber": 61,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "A and B are two identical balls. Ball A moving with a speed of $6\\,\\text{m/s}$ along the positive $x$ axis collides with ball B at rest. After collision each ball moves making a direction $30^{\\circ}$ with $x$ axis. Then,",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Speed of ball A after collision is $\\sqrt{3}\\,\\text{m/s}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Speed of ball B after collision is $\\sqrt{3}\\,\\text{m/s}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Collision is not perfectly elastic",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Kinetic energy is conserved in collision",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q61)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "collision",
+        "elastic",
+        "momentum-conservation"
+      ]
+    },
+    {
+      "id": "jelet-2022-q062",
+      "qNumber": 62,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "A cyclic process $ABCA$, shown in $V$-$T$ diagram, is performed with a constant mass of an ideal gas. Which of the following graphs represents the corresponding process on a $P$-$V$ diagram?",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q62.svg",
+        "alt": "Figure for JELET 2022 Q62",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "graph A",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "graph B",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "graph C",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "graph D",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q62)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "thermodynamics",
+        "pv-diagram",
+        "cycle"
+      ]
+    },
+    {
+      "id": "jelet-2022-q063",
+      "qNumber": 63,
+      "subjectId": "PHYS",
+      "unitId": "P08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "A piece of ice floats in a liquid of density $\\rho_{L}$. Density of water is $\\rho_{W}$ and $\\rho_{L} \\neq \\rho_{W}$. When the ice melts completely, the level of liquid",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "will rise if $\\rho_{L} < \\rho_{W}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "will rise if $\\rho_{L} > \\rho_{W}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "will fall if $\\rho_{L} > \\rho_{W}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "level remains unchanged",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q63)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "fluid",
+        "buoyancy",
+        "density"
+      ]
+    },
+    {
+      "id": "jelet-2022-q064",
+      "qNumber": 64,
+      "subjectId": "PHYS",
+      "unitId": "P15",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "Two spherical planets $P$ and $Q$ have masses $M_{P}$ and $M_{Q}$, surface areas $A$ and $4A$ respectively and same uniform density $\\rho$. A spherical planet $W$ also has uniform density $\\rho$ and its mass is $(M_{P} + M_{Q})$. The escape velocities from the planets $P$, $Q$ and $W$ are $V_{P}$, $V_{Q}$ and $V_{W}$ respectively. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$V_{P} + V_{Q} = V_{W}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$V_{P} + V_{Q} > V_{W}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$V_{P} + V_{Q} < V_{W}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$V_{P} = V_{Q} = V_{W}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q64)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "gravitation",
+        "escape-velocity",
+        "density"
+      ]
+    },
+    {
+      "id": "jelet-2022-q065",
+      "qNumber": 65,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "A rod of length $1000\\,\\text{mm}$ and co-efficient of linear expansion $\\alpha = 10^{-4}\\,^{\\circ}\\text{C}^{-1}$ is placed symmetrically between fixed walls separated by $1001\\,\\text{mm}$. The Young's modulus of the rod is $10^{11}\\,\\text{N/m}^{2}$. If the temperature is increased by $30^{\\circ}\\text{C}$, then the stress developed in the rod is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$10^{8}\\,\\text{Pa}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2 \\times 10^{8}\\,\\text{Pa}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$3 \\times 10^{8}\\,\\text{Pa}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$4 \\times 10^{8}\\,\\text{Pa}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q65)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "elasticity",
+        "thermal-stress",
+        "young-modulus"
+      ]
+    },
+    {
+      "id": "jelet-2022-q066",
+      "qNumber": 66,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 17,
+      "stemLatex": "A closed container of fixed volume has a mixture of one mole of hydrogen and one mole of helium in equilibrium at temperature $T$. Assume the gases are ideal. Which of the following statement(s) is/are true?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "The average energy per mole of the mixture is $\\dfrac{3}{2}RT$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Average energy per mole of the gas mixture is $2RT$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Degree of freedom of the gas mixture is $5$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "The ratio of rms speed of the Helium molecules to that of hydrogen molecules is $1:\\sqrt{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q66)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "kinetic-theory",
+        "degrees-of-freedom",
+        "rms-speed"
+      ]
+    },
+    {
+      "id": "jelet-2022-q067",
+      "qNumber": 67,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 17,
+      "stemLatex": "A particle of mass $m$ moves rectilinearly under the force $F = A - Bx$ where $A > 0$, $B > 0$ and $x$ is the distance from the point where the particle was initially at rest. If $d$ is the distance travelled by the particle till it comes to rest, then which of the following statement(s) is/are true?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$d = \\dfrac{2A}{B}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "acceleration of the particle at $d$ is $-\\dfrac{A}{m}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Speed of the particle at a distance $x = \\dfrac{A}{B}$ is $\\dfrac{A}{\\sqrt{mB}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "acceleration vs $x$ graph is a straight line with slope $A/B$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q67)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "work-energy",
+        "force",
+        "acceleration"
+      ]
+    },
+    {
+      "id": "jelet-2022-q068",
+      "qNumber": 68,
+      "subjectId": "PHYS",
+      "unitId": "P04",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "A stone of mass $m$ travels with a uniform speed $v_{0}$ perpendicular to a stick of mass $m$ and length $L$ at rest. The stone collides elastically with the stick at a distance $h$ from its centre of mass. The stone and the stick move with equal speed after collision. Assume that stone moves in the same direction after collision. Then which of the following statement(s) is/are true?",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q68.svg",
+        "alt": "Figure for JELET 2022 Q68",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "The speed of the stick after collision is $\\dfrac{v_{0}}{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "The angular velocity of the stick is $\\dfrac{\\sqrt{6}v_{0}}{L}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Angular momentum is not conserved in this process",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "The speed of the stone after collision is $v_{0}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q68)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "collision",
+        "angular-momentum",
+        "elastic"
+      ]
+    },
+    {
+      "id": "jelet-2022-q069",
+      "qNumber": 69,
+      "subjectId": "PHYS",
+      "unitId": "P14",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "A biconvex lens of focal length $15\\,\\text{cm}$ is placed $10\\,\\text{cm}$ in front of a plane mirror. A small object $O$ is kept at a distance of $30\\,\\text{cm}$ in front of the lens as shown in the figure. Then which of the following statement(s) is/are true?",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q69.svg",
+        "alt": "Figure for JELET 2022 Q69",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "The second image $I_{2}$ will be formed at a distance $10\\,\\text{cm}$ to the left of the lens.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "The final image at $I_{P}$ is at a distance $16\\,\\text{cm}$ from mirror.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "The first image $I_{1}$ will behave as a virtual object for mirror.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "The final image is real.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q69)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "lens",
+        "mirror",
+        "image-formation"
+      ]
+    },
+    {
+      "id": "jelet-2022-q070",
+      "qNumber": 70,
+      "subjectId": "PHYS",
+      "unitId": "P15",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "Two monochromatic radiations, blue and violet of same intensity are incident on a photosensitive surface and cause photoelectric emission. If $n_{b}$ and $n_{v}$ represent frequencies of blue light and violet light respectively then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$n_{b} > n_{v}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Number of electrons emitted per second by the blue light will be more than that by the violet light.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Maximum kinetic energy of ejected electrons will be more for blue light.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Work function of the material is different for blue and violet light.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q70)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "photoelectric",
+        "frequency",
+        "intensity"
+      ]
+    },
+    {
+      "id": "jelet-2022-q071",
+      "qNumber": 71,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "Let $x$ ml of a solution of a substance $A$ reacts with $y$ ml of a solution of a substance $B$ according to the reaction $2A + 3B \\rightarrow \\text{products}$. If molar concentrations of the solutions of $A$ and $B$ are $M_{1}$ and $M_{2}$ respectively, then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2xM_{1} = 3yM_{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$3xM_{1} = 2yM_{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2xM_{2} = 3yM_{1}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$3xM_{2} = 2yM_{1}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q71)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "stoichiometry",
+        "concentration",
+        "reactions"
+      ]
+    },
+    {
+      "id": "jelet-2022-q072",
+      "qNumber": 72,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "If the density of a solution of a substance is $z\\,\\text{gcm}^{-3}$ and gram molecular mass of the substance is $y\\,\\text{g}$, then the molality of the $x$ ($M$) solution is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{x}{z - 0.001xy}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{x}{z - xy}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{0.01x}{z - xy}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1000x}{1000z - xy}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q72)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "solutions",
+        "molality",
+        "density"
+      ]
+    },
+    {
+      "id": "jelet-2022-q073",
+      "qNumber": 73,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "If an electron is passed through a potential difference of $V$ volts, then de Broglie wavelength of the moving electron is [ $h$ = Planck's constant, $m$ = mass of electron, $e$ = charge of an electron]",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{h}{\\sqrt{2meV}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{h}{\\sqrt{meV}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{h}{\\sqrt{mveV}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{h}{\\sqrt{m}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q73)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "atomic-structure",
+        "de-broglie",
+        "wavelength"
+      ]
+    },
+    {
+      "id": "jelet-2022-q074",
+      "qNumber": 74,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "Electronic configuration of $\\text{Cu}^{+}$ is (Atomic number of Cu is $29$)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$[\\text{Ar}]3d^{8}4s^{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$[\\text{Ar}]3d^{9}4s^{1}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$[\\text{Ar}]3d^{10}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1s^{2}2s^{2}2p^{6}3s^{2}3p^{6}3d^{10}4s^{1}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q74)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "atomic-structure",
+        "electronic-configuration",
+        "cu+"
+      ]
+    },
+    {
+      "id": "jelet-2022-q075",
+      "qNumber": 75,
+      "subjectId": "CHEM",
+      "unitId": "C04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "A strong electrolyte $M_{\nu_{+}}A_{\nu_{-}}$ yielding the ions $M^{z+}$ and $A^{z-}$ in solution, the relation between equivalent conductivity ($\\Lambda_{eq}$) and molar conductivity ($\\Lambda_{m}$) is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\Lambda_{eq} = \\Lambda_{m}(\\nu_{+} + \\nu_{-})$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\Lambda_{eq} = \\dfrac{\\nu_{+}\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q75)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "electrochemistry",
+        "conductivity",
+        "electrolytes"
+      ]
+    },
+    {
+      "id": "jelet-2022-q076",
+      "qNumber": 76,
+      "subjectId": "CHEM",
+      "unitId": "C05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "At a definite temperature the molar concentrations of two monobasic acids $HA$ and $HA'$ in their individual solutions are same. At that temperature if ionization constants of the acids are $K_{a}$ and $K_{a}'$ and $\\alpha$ and $\\alpha'$ are the degrees of ionization respectively, then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{K_{a}}{\\alpha} = \\dfrac{K_{a}'}{\\alpha'}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{K_{a}}{\\alpha'} = \\dfrac{K_{a}'}{\\alpha}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{K_{a}K_{a}'}{\\alpha} = \\dfrac{\\alpha'}{1}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{K_{a}}{\\alpha'} = \\dfrac{K_{a}'}{\\alpha'}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q76)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "equilibrium",
+        "ionization",
+        "acids"
+      ]
+    },
+    {
+      "id": "jelet-2022-q077",
+      "qNumber": 77,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "To which of the following ions, Bohr model is applicable?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{H}^{+}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{Li}^{+}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{Li}^{2+}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{He}^{2+}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q77)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "atomic-structure",
+        "bohr-model",
+        "hydrogen-like"
+      ]
+    },
+    {
+      "id": "jelet-2022-q078",
+      "qNumber": 78,
+      "subjectId": "CHEM",
+      "unitId": "C06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "The metal hydroxide that dissolves both in aqueous $\\text{KOH}$ and ammonia, is:",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{Be(OH)}_{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{Mg(OH)}_{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{Al(OH)}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{Zn(OH)}_{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q78)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "acids-bases",
+        "amphoteric",
+        "complexes"
+      ]
+    },
+    {
+      "id": "jelet-2022-q079",
+      "qNumber": 79,
+      "subjectId": "CHEM",
+      "unitId": "C07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "Thiosulphuric acid is:",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{H}_{2}\\text{S}_{2}\\text{O}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{H}_{2}\\text{SO}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{H}_{2}\\text{S}_{2}\\text{O}_{6}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{H}_{2}\\text{SO}_{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q79)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "inorganic-chemistry",
+        "acids",
+        "sulphur"
+      ]
+    },
+    {
+      "id": "jelet-2022-q080",
+      "qNumber": 80,
+      "subjectId": "CHEM",
+      "unitId": "C05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "The correct order of the acidity is:",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{HClO}_{4} > \\text{HClO}_{3} > \\text{HClO}_{2} > \\text{HClO}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{HClO} > \\text{HClO}_{2} > \\text{HClO}_{3} > \\text{HClO}_{4}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{HClO}_{3} > \\text{HClO}_{4} > \\text{HClO}_{2} > \\text{HClO}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{HClO}_{2} > \\text{HClO} > \\text{HClO}_{3} > \\text{HClO}_{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q80)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "acids-bases",
+        "acidity",
+        "oxoacids"
+      ]
+    },
+    {
+      "id": "jelet-2022-q081",
+      "qNumber": 81,
+      "subjectId": "CHEM",
+      "unitId": "C02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "The shape of the $\\text{NH}_{3}$ molecules is:",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "pyramidal",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "tetrahedral",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "see-saw",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "triangular planar",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q81)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "chemical-bonding",
+        "vsepr",
+        "molecular-shape"
+      ]
+    },
+    {
+      "id": "jelet-2022-q082",
+      "qNumber": 82,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "How many isomers are possible with molecular formula $\text{C}_{4}\\text{H}_{9}\\text{Cl}$?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$3$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$4$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$5$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q82)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "organic",
+        "isomers",
+        "structural"
+      ]
+    },
+    {
+      "id": "jelet-2022-q083",
+      "qNumber": 83,
+      "subjectId": "CHEM",
+      "unitId": "C07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "Which of the following oxides is used as a white pigment?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{ZnO}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{HgO}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{CuO}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{NiO}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q83)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "inorganic-chemistry",
+        "oxides",
+        "pigments"
+      ]
+    },
+    {
+      "id": "jelet-2022-q084",
+      "qNumber": 84,
+      "subjectId": "CHEM",
+      "unitId": "C05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "If heat absorbed by a system and work done by the system are $120\\,\\text{J}$ and $30\\,\\text{J}$ respectively by a process, then change of internal energy of the system is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$150\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$90\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-150\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$-90\\,\\text{J}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q84)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "thermodynamics",
+        "first-law",
+        "internal-energy"
+      ]
+    },
+    {
+      "id": "jelet-2022-q085",
+      "qNumber": 85,
+      "subjectId": "CHEM",
+      "unitId": "C06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "The element of the following that reacts with $\\text{N}_{2}$ to form a nitride is:",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{Na}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{K}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{Cs}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{Li}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q85)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "inorganic-chemistry",
+        "nitrides",
+        "alkali-metals"
+      ]
+    },
+    {
+      "id": "jelet-2022-q086",
+      "qNumber": 86,
+      "subjectId": "CHEM",
+      "unitId": "C05",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "Which of the following aqueous solutions of metal chlorides is neutral?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{AlCl}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{BeCl}_{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{BaCl}_{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{RbCl}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q86)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "solutions",
+        "hydrolysis",
+        "neutral"
+      ]
+    },
+    {
+      "id": "jelet-2022-q087",
+      "qNumber": 87,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "Which of the chemical conversion(s) as given below show(s) the highest degree of redox change?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Phosphoric acid to phosphine.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Nitric acid to molecular nitrogen.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Sulphuric acid to elemental sulphur.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Borax to diborane",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q87)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "redox",
+        "oxidation-state",
+        "conversions"
+      ]
+    },
+    {
+      "id": "jelet-2022-q088",
+      "qNumber": 88,
+      "subjectId": "CHEM",
+      "unitId": "C05",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "A chemical change will be spontaneous at constant pressure and temperature under the set(s) of conditions",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\Delta H = -ve$, $\\Delta S = -ve$, $|\\Delta H| > |T\\Delta S|$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\Delta H = +ve$, $\\Delta S = +ve$, $|\\Delta H| < |T\\Delta S|$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\Delta H = -ve$, $\\Delta S = -ve$, $|\\Delta H| = |T\\Delta S|$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\Delta H = +ve$, $\\Delta S = +ve$, $|\\Delta H| > |T\\Delta S|$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q88)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "thermodynamics",
+        "spontaneity",
+        "gibbs-free-energy"
+      ]
+    },
+    {
+      "id": "jelet-2022-q089",
+      "qNumber": 89,
+      "subjectId": "CHEM",
+      "unitId": "C05",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "Which of the following statement(s) is / are true?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$K_{c}$ of a chemical reaction increases with increase in temperature for an exothermic reaction.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$K_{p}$ of a chemical reaction increases with decrease in temperature for an endothermic reaction.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$K_{c}$ of a chemical reaction increases with decrease in temperature for an exothermic reaction.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$K_{c}$ of a chemical reaction decreases with decrease in temperature for an endothermic reaction.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q89)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "equilibrium",
+        "temperature-dependence",
+        "van't-hoff"
+      ]
+    },
+    {
+      "id": "jelet-2022-q090",
+      "qNumber": 90,
+      "subjectId": "CHEM",
+      "unitId": "C02",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 21,
+      "stemLatex": "Which of the following compounds have covalent bonds?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{NaCl}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{H}_{2}\\text{O}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{CH}_{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{CaCO}_{3}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q90)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "chemical-bonding",
+        "covalent",
+        "ionic"
+      ]
+    },
+    {
+      "id": "jelet-2022-q091",
+      "qNumber": 91,
+      "subjectId": "FEEE",
+      "unitId": "E04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "A voltage $v(t) = V_{m}\\sin\\omega t$ is connected to a moving Iron instrument. The reading of the instrument will be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$V_{m}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{2V_{m}}{\\pi}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{V_{m}}{\\pi}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{V_{m}}{\\sqrt{2}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q91)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "ac-circuits",
+        "rms-value",
+        "instruments"
+      ]
+    },
+    {
+      "id": "jelet-2022-q092",
+      "qNumber": 92,
+      "subjectId": "FEEE",
+      "unitId": "E02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "A $25\\,\\text{KVA}$ transformer is constructed to a turn ratio of $N_{1}/N_{2} = 10$. The impedance of the primary winding is $2 + j5\\,\\Omega$ and of the secondary windings is $0.5 + j0.8\\,\\Omega$. What will be the impedance when referred to primary?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$52 + j85\\,\\Omega$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2.5 + j5.8\\,\\Omega$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$50 + j80\\,\\Omega$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$0.025 + j0.508\\,\\Omega$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q92)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "transformers",
+        "impedance",
+        "referred-to-primary"
+      ]
+    },
+    {
+      "id": "jelet-2022-q093",
+      "qNumber": 93,
+      "subjectId": "FEEE",
+      "unitId": "E03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "On the Torque - Speed curve of the Induction motor shown in the figure, four points of operation are marked, as $W$, $X$, $Y$ and $Z$. Which one represents the operation at a slip greater than $1$?",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q93.svg",
+        "alt": "Figure for JELET 2022 Q93",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$W$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$X$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$Y$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$Z$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q93)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "electrical-machines",
+        "induction-motor",
+        "slip"
+      ]
+    },
+    {
+      "id": "jelet-2022-q094",
+      "qNumber": 94,
+      "subjectId": "FEEE",
+      "unitId": "E04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "A series circuit consists of two elements has the following current and applied voltage $i = 4\\cos(2000t + 11.32^{\\circ})\\,\\text{A}$ and $v = 200\\sin(2000t + 50^{\\circ})\\,\\text{V}$. The circuit elements are",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Resistance and Capacitance",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Capacitance and Inductance",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Inductance and Resistance",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Both resistances",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q94)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ac-circuits",
+        "phase",
+        "impedance"
+      ]
+    },
+    {
+      "id": "jelet-2022-q095",
+      "qNumber": 95,
+      "subjectId": "FEEE",
+      "unitId": "E03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 22,
+      "stemLatex": "Two incandescent light bulbs of $40\\,\\text{W}$ and $60\\,\\text{W}$ rating are connected in series across the mains. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "the bulbs together consume $100\\,\\text{W}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "the bulbs together consume $50\\,\\text{W}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "the $60\\,\\text{W}$ bulb glows brighter",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "the $40\\,\\text{W}$ bulb glows brighter",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q95)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "circuits",
+        "power",
+        "series-connection"
+      ]
+    },
+    {
+      "id": "jelet-2022-q096",
+      "qNumber": 96,
+      "subjectId": "FEEE",
+      "unitId": "E04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "The average value of $v_{0}(t)$ in the given circuit will be",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q96.svg",
+        "alt": "Figure for JELET 2022 Q96",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{V_{m}}{\\pi}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{2V_{m}}{\\pi}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$-V_{m}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q96)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ac-circuits",
+        "average-value",
+        "rectifier"
+      ]
+    },
+    {
+      "id": "jelet-2022-q097",
+      "qNumber": 97,
+      "subjectId": "FEEE",
+      "unitId": "E05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "In the comparator shown, $v_{i}$ is a sinusoidal input of peak value $6\\,\\text{V}$. The period (in degrees) for which the output will be high is",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q97.svg",
+        "alt": "Figure for JELET 2022 Q97",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$180^{\\circ}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$60^{\\circ}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$120^{\\circ}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$150^{\\circ}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q97)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "digital-electronics",
+        "comparator",
+        "duty-cycle"
+      ]
+    },
+    {
+      "id": "jelet-2022-q098",
+      "qNumber": 98,
+      "subjectId": "FEEE",
+      "unitId": "E07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "What Boolean function does the following circuit represents?",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q98.svg",
+        "alt": "Figure for JELET 2022 Q98",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$A[F+(B+C).(D+E)]G$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$A+BC+DEF+G$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$A[(B+C)+F(D+E)]G$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$ABG+ABC+F(D+E)$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q98)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "digital-electronics",
+        "boolean-algebra",
+        "circuits"
+      ]
+    },
+    {
+      "id": "jelet-2022-q099",
+      "qNumber": 99,
+      "subjectId": "FEEE",
+      "unitId": "E06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "If $I_{c} = 15\\,\\text{mA}$ and $V_{CB} = 3\\,\\text{V}$, then the value of $V_{CC}$ required is",
+      "stemFigure": {
+        "src": "./_data/figures/2022/fig-2022-q99.svg",
+        "alt": "Figure for JELET 2022 Q99",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$4\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$4.5\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$3.15\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$18\\,\\text{V}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q99)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "electronic-devices",
+        "transistor",
+        "biasing"
+      ]
+    },
+    {
+      "id": "jelet-2022-q100",
+      "qNumber": 100,
+      "subjectId": "FEEE",
+      "unitId": "E03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 23,
+      "stemLatex": "A DC shunt motor is started with an open circuited field. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "The motor picks up fast and acquires full speed while drawing large current.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Motor does not pick up speed but draws a large current.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "The motor does not pick up speed but draws only a small current.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "The motor picks up speed fast and acquires full speed while drawing only a small current.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q100)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "electrical-machines",
+        "dc-shunt-motor",
+        "field-open"
+      ]
+    }
+  ]
+}

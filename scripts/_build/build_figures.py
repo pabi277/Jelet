@@ -520,9 +520,526 @@ def fig_2025_q100():
     body += label(195, 95, "Y", 10, "#cbd5e1")
     return svg_wrap(240, 140, body, "2025 Q100: Logic circuit")
 
+# ---- 2022 figures ----
+
+def fig_2022_q42():
+    """L, h, t error bars for a strip measurement."""
+    body = ""
+    body += label(40, 25, "Measurement error diagram", 10)
+    # three bars: L, h, t
+    for i, (name, val, err, y) in enumerate([("L", 10.0, 0.1, 60), ("h", 1.00, 0.01, 110), ("t", 0.1, 0.001, 160)]):
+        body += label(40, y-5, name, 11, "#cbd5e1")
+        x1 = 80 + i * 30
+        body += line(x1, y, x1+40, y, stroke="#60a5fa", sw=2)
+        body += line(x1, y-5, x1, y+5, stroke="#f87171", sw=1.5)
+        body += line(x1+40, y-5, x1+40, y+5, stroke="#f87171", sw=1.5)
+        body += label(x1+45, y+3, f"{val}±{err}", 9, "#94a3b8")
+    return svg_wrap(240, 200, body, "2022 Q42: Measurement error bars")
+
+def fig_2022_q46():
+    """Spring-mass system with force F applied."""
+    body = ""
+    body += label(40, 25, "Spring-mass system", 10)
+    # wall
+    body += line(30, 100, 30, 160, stroke="#94a3b8", sw=3)
+    body += polyline("30,100 30,95 35,95 30,90 35,90 30,85 35,85 30,80 35,80 30,75 35,75 30,70 35,70", stroke="#60a5fa", sw=2)
+    # spring
+    body += line(35, 70, 90, 70, stroke="#60a5fa", sw=1.5)
+    # mass block
+    body += line(90, 60, 140, 60, stroke="#60a5fa", sw=2)
+    body += line(90, 60, 90, 90, stroke="#60a5fa", sw=2)
+    body += line(140, 60, 140, 90, stroke="#60a5fa", sw=2)
+    body += line(90, 90, 140, 90, stroke="#60a5fa", sw=2)
+    body += label(115, 78, "m", 11, "#cbd5e1", "middle")
+    # force arrow
+    body += arrow(150, 75, 210, 75, stroke="#f87171", label="F", label_pos=(215, 70))
+    body += label(115, 120, "Spring constant k", 9, "#94a3b8", "middle")
+    return svg_wrap(240, 180, body, "2022 Q46: Spring-mass with force")
+
+def fig_2022_q48():
+    """Disc with point mass m at point P, rotating to bottom P2."""
+    body = ""
+    body += label(40, 25, "Disc with point mass", 10)
+    # disc
+    body += circle(120, 120, 60, stroke="#60a5fa", sw=2)
+    # center
+    body += dot(120, 120, 3)
+    # point mass at top P1
+    body += dot(120, 60, 5, fill="#f87171")
+    body += label(125, 55, "P (top)", 9, "#fca5a5")
+    # bottom P2
+    body += dot(120, 180, 5, fill="#34d399")
+    body += label(125, 195, "P2 (bottom)", 9, "#6ee7b7")
+    body += label(60, 125, "M, R", 10, "#cbd5e1")
+    body += label(120, 20, "m", 11, "#f87171", "middle")
+    return svg_wrap(240, 220, body, "2022 Q48: Disc with point mass")
+
+def fig_2022_q49():
+    """|V(x)| vs x for two masses at y=±a."""
+    body = ""
+    body += label(40, 25, "|V(x)| vs x", 10)
+    body += line(40, 140, 200, 140, stroke="#475569", sw=1.5)
+    body += line(40, 40, 40, 180, stroke="#475569", sw=1.5)
+    # bell-shaped curve symmetric about x=0 (center)
+    body += path("M 40 140 C 70 140, 80 60, 120 50 C 160 60, 170 140, 200 140", stroke="#60a5fa", sw=2)
+    body += label(120, 195, "x", 10, "#94a3b8", "middle")
+    body += label(30, 55, "|V(x)|", 10, "#94a3b8")
+    body += label(120, 30, "Symmetric bell curve", 9, "#94a3b8", "middle")
+    return svg_wrap(240, 220, body, "2022 Q49: |V(x)| graph")
+
+def fig_2022_q55():
+    """PV diagram isobaric process A to B."""
+    body = ""
+    body += label(40, 25, "P-V diagram (isobaric)", 10)
+    body += line(40, 160, 200, 160, stroke="#475569", sw=1.5)
+    body += line(40, 40, 40, 160, stroke="#475569", sw=1.5)
+    # isobaric: horizontal line from A to B
+    body += line(60, 100, 180, 100, stroke="#60a5fa", sw=2.5)
+    body += dot(60, 100, 4, fill="#f87171")
+    body += label(50, 118, "A", 10, "#fca5a5")
+    body += dot(180, 100, 4, fill="#34d399")
+    body += label(185, 118, "B", 10, "#6ee7b7")
+    body += label(30, 165, "V", 10, "#94a3b8")
+    body += label(20, 50, "P", 10, "#94a3b8")
+    return svg_wrap(240, 200, body, "2022 Q55: Isobaric P-V diagram")
+
+def fig_2022_q57():
+    """d vs x graph: linear decrease then constant."""
+    body = ""
+    body += label(40, 25, "d vs x graph", 10)
+    body += line(40, 160, 200, 160, stroke="#475569", sw=1.5)
+    body += line(40, 40, 40, 160, stroke="#475569", sw=1.5)
+    # line from high d to H/mu then constant
+    body += line(40, 50, 100, 100, stroke="#60a5fa", sw=2)
+    body += line(100, 100, 200, 100, stroke="#60a5fa", sw=2)
+    body += dot(100, 100, 3)
+    body += label(30, 165, "x", 10, "#94a3b8")
+    body += label(15, 55, "d", 10, "#94a3b8")
+    body += label(100, 120, "H/μ", 9, "#94a3b8", "middle")
+    return svg_wrap(240, 200, body, "2022 Q57: d vs x graph")
+
+def fig_2022_q62():
+    """V-T diagram cyclic process ABCA."""
+    body = ""
+    body += label(40, 25, "V-T diagram (cycle)", 10)
+    body += line(40, 160, 200, 160, stroke="#475569", sw=1.5)
+    body += line(40, 40, 40, 160, stroke="#475569", sw=1.5)
+    # triangle cycle A->B->C->A
+    body += polyline("60,140 180,60 60,60 60,140", stroke="#60a5fa", sw=2)
+    body += dot(60, 140, 4, fill="#f87171")
+    body += label(45, 155, "A", 10, "#fca5a5")
+    body += dot(180, 60, 4, fill="#34d399")
+    body += label(185, 55, "B", 10, "#6ee7b7")
+    body += dot(60, 60, 4, fill="#f59e0b")
+    body += label(45, 55, "C", 10, "#fcd34d")
+    body += label(30, 165, "T", 10, "#94a3b8")
+    body += label(205, 170, "V", 10, "#94a3b8")
+    return svg_wrap(240, 200, body, "2022 Q62: V-T cycle")
+
+def fig_2022_q68():
+    """Stone hitting stick at distance h from CM."""
+    body = ""
+    body += label(40, 25, "Stone-stick collision", 10)
+    # stick (horizontal line)
+    body += line(40, 120, 200, 120, stroke="#60a5fa", sw=3)
+    # CM marker
+    body += dot(120, 120, 4, fill="#f87171")
+    body += label(125, 135, "CM", 9, "#fca5a5")
+    # hit point h from CM
+    body += dot(150, 120, 4, fill="#34d399")
+    body += label(155, 135, "h", 9, "#6ee7b7")
+    # stone approaching
+    body += arrow(20, 120, 40, 120, stroke="#f87171", label="v₀", label_pos=(20, 105))
+    body += dot(20, 120, 5, fill="#f87171")
+    body += label(120, 160, "Stick of mass m, length L", 9, "#94a3b8", "middle")
+    return svg_wrap(240, 200, body, "2022 Q68: Stone hits stick")
+
+def fig_2022_q69():
+    """Lens-mirror system with object O."""
+    body = ""
+    body += label(40, 25, "Lens-mirror system", 10)
+    # lens (vertical double arrow)
+    body += line(100, 60, 100, 160, stroke="#60a5fa", sw=2.5)
+    body += line(95, 65, 105, 65, stroke="#60a5fa", sw=2)
+    body += line(95, 155, 105, 155, stroke="#60a5fa", sw=2)
+    body += label(85, 55, "Lens (f=15cm)", 8, "#94a3b8")
+    # mirror (vertical line at right)
+    body += line(180, 60, 180, 160, stroke="#34d399", sw=3)
+    body += label(185, 55, "Mirror", 8, "#6ee7b7")
+    # distances
+    body += line(100, 170, 180, 170, stroke="#94a3b8", sw=1, dash="3,3")
+    body += label(140, 185, "10 cm", 8, "#94a3b8", "middle")
+    body += line(40, 170, 100, 170, stroke="#94a3b8", sw=1, dash="3,3")
+    body += label(70, 185, "30 cm", 8, "#94a3b8", "middle")
+    # object
+    body += arrow(40, 120, 40, 100, stroke="#f87171", label="O", label_pos=(30, 95))
+    body += dot(40, 120, 4, fill="#f87171")
+    return svg_wrap(240, 220, body, "2022 Q69: Lens-mirror setup")
+
+def fig_2022_q93():
+    """Torque-speed curve with operating points W, X, Y, Z."""
+    body = ""
+    body += label(40, 25, "Torque-Speed curve", 10)
+    body += line(40, 160, 200, 160, stroke="#475569", sw=1.5)
+    body += line(40, 40, 40, 160, stroke="#475569", sw=1.5)
+    # torque-speed curve (hyperbolic-like)
+    body += path("M 40 150 C 60 150, 80 100, 100 70 C 120 50, 140 45, 180 40", stroke="#60a5fa", sw=2)
+    # operating points
+    for x, y, name in [(60, 130, "W"), (100, 80, "X"), (140, 55, "Y"), (180, 42, "Z")]:
+        body += dot(x, y, 4, fill="#f87171")
+        body += label(x+8, y-5, name, 10, "#fca5a5")
+    body += label(30, 165, "Speed", 9, "#94a3b8")
+    body += label(20, 50, "Torque", 9, "#94a3b8")
+    return svg_wrap(240, 200, body, "2022 Q93: Torque-speed curve")
+
+def fig_2022_q96():
+    """Circuit with voltage source and output v0(t)."""
+    body = ""
+    body += label(40, 25, "Circuit diagram", 10)
+    # voltage source (circle with sine)
+    body += circle(80, 100, 25, stroke="#60a5fa", sw=2)
+    body += label(80, 100, "Vm sin ωt", 7, "#cbd5e1", "middle")
+    # wires
+    body += line(80, 75, 80, 50, stroke="#60a5fa", sw=1.5)
+    body += line(80, 50, 160, 50, stroke="#60a5fa", sw=1.5)
+    body += line(160, 50, 160, 75, stroke="#60a5fa", sw=1.5)
+    body += line(160, 75, 160, 125, stroke="#60a5fa", sw=1.5)
+    body += line(160, 125, 80, 125, stroke="#60a5fa", sw=1.5)
+    body += line(80, 125, 80, 100, stroke="#60a5fa", sw=1.5)
+    # output marker
+    body += label(160, 40, "v₀(t)", 9, "#f87171", "middle")
+    return svg_wrap(240, 180, body, "2022 Q96: Circuit diagram")
+
+def fig_2022_q97():
+    """Comparator with sinusoidal input and reference 3V."""
+    body = ""
+    body += label(40, 25, "Comparator circuit", 10)
+    # comparator symbol (triangle)
+    polygon_points = "120,70 160,100 120,130"
+    body += f'  <polygon points="{polygon_points}" fill="none" stroke="#60a5fa" stroke-width="2"/>\n'
+    body += label(140, 150, "Comparator", 9, "#94a3b8", "middle")
+    # input sine wave
+    body += path("M 30 100 Q 50 70, 70 100 T 110 100", stroke="#f87171", sw=1.5)
+    body += label(25, 95, "vᵢ", 9, "#fca5a5")
+    # reference line at 3V
+    body += line(30, 115, 110, 115, stroke="#34d399", sw=1.5, dash="3,3")
+    body += label(30, 128, "3V ref", 8, "#6ee7b7")
+    # output
+    body += arrow(160, 100, 210, 100, stroke="#f59e0b", label="v₀", label_pos=(215, 95))
+    return svg_wrap(240, 180, body, "2022 Q97: Comparator")
+
+def fig_2022_q98():
+    """Boolean circuit with inputs A,B,C,D,E,F,G."""
+    body = ""
+    body += label(40, 25, "Boolean circuit", 10)
+    # input labels
+    inputs = [("A", 50), ("B", 80), ("C", 110), ("D", 140), ("E", 170), ("F", 200), ("G", 230)]
+    for name, x in inputs:
+        body += line(x, 50, x, 80, stroke="#60a5fa", sw=1.5)
+        body += dot(x, 50, 3, fill="#60a5fa")
+        body += label(x, 42, name, 10, "#cbd5e1", "middle")
+    # gate boxes
+    body += line(50, 80, 50, 120, stroke="#60a5fa", sw=1.5)
+    body += line(80, 80, 80, 120, stroke="#60a5fa", sw=1.5)
+    body += line(110, 80, 110, 120, stroke="#60a5fa", sw=1.5)
+    body += rect_(50, 120, 60, 25, "#34d399")
+    body += label(80, 133, "+", 10, "#6ee7b7", "middle")
+    body += line(110, 80, 140, 80, stroke="#60a5fa", sw=1.5)
+    body += line(140, 80, 140, 120, stroke="#60a5fa", sw=1.5)
+    body += line(170, 80, 170, 120, stroke="#60a5fa", sw=1.5)
+    body += rect_(140, 120, 60, 25, "#f59e0b")
+    body += label(170, 133, "·", 10, "#fcd34d", "middle")
+    body += line(200, 80, 200, 120, stroke="#60a5fa", sw=1.5)
+    body += line(230, 80, 230, 120, stroke="#60a5fa", sw=1.5)
+    body += rect_(200, 120, 60, 25, "#f87171")
+    body += label(230, 133, "+", 10, "#fca5a5", "middle")
+    # output
+    body += line(80, 145, 80, 160, stroke="#60a5fa", sw=1.5)
+    body += line(170, 145, 170, 160, stroke="#60a5fa", sw=1.5)
+    body += line(80, 160, 170, 160, stroke="#60a5fa", sw=1.5)
+    body += arrow(170, 160, 210, 160, stroke="#f59e0b", label="out", label_pos=(215, 155))
+    return svg_wrap(260, 200, body, "2022 Q98: Boolean circuit")
+
+def fig_2022_q99():
+    """Transistor circuit with Vcc, Ic, Vcb, 100Ω."""
+    body = ""
+    body += label(40, 25, "Transistor circuit", 10)
+    # Vcc top
+    body += line(60, 40, 180, 40, stroke="#60a5fa", sw=2)
+    body += label(55, 32, "Vcc", 10, "#cbd5e1")
+    # resistor 100Ω
+    body += line(80, 40, 80, 70, stroke="#60a5fa", sw=1.5)
+    body += rect_(75, 70, 10, 20, "#f59e0b")
+    body += label(70, 88, "100Ω", 8, "#fcd34d", "middle")
+    body += line(80, 90, 80, 120, stroke="#60a5fa", sw=1.5)
+    # transistor (circle)
+    body += circle(120, 110, 25, stroke="#60a5fa", sw=2)
+    body += label(120, 110, "Q", 10, "#cbd5e1", "middle")
+    # collector, base, emitter
+    body += line(80, 90, 120, 90, stroke="#60a5fa", sw=1.5)
+    body += line(145, 110, 180, 110, stroke="#60a5fa", sw=1.5)
+    body += label(150, 100, "Ic", 9, "#f87171")
+    body += label(150, 122, "Vcb", 9, "#34d399")
+    body += line(120, 135, 120, 160, stroke="#60a5fa", sw=1.5)
+    body += label(125, 170, "Emitter", 8, "#94a3b8")
+    return svg_wrap(240, 200, body, "2022 Q99: Transistor circuit")
+
+def rect_(x, y, w, h, color="#60a5fa"):
+    return f'  <rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="{color}" stroke-width="1.5"/>\n'
+
+# ---- 2023 figures ----
+
+def fig_2023_q42():
+    """x-t and y-t graphs of a particle in 2D."""
+    body = ""
+    body += label(40, 20, "(x,t) and (y,t) diagrams", 10)
+    # x-t graph (top)
+    body += label(40, 38, "x-t", 9, "#94a3b8")
+    body += line(40, 60, 200, 60, stroke="#475569", sw=1)
+    body += line(40, 30, 40, 90, stroke="#475569", sw=1)
+    body += polyline("40,70 80,55 120,50 160,45 200,40", stroke="#60a5fa", sw=2)
+    # y-t graph (bottom)
+    body += label(40, 115, "y-t", 9, "#94a3b8")
+    body += line(40, 140, 200, 140, stroke="#475569", sw=1)
+    body += line(40, 110, 40, 170, stroke="#475569", sw=1)
+    body += polyline("40,150 80,155 120,145 160,135 200,125", stroke="#34d399", sw=2)
+    return svg_wrap(240, 200, body, "2023 Q42: x-t and y-t graphs")
+
+def fig_2023_q48():
+    """PV diagram with adiabatic CA and isothermal BA processes."""
+    body = ""
+    body += label(40, 25, "P-V diagram", 10)
+    body += line(40, 160, 200, 160, stroke="#475569", sw=1.5)
+    body += line(40, 40, 40, 160, stroke="#475569", sw=1.5)
+    # isothermal BA: curve from B to A
+    body += path("M 60 50 Q 100 70, 180 120", stroke="#34d399", sw=2)
+    # adiabatic CA: steeper curve from C to A
+    body += path("M 180 150 Q 130 100, 60 50", stroke="#f87171", sw=2)
+    body += dot(60, 50, 4, fill="#f87171")
+    body += label(45, 42, "A", 10, "#fca5a5")
+    body += dot(180, 120, 4, fill="#34d399")
+    body += label(185, 115, "B", 10, "#6ee7b7")
+    body += dot(180, 150, 4, fill="#f59e0b")
+    body += label(185, 165, "C", 10, "#fcd34d")
+    body += label(30, 165, "V", 10, "#94a3b8")
+    body += label(20, 50, "P", 10, "#94a3b8")
+    body += label(120, 180, "BA: isothermal, CA: adiabatic", 8, "#94a3b8", "middle")
+    return svg_wrap(240, 220, body, "2023 Q48: PV diagram")
+
+def fig_2023_q60():
+    """Wheatstone bridge circuit with galvanometer."""
+    body = ""
+    body += label(40, 25, "Wheatstone bridge", 10)
+    # diamond bridge
+    body += line(120, 50, 120, 100, stroke="#60a5fa", sw=2)
+    body += line(120, 100, 80, 150, stroke="#60a5fa", sw=2)
+    body += line(120, 100, 160, 150, stroke="#60a5fa", sw=2)
+    body += line(80, 150, 160, 150, stroke="#60a5fa", sw=2)
+    # top cross
+    body += line(80, 100, 160, 100, stroke="#60a5fa", sw=2)
+    body += line(80, 50, 160, 50, stroke="#60a5fa", sw=2)
+    body += line(80, 50, 80, 100, stroke="#60a5fa", sw=1.5)
+    body += line(160, 50, 160, 100, stroke="#60a5fa", sw=1.5)
+    # resistors
+    body += label(70, 75, "R₁", 8, "#94a3b8")
+    body += label(150, 75, "R₂", 8, "#94a3b8")
+    body += label(65, 130, "R₃", 8, "#94a3b8")
+    body += label(175, 130, "R₄", 8, "#94a3b8")
+    # galvanometer in middle
+    body += circle(120, 100, 10, stroke="#f87171", sw=2)
+    body += label(120, 103, "G", 8, "#fca5a5", "middle")
+    # battery
+    body += line(120, 150, 120, 175, stroke="#60a5fa", sw=1.5)
+    body += label(125, 170, "Battery", 8, "#94a3b8")
+    return svg_wrap(240, 200, body, "2023 Q60: Wheatstone bridge")
+
+def fig_2023_q61():
+    """Power vs load resistance graph with maximum point M."""
+    body = ""
+    body += label(40, 25, "P vs R graph", 10)
+    body += line(40, 160, 200, 160, stroke="#475569", sw=1.5)
+    body += line(40, 40, 40, 160, stroke="#475569", sw=1.5)
+    # bell curve
+    body += path("M 40 150 C 60 150, 80 60, 120 45 C 160 60, 180 150, 200 150", stroke="#60a5fa", sw=2)
+    # max point M
+    body += dot(120, 45, 5, fill="#f87171")
+    body += label(125, 38, "M", 10, "#fca5a5")
+    body += label(30, 165, "R", 10, "#94a3b8")
+    body += label(20, 55, "P", 10, "#94a3b8")
+    return svg_wrap(240, 200, body, "2023 Q61: P vs R graph")
+
+def fig_2023_q66():
+    """Spring-mass on frictionless surface with force F."""
+    body = ""
+    body += label(40, 25, "Spring-mass system", 10)
+    # surface
+    body += line(30, 130, 210, 130, stroke="#475569", sw=2)
+    # spring
+    body += line(30, 130, 30, 100, stroke="#60a5fa", sw=2)
+    body += polyline("30,100 30,95 35,95 30,90 35,90 30,85 35,85 30,80 35,80 30,75 35,75 30,70", stroke="#60a5fa", sw=1.5)
+    body += line(35, 70, 90, 70, stroke="#60a5fa", sw=1.5)
+    # mass
+    body += rect_(90, 55, 50, 35, "#60a5fa")
+    body += label(115, 75, "m", 11, "#cbd5e1", "middle")
+    # force
+    body += arrow(150, 75, 210, 75, stroke="#f87171", label="F", label_pos=(215, 70))
+    body += label(115, 155, "Frictionless surface, spring constant k", 8, "#94a3b8", "middle")
+    return svg_wrap(240, 180, body, "2023 Q66: Spring-mass with force")
+
+def fig_2023_q68():
+    """RC circuit with capacitor, resistor, and switch."""
+    body = ""
+    body += label(40, 25, "RC circuit", 10)
+    # loop
+    body += line(60, 50, 180, 50, stroke="#60a5fa", sw=2)
+    body += line(180, 50, 180, 150, stroke="#60a5fa", sw=2)
+    body += line(180, 150, 60, 150, stroke="#60a5fa", sw=2)
+    body += line(60, 150, 60, 50, stroke="#60a5fa", sw=2)
+    # capacitor (left side)
+    body += line(60, 80, 60, 90, stroke="#60a5fa", sw=3)
+    body += line(60, 110, 60, 120, stroke="#60a5fa", sw=3)
+    body += label(45, 100, "C", 10, "#34d399")
+    # resistor (top)
+    body += rect_(100, 42, 30, 16, "#f59e0b")
+    body += label(115, 35, "R", 10, "#fcd34d", "middle")
+    # switch (right side)
+    body += line(180, 90, 180, 100, stroke="#60a5fa", sw=2)
+    body += line(180, 100, 175, 108, stroke="#60a5fa", sw=2)
+    body += label(190, 100, "S", 10, "#cbd5e1")
+    # EMF source (bottom)
+    body += circle(120, 150, 10, stroke="#60a5fa", sw=2)
+    body += label(120, 153, "E", 9, "#cbd5e1", "middle")
+    return svg_wrap(240, 200, body, "2023 Q68: RC circuit")
+
+def fig_2023_q70():
+    """Young's double slit with screen and point P."""
+    body = ""
+    body += label(40, 25, "Young's double slit", 10)
+    # source
+    body += dot(30, 100, 4, fill="#60a5fa")
+    body += label(25, 90, "S", 9, "#cbd5e1")
+    # slits
+    body += line(80, 70, 80, 80, stroke="#60a5fa", sw=3)
+    body += line(80, 120, 80, 130, stroke="#60a5fa", sw=3)
+    body += label(75, 65, "S₁", 8, "#60a5fa")
+    body += label(75, 140, "S₂", 8, "#60a5fa")
+    # rays to P
+    body += line(80, 75, 180, 100, stroke="#60a5fa", sw=1, dash="2,2")
+    body += line(80, 125, 180, 100, stroke="#60a5fa", sw=1, dash="2,2")
+    # screen
+    body += line(180, 50, 180, 150, stroke="#475569", sw=2)
+    body += label(185, 55, "Screen", 8, "#94a3b8")
+    # point P
+    body += dot(180, 100, 5, fill="#f87171")
+    body += label(185, 103, "P", 9, "#fca5a5")
+    body += label(120, 170, "b = slit separation, d = screen distance", 8, "#94a3b8", "middle")
+    return svg_wrap(240, 200, body, "2023 Q70: Young's double slit")
+
+def fig_2023_q91():
+    """RLC series circuit with current source."""
+    body = ""
+    body += label(40, 25, "RLC circuit", 10)
+    # loop
+    body += line(60, 50, 180, 50, stroke="#60a5fa", sw=2)
+    body += line(180, 50, 180, 150, stroke="#60a5fa", sw=2)
+    body += line(180, 150, 60, 150, stroke="#60a5fa", sw=2)
+    body += line(60, 150, 60, 50, stroke="#60a5fa", sw=2)
+    # resistor (top)
+    body += rect_(80, 42, 30, 16, "#f59e0b")
+    body += label(95, 35, "R", 10, "#fcd34d", "middle")
+    # inductor (right)
+    body += path("M 180 70 Q 170 80, 180 90 Q 170 100, 180 110 Q 170 120, 180 130", stroke="#34d399", sw=2)
+    body += label(190, 100, "L", 10, "#6ee7b7")
+    # capacitor (bottom)
+    body += line(100, 150, 100, 158, stroke="#60a5fa", sw=3)
+    body += line(100, 162, 100, 170, stroke="#60a5fa", sw=3)
+    body += label(90, 165, "C", 10, "#34d399")
+    # current source (left)
+    body += circle(60, 100, 10, stroke="#f87171", sw=2)
+    body += label(60, 103, "i(t)", 7, "#fca5a5", "middle")
+    return svg_wrap(240, 200, body, "2023 Q91: RLC circuit")
+
+def fig_2023_q94():
+    """Multi-source DC circuit for V_AB."""
+    body = ""
+    body += label(40, 25, "DC circuit", 10)
+    # main loop
+    body += line(60, 50, 180, 50, stroke="#60a5fa", sw=2)
+    body += line(180, 50, 180, 150, stroke="#60a5fa", sw=2)
+    body += line(180, 150, 60, 150, stroke="#60a5fa", sw=2)
+    body += line(60, 150, 60, 50, stroke="#60a5fa", sw=2)
+    # sources and resistors on top
+    body += circle(80, 50, 8, stroke="#f87171", sw=2)
+    body += label(80, 53, "50V", 7, "#fca5a5", "middle")
+    body += rect_(100, 42, 20, 16, "#f59e0b")
+    body += label(110, 35, "5Ω", 7, "#fcd34d", "middle")
+    body += circle(140, 50, 8, stroke="#34d399", sw=2)
+    body += label(140, 53, "40V", 7, "#6ee7b7", "middle")
+    body += rect_(155, 42, 20, 16, "#f59e0b")
+    body += label(165, 35, "4Ω", 7, "#fcd34d", "middle")
+    # bottom resistors
+    body += rect_(80, 142, 20, 16, "#f59e0b")
+    body += label(90, 165, "30V", 7, "#fcd34d", "middle")
+    body += rect_(120, 142, 20, 16, "#f59e0b")
+    body += label(130, 165, "3Ω", 7, "#fcd34d", "middle")
+    body += label(120, 180, "Find V_AB", 9, "#94a3b8", "middle")
+    return svg_wrap(240, 210, body, "2023 Q94: DC circuit")
+
+def fig_2023_q95():
+    """Capacitor combination network across X-Y."""
+    body = ""
+    body += label(40, 25, "Capacitor network", 10)
+    # nodes X and Y
+    body += dot(50, 80, 5, fill="#f87171")
+    body += label(42, 70, "X", 10, "#fca5a5")
+    body += dot(50, 160, 5, fill="#34d399")
+    body += label(42, 175, "Y", 10, "#6ee7b7")
+    # capacitors
+    body += line(50, 80, 120, 80, stroke="#60a5fa", sw=1.5)
+    body += line(120, 80, 120, 100, stroke="#60a5fa", sw=3)
+    body += line(120, 110, 120, 130, stroke="#60a5fa", sw=3)
+    body += line(120, 130, 120, 160, stroke="#60a5fa", sw=1.5)
+    body += line(50, 160, 120, 160, stroke="#60a5fa", sw=1.5)
+    body += label(135, 100, "C₁", 9, "#94a3b8")
+    body += label(135, 145, "C₂", 9, "#94a3b8")
+    # parallel caps
+    body += line(150, 80, 200, 80, stroke="#60a5fa", sw=1.5)
+    body += line(150, 160, 200, 160, stroke="#60a5fa", sw=1.5)
+    body += line(200, 80, 200, 160, stroke="#60a5fa", sw=3)
+    body += label(210, 120, "C₃", 9, "#94a3b8")
+    return svg_wrap(240, 200, body, "2023 Q95: Capacitor network")
+
 def main():
     outdir_base = "_data/figures"
     figures = {
+        "2022": {
+            "fig-2022-q42": fig_2022_q42,
+            "fig-2022-q46": fig_2022_q46,
+            "fig-2022-q48": fig_2022_q48,
+            "fig-2022-q49": fig_2022_q49,
+            "fig-2022-q55": fig_2022_q55,
+            "fig-2022-q57": fig_2022_q57,
+            "fig-2022-q62": fig_2022_q62,
+            "fig-2022-q68": fig_2022_q68,
+            "fig-2022-q69": fig_2022_q69,
+            "fig-2022-q93": fig_2022_q93,
+            "fig-2022-q96": fig_2022_q96,
+            "fig-2022-q97": fig_2022_q97,
+            "fig-2022-q98": fig_2022_q98,
+            "fig-2022-q99": fig_2022_q99,
+        },
+        "2023": {
+            "fig-2023-q42": fig_2023_q42,
+            "fig-2023-q48": fig_2023_q48,
+            "fig-2023-q60": fig_2023_q60,
+            "fig-2023-q61": fig_2023_q61,
+            "fig-2023-q66": fig_2023_q66,
+            "fig-2023-q68": fig_2023_q68,
+            "fig-2023-q70": fig_2023_q70,
+            "fig-2023-q91": fig_2023_q91,
+            "fig-2023-q94": fig_2023_q94,
+            "fig-2023-q95": fig_2023_q95,
+        },
         "2024": {
             "fig-2024-q42": fig_2024_q42,
             "fig-2024-q43": fig_2024_q43,

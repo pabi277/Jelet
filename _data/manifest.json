@@ -3,13 +3,54 @@
   "generatedAt": "2026-11-23T00:00:00Z",
   "syllabusBulletinRef": "WBJEEB JELET-2026 Information Bulletin (2026-03-18)",
   "totals": {
-    "papers": 2,
-    "questions": 200,
-    "markableQuestions": 195,
-    "unmarkableQuestions": 5,
+    "papers": 4,
+    "questions": 400,
+    "markableQuestions": 391,
+    "unmarkableQuestions": 9,
     "units": 42
   },
   "papers": [
+    {
+      "paperId": "jelet-2022",
+      "year": 2022,
+      "title": "JELET 2022 · Paper I",
+      "examDate": "2022-07-10",
+      "durationMinutes": 120,
+      "maxMarks": 120,
+      "maxTwelfths": 1440,
+      "questionCount": 100,
+      "voidedQuestions": [],
+      "keyTier": "derived",
+      "keyDocumentRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive)",
+      "bookletSeries": "A",
+      "officialPdfSha256": null,
+      "dataFile": "./_data/papers/2022.json",
+      "solutionsFile": "./_data/solutions/2022.solutions.json",
+      "packBytesEstimate": 420000
+    },
+    {
+      "paperId": "jelet-2023",
+      "year": 2023,
+      "title": "JELET 2023 · Paper I",
+      "examDate": "2023-07-16",
+      "durationMinutes": 120,
+      "maxMarks": 120,
+      "maxTwelfths": 1440,
+      "questionCount": 100,
+      "voidedQuestions": [
+        6,
+        46,
+        88,
+        94
+      ],
+      "keyTier": "official",
+      "keyDocumentRef": "JEEB/Reg-267/23 (03-08-2023)",
+      "bookletSeries": "A",
+      "officialPdfSha256": null,
+      "dataFile": "./_data/papers/2023.json",
+      "solutionsFile": "./_data/solutions/2023.solutions.json",
+      "packBytesEstimate": 420000
+    },
     {
       "paperId": "jelet-2024",
       "year": 2024,
