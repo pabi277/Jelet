@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="2024 Q43: Perpendicular vectors">
+  <rect x="0" y="0" width="240" height="240" fill="transparent"/>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2024 Q43: Perpendicular vectors</text>
+  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Vectors A, B, C</text>
+  <circle cx="120" cy="130" r="3" fill="#f8fafc"/>
+  <line x1="120" y1="130" x2="200" y2="80" stroke="#60a5fa" stroke-width="1.8"/>
+  <polygon points="200,80 196.2,87.1 192.0,80.3" fill="#60a5fa"/>
+  <text x="205" y="75" font-family="monospace" font-size="12" fill="#cbd5e1">A</text>
+  <line x1="120" y1="130" x2="60" y2="60" stroke="#34d399" stroke-width="1.8"/>
+  <polygon points="60,60 67.5,62.7 61.5,67.9" fill="#34d399"/>
+  <text x="30" y="55" font-family="monospace" font-size="12" fill="#cbd5e1">B</text>
+  <line x1="120" y1="130" x2="60" y2="200" stroke="#f59e0b" stroke-width="1.8"/>
+  <polygon points="60,200 61.5,192.1 67.5,197.3" fill="#f59e0b"/>
+  <text x="25" y="215" font-family="monospace" font-size="12" fill="#cbd5e1">C</text>
+  <text x="120" y="150" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="middle">A ⊥ B, A ⊥ C</text>
+</svg>

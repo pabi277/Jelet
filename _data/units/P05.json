@@ -1,0 +1,63 @@
+{
+  "unitId": "P05",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-E",
+  "title": "Gravitation",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q058",
+    "jelet-2024-q059",
+    "jelet-2024-q063",
+    "jelet-2025-q043",
+    "jelet-2025-q045",
+    "jelet-2025-q049",
+    "jelet-2025-q068",
+    "jelet-2025-q070"
+  ],
+  "sections": [
+    {
+      "anchor": "law",
+      "heading": "1. Universal Law of Gravitation",
+      "proseLatex": "$F = GMm/r^2$. Variation of $g$ above, below, and at the surface of Earth.",
+      "keyFormulas": [
+        {
+          "formulaId": "P05-F01",
+          "label": "Gravitational Force",
+          "latex": "$F = GMm/r^2$",
+          "aiExplainContext": "Universal inverse-square law."
+        }
+      ]
+    },
+    {
+      "anchor": "energy",
+      "heading": "2. Gravitational Potential Energy",
+      "proseLatex": "$U = -GMm/r$. For circular orbit: $E = -GMm/2r$, $U = 2E$, $K = -E$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P05-F02",
+          "label": "Orbital Energy",
+          "latex": "$E = -\frac{GMm}{2r},\\; U = -\frac{GMm}{r},\\; K = \\frac{GMm}{2r}$",
+          "aiExplainContext": "Energy relations for circular orbits."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P05-EX01",
+      "problemLatex": "Satellite in circular orbit has total energy $E_0$. Find potential energy.",
+      "stepsLatex": [
+        "$E = -GMm/2r$, $U = -GMm/r = 2E$.",
+        "$U = 2E_0$... but $U < 0$, so $U = -2|E_0| = -2E_0$."
+      ],
+      "answerLatex": "$-2E_0$"
+    }
+  ],
+  "wbjeebTraps": [
+    "For circular orbits: $K = |E|$, $U = 2E$.",
+    "$g$ decreases with altitude as $g(R/(R+h))^2$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

@@ -1,0 +1,58 @@
+{
+  "unitId": "M08",
+  "subjectId": "MATH",
+  "officialCode": "Math-H",
+  "title": "Partial Differentiation",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q020",
+    "jelet-2024-q021",
+    "jelet-2025-q005"
+  ],
+  "sections": [
+    {
+      "anchor": "definition",
+      "heading": "1. Partial Derivatives",
+      "proseLatex": "For $f(x,y)$, hold one variable constant and differentiate w.r.t. the other.",
+      "keyFormulas": [
+        {
+          "formulaId": "M08-F01",
+          "label": "Partial Derivative",
+          "latex": "$\\frac{\\partial f}{\\partial x} = \\lim_{h\\to 0}\\frac{f(x+h,y)-f(x,y)}{h}$",
+          "aiExplainContext": "Definition of the partial derivative."
+        }
+      ]
+    },
+    {
+      "anchor": "euler-theorem",
+      "heading": "2. Homogeneous Functions & Euler's Theorem",
+      "proseLatex": "For a homogeneous function of degree $n$: $x\\frac{\\partial f}{\\partial x} + y\\frac{\\partial f}{\\partial y} = nf$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M08-F02",
+          "label": "Euler's Theorem",
+          "latex": "$x f_x + y f_y = n f$ (degree $n$ homogeneous)",
+          "aiExplainContext": "Verify and apply to homogeneous functions."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M08-EX01",
+      "problemLatex": "If $u = \\tan^{-1}(x/y)$, find $\\partial u/\\partial x - \\partial u/\\partial y$.",
+      "stepsLatex": [
+        "$\\partial u/\\partial x = y/(x^2+y^2)$, $\\partial u/\\partial y = -x/(x^2+y^2)$.",
+        "Expression $= (x+y)/(x^2+y^2)$."
+      ],
+      "answerLatex": "$(x+y)/(x^2+y^2)$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Treat the other variable as a constant when differentiating partially.",
+    "Euler's theorem applies only to homogeneous functions."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

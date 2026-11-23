@@ -1,0 +1,69 @@
+{
+  "unitId": "C08",
+  "subjectId": "CHEM",
+  "officialCode": "Chem-H",
+  "title": "Organic Chemistry",
+  "estimatedMinutes": 35,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q076",
+    "jelet-2024-q077",
+    "jelet-2024-q078",
+    "jelet-2024-q079",
+    "jelet-2024-q080",
+    "jelet-2024-q083",
+    "jelet-2024-q088",
+    "jelet-2024-q089",
+    "jelet-2024-q090",
+    "jelet-2025-q081",
+    "jelet-2025-q082",
+    "jelet-2025-q083",
+    "jelet-2025-q085",
+    "jelet-2025-q088"
+  ],
+  "sections": [
+    {
+      "anchor": "nomenclature",
+      "heading": "1. IUPAC Nomenclature & Isomerism",
+      "proseLatex": "Classification, homologous series, functional groups. Structural, geometrical isomerism. IUPAC naming rules.",
+      "keyFormulas": [
+        {
+          "formulaId": "C08-F01",
+          "label": "IUPAC Naming",
+          "latex": "Longest chain + lowest locants + functional group suffix",
+          "aiExplainContext": "Systematic naming of organic compounds."
+        }
+      ]
+    },
+    {
+      "anchor": "compounds",
+      "heading": "2. Preparation & Properties of Key Compounds",
+      "proseLatex": "Methane, ethylene, acetylene. Methylated spirit, rectified spirit. Benzene, naphthalene, phenol.",
+      "keyFormulas": [
+        {
+          "formulaId": "C08-F02",
+          "label": "Grignard Reagent",
+          "latex": "$RMgX + H_2O \\to RH + Mg(OH)X$",
+          "aiExplainContext": "Carbon-carbon bond forming reagent; hydrolysis gives alkane."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "C08-EX01",
+      "problemLatex": "Product of $CH_3Cl \\xrightarrow{(i) Mg/ether \\; (ii) CH_3COOH}$:",
+      "stepsLatex": [
+        "(i) forms Grignard: $CH_3MgCl$.",
+        "(ii) Acid-base reaction: $CH_3MgCl + CH_3COOH \\to CH_4$."
+      ],
+      "answerLatex": "$CH_4$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Markovnikov's rule: H adds to the carbon with more H in alkene addition.",
+    "Acetylene is more acidic than alkenes/alkanes due to sp hybridization."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

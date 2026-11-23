@@ -1,0 +1,54 @@
+{
+  "unitId": "C07",
+  "subjectId": "CHEM",
+  "officialCode": "Chem-G",
+  "title": "Water",
+  "estimatedMinutes": 20,
+  "examFrequency": "low",
+  "pyqIds": [],
+  "sections": [
+    {
+      "anchor": "hardness",
+      "heading": "1. Hard Water & Softening",
+      "proseLatex": "Temporary (bicarbonate) vs permanent (Ca/Mg chloride/sulphate) hardness. ppm of $\\text{CaCO}_3$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C07-F01",
+          "label": "Hardness Measure",
+          "latex": "ppm $\\text{CaCO}_3$ equivalent",
+          "aiExplainContext": "Standard measure of water hardness."
+        }
+      ]
+    },
+    {
+      "anchor": "treatment",
+      "heading": "2. Softening Methods",
+      "proseLatex": "Permutit (zeolite), ion-exchange resin, calgon treatment, EDTA titration.",
+      "keyFormulas": [
+        {
+          "formulaId": "C07-F02",
+          "label": "EDTA Titration",
+          "latex": "Complexometric titration for $\\text{Ca}^{2+}, \\text{Mg}^{2+}$",
+          "aiExplainContext": "Quantify hard water ions."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "C07-EX01",
+      "problemLatex": "Distinguish temporary vs permanent hardness.",
+      "stepsLatex": [
+        "Temporary: bicarbonates, removed by boiling.",
+        "Permanent: chlorides/sulphates, needs chemical treatment."
+      ],
+      "answerLatex": "Boiling vs chemical treatment"
+    }
+  ],
+  "wbjeebTraps": [
+    "Temporary hardness is removed by boiling; permanent requires ion exchange.",
+    "EDTA forms stable 1:1 complexes with hard water ions."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

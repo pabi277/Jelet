@@ -1,0 +1,63 @@
+{
+  "unitId": "M10",
+  "subjectId": "MATH",
+  "officialCode": "Math-J",
+  "title": "Ordinary Differential Equations",
+  "estimatedMinutes": 30,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q026",
+    "jelet-2024-q027",
+    "jelet-2024-q028",
+    "jelet-2024-q039",
+    "jelet-2025-q010",
+    "jelet-2025-q029",
+    "jelet-2025-q034"
+  ],
+  "sections": [
+    {
+      "anchor": "first-order",
+      "heading": "1. First-Order ODEs",
+      "proseLatex": "Variable separable, homogeneous, exact, and linear ($dy/dx + Py = Q$) forms.",
+      "keyFormulas": [
+        {
+          "formulaId": "M10-F01",
+          "label": "Linear ODE Solution",
+          "latex": "$y = e^{-\\int P\\,dx}\\left[\\int Q e^{\\int P\\,dx}\\,dx + c\\right]$",
+          "aiExplainContext": "Integrating factor method."
+        }
+      ]
+    },
+    {
+      "anchor": "second-order",
+      "heading": "2. Linear 2nd-Order ODEs",
+      "proseLatex": "C.F. + P.I. for polynomial, $e^{ax}$, $\\sin ax$, $\\cos ax$ forcing terms.",
+      "keyFormulas": [
+        {
+          "formulaId": "M10-F02",
+          "label": "Second-Order Solution",
+          "latex": "$y = y_c + y_p$",
+          "aiExplainContext": "Complementary function + particular integral."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M10-EX01",
+      "problemLatex": "Solve $d^2y/dx^2 + (dy/dx)^2 + 1 = 0$.",
+      "stepsLatex": [
+        "Let $p = dy/dx$: $p' + p^2 + 1 = 0$.",
+        "$p = \\tan(c-x)$.",
+        "Integrate to get $y$."
+      ],
+      "answerLatex": "$y = \\ln|\\cos(c-x)| + c_1$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Check the type of ODE before choosing the method.",
+    "For exact ODEs, verify $\\partial M/\\partial y = \\partial N/\\partial x$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

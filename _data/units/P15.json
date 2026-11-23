@@ -1,0 +1,57 @@
+{
+  "unitId": "P15",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-O",
+  "title": "Photoelectricity",
+  "estimatedMinutes": 20,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q055",
+    "jelet-2025-q064"
+  ],
+  "sections": [
+    {
+      "anchor": "photoemission",
+      "heading": "1. Photoelectric Effect",
+      "proseLatex": "Photoemission occurs when light frequency $>\\nu_0$ (threshold). Einstein's equation: $K_{\\max} = h\\nu - \\phi_0$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P15-F01",
+          "label": "Einstein's Equation",
+          "latex": "$K_{\\max} = h\\nu - \\phi_0$",
+          "aiExplainContext": "Energy conservation for photoelectrons."
+        }
+      ]
+    },
+    {
+      "anchor": "solar",
+      "heading": "2. Solar Photovoltaic Cell",
+      "proseLatex": "Photons generate electron-hole pairs in a semiconductor, producing current.",
+      "keyFormulas": [
+        {
+          "formulaId": "P15-F02",
+          "label": "Stopping Potential",
+          "latex": "$eV_0 = h\\nu - \\phi_0$",
+          "aiExplainContext": "Maximum KE measured by stopping potential."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P15-EX01",
+      "problemLatex": "Two metals illuminated with $\\lambda_1 = 350$ nm and $\\lambda_2 = 540$ nm. Compare max speeds.",
+      "stepsLatex": [
+        "Shorter wavelength $\\Rightarrow$ higher photon energy $\\Rightarrow$ higher $K_{\\max}$.",
+        "$v_1 > v_2$."
+      ],
+      "answerLatex": "$v_1 > v_2$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Photoelectric effect is instantaneous — no time lag.",
+    "Intensity increases photocurrent, not KE."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

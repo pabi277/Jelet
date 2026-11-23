@@ -1,0 +1,61 @@
+{
+  "unitId": "P08",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-H",
+  "title": "Fluid Mechanics / Hydrostatics",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q056",
+    "jelet-2025-q048",
+    "jelet-2025-q051",
+    "jelet-2025-q056",
+    "jelet-2025-q065"
+  ],
+  "sections": [
+    {
+      "anchor": "buoyancy",
+      "heading": "1. Pascal's Law, Buoyancy & Floatation",
+      "proseLatex": "Pascal's law: pressure transmitted equally. Buoyant force $= V\\rho g$ (Archimedes' principle).",
+      "keyFormulas": [
+        {
+          "formulaId": "P08-F01",
+          "label": "Buoyant Force",
+          "latex": "$F_b = V\\rho_{\\text{fluid}}g$",
+          "aiExplainContext": "Upward force equals weight of displaced fluid."
+        }
+      ]
+    },
+    {
+      "anchor": "viscosity",
+      "heading": "2. Viscosity, Stokes' Law & Terminal Velocity",
+      "proseLatex": "Viscous force $= 6\\pi\\eta r v$. Terminal velocity: viscous force = net weight.",
+      "keyFormulas": [
+        {
+          "formulaId": "P08-F02",
+          "label": "Stokes' Law",
+          "latex": "$F_v = 6\\pi\\eta r v$",
+          "aiExplainContext": "Viscous drag on a sphere at low Reynolds number."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P08-EX01",
+      "problemLatex": "Ball of radius $r$, density $\\rho$ falls through height $h$ into water. Terminal velocity = entry velocity. Find $h$.",
+      "stepsLatex": [
+        "$v = \\sqrt{2gh}$.",
+        "$mg - $ buoyancy $= 6\\pi\\eta r v$.",
+        "Solve for $h$."
+      ],
+      "answerLatex": "$h = [2r^2(\\rho-1)g/(9\\eta)]^2/(2g)$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Terminal velocity occurs when net force is zero.",
+    "Bernoulli's theorem applies to ideal, incompressible, streamline flow."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

@@ -1,0 +1,57 @@
+{
+  "unitId": "E01",
+  "subjectId": "FEEE",
+  "officialCode": "FEEE-A",
+  "title": "Electrical Components & Measuring Instruments",
+  "estimatedMinutes": 25,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q091",
+    "jelet-2025-q091"
+  ],
+  "sections": [
+    {
+      "anchor": "instruments",
+      "heading": "1. PMMC & Moving Iron Instruments",
+      "proseLatex": "PMMC: moving coil, DC only, linear scale. MI: moving iron, AC/DC, non-linear scale.",
+      "keyFormulas": [
+        {
+          "formulaId": "E01-F01",
+          "label": "PMMC Deflection",
+          "latex": "$\\theta \\propto I$ (DC only)",
+          "aiExplainContext": "PMMC reads average current."
+        }
+      ]
+    },
+    {
+      "anchor": "bridge",
+      "heading": "2. Wheatstone Bridge & Range Extension",
+      "proseLatex": "Balance condition: $R_1/R_2 = R_3/R_4$. Ammeter shunt and voltmeter multiplier for range extension.",
+      "keyFormulas": [
+        {
+          "formulaId": "E01-F02",
+          "label": "Wheatstone Balance",
+          "latex": "$\\frac{R_1}{R_2} = \\frac{R_3}{R_4}$ at balance",
+          "aiExplainContext": "Zero-current condition in the bridge."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "E01-EX01",
+      "problemLatex": "PMMC measures $i(t) = (5 + 5\\sin 100\\pi t)$ A. Reading?",
+      "stepsLatex": [
+        "PMMC reads average value.",
+        "Average of $5 + 5\\sin 100\\pi t$ over a cycle $= 5$ A."
+      ],
+      "answerLatex": "$5$ A"
+    }
+  ],
+  "wbjeebTraps": [
+    "PMMC cannot measure AC (average of sine = 0).",
+    "Shunt resistor is in parallel; multiplier is in series."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

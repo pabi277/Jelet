@@ -1,0 +1,64 @@
+{
+  "unitId": "P03",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-C",
+  "title": "Laws of Motion",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q045",
+    "jelet-2024-q054",
+    "jelet-2024-q064",
+    "jelet-2024-q067",
+    "jelet-2025-q050",
+    "jelet-2025-q052",
+    "jelet-2025-q053",
+    "jelet-2025-q059",
+    "jelet-2025-q067"
+  ],
+  "sections": [
+    {
+      "anchor": "newton-laws",
+      "heading": "1. Newton's Laws & Momentum",
+      "proseLatex": "Newton's three laws, force, momentum, impulse. Conservation of momentum in collisions.",
+      "keyFormulas": [
+        {
+          "formulaId": "P03-F01",
+          "label": "Conservation of Momentum",
+          "latex": "$m_1\\vec{v}_1 + m_2\\vec{v}_2 = m_1\\vec{v}_1' + m_2\\vec{v}_2'$",
+          "aiExplainContext": "Applies when net external force is zero."
+        }
+      ]
+    },
+    {
+      "anchor": "friction",
+      "heading": "2. Friction & Circular Motion",
+      "proseLatex": "Static/dynamic friction, angle of repose, banking of roads, centripetal force.",
+      "keyFormulas": [
+        {
+          "formulaId": "P03-F02",
+          "label": "Centripetal Force",
+          "latex": "$F_c = mv^2/r$",
+          "aiExplainContext": "Net force toward center in circular motion."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P03-EX01",
+      "problemLatex": "A 2 kg block hangs from a pulley. $F = 40$ N is applied. Find work by tension.",
+      "stepsLatex": [
+        "$T = 40$ N, $a = 10$ m/s², $s = 2$ m.",
+        "Work by tension $= T \\cdot s = 80$ J."
+      ],
+      "answerLatex": "$80$ J"
+    }
+  ],
+  "wbjeebTraps": [
+    "Inelastic collisions conserve momentum but not KE.",
+    "Friction always opposes relative motion."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

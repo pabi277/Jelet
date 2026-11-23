@@ -1,0 +1,58 @@
+{
+  "unitId": "E05",
+  "subjectId": "FEEE",
+  "officialCode": "FEEE-E",
+  "title": "AC Sources & Circuits",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q095",
+    "jelet-2024-q099",
+    "jelet-2025-q095"
+  ],
+  "sections": [
+    {
+      "anchor": "values",
+      "heading": "1. Peak, Average & RMS Values",
+      "proseLatex": "RMS $= V_m/\\sqrt{2}$ for sine. Form factor $= \\text{RMS}/\text{average}$. Peak factor $= V_m/V_{rms}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E05-F01",
+          "label": "RMS Value",
+          "latex": "$V_{rms} = V_m/\\sqrt{2}$ (sine wave)",
+          "aiExplainContext": "Effective value of AC."
+        }
+      ]
+    },
+    {
+      "anchor": "rlc",
+      "heading": "2. RLC Circuits, Resonance & Power",
+      "proseLatex": "Impedance triangle, Q-factor, resonance at $f_0 = 1/(2\\pi\\sqrt{LC})$. Power factor $\\cos\\phi$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E05-F02",
+          "label": "Resonance",
+          "latex": "$f_0 = \\frac{1}{2\\pi\\sqrt{LC}}$",
+          "aiExplainContext": "Frequency at which reactances cancel."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "E05-EX01",
+      "problemLatex": "Series RLC resonance condition.",
+      "stepsLatex": [
+        "$X_L = X_C \\Rightarrow \\omega L = 1/(\\omega C)$.",
+        "$f_0 = 1/(2\\pi\\sqrt{LC})$."
+      ],
+      "answerLatex": "$f_0 = 1/(2\\pi\\sqrt{LC})$"
+    }
+  ],
+  "wbjeebTraps": [
+    "At resonance, impedance is purely resistive (minimum).",
+    "Power factor $= \\cos\\phi = R/Z$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

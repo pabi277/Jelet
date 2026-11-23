@@ -1,0 +1,60 @@
+{
+  "unitId": "C04",
+  "subjectId": "CHEM",
+  "officialCode": "Chem-D",
+  "title": "Oxidation, Reduction & Electrochemistry",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q075",
+    "jelet-2025-q074",
+    "jelet-2025-q076",
+    "jelet-2025-q079",
+    "jelet-2025-q080"
+  ],
+  "sections": [
+    {
+      "anchor": "redox",
+      "heading": "1. Oxidation Number & Redox Titrations",
+      "proseLatex": "Oxidation number rules. Ion-electron balancing. Redox titrations use electron transfer.",
+      "keyFormulas": [
+        {
+          "formulaId": "C04-F01",
+          "label": "Oxidation Number Change",
+          "latex": "$\\text{Change} = \\text{final} - \\text{initial}$",
+          "aiExplainContext": "Track electrons in redox reactions."
+        }
+      ]
+    },
+    {
+      "anchor": "electrochemistry",
+      "heading": "2. Electrolysis & Electrochemical Series",
+      "proseLatex": "Faraday's laws. Electrolysis of $\\text{CuSO}_4$. Electrochemical series ranks reduction potentials.",
+      "keyFormulas": [
+        {
+          "formulaId": "C04-F02",
+          "label": "Nernst Equation",
+          "latex": "$E = E^\\circ - \\frac{0.0592}{n}\\log Q$",
+          "aiExplainContext": "Cell potential under non-standard conditions."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "C04-EX01",
+      "problemLatex": "Cell: $Zn + Cu^{2+} \\to Cu + Zn^{2+}$. $E^\\circ = 1.10$ V. With 0.1 M both, find $E$.",
+      "stepsLatex": [
+        "$Q = [Zn^{2+}]/[Cu^{2+}] = 1$.",
+        "$E = 1.10 - 0 = 1.10$ V."
+      ],
+      "answerLatex": "$1.10$ V"
+    }
+  ],
+  "wbjeebTraps": [
+    "Active metals (Na, Mg, Ca, Al) cannot be extracted from aqueous solutions.",
+    "Faraday's law: mass deposited $\\propto$ charge passed."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

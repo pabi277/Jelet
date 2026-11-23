@@ -1,0 +1,63 @@
+{
+  "unitId": "M04",
+  "subjectId": "MATH",
+  "officialCode": "Math-D",
+  "title": "Co-ordinate Geometry (2D)",
+  "estimatedMinutes": 35,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q010",
+    "jelet-2024-q034",
+    "jelet-2025-q014",
+    "jelet-2025-q016",
+    "jelet-2025-q020",
+    "jelet-2025-q027",
+    "jelet-2025-q038"
+  ],
+  "sections": [
+    {
+      "anchor": "conics",
+      "heading": "1. 2D Conic Sections",
+      "proseLatex": "Circle, parabola, ellipse, and hyperbola — standard equations, properties, tangents, and normals.",
+      "keyFormulas": [
+        {
+          "formulaId": "M04-F01",
+          "label": "Circle Tangent Length",
+          "latex": "From external point $P$: $PA \\cdot PB = |OP|^2 - r^2$",
+          "aiExplainContext": "Power of a point theorem."
+        }
+      ]
+    },
+    {
+      "anchor": "tangents",
+      "heading": "2. Tangents & Normals",
+      "proseLatex": "Tangent to conic at point $(x_1,y_1)$: replace $x^2 \\to xx_1$, $y^2 \\to yy_1$, etc.",
+      "keyFormulas": [
+        {
+          "formulaId": "M04-F02",
+          "label": "Hyperbola Tangent",
+          "latex": "$y = mx \\pm \\sqrt{a^2m^2 - b^2}$",
+          "aiExplainContext": "Tangent with given slope to hyperbola."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M04-EX01",
+      "problemLatex": "Find common tangents to $x^2+y^2=4$ and $x^2+y^2-6x-8y=24$.",
+      "stepsLatex": [
+        "$C_1$: center $(0,0)$, $r=2$. $C_2$: center $(3,4)$, $r=7$.",
+        "$d = 5 = |7-2|$: internal tangency.",
+        "1 common tangent."
+      ],
+      "answerLatex": "1"
+    }
+  ],
+  "wbjeebTraps": [
+    "Distance formula between centers determines tangent count.",
+    "Internal tangency: $d = |r_1 - r_2|$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

@@ -1,0 +1,4993 @@
+{
+  "paperId": "jelet-2025",
+  "year": 2025,
+  "bookletSeries": "A",
+  "sections": [
+    {
+      "subjectId": "MATH",
+      "title": "Mathematics",
+      "qStart": 1,
+      "qEnd": 40,
+      "cat1Range": [
+        1,
+        30
+      ],
+      "cat2Range": [
+        31,
+        40
+      ],
+      "maxMarks": 50
+    },
+    {
+      "subjectId": "PHYS",
+      "title": "Physics",
+      "qStart": 41,
+      "qEnd": 70,
+      "cat1Range": [
+        41,
+        65
+      ],
+      "cat2Range": [
+        66,
+        70
+      ],
+      "maxMarks": 35
+    },
+    {
+      "subjectId": "CHEM",
+      "title": "Chemistry",
+      "qStart": 71,
+      "qEnd": 90,
+      "cat1Range": [
+        71,
+        85
+      ],
+      "cat2Range": [
+        86,
+        90
+      ],
+      "maxMarks": 25
+    },
+    {
+      "subjectId": "FEEE",
+      "title": "Fundamentals of Electrical & Electronics Engineering",
+      "qStart": 91,
+      "qEnd": 100,
+      "cat1Range": [
+        91,
+        100
+      ],
+      "cat2Range": null,
+      "maxMarks": 10
+    }
+  ],
+  "questions": [
+    {
+      "id": "jelet-2025-q001",
+      "qNumber": 1,
+      "subjectId": "MATH",
+      "unitId": "M03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 2,
+      "stemLatex": "Let $Z$ be a complex number such that $Z^{4} - Z^{3} + 2Z^{2} - Z + 1 = 0$. The value of $|Z|$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{4}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{3}{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q1)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "complex-modulus",
+        "reciprocal-polynomial",
+        "roots"
+      ]
+    },
+    {
+      "id": "jelet-2025-q002",
+      "qNumber": 2,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 2,
+      "stemLatex": "If $\\omega (\\neq 1)$ be a cube root of unity and $A = \\begin{bmatrix} 0 & 0 \\\\ 0 & 0 \\end{bmatrix}$, then $A^{2025}$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$A$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$-A$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$I$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$A^{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q2)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "cube-root-unity",
+        "matrix-power",
+        "identity"
+      ]
+    },
+    {
+      "id": "jelet-2025-q003",
+      "qNumber": 3,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 2,
+      "stemLatex": "If $A$ and $B$ both are symmetric matrices, then $AB - BA$ is a",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "skew symmetric matrix",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "symmetric matrix",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "diagonal matrix",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "null matrix",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q3)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "symmetric",
+        "skew-symmetric",
+        "commutator"
+      ]
+    },
+    {
+      "id": "jelet-2025-q004",
+      "qNumber": 4,
+      "subjectId": "MATH",
+      "unitId": "M02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 2,
+      "stemLatex": "The number of values of $K$ for which the system of equations $(K + 1)x + 8y = 4K$, $Kx + (K + 3)y = 3K - 1$ has no solution is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$3$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q4)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "linear-system",
+        "no-solution",
+        "determinant"
+      ]
+    },
+    {
+      "id": "jelet-2025-q005",
+      "qNumber": 5,
+      "subjectId": "MATH",
+      "unitId": "M08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 2,
+      "stemLatex": "If $u = \\tan^{-1}\\left(\\sqrt{xy}\\right)$, then the value of the expression $\\dfrac{\\partial u}{\\partial x} + \\dfrac{\\partial u}{\\partial y}$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$3\\sin 2u$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\sin 2u$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$5\\sin 2u$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$7\\sin 2u$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q5)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "partial-differentiation",
+        "inverse-trigonometric",
+        "homogeneous"
+      ]
+    },
+    {
+      "id": "jelet-2025-q006",
+      "qNumber": 6,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 2,
+      "stemLatex": "The value of $\\displaystyle\\int \\dfrac{x + \\cos x + \\sin^{2} x}{\\sec^{2} x + |x| + x^{4}}\\,dx$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$-1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q6)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "integration",
+        "definite-property",
+        "odd-function"
+      ]
+    },
+    {
+      "id": "jelet-2025-q007",
+      "qNumber": 7,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "If the function $f(x) = \\dfrac{x^{2} - (A+3)x + 3A}{x - 3}$, for $x \\neq 3$, is continuous at $x = 3$, then the value of $A$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$-5$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$5$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-3$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$-2$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q7)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "continuity",
+        "limit",
+        "removable-discontinuity"
+      ]
+    },
+    {
+      "id": "jelet-2025-q008",
+      "qNumber": 8,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "If $f(x) = \\dfrac{4x}{4x + 2}$, then $f(x) + f(1 - x)$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2x$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$4$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q8)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "function",
+        "symmetry",
+        "algebra"
+      ]
+    },
+    {
+      "id": "jelet-2025-q009",
+      "qNumber": 9,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "If $g'(x) = g(x)$, then $\\displaystyle\\int g(x)\\left[f(x) + f'(x)\\right]dx$ has the value ($c$ is a constant of integration)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$f'(x)g'(x) + c$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$f'(x)g(x) + c$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$f(x)g(x) + c$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$f(x)g'(x) + c$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q9)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "integration",
+        "by-parts",
+        "product"
+      ]
+    },
+    {
+      "id": "jelet-2025-q010",
+      "qNumber": 10,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "The general solution of $(x + e^{x} - 4xy^{2})\\,dx + 4x^{2}y\\,dy = 0$, is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$e^{x} + 2x^{2}y^{2} = c$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$e^{x} + x^{2}y^{2} = c$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$e^{x} - 2x^{2}y^{2} = c$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$e^{x} + x^{2}y = c$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q10)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ode",
+        "exact",
+        "general-solution"
+      ]
+    },
+    {
+      "id": "jelet-2025-q011",
+      "qNumber": 11,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "The expression $\\hat{i} \\times (\\vec{a} \\times \\hat{i}) + \\hat{j} \\times (\\vec{a} \\times \\hat{j}) + \\hat{k} \\times (\\vec{a} \\times \\hat{k})$ simplifies to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\u000bec{a}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2\\vec{a}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$4\\vec{a}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q11)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "vector",
+        "cross-product",
+        "baccab"
+      ]
+    },
+    {
+      "id": "jelet-2025-q012",
+      "qNumber": 12,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 3,
+      "stemLatex": "If $y = \\tan^{-1}\\dfrac{1}{x^{2}+3x+3} + \\tan^{-1}\\dfrac{1}{x^{2}+5x+7} + \\cdots$ up to $n$ terms, then $y'(0)$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{n^{2}+1}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$-\\dfrac{n}{1+n^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{n^{2}+1}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q12)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "inverse-trigonometric",
+        "series",
+        "derivative"
+      ]
+    },
+    {
+      "id": "jelet-2025-q013",
+      "qNumber": 13,
+      "subjectId": "MATH",
+      "unitId": "M11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "A determinant is chosen at random from the set of all determinants of order $2$ with elements $0$ or $1$ only. The event that the determinant is non-zero has the probability",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{3}{16}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{3}{8}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q13)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "probability",
+        "determinant",
+        "counting"
+      ]
+    },
+    {
+      "id": "jelet-2025-q014",
+      "qNumber": 14,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "The number of common tangents to the circles $x^{2} + y^{2} = 4$ and $x^{2} + y^{2} - 6x - 8y = 24$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$3$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$4$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q14)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "circle",
+        "common-tangent",
+        "conic"
+      ]
+    },
+    {
+      "id": "jelet-2025-q015",
+      "qNumber": 15,
+      "subjectId": "MATH",
+      "unitId": "M11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "There are two balls in an urn whose colours are not known but each ball is either white or black. A white ball is put into the urn and then a ball is drawn from the urn. The probability that it is white is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{2}{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{6}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q15)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "probability",
+        "urn",
+        "bayes"
+      ]
+    },
+    {
+      "id": "jelet-2025-q016",
+      "qNumber": 16,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "A line is drawn through the point $P(3, 11)$ to cut the circle $x^{2} + y^{2} = 9$ at $A$ and $B$. Then $PA \\cdot PB$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$9$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$121$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$205$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$139$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q16)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "circle",
+        "power-of-point",
+        "tangent"
+      ]
+    },
+    {
+      "id": "jelet-2025-q017",
+      "qNumber": 17,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "If $f(x) = a|\\sin 2x| + b|e^{3x}| + c|2x - \\beta^{2}|$, is differentiable at $x = 0$, then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2a + 3b = 0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$3b + 8c = 0$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$a = b = c = 0$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$a = 0$ and $c = 0$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q17)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "differentiability",
+        "modulus",
+        "absolute-value"
+      ]
+    },
+    {
+      "id": "jelet-2025-q018",
+      "qNumber": 18,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 4,
+      "stemLatex": "Let $f(x) = a^{x}$ ($a > 0$) be written as $f(x) = g(x) + h(x)$, where $g(x)$ is even and $h(x)$ is odd. Then $g(x + y) + g(x - y)$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2g(x)g(y)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2g(x+y)g(x-y)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2g(x)$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$g(x)h(x)$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q18)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "even-odd",
+        "function-decomposition",
+        "exponential"
+      ]
+    },
+    {
+      "id": "jelet-2025-q019",
+      "qNumber": 19,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "Let $\u000bec{a} = \\lambda(\\hat{i} + \\hat{j} - \\hat{k})$ and $\u000bec{b} = \\mu(\\hat{i} - \\hat{j} + \\hat{k})$ be two given vectors. $\\hat{c}$ is a unit vector perpendicular to $\\vec{a}$ but coplanar with $\\vec{a}$ and $\u000bec{b}$. Then the unit vector $\u000bec{d}$ perpendicular to both $\u000bec{a}$ and $\u000bec{c}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{2\\hat{i} - \\hat{j} + \\hat{k}}{\\sqrt{6}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{-2\\hat{j} + \\hat{k}}{\\sqrt{5}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{\\hat{i} + \\hat{j} + \\hat{k}}{\\sqrt{3}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{\\hat{i} - \\hat{j} + \\hat{k}}{\\sqrt{3}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q19)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "vectors",
+        "unit-vector",
+        "perpendicular"
+      ]
+    },
+    {
+      "id": "jelet-2025-q020",
+      "qNumber": 20,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "The length of the tangent drawn from any point on the circle $x^{2} + y^{2} + 2gx + 2fy + \\alpha = 0$ to the circle $x^{2} + y^{2} + 2gx + 2fy + \\beta = 0$, is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\sqrt{\\alpha - \\beta}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\sqrt{\\alpha}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\sqrt{\\beta - \\alpha}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\sqrt{\\alpha\\beta}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q20)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "circle",
+        "tangent-length",
+        "coaxial"
+      ]
+    },
+    {
+      "id": "jelet-2025-q021",
+      "qNumber": 21,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "If $A = \\begin{bmatrix} 1 & 5 \\\\ 3 & t \\end{bmatrix}$ and $|A^{2009} - 5A^{2008}|$, then the value of the determinant",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$-5$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$-6$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$4$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$-9$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q21)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "matrix",
+        "determinant",
+        "cayley-hamilton"
+      ]
+    },
+    {
+      "id": "jelet-2025-q022",
+      "qNumber": 22,
+      "subjectId": "MATH",
+      "unitId": "M02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "If the system of equations $2rx - 2y + 3z = 0$, $x + ry + 2z = 0$, $2x + rz = 0$ has a non-trivial solution, then the real value of $r$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$-2$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$3$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$2$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q22)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "linear-system",
+        "non-trivial",
+        "determinant"
+      ]
+    },
+    {
+      "id": "jelet-2025-q023",
+      "qNumber": 23,
+      "subjectId": "MATH",
+      "unitId": "M05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 5,
+      "stemLatex": "If $\\vec{a}$ and $\\vec{b}$ be two unit vectors and $\\theta$ is the angle between them, then $\\sin\\theta$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\pm 1$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q23)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "unit-vector",
+        "angle",
+        "sin"
+      ]
+    },
+    {
+      "id": "jelet-2025-q024",
+      "qNumber": 24,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "The value of $\\displaystyle\\lim_{x \\to 0} \\dfrac{\\sin(\\pi\\cos\\frac{1}{x})}{1}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$-\\pi$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{\\pi}{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\pi$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$0$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q24)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "limit",
+        "trigonometric",
+        "squeeze"
+      ]
+    },
+    {
+      "id": "jelet-2025-q025",
+      "qNumber": 25,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "If $y = 2x + \\cot^{-1}x + \\log x$, then $y'$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "decreases on $(-\\infty, \\infty)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "increases on $[0, \\infty)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "decreases on $[0, \\infty)$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "increases on $(-\\infty, \\infty)$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q25)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "derivative",
+        "increasing-function",
+        "logarithm"
+      ]
+    },
+    {
+      "id": "jelet-2025-q026",
+      "qNumber": 26,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "A given right circular cone has a volume $p$, and the largest right circular cylinder that can be inscribed in the cone has a volume $q$. Then $p : q$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$9 : 4$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$8 : 3$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$7 : 2$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$5 : 3$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q26)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "maxima-minima",
+        "cone",
+        "cylinder"
+      ]
+    },
+    {
+      "id": "jelet-2025-q027",
+      "qNumber": 27,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "The equations of tangents to the hyperbola $\\dfrac{x^{2}}{4} - \\dfrac{y^{2}}{3} = 1$ and which are perpendicular to $x + 2y = 0$ are",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$y = \\dfrac{1}{2}x \\pm \\sqrt{13}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$y = 2x \\pm \\sqrt{13}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$y = 2x \\pm \\sqrt{19}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$y = \\dfrac{1}{2}x \\pm \\sqrt{19}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q27)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "hyperbola",
+        "tangent",
+        "perpendicular"
+      ]
+    },
+    {
+      "id": "jelet-2025-q028",
+      "qNumber": 28,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 6,
+      "stemLatex": "If $f(x) = \\lim_{n \\to \\infty}\\left[2x + 4x^{2} + \\cdots + 2nx^{2n-1}\\right]$, $0 < x < 1$, then $\\displaystyle\\int f(x)\\,dx$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$-\\sqrt{1 - x^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{1-x^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\sqrt{1 - x^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q28)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "limit",
+        "integration",
+        "geometric-series"
+      ]
+    },
+    {
+      "id": "jelet-2025-q029",
+      "qNumber": 29,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "If for the differential equation $\\dfrac{dy}{dx} = \\dfrac{x}{y\\log(cx)}$, the general solution is $y^{2} = \\varphi(x)$ ($c$ is a constant), then $\\varphi(x)$ is given by",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$x^{2} + 2cx$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$x^{2} + c$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2x^{2} + cx$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$x^{2} + cx^{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q29)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ode",
+        "variable-separable",
+        "general-solution"
+      ]
+    },
+    {
+      "id": "jelet-2025-q030",
+      "qNumber": 30,
+      "subjectId": "MATH",
+      "unitId": "M11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 7,
+      "stemLatex": "Two indistinguishable coins are tossed simultaneously. The probability of getting one head and one tail is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{3}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$1$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q30)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "probability",
+        "coin-toss",
+        "complement"
+      ]
+    },
+    {
+      "id": "jelet-2025-q031",
+      "qNumber": 31,
+      "subjectId": "MATH",
+      "unitId": "M01",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 7,
+      "stemLatex": "If $A$ is a square matrix of order $3$, then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$|\\operatorname{adj} A| = |A|$ if $|A| \\geq 0$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$A(\\operatorname{adj} A) = |A|I_{3}$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$A$ is invertible if $|A| \\neq 0$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\operatorname{adj} A$ is invertible if $|A| \\neq 0$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q31)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "adjoint",
+        "invertible",
+        "matrix-properties"
+      ]
+    },
+    {
+      "id": "jelet-2025-q032",
+      "qNumber": 32,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 7,
+      "stemLatex": "Let $f(x) = \\begin{cases} \\dfrac{\\sin x}{x}, & x \\neq 0 \\\\ 0, & x = 0 \\end{cases}$. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$f$ and $f'$ both are continuous at $x = 0$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$f$ is continuous at $x = 0$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$f$ is derivable at $x = 0$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$f$ is derivable at $x = 0$ but $f'$ is not continuous at $x = 0$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q32)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "continuity",
+        "differentiability",
+        "sinx/x"
+      ]
+    },
+    {
+      "id": "jelet-2025-q033",
+      "qNumber": 33,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 8,
+      "stemLatex": "If $\\displaystyle\\int \\dfrac{dx}{2x^{7} + x^{2} + 1}$, then $I$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{2}\\ln(2x^{7} + x^{2} + 1) + c$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{x}\\ln(x^{2} + 1 + 2x^{7}) + c$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{1}{x^{2}+1+2x^{7}} + c$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{p(x)}{q(x)} + c_{1}$ (where $p$ and $q$ are polynomial of same degree)",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q33)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "integration",
+        "substitution",
+        "rational"
+      ]
+    },
+    {
+      "id": "jelet-2025-q034",
+      "qNumber": 34,
+      "subjectId": "MATH",
+      "unitId": "M10",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 8,
+      "stemLatex": "Solution of the differential equation $\\dfrac{d^{2}y}{dx^{2}} + \\left(\\dfrac{dy}{dx}\\right)^{2} + 1 = 0$ are given by",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$y = -e^{-x} + c$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$y - e^{-x} = c$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$y + e^{x} = c$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$y - e^{x} = c$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q34)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ode",
+        "second-order",
+        "exponential"
+      ]
+    },
+    {
+      "id": "jelet-2025-q035",
+      "qNumber": 35,
+      "subjectId": "MATH",
+      "unitId": "M07",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 8,
+      "stemLatex": "Let $f(x) = \\begin{cases} 3x^{2} + 12x - 1, & -1 \\leq x \\leq 2 \\\\ 37 - x, & 2 < x \\leq 3 \\end{cases}$. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$f(x)$ is increasing on $[-1, 2]$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$f(x)$ is continuous on $[-1, 3]$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$f'(2)$ does not exist.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$f(x)$ has the maximum value at $x = 2$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q35)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "continuity",
+        "differentiability",
+        "piecewise"
+      ]
+    },
+    {
+      "id": "jelet-2025-q036",
+      "qNumber": 36,
+      "subjectId": "MATH",
+      "unitId": "M06",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 8,
+      "stemLatex": "If $[x]$ is the greatest integer function, then $\\displaystyle\\lim_{x \\to 0} \\dfrac{[x]}{x}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "a non-zero real number.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "a rational number.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "a strictly positive integer.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "zero.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q36)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "limit",
+        "greatest-integer",
+        "floor"
+      ]
+    },
+    {
+      "id": "jelet-2025-q037",
+      "qNumber": 37,
+      "subjectId": "MATH",
+      "unitId": "M11",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "Let $E$ and $F$ be two independent events. The probability that both $E$ and $F$ happen is $\\dfrac{1}{12}$ and the probability that neither $E$ nor $F$ happens is $\\dfrac{1}{2}$. Then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$P(E) = \\dfrac{1}{4}, P(F) = \\dfrac{1}{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$P(E) = \\dfrac{1}{6}, P(F) = \\dfrac{1}{4}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$P(E) = \\dfrac{1}{6}, P(F) = \\dfrac{1}{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$P(E) = \\dfrac{1}{3}, P(F) = \\dfrac{1}{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q37)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "probability",
+        "independent-events",
+        "system"
+      ]
+    },
+    {
+      "id": "jelet-2025-q038",
+      "qNumber": 38,
+      "subjectId": "MATH",
+      "unitId": "M04",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "The straight line $y = mx + c$ intersects the circle $x^{2} + y^{2} = r^{2}$ at two distinct points if",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$-r\\sqrt{1+m^{2}} < c < r\\sqrt{1+m^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$0 \\leq c < r\\sqrt{1+m^{2}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-r\\sqrt{1-m^{2}} < c < r$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$r < c\\sqrt{1+m^{2}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q38)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "circle",
+        "line-intersection",
+        "condition"
+      ]
+    },
+    {
+      "id": "jelet-2025-q039",
+      "qNumber": 39,
+      "subjectId": "MATH",
+      "unitId": "M02",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "The system of equations $ax + by + cz = q - r$, $bx + cy + az = r - p$, $cx + ay + bz = p - q$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "consistent if $p = q = r$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "inconsistent if $a = b = c$ and $p \\neq q \\neq r$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "consistent if $a, b, c$ are distinct and $a + b + c = 0$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "inconsistent for any value of $a, b, c$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q39)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "linear-system",
+        "consistency",
+        "cyclic"
+      ]
+    },
+    {
+      "id": "jelet-2025-q040",
+      "qNumber": 40,
+      "subjectId": "MATH",
+      "unitId": "M09",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 9,
+      "stemLatex": "The value of $\\displaystyle\\int \\dfrac{\tan x}{x}\\,dx$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{1}{2}\\ln\\sec^{2}x + c$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\ln\\sec x + c$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{\\pi}{2}\\ln a$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$2\\ln\\sec x + c$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q40)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "integration",
+        "tangent",
+        "logarithm"
+      ]
+    },
+    {
+      "id": "jelet-2025-q041",
+      "qNumber": 41,
+      "subjectId": "PHYS",
+      "unitId": "P01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 10,
+      "stemLatex": "The equation of state of some gases can be expressed as $\\left(P + \\dfrac{a}{V^{2}}\right)(V - b) = RT$ where $P$ is pressure, $V$ is volume, $T$ is absolute temperature and $a, b, R$ are constants. The dimension of $'a'$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$[ML^{2}T^{-2}]$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$[ML^{-1}T^{-2}]$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$[L^{2}]$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$[L]$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "voided",
+        "correct": [
+          "W"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q41)"
+      },
+      "difficulty": "voided",
+      "tags": [
+        "dimensions",
+        "dimensional-analysis",
+        "equation-of-state",
+        "voided"
+      ]
+    },
+    {
+      "id": "jelet-2025-q042",
+      "qNumber": 42,
+      "subjectId": "PHYS",
+      "unitId": "P01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 10,
+      "stemLatex": "The resistance $R = \\dfrac{V}{I}$, where $V = 100 \\pm 5$ volts and $I = 10 \\pm 0.2$ amperes. The total percentage of error in $R$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$5\\%$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$7\\%$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$5.2\\%$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$9\\%$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q42)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "error-analysis",
+        "resistance",
+        "percentage"
+      ]
+    },
+    {
+      "id": "jelet-2025-q043",
+      "qNumber": 43,
+      "subjectId": "PHYS",
+      "unitId": "P05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 10,
+      "stemLatex": "If three vectors satisfy the relation $\\vec{A} \\cdot \\vec{B} = 0$ and $\\vec{A} \\cdot \\vec{C} = 0$, then $\\vec{A}$ can be parallel to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\u000bec{C}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\u000bec{B}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\u000bec{B} \\times \\vec{C}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\u000bec{B} \\cdot \\vec{C}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q43)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "vectors",
+        "dot-product",
+        "cross-product"
+      ]
+    },
+    {
+      "id": "jelet-2025-q044",
+      "qNumber": 44,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 10,
+      "stemLatex": "The acceleration of a particle varies with time as shown in the figure. The corresponding velocity-time graph will be [Assume at $t = 0$, velocity $v = 0$]",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q44.svg",
+        "alt": "Figure for JELET 2025 Q44",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$v$ increases linearly then constant",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$v$ increases then decreases",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$v$ constant then increases",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$v$ decreases linearly",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q44)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "kinematics",
+        "acceleration-graph",
+        "velocity-time"
+      ]
+    },
+    {
+      "id": "jelet-2025-q045",
+      "qNumber": 45,
+      "subjectId": "PHYS",
+      "unitId": "P05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "A particle is shifted from a point $(0, 0, 1\\,\\text{m})$ to a point $(1\\,\\text{m}, 1\\,\\text{m}, 2\\,\\text{m})$ under the simultaneous action of forces. These forces are $\\vec{F}_{1} = (2\\hat{i} + 3\\hat{j} - \\hat{k})\\,\\text{N}$ and $\\vec{F}_{2} = (\\hat{i} - 2\\hat{j} + 2\\hat{k})\\,\\text{N}$. Find the work done by the resultant of these two forces.",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$4\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$5\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$3\\,\\text{J}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q45)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "work",
+        "dot-product",
+        "vectors"
+      ]
+    },
+    {
+      "id": "jelet-2025-q046",
+      "qNumber": 46,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "Figure shows the displacement of a particle moving along $x$ axis as a function of time. The acceleration of the particle is zero in the region",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q46.svg",
+        "alt": "Figure for JELET 2025 Q46",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$AB$ and $BC$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$AB$ and $CD$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$BC$ and $CD$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$CD$ and $DE$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q46)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "kinematics",
+        "displacement-time",
+        "acceleration"
+      ]
+    },
+    {
+      "id": "jelet-2025-q047",
+      "qNumber": 47,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "A stone is dropped from a certain height which can reach the ground in $5\\,\\text{sec}$. It is stopped after $3\\,\\text{sec}$ of its fall and is again released. The total time taken by the stone to reach the ground will be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$6.0\\,\\text{sec}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$6.5\\,\\text{sec}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$7.0\\,\\text{sec}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$7.5\\,\\text{sec}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q47)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "kinematics",
+        "free-fall",
+        "time"
+      ]
+    },
+    {
+      "id": "jelet-2025-q048",
+      "qNumber": 48,
+      "subjectId": "PHYS",
+      "unitId": "P08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "A stone of relative density $\\rho$ is released from rest on the surface of a lake. If the viscous effects are ignored, the stone sinks in water with an acceleration of",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$g(1 - \\rho)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$g(1 + \\rho)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$g(\\rho - 1)$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$g\\rho$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q48)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "fluid",
+        "buoyancy",
+        "acceleration"
+      ]
+    },
+    {
+      "id": "jelet-2025-q049",
+      "qNumber": 49,
+      "subjectId": "PHYS",
+      "unitId": "P05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 11,
+      "stemLatex": "An artificial satellite moving in circular orbit around the earth has a total energy (kinetic + potential energy) $E_{0}$. Its potential energy is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$-E_{0}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{1}{2}E_{0}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-2E_{0}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$E_{0}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q49)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "gravitation",
+        "satellite",
+        "energy"
+      ]
+    },
+    {
+      "id": "jelet-2025-q050",
+      "qNumber": 50,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A bomb initially at rest explodes by itself into three equal mass fragments. The velocities of two fragments are $(\\hat{i} + 3\\hat{j})\\,\\text{m/s}$ and $(2\\hat{i} - 4\\hat{j})\\,\\text{m/s}$. The velocity of the third fragment (in $\\text{m/s}$) is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$(-3\\hat{i} + \\hat{j})\\,\\text{m/s}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$(3\\hat{i} - \\hat{j})\\,\\text{m/s}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$(\\hat{i} - 3\\hat{j})\\,\\text{m/s}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$(\\hat{i} + 3\\hat{j})\\,\\text{m/s}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q50)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "momentum",
+        "conservation",
+        "explosion"
+      ]
+    },
+    {
+      "id": "jelet-2025-q051",
+      "qNumber": 51,
+      "subjectId": "PHYS",
+      "unitId": "P08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "Which of the graphs shown in figures represents the velocity-time ($v$-$t$) graph of a small spherical body falling in a viscous fluid? (Body just dropped on the surface of the viscous fluid)",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q51.svg",
+        "alt": "Figure for JELET 2025 Q51",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$v$ increases then becomes constant",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$v$ constant from start",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$v$ decreases then constant",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$v$ increases linearly forever",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q51)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "fluid",
+        "viscous",
+        "velocity-time-graph"
+      ]
+    },
+    {
+      "id": "jelet-2025-q052",
+      "qNumber": 52,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A bullet hits horizontally and gets embedded in a solid block resting on a frictionless surface. In this process",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "momentum is conserved.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "kinetic energy is conserved.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "both momentum and kinetic energy are conserved.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "neither momentum nor kinetic energy is conserved.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q52)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "momentum",
+        "inelastic-collision",
+        "conservation"
+      ]
+    },
+    {
+      "id": "jelet-2025-q053",
+      "qNumber": 53,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 12,
+      "stemLatex": "A rod of length $L$ has its linear density increasing linearly from zero at one end to $\\lambda_{0}$ at the other end. If $L$ is the length of rod and $x$ is the position of an elementary mass from one end of the rod, then the position of its centre of mass from $x = 0$ end is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{2L}{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{L}{3}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{3L}{4}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{L}{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q53)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "centre-of-mass",
+        "linear-density",
+        "rod"
+      ]
+    },
+    {
+      "id": "jelet-2025-q054",
+      "qNumber": 54,
+      "subjectId": "PHYS",
+      "unitId": "P04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "A disc of mass $M$ and radius $R$ rolls on a horizontal surface and then rolls up an inclined plane as shown in the figure. If the velocity of the disc is $V$, the height to which the disc will rise will be",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q54.svg",
+        "alt": "Figure for JELET 2025 Q54",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{3V^{2}}{2g}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{3V^{2}}{4g}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{V^{2}}{4g}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{V^{2}}{2g}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q54)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "rolling",
+        "energy",
+        "inclined-plane"
+      ]
+    },
+    {
+      "id": "jelet-2025-q055",
+      "qNumber": 55,
+      "subjectId": "PHYS",
+      "unitId": "P06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "The dimensions of two wires $A$ and $B$ are the same, but their materials are different. Their extension-load graphs are shown in figure. If $Y_{A}$ and $Y_{B}$ are the values of Young's modulus of elasticity of $A$ and $B$ respectively, then",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q55.svg",
+        "alt": "Figure for JELET 2025 Q55",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$Y_{A} > Y_{B}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$Y_{A} < Y_{B}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$Y_{A} = Y_{B}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$Y_{B} = 2Y_{A}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q55)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "elasticity",
+        "young-modulus",
+        "graph"
+      ]
+    },
+    {
+      "id": "jelet-2025-q056",
+      "qNumber": 56,
+      "subjectId": "PHYS",
+      "unitId": "P08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 13,
+      "stemLatex": "Two non-mixing liquids of densities $\\rho$ and $n\\rho$ ($n > 1$) are put in a container. The height of each liquid is $h$. A solid cylinder of length $L$ and density $d$ is put in this container. The cylinder floats with its axis vertical and length $\\rho L$ ($\\rho < 1$) in the denser liquid and the rest part within other liquid. The density $'d'$ is equal to",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\{1 + (n + 1)\\rho\\}\\rho$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\{2 + (n + 1)\\rho\\}\\rho$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\{2 + (n - 1)\\rho\\}\\rho$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\{1 + (n - 1)\\rho\\}\\rho$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q56)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "fluid",
+        "floatation",
+        "density"
+      ]
+    },
+    {
+      "id": "jelet-2025-q057",
+      "qNumber": 57,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 14,
+      "stemLatex": "When a system is taken from state $a$ to state $b$ along the path $acb$, it is found that a quantity of heat $Q = 200\\,\\text{J}$ is absorbed by the system and a work $W = 80\\,\\text{J}$ is done by it. Along the path $adb$, $Q = 144\\,\\text{J}$. The work done along the path $adb$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$6\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$12\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$18\\,\\text{J}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$24\\,\\text{J}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q57)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "thermodynamics",
+        "first-law",
+        "work-heat"
+      ]
+    },
+    {
+      "id": "jelet-2025-q058",
+      "qNumber": 58,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 14,
+      "stemLatex": "One mole of an ideal gas goes from an initial state $A$ to final state $B$ via two processes. It firstly undergoes isothermal expansion from volume $V$ to $3V$ and then its volume is reduced from $3V$ to $V$ at constant pressure. The correct $P$-$V$ diagram representing the two processes is",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q58.svg",
+        "alt": "Figure for JELET 2025 Q58",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "isothermal expansion then isobaric compression",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "isobaric expansion then isothermal compression",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "isothermal then isochoric",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "isobaric then isochoric",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q58)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "thermodynamics",
+        "pv-diagram",
+        "processes"
+      ]
+    },
+    {
+      "id": "jelet-2025-q059",
+      "qNumber": 59,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 14,
+      "stemLatex": "A particle is executing SHM along a straight line. Its velocities at distances $x_{1}$ and $x_{2}$ from the mean position are $v_{1}$ and $v_{2}$, respectively. Its time period is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2\\pi\\sqrt{\\dfrac{x_{1}^{2} - x_{2}^{2}}{v_{2}^{2} - v_{1}^{2}}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2\\pi\\sqrt{\\dfrac{x_{1}^{2} + x_{2}^{2}}{v_{1}^{2} + v_{2}^{2}}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$2\\pi\\sqrt{\\dfrac{x_{1}^{2} - x_{2}^{2}}{v_{1}^{2} - v_{2}^{2}}}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$2\\pi\\sqrt{\\dfrac{x_{1} + x_{2}}{v_{1} + v_{2}}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q59)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "shm",
+        "velocity",
+        "time-period"
+      ]
+    },
+    {
+      "id": "jelet-2025-q060",
+      "qNumber": 60,
+      "subjectId": "PHYS",
+      "unitId": "P14",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "A plano convex lens fits exactly into a plano concave lens. Their plane surfaces are parallel to each other. If lenses are made of different materials of refractive indices $\\mu_{1}$ and $\\mu_{2}$ and $R$ is the radius of curvature of the curved surface of the lenses, the focal length of combination is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\dfrac{2R}{\\mu_{1} + \\mu_{2}}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{R}{\\mu_{2} - \\mu_{1}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\dfrac{R}{2(\\mu_{1} - \\mu_{2})}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{R}{\\mu_{1} - \\mu_{2}}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q60)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "lens",
+        "combination",
+        "focal-length"
+      ]
+    },
+    {
+      "id": "jelet-2025-q061",
+      "qNumber": 61,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "The temperature of equal masses of three different liquids $A$, $B$ and $C$ are $10^{\\circ}\\text{C}$, $15^{\\circ}\\text{C}$ and $20^{\\circ}\\text{C}$ respectively. The temperature when $A$ and $B$ are mixed is $13^{\\circ}\\text{C}$ and when $B$ and $C$ are mixed, it is $16^{\\circ}\\text{C}$. What will be the temperature when $A$ and $C$ are mixed ?",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q61.svg",
+        "alt": "Figure for JELET 2025 Q61",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$13^{\\circ}\\text{C}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{110}{7}\\,^{\\circ}\\text{C}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$30^{\\circ}\\text{C}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$15^{\\circ}\\text{C}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q61)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "calorimetry",
+        "mixing",
+        "temperature"
+      ]
+    },
+    {
+      "id": "jelet-2025-q062",
+      "qNumber": 62,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 15,
+      "stemLatex": "A substance is heated with heat input as shown in figure. What does the slope of $DE$ represent ?",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q62.svg",
+        "alt": "Figure for JELET 2025 Q62",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "Latent heat of liquid",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Latent heat of vapour",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Heat capacity of vapour",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Inverse of heat capacity of vapour",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q62)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "thermodynamics",
+        "heat-graph",
+        "slope"
+      ]
+    },
+    {
+      "id": "jelet-2025-q063",
+      "qNumber": 63,
+      "subjectId": "PHYS",
+      "unitId": "P10",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "The length and radii of two rods made of same material are in the ratio $1 : 2$ and $2 : 3$ respectively. The temperature difference between the ends for the two rods be the same in the steady state. The amount of heat flowing per second through them will be in the ratio of",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$1 : 3$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$4 : 3$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$8 : 9$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$3 : 2$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q63)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "thermal-conduction",
+        "rods",
+        "ratio"
+      ]
+    },
+    {
+      "id": "jelet-2025-q064",
+      "qNumber": 64,
+      "subjectId": "PHYS",
+      "unitId": "P15",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "Surfaces of two metal block $A$ and $B$ of same dimension made of same metal are illuminated with light of wavelength $\\lambda_{1} = 350\\,\\text{nm}$ and $\\lambda_{2} = 540\\,\\text{nm}$ respectively. If $v_{1}$ and $v_{2}$ represent the maximum speed of the photo-electrons emitted from block $A$ and $B$ respectively, then",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$v_{1} = v_{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$v_{1} > v_{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$v_{1} < v_{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "the relation between $v_{1}$ and $v_{2}$ can not be predicted from the supplied data.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q64)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "photoelectric",
+        "wavelength",
+        "max-speed"
+      ]
+    },
+    {
+      "id": "jelet-2025-q065",
+      "qNumber": 65,
+      "subjectId": "PHYS",
+      "unitId": "P08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 16,
+      "stemLatex": "A spherical ball of radius $1 \\times 10^{-4}\\,\\text{m}$ and density $10^{3}\\,\\text{kg/m}^{3}$ falls freely under gravity through a distance $h$ before entering a tank of water. If the velocity of the ball does not change after entering the water, find $h$. (Viscosity of water is $9.8 \\times 10^{-6}\\,\\text{N-s/m}^{2}$)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$20.41\\,\\text{m}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$2.041\\,\\text{m}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$0.2041\\,\\text{m}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$204.1\\,\\text{m}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q65)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "fluid",
+        "viscosity",
+        "stokes-law"
+      ]
+    },
+    {
+      "id": "jelet-2025-q066",
+      "qNumber": 66,
+      "subjectId": "PHYS",
+      "unitId": "P02",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 17,
+      "stemLatex": "A car starts from rest and accelerates uniformly for $4\\,\\text{sec}$ and then moves with uniform velocity. Which of the following displacement ($x$) - time ($t$) graph represents the motion of the car ?",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q66.svg",
+        "alt": "Figure for JELET 2025 Q66",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "parabolic then linear",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "linear then parabolic",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "linear throughout",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "parabolic throughout",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q66)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "kinematics",
+        "displacement-time",
+        "graph"
+      ]
+    },
+    {
+      "id": "jelet-2025-q067",
+      "qNumber": 67,
+      "subjectId": "PHYS",
+      "unitId": "P03",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 17,
+      "stemLatex": "A block of mass $2\\,\\text{kg}$ is hanging over a smooth and light pulley through a light string. The other end of the string is pulled by a constant force $F = 40\\,\\text{N}$. At $t = 0$ the system is at rest as shown. Then in the time interval from $t = 0$ to $t = \\dfrac{2}{\\sqrt{10}}\\,\\text{sec}$, pick up the correct statement(s). ($g = 10\\,\\text{m/s}^{2}$)",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q67.svg",
+        "alt": "Figure for JELET 2025 Q67",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "Tension in the string is $20\\,\\text{N}$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Work done by gravity is $-20\\,\\text{J}$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Work done by tension on block is $80\\,\\text{J}$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Displacement of the block is $2\\,\\text{m}$.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q67)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "work-energy",
+        "pulley",
+        "force"
+      ]
+    },
+    {
+      "id": "jelet-2025-q068",
+      "qNumber": 68,
+      "subjectId": "PHYS",
+      "unitId": "P05",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "A planet revolving around the Sun in an elliptical orbit has a constant",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Kinetic energy.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "angular momentum about the Sun.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Potential energy.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "total energy.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q68)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "gravitation",
+        "planet",
+        "conservation"
+      ]
+    },
+    {
+      "id": "jelet-2025-q069",
+      "qNumber": 69,
+      "subjectId": "PHYS",
+      "unitId": "P11",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "$5\\,\\text{kg}$ of steam at $100^{\\circ}\\text{C}$ is mixed with $10\\,\\text{kg}$ of ice at $0^{\\circ}\\text{C}$. Choose the correct alternative(s). (Given $S_{\\text{water}} = 1\\,\\text{Cal/g}^{\\circ}\\text{C}$, $L_{f} = 80\\,\\text{Cal/g}$, $L_{v} = 540\\,\\text{Cal/g}$.)",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Equilibrium temperature of the mixture is $160^{\\circ}\\text{C}$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Equilibrium temperature of the mixture is $100^{\\circ}\\text{C}$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "At equilibrium mixture contains $13\\,\\text{kg}$ of water.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "At equilibrium, mixture contains $1\\,\\text{kg}$ of steam.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q69)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "calorimetry",
+        "steam-ice",
+        "latent-heat"
+      ]
+    },
+    {
+      "id": "jelet-2025-q070",
+      "qNumber": 70,
+      "subjectId": "PHYS",
+      "unitId": "P05",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 18,
+      "stemLatex": "For a vector, $\\vec{P} = (\\vec{A} \\times \\vec{B}) \\times (\\vec{C} \\times \\vec{D})$, choose the correct alternative(s).",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Vector $\u000bec{P}$ is perpendicular to the plane containing $\u000bec{A}$ and $\u000bec{B}$.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\u000bec{P}$ resides in a plane containing $\u000bec{A}$ and $\u000bec{B}$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\u000bec{P}$ resides in a plane containing $\u000bec{C}$ and $\u000bec{D}$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\u000bec{P}$ is parallel to the line of intersection of two planes containing $\u000bec{A}, \\vec{B}$ and $\u000bec{C}, \\vec{D}$ respectively.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q70)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "vectors",
+        "cross-product",
+        "triple-product"
+      ]
+    },
+    {
+      "id": "jelet-2025-q071",
+      "qNumber": 71,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "An orbital having $n = 5$ and $l = 3$ is designated as",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$5s$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$5p$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$5d$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$5f$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q71)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "atomic-structure",
+        "quantum-numbers",
+        "orbital"
+      ]
+    },
+    {
+      "id": "jelet-2025-q072",
+      "qNumber": 72,
+      "subjectId": "CHEM",
+      "unitId": "C02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "How many types of $P$-$Cl$ bonds are present in $PCl_{5}$ molecule ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "One",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Two",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Three",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Five",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q72)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "chemical-bonding",
+        "pc l5",
+        "bond-types"
+      ]
+    },
+    {
+      "id": "jelet-2025-q073",
+      "qNumber": 73,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "Silicon doped with electron-rich impurity forms",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Insulator",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$p$-type semiconductor",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$n$-type semiconductor",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "amorphous powder",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q73)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "semiconductor",
+        "doping",
+        "n-type"
+      ]
+    },
+    {
+      "id": "jelet-2025-q074",
+      "qNumber": 74,
+      "subjectId": "CHEM",
+      "unitId": "C04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "NO reacts with $N_{2}O_{4}$ in a basic solution to form $NO_{2}$. The reaction is classified as",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Decomposition",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Disproportionation",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Comproportionation",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Acid-Base",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q74)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "redox",
+        "comproportionation",
+        "no-no2"
+      ]
+    },
+    {
+      "id": "jelet-2025-q075",
+      "qNumber": 75,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 19,
+      "stemLatex": "Suppose solution $X$ has a pH of $6.0$ and solution $Y$ has a pH of $7.0$. Which of the following statements about two solutions is correct ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Both $X$ and $Y$ are acidic.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Solution $X$ is $10$ times more acidic than solution $Y$.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$[\\text{OH}^{-}] > [\\text{H}^{+}]$ in solution $Y$.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "None of the above",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q75)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "ph",
+        "acidity",
+        "solutions"
+      ]
+    },
+    {
+      "id": "jelet-2025-q076",
+      "qNumber": 76,
+      "subjectId": "CHEM",
+      "unitId": "C04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "The standard EMF for the cell reaction $Zn + Cu^{2+} \\to Cu + Zn^{2+}$ is $1.10\\,\\text{V}$ at $25^{\\circ}\\text{C}$. The EMF for the cell reaction, when $0.1\\,\\text{M}\\,Cu^{2+}$ and $0.1\\,\\text{M}\\,Zn^{2+}$ solutions are used, at $25^{\\circ}\\text{C}$ is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$1.10\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$0.110\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$-1.10\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$-0.110\\,\\text{V}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q76)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "electrochemistry",
+        "emf",
+        "nernst"
+      ]
+    },
+    {
+      "id": "jelet-2025-q077",
+      "qNumber": 77,
+      "subjectId": "CHEM",
+      "unitId": "C05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "In which of the following equilibria would a decrease in volume promote the formation of more products ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{N}_{2}(g) + \\text{O}_{2}(g) \\rightleftharpoons 2\\text{NO}(g)$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{N}_{2}\\text{O}_{4}(g) \\rightleftharpoons 2\\text{NO}_{2}(g)$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{H}_{2}\\text{O}(l) + \\text{CO}_{2}(g) \\rightleftharpoons \\text{H}_{2}\\text{CO}_{3}(aq)$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{CaCO}_{3}(s) \\rightleftharpoons \\text{CaO}(s) + \\text{CO}_{2}(g)$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q77)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "equilibrium",
+        "le-chatelier",
+        "volume"
+      ]
+    },
+    {
+      "id": "jelet-2025-q078",
+      "qNumber": 78,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "Which of the following salts will give highest pH in water ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{KCl}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{NaCl}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{Na}_{2}\\text{CO}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{CuSO}_{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q78)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "salts",
+        "ph",
+        "hydrolysis"
+      ]
+    },
+    {
+      "id": "jelet-2025-q079",
+      "qNumber": 79,
+      "subjectId": "CHEM",
+      "unitId": "C04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "Which of the following metals can be obtained by the electrolysis of an aqueous solution of their salts ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{Na}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{Mg}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{Ca}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{Al}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "voided",
+        "correct": [
+          "W"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q79)"
+      },
+      "difficulty": "voided",
+      "tags": [
+        "electrolysis",
+        "metals",
+        "aqueous"
+      ]
+    },
+    {
+      "id": "jelet-2025-q080",
+      "qNumber": 80,
+      "subjectId": "CHEM",
+      "unitId": "C04",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "In the following conversion, how many electrons are involved? $\\text{N}_{2} \\to \\text{NH}_{3}$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$3$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$4$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$6$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q80)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "redox",
+        "electrons",
+        "n2-nh3"
+      ]
+    },
+    {
+      "id": "jelet-2025-q081",
+      "qNumber": 81,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "IUPAC name of the following compound is",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q81.svg",
+        "alt": "Figure for JELET 2025 Q81",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "3-(2-Methylpropyl) hept-1-en-4-yne",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "2-Methyl-4-ethenyl-oct-5-yne",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "7-Methyl-5-ethenyl-oct-3-yne",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "None of the above",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q81)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "organic",
+        "iupac",
+        "nomenclature"
+      ]
+    },
+    {
+      "id": "jelet-2025-q082",
+      "qNumber": 82,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 20,
+      "stemLatex": "Which structural isomerism is exhibited by the following pairs ?",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q82.svg",
+        "alt": "Figure for JELET 2025 Q82",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "Positional Isomerism",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Chain Isomerism",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Functional Isomerism",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Geometrical Isomerism",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q82)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "organic",
+        "isomerism",
+        "structural"
+      ]
+    },
+    {
+      "id": "jelet-2025-q083",
+      "qNumber": 83,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 21,
+      "stemLatex": "The major product in the following reaction is $\\text{CH}_{3}\\text{Cl} \\xrightarrow[(i)\\,\\text{Mg/Ether}]{\\ (ii)\\,\\text{CH}_{3}\\text{COOH}}$",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q83.svg",
+        "alt": "Figure for JELET 2025 Q83",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{CH}_{4}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{C}_{2}\\text{H}_{6}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{CH}_{3}\\text{COOCH}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "None of these",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q83)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "organic",
+        "grignard",
+        "ester"
+      ]
+    },
+    {
+      "id": "jelet-2025-q084",
+      "qNumber": 84,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 21,
+      "stemLatex": "The hybridization state of a carbanion is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$sp$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$sp^{2}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$sp^{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$sp^{4}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "voided",
+        "correct": [
+          "W"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q84)"
+      },
+      "difficulty": "voided",
+      "tags": [
+        "hybridization",
+        "carbanion"
+      ]
+    },
+    {
+      "id": "jelet-2025-q085",
+      "qNumber": 85,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 21,
+      "stemLatex": "The major product in the following reaction is $\\text{HC} \\equiv \\text{CH} \\xrightarrow[\\text{(ii) Ethylbromide (excess)}]{\\ (i)\\,\\text{NaNH}_{2}/\\text{liq. NH}_{3}}$",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q85.svg",
+        "alt": "Figure for JELET 2025 Q85",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$\\text{CH}_{3}\\text{CH}_{2}-\\text{Br}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\text{NH}_{2}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q85)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "organic",
+        "acetylene",
+        "alkylation"
+      ]
+    },
+    {
+      "id": "jelet-2025-q086",
+      "qNumber": 86,
+      "subjectId": "CHEM",
+      "unitId": "C01",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 22,
+      "stemLatex": "In Rutherford's gold leaf experiment, the scattering of $\\alpha$-particles takes place. In this process (I) coulombic force is involved (II) nuclear force is involved (III) path of $\\alpha$-particle is parabolic (IV) path of $\\alpha$-particle is hyperbolic",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "I",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "II",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "III",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "IV",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q86)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "atomic-structure",
+        "rutherford",
+        "scattering"
+      ]
+    },
+    {
+      "id": "jelet-2025-q087",
+      "qNumber": 87,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 22,
+      "stemLatex": "By adding water to the solution of ionic compound, its (I) concentration remains same. (II) concentration increases. (III) ionization may increase. (IV) concentration decreases.",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "I",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "II",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "III",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "IV",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "C",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q87)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "solutions",
+        "ionization",
+        "concentration"
+      ]
+    },
+    {
+      "id": "jelet-2025-q088",
+      "qNumber": 88,
+      "subjectId": "CHEM",
+      "unitId": "C08",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 22,
+      "stemLatex": "The product(s) in the following reaction is/are $\\text{CH}_{3}\\text{CH}=\\text{CH}_{2} + \\text{HBr} \\to$",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q88.svg",
+        "alt": "Figure for JELET 2025 Q88",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "(I) $\\text{CH}_{3}\\text{CHBrCH}_{3}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "(II) $\\text{CH}_{3}\\text{CH}_{2}\\text{CH}_{2}\\text{Br}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "I and II",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "III and IV",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A",
+          "B",
+          "C"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q88)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "organic",
+        "hbr",
+        "markovnikov"
+      ]
+    },
+    {
+      "id": "jelet-2025-q089",
+      "qNumber": 89,
+      "subjectId": "CHEM",
+      "unitId": "C05",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 23,
+      "stemLatex": "For which of the following reactions, $k_{f}$ is less than $k_{e}$ ? (I) $\\text{N}_{2}\\text{O}_{4} \\rightleftharpoons 2\\text{NO}_{2}$ (II) $\\text{N}_{2} + 3\\text{H}_{2} \\rightleftharpoons 2\\text{NH}_{3}$ (III) $\\text{H}_{2} + \\text{I}_{2} \\rightleftharpoons 2\\text{HI}$ (IV) $\\text{CO} + \\text{H}_{2}\\text{O} \\rightleftharpoons \\text{CO}_{2} + \\text{H}_{2}$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "I",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "II",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "III",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "IV",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q89)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "equilibrium",
+        "rate-constant",
+        "forward-reverse"
+      ]
+    },
+    {
+      "id": "jelet-2025-q090",
+      "qNumber": 90,
+      "subjectId": "CHEM",
+      "unitId": "C03",
+      "category": 2,
+      "fullTwelfths": 24,
+      "negativeTwelfths": 0,
+      "pdfPage": 23,
+      "stemLatex": "Which of the following statement about $HNO_{3}$ is/are correct ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "It is a solid.",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "It is an oxoacid of nitrogen.",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "It is a reducing agent.",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "It is an oxidizing agent.",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B",
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q90)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "acids-bases",
+        "hno3",
+        "oxoacid"
+      ]
+    },
+    {
+      "id": "jelet-2025-q091",
+      "qNumber": 91,
+      "subjectId": "FEEE",
+      "unitId": "E01",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 24,
+      "stemLatex": "A PMMC ammeter measures current $i(t) = (5 + 5\\sin 100\\pi t)\\,\\text{A}$. The reading of the meter will be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$5\\,\\text{A}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$10\\,\\text{A}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$0\\,\\text{A}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "None of these",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q91)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "pmmc",
+        "ammeter",
+        "rms-average"
+      ]
+    },
+    {
+      "id": "jelet-2025-q092",
+      "qNumber": 92,
+      "subjectId": "FEEE",
+      "unitId": "E02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 24,
+      "stemLatex": "An ideal single phase transformer with $200\\,\\text{V}$, $50\\,\\text{Hz}$ supply at its primary side is delivering to $100\\,\\text{watt}$ resistive load at $10\\,\\text{V}$ connected to its secondary side. The current drawn by the transformer from the supply is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$0\\,\\text{A}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$0.5\\,\\text{A}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$1.0\\,\\text{A}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$10\\,\\text{A}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q92)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "transformer",
+        "ideal",
+        "current"
+      ]
+    },
+    {
+      "id": "jelet-2025-q093",
+      "qNumber": 93,
+      "subjectId": "FEEE",
+      "unitId": "E03",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 24,
+      "stemLatex": "Which of the following electrical machines has the highest efficiency ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "DC shunt motor",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "DC series motor",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Single phase induction motor",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Transformer",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q93)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "electrical-machines",
+        "efficiency",
+        "transformer"
+      ]
+    },
+    {
+      "id": "jelet-2025-q094",
+      "qNumber": 94,
+      "subjectId": "FEEE",
+      "unitId": "E02",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 24,
+      "stemLatex": "A power supply has a full load voltage of $10\\,\\text{V}$. Its no load voltage for $0\\%$ regulation is",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$10\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$0\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "less than $10\\,\\text{V}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "greater than $10\\,\\text{V}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q94)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "regulation",
+        "voltage",
+        "power-supply"
+      ]
+    },
+    {
+      "id": "jelet-2025-q095",
+      "qNumber": 95,
+      "subjectId": "FEEE",
+      "unitId": "E05",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 24,
+      "stemLatex": "The following circuit carries alternating currents $I_{1}$, $I_{2}$ and $I$. Under which condition $I_{1}$, $I_{2}$ and $I$ will be in the same phase? (The frequency of the alternating current is $50\\,\\text{Hz}$)",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q95.svg",
+        "alt": "Figure for JELET 2025 Q95",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "$R_{1}R_{2} = L_{1}L_{2}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$\\dfrac{R_{1}}{R_{2}} = \\dfrac{L_{1}}{L_{2}}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$R_{1}L_{1} = R_{2}L_{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "None of these",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q95)"
+      },
+      "difficulty": "hard",
+      "tags": [
+        "ac-circuit",
+        "phase",
+        "rl-circuit"
+      ]
+    },
+    {
+      "id": "jelet-2025-q096",
+      "qNumber": 96,
+      "subjectId": "FEEE",
+      "unitId": "E06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 25,
+      "stemLatex": "In a PNP transistor, the emitter current ($I_{e}$) is $10\\,\\text{mA}$ and the base current ($I_{b}$) is $0.1\\,\\text{mA}$. Its collector current ($I_{c}$) would be",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$9.9\\,\\text{mA}$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$10.1\\,\\text{mA}$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$100\\,\\text{mA}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$0.9\\,\\text{mA}$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "A"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q96)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "transistor",
+        "pnp",
+        "currents"
+      ]
+    },
+    {
+      "id": "jelet-2025-q097",
+      "qNumber": 97,
+      "subjectId": "FEEE",
+      "unitId": "E06",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 25,
+      "stemLatex": "Which statement is valid for CMOS technology ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Employs only N-type MOSFETs",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Employs only P-type MOSFETs",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Consumes high static power",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Employs both N-type and P-type MOSFETs",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "D"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q97)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "cmos",
+        "mosfet",
+        "technology"
+      ]
+    },
+    {
+      "id": "jelet-2025-q098",
+      "qNumber": 98,
+      "subjectId": "FEEE",
+      "unitId": "E07",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 25,
+      "stemLatex": "Which of the OPAMP based configurations provides no phase difference between input and output ?",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "Inverting amplifier",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "Non-inverting amplifier",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "Integrator",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "Differentiator",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q98)"
+      },
+      "difficulty": "easy",
+      "tags": [
+        "opamp",
+        "phase",
+        "configuration"
+      ]
+    },
+    {
+      "id": "jelet-2025-q099",
+      "qNumber": 99,
+      "subjectId": "FEEE",
+      "unitId": "E08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 25,
+      "stemLatex": "Simplify the Boolean Expression: $(A + B)\\cdot(A + B') + A'$",
+      "stemFigure": null,
+      "options": [
+        {
+          "id": "A",
+          "latex": "$A + B$",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "$1$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$B$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$A'$",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q99)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "boolean",
+        "simplification",
+        "algebra"
+      ]
+    },
+    {
+      "id": "jelet-2025-q100",
+      "qNumber": 100,
+      "subjectId": "FEEE",
+      "unitId": "E08",
+      "category": 1,
+      "fullTwelfths": 12,
+      "negativeTwelfths": 3,
+      "pdfPage": 25,
+      "stemLatex": "The combination of Logic Gates in the following circuit is equivalent to",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q100.svg",
+        "alt": "Figure for JELET 2025 Q100",
+        "width": 420,
+        "height": 220,
+        "themeAdaptive": true
+      },
+      "options": [
+        {
+          "id": "A",
+          "latex": "XOR Gate",
+          "figure": null
+        },
+        {
+          "id": "B",
+          "latex": "AND Gate",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "XNOR Gate",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "NAND Gate",
+          "figure": null
+        }
+      ],
+      "key": {
+        "status": "active",
+        "correct": [
+          "B"
+        ],
+        "keyTier": "official",
+        "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q100)"
+      },
+      "difficulty": "medium",
+      "tags": [
+        "digital",
+        "logic-gate",
+        "combination"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "unitId": "M03",
+  "subjectId": "MATH",
+  "officialCode": "Math-C",
+  "title": "Complex Numbers",
+  "estimatedMinutes": 30,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q007",
+    "jelet-2024-q008",
+    "jelet-2024-q033",
+    "jelet-2025-q001"
+  ],
+  "sections": [
+    {
+      "anchor": "forms",
+      "heading": "1. Cartesian, Polar & Exponential Forms",
+      "proseLatex": "A complex number $Z = x + iy$ has modulus $|Z| = \\sqrt{x^2+y^2}$ and argument $\\arg Z = \\tan^{-1}(y/x)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M03-F01",
+          "label": "Modulus & Argument",
+          "latex": "$Z = r(\\cos\\theta + i\\sin\\theta) = re^{i\\theta}$",
+          "aiExplainContext": "Convert between Cartesian and polar forms."
+        }
+      ]
+    },
+    {
+      "anchor": "roots-unity",
+      "heading": "2. Cube Roots of Unity & De Moivre",
+      "proseLatex": "The cube roots of unity are $1, \\omega, \\omega^2$ where $\\omega = e^{2\\pi i/3}$. They satisfy $1 + \\omega + \\omega^2 = 0$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M03-F02",
+          "label": "De Moivre's Theorem",
+          "latex": "$(\\cos\\theta + i\\sin\\theta)^n = \\cos n\\theta + i\\sin n\\theta$",
+          "aiExplainContext": "Compute powers and roots of complex numbers."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M03-EX01",
+      "problemLatex": "If $Z^4 - Z^3 + 2Z^2 - Z + 1 = 0$, find $|Z|$.",
+      "stepsLatex": [
+        "Divide by $Z^2$: $Z^2 + 1/Z^2 - (Z+1/Z) + 2 = 0$.",
+        "Let $w = Z + 1/Z$: $w^2 - w = 0 \\Rightarrow w = 0, 1$.",
+        "Both cases give $|Z| = 1$."
+      ],
+      "answerLatex": "$|Z| = 1$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Reciprocal polynomials: if coefficients are symmetric, roots come in reciprocal pairs.",
+    "$|Z| = 1$ for roots of $Z^2 - Z + 1 = 0$."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" role="img" aria-label="2024 Q68: Elliptical orbit">
+  <rect x="0" y="0" width="240" height="180" fill="transparent"/>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2024 Q68: Elliptical orbit</text>
+  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Elliptical orbit</text>
+  <path d="M 120,40 Q 200,110 120,160 Q 40,110 120,40" stroke="#60a5fa" stroke-width="1.5" fill="none"/>
+  <circle cx="120" cy="100" r="5" fill="#fbbf24"/>
+  <text x="125" y="95" font-family="monospace" font-size="10" fill="#fbbf24" text-anchor="start">Sun</text>
+  <circle cx="180" cy="75" r="4" fill="#60a5fa"/>
+  <text x="185" y="72" font-family="monospace" font-size="9" fill="#60a5fa" text-anchor="start">Planet</text>
+</svg>

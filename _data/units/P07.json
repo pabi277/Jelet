@@ -1,0 +1,44 @@
+{
+  "unitId": "P07",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-G",
+  "title": "Surface Tension",
+  "estimatedMinutes": 20,
+  "examFrequency": "low",
+  "pyqIds": [
+    "jelet-2024-q069"
+  ],
+  "sections": [
+    {
+      "anchor": "surface-tension",
+      "heading": "1. Surface Tension & Surface Energy",
+      "proseLatex": "Surface tension $\\gamma = F/L$. Surface energy $= \\gamma \\cdot \\Delta A$. Angle of contact.",
+      "keyFormulas": [
+        {
+          "formulaId": "P07-F01",
+          "label": "Capillary Rise",
+          "latex": "$h = \\frac{2\\gamma\\cos\\theta}{\\rho g r}$",
+          "aiExplainContext": "Jurin's formula for capillary rise."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P07-EX01",
+      "problemLatex": "Derive the capillary rise formula.",
+      "stepsLatex": [
+        "Upward force $= 2\\pi r\\gamma\\cos\\theta$.",
+        "Weight of liquid column $= \\pi r^2 h\\rho g$.",
+        "Equate: $h = 2\\gamma\\cos\\theta/(\\rho g r)$."
+      ],
+      "answerLatex": "$h = 2\\gamma\\cos\\theta/(\\rho g r)$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Surface tension decreases with temperature.",
+    "Small drops are spherical due to surface tension."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

@@ -1,0 +1,40 @@
+{
+  "unitId": "P12",
+  "subjectId": "PHYS",
+  "officialCode": "Phys-L",
+  "title": "Reflection of Light",
+  "estimatedMinutes": 20,
+  "examFrequency": "low",
+  "pyqIds": [],
+  "sections": [
+    {
+      "anchor": "plane-mirror",
+      "heading": "1. Plane Mirror Reflection",
+      "proseLatex": "Laws of reflection. Image is virtual, same size, equidistant behind the mirror.",
+      "keyFormulas": [
+        {
+          "formulaId": "P12-F01",
+          "label": "Image Distance",
+          "latex": "$v = -u$ (plane mirror)",
+          "aiExplainContext": "Image is as far behind as object is in front."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "P12-EX01",
+      "problemLatex": "Two inclined mirrors: find number of images.",
+      "stepsLatex": [
+        "$n = \\frac{360}{\\theta} - 1$ (if $360/\\theta$ is integer)."
+      ],
+      "answerLatex": "$n = 360/\\theta - 1$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Angle of incidence = angle of reflection.",
+    "Virtual image cannot be captured on a screen."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

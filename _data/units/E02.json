@@ -1,0 +1,58 @@
+{
+  "unitId": "E02",
+  "subjectId": "FEEE",
+  "officialCode": "FEEE-B",
+  "title": "Transformers",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q092",
+    "jelet-2025-q092",
+    "jelet-2025-q094"
+  ],
+  "sections": [
+    {
+      "anchor": "emf-equation",
+      "heading": "1. EMF Equation & Construction",
+      "proseLatex": "$E = 4.44 f N \\Phi_m$. Core $B$-$H$ hysteresis loop. Transformation ratio $= N_1/N_2$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E02-F01",
+          "label": "EMF Equation",
+          "latex": "$E = 4.44 f N \\Phi_m$",
+          "aiExplainContext": "RMS voltage induced in a transformer winding."
+        }
+      ]
+    },
+    {
+      "anchor": "efficiency",
+      "heading": "2. Losses, Efficiency & Regulation",
+      "proseLatex": "Core (iron) loss + copper ($I^2R$) loss. Max efficiency when core loss = copper loss. Voltage regulation.",
+      "keyFormulas": [
+        {
+          "formulaId": "E02-F02",
+          "label": "Max Efficiency Condition",
+          "latex": "Core loss $=$ Copper loss",
+          "aiExplainContext": "Optimize transformer efficiency."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "E02-EX01",
+      "problemLatex": "Ideal transformer: 200 V, 100 W load at 10 V. Primary current?",
+      "stepsLatex": [
+        "$P_{in} = P_{out} = 100$ W.",
+        "$I_{in} = 100/200 = 0.5$ A."
+      ],
+      "answerLatex": "$0.5$ A"
+    }
+  ],
+  "wbjeebTraps": [
+    "Ideal transformer: $V_1/V_2 = N_1/N_2 = I_2/I_1$.",
+    "Auto-transformer saves copper compared to two-winding."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

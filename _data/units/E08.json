@@ -1,0 +1,57 @@
+{
+  "unitId": "E08",
+  "subjectId": "FEEE",
+  "officialCode": "FEEE-H",
+  "title": "Digital Electronics",
+  "estimatedMinutes": 30,
+  "examFrequency": "high",
+  "pyqIds": [
+    "jelet-2024-q098",
+    "jelet-2025-q099",
+    "jelet-2025-q100"
+  ],
+  "sections": [
+    {
+      "anchor": "boolean",
+      "heading": "1. Boolean Algebra & De Morgan",
+      "proseLatex": "Laws of Boolean algebra, De Morgan's theorems: $\\overline{A+B} = \\bar{A}\\cdot\\bar{B}$, $\\overline{AB} = \\bar{A}+\bar{B}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E08-F01",
+          "label": "De Morgan's Theorem",
+          "latex": "$\\overline{A+B} = \\bar{A}\\cdot\\bar{B}$",
+          "aiExplainContext": "Convert AND/OR to NAND/NOR."
+        }
+      ]
+    },
+    {
+      "anchor": "gates",
+      "heading": "2. Logic Gates & Universal Realization",
+      "proseLatex": "AND, OR, NOT, NAND, NOR, XOR, XNOR. NAND and NOR are universal gates.",
+      "keyFormulas": [
+        {
+          "formulaId": "E08-F02",
+          "label": "Universal Gates",
+          "latex": "NAND or NOR can implement any logic function",
+          "aiExplainContext": "Universal gate property."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "E08-EX01",
+      "problemLatex": "Simplify $(A+B)(A+B') + A'$.",
+      "stepsLatex": [
+        "$= A + AB' + BA + BB' + A' = A + A' + A(B'+B) = 1 + A = 1$."
+      ],
+      "answerLatex": "$1$"
+    }
+  ],
+  "wbjeebTraps": [
+    "NAND = NOT of AND; NOR = NOT of OR.",
+    "Any Boolean function can be built from NAND gates alone."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}

@@ -1,0 +1,62 @@
+{
+  "unitId": "M11",
+  "subjectId": "MATH",
+  "officialCode": "Math-K",
+  "title": "Probability",
+  "estimatedMinutes": 30,
+  "examFrequency": "medium",
+  "pyqIds": [
+    "jelet-2024-q029",
+    "jelet-2024-q030",
+    "jelet-2024-q040",
+    "jelet-2025-q013",
+    "jelet-2025-q015",
+    "jelet-2025-q030",
+    "jelet-2025-q037"
+  ],
+  "sections": [
+    {
+      "anchor": "classical",
+      "heading": "1. Classical Probability & Events",
+      "proseLatex": "Sample space, events, mutually exclusive, exhaustive, equally likely outcomes.",
+      "keyFormulas": [
+        {
+          "formulaId": "M11-F01",
+          "label": "Classical Probability",
+          "latex": "$P(E) = \\frac{\\text{favorable outcomes}}{\\text{total outcomes}}$",
+          "aiExplainContext": "Equally likely sample spaces."
+        }
+      ]
+    },
+    {
+      "anchor": "bayes",
+      "heading": "2. Conditional Probability & Bayes' Theorem",
+      "proseLatex": "$P(A|B) = P(A\\cap B)/P(B)$. Bayes: $P(A|B) = P(B|A)P(A)/P(B)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M11-F02",
+          "label": "Bayes' Theorem",
+          "latex": "$P(A_i|E) = \\frac{P(E|A_i)P(A_i)}{\\sum_j P(E|A_j)P(A_j)}$",
+          "aiExplainContext": "Reverse probability from cause to effect."
+        }
+      ]
+    }
+  ],
+  "workedExamples": [
+    {
+      "exampleId": "M11-EX01",
+      "problemLatex": "Two indistinguishable coins, each W or B. Add one W. Find P(draw W).",
+      "stepsLatex": [
+        "States: WW (1/4), WB (1/2), BB (1/4).",
+        "P(draw W) = 1/4·1 + 1/2·2/3 + 1/4·1/3 = 2/3."
+      ],
+      "answerLatex": "$2/3$"
+    }
+  ],
+  "wbjeebTraps": [
+    "Use total probability to combine priors.",
+    "Bayes' theorem reverses conditional probabilities."
+  ],
+  "videoLectures": [],
+  "practiceSetIds": []
+}
