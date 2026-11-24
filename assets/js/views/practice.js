@@ -17,6 +17,7 @@
 import {
   loadManifest,
   loadAllPapers,
+  loadAllUnits,
   loadAllPracticeSets,
   getQuestionIndex,
   loadSolutionForQuestion,
@@ -29,6 +30,7 @@ import {
   SUBJECT_META,
 } from "../core/scoring.js";
 import {
+  ADAPTIVE_MIN_ATTEMPTS,
   computeHubSnapshot,
   createSession,
   getSession,
@@ -36,6 +38,9 @@ import {
   submitSessionToAttempt,
   getBookmarksMap,
   toggleBookmark,
+  resolveDefaultRoutingStrategy,
+  resolveUnitQuestionPool,
+  samplePracticeQuestions,
 } from "../core/stats.js";
 import {
   $,
@@ -52,9 +57,10 @@ import {
 export async function renderPracticeArena(main, query) {
   main.innerHTML = `<div class="view"><p class="view__placeholder">Loading Practice Arena…</p></div>`;
 
-  const [manifest, papers, practiceSets] = await Promise.all([
+  const [manifest, papers, allUnits, practiceSets] = await Promise.all([
     loadManifest(),
     loadAllPapers(),
+    loadAllUnits(),
     loadAllPracticeSets(),
   ]);
   const snapshot = await computeHubSnapshot(manifest);
@@ -67,7 +73,16 @@ export async function renderPracticeArena(main, query) {
       ? manifest.units.find((u) => u.unitId === initialUnit)?.subjectId || "ALL"
       : "ALL");
 
+  const routingDefaults = resolveDefaultRoutingStrategy(snapshot.questionStats);
+  const requestedRouting = query?.get("routing")?.toLowerCase();
+
   let mode = query?.get("mode") === "assisted" ? "assisted" : "independent";
+  let routingStrategy =
+    requestedRouting === "balanced"
+      ? "balanced"
+      : requestedRouting === "adaptive" && routingDefaults.adaptiveReady
+      ? "adaptive"
+      : routingDefaults.strategy; // "adaptive" (>=5 attempts) | "balanced" (<5 attempts)
   let sourceFilter = "official-pyq"; // "official-pyq" | "curated-practice" | "combined"
   let expandedPanel = initialUnit !== "ALL" ? "drill" : null; // "drill" | "exam" | "sets" | null
 
@@ -77,7 +92,15 @@ export async function renderPracticeArena(main, query) {
   let drillCount = 10;
 
   const allPyqs = papers.flatMap((p) => p.questions);
+  const pyqById = new Map(allPyqs.map((q) => [q.id, q]));
+  const unitById = new Map(allUnits.map((u) => [u.unitId, u]));
   const allPracticeQs = practiceSets.flatMap((s) => s.questions || []);
+
+  function getEffectiveRouting() {
+    if (mode !== "independent") return "balanced";
+    if (routingStrategy === "adaptive" && routingDefaults.adaptiveReady) return "adaptive";
+    return "balanced";
+  }
 
   function getSourcePool() {
     if (sourceFilter === "official-pyq") return allPyqs;
@@ -88,11 +111,26 @@ export async function renderPracticeArena(main, query) {
   const root = el(`
     <div class="view stack-m">
       <!-- Top Segmented Pill Toggle (04-practice-options.png) -->
-      <div class="segmented" role="tablist" aria-label="Practice assistance mode">
+      <div class="segmented" id="practiceAssistSegmented" role="tablist" aria-label="Practice assistance mode">
         <button type="button" class="segmented__opt is-active" data-mode="independent">Independent</button>
         <button type="button" class="segmented__opt" data-mode="assisted">With assistance</button>
       </div>
       <p class="card__meta" id="practiceModeNote" style="margin-top:calc(-1 * var(--space-xs))"></p>
+
+      <!-- Adaptive vs Balanced Question Routing Toggle (Phase 07 · Slice 2) -->
+      <div class="card card--subtle stack-xs practice-routing-bar" id="practiceRoutingCard">
+        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+          <div class="cluster-xs">
+            <strong>Question Routing</strong>
+            <span class="pill mono" id="practiceRoutingBadge"></span>
+          </div>
+          <div class="segmented segmented--compact" id="practiceRoutingToggle" role="tablist" aria-label="Question routing strategy">
+            <button type="button" class="segmented__opt" data-routing="adaptive">Adaptive</button>
+            <button type="button" class="segmented__opt" data-routing="balanced">Balanced</button>
+          </div>
+        </div>
+        <p class="card__meta" id="practiceRoutingNote"></p>
+      </div>
 
       <!-- Question Source Filter Chips -->
       <div class="chip-row" id="practiceSourceChips" aria-label="Question source"></div>
@@ -112,13 +150,44 @@ export async function renderPracticeArena(main, query) {
   main.appendChild(root);
 
   function syncModeButtons() {
-    root.querySelectorAll(".segmented__opt").forEach((btn) => {
+    root.querySelectorAll("#practiceAssistSegmented .segmented__opt").forEach((btn) => {
       btn.classList.toggle("is-active", btn.dataset.mode === mode);
     });
     $("#practiceModeNote", root).textContent =
       mode === "independent"
         ? "Independent mode: Answers checked on submit. Updates your true accuracy & Spaced Mistake Queue."
         : "With assistance: Immediate option feedback, concept hints, SymPy steps & Codec AI Tutor unlocked (tracked separately).";
+
+    const effRouting = getEffectiveRouting();
+    root.querySelectorAll("#practiceRoutingToggle .segmented__opt").forEach((btn) => {
+      const isSelected = btn.dataset.routing === effRouting;
+      btn.classList.toggle("is-active", isSelected);
+      btn.setAttribute("aria-selected", String(isSelected));
+      btn.disabled = mode !== "independent";
+    });
+
+    const badgeEl = $("#practiceRoutingBadge", root);
+    const noteEl = $("#practiceRoutingNote", root);
+    if (mode !== "independent") {
+      badgeEl.className = "pill mono";
+      badgeEl.textContent = "Balanced (Assisted)";
+      noteEl.textContent =
+        "With assistance uses Balanced sampling so every topic can be explored with hints.";
+    } else if (!routingDefaults.adaptiveReady) {
+      badgeEl.className = "pill mono";
+      badgeEl.textContent = `${routingDefaults.totalAttempts}/${ADAPTIVE_MIN_ATTEMPTS} attempts`;
+      noteEl.textContent = `Balanced active — solve ${ADAPTIVE_MIN_ATTEMPTS - routingDefaults.totalAttempts} more independent question${ADAPTIVE_MIN_ATTEMPTS - routingDefaults.totalAttempts === 1 ? "" : "s"} to auto-unlock Adaptive weak-area weighting.`;
+    } else if (effRouting === "adaptive") {
+      badgeEl.className = "badge badge--brand mono";
+      badgeEl.textContent = `Adaptive · ${routingDefaults.totalAttempts} attempts`;
+      noteEl.textContent =
+        "Weights questions toward weak units & missed PYQs while keeping a maintenance rotation of mastered topics.";
+    } else {
+      badgeEl.className = "pill mono";
+      badgeEl.textContent = `Balanced · ${routingDefaults.totalAttempts} attempts`;
+      noteEl.textContent =
+        "Uniform random sampling across your selected syllabus pool (switch to Adaptive anytime).";
+    }
   }
 
   function renderSourceChips() {
@@ -180,6 +249,24 @@ export async function renderPracticeArena(main, query) {
   }
 
   function getFilteredDrillPool() {
+    // Reuse canonical unit.practiceQuestions / unit.pyqIds mapping for unit-scoped drills
+    if (drillUnit !== "ALL" && sourceFilter !== "curated-practice") {
+      const unitObj = unitById.get(drillUnit);
+      const unitPyqPool = resolveUnitQuestionPool(unitObj, pyqById, {
+        filterFn: (q) => drillYear === "ALL" || String(q.year) === drillYear,
+      });
+      if (sourceFilter === "official-pyq") {
+        return unitPyqPool;
+      }
+      const extraUnitPool = allPracticeQs.filter(
+        (q) =>
+          !isVoidedQuestion(q) &&
+          q.unitId === drillUnit &&
+          (drillYear === "ALL" || String(q.year) === drillYear)
+      );
+      return [...unitPyqPool, ...extraUnitPool];
+    }
+
     return getSourcePool().filter((q) => {
       if (isVoidedQuestion(q)) return false; // Exclude voided items from custom topic drills so every item has active options
       if (drillSubject !== "ALL" && q.subjectId !== drillSubject) return false;
@@ -256,7 +343,7 @@ export async function renderPracticeArena(main, query) {
             </label>
           </div>
           <button type="button" class="btn btn--primary btn--block" id="launchDrillBtn" style="margin-top:var(--space-s)">
-            ${icon("icon-play")} Start Drill (${Math.min(drillCount, drillMatching.length)} Qs · ${mode === "assisted" ? "With Assistance" : "Independent"})
+            ${icon("icon-play")} Start ${getEffectiveRouting() === "adaptive" ? "Adaptive " : ""}Drill (${Math.min(drillCount, drillMatching.length)} Qs · ${mode === "assisted" ? "With Assistance" : "Independent"})
           </button>
         </div>
       </div>
@@ -284,14 +371,19 @@ export async function renderPracticeArena(main, query) {
       renderModeCards();
     });
     $("#launchDrillBtn", drillCard)?.addEventListener("click", () => {
-      const selectedQs = drillMatching.slice(0, drillCount);
+      const sampled = samplePracticeQuestions(drillMatching, drillCount, {
+        strategy: routingStrategy,
+        mode,
+        questionStats: snapshot.questionStats,
+      });
+      const prefix = sampled.effectiveStrategy === "adaptive" ? "Adaptive" : "Balanced";
       const label =
         drillUnit !== "ALL"
-          ? `Unit ${drillUnit} Topic Drill`
+          ? `Unit ${drillUnit} ${prefix} Drill`
           : drillSubject !== "ALL"
-          ? `${SUBJECT_META[drillSubject]?.name || drillSubject} Drill`
-          : "Mixed Syllabus Topic Drill";
-      startPracticeSession({ kind: "drill", title: label, pool: selectedQs });
+          ? `${SUBJECT_META[drillSubject]?.name || drillSubject} ${prefix} Drill`
+          : `Mixed Syllabus ${prefix} Drill`;
+      startPracticeSession({ kind: "drill", title: label, pool: sampled.questions });
     });
     slot.appendChild(drillCard);
 
@@ -309,11 +401,15 @@ export async function renderPracticeArena(main, query) {
       </div>
     `);
     $("#startCat2Btn", cat2Card).addEventListener("click", () => {
-      const sample = cat2Pool.slice(0, 15);
+      const sampled = samplePracticeQuestions(cat2Pool, 15, {
+        strategy: routingStrategy,
+        mode,
+        questionStats: snapshot.questionStats,
+      });
       startPracticeSession({
         kind: "cat2",
-        title: "Category-II Multi-Correct Mastery (15 Qs)",
-        pool: sample,
+        title: `Category-II Multi-Correct Mastery (${sampled.questions.length} Qs)`,
+        pool: sampled.questions,
       });
     });
     slot.appendChild(cat2Card);
@@ -480,9 +576,26 @@ export async function renderPracticeArena(main, query) {
     }
   }
 
-  root.querySelectorAll(".segmented__opt").forEach((btn) => {
+  root.querySelectorAll("#practiceAssistSegmented .segmented__opt").forEach((btn) => {
     btn.addEventListener("click", () => {
       mode = btn.dataset.mode;
+      syncModeButtons();
+      renderModeCards();
+    });
+  });
+
+  root.querySelectorAll("#practiceRoutingToggle .segmented__opt").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (mode !== "independent") return;
+      const target = btn.dataset.routing;
+      if (target === "adaptive" && !routingDefaults.adaptiveReady) {
+        routingStrategy = "balanced";
+        showToast(
+          `Solve ${ADAPTIVE_MIN_ATTEMPTS - routingDefaults.totalAttempts} more independent question(s) to unlock Adaptive routing.`
+        );
+      } else {
+        routingStrategy = target;
+      }
       syncModeButtons();
       renderModeCards();
     });

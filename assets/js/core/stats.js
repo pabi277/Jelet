@@ -10,13 +10,15 @@
  */
 
 import * as db from "../db/indexeddb.js";
-import { scoreAttempt, MAX_PAPER_TWELFTHS } from "./scoring.js";
+import { scoreAttempt, MAX_PAPER_TWELFTHS, isVoidedQuestion } from "./scoring.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const LEITNER_INTERVAL_DAYS = [0, 1, 3, 7, 14];
 
 export const WEAK_AREA_MIN_ATTEMPTS = 3;
 export const WEAK_AREA_TOP_K = 3;
+export const ADAPTIVE_MIN_ATTEMPTS = 5;
+export const ADAPTIVE_MAINTENANCE_FLOOR = 0.25;
 
 function localDateKey(isoOrMs) {
   const d = new Date(isoOrMs);
@@ -429,6 +431,213 @@ export function computeWeakAreas(
 }
 
 /* ------------------------------------------------------------------ *
+ * Adaptive Question Routing & Unit Pool Resolution (Phase 07 · Slice 2)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Determine default Practice Arena routing mode from local independent `questionStats`.
+ * Defaults to `"adaptive"` once >= `minAttempts` (5) independent question attempts exist;
+ * falls back to `"balanced"` below that threshold.
+ */
+export function resolveDefaultRoutingStrategy(
+  questionStats = [],
+  { minAttempts = ADAPTIVE_MIN_ATTEMPTS } = {}
+) {
+  let totalAttempts = 0;
+  for (const rec of questionStats || []) {
+    totalAttempts += Math.max(0, Number(rec?.attemptsCount) || 0);
+  }
+  const adaptiveReady = totalAttempts >= minAttempts;
+  return {
+    strategy: adaptiveReady ? "adaptive" : "balanced",
+    adaptiveReady,
+    totalAttempts,
+    minAttempts,
+  };
+}
+
+/**
+ * Resolve a syllabus unit's active practice pool from `unit.practiceQuestions`
+ * (falling back to `unit.pyqIds`), strictly curated from the 400 verified questions.
+ */
+export function resolveUnitQuestionPool(unit, questionIndex, { filterFn = null } = {}) {
+  if (!unit || !questionIndex) return [];
+  const lookup =
+    questionIndex instanceof Map
+      ? (id) => questionIndex.get(id)
+      : (id) => questionIndex[id];
+
+  const candidateIds =
+    Array.isArray(unit.practiceQuestions) && unit.practiceQuestions.length > 0
+      ? unit.practiceQuestions
+      : Array.isArray(unit.pyqIds)
+      ? unit.pyqIds
+      : [];
+
+  const seen = new Set();
+  const out = [];
+  for (const qId of candidateIds) {
+    if (!qId || seen.has(qId)) continue;
+    seen.add(qId);
+    const q = lookup(qId);
+    if (!q || isVoidedQuestion(q)) continue;
+    if (filterFn && !filterFn(q)) continue;
+    out.push(q);
+  }
+  return out;
+}
+
+/**
+ * Compute strictly positive adaptive selection weight for a question `q`.
+ * Weak units/subjects & missed items get higher weight, while mastered items
+ * keep a positive `ADAPTIVE_MAINTENANCE_FLOOR` so topics are never hard-blocked.
+ */
+export function computeQuestionAdaptiveWeight(
+  question,
+  questionStatsMap = new Map(),
+  unitAccMap = new Map(),
+  subjectAccMap = new Map()
+) {
+  const qStat = questionStatsMap.get(question.id);
+  const uStat = unitAccMap.get(question.unitId);
+  const sStat = subjectAccMap.get(question.subjectId);
+
+  const unitErrorRate =
+    uStat && uStat.attempts > 0 ? 1 - uStat.correct / uStat.attempts : 0.5;
+  const subjectErrorRate =
+    sStat && sStat.attempts > 0 ? 1 - sStat.correct / sStat.attempts : 0.5;
+
+  // Topic weakness factor in [1.0, 3.6]
+  const topicMultiplier = 1 + 2.0 * unitErrorRate + 0.6 * subjectErrorRate;
+
+  let itemMultiplier = 1.3; // unseen item baseline
+  const att = Number(qStat?.attemptsCount) || 0;
+  if (att > 0) {
+    const corr = Math.min(att, Math.max(0, Number(qStat?.correctCount) || 0));
+    const qErr = 1 - corr / att;
+    if (qErr <= 0) {
+      // Mastered item: preserve small maintenance rotation (never 0 / hard-blocked)
+      itemMultiplier = ADAPTIVE_MAINTENANCE_FLOOR;
+    } else {
+      const recentMissBoost =
+        qStat.lastOutcome === "incorrect" || qStat.lastOutcome === "partial" ? 0.8 : 0;
+      itemMultiplier = 1.2 + 2.2 * qErr + recentMissBoost;
+    }
+  }
+
+  return Math.max(
+    ADAPTIVE_MAINTENANCE_FLOOR,
+    Number((topicMultiplier * itemMultiplier).toFixed(4))
+  );
+}
+
+/**
+ * Sample up to `count` questions from `pool` using either `"adaptive"`
+ * (accuracy-weighted without replacement + maintenance floor) or `"balanced"`
+ * (uniform Fisher-Yates random sampling). Automatically falls back to `"balanced"`
+ * when `mode !== "independent"` or fewer than `minAttempts` (5) attempts exist.
+ */
+export function samplePracticeQuestions(
+  pool = [],
+  count = 10,
+  {
+    strategy = "adaptive",
+    mode = "independent",
+    questionStats = [],
+    minAttempts = ADAPTIVE_MIN_ATTEMPTS,
+    rng = Math.random,
+  } = {}
+) {
+  const eligible = (pool || []).filter((q) => q && !isVoidedQuestion(q));
+  const readiness = resolveDefaultRoutingStrategy(questionStats, { minAttempts });
+  const limit = Math.max(0, Math.min(Number(count) || eligible.length, eligible.length));
+
+  const effectiveStrategy =
+    mode === "independent" && strategy === "adaptive" && readiness.adaptiveReady
+      ? "adaptive"
+      : "balanced";
+
+  if (limit === 0) {
+    return {
+      questions: [],
+      effectiveStrategy,
+      adaptiveReady: readiness.adaptiveReady,
+      totalAttempts: readiness.totalAttempts,
+    };
+  }
+
+  if (effectiveStrategy === "balanced") {
+    const copy = [...eligible];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.min(i, Math.max(0, Math.floor(rng() * (i + 1))));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return {
+      questions: copy.slice(0, limit),
+      effectiveStrategy: "balanced",
+      adaptiveReady: readiness.adaptiveReady,
+      totalAttempts: readiness.totalAttempts,
+    };
+  }
+
+  // Build accuracy lookup maps from recorded independent questionStats
+  const statMap = new Map();
+  const unitAccMap = new Map();
+  const subjAccMap = new Map();
+
+  for (const rec of questionStats || []) {
+    if (!rec || !rec.questionId) continue;
+    statMap.set(rec.questionId, rec);
+    const att = Number(rec.attemptsCount) || 0;
+    if (att <= 0) continue;
+    const corr = Math.min(att, Math.max(0, Number(rec.correctCount) || 0));
+
+    if (rec.unitId) {
+      const prevU = unitAccMap.get(rec.unitId) || { attempts: 0, correct: 0 };
+      prevU.attempts += att;
+      prevU.correct += corr;
+      unitAccMap.set(rec.unitId, prevU);
+    }
+    if (rec.subjectId) {
+      const prevS = subjAccMap.get(rec.subjectId) || { attempts: 0, correct: 0 };
+      prevS.attempts += att;
+      prevS.correct += corr;
+      subjAccMap.set(rec.subjectId, prevS);
+    }
+  }
+
+  const remaining = eligible.map((q) => ({
+    q,
+    weight: computeQuestionAdaptiveWeight(q, statMap, unitAccMap, subjAccMap),
+  }));
+
+  const picked = [];
+  for (let k = 0; k < limit && remaining.length > 0; k++) {
+    let totalW = 0;
+    for (const item of remaining) totalW += item.weight;
+
+    let threshold = rng() * totalW;
+    let chosenIdx = remaining.length - 1;
+    for (let idx = 0; idx < remaining.length; idx++) {
+      threshold -= remaining[idx].weight;
+      if (threshold <= 0) {
+        chosenIdx = idx;
+        break;
+      }
+    }
+    picked.push(remaining[chosenIdx].q);
+    remaining.splice(chosenIdx, 1);
+  }
+
+  return {
+    questions: picked,
+    effectiveStrategy: "adaptive",
+    adaptiveReady: true,
+    totalAttempts: readiness.totalAttempts,
+  };
+}
+
+/* ------------------------------------------------------------------ *
  * Aggregated Honest Dashboard & Subject Snapshot
  * ------------------------------------------------------------------ */
 export async function computeHubSnapshot(manifest) {
@@ -535,6 +744,7 @@ export async function computeHubSnapshot(manifest) {
     .sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
 
   const weakAreas = computeWeakAreas(qStats, manifestUnits);
+  const routingInfo = resolveDefaultRoutingStrategy(qStats);
 
   return {
     meta,
@@ -550,6 +760,7 @@ export async function computeHubSnapshot(manifest) {
     paperBestMap,
     dueMistakes,
     weakAreas,
+    routingInfo,
     subjectStats,
     unitMap,
     roadmapUnit,

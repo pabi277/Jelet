@@ -21,6 +21,8 @@ import {
   computeHubSnapshot,
   createSession,
   WEAK_AREA_MIN_ATTEMPTS,
+  resolveUnitQuestionPool,
+  samplePracticeQuestions,
 } from "../core/stats.js";
 import { getMeta, setMeta } from "../db/indexeddb.js";
 import {
@@ -258,23 +260,22 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
 
   async function launchUnitDrill(unitId) {
     const [unit, qIndex] = await Promise.all([loadUnit(unitId), getQuestionIndex()]);
-    const idPool =
-      unit.practiceQuestions && unit.practiceQuestions.length
-        ? unit.practiceQuestions
-        : unit.pyqIds || [];
-    const qs = idPool
-      .map((id) => qIndex.get(id))
-      .filter((q) => q && !isVoidedQuestion(q));
-    if (!qs.length) {
+    const rawPool = resolveUnitQuestionPool(unit, qIndex);
+    if (!rawPool.length) {
       showToast(`No active PYQs mapped to ${unit.unitId} — opening unit notes.`);
       location.hash = `#/learn/${encodeURIComponent(unit.unitId)}`;
       return;
     }
+    const sampled = samplePracticeQuestions(rawPool, rawPool.length, {
+      strategy: "adaptive",
+      mode: "independent",
+      questionStats: snapshot.questionStats,
+    });
     const sess = await createSession({
       kind: "drill",
       mode: "independent",
       title: `Weak-Area Drill · ${unit.unitId} ${unit.title}`,
-      questions: qs,
+      questions: sampled.questions,
     });
     location.hash = `#/practice-run/${sess.sessionId}`;
   }

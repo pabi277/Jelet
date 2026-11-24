@@ -2273,6 +2273,22 @@
   overflow-wrap: anywhere;
 }
 
+.practice-routing-bar {
+  padding: var(--space-s) var(--space-m);
+}
+.segmented--compact {
+  min-width: 190px;
+}
+.segmented--compact .segmented__opt {
+  min-height: 36px;
+  padding: 0 var(--space-s);
+  font-size: var(--fs-caption);
+}
+.segmented__opt:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 
 
 
