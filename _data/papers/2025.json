@@ -1307,7 +1307,7 @@
       "tags": [
         "maxima-minima",
         "cone",
-        "cylinder"
+        "inscribed-cylinder"
       ]
     },
     {
@@ -1324,7 +1324,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "$y = \\dfrac{1}{2}x \\pm \\sqrt{13}$",
+          "latex": "$y = 13 \\pm 2x$",
           "figure": null
         },
         {
@@ -1339,7 +1339,7 @@
         },
         {
           "id": "D",
-          "latex": "$y = \\dfrac{1}{2}x \\pm \\sqrt{19}$",
+          "latex": "$y = 7 \\pm 2x$",
           "figure": null
         }
       ],
@@ -1351,11 +1351,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q27)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "hyperbola",
-        "tangent",
-        "perpendicular"
+        "tangent-condition",
+        "perpendicular-lines"
       ]
     },
     {
@@ -1367,7 +1367,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "If $f(x) = \\lim_{n \\to \\infty}\\left[2x + 4x^{2} + \\cdots + 2nx^{2n-1}\\right]$, $0 < x < 1$, then $\\displaystyle\\int f(x)\\,dx$ is equal to",
+      "stemLatex": "If $f(x) = \\displaystyle\\lim_{n \\to \\infty}\\left[2x + 4x^{3} + \\ldots + 2nx^{2n-1}\\right]$, $0 < x < 1$, then $\\displaystyle\\int f(x)\\,dx$ is equal to",
       "stemFigure": null,
       "options": [
         {
@@ -1377,12 +1377,12 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{1-x^{2}}$",
+          "latex": "$\\dfrac{1}{\\sqrt{1 - x^{2}}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\sqrt{1 - x^{2}}$",
+          "latex": "$\\dfrac{1}{1 - x^{2}}$",
           "figure": null
         },
         {
@@ -1401,9 +1401,9 @@
       },
       "difficulty": "hard",
       "tags": [
-        "limit",
-        "integration",
-        "geometric-series"
+        "series-limit",
+        "arithmetico-geometric-series",
+        "integration"
       ]
     },
     {
@@ -1415,27 +1415,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "If for the differential equation $\\dfrac{dy}{dx} = \\dfrac{x}{y\\log(cx)}$, the general solution is $y^{2} = \\varphi(x)$ ($c$ is a constant), then $\\varphi(x)$ is given by",
+      "stemLatex": "If for the differential equation $\\dfrac{dy}{dx} = \\dfrac{y}{x} + \\phi\\!\\left(x/y\\right)$, the general solution is $y = \\dfrac{x}{\\log(cx)}$ ($c$ is a constant), then $\\phi\\!\\left(x/y\\right)$ is given by",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$x^{2} + 2cx$",
+          "latex": "$-\\dfrac{y^{2}}{x^{2}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$x^{2} + c$",
+          "latex": "$\\dfrac{y^{2}}{x^{2}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$2x^{2} + cx$",
+          "latex": "$-\\dfrac{x^{2}}{y^{2}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$x^{2} + cx^{2}$",
+          "latex": "$\\dfrac{x^{2}}{y^{2}}$",
           "figure": null
         }
       ],
@@ -1447,10 +1447,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q29)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "ode",
-        "variable-separable",
+        "homogeneous-equation",
         "general-solution"
       ]
     },
@@ -1495,11 +1495,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q30)"
       },
-      "difficulty": "easy",
+      "difficulty": "medium",
       "tags": [
         "probability",
-        "coin-toss",
-        "complement"
+        "indistinguishable-objects",
+        "sample-space"
       ]
     },
     {
@@ -1516,7 +1516,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "$|\\operatorname{adj} A| = |A|$ if $|A| \\geq 0$.",
+          "latex": "$|\\operatorname{adj} A| = |A|^{2}$ if $|A| \\neq 0$.",
           "figure": null
         },
         {
@@ -1549,8 +1549,8 @@
       "difficulty": "medium",
       "tags": [
         "adjoint",
-        "invertible",
-        "matrix-properties"
+        "invertible-matrix",
+        "determinant"
       ]
     },
     {
@@ -1562,7 +1562,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 7,
-      "stemLatex": "Let $f(x) = \\begin{cases} \\dfrac{\\sin x}{x}, & x \\neq 0 \\\\ 0, & x = 0 \\end{cases}$. Then",
+      "stemLatex": "Let $f(x) = \\begin{cases} x^{2}\\sin\\dfrac{1}{x}, & x \\neq 0 \\\\ 0, & x = 0 \\end{cases}$. Then",
       "stemFigure": null,
       "options": [
         {
@@ -1600,7 +1600,7 @@
       "tags": [
         "continuity",
         "differentiability",
-        "sinx/x"
+        "x^2-sin(1/x)"
       ]
     },
     {
@@ -1612,27 +1612,27 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "If $\\displaystyle\\int \\dfrac{dx}{2x^{7} + x^{2} + 1}$, then $I$ is equal to",
+      "stemLatex": "If $I = \\displaystyle\\int \\dfrac{\\left(5x^{8} + 7x^{6}\\right)}{\\left(x^{2} + 1 + 2x^{7}\\right)^{2}}\\,dx$, then $I$ is equal to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{2}\\ln(2x^{7} + x^{2} + 1) + c$",
+          "latex": "$\\dfrac{x^{7}}{2x^{7} + x^{2} + 1} + c_{1}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{x}\\ln(x^{2} + 1 + 2x^{7}) + c$",
+          "latex": "$\\dfrac{x^{5}}{x^{2} + 1 + 2x^{7}} + c_{1}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{1}{x^{2}+1+2x^{7}} + c$",
+          "latex": "$\\dfrac{1}{x^{2} + 1 + 2x^{7}} + c_{1}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{p(x)}{q(x)} + c_{1}$ (where $p$ and $q$ are polynomial of same degree)",
+          "latex": "$\\dfrac{p(x)}{q(x)} + c_{1}$ (where $p$ and $q$ are polynomial of same degree) ($c_{1}$ is an integration constant.)",
           "figure": null
         }
       ],
@@ -1648,8 +1648,8 @@
       "difficulty": "hard",
       "tags": [
         "integration",
-        "substitution",
-        "rational"
+        "quotient-rule-reverse",
+        "rational-function"
       ]
     },
     {
@@ -1661,7 +1661,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "Solution of the differential equation $\\dfrac{d^{2}y}{dx^{2}} + \\left(\\dfrac{dy}{dx}\\right)^{2} + 1 = 0$ are given by",
+      "stemLatex": "Solution of the differential equation $\\left(\\dfrac{dy}{dx}\\right)^{2} - \\left(e^{x} + e^{-x}\\right)\\dfrac{dy}{dx} + 1 = 0$ are given by",
       "stemFigure": null,
       "options": [
         {
@@ -1681,7 +1681,7 @@
         },
         {
           "id": "D",
-          "latex": "$y - e^{x} = c$",
+          "latex": "$y - e^{x} = c$ ($c$ = constant of integration.)",
           "figure": null
         }
       ],
@@ -1694,11 +1694,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q34)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "ode",
-        "second-order",
-        "exponential"
+        "first-order-higher-degree",
+        "factorisation"
       ]
     },
     {
@@ -1745,11 +1745,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q35)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "continuity",
-        "differentiability",
-        "piecewise"
+        "piecewise-function",
+        "monotonicity",
+        "maxima"
       ]
     },
     {
@@ -1761,7 +1761,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "If $[x]$ is the greatest integer function, then $\\displaystyle\\lim_{x \\to 0} \\dfrac{[x]}{x}$ is",
+      "stemLatex": "If $[x]$ is the greatest integer function, then $\\displaystyle\\lim_{x \\to 0} x^{8}\\left[\\dfrac{1}{x^{3}}\\right]$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1798,7 +1798,7 @@
       "tags": [
         "limit",
         "greatest-integer",
-        "floor"
+        "squeeze-theorem"
       ]
     },
     {
@@ -1815,22 +1815,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$P(E) = \\dfrac{1}{4}, P(F) = \\dfrac{1}{3}$",
+          "latex": "$P(E) = \\dfrac{1}{3},\\ P(F) = \\dfrac{1}{4}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$P(E) = \\dfrac{1}{6}, P(F) = \\dfrac{1}{4}$",
+          "latex": "$P(E) = \\dfrac{1}{2},\\ P(F) = \\dfrac{1}{6}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$P(E) = \\dfrac{1}{6}, P(F) = \\dfrac{1}{2}$",
+          "latex": "$P(E) = \\dfrac{1}{6},\\ P(F) = \\dfrac{1}{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$P(E) = \\dfrac{1}{3}, P(F) = \\dfrac{1}{4}$",
+          "latex": "$P(E) = \\dfrac{1}{4},\\ P(F) = \\dfrac{1}{3}$",
           "figure": null
         }
       ],
@@ -1843,11 +1843,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q37)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "probability",
         "independent-events",
-        "system"
+        "quadratic"
       ]
     },
     {
@@ -1864,22 +1864,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$-r\\sqrt{1+m^{2}} < c < r\\sqrt{1+m^{2}}$",
+          "latex": "$-r\\sqrt{1 + m^{2}} < c \\leq 0$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0 \\leq c < r\\sqrt{1+m^{2}}$",
+          "latex": "$0 \\leq c < r\\sqrt{1 + m^{2}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$-r\\sqrt{1-m^{2}} < c < r$",
+          "latex": "$-c\\sqrt{1 - m^{2}} < r$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$r < c\\sqrt{1+m^{2}}$",
+          "latex": "$r < c\\sqrt{1 + m^{2}}$",
           "figure": null
         }
       ],
@@ -1895,8 +1895,8 @@
       "difficulty": "medium",
       "tags": [
         "circle",
-        "line-intersection",
-        "condition"
+        "line-circle-intersection",
+        "perpendicular-distance"
       ]
     },
     {
@@ -1908,7 +1908,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "The system of equations $ax + by + cz = q - r$, $bx + cy + az = r - p$, $cx + ay + bz = p - q$ is",
+      "stemLatex": "The system of equations — $ax + by + cz = q - r$, $bx + cy + az = r - p$, $cx + ay + bz = p - q$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1945,7 +1945,7 @@
       "tags": [
         "linear-system",
         "consistency",
-        "cyclic"
+        "circulant-determinant"
       ]
     },
     {
@@ -1957,27 +1957,27 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "The value of $\\displaystyle\\int \\dfrac{\\tan x}{x}\\,dx$ is",
+      "stemLatex": "The value of $\\displaystyle\\int_{1/a}^{a} \\dfrac{\\tan^{-1} x}{x}\\,dx$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{2}\\ln\\sec^{2}x + c$",
+          "latex": "$\\dfrac{\\pi}{4}\\log a$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\ln\\sec x + c$",
+          "latex": "$\\dfrac{\\pi}{2}\\log a$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{\\pi}{2}\\ln a$",
+          "latex": "$\\pi \\log a$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$2\\ln\\sec x + c$",
+          "latex": "$\\dfrac{1}{2}\\log a$",
           "figure": null
         }
       ],
@@ -1991,9 +1991,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "integration",
-        "tangent",
-        "logarithm"
+        "definite-integral",
+        "substitution-x-to-1/x",
+        "inverse-trig"
       ]
     },
     {
@@ -2010,7 +2010,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "$[ML^{2}T^{-2}]$",
+          "latex": "$[MT^{5}T^{-2}]$",
           "figure": null
         },
         {
@@ -2020,12 +2020,12 @@
         },
         {
           "id": "C",
-          "latex": "$[L^{2}]$",
+          "latex": "$[L^{3}]$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$[L]$",
+          "latex": "$[L^{6}]$",
           "figure": null
         }
       ],
@@ -2041,7 +2041,7 @@
       "tags": [
         "dimensions",
         "dimensional-analysis",
-        "equation-of-state",
+        "van-der-waals",
         "voided"
       ]
     },
@@ -2054,7 +2054,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "The resistance $R = \\dfrac{V}{I}$, where $V = 100 \\pm 5$ volts and $I = 10 \\pm 0.2$ amperes. The total percentage of error in $R$ is",
+      "stemLatex": "The resistance $R = \\dfrac{V}{I}$ where $V = 100 \\pm 5$ volts and $I = 10 \\pm 0{\\cdot}2$ amperes. The total percentage of error in $R$ is",
       "stemFigure": null,
       "options": [
         {
@@ -2069,7 +2069,7 @@
         },
         {
           "id": "C",
-          "latex": "$5.2\\%$",
+          "latex": "$5{\\cdot}2\\%$",
           "figure": null
         },
         {
@@ -2086,43 +2086,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q42)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "error-analysis",
-        "resistance",
-        "percentage"
+        "percentage-error",
+        "quotient"
       ]
     },
     {
       "id": "jelet-2025-q043",
       "qNumber": 43,
       "subjectId": "PHYS",
-      "unitId": "P05",
+      "unitId": "P02",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "If three vectors satisfy the relation $\\vec{A} \\cdot \\vec{B} = 0$ and $\\vec{A} \\cdot \\vec{C} = 0$, then $\\vec{A}$ can be parallel to",
+      "stemLatex": "If three vectors satisfy the relation $\\overline{A} \\cdot \\overline{B} = 0$ and $\\overline{A} \\cdot \\overline{C} = 0$, then $\\overline{A}$ can be parallel to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\vec{C}$",
+          "latex": "$\\overline{C}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\vec{B}$",
+          "latex": "$\\overline{B}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\vec{B} \\times \\vec{C}$",
+          "latex": "$\\overline{B} \\times \\overline{C}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\vec{B} \\cdot \\vec{C}$",
+          "latex": "$\\overline{B} \\cdot \\overline{C}$",
           "figure": null
         }
       ],
@@ -2134,7 +2134,7 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q43)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "vectors",
         "dot-product",
@@ -2150,34 +2150,58 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "The acceleration of a particle varies with time as shown in the figure. The corresponding velocity-time graph will be [Assume at $t = 0$, velocity $v = 0$]",
+      "stemLatex": "The acceleration of a particle varies with time as shown in the figure. The corresponding velocity—time graph will be [Assume at $t = 0$, velocity $v = 0$]",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q44.svg",
-        "alt": "Figure for JELET 2025 Q44",
-        "width": 420,
-        "height": 220,
+        "alt": "Acceleration a (m/s²) versus time t (s): a straight line starting at a = −2 when t = 0, crossing a = 0 at t = 1 and continuing upward",
+        "width": 270,
+        "height": 170,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$v$ increases linearly then constant",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q44-optA.svg",
+            "alt": "Graph (A): v (m/s) versus t (s); an inverted parabola starting at v = 0 at t = 0, maximum at t = 1 (dotted line), back to v = 0 at t = 2",
+            "width": 260,
+            "height": 125,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "$v$ increases then decreases",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q44-optB.svg",
+            "alt": "Graph (B): v (m/s) versus t (s); v = 0 from t = 0 to t = 1, then rising linearly, then constant",
+            "width": 260,
+            "height": 125,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "$v$ constant then increases",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q44-optC.svg",
+            "alt": "Graph (C): v (m/s) versus t (s); starts at v = 0, dips below the t-axis to a minimum at t = 1 (dotted line), crosses zero at t = 2 and then rises steeply",
+            "width": 260,
+            "height": 125,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "$v$ decreases linearly",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q44-optD.svg",
+            "alt": "Graph (D): v (m/s) versus t (s); a trapezium rising linearly from 0 to t = 1, constant from t = 1 to t = 2 (dotted verticals), then falling linearly to zero",
+            "width": 260,
+            "height": 125,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -2191,40 +2215,40 @@
       "difficulty": "medium",
       "tags": [
         "kinematics",
-        "acceleration-graph",
-        "velocity-time"
+        "acceleration-time-graph",
+        "velocity-time-graph"
       ]
     },
     {
       "id": "jelet-2025-q045",
       "qNumber": 45,
       "subjectId": "PHYS",
-      "unitId": "P05",
+      "unitId": "P04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "A particle is shifted from a point $(0, 0, 1\\,\\text{m})$ to a point $(1\\,\\text{m}, 1\\,\\text{m}, 2\\,\\text{m})$ under the simultaneous action of forces. These forces are $\\vec{F}_{1} = (2\\hat{i} + 3\\hat{j} - \\hat{k})\\,\\text{N}$ and $\\vec{F}_{2} = (\\hat{i} - 2\\hat{j} + 2\\hat{k})\\,\\text{N}$. Find the work done by the resultant of these two forces.",
+      "stemLatex": "A particle is shifted from a point $(0, 0, 1\\text{m})$ to a point $(1\\text{m}, 1\\text{m}, 2\\text{m})$ under the simultaneous action of forces. These forces are $\\overline{F}_{1} = (2\\hat{i} + 3\\hat{j} - \\hat{k})\\,N$ and $\\overline{F}_{2} = (\\hat{i} - 2\\hat{j} + 2\\hat{k})\\,N$. Find the work done by the resultant of these two forces.",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$4\\,\\text{J}$",
+          "latex": "$4\\text{ J}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$1\\,\\text{J}$",
+          "latex": "$1\\text{ J}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$5\\,\\text{J}$",
+          "latex": "$5\\text{ J}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$3\\,\\text{J}$",
+          "latex": "$3\\text{ J}$",
           "figure": null
         }
       ],
@@ -2236,11 +2260,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q45)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "work",
         "dot-product",
-        "vectors"
+        "resultant-force"
       ]
     },
     {
@@ -2255,9 +2279,9 @@
       "stemLatex": "Figure shows the displacement of a particle moving along $x$ axis as a function of time. The acceleration of the particle is zero in the region",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q46.svg",
-        "alt": "Figure for JELET 2025 Q46",
-        "width": 420,
-        "height": 220,
+        "alt": "Displacement versus time: AB is a straight rising segment, BC a curved dip, CD a straight falling segment, and DE a curve rising from D and flattening towards E",
+        "width": 250,
+        "height": 205,
         "themeAdaptive": true
       },
       "options": [
@@ -2290,10 +2314,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q46)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "kinematics",
-        "displacement-time",
+        "displacement-time-graph",
         "acceleration"
       ]
     },
@@ -2306,27 +2330,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "A stone is dropped from a certain height which can reach the ground in $5\\,\\text{sec}$. It is stopped after $3\\,\\text{sec}$ of its fall and is again released. The total time taken by the stone to reach the ground will be",
+      "stemLatex": "A stone is dropped from a certain height which can reach the ground in $5$ sec. It is stopped after $3$ sec. of its fall and is again released. The total time taken by the stone to reach the ground will be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$6.0\\,\\text{sec}$",
+          "latex": "$6{\\cdot}0$ sec",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$6.5\\,\\text{sec}$",
+          "latex": "$6{\\cdot}5$ sec",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$7.0\\,\\text{sec}$",
+          "latex": "$7{\\cdot}0$ sec",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$7.5\\,\\text{sec}$",
+          "latex": "$7{\\cdot}5$ sec",
           "figure": null
         }
       ],
@@ -2342,7 +2366,7 @@
       "tags": [
         "kinematics",
         "free-fall",
-        "time"
+        "equations-of-motion"
       ]
     },
     {
@@ -2369,12 +2393,12 @@
         },
         {
           "id": "C",
-          "latex": "$g(\\rho - 1)$",
+          "latex": "$g\\left(1 - \\dfrac{1}{\\rho}\\right)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$g\\rho$",
+          "latex": "$g\\left(1 + \\dfrac{1}{\\rho}\\right)$",
           "figure": null
         }
       ],
@@ -2386,11 +2410,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q48)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "fluid",
         "buoyancy",
-        "acceleration"
+        "archimedes-principle",
+        "newtons-second-law"
       ]
     },
     {
@@ -2412,12 +2436,12 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{2}E_{0}$",
+          "latex": "$1{\\cdot}5E_{0}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$-2E_{0}$",
+          "latex": "$2E_{0}$",
           "figure": null
         },
         {
@@ -2434,11 +2458,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q49)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "gravitation",
-        "satellite",
-        "energy"
+        "orbital-energy",
+        "satellite"
       ]
     },
     {
@@ -2450,27 +2474,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A bomb initially at rest explodes by itself into three equal mass fragments. The velocities of two fragments are $(\\hat{i} + 3\\hat{j})\\,\\text{m/s}$ and $(2\\hat{i} - 4\\hat{j})\\,\\text{m/s}$. The velocity of the third fragment (in $\\text{m/s}$) is",
+      "stemLatex": "A bomb initially at rest explodes by itself into three equal mass fragments. The velocities of two fragments are $(\\hat{i} + 3\\hat{j})\\ m/s$ and $(2\\hat{i} - 4\\hat{j})\\ m/s$. The velocity of the third fragment (in $m/s$) is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$(-3\\hat{i} + \\hat{j})\\,\\text{m/s}$",
+          "latex": "$(-3\\hat{i} + \\hat{j})\\ m/s$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$(3\\hat{i} - \\hat{j})\\,\\text{m/s}$",
+          "latex": "$(3\\hat{i} - \\hat{j})\\ m/s$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(\\hat{i} - 3\\hat{j})\\,\\text{m/s}$",
+          "latex": "$(\\hat{i} - 3\\hat{j})\\ m/s$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$(\\hat{i} + 3\\hat{j})\\,\\text{m/s}$",
+          "latex": "$(\\hat{i} + 3\\hat{j})\\ m/s$",
           "figure": null
         }
       ],
@@ -2482,11 +2506,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q50)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "momentum",
-        "conservation",
-        "explosion"
+        "momentum-conservation",
+        "explosion",
+        "vectors"
       ]
     },
     {

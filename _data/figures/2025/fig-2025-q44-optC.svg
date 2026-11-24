@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 125" width="260" height="125" role="img" aria-label="2025 Q44 option C: v–t graph, an upward parabola starting at v = 0 at t = 0, dipping below the axis to a minimum at t = 1, crossing zero at t = 2 and rising steeply">
+  <rect x="0" y="0" width="260" height="125" fill="transparent"/>
+  <line x1="52" y1="100" x2="210" y2="100" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="210,100 203.1,104.0 203.1,96.0" fill="var(--fig-axis)"/>
+  <line x1="60" y1="108" x2="60" y2="12" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="60,12 64.0,18.9 56.0,18.9" fill="var(--fig-axis)"/>
+  <text x="34" y="30" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">v</text>
+  <text x="34" y="45" font-family="Times New Roman, serif" font-size="11" fill="var(--fig-text)" text-anchor="middle">(m/s)</text>
+  <text x="216" y="104" font-family="Times New Roman, serif" font-size="12" font-style="italic" fill="var(--fig-text)" text-anchor="start">t</text>
+  <text x="221" y="104" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">(s)</text>
+  <polyline points="60.0,100.0 62.0,101.8 64.0,103.4 66.0,105.0 68.0,106.5 70.0,107.9 72.0,109.2 74.0,110.4 76.0,111.5 78.0,112.6 80.0,113.5 82.0,114.4 84.0,115.1 86.0,115.8 88.0,116.4 90.0,116.9 92.0,117.3 94.0,117.6 96.0,117.8 98.0,118.0 100.0,118.0 102.0,118.0 104.0,117.8 106.0,117.6 108.0,117.3 110.0,116.9 112.0,116.4 114.0,115.8 116.0,115.1 118.0,114.4 120.0,113.5 122.0,112.6 124.0,111.5 126.0,110.4 128.0,109.2 130.0,107.9 132.0,106.5 134.0,105.0 136.0,103.4 138.0,101.8 140.0,100.0 142.0,98.2 144.0,96.2 146.0,94.2 148.0,92.1 150.0,89.9 152.0,87.6 154.0,85.2 156.0,82.7 158.0,80.2 160.0,77.5 162.0,74.8 164.0,71.9 166.0,69.0 168.0,66.0 170.0,62.9 172.0,59.7" stroke="var(--fig-primary)" stroke-width="1.6" fill="none"/>
+  <line x1="100" y1="100" x2="100" y2="118" stroke="var(--fig-line)" stroke-width="0.8" stroke-dasharray="1.5,2"/>
+  <text x="47" y="105" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">0</text>
+  <text x="103" y="95" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">1</text>
+  <text x="143" y="116" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">2</text>
+</svg>

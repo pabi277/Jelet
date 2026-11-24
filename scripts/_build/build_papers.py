@@ -6,7 +6,25 @@ sys.path.insert(0, os.path.dirname(__file__))
 from q2022 import Q2022
 from q2023 import Q2023
 from q2024 import Q2024
-from q2025 import Q2025
+from q2025 import Q2025, OPTION_FIGURES_2025, STEM_FIGURE_ALT_2025
+import re
+
+OPTION_FIGURES = {"2025": OPTION_FIGURES_2025}
+STEM_FIGURE_ALT = {"2025": STEM_FIGURE_ALT_2025}
+
+def _svg_size(year, key, default=(420, 220)):
+    """Read the intrinsic width/height of a generated SVG (falls back to the legacy default)."""
+    path = os.path.join("_data", "figures", year, f"{key}.svg")
+    try:
+        head = open(path, encoding="utf-8").read(400)
+    except OSError:
+        return default
+    m = re.search(r'viewBox="0 0 ([0-9.]+) ([0-9.]+)"', head)
+    return (int(float(m.group(1))), int(float(m.group(2)))) if m else default
+
+def _figure(year, key, alt, exact_size):
+    w, h = _svg_size(year, key) if exact_size else (420, 220)
+    return {"src": f"./_data/figures/{year}/{key}.svg", "alt": alt, "width": w, "height": h, "themeAdaptive": True}
 
 SECTIONS = {
     "MATH": {"title": "Mathematics", "qStart": 1, "qEnd": 40, "cat1Range": [1, 30], "cat2Range": [31, 40], "maxMarks": 50},
@@ -56,10 +74,14 @@ def build(year, data):
             full_t = 12 if cat == 1 else 24
             neg_t = 3 if cat == 1 else 0
             status = "active"; correct_out = correct
-        opt_list = [{"id": k, "latex": v, "figure": None} for k, v in opts.items()]
+        opt_figs = OPTION_FIGURES.get(year, {}).get(qnum, {})
+        opt_list = [{"id": k, "latex": v,
+                     "figure": _figure(year, opt_figs[k][0], opt_figs[k][1], True) if k in opt_figs else None}
+                    for k, v in opts.items()]
         stem_fig = None
         if figkey:
-            stem_fig = {"src": f"./_data/figures/{year}/{figkey}.svg", "alt": f"Figure for JELET {year} Q{qnum}", "width": 420, "height": 220, "themeAdaptive": True}
+            alt = STEM_FIGURE_ALT.get(year, {}).get(qnum)
+            stem_fig = _figure(year, figkey, alt or f"Figure for JELET {year} Q{qnum}", alt is not None)
         questions.append({
             "id": qid, "qNumber": qnum, "subjectId": subj, "unitId": unit,
             "category": cat, "fullTwelfths": full_t, "negativeTwelfths": neg_t,

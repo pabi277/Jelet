@@ -9,7 +9,12 @@ Checks:
   4. 2025 Q1–Q25 (Batch 1): re-derive every answer from the verbatim stemLatex,
      match it against SymPy encodings of all four options, and require that the
      matched option equals the official key.correct
-  5. Report coverage statistics
+  5. 2025 Q26–Q50 (Batch 2): same method, plus option-LaTeX fingerprints;
+     Category-II items evaluate all four options; Q44/Q46 are checked against
+     the redrawn SVG geometry; Q41 (withdrawn) checks [a] = ML^5T^-2 matches no
+     option and that the item awards +12 twelfths. Documented key disputes
+     (KEY_DISPUTES_2025) are printed explicitly.
+  6. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -394,6 +399,403 @@ def _b1_q25():
 
 B1_TESTS_2025 = [(f"2025 Q{n}", f"jelet-2025-q{n:03d}", globals()[f"_b1_q{n}"]) for n in range(1, 26)]
 
+# ---------------------------------------------------------------------------
+# 2025 Batch 2 (Q26–Q50): independent re-derivations.
+# Each check fingerprints the verbatim stem AND the option LaTeX, re-derives the
+# result with SymPy, evaluates every option (all four for Category-II), and
+# requires the set of true options to equal the official key.correct.
+#
+# KEY_DISPUTES_2025 lists options that the mathematics proves TRUE but the
+# official key omits. A disputed option only passes if the check itself proves it
+# true; the stored official key is never modified. Every dispute is printed.
+# ---------------------------------------------------------------------------
+KEY_DISPUTES_2025 = {
+    39: {"official_key": ["A", "C"], "extra_true": ["B"],
+         "reason": "with a = b = c every LHS equals a(x+y+z), so q-r = r-p = p-q is required, forcing p = q = r; "
+                   "hence the system is inconsistent whenever p != q (B true), but the official key lists only A, C"},
+}
+KEY_DISPUTE_LOG = []
+
+def _b2_result(qnum, stem_fps, opt_fps, matched, detail):
+    q = _paper_2025()[qnum]
+    stem = q["stemLatex"]
+    missing = [fp for fp in stem_fps if fp not in stem]
+    if missing:
+        return False, f"stem fingerprint(s) {missing} not found in stemLatex"
+    opts = {o["id"]: o["latex"] for o in q["options"]}
+    bad = [f"{k}:{fp}" for k, fp in opt_fps.items() if fp not in opts.get(k, "")]
+    if bad:
+        return False, f"option fingerprint(s) {bad} not found in option latex"
+    key = sorted(q["key"]["correct"])
+    dispute = KEY_DISPUTES_2025.get(qnum)
+    if dispute and key != dispute["official_key"]:
+        return False, f"key.correct {key} differs from the pinned official key {dispute['official_key']} recorded for this dispute"
+    expected = sorted(set(key) | set(dispute["extra_true"])) if dispute else key
+    ok = matched == expected
+    if ok and dispute:
+        KEY_DISPUTE_LOG.append(f"2025 Q{qnum}: official key {key}; SymPy also proves {dispute['extra_true']} true — {dispute['reason']}")
+        return ok, f"{detail}; true set {matched} = official key {key} + documented dispute {dispute['extra_true']}"
+    return ok, f"{detail}; SymPy-true option(s) {matched} vs key {key}"
+
+def _b2_q26():
+    R, H, r = sympy.symbols("R H r", positive=True)
+    V = sympy.pi*r**2*H*(1 - r/R)
+    crit = [c for c in sympy.solve(sympy.diff(V, r), r) if c != 0]
+    assert len(crit) == 1 and sympy.diff(V, r, 2).subs(r, crit[0]).simplify().is_negative
+    qv = sympy.simplify(V.subs(r, crit[0])); pv = sympy.pi*R**2*H/3
+    ratio = sympy.simplify(pv/qv)
+    opts = {"A": sympy.Rational(9, 4), "B": sympy.Rational(8, 3), "C": sympy.Rational(7, 2), "D": sympy.Rational(5, 3)}
+    m = _pick(opts, lambda v: sympy.simplify(ratio - v) == 0)
+    return _b2_result(26, ["largest right circular cylinder", "$p : q$"], {"A": "9 : 4", "B": "8 : 3", "C": "7 : 2", "D": "5 : 3"}, m, f"r* = {crit[0]}, p/q = {ratio}")
+
+def _b2_q27():
+    x, c = sympy.symbols("x c")
+    m0 = -1/sympy.Rational(-1, 2)       # perpendicular to slope -1/2
+    disc = sympy.discriminant(sympy.expand(3*x**2 - 4*(m0*x + c)**2 - 12), x)
+    cs = set(sympy.solve(disc, c))
+    tangents = {(m0, cv) for cv in cs}
+    s13, s19 = sympy.sqrt(13), sympy.sqrt(19)
+    opts = {"A": {(2, 13), (-2, 13)}, "B": {(2, s13), (2, -s13)}, "C": {(2, s19), (2, -s19)}, "D": {(2, 7), (-2, 7)}}
+    m = _pick(opts, lambda v: {(sympy.nsimplify(a), sympy.nsimplify(b)) for a, b in v} == tangents)
+    return _b2_result(27, [r"\dfrac{x^{2}}{4} - \dfrac{y^{2}}{3} = 1", "x + 2y = 0"], {"A": r"13 \pm 2x", "B": r"2x \pm \sqrt{13}", "C": r"\sqrt{19}", "D": r"7 \pm 2x"}, m, f"slope {m0}, c in {cs}")
+
+def _b2_q28():
+    x = sympy.symbols("x", positive=True); k = sympy.symbols("k", integer=True, positive=True)
+    S = sympy.summation(x**(2*k), (k, 1, sympy.oo))
+    S = sympy.simplify(S.args[0][0] if isinstance(S, sympy.Piecewise) else S)
+    f = sympy.simplify(sympy.diff(S, x))
+    sample = sympy.N(sum(2*j*sympy.Rational(1, 2)**(2*j - 1) for j in range(1, 80)))
+    assert abs(sample - sympy.N(f.subs(x, sympy.Rational(1, 2)))) < 1e-12
+    opts = {"A": -sympy.sqrt(1 - x**2), "B": 1/sympy.sqrt(1 - x**2), "C": 1/(1 - x**2), "D": sympy.Integer(1)}
+    m = _pick(opts, lambda v: sympy.simplify(sympy.diff(v, x) - f) == 0)
+    return _b2_result(28, [r"2x + 4x^{3} + \ldots + 2nx^{2n-1}", "0 < x < 1"], {"A": r"-\sqrt{1 - x^{2}}", "C": r"\dfrac{1}{1 - x^{2}}"}, m, f"f(x) = {f}")
+
+def _b2_q29():
+    x, c = sympy.symbols("x c", positive=True); y = sympy.symbols("y", positive=True)
+    ysol = x/sympy.log(c*x)
+    resid = sympy.diff(ysol, x) - ysol/x
+    opts = {"A": -y**2/x**2, "B": y**2/x**2, "C": -x**2/y**2, "D": x**2/y**2}
+    m = _pick(opts, lambda v: sympy.simplify(resid - v.subs(y, ysol)) == 0)
+    return _b2_result(29, [r"\dfrac{y}{x} + \phi\!\left(x/y\right)", r"y = \dfrac{x}{\log(cx)}"], {"A": r"-\dfrac{y^{2}}{x^{2}}", "D": r"\dfrac{x^{2}}{y^{2}}"}, m, f"y' - y/x = {sympy.simplify(resid)}")
+
+def _b2_q30():
+    import itertools
+    unordered = list(itertools.combinations_with_replacement("HT", 2))   # indistinguishable coins
+    p_ind = sympy.Rational(sum(1 for o in unordered if set(o) == {"H", "T"}), len(unordered))
+    ordered = list(itertools.product("HT", repeat=2))
+    p_dist = sympy.Rational(sum(1 for o in ordered if set(o) == {"H", "T"}), len(ordered))
+    opts = {"A": sympy.Rational(1, 2), "B": sympy.Rational(1, 3), "C": sympy.Rational(1, 4), "D": sympy.Integer(1)}
+    m = _pick(opts, lambda v: v == p_ind)
+    return _b2_result(30, ["Two indistinguishable coins", "one head and one tail"], {"A": r"\dfrac{1}{2}", "B": r"\dfrac{1}{3}"}, m, f"unordered outcomes {unordered} -> {p_ind} (ordered/distinguishable would give {p_dist})")
+
+def _b2_q31():
+    A = sympy.Matrix(3, 3, sympy.symbols("a0:9"))
+    adj = A.adjugate(); d = A.det()
+    tA = sympy.expand(adj.det() - d**2) == 0
+    tB = (A*adj - d*sympy.eye(3)).expand() == sympy.zeros(3, 3)
+    samples = [sympy.Matrix([[2, 1, 0], [1, 3, 1], [0, 1, 4]]), sympy.Matrix([[1, 2, 3], [0, 1, 4], [5, 6, 0]]), sympy.Matrix([[0, 1, 1], [1, 0, 1], [1, 1, 0]])]
+    tC = all(M.det() != 0 and M*(M.adjugate()/M.det()) == sympy.eye(3) for M in samples)
+    tD = tA and all(M.adjugate().det() == M.det()**2 != 0 and M.adjugate()*(M/M.det()) == sympy.eye(3) for M in samples)
+    m = sorted(k for k, v in {"A": tA, "B": tB, "C": tC, "D": tD}.items() if v)
+    return _b2_result(31, ["square matrix of order $3$"], {"A": r"|\operatorname{adj} A| = |A|^{2}", "B": r"A(\operatorname{adj} A) = |A|I_{3}", "C": "invertible", "D": r"\operatorname{adj} A$ is invertible"}, m, f"|adj A| = |A|^2: {tA}, A adj A = |A| I: {tB}")
+
+def _b2_q32():
+    x, h = sympy.symbols("x h", real=True); n = sympy.symbols("n", integer=True, positive=True)
+    f = x**2*sympy.sin(1/x)
+    cont = sympy.limit(f, x, 0) == 0
+    deriv0 = sympy.limit((f.subs(x, h) - 0)/h, h, 0)
+    derivable = deriv0 == 0
+    fp = sympy.diff(f, x)
+    s1 = sympy.simplify(fp.subs(x, 1/(2*n*sympy.pi))); s2 = sympy.simplify(fp.subs(x, 1/((2*n + 1)*sympy.pi)))
+    fp_cont = (s1 == s2)            # two sequences -> 0 with different limits => f' has no limit at 0
+    tA = cont and derivable and fp_cont
+    tD = derivable and not fp_cont
+    m = sorted(k for k, v in {"A": tA, "B": cont, "C": derivable, "D": tD}.items() if v)
+    return _b2_result(32, [r"x^{2}\sin\dfrac{1}{x}"], {"A": "$f'$ both are continuous", "D": "but $f'$ is not continuous"}, m, f"f(0+)=0: {cont}; f'(0) = {deriv0}; f'(1/2npi) = {s1}, f'(1/(2n+1)pi) = {s2}")
+
+def _b2_q33():
+    x = sympy.symbols("x")
+    integrand = (5*x**8 + 7*x**6)/(x**2 + 1 + 2*x**7)**2
+    cand = {"A": x**7/(2*x**7 + x**2 + 1), "B": x**5/(x**2 + 1 + 2*x**7), "C": 1/(x**2 + 1 + 2*x**7)}
+    true = {k: sympy.simplify(sympy.diff(v, x) - integrand) == 0 for k, v in cand.items()}
+    # (D): some antiderivative p/q + c1 with deg p = deg q; witnessed by any true candidate
+    def same_deg(e):
+        p, q = sympy.fraction(sympy.together(e))
+        return sympy.degree(p, x) == sympy.degree(q, x)
+    true["D"] = any(true[k] and same_deg(cand[k]) for k in cand)
+    m = sorted(k for k, v in true.items() if v)
+    return _b2_result(33, [r"\left(5x^{8} + 7x^{6}\right)", r"\left(x^{2} + 1 + 2x^{7}\right)^{2}"], {"A": r"\dfrac{x^{7}}{2x^{7} + x^{2} + 1}", "B": r"\dfrac{x^{5}}", "D": "polynomial of same degree"}, m, f"antiderivative check {true}")
+
+def _b2_q34():
+    x, c, p = sympy.symbols("x c p")
+    ode = lambda yp: sympy.simplify(yp**2 - (sympy.exp(x) + sympy.exp(-x))*yp + 1)
+    fac = sympy.factor(p**2 - (sympy.exp(x) + sympy.exp(-x))*p + 1)
+    opts = {"A": -sympy.exp(-x) + c, "B": sympy.exp(-x) + c, "C": c - sympy.exp(x), "D": sympy.exp(x) + c}
+    m = _pick(opts, lambda yv: ode(sympy.diff(yv, x)) == 0)
+    return _b2_result(34, [r"\left(\dfrac{dy}{dx}\right)^{2} - \left(e^{x} + e^{-x}\right)\dfrac{dy}{dx} + 1 = 0"], {"A": r"y = -e^{-x} + c", "B": r"y - e^{-x} = c", "C": r"y + e^{x} = c", "D": r"y - e^{x} = c"}, m, f"factor -> {fac}")
+
+def _b2_q35():
+    x = sympy.symbols("x", real=True)
+    f1 = 3*x**2 + 12*x - 1; f2 = 37 - x
+    inc = sympy.solveset(sympy.diff(f1, x) <= 0, x, sympy.Interval(-1, 2)) == sympy.EmptySet
+    cont = f1.subs(x, 2) == sympy.limit(f2, x, 2, "+")
+    dl, dr = sympy.diff(f1, x).subs(x, 2), sympy.diff(f2, x).subs(x, 2)
+    nodiff = dl != dr
+    grid = [sympy.Rational(k, 100) for k in range(-100, 301)]
+    vals = [(f1 if g <= 2 else f2).subs(x, g) for g in grid]
+    mx = max(vals); argmax = [g for g, v in zip(grid, vals) if v == mx]
+    sup_right = sympy.limit(f2, x, 2, "+")       # sup on (2, 3] is approached, not attained
+    maxat2 = argmax == [2] and sup_right <= f1.subs(x, 2)
+    m = sorted(k for k, v in {"A": inc, "B": cont, "C": nodiff, "D": maxat2}.items() if v)
+    return _b2_result(35, [r"3x^{2} + 12x - 1, & -1 \leq x \leq 2", r"37 - x, & 2 < x \leq 3"], {"A": "increasing on $[-1, 2]$", "C": "$f'(2)$ does not exist", "D": "maximum value at $x = 2$"}, m, f"f(2) = {f1.subs(x, 2)}, f'(2-) = {dl}, f'(2+) = {dr}, max {mx} at {argmax}")
+
+def _b2_q36():
+    x = sympy.symbols("x", real=True)
+    lo, hi = x**8*(1/x**3 - 1), x**8*(1/x**3)
+    lims = {sympy.limit(e, x, 0, d) for e in (lo, hi) for d in ("+", "-")}
+    assert len(lims) == 1
+    L = lims.pop()
+    # numeric sanity on the actual floor expression
+    for xv in [sympy.Rational(1, 10), sympy.Rational(-1, 10), sympy.Rational(1, 37)]:
+        assert abs(xv**8*sympy.floor(1/xv**3)) <= abs(xv)**5 + xv**8
+    props = {"A": L.is_real and L != 0, "B": bool(L.is_rational), "C": bool(L.is_integer and L > 0), "D": L == 0}
+    m = sorted(k for k, v in props.items() if v)
+    return _b2_result(36, [r"x^{8}\left[\dfrac{1}{x^{3}}\right]"], {"A": "non-zero real", "B": "rational", "C": "strictly positive integer", "D": "zero"}, m, f"limit = {L}")
+
+def _b2_q37():
+    u, v = sympy.symbols("u v")
+    sols = {(s[u], s[v]) for s in sympy.solve([u*v - sympy.Rational(1, 12), (1 - u)*(1 - v) - sympy.Rational(1, 2)], [u, v], dict=True)}
+    R = sympy.Rational
+    opts = {"A": (R(1, 3), R(1, 4)), "B": (R(1, 2), R(1, 6)), "C": (R(1, 6), R(1, 2)), "D": (R(1, 4), R(1, 3))}
+    m = _pick(opts, lambda pr: pr in sols)
+    return _b2_result(37, [r"\dfrac{1}{12}", "neither $E$ nor $F$", r"\dfrac{1}{2}"], {"A": r"P(E) = \dfrac{1}{3},\ P(F) = \dfrac{1}{4}", "D": r"P(E) = \dfrac{1}{4},\ P(F) = \dfrac{1}{3}"}, m, f"solutions {sols}")
+
+def _b2_q38():
+    x, m_, c, r = sympy.symbols("x m c r", real=True)
+    disc = sympy.factor(sympy.discriminant(sympy.expand(x**2 + (m_*x + c)**2 - r**2), x))
+    two = lambda mv, rv, cv: disc.subs({m_: mv, r: rv, c: cv}) > 0
+    def cond(k, mv, rv, cv):
+        s1 = sympy.sqrt(1 + mv**2)
+        if k == "A": return -rv*s1 < cv <= 0
+        if k == "B": return 0 <= cv < rv*s1
+        if k == "C":
+            if mv**2 > 1: return False          # sqrt(1 - m^2) not real: condition not satisfiable
+            return -cv*sympy.sqrt(1 - mv**2) < rv
+        return rv < cv*s1
+    R = sympy.Rational
+    ms = [R(k, 2) for k in range(-6, 7)]; rs = [R(1, 2), 1, 2, 3]; cs = [R(k, 4) for k in range(-40, 41)]
+    true = {}
+    for k in "ABCD":
+        true[k] = all(two(mv, rv, cv) for mv in ms for rv in rs for cv in cs if cond(k, mv, rv, cv))
+    # symbolic confirmation for A/B: c = t r sqrt(1+m^2), |t| < 1  =>  disc > 0
+    t = sympy.symbols("t", real=True)
+    symb = sympy.simplify(disc.subs(c, t*r*sympy.sqrt(1 + m_**2)) / (4*r**2*(1 + m_**2)))
+    m = sorted(k for k, v in true.items() if v)
+    return _b2_result(38, ["y = mx + c", "x^{2} + y^{2} = r^{2}", "two distinct points"], {"A": r"-r\sqrt{1 + m^{2}} < c \leq 0", "B": r"0 \leq c < r\sqrt{1 + m^{2}}", "C": r"-c\sqrt{1 - m^{2}} < r", "D": r"r < c\sqrt{1 + m^{2}}"}, m, f"disc = {disc}; disc/(4r^2(1+m^2)) at c = t r sqrt(1+m^2): {symb}")
+
+def _b2_q39():
+    x, y, z = sympy.symbols("x y z")
+    a, b, c, p, q, r = sympy.symbols("a b c p q r")
+    M = lambda av, bv, cv: sympy.Matrix([[av, bv, cv], [bv, cv, av], [cv, av, bv]])
+    rhs = lambda pv, qv, rv: sympy.Matrix([qv - rv, rv - pv, pv - qv])
+    det = sympy.factor(M(a, b, c).det())
+    def consistent(Mv, bv):
+        return Mv.rank() == Mv.row_join(bv).rank()
+    # (A) p = q = r with generic a, b, c and several numeric (incl. singular) choices
+    tA = all(consistent(M(*abc), rhs(1, 1, 1)) for abc in [(1, 2, 3), (1, 1, 1), (0, 0, 0), (2, -1, -1), (1, 2, -3)]) \
+        and M(a, b, c)*sympy.zeros(3, 1) == rhs(p, p, p)
+    # (B) a = b = c (any k, incl. 0) and p != q != r  ->  inconsistent
+    pqr_B = [(1, 2, 3), (3, 2, 1), (1, 2, 1), (0, 5, -2), (4, -1, 7)]
+    tB = all(not consistent(M(k, k, k), rhs(*t)) for k in [0, 1, 2, -3] for t in pqr_B)
+    # (C) distinct a, b, c with a + b + c = 0: consistent for ALL p, q, r (symbolic RHS)
+    tC = True
+    for av, bv in [(1, 2), (2, -5), (3, 7), (-4, 1)]:
+        cv = -av - bv
+        assert len({av, bv, cv}) == 3
+        sol = sympy.linsolve((M(av, bv, cv), rhs(p, q, r)), [x, y, z])
+        tC = tC and sol != sympy.EmptySet
+    # (D) inconsistent for every a, b, c — refuted by (A) and by a unique-solution case
+    tD = not (tA or consistent(M(1, 2, 4), rhs(1, 2, 3)))
+    true = {"A": tA, "B": tB, "C": tC, "D": tD}
+    m = sorted(k for k, v in true.items() if v)
+    return _b2_result(39, ["ax + by + cz = q - r", "bx + cy + az = r - p", "cx + ay + bz = p - q"], {"A": "consistent if $p = q = r$", "B": r"inconsistent if $a = b = c$ and $p \neq q \neq r$", "C": "a + b + c = 0", "D": "inconsistent for any value"}, m, f"det = {det}; truth {true}")
+
+def _b2_q40():
+    a, x = sympy.symbols("a x", positive=True)
+    # Leibniz rule on I(a) = int_{1/a}^{a} atan(x)/x dx
+    g = sympy.atan(x)/x
+    dI = sympy.simplify(g.subs(x, a)*1 - g.subs(x, 1/a)*sympy.diff(1/a, a))
+    dI = sympy.simplify(sympy.together(dI.rewrite(sympy.atan)))
+    target = sympy.pi/(2*a)
+    ok_deriv = all(abs(sympy.N(dI.subs(a, v) - target.subs(a, v))) < 1e-14 for v in [sympy.Rational(1, 3), 2, 5, 11])
+    I_expr = sympy.integrate(target, (a, 1, a))          # I(1) = 0
+    num = {v: sympy.N(sympy.Integral(g, (x, 1/sympy.Integer(v), v)), 20) for v in [2, 3, 5]}
+    opts = {"A": sympy.pi/4*sympy.log(a), "B": sympy.pi/2*sympy.log(a), "C": sympy.pi*sympy.log(a), "D": sympy.log(a)/2}
+    m = _pick(opts, lambda e: ok_deriv and sympy.simplify(e - I_expr) == 0 and all(abs(num[v] - sympy.N(e.subs(a, v), 20)) < 1e-12 for v in num))
+    return _b2_result(40, [r"\int_{1/a}^{a} \dfrac{\tan^{-1} x}{x}"], {"A": r"\dfrac{\pi}{4}\log a", "B": r"\dfrac{\pi}{2}\log a", "C": r"\pi \log a", "D": r"\dfrac{1}{2}\log a"}, m, f"I'(a) = pi/(2a): {ok_deriv}; I = {I_expr}")
+
+def _b2_q41():
+    # dimension vectors (M, L, T)
+    P = sympy.Matrix([1, -1, -2]); V = sympy.Matrix([0, 3, 0])
+    a_dim = P + 2*V                                     # [a] = [P][V^2]
+    opts = {"A": sympy.Matrix([1, 0, 5 - 2]),           # printed [M T^5 T^-2] (no L) = M T^3
+            "B": sympy.Matrix([1, -1, -2]), "C": sympy.Matrix([0, 3, 0]), "D": sympy.Matrix([0, 6, 0])}
+    matches = _pick(opts, lambda v: v == a_dim)
+    q = _paper_2025()[41]
+    withdrawn = q["key"]["status"] == "voided" and q["key"]["correct"] == ["W"]
+    full_mark = q["fullTwelfths"] == 12 and q["category"] == 1
+    stem_ok = r"\left(P + \dfrac{a}{V^{2}}\right)(V - b) = RT" in q["stemLatex"]
+    optA_ok = "MT^{5}T^{-2}" in next(o["latex"] for o in q["options"] if o["id"] == "A")
+    sol = load_json(os.path.join(DATA, "solutions", "2025.solutions.json"))["solutions"]["jelet-2025-q041"]
+    text = " ".join(s["bodyLatex"] for s in sol["steps"])
+    sol_ok = "ML^{5}T^{-2}" in text and "+12" in text and "0 marks" not in text
+    ok = a_dim == sympy.Matrix([1, 5, -2]) and matches == [] and withdrawn and full_mark and stem_ok and optA_ok and sol_ok
+    return ok, f"[a] = M^{a_dim[0]} L^{a_dim[1]} T^{a_dim[2]}; options matching = {matches} (none) -> key W; withdrawn={withdrawn}, Cat-I full 12 twelfths={full_mark}, solution states ML^5T^-2 and +12 twelfths={sol_ok}"
+
+def _b2_q42():
+    pct = 100*(sympy.Rational(5, 100) + sympy.Rational(2, 10)/10)
+    opts = {"A": 5, "B": 7, "C": sympy.Rational(52, 10), "D": 9}
+    m = _pick(opts, lambda v: v == pct)
+    return _b2_result(42, [r"R = \dfrac{V}{I}", r"100 \pm 5", r"10 \pm 0{\cdot}2"], {"A": r"5\%", "B": r"7\%", "C": r"5{\cdot}2\%", "D": r"9\%"}, m, f"total % error = {pct}")
+
+def _b2_q43():
+    B = sympy.Matrix(sympy.symbols("b1:4")); C = sympy.Matrix(sympy.symbols("c1:4"))
+    cand = {"A": C, "B": B, "C": B.cross(C), "D": B.dot(C)}
+    def ok(v):
+        if not isinstance(v, sympy.MatrixBase):
+            return False                                  # a scalar cannot be parallel to a vector
+        return sympy.expand(v.dot(B)) == 0 and sympy.expand(v.dot(C)) == 0
+    m = _pick(cand, ok)
+    return _b2_result(43, [r"\overline{A} \cdot \overline{B} = 0", r"\overline{A} \cdot \overline{C} = 0"], {"A": r"\overline{C}", "C": r"\overline{B} \times \overline{C}", "D": r"\overline{B} \cdot \overline{C}"}, m, "only B x C is orthogonal to both B and C identically")
+
+def _svg_curve_points(svg_text):
+    """Return (axis_x, axis_y, dashed_xs, curve_points) from a generated option SVG."""
+    import re as _re
+    lines = _re.findall(r'<line x1="([-0-9.]+)" y1="([-0-9.]+)" x2="([-0-9.]+)" y2="([-0-9.]+)"([^>]*)/>', svg_text)
+    horiz = [l for l in lines if l[1] == l[3] and "dasharray" not in l[4]]
+    vert = [l for l in lines if l[0] == l[2] and "dasharray" not in l[4]]
+    axis_y = float(horiz[0][1]); axis_x = float(vert[0][0])
+    dashed = sorted({float(l[0]) for l in lines if "dasharray" in l[4] and l[0] == l[2]})
+    poly = _re.search(r'<polyline points="([^"]+)"', svg_text).group(1)
+    pts = [tuple(map(float, p.split(","))) for p in poly.split()]
+    return axis_x, axis_y, dashed, pts
+
+def _b2_q44():
+    t = sympy.symbols("t", real=True)
+    a = 2*t - 2                                          # read from the stem graph: a(0) = -2, a(1) = 0
+    v = sympy.integrate(a.subs(t, sympy.Symbol("s")), (sympy.Symbol("s"), 0, t))
+    vmin_t = sympy.solve(sympy.diff(v, t), t)[0]; zeros = sorted(sympy.solve(v, t))
+    q = _paper_2025()[44]
+    if not (q.get("stemFigure") and q["stemFigure"]["src"].endswith("fig-2025-q44.svg")):
+        return False, "stem figure fig-2025-q44 not attached"
+    if "a = −2 when t = 0, crossing a = 0 at t = 1" not in q["stemFigure"]["alt"]:
+        return False, "stem figure alt text does not describe a(0) = -2, a(1) = 0"
+    truth = {}
+    for o in q["options"]:
+        fig = o.get("figure")
+        if not fig:
+            return False, f"option {o['id']} has no figure"
+        svg = open(os.path.join(ROOT, fig["src"]), encoding="utf-8").read()
+        ax, ay, dashed, pts = _svg_curve_points(svg)
+        T = [px - ax for px, _ in pts]; Vv = [ay - py for _, py in pts]   # pixel t, pixel v (up = +)
+        # least-squares quadratic fit v ~ al t^2 + be t + ga (pure SymPy, no numpy)
+        X = sympy.Matrix([[tt**2, tt, 1] for tt in T]); Y = sympy.Matrix(Vv)
+        al, be, ga = [float(cf) for cf in (X.T*X).solve(X.T*Y)]
+        poly = lambda tt: al*tt**2 + be*tt + ga
+        rms = (sum((poly(tt) - vv)**2 for tt, vv in zip(T, Vv))/len(T))**0.5
+        is_quadratic = rms < 0.2 and len(pts) > 10
+        unit = (dashed[0] - ax) if len(dashed) == 1 else None          # the dotted line marks t = 1
+        ok = False
+        if is_quadratic and unit:
+            vertex_t = -be/(2*al)/unit
+            # v = k (t^2 - 2t), k > 0  <=>  upward (al > 0), through origin, vertex at t = 1 below axis
+            ok = al > 0 and abs(ga) < 0.5 and abs(vertex_t - float(vmin_t)) < 0.02 and poly(unit) < 0
+        truth[o["id"]] = bool(ok)
+    m = sorted(k for k, v_ in truth.items() if v_)
+    return _b2_result(44, ["acceleration of a particle varies with time", "velocity $v = 0$"], {}, m, f"v(t) = {sympy.expand(v)}, zeros {zeros}, min at t = {vmin_t}; option-figure fit {truth}")
+
+def _b2_q45():
+    F = sympy.Matrix([2, 3, -1]) + sympy.Matrix([1, -2, 2]); d = sympy.Matrix([1, 1, 2]) - sympy.Matrix([0, 0, 1])
+    W = F.dot(d)
+    m = _pick({"A": 4, "B": 1, "C": 5, "D": 3}, lambda v: v == W)
+    return _b2_result(45, ["(0, 0, 1\\text{m})", r"(1\text{m}, 1\text{m}, 2\text{m})", r"(2\hat{i} + 3\hat{j} - \hat{k})", r"(\hat{i} - 2\hat{j} + 2\hat{k})"], {"A": "4", "B": "1", "C": "5", "D": "3"}, m, f"F = {list(F)}, d = {list(d)}, W = {W}")
+
+def _b2_q46():
+    import re as _re
+    q = _paper_2025()[46]
+    svg = open(os.path.join(ROOT, q["stemFigure"]["src"]), encoding="utf-8").read()
+    d = _re.search(r'<path d="([^"]+)"', svg).group(1)
+    labels = {t: (float(x), float(y)) for x, y, t in _re.findall(r'<text x="([-0-9.]+)" y="([-0-9.]+)"[^>]*>([A-E])</text>', svg)}
+    toks = _re.findall(r'[MLC]|[-0-9.]+', d)
+    pieces, cur, i = [], None, 0
+    while i < len(toks):
+        cmd = toks[i]; i += 1
+        if cmd == "M":
+            cur = (float(toks[i]), float(toks[i+1])); i += 2; knots = [cur]
+        elif cmd == "L":
+            nxt = (float(toks[i]), float(toks[i+1])); i += 2
+            pieces.append(("L", cur, [], nxt)); cur = nxt
+        else:
+            ctrl = [(float(toks[i]), float(toks[i+1])), (float(toks[i+2]), float(toks[i+3]))]
+            nxt = (float(toks[i+4]), float(toks[i+5])); i += 6
+            pieces.append(("C", cur, ctrl, nxt)); cur = nxt
+    def nearest(pt):
+        return min(labels, key=lambda k: (labels[k][0] - pt[0])**2 + (labels[k][1] - pt[1])**2)
+    # label every piece endpoint that sits at a labelled vertex (within 20 px)
+    def at_label(pt):
+        k = nearest(pt); lx, ly = labels[k]
+        return k if (lx - pt[0])**2 + (ly - pt[1])**2 < 20**2 else None
+    segs, start, cur_pieces = {}, at_label(pieces[0][1]), []
+    for pc in pieces:
+        cur_pieces.append(pc)
+        end = at_label(pc[3])
+        if end and end != start:
+            segs[start + end] = cur_pieces; start, cur_pieces = end, []
+    def straight(pcs):
+        for kind, p0, ctrl, p1 in pcs:
+            if kind == "C":
+                for cx, cy in ctrl:      # control points collinear with chord => straight
+                    if abs((p1[0] - p0[0])*(cy - p0[1]) - (p1[1] - p0[1])*(cx - p0[0])) > 1e-6:
+                        return False
+        # all pieces collinear overall
+        pts = [pcs[0][1]] + [pc[3] for pc in pcs]
+        return all(abs((pts[-1][0] - pts[0][0])*(py - pts[0][1]) - (pts[-1][1] - pts[0][1])*(px - pts[0][0])) < 1e-6 for px, py in pts)
+    zero_acc = {s for s, pcs in segs.items() if straight(pcs)}
+    opts = {"A": {"AB", "BC"}, "B": {"AB", "CD"}, "C": {"BC", "CD"}, "D": {"CD", "DE"}}
+    m = _pick(opts, lambda v: v == zero_acc)
+    return _b2_result(46, ["displacement of a particle moving along $x$ axis", "acceleration of the particle is zero"], {"A": "$AB$ and $BC$", "B": "$AB$ and $CD$", "C": "$BC$ and $CD$", "D": "$CD$ and $DE$"}, m, f"segments {sorted(segs)}; straight (a = 0): {sorted(zero_acc)}")
+
+def _b2_q47():
+    g, t2 = sympy.symbols("g t2", positive=True)
+    h = g*25/2; s1 = g*9/2
+    t2v = sympy.solve(sympy.Eq(h - s1, g*t2**2/2), t2)[0]
+    total = 3 + t2v
+    m = _pick({"A": 6, "B": sympy.Rational(13, 2), "C": 7, "D": sympy.Rational(15, 2)}, lambda v: v == total)
+    return _b2_result(47, ["reach the ground in $5$ sec", "stopped after $3$ sec"], {"A": r"6{\cdot}0", "B": r"6{\cdot}5", "C": r"7{\cdot}0", "D": r"7{\cdot}5"}, m, f"remaining height {sympy.simplify(h - s1)}, t2 = {t2v}, total = {total}")
+
+def _b2_q48():
+    g, rho, s, V, a = sympy.symbols("g rho sigma V a", positive=True)
+    acc = sympy.solve(sympy.Eq(rho*s*V*a, rho*s*V*g - s*V*g), a)[0]
+    opts = {"A": g*(1 - rho), "B": g*(1 + rho), "C": g*(1 - 1/rho), "D": g*(1 + 1/rho)}
+    m = _pick(opts, lambda v: sympy.simplify(v - acc) == 0)
+    return _b2_result(48, ["relative density $\\rho$", "viscous effects are ignored"], {"A": r"g(1 - \rho)", "C": r"g\left(1 - \dfrac{1}{\rho}\right)", "D": r"g\left(1 + \dfrac{1}{\rho}\right)"}, m, f"a = {sympy.simplify(acc)}")
+
+def _b2_q49():
+    G, M, m_, r = sympy.symbols("G M m r", positive=True)
+    v2 = G*M/r
+    K = m_*v2/2; U = -G*M*m_/r; E0 = K + U
+    ratio = sympy.simplify(U/E0)
+    m = _pick({"A": -1, "B": sympy.Rational(3, 2), "C": 2, "D": 1}, lambda v: v == ratio)
+    return _b2_result(49, ["circular orbit", "(kinetic + potential energy) $E_{0}$"], {"A": "-E_{0}", "B": r"1{\cdot}5E_{0}", "C": "2E_{0}", "D": "E_{0}"}, m, f"U/E0 = {ratio}")
+
+def _b2_q50():
+    v1 = sympy.Matrix([1, 3]); v2 = sympy.Matrix([2, -4]); v3 = -(v1 + v2)
+    opts = {"A": sympy.Matrix([-3, 1]), "B": sympy.Matrix([3, -1]), "C": sympy.Matrix([1, -3]), "D": sympy.Matrix([1, 3])}
+    m = _pick(opts, lambda v: v == v3)
+    return _b2_result(50, ["three equal mass fragments", r"(\hat{i} + 3\hat{j})", r"(2\hat{i} - 4\hat{j})"], {"A": r"(-3\hat{i} + \hat{j})", "B": r"(3\hat{i} - \hat{j})"}, m, f"v3 = {list(v3)}")
+
+B2_TESTS_2025 = [(f"2025 Q{n}", f"jelet-2025-q{n:03d}", globals()[f"_b2_q{n}"]) for n in range(26, 51)]
+
 def main():
     if not HAS_SYMPY:
         print("⚠️  sympy not installed — skipping independent SymPy re-verification")
@@ -443,7 +845,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + B1_TESTS_2025
+        ] + B1_TESTS_2025 + B2_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -453,6 +855,11 @@ def main():
             else:
                 print(f"  ❌ {label}: FAIL — {note}")
                 errors.append(f"{label}: SymPy re-verification failed — {note}")
+
+    if HAS_SYMPY and KEY_DISPUTE_LOG:
+        print("\n⚖️  Documented key disputes (official key kept unchanged):")
+        for line in KEY_DISPUTE_LOG:
+            print(f"  ⚠️  {line}")
 
     # Check structural errors
     if struct_errors:

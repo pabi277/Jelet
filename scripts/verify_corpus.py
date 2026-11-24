@@ -17,6 +17,7 @@ Checks:
 
 Exit code 0 = all gates pass, 1 = failure.
 """
+import xml.etree.ElementTree as ET
 import glob, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -154,6 +155,26 @@ def main():
                 fig_src = stem_fig.get("src", "")
                 fig_path = os.path.join(ROOT, fig_src)
                 check(os.path.exists(fig_path), f"{qid}: figure file missing: {fig_src}")
+            # Per-option figures (graphical options): file must exist, be well-formed,
+            # carry alt text and use theme tokens only (no raw hex colours).
+            for o in opts:
+                ofig = o.get("figure")
+                if not ofig:
+                    continue
+                osrc = ofig.get("src", "")
+                opath = os.path.join(ROOT, osrc)
+                check(bool(ofig.get("alt")), f"{qid}: option {o.get('id')} figure missing alt text")
+                if not os.path.exists(opath):
+                    check(False, f"{qid}: option {o.get('id')} figure file missing: {osrc}")
+                    continue
+                svg_text = open(opath, encoding="utf-8").read()
+                try:
+                    ET.fromstring(svg_text)
+                except ET.ParseError as e:
+                    check(False, f"{qid}: option {o.get('id')} figure is not valid XML: {e}")
+                check("viewBox" in svg_text, f"{qid}: option {o.get('id')} figure lacks viewBox")
+                check(not re.search(r"#[0-9a-fA-F]{3,8}\b", svg_text),
+                      f"{qid}: option {o.get('id')} figure contains raw hex colour")
 
         # Count markable
         markable = sum(1 for q in questions if q.get("key", {}).get("status") == "active")

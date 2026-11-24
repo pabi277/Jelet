@@ -1,6 +1,6 @@
 # JELET 2025 Paper-I Set A — question data, validated against WBJEEB Final Answer Key JEEB/Reg-171/25.
-# Q1–Q25: verbatim visual transcription from 180-DPI renders of the official Set A booklet (PDF pages 2–6).
-# Q26–Q100: pending visual re-verification in later batches.
+# Q1–Q50: verbatim visual transcription from 180-DPI renders of the official Set A booklet (PDF pages 2–12).
+# Q51–Q100: pending visual re-verification in later batches.
 # Each entry: (qNumber, subjectId, unitId, category, pdfPage, stemLatex, {A,B,C,D: latex}, correct(list), difficulty, tags, figureKeyOrNone)
 
 Q2025 = [
@@ -133,129 +133,129 @@ Q2025 = [
 (26,"MATH","M07",1,6,
  "A given right circular cone has a volume $p$, and the largest right circular cylinder that can be inscribed in the cone has a volume $q$. Then $p : q$ is",
  {"A":"$9 : 4$","B":"$8 : 3$","C":"$7 : 2$","D":"$5 : 3$"},
- ["A"],"hard",["maxima-minima","cone","cylinder"],None),
+ ["A"],"hard",["maxima-minima", "cone", "inscribed-cylinder"],None),
 
 (27,"MATH","M04",1,6,
  "The equations of tangents to the hyperbola $\\dfrac{x^{2}}{4} - \\dfrac{y^{2}}{3} = 1$ and which are perpendicular to $x + 2y = 0$ are",
- {"A":"$y = \\dfrac{1}{2}x \\pm \\sqrt{13}$","B":"$y = 2x \\pm \\sqrt{13}$","C":"$y = 2x \\pm \\sqrt{19}$","D":"$y = \\dfrac{1}{2}x \\pm \\sqrt{19}$"},
- ["B"],"hard",["hyperbola","tangent","perpendicular"],None),
+ {"A":"$y = 13 \\pm 2x$","B":"$y = 2x \\pm \\sqrt{13}$","C":"$y = 2x \\pm \\sqrt{19}$","D":"$y = 7 \\pm 2x$"},
+ ["B"],"medium",["hyperbola", "tangent-condition", "perpendicular-lines"],None),
 
 (28,"MATH","M09",1,6,
- "If $f(x) = \\lim_{n \\to \\infty}\\left[2x + 4x^{2} + \\cdots + 2nx^{2n-1}\\right]$, $0 < x < 1$, then $\\displaystyle\\int f(x)\\,dx$ is equal to",
- {"A":"$-\\sqrt{1 - x^{2}}$","B":"$\\dfrac{1}{1-x^{2}}$","C":"$\\sqrt{1 - x^{2}}$","D":"$1$"},
- ["C"],"hard",["limit","integration","geometric-series"],None),
+ "If $f(x) = \\displaystyle\\lim_{n \\to \\infty}\\left[2x + 4x^{3} + \\ldots + 2nx^{2n-1}\\right]$, $0 < x < 1$, then $\\displaystyle\\int f(x)\\,dx$ is equal to",
+ {"A":"$-\\sqrt{1 - x^{2}}$","B":"$\\dfrac{1}{\\sqrt{1 - x^{2}}}$","C":"$\\dfrac{1}{1 - x^{2}}$","D":"$1$"},
+ ["C"],"hard",["series-limit", "arithmetico-geometric-series", "integration"],None),
 
 (29,"MATH","M10",1,7,
- "If for the differential equation $\\dfrac{dy}{dx} = \\dfrac{x}{y\\log(cx)}$, the general solution is $y^{2} = \\varphi(x)$ ($c$ is a constant), then $\\varphi(x)$ is given by",
- {"A":"$x^{2} + 2cx$","B":"$x^{2} + c$","C":"$2x^{2} + cx$","D":"$x^{2} + cx^{2}$"},
- ["A"],"hard",["ode","variable-separable","general-solution"],None),
+ "If for the differential equation $\\dfrac{dy}{dx} = \\dfrac{y}{x} + \\phi\\!\\left(x/y\\right)$, the general solution is $y = \\dfrac{x}{\\log(cx)}$ ($c$ is a constant), then $\\phi\\!\\left(x/y\\right)$ is given by",
+ {"A":"$-\\dfrac{y^{2}}{x^{2}}$","B":"$\\dfrac{y^{2}}{x^{2}}$","C":"$-\\dfrac{x^{2}}{y^{2}}$","D":"$\\dfrac{x^{2}}{y^{2}}$"},
+ ["A"],"medium",["ode", "homogeneous-equation", "general-solution"],None),
 
 (30,"MATH","M11",1,7,
  "Two indistinguishable coins are tossed simultaneously. The probability of getting one head and one tail is",
  {"A":"$\\dfrac{1}{2}$","B":"$\\dfrac{1}{3}$","C":"$\\dfrac{1}{4}$","D":"$1$"},
- ["B"],"easy",["probability","coin-toss","complement"],None),
+ ["B"],"medium",["probability", "indistinguishable-objects", "sample-space"],None),
 
 # ---------------- MATHEMATICS Cat-II (Q31-40) ----------------
 (31,"MATH","M01",2,7,
  "If $A$ is a square matrix of order $3$, then",
- {"A":"$|\\operatorname{adj} A| = |A|$ if $|A| \\geq 0$.","B":"$A(\\operatorname{adj} A) = |A|I_{3}$.","C":"$A$ is invertible if $|A| \\neq 0$.","D":"$\\operatorname{adj} A$ is invertible if $|A| \\neq 0$."},
- ["A","B","C","D"],"medium",["adjoint","invertible","matrix-properties"],None),
+ {"A":"$|\\operatorname{adj} A| = |A|^{2}$ if $|A| \\neq 0$.","B":"$A(\\operatorname{adj} A) = |A|I_{3}$.","C":"$A$ is invertible if $|A| \\neq 0$.","D":"$\\operatorname{adj} A$ is invertible if $|A| \\neq 0$."},
+ ["A", "B", "C", "D"],"medium",["adjoint", "invertible-matrix", "determinant"],None),
 
 (32,"MATH","M06",2,7,
- "Let $f(x) = \\begin{cases} \\dfrac{\\sin x}{x}, & x \\neq 0 \\\\ 0, & x = 0 \\end{cases}$. Then",
+ "Let $f(x) = \\begin{cases} x^{2}\\sin\\dfrac{1}{x}, & x \\neq 0 \\\\ 0, & x = 0 \\end{cases}$. Then",
  {"A":"$f$ and $f'$ both are continuous at $x = 0$.","B":"$f$ is continuous at $x = 0$.","C":"$f$ is derivable at $x = 0$.","D":"$f$ is derivable at $x = 0$ but $f'$ is not continuous at $x = 0$."},
- ["B","C","D"],"hard",["continuity","differentiability","sinx/x"],None),
+ ["B", "C", "D"],"hard",["continuity", "differentiability", "x^2-sin(1/x)"],None),
 
 (33,"MATH","M09",2,8,
- "If $\\displaystyle\\int \\dfrac{dx}{2x^{7} + x^{2} + 1}$, then $I$ is equal to",
- {"A":"$\\dfrac{1}{2}\\ln(2x^{7} + x^{2} + 1) + c$","B":"$\\dfrac{1}{x}\\ln(x^{2} + 1 + 2x^{7}) + c$","C":"$\\dfrac{1}{x^{2}+1+2x^{7}} + c$","D":"$\\dfrac{p(x)}{q(x)} + c_{1}$ (where $p$ and $q$ are polynomial of same degree)"},
- ["A","D"],"hard",["integration","substitution","rational"],None),
+ "If $I = \\displaystyle\\int \\dfrac{\\left(5x^{8} + 7x^{6}\\right)}{\\left(x^{2} + 1 + 2x^{7}\\right)^{2}}\\,dx$, then $I$ is equal to",
+ {"A":"$\\dfrac{x^{7}}{2x^{7} + x^{2} + 1} + c_{1}$","B":"$\\dfrac{x^{5}}{x^{2} + 1 + 2x^{7}} + c_{1}$","C":"$\\dfrac{1}{x^{2} + 1 + 2x^{7}} + c_{1}$","D":"$\\dfrac{p(x)}{q(x)} + c_{1}$ (where $p$ and $q$ are polynomial of same degree) ($c_{1}$ is an integration constant.)"},
+ ["A", "D"],"hard",["integration", "quotient-rule-reverse", "rational-function"],None),
 
 (34,"MATH","M10",2,8,
- "Solution of the differential equation $\\dfrac{d^{2}y}{dx^{2}} + \\left(\\dfrac{dy}{dx}\\right)^{2} + 1 = 0$ are given by",
- {"A":"$y = -e^{-x} + c$","B":"$y - e^{-x} = c$","C":"$y + e^{x} = c$","D":"$y - e^{x} = c$"},
- ["A","D"],"hard",["ode","second-order","exponential"],None),
+ "Solution of the differential equation $\\left(\\dfrac{dy}{dx}\\right)^{2} - \\left(e^{x} + e^{-x}\\right)\\dfrac{dy}{dx} + 1 = 0$ are given by",
+ {"A":"$y = -e^{-x} + c$","B":"$y - e^{-x} = c$","C":"$y + e^{x} = c$","D":"$y - e^{x} = c$ ($c$ = constant of integration.)"},
+ ["A", "D"],"medium",["ode", "first-order-higher-degree", "factorisation"],None),
 
 (35,"MATH","M07",2,8,
  "Let $f(x) = \\begin{cases} 3x^{2} + 12x - 1, & -1 \\leq x \\leq 2 \\\\ 37 - x, & 2 < x \\leq 3 \\end{cases}$. Then",
  {"A":"$f(x)$ is increasing on $[-1, 2]$.","B":"$f(x)$ is continuous on $[-1, 3]$.","C":"$f'(2)$ does not exist.","D":"$f(x)$ has the maximum value at $x = 2$."},
- ["A","B","C","D"],"hard",["continuity","differentiability","piecewise"],None),
+ ["A", "B", "C", "D"],"medium",["piecewise-function", "monotonicity", "maxima"],None),
 
 (36,"MATH","M06",2,8,
- "If $[x]$ is the greatest integer function, then $\\displaystyle\\lim_{x \\to 0} \\dfrac{[x]}{x}$ is",
+ "If $[x]$ is the greatest integer function, then $\\displaystyle\\lim_{x \\to 0} x^{8}\\left[\\dfrac{1}{x^{3}}\\right]$ is",
  {"A":"a non-zero real number.","B":"a rational number.","C":"a strictly positive integer.","D":"zero."},
- ["B","D"],"medium",["limit","greatest-integer","floor"],None),
+ ["B", "D"],"medium",["limit", "greatest-integer", "squeeze-theorem"],None),
 
 (37,"MATH","M11",2,9,
  "Let $E$ and $F$ be two independent events. The probability that both $E$ and $F$ happen is $\\dfrac{1}{12}$ and the probability that neither $E$ nor $F$ happens is $\\dfrac{1}{2}$. Then",
- {"A":"$P(E) = \\dfrac{1}{4}, P(F) = \\dfrac{1}{3}$","B":"$P(E) = \\dfrac{1}{6}, P(F) = \\dfrac{1}{4}$","C":"$P(E) = \\dfrac{1}{6}, P(F) = \\dfrac{1}{2}$","D":"$P(E) = \\dfrac{1}{3}, P(F) = \\dfrac{1}{4}$"},
- ["A","D"],"hard",["probability","independent-events","system"],None),
+ {"A":"$P(E) = \\dfrac{1}{3},\\ P(F) = \\dfrac{1}{4}$","B":"$P(E) = \\dfrac{1}{2},\\ P(F) = \\dfrac{1}{6}$","C":"$P(E) = \\dfrac{1}{6},\\ P(F) = \\dfrac{1}{2}$","D":"$P(E) = \\dfrac{1}{4},\\ P(F) = \\dfrac{1}{3}$"},
+ ["A", "D"],"medium",["probability", "independent-events", "quadratic"],None),
 
 (38,"MATH","M04",2,9,
  "The straight line $y = mx + c$ intersects the circle $x^{2} + y^{2} = r^{2}$ at two distinct points if",
- {"A":"$-r\\sqrt{1+m^{2}} < c < r\\sqrt{1+m^{2}}$","B":"$0 \\leq c < r\\sqrt{1+m^{2}}$","C":"$-r\\sqrt{1-m^{2}} < c < r$","D":"$r < c\\sqrt{1+m^{2}}$"},
- ["A","B"],"medium",["circle","line-intersection","condition"],None),
+ {"A":"$-r\\sqrt{1 + m^{2}} < c \\leq 0$","B":"$0 \\leq c < r\\sqrt{1 + m^{2}}$","C":"$-c\\sqrt{1 - m^{2}} < r$","D":"$r < c\\sqrt{1 + m^{2}}$"},
+ ["A", "B"],"medium",["circle", "line-circle-intersection", "perpendicular-distance"],None),
 
 (39,"MATH","M02",2,9,
- "The system of equations $ax + by + cz = q - r$, $bx + cy + az = r - p$, $cx + ay + bz = p - q$ is",
+ "The system of equations — $ax + by + cz = q - r$, $bx + cy + az = r - p$, $cx + ay + bz = p - q$ is",
  {"A":"consistent if $p = q = r$.","B":"inconsistent if $a = b = c$ and $p \\neq q \\neq r$.","C":"consistent if $a, b, c$ are distinct and $a + b + c = 0$.","D":"inconsistent for any value of $a, b, c$."},
- ["A","C"],"hard",["linear-system","consistency","cyclic"],None),
+ ["A", "C"],"hard",["linear-system", "consistency", "circulant-determinant"],None),
 
 (40,"MATH","M09",2,9,
- "The value of $\\displaystyle\\int \\dfrac{\\tan x}{x}\\,dx$ is",
- {"A":"$\\dfrac{1}{2}\\ln\\sec^{2}x + c$","B":"$\\ln\\sec x + c$","C":"$\\dfrac{\\pi}{2}\\ln a$","D":"$2\\ln\\sec x + c$"},
- ["B"],"medium",["integration","tangent","logarithm"],None),
+ "The value of $\\displaystyle\\int_{1/a}^{a} \\dfrac{\\tan^{-1} x}{x}\\,dx$ is",
+ {"A":"$\\dfrac{\\pi}{4}\\log a$","B":"$\\dfrac{\\pi}{2}\\log a$","C":"$\\pi \\log a$","D":"$\\dfrac{1}{2}\\log a$"},
+ ["B"],"medium",["definite-integral", "substitution-x-to-1/x", "inverse-trig"],None),
 
 # ---------------- PHYSICS Cat-I (Q41-65) ----------------
 (41,"PHYS","P01",1,10,
  "The equation of state of some gases can be expressed as $\\left(P + \\dfrac{a}{V^{2}}\\right)(V - b) = RT$ where $P$ is pressure, $V$ is volume, $T$ is absolute temperature and $a, b, R$ are constants. The dimension of $'a'$ is",
- {"A":"$[ML^{2}T^{-2}]$","B":"$[ML^{-1}T^{-2}]$","C":"$[L^{2}]$","D":"$[L]$"},
- ["W"],"voided",["dimensions","dimensional-analysis","equation-of-state","voided"],None),
+ {"A":"$[MT^{5}T^{-2}]$","B":"$[ML^{-1}T^{-2}]$","C":"$[L^{3}]$","D":"$[L^{6}]$"},
+ ["W"],"voided",["dimensions", "dimensional-analysis", "van-der-waals", "voided"],None),
 
 (42,"PHYS","P01",1,10,
- "The resistance $R = \\dfrac{V}{I}$, where $V = 100 \\pm 5$ volts and $I = 10 \\pm 0.2$ amperes. The total percentage of error in $R$ is",
- {"A":"$5\\%$","B":"$7\\%$","C":"$5.2\\%$","D":"$9\\%$"},
- ["B"],"medium",["error-analysis","resistance","percentage"],None),
+ "The resistance $R = \\dfrac{V}{I}$ where $V = 100 \\pm 5$ volts and $I = 10 \\pm 0{\\cdot}2$ amperes. The total percentage of error in $R$ is",
+ {"A":"$5\\%$","B":"$7\\%$","C":"$5{\\cdot}2\\%$","D":"$9\\%$"},
+ ["B"],"easy",["error-analysis", "percentage-error", "quotient"],None),
 
-(43,"PHYS","P05",1,10,
- "If three vectors satisfy the relation $\\vec{A} \\cdot \\vec{B} = 0$ and $\\vec{A} \\cdot \\vec{C} = 0$, then $\\vec{A}$ can be parallel to",
- {"A":"$\\vec{C}$","B":"$\\vec{B}$","C":"$\\vec{B} \\times \\vec{C}$","D":"$\\vec{B} \\cdot \\vec{C}$"},
- ["C"],"medium",["vectors","dot-product","cross-product"],None),
+(43,"PHYS","P02",1,10,
+ "If three vectors satisfy the relation $\\overline{A} \\cdot \\overline{B} = 0$ and $\\overline{A} \\cdot \\overline{C} = 0$, then $\\overline{A}$ can be parallel to",
+ {"A":"$\\overline{C}$","B":"$\\overline{B}$","C":"$\\overline{B} \\times \\overline{C}$","D":"$\\overline{B} \\cdot \\overline{C}$"},
+ ["C"],"easy",["vectors", "dot-product", "cross-product"],None),
 
 (44,"PHYS","P02",1,10,
- "The acceleration of a particle varies with time as shown in the figure. The corresponding velocity-time graph will be [Assume at $t = 0$, velocity $v = 0$]",
- {"A":"$v$ increases linearly then constant","B":"$v$ increases then decreases","C":"$v$ constant then increases","D":"$v$ decreases linearly"},
- ["C"],"medium",["kinematics","acceleration-graph","velocity-time"],"fig-2025-q44"),
+ "The acceleration of a particle varies with time as shown in the figure. The corresponding velocity—time graph will be [Assume at $t = 0$, velocity $v = 0$]",
+ {"A":"Graph (A)","B":"Graph (B)","C":"Graph (C)","D":"Graph (D)"},
+ ["C"],"medium",["kinematics", "acceleration-time-graph", "velocity-time-graph"],"fig-2025-q44"),
 
-(45,"PHYS","P05",1,11,
- "A particle is shifted from a point $(0, 0, 1\\,\\text{m})$ to a point $(1\\,\\text{m}, 1\\,\\text{m}, 2\\,\\text{m})$ under the simultaneous action of forces. These forces are $\\vec{F}_{1} = (2\\hat{i} + 3\\hat{j} - \\hat{k})\\,\\text{N}$ and $\\vec{F}_{2} = (\\hat{i} - 2\\hat{j} + 2\\hat{k})\\,\\text{N}$. Find the work done by the resultant of these two forces.",
- {"A":"$4\\,\\text{J}$","B":"$1\\,\\text{J}$","C":"$5\\,\\text{J}$","D":"$3\\,\\text{J}$"},
- ["C"],"medium",["work","dot-product","vectors"],None),
+(45,"PHYS","P04",1,11,
+ "A particle is shifted from a point $(0, 0, 1\\text{m})$ to a point $(1\\text{m}, 1\\text{m}, 2\\text{m})$ under the simultaneous action of forces. These forces are $\\overline{F}_{1} = (2\\hat{i} + 3\\hat{j} - \\hat{k})\\,N$ and $\\overline{F}_{2} = (\\hat{i} - 2\\hat{j} + 2\\hat{k})\\,N$. Find the work done by the resultant of these two forces.",
+ {"A":"$4\\text{ J}$","B":"$1\\text{ J}$","C":"$5\\text{ J}$","D":"$3\\text{ J}$"},
+ ["C"],"easy",["work", "dot-product", "resultant-force"],None),
 
 (46,"PHYS","P02",1,11,
  "Figure shows the displacement of a particle moving along $x$ axis as a function of time. The acceleration of the particle is zero in the region",
  {"A":"$AB$ and $BC$","B":"$AB$ and $CD$","C":"$BC$ and $CD$","D":"$CD$ and $DE$"},
- ["B"],"medium",["kinematics","displacement-time","acceleration"],"fig-2025-q46"),
+ ["B"],"easy",["kinematics", "displacement-time-graph", "acceleration"],"fig-2025-q46"),
 
 (47,"PHYS","P02",1,11,
- "A stone is dropped from a certain height which can reach the ground in $5\\,\\text{sec}$. It is stopped after $3\\,\\text{sec}$ of its fall and is again released. The total time taken by the stone to reach the ground will be",
- {"A":"$6.0\\,\\text{sec}$","B":"$6.5\\,\\text{sec}$","C":"$7.0\\,\\text{sec}$","D":"$7.5\\,\\text{sec}$"},
- ["C"],"medium",["kinematics","free-fall","time"],None),
+ "A stone is dropped from a certain height which can reach the ground in $5$ sec. It is stopped after $3$ sec. of its fall and is again released. The total time taken by the stone to reach the ground will be",
+ {"A":"$6{\\cdot}0$ sec","B":"$6{\\cdot}5$ sec","C":"$7{\\cdot}0$ sec","D":"$7{\\cdot}5$ sec"},
+ ["C"],"medium",["kinematics", "free-fall", "equations-of-motion"],None),
 
 (48,"PHYS","P08",1,11,
  "A stone of relative density $\\rho$ is released from rest on the surface of a lake. If the viscous effects are ignored, the stone sinks in water with an acceleration of",
- {"A":"$g(1 - \\rho)$","B":"$g(1 + \\rho)$","C":"$g(\\rho - 1)$","D":"$g\\rho$"},
- ["C"],"medium",["fluid","buoyancy","acceleration"],None),
+ {"A":"$g(1 - \\rho)$","B":"$g(1 + \\rho)$","C":"$g\\left(1 - \\dfrac{1}{\\rho}\\right)$","D":"$g\\left(1 + \\dfrac{1}{\\rho}\\right)$"},
+ ["C"],"easy",["buoyancy", "archimedes-principle", "newtons-second-law"],None),
 
 (49,"PHYS","P05",1,11,
  "An artificial satellite moving in circular orbit around the earth has a total energy (kinetic + potential energy) $E_{0}$. Its potential energy is",
- {"A":"$-E_{0}$","B":"$\\dfrac{1}{2}E_{0}$","C":"$-2E_{0}$","D":"$E_{0}$"},
- ["C"],"medium",["gravitation","satellite","energy"],None),
+ {"A":"$-E_{0}$","B":"$1{\\cdot}5E_{0}$","C":"$2E_{0}$","D":"$E_{0}$"},
+ ["C"],"easy",["gravitation", "orbital-energy", "satellite"],None),
 
 (50,"PHYS","P03",1,12,
- "A bomb initially at rest explodes by itself into three equal mass fragments. The velocities of two fragments are $(\\hat{i} + 3\\hat{j})\\,\\text{m/s}$ and $(2\\hat{i} - 4\\hat{j})\\,\\text{m/s}$. The velocity of the third fragment (in $\\text{m/s}$) is",
- {"A":"$(-3\\hat{i} + \\hat{j})\\,\\text{m/s}$","B":"$(3\\hat{i} - \\hat{j})\\,\\text{m/s}$","C":"$(\\hat{i} - 3\\hat{j})\\,\\text{m/s}$","D":"$(\\hat{i} + 3\\hat{j})\\,\\text{m/s}$"},
- ["A"],"medium",["momentum","conservation","explosion"],None),
+ "A bomb initially at rest explodes by itself into three equal mass fragments. The velocities of two fragments are $(\\hat{i} + 3\\hat{j})\\ m/s$ and $(2\\hat{i} - 4\\hat{j})\\ m/s$. The velocity of the third fragment (in $m/s$) is",
+ {"A":"$(-3\\hat{i} + \\hat{j})\\ m/s$","B":"$(3\\hat{i} - \\hat{j})\\ m/s$","C":"$(\\hat{i} - 3\\hat{j})\\ m/s$","D":"$(\\hat{i} + 3\\hat{j})\\ m/s$"},
+ ["A"],"easy",["momentum-conservation", "explosion", "vectors"],None),
 
 (51,"PHYS","P08",1,12,
  "Which of the graphs shown in figures represents the velocity-time ($v$-$t$) graph of a small spherical body falling in a viscous fluid? (Body just dropped on the surface of the viscous fluid)",
@@ -511,3 +511,19 @@ Q2025 = [
  {"A":"XOR Gate","B":"AND Gate","C":"XNOR Gate","D":"NAND Gate"},
  ["B"],"medium",["digital","logic-gate","combination"],"fig-2025-q100"),
 ]
+
+
+# Per-option figures (graphical options) and descriptive alt text for stem figures.
+# OPTION_FIGURES_2025[qNumber][optionId] = (figureKey, alt)
+OPTION_FIGURES_2025 = {
+    44: {
+        "A": ("fig-2025-q44-optA", "Graph (A): v (m/s) versus t (s); an inverted parabola starting at v = 0 at t = 0, maximum at t = 1 (dotted line), back to v = 0 at t = 2"),
+        "B": ("fig-2025-q44-optB", "Graph (B): v (m/s) versus t (s); v = 0 from t = 0 to t = 1, then rising linearly, then constant"),
+        "C": ("fig-2025-q44-optC", "Graph (C): v (m/s) versus t (s); starts at v = 0, dips below the t-axis to a minimum at t = 1 (dotted line), crosses zero at t = 2 and then rises steeply"),
+        "D": ("fig-2025-q44-optD", "Graph (D): v (m/s) versus t (s); a trapezium rising linearly from 0 to t = 1, constant from t = 1 to t = 2 (dotted verticals), then falling linearly to zero"),
+    },
+}
+STEM_FIGURE_ALT_2025 = {
+    44: "Acceleration a (m/s²) versus time t (s): a straight line starting at a = −2 when t = 0, crossing a = 0 at t = 1 and continuing upward",
+    46: "Displacement versus time: AB is a straight rising segment, BC a curved dip, CD a straight falling segment, and DE a curve rising from D and flattening towards E",
+}

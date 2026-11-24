@@ -8,6 +8,7 @@ from q2023 import Q2023
 from q2024 import Q2024
 from q2025 import Q2025
 from s2025_batch1 import S2025_B1
+from s2025_batch2 import S2025_B2
 
 # Solution data: {qNumber: (conceptSummary, steps[list of (title, bodyLatex)], verified, note)}
 S2024 = {
@@ -381,82 +382,7 @@ S2024 = {
 
 S2025 = {
 # Q1–Q25: hand-written, SymPy-verified derivations live in s2025_batch1.py (merged below).
-26: ("Cone-cylinder optimization.",
-    [("Optimize","$V_c/V_{cyl} = 9:4$."),
-     ("Conclusion","Answer: (A) $9:4$.")], True, "Optimization."),
-27: ("Hyperbola tangent with slope 2.",
-    [("Tangent","$y = 2x \\pm \\sqrt{13}$."),
-     ("Conclusion","Answer: (B) $y = 2x \\pm \\sqrt{13}$.")], True, "Tangent formula."),
-28: ("Series limit and integration.",
-    [("Series","$f(x) = \\frac{d}{dx}[x^2/(1-x^2)^2]$."),
-     ("Conclusion","Given key (C): $\\sqrt{1-x^2}$. Answer: (C).")], False, "Key C."),
-29: ("ODE solution.",
-    [("Solve","$dy/dx = x/(y\\log(cx))$."),
-     ("Conclusion","Given key (A): $x^2 + 2cx$. Answer: (A).")], False, "Key A."),
-30: ("Probability with indistinguishable coins.",
-    [("Setup","Two indistinguishable coins."),
-     ("Conclusion","Given key (B): $1/3$. Answer: (B).")], False, "Key B."),
-31: ("Matrix adjoint properties.",
-    [("All correct","$|\\text{adj }A| = |A|^2$, $A\\cdot\\text{adj }A = |A|I$, invertibility conditions."),
-     ("Conclusion","Answer: (A,B,C,D).")], True, "Matrix properties."),
-32: ("Continuity/differentiability of sin(x)/x.",
-    [("Limit","$\\lim_{x\\to 0}\\sin x/x = 1$. If $f(0)=1$: continuous, derivable."),
-     ("Conclusion","Given key (B,C,D). Answer: (B,C,D).")], False, "Key B,C,D."),
-33: ("Integration of rational function.",
-    [("Integral","$\\int dx/(2x^7+x^2+1)$."),
-     ("Conclusion","Given key (A,D). Answer: (A,D).")], False, "Key A,D."),
-34: ("Second-order ODE solution.",
-    [("Solve","$y''+(y')^2+1=0$. Substitute $p=y'$."),
-     ("Conclusion","Given key (A,D). Answer: (A,D).")], False, "Key A,D."),
-35: ("Piecewise function analysis.",
-    [("Continuity","Continuous on $[-1,3]$. $f'(2)$ doesn't exist. Increasing on $[-1,2]$. Max at $x=2$."),
-     ("Conclusion","Answer: (A,B,C,D).")], True, "Verified."),
-36: ("Floor function limit.",
-    [("Analyze","$x\\to 0^+$: ratio $= 0$. $x\\to 0^-$: ratio $\\to +\\infty$."),
-     ("Conclusion","Given key (B,D). Answer: (B,D).")], False, "Key B,D."),
-37: ("Independent events probability system.",
-    [("Solve","$pq=1/12$, $(1-p)(1-q)=1/2 \\Rightarrow p+q=7/12$. Roots: $1/3, 1/4$."),
-     ("Conclusion","Answer: (A,D).")], True, "Quadratic."),
-38: ("Line-circle intersection condition.",
-    [("Discriminant","$c^2 < r^2(1+m^2) \\Rightarrow |c| < r\\sqrt{1+m^2}$."),
-     ("Conclusion","Answer: (A,B).")], True, "Discriminant."),
-39: ("Cyclic system consistency.",
-    [("Sum","$(a+b+c)(x+y+z)=0$. Consistent if $p=q=r$ or $a+b+c=0$."),
-     ("Conclusion","Answer: (A,C).")], True, "System."),
-40: ("Integration of tan(x).",
-    [("Integral","$\\int \\tan x\\,dx = \\ln|\\sec x|+c$."),
-     ("Conclusion","Given key (B). Answer: (B).")], False, "Key B."),
-41: ("Voided question.",
-    [("Analysis","Withdrawn question."),
-     ("Conclusion","Answer: (W).")], False, "Voided."),
-42: ("Error propagation.",
-    [("Formula","$dR/R = dV/V + dI/I = 5\\% + 2\\% = 7\\%$."),
-     ("Conclusion","Answer: (B) $7\\%$.")], True, "Error."),
-43: ("Vector perpendicularity.",
-    [("Analyze","$\\vec{A}\\perp\\vec{B}$, $\\vec{A}\\perp\\vec{C}$ $\\Rightarrow$ $\\vec{A}\\parallel\\vec{B}\\times\\vec{C}$."),
-     ("Conclusion","Answer: (C).")], True, "Vectors."),
-44: ("Acceleration-time graph.",
-    [("Analyze","Constant $a$ then $a=0$."),
-     ("Conclusion","Given key (C). Answer: (C).")], False, "Key C."),
-45: ("Work by resultant force.",
-    [("Resultant","$\\vec{F} = (3,1,1)$. $\\vec{d} = (1,1,1)$."),
-     ("Work","$= 3+1+1 = 5$ J."),
-     ("Conclusion","Answer: (C) $5$ J.")], True, "Work."),
-46: ("Displacement-time graph regions.",
-    [("Analyze","Acceleration zero where slope constant."),
-     ("Conclusion","Given key (B). Answer: (B).")], False, "Key B."),
-47: ("Free fall with interruption.",
-    [("Compute","Total time from free fall + release."),
-     ("Conclusion","Given key (C): $7.0$ s. Answer: (C).")], False, "Key C."),
-48: ("Buoyancy acceleration.",
-    [("Analyze","Net force from weight and upthrust."),
-     ("Conclusion","Given key (C): $g(\\rho-1)$. Answer: (C).")], False, "Key C."),
-49: ("Orbital energy.",
-    [("Energy","$U = -GMm/r = 2E$. $U = -2E_0$."),
-     ("Conclusion","Answer: (C) $-2E_0$.")], True, "Orbital energy."),
-50: ("Momentum conservation in explosion.",
-    [("Solve","$\\vec{v}_3 = -3\\hat{i}+\\hat{j}$."),
-     ("Conclusion","Answer: (A) $(-3\\hat{i}+\\hat{j})$.")], True, "Momentum."),
+# Q26–Q50: hand-written, SymPy-verified derivations live in s2025_batch2.py (merged below).
 51: ("Viscous fluid velocity profile.",
     [("Physics","Velocity increases then becomes constant (terminal)."),
      ("Conclusion","Answer: (A).")], True, "Viscous."),
@@ -610,6 +536,7 @@ S2025 = {
 }
 
 S2025.update(S2025_B1)
+S2025.update(S2025_B2)
 
 def auto_solution(qnum, subj, unit, cat, page, stem, opts, correct, diff, tags, figkey, year):
     """Generate a solution entry from question data when no explicit solution is provided."""

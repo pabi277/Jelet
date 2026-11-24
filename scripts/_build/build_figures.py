@@ -302,31 +302,105 @@ def fig_2024_q98():
 
 # ---- 2025 figures ----
 
+def mlabel(x, y, text, size=12, italic=False, anchor="middle", color="var(--fig-text)"):
+    """Serif label matching the booklet typography (italic for math symbols)."""
+    style = ' font-style="italic"' if italic else ""
+    return f'  <text x="{x}" y="{y}" font-family="Times New Roman, serif" font-size="{size}"{style} fill="{color}" text-anchor="{anchor}">{text}</text>\n'
+
+def axes_xy(ox, oy, x_left, x_right, y_bottom, y_top, sw=1.2):
+    """Two axes with arrowheads (booklet style): horizontal t-axis, vertical value axis."""
+    body = arrow(x_left, oy, x_right, oy, stroke="var(--fig-axis)", sw=sw)
+    body += arrow(ox, y_bottom, ox, y_top, stroke="var(--fig-axis)", sw=sw)
+    return body
+
+def vt_axes_labels(ox, oy, x_right, y_top):
+    body = mlabel(ox - 26, y_top + 18, "v", 12)
+    body += mlabel(ox - 26, y_top + 33, "(m/s)", 11)
+    body += mlabel(x_right + 6, oy + 4, "t", 12, italic=True, anchor="start")
+    body += mlabel(x_right + 11, oy + 4, "(s)", 12, anchor="start")
+    return body
+
+def svg_plain(w, h, body, aria):
+    """Figure wrapper without a printed caption (the booklet prints none)."""
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="{aria}">
+  <rect x="0" y="0" width="{w}" height="{h}" fill="transparent"/>
+{body}</svg>'''
+
 def fig_2025_q44():
-    """acceleration-time graph: constant a then 0."""
-    body = ""
-    body += label(40, 30, "a-t graph", 10)
-    body += line(40, 60, 200, 60, stroke="var(--fig-axis)")
-    body += line(40, 60, 40, 160, stroke="var(--fig-axis)")
-    body += line(200, 60, 200, 160, stroke="var(--fig-axis)")
-    body += line(40, 80, 140, 80, stroke="var(--fig-danger)", sw=2)
-    body += line(140, 80, 140, 60, stroke="var(--fig-axis)", sw=1, dash="3,3")
-    body += label(80, 75, "a = const", 10, "var(--fig-danger-soft)", "middle")
-    body += label(170, 90, "a = 0", 10, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 180, body, "2025 Q44: Acceleration-time graph")
+    """Stem a–t graph exactly as printed: straight line a = 2t − 2 (−2 at t = 0, crosses 0 at t = 1)."""
+    ox, oy, ts, au = 70, 110, 24, 20          # origin, px per second, px per m/s^2
+    P = lambda t, a: (round(ox + t * ts, 1), round(oy - a * au, 1))
+    body = axes_xy(ox, oy, 50, 230, 160, 12)
+    (x1, y1), (x2, y2) = P(0, -2), P(2.6, 3.2)
+    body += line(x1, y1, x2, y2, stroke="var(--fig-primary)", sw=1.8)
+    body += mlabel(ox - 22, 26, "a", 12, italic=True)
+    body += mlabel(ox - 22, 42, "(m/s²)", 11)
+    body += mlabel(ox - 9, oy + 16, "0", 12)
+    body += mlabel(P(1, 0)[0] + 9, oy + 16, "1", 12)
+    body += mlabel(ox - 13, P(0, -2)[1] + 2, "−2", 12)
+    body += mlabel(236, oy + 18, "t", 12, italic=True, anchor="start")
+    body += mlabel(241, oy + 18, "(s)", 12, anchor="start")
+    return svg_plain(270, 170, body, "2025 Q44 stem: acceleration a in m/s² versus time t in s; a straight line starting at a = −2 when t = 0, crossing a = 0 at t = 1 and rising with slope 2")
+
+def _q44_option_frame(draw, aria):
+    ox, oy, ts = 60, 100, 40                  # 40 px per second
+    body = axes_xy(ox, oy, 52, 210, 108, 12)
+    body += vt_axes_labels(ox, oy, 210, 12)
+    body += draw(ox, oy, ts)
+    return svg_plain(260, 125, body, aria)
+
+def fig_2025_q44_optA():
+    def draw(ox, oy, ts):
+        pts = " ".join(f"{ox + t * ts:.1f},{oy - 45 * t * (2 - t):.1f}" for t in [k / 20 for k in range(0, 43)])
+        b = polyline(pts, stroke="var(--fig-primary)", sw=1.6)
+        b += line(ox + ts, oy, ox + ts, oy - 45, stroke="var(--fig-line)", sw=0.8, dash="1.5,2")
+        b += mlabel(ox + 5, oy + 15, "0", 12) + mlabel(ox + ts, oy + 15, "1", 12) + mlabel(ox + 2 * ts - 3, oy + 15, "2", 12)
+        return b
+    return _q44_option_frame(draw, "2025 Q44 option A: v–t graph, an inverted parabola starting at v = 0 at t = 0, maximum at t = 1, returning to v = 0 at t = 2")
+
+def fig_2025_q44_optB():
+    def draw(ox, oy, ts):
+        b = polyline(f"{ox},{oy} {ox + ts},{oy} {ox + 1.4 * ts},{oy - 55} {ox + 2.2 * ts},{oy - 55}", stroke="var(--fig-primary)", sw=1.6)
+        b += mlabel(ox - 10, oy + 15, "0", 12) + mlabel(ox + ts, oy + 15, "1", 12)
+        return b
+    return _q44_option_frame(draw, "2025 Q44 option B: v–t graph, v = 0 from t = 0 to t = 1, then rising linearly, then constant")
+
+def fig_2025_q44_optC():
+    def draw(ox, oy, ts):
+        k = 18                                   # px per m/s (v = t^2 − 2t)
+        pts = " ".join(f"{ox + t * ts:.1f},{oy - k * (t * t - 2 * t):.1f}" for t in [j / 20 for j in range(0, 57)])
+        b = polyline(pts, stroke="var(--fig-primary)", sw=1.6)
+        b += line(ox + ts, oy, ox + ts, oy + k, stroke="var(--fig-line)", sw=0.8, dash="1.5,2")
+        b += mlabel(ox - 13, oy + 5, "0", 12) + mlabel(ox + ts + 3, oy - 5, "1", 12) + mlabel(ox + 2 * ts + 3, oy + 16, "2", 12)
+        return b
+    return _q44_option_frame(draw, "2025 Q44 option C: v–t graph, an upward parabola starting at v = 0 at t = 0, dipping below the axis to a minimum at t = 1, crossing zero at t = 2 and rising steeply")
+
+def fig_2025_q44_optD():
+    def draw(ox, oy, ts):
+        h = 50
+        b = polyline(f"{ox},{oy} {ox + ts},{oy - h} {ox + 2 * ts},{oy - h} {ox + 2.7 * ts},{oy}", stroke="var(--fig-primary)", sw=1.6)
+        b += line(ox + ts, oy, ox + ts, oy - h, stroke="var(--fig-line)", sw=1, dash="2,2")
+        b += line(ox + 2 * ts, oy, ox + 2 * ts, oy - h, stroke="var(--fig-line)", sw=1, dash="2,2")
+        b += mlabel(ox - 8, oy + 15, "0", 12) + mlabel(ox + ts, oy + 15, "1", 12) + mlabel(ox + 2 * ts, oy + 15, "2", 12)
+        return b
+    return _q44_option_frame(draw, "2025 Q44 option D: v–t graph, trapezium rising linearly from 0 to t = 1, constant from t = 1 to t = 2, then falling linearly to zero")
 
 def fig_2025_q46():
-    """displacement-time graph regions."""
-    body = ""
-    body += label(40, 30, "x-t graph", 10)
-    body += line(40, 60, 200, 60, stroke="var(--fig-axis)")
-    body += line(40, 60, 40, 180, stroke="var(--fig-axis)")
-    body += line(200, 60, 200, 180, stroke="var(--fig-axis)")
-    body += polyline("40,160 70,150 100,120 130,100 170,110 200,90", stroke="var(--fig-primary)", sw=2)
-    for x, y, t in [(40,160,"A"),(70,150,"B"),(100,120,"C"),(130,100,"D"),(170,110,"E")]:
-        body += dot(x, y, 3)
-        body += label(x-5, y+18, t, 10, "var(--fig-text)", "middle")
-    return svg_wrap(240, 200, body, "2025 Q46: Displacement-time graph")
+    """Displacement–time graph as printed: AB straight rise, BC curved dip, CD straight fall, DE curved rise."""
+    body = arrow(50, 180, 50, 35, stroke="var(--fig-axis)", sw=1.2)
+    body += arrow(36, 180, 238, 180, stroke="var(--fig-axis)", sw=1.2)
+    curve = ("M71,160 L100,91.5 "
+             "C105,104 114,113 127,112.5 C140,112 151,104 158.5,94 "
+             "L187.5,141 "
+             "C186,118 194,99 218.5,92.5")
+    body += path(curve, stroke="var(--fig-primary)", sw=1.6)
+    for x, y, t in [(61, 168, "A"), (102.5, 82, "B"), (158.5, 82, "C"), (191, 156, "D"), (229, 97, "E")]:
+        body += mlabel(x, y, t, 12)
+    body += f'  <text x="0" y="0" transform="translate(20,118) rotate(-90)" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">Displacement</text>\n'
+    body += arrow(37.5, 157.5, 37.5, 124, stroke="var(--fig-axis)", sw=1)
+    body += arrow(140, 194, 172, 194, stroke="var(--fig-axis)", sw=1)
+    body += mlabel(178, 198, "Time", 12, anchor="start")
+    return svg_plain(250, 205, body, "2025 Q46: displacement versus time; A to B is a straight rising line, B to C a curved dip, C to D a straight falling line, D to E a curve rising and flattening")
 
 def fig_2025_q51():
     """velocity-time graph in viscous fluid."""
@@ -1067,6 +1141,10 @@ def main():
         },
         "2025": {
             "fig-2025-q44": fig_2025_q44,
+            "fig-2025-q44-optA": fig_2025_q44_optA,
+            "fig-2025-q44-optB": fig_2025_q44_optB,
+            "fig-2025-q44-optC": fig_2025_q44_optC,
+            "fig-2025-q44-optD": fig_2025_q44_optD,
             "fig-2025-q46": fig_2025_q46,
             "fig-2025-q51": fig_2025_q51,
             "fig-2025-q54": fig_2025_q54,
