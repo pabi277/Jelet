@@ -212,7 +212,7 @@ Q2024 = [
 
 (42,"PHYS","P02",1,11,
  "A particle is thrown with initial speed $u$ at an angle $\\theta$ with the horizontal line. It follows a parabolic path as shown in the figure. Which of the following represents the speed-time graphs ($v_{x}$ and $v_{y}$ are the speed along $x$-axis and $y$-axis, respectively) ?",
- {"A":"$v_{x}$ constant, $v_{y}$ linearly varying","B":"$v_{x}$ linearly varying, $v_{y}$ constant","C":"both $v_{x}$ and $v_{y}$ constant","D":"both $v_{x}$ and $v_{y}$ linearly varying"},
+ {"A":{"figure":"fig-2024-q42-A","latex":"$v_{x}$ constant, $v_{y}$ linearly varying"},"B":{"figure":"fig-2024-q42-B","latex":"$v_{x}$ linearly varying, $v_{y}$ constant"},"C":{"figure":"fig-2024-q42-C","latex":"both $v_{x}$ and $v_{y}$ constant"},"D":{"figure":"fig-2024-q42-D","latex":"both $v_{x}$ and $v_{y}$ linearly varying"}},
  ["A"],"medium",["kinematics","projectile","graph"],"fig-2024-q42"),
 
 (43,"PHYS","P13",1,11,

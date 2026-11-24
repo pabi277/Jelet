@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" width="200" height="140" role="img" aria-label="Option B: v increases then decreases">
+  <rect x="0" y="0" width="200" height="140" fill="transparent"/>
+  <line x1="20" y1="110" x2="180" y2="110" stroke="var(--fig-axis)" stroke-width="1"/>
+  <line x1="20" y1="110" x2="20" y2="20" stroke="var(--fig-axis)" stroke-width="1"/>
+  <text x="15" y="118" font-family="monospace" font-size="7" fill="var(--fig-text)">t</text>
+  <text x="15" y="15" font-family="monospace" font-size="7" fill="var(--fig-text)">v</text>
+  <path d="M 20,110 L 100,30 L 180,110" stroke="var(--fig-primary)" stroke-width="2" fill="none"/>
+</svg>

@@ -2408,22 +2408,46 @@
         {
           "id": "A",
           "latex": "graph A",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-A.svg",
+            "alt": "Option A for JELET 2022 Q49",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
           "latex": "graph B",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-B.svg",
+            "alt": "Option B for JELET 2022 Q49",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
           "latex": "graph C",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-C.svg",
+            "alt": "Option C for JELET 2022 Q49",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
           "latex": "graph D",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-D.svg",
+            "alt": "Option D for JELET 2022 Q49",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -2804,22 +2828,46 @@
         {
           "id": "A",
           "latex": "graph A",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-A.svg",
+            "alt": "Option A for JELET 2022 Q57",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
           "latex": "graph B",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-B.svg",
+            "alt": "Option B for JELET 2022 Q57",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
           "latex": "graph C",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-C.svg",
+            "alt": "Option C for JELET 2022 Q57",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
           "latex": "graph D",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-D.svg",
+            "alt": "Option D for JELET 2022 Q57",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -3050,22 +3098,46 @@
         {
           "id": "A",
           "latex": "graph A",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-A.svg",
+            "alt": "Option A for JELET 2022 Q62",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
           "latex": "graph B",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-B.svg",
+            "alt": "Option B for JELET 2022 Q62",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
           "latex": "graph C",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-C.svg",
+            "alt": "Option C for JELET 2022 Q62",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
           "latex": "graph D",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-D.svg",
+            "alt": "Option D for JELET 2022 Q62",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {

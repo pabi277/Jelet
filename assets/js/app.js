@@ -8,6 +8,7 @@
  */
 
 import { openDB, getMeta, setMeta, onSync } from "./db/indexeddb.js";
+import { renderExam, listPapers, loadSession } from "./exam-runner.js";
 
 /* ------------------------------------------------------------------ *
  * Route table — five global destinations only (no audit clutter)
@@ -43,8 +44,17 @@ function el(html) {
 /** Resolve a hash to a route id. */
 function currentRouteId() {
   const hash = location.hash || "#/";
+  // Handle exam route: #/exam/2025
+  if (hash.startsWith("#/exam/")) return "exam";
   const found = ROUTES.find((r) => r.href === hash);
   return found ? found.id : "today";
+}
+
+/** Get the exam year from the hash, e.g. "#/exam/2025" → "2025". */
+function currentExamYear() {
+  const hash = location.hash || "";
+  const m = hash.match(/^#\/exam\/(\d{4})$/);
+  return m ? m[1] : null;
 }
 
 /* ------------------------------------------------------------------ *

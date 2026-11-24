@@ -247,7 +247,7 @@ Q2022 = [
 
 (49,"PHYS","P03",1,13,
  "Two identical point masses are placed on $y$ axis at $y = a$ and $y = -a$. The variation of the magnitude of the gravitational potential $|V(x)|$ as a function of $x$ is given by",
- {"A":"graph A","B":"graph B","C":"graph C","D":"graph D"},
+ {"A":{"figure":"fig-2022-q49-A","latex":"graph A"},"B":{"figure":"fig-2022-q49-B","latex":"graph B"},"C":{"figure":"fig-2022-q49-C","latex":"graph C"},"D":{"figure":"fig-2022-q49-D","latex":"graph D"}},
  ["B"],"medium",["gravitation","potential","graph"],"fig-2022-q49"),
 
 (50,"PHYS","P08",1,13,
@@ -287,7 +287,7 @@ Q2022 = [
 
 (57,"PHYS","P13",1,14,
  "A vessel of height $H$ contains a liquid of refractive index $\\mu$. A spot $P$ at the bottom of the vessel creates an image $P'$ at a distance $d$ from the top of the vessel when viewed from the top. The liquid gradually drains out from a hole at the bottom. If $x$ represents the height of the water from the bottom at any instant, then the graph $d$ versus $x$ will be like",
- {"A":"graph A","B":"graph B","C":"graph C","D":"graph D"},
+ {"A":{"figure":"fig-2022-q57-A","latex":"graph A"},"B":{"figure":"fig-2022-q57-B","latex":"graph B"},"C":{"figure":"fig-2022-q57-C","latex":"graph C"},"D":{"figure":"fig-2022-q57-D","latex":"graph D"}},
  ["B"],"medium",["refraction","apparent-depth","graph"],"fig-2022-q57"),
 
 (58,"PHYS","P14",1,15,
@@ -312,7 +312,7 @@ Q2022 = [
 
 (62,"PHYS","P11",1,16,
  "A cyclic process $ABCA$, shown in $V$-$T$ diagram, is performed with a constant mass of an ideal gas. Which of the following graphs represents the corresponding process on a $P$-$V$ diagram?",
- {"A":"graph A","B":"graph B","C":"graph C","D":"graph D"},
+ {"A":{"figure":"fig-2022-q62-A","latex":"graph A"},"B":{"figure":"fig-2022-q62-B","latex":"graph B"},"C":{"figure":"fig-2022-q62-C","latex":"graph C"},"D":{"figure":"fig-2022-q62-D","latex":"graph D"}},
  ["B"],"medium",["thermodynamics","pv-diagram","cycle"],"fig-2022-q62"),
 
 (63,"PHYS","P08",1,16,

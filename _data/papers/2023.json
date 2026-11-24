@@ -598,7 +598,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If $\u000bec{a}$ and $\u000bec{b}$ are two unit vectors, then the vector $(\u000bec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
+      "stemLatex": "If $\\vec{a}$ and $\\vec{b}$ are two unit vectors, then the vector $(\\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
       "stemFigure": null,
       "options": [
         {
@@ -1703,7 +1703,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "Let $\u000bec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\u000bec{W} = \\hat{i} + 3\\hat{k}$. If $\u000bec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
+      "stemLatex": "Let $\\vec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\\vec{W} = \\hat{i} + 3\\hat{k}$. If $\\vec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
       "stemFigure": null,
       "options": [
         {

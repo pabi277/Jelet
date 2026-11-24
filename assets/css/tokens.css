@@ -129,6 +129,25 @@
 
   --tap-min:         48px;   /* thumb-zone minimum tap target */
   --omr-cell-min:    40px;   /* OMR palette cell minimum */
+
+  /* ------------------------------------------------------------------ *
+   * 2.9  Figure / Diagram colors (SVG figures use these — NEVER hardcode hex)
+   * SVG figures consume these via var(--...) so they render correctly
+   * in BOTH Light Mode (#FFFFFF surface) and AMOLED Dark Mode (#070C0C).
+   * ------------------------------------------------------------------ */
+  --fig-primary:     #60a5fa;   /* primary diagram element (axes, main curve) */
+  --fig-positive:    #34d399;   /* positive / correct-option accent */
+  --fig-amber:       #f59e0b;   /* warning / secondary accent */
+  --fig-negative:    #f87171;   /* negative / error accent */
+  --fig-text:        #94a3b8;   /* secondary text in figures */
+  --fig-text-light:  #cbd5e1;   /* light labels in figures */
+  --fig-axis:        #475569;   /* axis lines */
+  --fig-surface:     #f8fafc;   /* dot fill / surface */
+  --fig-dark:        #1e293b;   /* dark text in figures */
+  --fig-neg-light:   #fca5a5;   /* light negative accent */
+  --fig-pos-light:   #6ee7b7;   /* light positive accent */
+  --fig-amber-light: #fcd34d;   /* light amber accent */
+  --fig-amber-bold:  #fbbf24;   /* bold amber accent */
 }
 
 /* ==========================================================================
@@ -167,6 +186,21 @@
   --phys-tint:      #122B3D;  --phys-stripe:      #0284C7;
   --chem-tint:      #362811;  --chem-stripe:      #D97706;
   --feee-tint:      #2A1B3D;  --feee-stripe:      #7C3AED;
+
+  /* Figure colors — adjusted for AMOLED dark surface */
+  --fig-primary:     #4A90D9;
+  --fig-positive:    #34D399;
+  --fig-amber:       #F59E0B;
+  --fig-negative:    #F87171;
+  --fig-text:        #6E8583;
+  --fig-text-light:  #9BB0AE;
+  --fig-axis:        #9BB0AE;
+  --fig-surface:     #172424;
+  --fig-dark:        #ECF4F3;
+  --fig-neg-light:   #F87171;
+  --fig-pos-light:   #34D399;
+  --fig-amber-light: #FCd34d;
+  --fig-amber-bold:  #FBBF24;
 
   --shadow-s:  0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-m:  0 2px 8px rgba(0, 0, 0, 0.55);

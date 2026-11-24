@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 170" width="240" height="170" role="img" aria-label="2024 Q52: Rolling disc on incline">
   <rect x="0" y="0" width="240" height="170" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2024 Q52: Rolling disc on incline</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Disc rolling</text>
-  <line x1="30" y1="140" x2="130" y2="140" stroke="#94a3b8" stroke-width="2"/>
-  <line x1="130" y1="140" x2="210" y2="80" stroke="#94a3b8" stroke-width="2"/>
-  <line x1="130" y1="140" x2="130" y2="160" stroke="#94a3b8" stroke-width="1"/>
-  <line x1="210" y1="80" x2="210" y2="160" stroke="#94a3b8" stroke-width="1"/>
-  <circle cx="170" cy="115" r="12" stroke="#60a5fa" stroke-width="2" fill="#1e293b"/>
-  <line x1="185" y1="115" x2="200" y2="115" stroke="#f87171" stroke-width="1.5"/>
-  <polygon points="200,115 193.1,119.0 193.1,111.0" fill="#f87171"/>
-  <text x="202" y="110" font-family="monospace" font-size="12" fill="#cbd5e1">v</text>
-  <text x="170" y="145" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">incline</text>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-text)">2024 Q52: Rolling disc on incline</text>
+  <text x="40" y="30" font-family="monospace" font-size="10" fill="var(--fig-text-light)" text-anchor="start">Disc rolling</text>
+  <line x1="30" y1="140" x2="130" y2="140" stroke="var(--fig-text)" stroke-width="2"/>
+  <line x1="130" y1="140" x2="210" y2="80" stroke="var(--fig-text)" stroke-width="2"/>
+  <line x1="130" y1="140" x2="130" y2="160" stroke="var(--fig-text)" stroke-width="1"/>
+  <line x1="210" y1="80" x2="210" y2="160" stroke="var(--fig-text)" stroke-width="1"/>
+  <circle cx="170" cy="115" r="12" stroke="var(--fig-primary)" stroke-width="2" fill="var(--fig-dark)"/>
+  <line x1="185" y1="115" x2="200" y2="115" stroke="var(--fig-negative)" stroke-width="1.5"/>
+  <polygon points="200,115 193.1,119.0 193.1,111.0" fill="var(--fig-negative)"/>
+  <text x="202" y="110" font-family="monospace" font-size="12" fill="var(--fig-text-light)">v</text>
+  <text x="170" y="145" font-family="monospace" font-size="9" fill="var(--fig-text)" text-anchor="middle">incline</text>
 </svg>

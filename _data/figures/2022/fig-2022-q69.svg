@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 220" width="240" height="220" role="img" aria-label="2022 Q69: Lens-mirror setup">
   <rect x="0" y="0" width="240" height="220" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2022 Q69: Lens-mirror setup</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Lens-mirror system</text>
-  <line x1="100" y1="60" x2="100" y2="160" stroke="#60a5fa" stroke-width="2.5"/>
-  <line x1="95" y1="65" x2="105" y2="65" stroke="#60a5fa" stroke-width="2"/>
-  <line x1="95" y1="155" x2="105" y2="155" stroke="#60a5fa" stroke-width="2"/>
-  <text x="85" y="55" font-family="monospace" font-size="8" fill="#94a3b8" text-anchor="start">Lens (f=15cm)</text>
-  <line x1="180" y1="60" x2="180" y2="160" stroke="#34d399" stroke-width="3"/>
-  <text x="185" y="55" font-family="monospace" font-size="8" fill="#6ee7b7" text-anchor="start">Mirror</text>
-  <line x1="100" y1="170" x2="180" y2="170" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
-  <text x="140" y="185" font-family="monospace" font-size="8" fill="#94a3b8" text-anchor="middle">10 cm</text>
-  <line x1="40" y1="170" x2="100" y2="170" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
-  <text x="70" y="185" font-family="monospace" font-size="8" fill="#94a3b8" text-anchor="middle">30 cm</text>
-  <line x1="40" y1="120" x2="40" y2="100" stroke="#f87171" stroke-width="1.8"/>
-  <polygon points="40,100 44.0,106.9 36.0,106.9" fill="#f87171"/>
-  <text x="30" y="95" font-family="monospace" font-size="12" fill="#cbd5e1">O</text>
-  <circle cx="40" cy="120" r="4" fill="#f87171"/>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-text)">2022 Q69: Lens-mirror setup</text>
+  <text x="40" y="25" font-family="monospace" font-size="10" fill="var(--fig-text-light)" text-anchor="start">Lens-mirror system</text>
+  <line x1="100" y1="60" x2="100" y2="160" stroke="var(--fig-primary)" stroke-width="2.5"/>
+  <line x1="95" y1="65" x2="105" y2="65" stroke="var(--fig-primary)" stroke-width="2"/>
+  <line x1="95" y1="155" x2="105" y2="155" stroke="var(--fig-primary)" stroke-width="2"/>
+  <text x="85" y="55" font-family="monospace" font-size="8" fill="var(--fig-text)" text-anchor="start">Lens (f=15cm)</text>
+  <line x1="180" y1="60" x2="180" y2="160" stroke="var(--fig-positive)" stroke-width="3"/>
+  <text x="185" y="55" font-family="monospace" font-size="8" fill="var(--fig-pos-light)" text-anchor="start">Mirror</text>
+  <line x1="100" y1="170" x2="180" y2="170" stroke="var(--fig-text)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="140" y="185" font-family="monospace" font-size="8" fill="var(--fig-text)" text-anchor="middle">10 cm</text>
+  <line x1="40" y1="170" x2="100" y2="170" stroke="var(--fig-text)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="70" y="185" font-family="monospace" font-size="8" fill="var(--fig-text)" text-anchor="middle">30 cm</text>
+  <line x1="40" y1="120" x2="40" y2="100" stroke="var(--fig-negative)" stroke-width="1.8"/>
+  <polygon points="40,100 44.0,106.9 36.0,106.9" fill="var(--fig-negative)"/>
+  <text x="30" y="95" font-family="monospace" font-size="12" fill="var(--fig-text-light)">O</text>
+  <circle cx="40" cy="120" r="4" fill="var(--fig-negative)"/>
 </svg>

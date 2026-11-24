@@ -2054,22 +2054,46 @@
         {
           "id": "A",
           "latex": "$v_{x}$ constant, $v_{y}$ linearly varying",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q42-A.svg",
+            "alt": "Option A for JELET 2024 Q42",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
           "latex": "$v_{x}$ linearly varying, $v_{y}$ constant",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q42-B.svg",
+            "alt": "Option B for JELET 2024 Q42",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
           "latex": "both $v_{x}$ and $v_{y}$ constant",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q42-C.svg",
+            "alt": "Option C for JELET 2024 Q42",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
           "latex": "both $v_{x}$ and $v_{y}$ linearly varying",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q42-D.svg",
+            "alt": "Option D for JELET 2024 Q42",
+            "width": 200,
+            "height": 140,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
