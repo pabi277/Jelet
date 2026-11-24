@@ -22,14 +22,19 @@ import { renderLatex, escapeHtml } from "../core/math.js";
 import {
   formatTwelfths,
   evaluateJuCutoffBand,
+  isVoidedQuestion,
   SUBJECT_META,
   MAX_PAPER_TWELFTHS,
 } from "../core/scoring.js";
 import {
   getAttempt,
   createSession,
+  createMistakeRedrillSession,
   getBookmarksMap,
   toggleBookmark,
+  getQuestionStatsMap,
+  toggleMistakeFlag,
+  isMistakeRecordActive,
 } from "../core/stats.js";
 import {
   $,
@@ -56,12 +61,14 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
     return;
   }
 
-  const [manifest, qIndex, bookmarksInitial] = await Promise.all([
+  const [manifest, qIndex, bookmarksInitial, qStatsInitial] = await Promise.all([
     loadManifest(),
     getQuestionIndex(),
     getBookmarksMap(),
+    getQuestionStatsMap(),
   ]);
   let bookmarksMap = bookmarksInitial;
+  let qStatsMap = qStatsInitial;
   const unitTitleMap = new Map((manifest.units || []).map((u) => [u.unitId, u.title]));
 
   const questions = (attempt.questionIds || [])
@@ -314,6 +321,9 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
       function mountExpandedDetail() {
         const detail = $(".js-item-detail", card);
         detail.innerHTML = "";
+        const qStatRec = qStatsMap.get(q.id);
+        const isFlagged = Boolean(qStatRec?.flaggedAsMistake);
+        const canRedrill = !isVoidedQuestion(q);
         const optsHtml = (q.options || [])
           .map((opt) => {
             const isRight = correctSet.has(opt.id);
@@ -347,6 +357,16 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
                 Official Key: <strong class="mono">${(item.correctOptions || []).join(", ")}</strong>
               </span>
               <div class="cluster-xs">
+                ${
+                  canRedrill
+                    ? `<button type="button" class="btn btn--ghost btn--sm js-res-flag-mistake" aria-pressed="${isFlagged}">
+                         ${icon("icon-alert")} ${isFlagged ? "Flagged" : "Flag Mistake"}
+                       </button>
+                       <button type="button" class="btn btn--ghost btn--sm js-res-redrill-one">
+                         ${icon("icon-refresh")} Re-drill
+                       </button>`
+                    : ""
+                }
                 <button type="button" class="btn btn--ghost btn--sm js-res-bkm" aria-pressed="${isBkm}">
                   ${icon(isBkm ? "icon-bookmark-filled" : "icon-bookmark")} ${isBkm ? "Saved" : "Bookmark"}
                 </button>
@@ -379,6 +399,38 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
               : null,
           })
         );
+
+        $(".js-res-flag-mistake", inner)?.addEventListener("click", async (ev) => {
+          const b = ev.currentTarget;
+          const updated = await toggleMistakeFlag(q);
+          qStatsMap = await getQuestionStatsMap();
+          const nowFlagged = Boolean(updated?.flaggedAsMistake);
+          b.setAttribute("aria-pressed", String(nowFlagged));
+          b.innerHTML = `${icon("icon-alert")} ${nowFlagged ? "Flagged" : "Flag Mistake"}`;
+          showToast(
+            nowFlagged
+              ? "Question flagged in Spaced Mistake Notebook"
+              : isMistakeRecordActive(updated)
+              ? "Manual flag cleared (past mistake remains queued)"
+              : "Removed from Spaced Mistake Notebook"
+          );
+        });
+
+        $(".js-res-redrill-one", inner)?.addEventListener("click", async () => {
+          const rec = qStatsMap.get(q.id) || {
+            questionId: q.id,
+            lastSelected: item.selected || [],
+            lastOutcome: item.outcome,
+            lastAttemptAt: attempt.submittedAt,
+            attemptsCount: 1,
+            consecutiveCorrect: 0,
+          };
+          const sess = await createMistakeRedrillSession({
+            questions: [q],
+            mistakeRecords: [rec],
+          });
+          location.hash = `#/practice-run/${sess.sessionId}`;
+        });
 
         $(".js-res-bkm", inner).addEventListener("click", async (ev) => {
           const b = ev.currentTarget;

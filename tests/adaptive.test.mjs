@@ -14,11 +14,16 @@ import {
   WEAK_AREA_TOP_K,
   ADAPTIVE_MIN_ATTEMPTS,
   ADAPTIVE_MAINTENANCE_FLOOR,
+  SPACED_INTERVAL_DAYS,
+  MISTAKE_GRADUATION_THRESHOLD,
   computeWeakAreas,
   resolveDefaultRoutingStrategy,
   resolveUnitQuestionPool,
   computeQuestionAdaptiveWeight,
   samplePracticeQuestions,
+  applyQuestionAttemptToStat,
+  applyMistakeFlagToStat,
+  computeMistakeQueueState,
 } from "../assets/js/core/stats.js";
 import { normalizeUnit } from "../assets/js/core/data-loader.js";
 
@@ -232,4 +237,116 @@ test("resolveUnitQuestionPool: reuses unit.practiceQuestions / pyqIds and exclud
   const fallbackPool = resolveUnitQuestionPool({ ...p01, practiceQuestions: [] }, qIndex);
   assert.equal(fallbackPool.length, 5);
   assert.equal(fallbackPool.some((q) => q.id === "jelet-2025-q041"), false);
+});
+
+test("Spaced Mistake Notebook: schedules 1d/3d/7d intervals, preserves previous answer, and graduates at N=2 correct", () => {
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  const t0 = Date.parse("2026-11-24T10:00:00.000Z");
+  assert.deepEqual(SPACED_INTERVAL_DAYS, [0, 1, 3, 7]);
+  assert.equal(MISTAKE_GRADUATION_THRESHOLD, 2);
+
+  const qMeta = { id: "jelet-2024-q041", subjectId: "PHYS", unitId: "P01", sourceType: "official-pyq" };
+
+  // 1. Wrong attempt -> enters active mistake queue, due immediately, records lastAttemptAt & wrong pick
+  let rec = applyQuestionAttemptToStat(
+    null,
+    { questionId: qMeta.id, subjectId: "PHYS", unitId: "P01", outcome: "incorrect", selected: ["B"] },
+    qMeta,
+    t0
+  );
+  assert.equal(rec.inMistakeQueue, true);
+  assert.equal(rec.attemptsCount, 1);
+  assert.equal(rec.mistakeCount, 1);
+  assert.equal(rec.consecutiveCorrect, 0);
+  assert.deepEqual(rec.lastMistakeSelected, ["B"]);
+  assert.equal(rec.lastAttemptAt, new Date(t0).toISOString());
+
+  let state = computeMistakeQueueState([rec], t0);
+  assert.equal(state.dueMistakes.length, 1);
+  assert.equal(state.scheduledMistakes.length, 0);
+
+  // 2. First correct re-drill -> stays in queue (1/2), scheduled +1 day later
+  const t1 = t0 + 60 * 1000;
+  rec = applyQuestionAttemptToStat(
+    rec,
+    { questionId: qMeta.id, subjectId: "PHYS", unitId: "P01", outcome: "correct", selected: ["A"] },
+    qMeta,
+    t1
+  );
+  assert.equal(rec.inMistakeQueue, true);
+  assert.equal(rec.consecutiveCorrect, 1);
+  assert.equal(rec.nextReviewAt, new Date(t1 + 1 * DAY_MS).toISOString());
+  // Original wrong pick is still preserved for reference!
+  assert.deepEqual(rec.lastMistakeSelected, ["B"]);
+
+  // Before 1 day elapses -> scheduled, NOT due
+  state = computeMistakeQueueState([rec], t1 + 12 * 3600 * 1000);
+  assert.equal(state.dueMistakes.length, 0);
+  assert.equal(state.scheduledMistakes.length, 1);
+
+  // After 1 day elapses -> due again!
+  const tDue1 = t1 + DAY_MS + 1000;
+  state = computeMistakeQueueState([rec], tDue1);
+  assert.equal(state.dueMistakes.length, 1);
+
+  // 3. Second consecutive correct re-drill (N=2) -> graduates out of active mistake queue!
+  rec = applyQuestionAttemptToStat(
+    rec,
+    { questionId: qMeta.id, subjectId: "PHYS", unitId: "P01", outcome: "correct", selected: ["A"] },
+    qMeta,
+    tDue1
+  );
+  assert.equal(rec.inMistakeQueue, false);
+  assert.equal(rec.consecutiveCorrect, 2);
+  assert.ok(rec.graduatedAt);
+
+  state = computeMistakeQueueState([rec], tDue1 + 10 * DAY_MS);
+  assert.equal(state.activeMistakes.length, 0);
+  assert.equal(state.dueMistakes.length, 0);
+  assert.equal(state.graduatedMistakes.length, 1);
+});
+
+test("Spaced Mistake Notebook: deterministic 1d -> 3d -> 7d schedule & explicit mistake flagging", () => {
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  const t0 = Date.parse("2026-11-24T12:00:00.000Z");
+  const qMeta = { id: "jelet-2025-q002", subjectId: "MATH", unitId: "M01" };
+
+  // Explicit flag on unattempted question -> due immediately with attemptsCount=0
+  let flagged = applyMistakeFlagToStat(null, qMeta, true, t0);
+  assert.equal(flagged.flaggedAsMistake, true);
+  assert.equal(flagged.inMistakeQueue, true);
+  assert.equal(flagged.attemptsCount, 0);
+  assert.equal(computeMistakeQueueState([flagged], t0).dueMistakes.length, 1);
+
+  // Unflagging a zero-attempt stub removes it cleanly (returns null)
+  assert.equal(applyMistakeFlagToStat(flagged, qMeta, false, t0), null);
+
+  // Verify 1d -> 3d -> 7d interval progression when graduationThreshold = 4
+  let r = flagged;
+  r = applyQuestionAttemptToStat(
+    r,
+    { questionId: qMeta.id, outcome: "correct", selected: ["C"] },
+    qMeta,
+    t0,
+    { graduationThreshold: 4 }
+  );
+  assert.equal(r.nextReviewAt, new Date(t0 + 1 * DAY_MS).toISOString());
+
+  r = applyQuestionAttemptToStat(
+    r,
+    { questionId: qMeta.id, outcome: "correct", selected: ["C"] },
+    qMeta,
+    t0 + DAY_MS,
+    { graduationThreshold: 4 }
+  );
+  assert.equal(r.nextReviewAt, new Date(t0 + DAY_MS + 3 * DAY_MS).toISOString());
+
+  r = applyQuestionAttemptToStat(
+    r,
+    { questionId: qMeta.id, outcome: "correct", selected: ["C"] },
+    qMeta,
+    t0 + 4 * DAY_MS,
+    { graduationThreshold: 4 }
+  );
+  assert.equal(r.nextReviewAt, new Date(t0 + 4 * DAY_MS + 7 * DAY_MS).toISOString());
 });

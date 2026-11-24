@@ -20,7 +20,9 @@ import { formatTwelfths, SUBJECT_META, isVoidedQuestion } from "../core/scoring.
 import {
   computeHubSnapshot,
   createSession,
+  createMistakeRedrillSession,
   WEAK_AREA_MIN_ATTEMPTS,
+  MISTAKE_GRADUATION_THRESHOLD,
   resolveUnitQuestionPool,
   samplePracticeQuestions,
 } from "../core/stats.js";
@@ -64,10 +66,13 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
     totalOfficialPyqs,
     mockBestTwelfths,
     dueMistakes,
+    mistakeQueue,
     weakAreas,
     subjectStats,
     roadmapUnit,
   } = snapshot;
+  const scheduledMistakes = mistakeQueue?.scheduledMistakes || [];
+  const graduatedMistakes = mistakeQueue?.graduatedMistakes || [];
 
   const profileName = (meta.profile?.name || "").trim();
   const targetYear = meta.profile?.targetYear || 2028;
@@ -214,19 +219,29 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
         </div>
       </section>
 
-      <!-- Spaced Repetition / Mistake Queue Strip (07-today-dashboard.png) -->
-      <button type="button" class="card mistake-strip-btn" id="todayMistakeBtn">
-        <span class="quick-action-card__icon" data-tone="brand">${icon("icon-refresh")}</span>
-        <span class="mistake-strip-btn__body">
-          <strong>Spaced Repetition · Mistake Queue</strong>
-          <span class="card__meta">${
-            dueMistakes.length > 0
-              ? `${dueMistakes.length} question${dueMistakes.length === 1 ? "" : "s"} due today from past mistakes`
-              : "0 questions due today — honest local Leitner queue"
-          }</span>
-        </span>
-        ${icon("icon-chevron")}
-      </button>
+      <!-- Spaced Repetition / Mistake Notebook Section (07-today-dashboard.png + Phase 07 Slice 3) -->
+      <section class="card stack-s" id="todayMistakeNotebookCard" aria-label="Spaced mistake notebook">
+        <button type="button" class="mistake-strip-btn" id="todayMistakeBtn" style="padding:0;border:none;background:transparent">
+          <span class="quick-action-card__icon" data-tone="brand">${icon("icon-refresh")}</span>
+          <span class="mistake-strip-btn__body">
+            <span class="cluster-xs">
+              <strong>Spaced Mistake Notebook</strong>
+              <span class="badge ${dueMistakes.length > 0 ? "badge--partial" : "badge--brand"} mono" id="todayMistakeDueBadge">${dueMistakes.length} Due</span>
+              ${scheduledMistakes.length > 0 ? `<span class="pill mono">${scheduledMistakes.length} Scheduled</span>` : ""}
+              ${graduatedMistakes.length > 0 ? `<span class="pill mono">${graduatedMistakes.length} Graduated</span>` : ""}
+            </span>
+            <span class="card__meta">${
+              dueMistakes.length > 0
+                ? `${dueMistakes.length} mistake${dueMistakes.length === 1 ? "" : "s"} due for spaced re-drill (graduates after ${MISTAKE_GRADUATION_THRESHOLD} correct answers)`
+                : scheduledMistakes.length > 0
+                ? `0 due right now · ${scheduledMistakes.length} mistake${scheduledMistakes.length === 1 ? "" : "s"} scheduled on 1d/3d/7d intervals`
+                : "0 questions due today — missed independent answers or flagged items queue here"
+            }</span>
+          </span>
+          ${icon("icon-chevron")}
+        </button>
+        <div id="todayMistakeDueListSlot" class="stack-xs" ${dueMistakes.length > 0 ? "" : "hidden"}></div>
+      </section>
 
       <!-- Weak Areas & Per-Subject / Per-Unit Accuracy Breakdown (Phase 07 · Slice 1) -->
       <section class="stack-xs" id="todayWeakAreasSection" aria-label="Weak areas and accuracy breakdown">
@@ -493,7 +508,58 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
   // Quick Action: Daily 10-Q (balanced 4 Maths + 3 Physics + 2 Chem + 1 FEEE PYQ sampler)
   $("#qaDaily10Btn", root).addEventListener("click", launchDaily10Sprint);
 
-  // Mistake Queue Strip action
+  // Populate Today Due Mistake Re-drill items (1-tap single-item re-drill)
+  if (dueMistakes.length > 0) {
+    const dueListSlot = $("#todayMistakeDueListSlot", root);
+    const qIndex = await getQuestionIndex();
+    for (const m of dueMistakes.slice(0, 4)) {
+      const q = qIndex.get(m.questionId);
+      if (!q) continue;
+      const lastDate = m.lastAttemptAt
+        ? new Date(m.lastAttemptAt).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+          })
+        : null;
+      const streak = m.consecutiveCorrect ?? m.leitnerBox ?? 0;
+      const qLabel = q.year ? `JELET ${q.year} · Q${q.qNumber}` : q.id;
+      const row = el(`
+        <div class="mistake-notebook-item">
+          <div class="mistake-notebook-item__info">
+            <div class="cluster-xs">
+              <strong class="mono" style="font-size:var(--fs-caption)">${escapeHtml(qLabel)}</strong>
+              ${subjectBadgeHtml(q.subjectId)}
+              <span class="mono pill">${escapeHtml(q.unitId)}</span>
+              ${m.flaggedAsMistake ? `<span class="badge badge--review">Flagged</span>` : ""}
+            </div>
+            <span class="card__meta mono">
+              ${m.attemptsCount || 0} attempt${(m.attemptsCount || 0) === 1 ? "" : "s"}${lastDate ? ` · Last ${escapeHtml(lastDate)}` : ""} · ${streak}/${MISTAKE_GRADUATION_THRESHOLD} to graduate
+            </span>
+          </div>
+          <button type="button" class="btn btn--primary btn--sm js-today-redrill-one" data-qid="${escapeHtml(q.id)}">
+            ${icon("icon-play")} Re-drill
+          </button>
+        </div>
+      `);
+      $(".js-today-redrill-one", row).addEventListener("click", async () => {
+        const sess = await createMistakeRedrillSession({
+          questions: [q],
+          mistakeRecords: [m],
+        });
+        location.hash = `#/practice-run/${sess.sessionId}`;
+      });
+      dueListSlot.appendChild(row);
+    }
+    if (dueMistakes.length > 4) {
+      dueListSlot.appendChild(
+        el(
+          `<a href="#/practice?panel=mistake" class="card__meta" style="text-decoration:none">View all ${dueMistakes.length} due mistakes in Practice Arena ›</a>`
+        )
+      );
+    }
+  }
+
+  // Mistake Queue Strip action (batch re-drill all due)
   $("#todayMistakeBtn", root).addEventListener("click", async () => {
     if (!dueMistakes.length) {
       showToast("0 mistakes due right now — start a Daily 10-Q or Topic Drill!");
@@ -505,11 +571,10 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
       .map((m) => qIndex.get(m.questionId))
       .filter(Boolean)
       .slice(0, 20);
-    const sess = await createSession({
-      kind: "mistake",
-      mode: "independent",
-      title: `Spaced Mistake Queue (${qs.length} Qs)`,
+    const sess = await createMistakeRedrillSession({
       questions: qs,
+      mistakeRecords: dueMistakes,
+      title: `Spaced Mistake Queue (${qs.length} Qs)`,
     });
     location.hash = `#/practice-run/${sess.sessionId}`;
   });

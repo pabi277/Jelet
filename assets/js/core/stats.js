@@ -13,7 +13,8 @@ import * as db from "../db/indexeddb.js";
 import { scoreAttempt, MAX_PAPER_TWELFTHS, isVoidedQuestion } from "./scoring.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-const LEITNER_INTERVAL_DAYS = [0, 1, 3, 7, 14];
+export const SPACED_INTERVAL_DAYS = [0, 1, 3, 7];
+export const MISTAKE_GRADUATION_THRESHOLD = 2;
 
 export const WEAK_AREA_MIN_ATTEMPTS = 3;
 export const WEAK_AREA_TOP_K = 3;
@@ -65,6 +66,7 @@ export async function createSession({
   title = "Practice Session",
   questions = [],
   durationMinutes = null,
+  mistakeContext = null,
 }) {
   const now = new Date().toISOString();
   const sessionId = `sess-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
@@ -82,6 +84,7 @@ export async function createSession({
     markedForReview: [], // qId[]
     assistedQuestionIds: [], // qIds where hint/AI was opened
     revealedQuestionIds: [], // qIds already checked in assisted drill
+    mistakeContext: mistakeContext || null, // qId -> prior mistake attempt metadata
     durationMs: remainingMs,
     remainingMs,
     lastTickAt: Date.now(),
@@ -116,9 +119,294 @@ export async function getActiveSessions() {
     .sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
 }
 
+/* ------------------------------------------------------------------ *
+ * Spaced Mistake Notebook & Graduation Engine (Phase 07 · Slice 3)
+ * ------------------------------------------------------------------ */
+
+/** True when a `questionStats` record is currently active in the Mistake Queue. */
+export function isMistakeRecordActive(
+  rec,
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  if (!rec) return false;
+  if (typeof rec.inMistakeQueue === "boolean") {
+    return rec.inMistakeQueue;
+  }
+  if (rec.flaggedAsMistake) return true;
+  if ((rec.mistakeCount || 0) > 0) {
+    const streak = rec.consecutiveCorrect ?? rec.leitnerBox ?? 0;
+    return streak < graduationThreshold;
+  }
+  return false;
+}
+
+/** True when an active mistake's scheduled review time has arrived. */
+export function isMistakeRecordDue(
+  rec,
+  nowMs = Date.now(),
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  if (!isMistakeRecordActive(rec, { graduationThreshold })) return false;
+  const nowIso = new Date(nowMs).toISOString();
+  return (rec.leitnerBox ?? 0) === 0 || !rec.nextReviewAt || rec.nextReviewAt <= nowIso;
+}
+
+/**
+ * Pure state transition for a single independent question attempt.
+ *   - Wrong/partial -> enters active mistake queue, due immediately (Box 0).
+ *   - Correct while in mistake queue -> advances through 1-day / 3-day / 7-day
+ *     deterministic spaced intervals and graduates out once answered correctly
+ *     `graduationThreshold` (default N=2) consecutive times.
+ */
+export function applyQuestionAttemptToStat(
+  prev,
+  item,
+  questionMeta = {},
+  nowMs = Date.now(),
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  const nowIso = new Date(nowMs).toISOString();
+  const wasActiveMistake = isMistakeRecordActive(prev, { graduationThreshold });
+  const isMiss = item.outcome === "incorrect" || item.outcome === "partial";
+  const isCorrect = item.outcome === "correct";
+
+  const attemptsCount = (prev?.attemptsCount || 0) + 1;
+  const correctCount = (prev?.correctCount || 0) + (isCorrect ? 1 : 0);
+  const mistakeCount = (prev?.mistakeCount || 0) + (isMiss ? 1 : 0);
+
+  let inMistakeQueue = false;
+  let consecutiveCorrect = 0;
+  let leitnerBox = 0;
+  let nextReviewMs = nowMs;
+  let flaggedAsMistake = Boolean(prev?.flaggedAsMistake);
+  let graduatedAt = prev?.graduatedAt || null;
+  let lastMistakeSelected = prev?.lastMistakeSelected || [];
+  let lastMistakeOutcome = prev?.lastMistakeOutcome || null;
+
+  if (isMiss) {
+    inMistakeQueue = true;
+    consecutiveCorrect = 0;
+    leitnerBox = 0;
+    nextReviewMs = nowMs + SPACED_INTERVAL_DAYS[0] * DAY_MS;
+    graduatedAt = null;
+    lastMistakeSelected = [...(item.selected || [])];
+    lastMistakeOutcome = item.outcome;
+  } else if (isCorrect && wasActiveMistake) {
+    const prevStreak = prev?.consecutiveCorrect ?? prev?.leitnerBox ?? 0;
+    consecutiveCorrect = prevStreak + 1;
+    leitnerBox = Math.min(SPACED_INTERVAL_DAYS.length - 1, consecutiveCorrect);
+    nextReviewMs = nowMs + SPACED_INTERVAL_DAYS[leitnerBox] * DAY_MS;
+
+    if (!lastMistakeSelected.length && prev?.lastSelected?.length && prev?.lastOutcome !== "correct") {
+      lastMistakeSelected = [...prev.lastSelected];
+      lastMistakeOutcome = prev.lastOutcome || null;
+    }
+
+    if (consecutiveCorrect >= graduationThreshold) {
+      inMistakeQueue = false;
+      flaggedAsMistake = false;
+      graduatedAt = nowIso;
+    } else {
+      inMistakeQueue = true;
+      graduatedAt = null;
+    }
+  } else {
+    consecutiveCorrect = (prev?.consecutiveCorrect || 0) + 1;
+    leitnerBox = Math.min(SPACED_INTERVAL_DAYS.length - 1, (prev?.leitnerBox ?? 0) + 1);
+    nextReviewMs = nowMs + SPACED_INTERVAL_DAYS[leitnerBox] * DAY_MS;
+    inMistakeQueue = false;
+    flaggedAsMistake = false;
+  }
+
+  return {
+    questionId: item.questionId,
+    sourceType: questionMeta?.sourceType || prev?.sourceType || "official-pyq",
+    subjectId: item.subjectId || questionMeta?.subjectId || prev?.subjectId || "",
+    unitId: item.unitId || questionMeta?.unitId || prev?.unitId || "",
+    attemptsCount,
+    correctCount,
+    mistakeCount,
+    consecutiveCorrect,
+    inMistakeQueue,
+    flaggedAsMistake,
+    graduatedAt,
+    lastAttemptAt: nowIso,
+    lastOutcome: item.outcome,
+    lastSelected: [...(item.selected || [])],
+    lastMistakeSelected,
+    lastMistakeOutcome,
+    leitnerBox,
+    nextReviewAt: new Date(nextReviewMs).toISOString(),
+    updatedAt: nowIso,
+  };
+}
+
+/** Pure helper to explicitly flag or unflag a question in the Mistake Queue. */
+export function applyMistakeFlagToStat(
+  prev,
+  questionMeta = {},
+  flagged = true,
+  nowMs = Date.now(),
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  const nowIso = new Date(nowMs).toISOString();
+  const qId = questionMeta.id || questionMeta.questionId || prev?.questionId;
+  if (!qId) return null;
+
+  if (!flagged) {
+    if (!prev || ((prev.attemptsCount || 0) === 0 && (prev.mistakeCount || 0) === 0)) {
+      return null;
+    }
+    const stillUnresolvedMistake =
+      (prev.mistakeCount || 0) > 0 &&
+      (prev.consecutiveCorrect ?? prev.leitnerBox ?? 0) < graduationThreshold &&
+      !prev.graduatedAt;
+    return {
+      ...prev,
+      flaggedAsMistake: false,
+      inMistakeQueue: stillUnresolvedMistake,
+      updatedAt: nowIso,
+    };
+  }
+
+  return {
+    questionId: qId,
+    sourceType: questionMeta.sourceType || prev?.sourceType || "official-pyq",
+    subjectId: questionMeta.subjectId || prev?.subjectId || "",
+    unitId: questionMeta.unitId || prev?.unitId || "",
+    attemptsCount: prev?.attemptsCount || 0,
+    correctCount: prev?.correctCount || 0,
+    mistakeCount: prev?.mistakeCount || 0,
+    consecutiveCorrect: 0,
+    inMistakeQueue: true,
+    flaggedAsMistake: true,
+    graduatedAt: null,
+    lastAttemptAt: prev?.lastAttemptAt || null,
+    lastOutcome: prev?.lastOutcome || null,
+    lastSelected: prev?.lastSelected || [],
+    lastMistakeSelected: prev?.lastMistakeSelected || [],
+    lastMistakeOutcome: prev?.lastMistakeOutcome || null,
+    leitnerBox: 0,
+    nextReviewAt: nowIso,
+    updatedAt: nowIso,
+  };
+}
+
+/** Partition `questionStats` into active, due, scheduled, and graduated mistake lists. */
+export function computeMistakeQueueState(
+  questionStats = [],
+  nowMs = Date.now(),
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  const dueMistakes = [];
+  const scheduledMistakes = [];
+  const graduatedMistakes = [];
+
+  for (const rec of questionStats || []) {
+    if (!rec) continue;
+    if (isMistakeRecordActive(rec, { graduationThreshold })) {
+      if (isMistakeRecordDue(rec, nowMs, { graduationThreshold })) {
+        dueMistakes.push(rec);
+      } else {
+        scheduledMistakes.push(rec);
+      }
+    } else if ((rec.mistakeCount || 0) > 0 || Boolean(rec.graduatedAt)) {
+      graduatedMistakes.push(rec);
+    }
+  }
+
+  const dueSort = (a, b) =>
+    (a.leitnerBox ?? 0) - (b.leitnerBox ?? 0) ||
+    String(a.nextReviewAt || "").localeCompare(String(b.nextReviewAt || "")) ||
+    String(a.questionId).localeCompare(String(b.questionId));
+
+  const schedSort = (a, b) =>
+    String(a.nextReviewAt || "").localeCompare(String(b.nextReviewAt || "")) ||
+    String(a.questionId).localeCompare(String(b.questionId));
+
+  dueMistakes.sort(dueSort);
+  scheduledMistakes.sort(schedSort);
+
+  return {
+    dueMistakes,
+    scheduledMistakes,
+    activeMistakes: [...dueMistakes, ...scheduledMistakes],
+    graduatedMistakes,
+    graduationThreshold,
+  };
+}
+
+export async function getQuestionStatsMap() {
+  const rows = await db.getAll("questionStats");
+  return new Map(rows.map((r) => [r.questionId, r]));
+}
+
+export async function toggleMistakeFlag(questionMeta, nowMs = Date.now()) {
+  const qId = questionMeta?.id || questionMeta?.questionId;
+  if (!qId) return null;
+  const prev = await db.get("questionStats", qId);
+  const nextFlagged = !Boolean(prev?.flaggedAsMistake);
+  const updated = applyMistakeFlagToStat(prev, questionMeta, nextFlagged, nowMs);
+  if (!updated) {
+    await db.deleteRecord("questionStats", qId);
+    return null;
+  }
+  await db.put("questionStats", updated);
+  return updated;
+}
+
+/**
+ * Create a focused Mistake Re-drill session (single item or due batch),
+ * attaching prior mistake answer & attempt metadata so the runner can display it.
+ */
+export async function createMistakeRedrillSession({
+  questions = [],
+  mistakeRecords = null,
+  title = null,
+} = {}) {
+  const statsMap = mistakeRecords
+    ? new Map(mistakeRecords.map((r) => [r.questionId, r]))
+    : await getQuestionStatsMap();
+
+  const mistakeContext = {};
+  for (const q of questions) {
+    const rec = statsMap.get(q.id);
+    if (rec) {
+      mistakeContext[q.id] = {
+        previousSelected:
+          rec.lastMistakeSelected?.length
+            ? rec.lastMistakeSelected
+            : rec.lastSelected || [],
+        lastSelected: rec.lastSelected || [],
+        lastOutcome: rec.lastMistakeOutcome || rec.lastOutcome || null,
+        lastAttemptAt: rec.lastAttemptAt || rec.updatedAt || null,
+        attemptsCount: rec.attemptsCount || 0,
+        consecutiveCorrect: rec.consecutiveCorrect ?? rec.leitnerBox ?? 0,
+        flaggedAsMistake: Boolean(rec.flaggedAsMistake),
+      };
+    }
+  }
+
+  const singleQ = questions.length === 1 ? questions[0] : null;
+  const resolvedTitle =
+    title ||
+    (singleQ
+      ? `Mistake Re-drill · ${singleQ.year ? `JELET ${singleQ.year} Q${singleQ.qNumber}` : singleQ.id}`
+      : `Spaced Mistake Queue (${questions.length} Qs)`);
+
+  return createSession({
+    kind: "mistake",
+    mode: "independent",
+    title: resolvedTitle,
+    questions,
+    durationMinutes: null,
+    mistakeContext,
+  });
+}
+
 /**
  * Finalize a session into an immutable `attempts` record and update `questionStats`
- * (Leitner spaced-repetition boxes) for independent attempts.
+ * (Spaced Mistake Queue intervals + graduation) for independent attempts.
  */
 export async function submitSessionToAttempt({ session, questions }) {
   const nowMs = Date.now();
@@ -164,7 +452,7 @@ export async function submitSessionToAttempt({ session, questions }) {
 
   await db.put("attempts", attempt);
 
-  // Update per-question stats & Leitner spaced-repetition ONLY for unassisted items
+  // Update per-question stats & Spaced Mistake Queue ONLY for unassisted items
   const existingStats = await db.getAll("questionStats");
   const statMap = new Map(existingStats.map((r) => [r.questionId, r]));
   const qMap = new Map(questions.map((q) => [q.id, q]));
@@ -176,35 +464,7 @@ export async function submitSessionToAttempt({ session, questions }) {
 
     const q = qMap.get(item.questionId);
     const prev = statMap.get(item.questionId);
-    const prevBox = prev?.leitnerBox ?? 0;
-
-    let nextBox = 0;
-    let nextReviewMs = nowMs;
-    if (item.outcome === "correct") {
-      nextBox = Math.min(4, prevBox + 1);
-      nextReviewMs = nowMs + LEITNER_INTERVAL_DAYS[nextBox] * DAY_MS;
-    } else {
-      // incorrect or partial -> Leitner Box 0 (due immediately in Mistake Queue)
-      nextBox = 0;
-      nextReviewMs = nowMs;
-    }
-
-    updates.push({
-      questionId: item.questionId,
-      sourceType: q?.sourceType || "official-pyq",
-      subjectId: item.subjectId,
-      unitId: item.unitId,
-      attemptsCount: (prev?.attemptsCount || 0) + 1,
-      correctCount: (prev?.correctCount || 0) + (item.outcome === "correct" ? 1 : 0),
-      mistakeCount:
-        (prev?.mistakeCount || 0) +
-        (item.outcome === "incorrect" || item.outcome === "partial" ? 1 : 0),
-      lastOutcome: item.outcome,
-      lastSelected: item.selected,
-      leitnerBox: nextBox,
-      nextReviewAt: new Date(nextReviewMs).toISOString(),
-      updatedAt: nowIso,
-    });
+    updates.push(applyQuestionAttemptToStat(prev, item, q, nowMs));
   }
 
   if (updates.length) {
@@ -227,14 +487,7 @@ export async function getAllAttempts() {
 /** Return questionStats records due today in the Spaced Mistake Queue. */
 export async function getDueMistakeRecords(nowMs = Date.now()) {
   const stats = await db.getAll("questionStats");
-  const nowIso = new Date(nowMs).toISOString();
-  return stats
-    .filter(
-      (s) =>
-        (s.mistakeCount || 0) > 0 &&
-        (s.leitnerBox === 0 || !s.nextReviewAt || s.nextReviewAt <= nowIso)
-    )
-    .sort((a, b) => (a.leitnerBox - b.leitnerBox) || String(a.nextReviewAt).localeCompare(String(b.nextReviewAt)));
+  return computeMistakeQueueState(stats, nowMs).dueMistakes;
 }
 
 /* ------------------------------------------------------------------ *
@@ -651,14 +904,15 @@ export async function computeHubSnapshot(manifest) {
   ]);
 
   const nowMs = Date.now();
-  const nowIso = new Date(nowMs).toISOString();
 
   const streakDays = computeStreakDays(
     attempts.map((a) => a.submittedAt),
     nowMs
   );
 
-  const officialStats = qStats.filter((s) => (s.sourceType || "official-pyq") === "official-pyq");
+  const officialStats = qStats.filter(
+    (s) => (s.sourceType || "official-pyq") === "official-pyq" && (s.attemptsCount || 0) > 0
+  );
   const officialPyqsPracticed = officialStats.length;
   const totalOfficialPyqs = manifest?.totals?.questions || 400;
 
@@ -690,12 +944,9 @@ export async function computeHubSnapshot(manifest) {
     }
   }
 
-  // Due mistakes in Leitner queue
-  const dueMistakes = qStats.filter(
-    (s) =>
-      (s.mistakeCount || 0) > 0 &&
-      (s.leitnerBox === 0 || !s.nextReviewAt || s.nextReviewAt <= nowIso)
-  );
+  // Spaced Mistake Notebook (due + scheduled + graduated)
+  const mistakeQueue = computeMistakeQueueState(qStats, nowMs);
+  const dueMistakes = mistakeQueue.dueMistakes;
 
   // Per-subject mastery (combined unit revision + independent PYQ practice)
   const unitMap = new Map(unitRows.map((u) => [u.unitId, u]));
@@ -759,6 +1010,7 @@ export async function computeHubSnapshot(manifest) {
     mockBestTwelfths,
     paperBestMap,
     dueMistakes,
+    mistakeQueue,
     weakAreas,
     routingInfo,
     subjectStats,
