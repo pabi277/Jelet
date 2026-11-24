@@ -115,6 +115,7 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
   const dashOffset = circumference * (1 - Math.min(100, pct) / 100);
 
   const tb = attempt.tieBreakVector || {};
+  const analytics = attempt.analytics || null;
 
   const root = el(`
     <div class="view stack-m results-layout">
@@ -210,6 +211,91 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
         </details>
       </section>
 
+      <!-- Per-Mock Performance Analytics (Phase 08) -->
+      ${
+        analytics
+          ? `
+      <section class="card stack-s results-analytics" id="resultsAnalyticsSection" aria-label="Mock performance analytics">
+        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+          <h3 class="card__title" style="margin:0">Performance Analytics</h3>
+          <span class="pill mono">${analytics.scorePct}% · ${formatTwelfths(analytics.totalTwelfths)} / ${formatTwelfths(analytics.maxTwelfths)} Marks</span>
+        </div>
+        <p class="card__meta" style="margin:0">Section scores, accuracy and time breakdown from your real submission — local only.</p>
+
+        <h4 class="section-heading" style="font-size:var(--fs-body)">Section Scores</h4>
+        <div class="results-tiles-grid">
+          ${analytics.sections
+            .map(
+              (s) => `
+            <div class="results-mini-tile" data-subject="${escapeHtml(s.subjectId)}">
+              <span class="card__meta">${escapeHtml(s.shortName)} · ${s.questionCount} Qs</span>
+              <strong class="mono">${formatTwelfths(s.totalTwelfths)} / ${formatTwelfths(s.maxTwelfths)}</strong>
+              <span class="card__meta mono">${s.accuracyPct}% acc</span>
+            </div>`
+            )
+            .join("")}
+        </div>
+
+        <h4 class="section-heading" style="font-size:var(--fs-body)">Accuracy</h4>
+        <div class="results-tiles-grid">
+          <div class="results-mini-tile"><span class="card__meta">Correct</span><strong class="mono">${analytics.accuracy.correct}</strong></div>
+          <div class="results-mini-tile"><span class="card__meta">Partial</span><strong class="mono">${analytics.accuracy.partial}</strong></div>
+          <div class="results-mini-tile"><span class="card__meta">Incorrect</span><strong class="mono">${analytics.accuracy.incorrect}</strong></div>
+          <div class="results-mini-tile"><span class="card__meta">Unattempted</span><strong class="mono">${analytics.accuracy.unattempted}</strong></div>
+        </div>
+        <p class="card__meta" style="margin:0">
+          Overall accuracy <strong class="mono">${analytics.accuracy.accuracyPct}%</strong> (${analytics.accuracy.correct}/${analytics.accuracy.attempted} attempted) · ${analytics.accuracy.voided} voided W awarded.
+        </p>
+
+        ${
+          analytics.time.captured
+            ? `
+        <h4 class="section-heading" style="font-size:var(--fs-body)">Time Analysis</h4>
+        <div class="analytics-time stack-xs">
+          <div class="row-between"><span class="card__meta">Avg / Median per question</span><strong class="mono">${formatDurationClock(analytics.time.avgTimeMs)} / ${formatDurationClock(analytics.time.medianTimeMs)}</strong></div>
+          <div class="row-between"><span class="card__meta">Slow threshold (≥ ${analytics.time.slowThresholdMs / 1000}s)</span><strong class="mono">${analytics.time.slowQuestions.length} flagged</strong></div>
+          ${analytics.time.bySectionAvgMs.length
+            ? `<div class="analytics-time__row"><span class="card__meta">Avg per section</span><span class="mono">${analytics.time.bySectionAvgMs.map((t) => `${escapeHtml(t.shortName)} ${formatDurationClock(t.avgTimeMs)}`).join(" · ")}</span></div>`
+            : ""}
+          ${analytics.time.slowQuestions.length
+            ? `<div class="analytics-slow-list">${analytics.time.slowQuestions
+                .map(
+                  (q) => `<span class="pill mono">Q${q.qNumber} · ${formatDurationClock(q.timeMs)}</span>`
+                )
+                .join("")}</div>`
+            : `<p class="card__meta" style="margin:0">No question exceeded 2× the average time-per-question.</p>`}
+        </div>`
+            : ""
+        }
+
+        <h4 class="section-heading" style="font-size:var(--fs-body)">Wrong vs Verified Key</h4>
+        <div class="stack-xs" id="resultsWrongKeyList">
+          ${
+            analytics.wrongKey.length
+              ? analytics.wrongKey
+                  .map(
+                    (w) => `
+              <div class="wrong-key-item">
+                <div class="cluster-xs">
+                  <strong class="mono">Q${w.qNumber || ""}</strong>
+                  ${subjectBadgeHtml(w.subjectId)}
+                  <span class="card__meta">${escapeHtml(w.unitId)} · Cat ${w.category === 2 ? "II" : "I"}</span>
+                  ${outcomeBadgeHtml(w)}
+                </div>
+                <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+                  <span class="card__meta">Your pick: <strong class="mono">${w.selected.length ? w.selected.join(", ") : "—"}</strong> · Key: <strong class="mono">${(w.correctOptions || []).join(", ") || "W"}</strong></span>
+                  <button type="button" class="btn btn--ghost btn--sm js-wrong-solution" data-qid="${escapeHtml(w.questionId)}">${icon("icon-check")} View solution</button>
+                </div>
+              </div>`
+                  )
+                  .join("")
+              : `<p class="card__meta" style="margin:0">Clean sweep — zero incorrect or partial items against the verified key.</p>`
+          }
+        </div>
+      </section>`
+          : ""
+      }
+
       <!-- Honest Corpus Diagnosis Banner -->
       <section class="card card--subtle row-between" style="flex-wrap:wrap;gap:var(--space-s)">
         <div class="cluster-xs">
@@ -302,7 +388,7 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
 
       const card = el(`
         <article class="card stack-s ${isExpanded ? "card--accent-border" : ""}">
-          <button type="button" class="results-item-header js-toggle-item">
+          <button type="button" class="results-item-header js-toggle-item" data-qid="${escapeHtml(q.id)}">
             <div class="cluster-xs" style="text-align:left">
               <strong class="mono">Q${q.qNumber || ""}</strong>
               ${subjectBadgeHtml(q.subjectId)}
@@ -465,6 +551,26 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
       stack.appendChild(card);
     }
   }
+
+  // One-tap "View solution" from the analytics wrong-key breakdown: jump to the
+  // matching outcome filter, expand that question and scroll it into view.
+  function focusQuestion(questionId) {
+    const item = (attempt.items || []).find((i) => i.questionId === questionId);
+    if (!item) return;
+    activeFilter = item.outcome === "voided_awarded" ? "all" : item.outcome;
+    expandedIds.clear();
+    expandedIds.add(questionId);
+    renderFilterChips();
+    renderItems();
+    requestAnimationFrame(() => {
+      const card = $(`#resultsItemsStack .js-toggle-item[data-qid="${CSS.escape(questionId)}"]`, root);
+      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }
+
+  root.querySelectorAll(".js-wrong-solution").forEach((btn) => {
+    btn.addEventListener("click", () => focusQuestion(btn.dataset.qid));
+  });
 
   renderFilterChips();
   renderItems();

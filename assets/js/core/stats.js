@@ -10,7 +10,7 @@
  */
 
 import * as db from "../db/indexeddb.js";
-import { scoreAttempt, MAX_PAPER_TWELFTHS, isVoidedQuestion } from "./scoring.js";
+import { scoreAttempt, MAX_PAPER_TWELFTHS, isVoidedQuestion, SUBJECT_META } from "./scoring.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 export const SPACED_INTERVAL_DAYS = [0, 1, 3, 7];
@@ -82,6 +82,7 @@ export async function createSession({
     currentIndex: 0,
     responses: {}, // qId -> string[]
     markedForReview: [], // qId[]
+    questionTimes: {}, // qId -> ms spent on that question (mock time analytics)
     assistedQuestionIds: [], // qIds where hint/AI was opened
     revealedQuestionIds: [], // qIds already checked in assisted drill
     mistakeContext: mistakeContext || null, // qId -> prior mistake attempt metadata
@@ -432,6 +433,7 @@ export async function submitSessionToAttempt({ session, questions }) {
     submittedAt: nowIso,
     updatedAt: nowIso,
     elapsedMs,
+    durationMs: session.durationMs != null ? session.durationMs : null,
     questionIds: questions.map((q) => q.id),
     responses: session.responses || {},
     assistedQuestionIds: [...assistedSet],
@@ -449,6 +451,10 @@ export async function submitSessionToAttempt({ session, questions }) {
     tieBreakVector: scored.tieBreakVector,
     items: scored.items,
   };
+
+  // Per-mock performance analytics blob (section scores, accuracy, time, key
+  // breakdown) persisted with the attempt for trend tracking & weak-area feeding.
+  attempt.analytics = computeMockAnalytics(attempt, questions, session.questionTimes || {});
 
   await db.put("attempts", attempt);
 
@@ -473,6 +479,268 @@ export async function submitSessionToAttempt({ session, questions }) {
   await db.deleteRecord("sessions", session.sessionId);
 
   return attempt;
+}
+
+/** Questions slower than this multiple of the paper's average time-per-question are flagged. */
+export const MOCK_SLOW_QUESTION_FACTOR = 2;
+
+/**
+ * Compute a rich, fully-local performance analytics blob for a single mock attempt.
+ *
+ * Pure function: derives section scores, accuracy, the time-per-question
+ * distribution and the wrong-vs-key breakdown strictly from the frozen scoring
+ * output (`attempt.items` / `attempt.bySubject`) plus the captured
+ * `questionTimes` map. No telemetry, no fabricated scores.
+ */
+export function computeMockAnalytics(attempt, questions = [], questionTimes = {}) {
+  const items = Array.isArray(attempt?.items) ? attempt.items : [];
+  const bySubject = attempt?.bySubject || {};
+  const counts = attempt?.counts || {};
+  const totalTwelfths = Number(attempt?.totalTwelfths) || 0;
+  const maxTwelfths = Number(attempt?.maxTwelfths) || 0;
+  const elapsedMs = Number.isFinite(Number(attempt?.elapsedMs))
+    ? Number(attempt.elapsedMs)
+    : null;
+  const durationMs = Number.isFinite(Number(attempt?.durationMs))
+    ? Number(attempt.durationMs)
+    : null;
+
+  const SUBJECT_ORDER = ["MATH", "PHYS", "CHEM", "FEEE"];
+
+  // Overall accuracy (voided "W" awards marks to everyone but is not user-attempted)
+  const correct = counts.correct || 0;
+  const partial = counts.partial || 0;
+  const incorrect = counts.incorrect || 0;
+  const unattempted = counts.unattempted || 0;
+  const voided = counts.voided_awarded || 0;
+  const attempted = correct + partial + incorrect;
+  const accuracyPct = attempted > 0 ? Math.round((correct * 100) / attempted) : 0;
+  const scorePct =
+    maxTwelfths > 0 ? Math.max(0, Math.round((totalTwelfths * 100) / maxTwelfths)) : 0;
+
+  // Section-wise scores + accuracy + average time
+  const sections = [];
+  for (const sid of SUBJECT_ORDER) {
+    const sb = bySubject[sid];
+    if (!sb) continue;
+    const sCorrect = sb.correct || 0;
+    const sPartial = sb.partial || 0;
+    const sIncorrect = sb.incorrect || 0;
+    const sUnattempted = sb.unattempted || 0;
+    const sVoided = sb.voided_awarded || 0;
+    const sAttempted = sCorrect + sPartial + sIncorrect;
+
+    const sTimes = [];
+    for (const item of items) {
+      if (item.subjectId !== sid) continue;
+      const t = Number(questionTimes[item.questionId]) || 0;
+      if (t > 0) sTimes.push(t);
+    }
+    const sAvgTime = sTimes.length
+      ? Math.round(sTimes.reduce((a, b) => a + b, 0) / sTimes.length)
+      : 0;
+    const sMaxTime = sTimes.length ? Math.max(...sTimes) : 0;
+
+    sections.push({
+      subjectId: sid,
+      title: SUBJECT_META[sid]?.name || sid,
+      shortName: SUBJECT_META[sid]?.shortName || sid,
+      totalTwelfths: sb.totalTwelfths || 0,
+      maxTwelfths: sb.maxTwelfths || 0,
+      scorePct:
+        sb.maxTwelfths > 0
+          ? Math.max(0, Math.round(((sb.totalTwelfths || 0) * 100) / sb.maxTwelfths))
+          : 0,
+      correct: sCorrect,
+      partial: sPartial,
+      incorrect: sIncorrect,
+      unattempted: sUnattempted,
+      voided: sVoided,
+      attempted: sAttempted,
+      accuracyPct:
+        sAttempted > 0 ? Math.round((sCorrect * 100) / sAttempted) : 0,
+      avgTimeMs: sAvgTime,
+      maxTimeMs: sMaxTime,
+      questionCount: sb.questionCount || 0,
+    });
+  }
+
+  // Time analysis (only over questions with captured time)
+  const allTimes = [];
+  for (const item of items) {
+    const t = Number(questionTimes[item.questionId]) || 0;
+    if (t > 0) allTimes.push(t);
+  }
+  const captured = allTimes.length > 0;
+  const sortedTimes = [...allTimes].sort((a, b) => a - b);
+  const avgTimeMs = captured
+    ? Math.round(sortedTimes.reduce((a, b) => a + b, 0) / sortedTimes.length)
+    : 0;
+  const medianTimeMs = captured
+    ? sortedTimes[Math.floor(sortedTimes.length / 2)]
+    : 0;
+  const slowThresholdMs = captured
+    ? Math.max(60000, Math.round(avgTimeMs * MOCK_SLOW_QUESTION_FACTOR))
+    : 0;
+
+  const perQuestionMs = items
+    .map((item) => ({
+      questionId: item.questionId,
+      qNumber: item.qNumber,
+      subjectId: item.subjectId,
+      unitId: item.unitId,
+      timeMs: Math.max(0, Math.round(Number(questionTimes[item.questionId]) || 0)),
+    }))
+    .filter((x) => x.timeMs > 0)
+    .sort((a, b) => (a.qNumber || 0) - (b.qNumber || 0));
+
+  const slowQuestions = captured
+    ? perQuestionMs.filter((x) => x.timeMs >= slowThresholdMs)
+    : [];
+
+  const bySectionAvgMs = sections
+    .filter((s) => s.avgTimeMs > 0)
+    .map((s) => ({
+      subjectId: s.subjectId,
+      shortName: s.shortName,
+      avgTimeMs: s.avgTimeMs,
+      questionCount: s.questionCount,
+    }));
+
+  // Wrong / partial vs the official verified key (worst first)
+  const wrongKey = items
+    .filter((it) => it.outcome === "incorrect" || it.outcome === "partial")
+    .map((it) => ({
+      questionId: it.questionId,
+      qNumber: it.qNumber,
+      subjectId: it.subjectId,
+      unitId: it.unitId,
+      category: it.category,
+      outcome: it.outcome,
+      selected: [...(it.selected || [])],
+      correctOptions: [...(it.correctOptions || [])],
+      twelfths: it.twelfths,
+    }))
+    .sort((a, b) => {
+      if (a.outcome !== b.outcome) return a.outcome === "incorrect" ? -1 : 1;
+      return (a.qNumber || 0) - (b.qNumber || 0);
+    });
+
+  return {
+    paperId: attempt?.paperId || null,
+    title: attempt?.title || "",
+    submittedAt: attempt?.submittedAt || null,
+    durationMs,
+    elapsedMs,
+    elapsedMinutes: elapsedMs != null ? Math.round(elapsedMs / 60000) : null,
+    totalTwelfths,
+    maxTwelfths,
+    scorePct,
+    accuracy: {
+      total: items.length,
+      correct,
+      partial,
+      incorrect,
+      unattempted,
+      voided,
+      attempted,
+      accuracyPct,
+    },
+    sections,
+    time: {
+      captured,
+      avgTimeMs,
+      medianTimeMs,
+      slowThresholdMs,
+      perQuestionMs,
+      slowQuestions,
+      bySectionAvgMs,
+    },
+    wrongKey,
+  };
+}
+
+/**
+ * Build the mock history view model from real submitted attempts.
+ * Only independent full 120-mark mocks count (never assisted drills).
+ * Returns newest-first list, oldest-first trend series (for sparklines) and
+ * honest personal bests (never faked — `null` when no mocks exist).
+ */
+export function computeMockHistory(attempts = []) {
+  const safeAttempts = Array.isArray(attempts) ? attempts : [];
+  const mocks = safeAttempts
+    .filter(
+      (a) =>
+        a &&
+        a.kind === "mock" &&
+        a.mode === "independent" &&
+        a.maxTwelfths === MAX_PAPER_TWELFTHS
+    )
+    .map((a) => {
+      const c = a.counts || {};
+      const attempted = (c.correct || 0) + (c.partial || 0) + (c.incorrect || 0);
+      const accuracyPct =
+        attempted > 0 ? Math.round(((c.correct || 0) * 100) / attempted) : 0;
+      return {
+        attemptId: a.attemptId,
+        submittedAt: a.submittedAt,
+        paperId: a.paperId || null,
+        title: a.title || "Timed Mock",
+        totalTwelfths: a.totalTwelfths,
+        maxTwelfths: a.maxTwelfths,
+        scoreMarks: a.totalTwelfths / 12,
+        scorePct:
+          a.maxTwelfths > 0
+            ? Math.max(0, Math.round((a.totalTwelfths * 100) / a.maxTwelfths))
+            : 0,
+        accuracyPct,
+        elapsedMs: Number.isFinite(Number(a.elapsedMs)) ? Number(a.elapsedMs) : null,
+        durationMs: Number.isFinite(Number(a.durationMs)) ? Number(a.durationMs) : null,
+        counts: c,
+        hasAnalytics: Boolean(a.analytics),
+      };
+    })
+    .sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
+
+  const orderedOldestFirst = [...mocks].sort((a, b) =>
+    String(a.submittedAt).localeCompare(String(b.submittedAt))
+  );
+
+  const trends = {
+    score: orderedOldestFirst.map((m) => m.scoreMarks),
+    accuracy: orderedOldestFirst.map((m) => m.accuracyPct),
+    timeMs: orderedOldestFirst
+      .filter((m) => m.elapsedMs != null)
+      .map((m) => m.elapsedMs),
+  };
+
+  let bests = {
+    bestScore: null,
+    bestAccuracy: null,
+    fastestTime: null,
+  };
+  if (mocks.length) {
+    const byScore = [...mocks].sort((a, b) => b.totalTwelfths - a.totalTwelfths)[0];
+    const byAcc = [...mocks].sort((a, b) => b.accuracyPct - a.accuracyPct)[0];
+    const timed = mocks.filter((m) => m.elapsedMs != null);
+    const byTime = timed.length
+      ? [...timed].sort((a, b) => a.elapsedMs - b.elapsedMs)[0]
+      : null;
+    bests = {
+      bestScore: byScore,
+      bestAccuracy: byAcc,
+      fastestTime: byTime,
+    };
+  }
+
+  return {
+    count: mocks.length,
+    mocks,
+    orderedOldestFirst,
+    trends,
+    bests,
+    empty: mocks.length === 0,
+  };
 }
 
 export async function getAttempt(attemptId) {
@@ -581,7 +849,11 @@ export async function savePersonalNote(targetId, type = "question", noteText = "
 export function computeWeakAreas(
   questionStats = [],
   manifestUnits = [],
-  { minAttempts = WEAK_AREA_MIN_ATTEMPTS, topK = WEAK_AREA_TOP_K } = {}
+  {
+    minAttempts = WEAK_AREA_MIN_ATTEMPTS,
+    topK = WEAK_AREA_TOP_K,
+    mockAttempts = [],
+  } = {}
 ) {
   const unitMetaMap = new Map();
   for (const u of manifestUnits || []) {
@@ -672,14 +944,71 @@ export function computeWeakAreas(
 
   const topWeakUnits = units.slice(0, Math.max(0, topK));
 
+  // Phase 08: fold the mock analytics blob (per-item outcomes) into weak-area
+  // detection as an additive, non-double-counting signal. Mock items already
+  // update `questionStats`; this additionally surfaces mock-only per-unit
+  // accuracy so mock performance refines weak areas beyond practice drills.
+  const mockUnitBuckets = new Map();
+  for (const a of mockAttempts || []) {
+    if (!a || a.kind !== "mock" || a.mode !== "independent") continue;
+    for (const item of a.items || []) {
+      if (!item || !item.unitId) continue;
+      if (item.outcome === "unattempted" || item.outcome === "voided_awarded") continue;
+      let u = mockUnitBuckets.get(item.unitId);
+      if (!u) {
+        u = {
+          unitId: item.unitId,
+          subjectId: item.subjectId || "",
+          attempts: 0,
+          correct: 0,
+          questionsAttempted: 0,
+        };
+        mockUnitBuckets.set(item.unitId, u);
+      }
+      u.attempts += 1;
+      if (item.outcome === "correct") u.correct += 1;
+      u.questionsAttempted += 1;
+    }
+  }
+
+  const mockUnits = [...mockUnitBuckets.values()]
+    .map((u) => ({
+      ...u,
+      title: unitMetaMap.get(u.unitId)?.title || u.unitId,
+      accuracyRatio: u.attempts > 0 ? u.correct / u.attempts : null,
+      accuracyPct: u.attempts > 0 ? Math.round((u.correct * 100) / u.attempts) : null,
+    }))
+    .sort(worstFirstUnitSort);
+  const mockWeakUnits = mockUnits
+    .filter((u) => u.attempts >= minAttempts)
+    .slice(0, Math.max(0, topK));
+
+  const unitsWithMock = units.map((u) => {
+    const m = mockUnitBuckets.get(u.unitId);
+    return m
+      ? {
+          ...u,
+          mockAttempts: m.attempts,
+          mockCorrect: m.correct,
+          mockAccuracyPct:
+            m.attempts > 0 ? Math.round((m.correct * 100) / m.attempts) : null,
+        }
+      : u;
+  });
+
   return {
     minAttempts,
     topK,
     totalAttempts,
+    mockTotalAttempts: mockUnitBuckets.size
+      ? [...mockUnitBuckets.values()].reduce((acc, u) => acc + u.attempts, 0)
+      : 0,
     hasEnoughData: units.length > 0 || subjects.length > 0,
     topWeakUnits,
-    units,
+    units: unitsWithMock,
     subjects,
+    mockUnits,
+    mockWeakUnits,
   };
 }
 
@@ -934,6 +1263,9 @@ export async function computeHubSnapshot(manifest) {
     ? Math.max(...fullIndepMocks.map((a) => a.totalTwelfths))
     : null;
 
+  // Mock history view model (trend lines + personal bests)
+  const mockHistory = computeMockHistory(attempts);
+
   // Paper best scores map (paperId -> best attempt)
   const paperBestMap = new Map();
   for (const a of attempts) {
@@ -994,7 +1326,7 @@ export async function computeHubSnapshot(manifest) {
     .filter((u) => u.lastVisitedAt || u.updatedAt)
     .sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
 
-  const weakAreas = computeWeakAreas(qStats, manifestUnits);
+  const weakAreas = computeWeakAreas(qStats, manifestUnits, { mockAttempts: attempts });
   const routingInfo = resolveDefaultRoutingStrategy(qStats);
   const readiness = computeReadinessEstimate({
     attempts,
@@ -1014,6 +1346,7 @@ export async function computeHubSnapshot(manifest) {
     totalOfficialPyqs,
     independentAccuracy,
     mockBestTwelfths,
+    mockHistory,
     paperBestMap,
     dueMistakes,
     mistakeQueue,
@@ -1133,6 +1466,47 @@ export function computeReadinessEstimate({
     trendLabel = "Flat (1 session baseline)";
   }
 
+  // Mock performance integration (Phase 08): full 120-mark independent mocks
+  // feed the readiness snapshot so mock scores sit alongside the estimate.
+  const mockAttempts = safeAttempts
+    .filter(
+      (a) =>
+        a &&
+        a.kind === "mock" &&
+        a.mode === "independent" &&
+        a.maxTwelfths === MAX_PAPER_TWELFTHS
+    )
+    .slice()
+    .sort((a, b) => String(a.submittedAt || "").localeCompare(String(b.submittedAt || "")));
+  const mockCount = mockAttempts.length;
+  const mockBestTwelfths = mockCount
+    ? Math.max(...mockAttempts.map((a) => a.totalTwelfths))
+    : null;
+  const mockAccuracySeries = mockAttempts
+    .map((a) => {
+      const c = a.counts || {};
+      const answered = (c.correct || 0) + (c.partial || 0) + (c.incorrect || 0);
+      return answered > 0 ? Math.round(((c.correct || 0) * 100) / answered) : null;
+    })
+    .filter((v) => v != null);
+  const mockAvgAccuracyPct = mockAccuracySeries.length
+    ? Math.round(mockAccuracySeries.reduce((a, b) => a + b, 0) / mockAccuracySeries.length)
+    : null;
+  let mockTrend = "insufficient";
+  if (mockAccuracySeries.length >= 2) {
+    const split = Math.floor(mockAccuracySeries.length / 2);
+    const earlier = mockAccuracySeries.slice(0, split).reduce((a, b) => a + b, 0) / split;
+    const recent =
+      mockAccuracySeries.slice(split).reduce((a, b) => a + b, 0) /
+      (mockAccuracySeries.length - split);
+    const d = Math.round(recent - earlier);
+    if (d >= 5) mockTrend = "improving";
+    else if (d <= -5) mockTrend = "declining";
+    else mockTrend = "flat";
+  } else if (mockAccuracySeries.length === 1) {
+    mockTrend = "flat";
+  }
+
   const hasEnoughData = totalQuestionAttempts >= minAttempts;
 
   if (!hasEnoughData) {
@@ -1154,6 +1528,10 @@ export function computeReadinessEstimate({
       trend: "insufficient",
       trendDeltaPct: null,
       trendLabel: "Need more attempts",
+      mockCount,
+      mockBestTwelfths,
+      mockAvgAccuracyPct,
+      mockTrend,
     };
   }
 
@@ -1188,5 +1566,9 @@ export function computeReadinessEstimate({
     trend,
     trendDeltaPct,
     trendLabel,
+    mockCount,
+    mockBestTwelfths,
+    mockAvgAccuracyPct,
+    mockTrend,
   };
 }

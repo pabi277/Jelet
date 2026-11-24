@@ -1461,6 +1461,113 @@
 .results-subj-item[data-subject="CHEM"] { border-color: var(--chem-stripe); }
 .results-subj-item[data-subject="FEEE"] { border-color: var(--feee-stripe); }
 
+/* Phase 08 · Per-mock performance analytics */
+.results-analytics { border-top: 1px solid var(--border-subtle); }
+.results-mini-tile[data-subject] {
+  border-left: 4px solid var(--brand-primary);
+}
+.results-mini-tile[data-subject="MATH"] { border-left-color: var(--math-stripe); }
+.results-mini-tile[data-subject="PHYS"] { border-left-color: var(--phys-stripe); }
+.results-mini-tile[data-subject="CHEM"] { border-left-color: var(--chem-stripe); }
+.results-mini-tile[data-subject="FEEE"] { border-left-color: var(--feee-stripe); }
+
+.analytics-time {
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-s) var(--space-m);
+}
+.analytics-time__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+.analytics-slow-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+.wrong-key-item {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-s);
+  padding: var(--space-s);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  background: var(--bg-surface);
+}
+
+/* Phase 08 · Mock history & sparkline trends */
+.sparkline {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.mock-history-empty {
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.mock-trends-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-s);
+}
+@media (min-width: 768px) {
+  .mock-trends-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.mock-trend-card {
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-s) var(--space-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.mock-bests-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-s);
+}
+.mock-best-tile {
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-s) var(--space-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  border-top: 3px solid var(--brand-primary);
+}
+
+.mock-history-item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-s);
+  padding: var(--space-s);
+  background: var(--bg-surface);
+}
+.mock-history-item:active {
+  background: var(--bg-surface-subtle);
+}
+
+.today-mock-summary {
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-s) var(--space-m);
+}
+
 .tiebreak-details {
   border-top: 1px solid var(--border-subtle);
   padding-top: var(--space-s);
@@ -2349,6 +2456,20 @@
 .readiness-metric__val {
   font-size: var(--fs-h3);
   color: var(--fg-primary);
+}
+.readiness-mock-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-s);
+  padding: var(--space-s) var(--space-m);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--brand-primary);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+  font-size: var(--fs-caption);
+  color: var(--fg-secondary);
 }
 .readiness-empty {
   display: flex;
