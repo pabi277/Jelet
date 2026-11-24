@@ -8,16 +8,25 @@
  */
 
 import { openDB, getMeta, setMeta, onSync } from "./db/indexeddb.js";
+import { $, el, icon } from "./core/ui.js";
+import { renderPapersLibrary, renderPaperReader } from "./views/papers.js";
+import { renderLiveExam, renderPrintableOmr } from "./views/exam.js";
+import { renderPracticeArena, renderPracticeRunner } from "./views/practice.js";
+import { renderResultsView } from "./views/results.js";
+import { renderLearnExplorer, renderUnitLesson, renderFormulaSheet } from "./views/learn.js";
+import { renderTodayDashboard } from "./views/today.js";
+import { renderYouHub } from "./views/you.js";
+import { initAiTutor } from "./views/ai-tutor.js";
 
 /* ------------------------------------------------------------------ *
  * Route table — five global destinations only (no audit clutter)
  * ------------------------------------------------------------------ */
-const ROUTES = [
-  { id: "today", label: "Today", href: "#/", icon: "icon-today" },
-  { id: "learn", label: "Learn", href: "#/learn", icon: "icon-learn" },
-  { id: "practice", label: "Practice", href: "#/practice", icon: "icon-practice" },
-  { id: "papers", label: "Papers", href: "#/papers", icon: "icon-papers" },
-  { id: "you", label: "You", href: "#/you", icon: "icon-you" },
+export const ROUTES = [
+  { id: "today", label: "Today", desktopLabel: "Today", href: "#/", icon: "icon-today" },
+  { id: "learn", label: "Learn", desktopLabel: "Learn", href: "#/learn", icon: "icon-learn" },
+  { id: "practice", label: "Practice", desktopLabel: "Practice", href: "#/practice", icon: "icon-practice" },
+  { id: "papers", label: "Papers", desktopLabel: "Papers", href: "#/papers", icon: "icon-papers" },
+  { id: "you", label: "You", desktopLabel: "You & AI", href: "#/you", icon: "icon-you" },
 ];
 
 const SUBJECTS = [
@@ -27,128 +36,127 @@ const SUBJECTS = [
   { id: "FEEE", name: "FEEE", units: 8, qs: "10 Qs · 10 Marks", icon: "icon-feee" },
 ];
 
-/* ------------------------------------------------------------------ *
- * Utilities
- * ------------------------------------------------------------------ */
-const $ = (sel, root = document) => root.querySelector(sel);
-const icon = (id) =>
-  `<svg class="ico" aria-hidden="true"><use href="./assets/icons/icons.svg#${id}"/></svg>`;
+let _activeViewCleanup = null;
+let _aiTutorOpener = null;
+let _rendering = false;
 
-function el(html) {
-  const tpl = document.createElement("template");
-  tpl.innerHTML = html.trim();
-  return tpl.content.firstElementChild;
+export function registerAiTutorOpener(fn) {
+  _aiTutorOpener = fn;
 }
 
-/** Resolve a hash to a route id. */
-function currentRouteId() {
-  const hash = location.hash || "#/";
-  const found = ROUTES.find((r) => r.href === hash);
-  return found ? found.id : "today";
+export function openAiTutorContext(ctx = {}) {
+  if (_aiTutorOpener) {
+    _aiTutorOpener(ctx);
+  }
+}
+
+/** Parse `location.hash` into `{ navId, view, param, query }`. */
+export function parseRoute(hashStr = location.hash) {
+  const raw = (hashStr || "#/").replace(/^#/, "") || "/";
+  const [pathPart, queryPart = ""] = raw.split("?");
+  const query = new URLSearchParams(queryPart);
+  const segs = pathPart.split("/").filter(Boolean);
+
+  if (segs.length === 0) {
+    return { navId: "today", view: "today", param: null, query };
+  }
+  const head = segs[0];
+  const param = segs[1] ? decodeURIComponent(segs[1]) : null;
+
+  if (head === "learn") {
+    return { navId: "learn", view: param ? "lesson" : "learn", param, query };
+  }
+  if (head === "practice") {
+    return { navId: "practice", view: "practice", param, query };
+  }
+  if (head === "practice-run" && param) {
+    return { navId: "practice", view: "practice-run", param, query };
+  }
+  if (head === "papers") {
+    return { navId: "papers", view: param ? "paper-reader" : "papers", param, query };
+  }
+  if (head === "omr-print" && param) {
+    return { navId: "papers", view: "omr-print", param, query };
+  }
+  if (head === "exam" && param) {
+    return { navId: "papers", view: "exam", param, query };
+  }
+  if (head === "results" && param) {
+    return { navId: "practice", view: "results", param, query };
+  }
+  if (head === "formulas") {
+    return { navId: "today", view: "formulas", param: null, query };
+  }
+  if (head === "you") {
+    return { navId: "you", view: "you", param: null, query };
+  }
+  return { navId: "today", view: "today", param: null, query };
 }
 
 /* ------------------------------------------------------------------ *
  * Theme controller (AMOLED dark mode persisted in IndexedDB meta)
  * ------------------------------------------------------------------ */
-function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
+export function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
   const toggle = $("#themeToggle");
   if (toggle) {
-    toggle.setAttribute("aria-pressed", String(theme === "dark"));
-    toggle.querySelector(".ico").innerHTML =
-      theme === "dark"
-        ? `<use href="./assets/icons/icons.svg#icon-spark"/>`
-        : `<use href="./assets/icons/icons.svg#icon-timer"/>`;
+    toggle.setAttribute("aria-pressed", String(isDark));
+    toggle.title = isDark ? "Switch to Light Mode" : "Switch to AMOLED Dark Mode";
+    toggle.innerHTML = isDark ? icon("icon-sun") : icon("icon-moon");
   }
 }
 
-async function toggleTheme() {
+export async function toggleTheme() {
   const meta = await getMeta();
   const next = meta.theme === "dark" ? "light" : "dark";
-  await setMeta({ theme: next });
+  await setMeta({ theme: next, updatedAt: new Date().toISOString() });
   applyTheme(next);
+  return next;
 }
 
 /* ------------------------------------------------------------------ *
- * Bottom-sheet primitive
+ * Bottom-sheet primitive (reused by OMR Palette & Codec AI Tutor)
  * ------------------------------------------------------------------ */
-function openSheet(sheet) {
-  $("#sheetOverlay").classList.add("is-open");
+export function openSheet(sheet) {
+  if (!sheet) return;
+  const overlay = $("#sheetOverlay");
+  if (overlay) {
+    overlay.hidden = false;
+    overlay.classList.add("is-open");
+  }
   sheet.classList.add("is-open");
   sheet.setAttribute("aria-hidden", "false");
 }
-function closeSheet(sheet) {
-  $("#sheetOverlay").classList.remove("is-open");
+
+export function closeSheet(sheet) {
+  if (!sheet) return;
   sheet.classList.remove("is-open");
   sheet.setAttribute("aria-hidden", "true");
+  const anyOpen = document.querySelector(".bottom-sheet.is-open");
+  if (!anyOpen) {
+    const overlay = $("#sheetOverlay");
+    if (overlay) overlay.classList.remove("is-open");
+  }
+}
+
+export function closeAllSheets() {
+  document.querySelectorAll(".bottom-sheet.is-open").forEach((s) => closeSheet(s));
 }
 
 /* ------------------------------------------------------------------ *
- * View rendering
+ * Fallback view
  * ------------------------------------------------------------------ */
-function renderToday(main) {
-  main.innerHTML = "";
-  const hero = el(`
-    <section class="hero-card">
-      <p class="hero-card__eyebrow">JELET 2028 · Target JU</p>
-      <h2 class="hero-card__title">Resume your JELET prep</h2>
-      <div class="hero-card__meta" style="display:flex;gap:.5rem;align-items:center">
-        <span class="pill" style="background:var(--hero-overlay);color:var(--on-hero)">${icon("icon-timer")} 25:00 Focus</span>
-        <span class="pill" style="background:var(--hero-overlay);color:var(--on-hero)">${icon("icon-flame")} Streak 0</span>
-      </div>
-      <button class="btn btn--primary" type="button">${icon("icon-play")} Resume</button>
-    </section>
-  `);
-
-  const quick = el(`
-    <section style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1rem">
-      <button class="card" type="button" style="text-align:center;font-weight:600">${icon("icon-spark")}<br>AI Doubt</button>
-      <button class="card" type="button" style="text-align:center;font-weight:600">${icon("icon-formula")}<br>Formulas</button>
-      <button class="card" type="button" style="text-align:center;font-weight:600">${icon("icon-timer")}<br>Daily 10-Q</button>
-    </section>
-  `);
-
-  const queue = el(`
-    <section class="card" style="margin-top:1rem;display:flex;justify-content:space-between;align-items:center">
-      <strong>${icon("icon-practice")} Mistake Queue</strong>
-      <span class="pill">0 Questions due today ›</span>
-    </section>
-  `);
-
-  const grid = el(`
-    <section class="subject-grid" style="margin-top:1rem" aria-label="Subject mastery"></section>
-  `);
-  const gridRoot = $(".subject-grid", grid);
-  for (const s of SUBJECTS) {
-    gridRoot.appendChild(
-      el(`
-        <button class="subject-card" data-subject="${s.id}" type="button">
-          <h3 class="subject-card__title">${s.name}</h3>
-          <p class="subject-card__count">${s.qs} · ${s.units} units</p>
-          <div class="meter" style="margin-top:.5rem"><div class="meter__fill" style="width:0%"></div></div>
-          <p class="subject-card__count" style="margin-top:.4rem">0 / ${s.units} mastered</p>
-        </button>
-      `)
-    );
-  }
-
-  main.append(hero, quick, queue, grid);
-}
-
-function renderPlaceholder(main, routeId) {
-  const titles = { learn: "Learn — 42 Units", practice: "Practice Arena", papers: "Papers Library", you: "You & AI" };
+function renderPlaceholder(main, title) {
   main.innerHTML = "";
   main.appendChild(
     el(`
       <div class="view">
-        <h2 style="margin:0 0 .5rem">${titles[routeId] || "JELET Study Hub"}</h2>
-        <p class="view__placeholder">This screen is wired into the Phase 01 app shell. Full content lands in the corresponding later phase, with all metrics computed from IndexedDB (honest 0 / — on a fresh device).</p>
-        <button class="btn btn--ghost" type="button" id="openSheetDemo">${icon("icon-download")} Open OMR bottom-sheet demo</button>
+        <h2 style="margin:0 0 .5rem">${title}</h2>
+        <p class="view__placeholder">Route not found — <a href="#/">return to Today</a>.</p>
       </div>
     `)
   );
-  const demo = $("#openSheetDemo", main);
-  if (demo) demo.addEventListener("click", () => openSheet($("#omrSheet")));
 }
 
 /* ------------------------------------------------------------------ *
@@ -156,9 +164,17 @@ function renderPlaceholder(main, routeId) {
  * ------------------------------------------------------------------ */
 function buildNav(navRoot) {
   navRoot.innerHTML = "";
+  navRoot.appendChild(
+    el(`
+      <div class="bottom-nav__brand" aria-hidden="true">
+        <span class="bottom-nav__brand-title">JELET Study Hub</span>
+        <span class="bottom-nav__brand-sub">2028 · Target JU</span>
+      </div>
+    `)
+  );
   for (const r of ROUTES) {
     const btn = el(`
-      <button class="bottom-nav__tab" type="button" data-route="${r.id}" aria-current="page">
+      <button class="bottom-nav__tab" type="button" data-route="${r.id}">
         ${icon(r.icon)}<span>${r.label}</span>
       </button>
     `);
@@ -169,9 +185,16 @@ function buildNav(navRoot) {
   }
 }
 
-function setActiveNav(routeId) {
+function setActiveShell(route) {
+  const shell = $(".app-shell");
+  if (shell) {
+    if (route.view === "exam") shell.setAttribute("data-immersive", "exam");
+    else if (route.view === "lesson") shell.setAttribute("data-immersive", "lesson");
+    else shell.removeAttribute("data-immersive");
+  }
+
   document.querySelectorAll(".bottom-nav__tab").forEach((b) => {
-    if (b.dataset.route === routeId) {
+    if (b.dataset.route === route.navId) {
       b.setAttribute("aria-current", "page");
       b.classList.add("is-active");
     } else {
@@ -179,34 +202,74 @@ function setActiveNav(routeId) {
       b.classList.remove("is-active");
     }
   });
-  const titleMap = { today: "Today", learn: "Learn", practice: "Practice", papers: "Papers", you: "You & AI" };
-  $("#topbarTitle").textContent = titleMap[routeId] || "JELET Study Hub";
+
+  const titleMap = {
+    today: "JELET Study Hub",
+    formulas: "Formula Sheet · 42 Units",
+    learn: "Learn",
+    lesson: `Unit ${route.param || ""}`,
+    practice: "Practice",
+    "practice-run": "Practice Session",
+    papers: "Papers",
+    "paper-reader": "Paper Booklet & Keys",
+    "omr-print": "Printable OMR Sheet",
+    results: "Result & Solutions",
+    you: "You & AI",
+  };
+  const titleEl = $("#topbarTitle");
+  if (titleEl) titleEl.textContent = titleMap[route.view] || "JELET Study Hub";
 }
 
-async function render() {
-  const routeId = currentRouteId();
-  setActiveNav(routeId);
-  const main = $("#appMain");
-  if (routeId === "today") renderToday(main);
-  else renderPlaceholder(main, routeId);
-}
+export async function render() {
+  if (_rendering) return;
+  _rendering = true;
+  try {
+    if (typeof _activeViewCleanup === "function") {
+      try { _activeViewCleanup(); } catch (_) { /* ignore */ }
+      _activeViewCleanup = null;
+    }
+    closeAllSheets();
 
-/* ------------------------------------------------------------------ *
- * OMR palette demo grid (100 sequential cells)
- * ------------------------------------------------------------------ */
-function buildOmrGrid() {
-  const grid = $("#omrGrid");
-  if (!grid) return;
-  grid.innerHTML = "";
-  for (let i = 1; i <= 100; i++) {
-    const cell = el(`<button class="omr-cell" type="button" data-q="${i}">${i}</button>`);
-    cell.addEventListener("click", () => {
-      const answered = cell.dataset.state === "answered";
-      cell.dataset.state = answered ? "unanswered" : "answered";
-      if (answered) delete cell.dataset.state;
-    });
-    grid.appendChild(cell);
+    const route = parseRoute(location.hash);
+    setActiveShell(route);
+    const main = $("#appMain");
+
+    if (route.view === "papers") {
+      await renderPapersLibrary(main, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "paper-reader") {
+      await renderPaperReader(main, route.param, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "exam") {
+      const cleanup = await renderLiveExam(main, route.param, { openSheet, closeSheet });
+      setViewCleanup(cleanup);
+    } else if (route.view === "omr-print") {
+      await renderPrintableOmr(main, route.param);
+    } else if (route.view === "practice") {
+      await renderPracticeArena(main, route.query);
+    } else if (route.view === "practice-run") {
+      await renderPracticeRunner(main, route.param, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "results") {
+      await renderResultsView(main, route.param, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "learn") {
+      await renderLearnExplorer(main, route.query, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "lesson") {
+      await renderUnitLesson(main, route.param, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "formulas") {
+      await renderFormulaSheet(main, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "today") {
+      const cleanup = await renderTodayDashboard(main, { openAiTutor: openAiTutorContext });
+      setViewCleanup(cleanup);
+    } else if (route.view === "you") {
+      await renderYouHub(main, { onThemeToggle: toggleTheme });
+    } else {
+      renderPlaceholder(main, route.view);
+    }
+  } finally {
+    _rendering = false;
   }
+}
+
+export function setViewCleanup(fn) {
+  _activeViewCleanup = fn;
 }
 
 /* ------------------------------------------------------------------ *
@@ -214,19 +277,18 @@ function buildOmrGrid() {
  * ------------------------------------------------------------------ */
 async function init() {
   buildNav($("#bottomNav"));
-  buildOmrGrid();
 
-  // Wire theme toggle
-  $("#themeToggle").addEventListener("click", toggleTheme);
+  $("#themeToggle").addEventListener("click", () => toggleTheme());
 
-  // Wire sheet dismiss
   $("#closeSheetBtn").addEventListener("click", () => closeSheet($("#omrSheet")));
-  $("#sheetOverlay").addEventListener("click", () => closeSheet($("#omrSheet")));
+  $("#sheetOverlay").addEventListener("click", () => closeAllSheets());
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeSheet($("#omrSheet"));
+    if (e.key === "Escape") closeAllSheets();
   });
 
-  // Hydrate theme from IndexedDB, then render
+  const tutor = initAiTutor({ openOverlay: openSheet, closeAllSheets });
+  registerAiTutorOpener(tutor.openTutor);
+
   try {
     await openDB();
     const meta = await getMeta();
@@ -236,10 +298,14 @@ async function init() {
     applyTheme("light");
   }
 
-  // Cross-tab sync: re-render when another tab mutates shared state
-  onSync(() => render());
+  // Cross-tab sync: only re-render on external BroadcastChannel messages, not active exam ticks
+  onSync((payload) => {
+    if (payload?.store === "meta") {
+      getMeta().then((m) => applyTheme(m.theme)).catch(() => {});
+    }
+  });
 
-  window.addEventListener("hashchange", render);
+  window.addEventListener("hashchange", () => render());
   await render();
 }
 
