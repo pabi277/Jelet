@@ -1371,5 +1371,278 @@
   cursor: pointer;
 }
 
+/* ------------------------------------------------------------------ *
+ * Learn 42-Unit Explorer & Unit Workbook (06-learn-subjects, 05-lesson)
+ * ------------------------------------------------------------------ */
+.learn-subjects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+@media (min-width: 1024px) {
+  .learn-subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+  }
+}
+
+.subject-card--container {
+  cursor: default;
+}
+.subject-card__header-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.subject-card__info {
+  flex: 1;
+  min-width: 0;
+}
+.subject-icon-box {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-m);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-surface-subtle);
+  color: var(--brand-primary);
+}
+.subject-icon-box svg {
+  width: 24px;
+  height: 24px;
+}
+.subject-icon-box[data-subject="MATH"] { background: var(--math-tint); color: var(--math-stripe); }
+.subject-icon-box[data-subject="PHYS"] { background: var(--phys-tint); color: var(--phys-stripe); }
+.subject-icon-box[data-subject="CHEM"] { background: var(--chem-tint); color: var(--chem-stripe); }
+.subject-icon-box[data-subject="FEEE"] { background: var(--feee-tint); color: var(--feee-stripe); }
+
+.unit-list {
+  margin-top: var(--space-m);
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+}
+.unit-list[hidden] {
+  display: none;
+}
+.unit-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-2xs);
+  border-bottom: 1px solid var(--border-subtle);
+  text-decoration: none;
+  color: inherit;
+  min-height: var(--tap-min);
+}
+.unit-list-row:last-child {
+  border-bottom: none;
+}
+.unit-list-row__main {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-s);
+  min-width: 0;
+}
+.unit-code-chip {
+  flex: 0 0 auto;
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: var(--radius-xs);
+  background: var(--bg-surface-subtle);
+  color: var(--brand-primary);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+}
+.unit-list-row__title {
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body);
+}
+
+/* Floating Ask AI Tutor pill (06-learn-subjects.png) */
+.floating-ai-pill {
+  position: fixed;
+  right: var(--space-m);
+  bottom: calc(var(--bottom-nav-h) + var(--space-m) + env(safe-area-inset-bottom));
+  z-index: var(--z-sticky);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: var(--tap-min);
+  padding: var(--space-s) var(--space-l);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+  font: inherit;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  box-shadow: var(--shadow-l);
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .floating-ai-pill {
+    bottom: var(--space-l);
+    right: var(--space-xl);
+  }
+}
+
+/* Unit Lesson View (05-lesson.png) */
+.lesson-topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-topbar);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 54px;
+  padding: var(--space-2xs) var(--space-s);
+  background: var(--bg-surface);
+}
+.lesson-topbar__title-wrap {
+  flex: 1;
+  min-width: 0;
+}
+.lesson-topbar__title {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lesson-progress-line {
+  height: 4px;
+  background: var(--bg-surface-subtle);
+}
+.lesson-progress-line > div {
+  height: 100%;
+  background: var(--brand-primary);
+}
+@media (min-width: 768px) {
+  .lesson-topbar,
+  .lesson-progress-line {
+    border-radius: var(--radius-m);
+  }
+}
+
+.lesson-workspace {
+  padding: var(--space-m) 0;
+}
+.lesson-outline-card {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .lesson-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, var(--reading-max)) 280px;
+    gap: var(--space-xl);
+    justify-content: center;
+    align-items: start;
+  }
+  .lesson-outline-card {
+    display: flex;
+    position: sticky;
+    top: calc(var(--topbar-h) + var(--space-m));
+  }
+}
+.lesson-outline-link {
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: var(--space-2xs) 0;
+}
+.lesson-outline-link:hover {
+  color: var(--brand-primary);
+}
+
+.lesson-prose {
+  font-size: var(--fs-question);
+  line-height: var(--lh-prose);
+  color: var(--text-primary);
+}
+.lesson-formula-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-s);
+  background: var(--bg-surface);
+}
+.explain-step-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: 36px;
+  padding: var(--space-2xs) var(--space-m);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+  font: inherit;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+}
+.worked-step {
+  padding: var(--space-2xs) 0;
+}
+
+.video-embed-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  background: var(--bg-surface-subtle);
+}
+.video-embed-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.lesson-bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-bottomnav);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-s);
+  padding: var(--space-xs) var(--space-m) calc(var(--space-xs) + env(safe-area-inset-bottom));
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-s);
+}
+.is-revised-btn {
+  background: var(--status-correct-bg);
+  color: var(--status-correct-fg);
+  border-color: var(--status-correct-fg);
+}
+@media (min-width: 768px) {
+  .lesson-bottom-bar {
+    left: var(--icon-rail-w);
+    padding: var(--space-s) var(--space-xl);
+  }
+}
+@media (min-width: 1024px) {
+  .lesson-bottom-bar {
+    left: var(--rail-w);
+    padding: var(--space-s) var(--space-3xl);
+  }
+}
+
+
 
 

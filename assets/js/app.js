@@ -13,6 +13,7 @@ import { renderPapersLibrary, renderPaperReader } from "./views/papers.js";
 import { renderLiveExam, renderPrintableOmr } from "./views/exam.js";
 import { renderPracticeArena, renderPracticeRunner } from "./views/practice.js";
 import { renderResultsView } from "./views/results.js";
+import { renderLearnExplorer, renderUnitLesson, renderFormulaSheet } from "./views/learn.js";
 
 /* ------------------------------------------------------------------ *
  * Route table — five global destinations only (no audit clutter)
@@ -263,6 +264,12 @@ export async function render() {
       await renderPracticeRunner(main, route.param, { openAiTutor: openAiTutorContext });
     } else if (route.view === "results") {
       await renderResultsView(main, route.param, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "learn") {
+      await renderLearnExplorer(main, route.query, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "lesson") {
+      await renderUnitLesson(main, route.param, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "formulas") {
+      await renderFormulaSheet(main, { openAiTutor: openAiTutorContext });
     } else if (route.view === "today") {
       renderTodayFallback(main);
     } else {
