@@ -17,30 +17,130 @@
     "jelet-2024-q033",
     "jelet-2025-q001"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q001",
+    "jelet-2024-q007",
+    "jelet-2024-q008",
+    "jelet-2023-q007",
+    "jelet-2023-q008",
+    "jelet-2022-q008",
+    "jelet-2024-q033",
+    "jelet-2023-q033",
+    "jelet-2022-q033"
+  ],
+  "notes": [
     {
-      "anchor": "forms",
-      "heading": "1. Cartesian, Polar & Exponential Forms",
-      "proseLatex": "A complex number $Z = x + iy$ has modulus $|Z| = \\sqrt{x^2+y^2}$ and argument $\\arg Z = \\tan^{-1}(y/x)$.",
+      "anchor": "cartesian-polar",
+      "heading": "1. Conjugate, Modulus, Principal Argument & Euler Form",
+      "proseLatex": "Every complex number $z = x + iy$ ($x,y\\in\\mathbb{R}$, $i^2 = -1$) has conjugate $\\bar{z} = x - iy$ and modulus $|z| = \\sqrt{x^2+y^2}$ satisfying $z\\bar{z} = |z|^2$ and $z^{-1} = \\bar{z}/|z|^2$. Its principal argument $\\theta = \\operatorname{Arg}(z) \\in (-\\pi, \\pi]$ must be adjusted by quadrant: $\\alpha$ in Q-I, $\\pi-\\alpha$ in Q-II, $-(\\pi-\\alpha)$ in Q-III, and $-\\alpha$ in Q-IV where $\\alpha = \\arctan(|y/x|)$. Euler's form $z = r e^{i\\theta} = r(\\cos\\theta + i\\sin\\theta)$ turns multiplication and division into addition and subtraction of arguments.",
       "keyFormulas": [
         {
           "formulaId": "M03-F01",
-          "label": "Modulus & Argument",
-          "latex": "$Z = r(\\cos\\theta + i\\sin\\theta) = re^{i\\theta}$",
-          "aiExplainContext": "Convert between Cartesian and polar forms."
+          "label": "Modulus, Conjugate & Euler Representation",
+          "latex": "$z\\bar{z} = |z|^2,\\quad |z_1 z_2| = |z_1||z_2|,\\quad \\arg(z_1/z_2) = \\arg z_1 - \\arg z_2,\\quad e^{i\\theta} = \\cos\\theta + i\\sin\\theta$",
+          "aiExplainContext": "Convert complex fractions into modulus and argument operations."
+        },
+        {
+          "formulaId": "M03-F02",
+          "label": "Triangle Inequality Bounds",
+          "latex": "$\\bigl||z_1| - |z_2|\\bigr| \\le |z_1 \\pm z_2| \\le |z_1| + |z_2|$",
+          "aiExplainContext": "Find maximum and minimum modulus of shifted complex loci."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M03-EX01",
+          "problemLatex": "Find the modulus and principal argument of $z = -1 + i\\sqrt{3}$.",
+          "stepsLatex": [
+            "Modulus $r = \\sqrt{(-1)^2 + (\\sqrt{3})^2} = \\sqrt{4} = 2$.",
+            "Point $(-1, \\sqrt{3})$ lies in Quadrant II with reference angle $\\alpha = \\arctan(\\sqrt{3}/1) = \\pi/3$, so $\\operatorname{Arg}(z) = \\pi - \\pi/3 = 2\\pi/3$."
+          ],
+          "answerLatex": "$|z| = 2,\\; \\operatorname{Arg}(z) = \\frac{2\\pi}{3}$"
         }
       ]
     },
     {
-      "anchor": "roots-unity",
-      "heading": "2. Cube Roots of Unity & De Moivre",
-      "proseLatex": "The cube roots of unity are $1, \\omega, \\omega^2$ where $\\omega = e^{2\\pi i/3}$. They satisfy $1 + \\omega + \\omega^2 = 0$.",
+      "anchor": "demoivre-roots",
+      "heading": "2. De Moivre's Theorem & Cube Roots of Unity",
+      "proseLatex": "For any integer $n$ (and as one branch for rational $n$), $(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$. Solving $z^3 = 1$ gives $1, \\omega, \\omega^2$ where $\\omega = -\\frac{1}{2} + i\\frac{\\sqrt{3}}{2} = e^{i2\\pi/3}$, governed by the twin identities $\\omega^3 = 1$ and $1 + \\omega + \\omega^2 = 0$. Powers $i^m$ repeat modulo $4$ ($i^{4k+r} = i^r$) while $\\omega^m$ repeats modulo $3$ ($\\omega^{3k+r} = \\omega^r$).",
       "keyFormulas": [
         {
+          "formulaId": "M03-F03",
+          "label": "De Moivre's Theorem & Cube Roots of Unity",
+          "latex": "$(\\cos\\theta + i\\sin\\theta)^n = \\cos n\\theta + i\\sin n\\theta,\\quad \\omega^3 = 1,\\quad 1 + \\omega + \\omega^2 = 0$",
+          "aiExplainContext": "Simplify high powers of complex expressions and omega cyclic sums."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M03-EX02",
+          "problemLatex": "Evaluate $(1 - \\omega + \\omega^2)(1 + \\omega - \\omega^2)$ where $\\omega \\neq 1$ is a cube root of unity.",
+          "stepsLatex": [
+            "From $1 + \\omega + \\omega^2 = 0$, replace $1 + \\omega^2 = -\\omega$ and $1 + \\omega = -\\omega^2$.",
+            "Product becomes $(-\\omega - \\omega)(-\\omega^2 - \\omega^2) = (-2\\omega)(-2\\omega^2) = 4\\omega^3 = 4$."
+          ],
+          "answerLatex": "$4$"
+        }
+      ]
+    },
+    {
+      "anchor": "argand-loci",
+      "heading": "3. Argand Plane Loci (Circles, Bisectors & Rays)",
+      "proseLatex": "Geometrically, $|z - z_0| = R$ represents a circle of centre $z_0$ and radius $R$, whereas $|z - z_1| = |z - z_2|$ is the perpendicular bisector of the segment joining $z_1$ and $z_2$. When $\\left|\\frac{z - z_1}{z - z_2}\\right| = k$ ($k>0, k\\neq 1$), the locus is an Apollonius circle; and purely imaginary $\\frac{z - z_1}{z - z_2}$ ($\\arg = \\pm\\pi/2$) traces the circle having $z_1 z_2$ as diameter (excluding $z_2$).",
+      "keyFormulas": [
+        {
+          "formulaId": "M03-F04",
+          "label": "Standard Argand Loci",
+          "latex": "$|z - z_0| = R \\text{ (circle)};\\quad |z - z_1| = |z - z_2| \\text{ (perp. bisector)};\\quad \\operatorname{Re}\\!\\left(\\frac{z-z_1}{z-z_2}\\right)=0 \\text{ (diameter circle)}$",
+          "aiExplainContext": "Identify geometric locus directly without expanding x + iy."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "cartesian-polar",
+      "heading": "1. Conjugate, Modulus, Principal Argument & Euler Form",
+      "proseLatex": "Every complex number $z = x + iy$ ($x,y\\in\\mathbb{R}$, $i^2 = -1$) has conjugate $\\bar{z} = x - iy$ and modulus $|z| = \\sqrt{x^2+y^2}$ satisfying $z\\bar{z} = |z|^2$ and $z^{-1} = \\bar{z}/|z|^2$. Its principal argument $\\theta = \\operatorname{Arg}(z) \\in (-\\pi, \\pi]$ must be adjusted by quadrant: $\\alpha$ in Q-I, $\\pi-\\alpha$ in Q-II, $-(\\pi-\\alpha)$ in Q-III, and $-\\alpha$ in Q-IV where $\\alpha = \\arctan(|y/x|)$. Euler's form $z = r e^{i\\theta} = r(\\cos\\theta + i\\sin\\theta)$ turns multiplication and division into addition and subtraction of arguments.",
+      "keyFormulas": [
+        {
+          "formulaId": "M03-F01",
+          "label": "Modulus, Conjugate & Euler Representation",
+          "latex": "$z\\bar{z} = |z|^2,\\quad |z_1 z_2| = |z_1||z_2|,\\quad \\arg(z_1/z_2) = \\arg z_1 - \\arg z_2,\\quad e^{i\\theta} = \\cos\\theta + i\\sin\\theta$",
+          "aiExplainContext": "Convert complex fractions into modulus and argument operations."
+        },
+        {
           "formulaId": "M03-F02",
-          "label": "De Moivre's Theorem",
-          "latex": "$(\\cos\\theta + i\\sin\\theta)^n = \\cos n\\theta + i\\sin n\\theta$",
-          "aiExplainContext": "Compute powers and roots of complex numbers."
+          "label": "Triangle Inequality Bounds",
+          "latex": "$\\bigl||z_1| - |z_2|\\bigr| \\le |z_1 \\pm z_2| \\le |z_1| + |z_2|$",
+          "aiExplainContext": "Find maximum and minimum modulus of shifted complex loci."
+        }
+      ]
+    },
+    {
+      "anchor": "demoivre-roots",
+      "heading": "2. De Moivre's Theorem & Cube Roots of Unity",
+      "proseLatex": "For any integer $n$ (and as one branch for rational $n$), $(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$. Solving $z^3 = 1$ gives $1, \\omega, \\omega^2$ where $\\omega = -\\frac{1}{2} + i\\frac{\\sqrt{3}}{2} = e^{i2\\pi/3}$, governed by the twin identities $\\omega^3 = 1$ and $1 + \\omega + \\omega^2 = 0$. Powers $i^m$ repeat modulo $4$ ($i^{4k+r} = i^r$) while $\\omega^m$ repeats modulo $3$ ($\\omega^{3k+r} = \\omega^r$).",
+      "keyFormulas": [
+        {
+          "formulaId": "M03-F03",
+          "label": "De Moivre's Theorem & Cube Roots of Unity",
+          "latex": "$(\\cos\\theta + i\\sin\\theta)^n = \\cos n\\theta + i\\sin n\\theta,\\quad \\omega^3 = 1,\\quad 1 + \\omega + \\omega^2 = 0$",
+          "aiExplainContext": "Simplify high powers of complex expressions and omega cyclic sums."
+        }
+      ]
+    },
+    {
+      "anchor": "argand-loci",
+      "heading": "3. Argand Plane Loci (Circles, Bisectors & Rays)",
+      "proseLatex": "Geometrically, $|z - z_0| = R$ represents a circle of centre $z_0$ and radius $R$, whereas $|z - z_1| = |z - z_2|$ is the perpendicular bisector of the segment joining $z_1$ and $z_2$. When $\\left|\\frac{z - z_1}{z - z_2}\\right| = k$ ($k>0, k\\neq 1$), the locus is an Apollonius circle; and purely imaginary $\\frac{z - z_1}{z - z_2}$ ($\\arg = \\pm\\pi/2$) traces the circle having $z_1 z_2$ as diameter (excluding $z_2$).",
+      "keyFormulas": [
+        {
+          "formulaId": "M03-F04",
+          "label": "Standard Argand Loci",
+          "latex": "$|z - z_0| = R \\text{ (circle)};\\quad |z - z_1| = |z - z_2| \\text{ (perp. bisector)};\\quad \\operatorname{Re}\\!\\left(\\frac{z-z_1}{z-z_2}\\right)=0 \\text{ (diameter circle)}$",
+          "aiExplainContext": "Identify geometric locus directly without expanding x + iy."
         }
       ]
     }
@@ -48,19 +148,40 @@
   "workedExamples": [
     {
       "exampleId": "M03-EX01",
-      "problemLatex": "If $Z^4 - Z^3 + 2Z^2 - Z + 1 = 0$, find $|Z|$.",
+      "problemLatex": "Find the modulus and principal argument of $z = -1 + i\\sqrt{3}$.",
       "stepsLatex": [
-        "Divide by $Z^2$: $Z^2 + 1/Z^2 - (Z+1/Z) + 2 = 0$.",
-        "Let $w = Z + 1/Z$: $w^2 - w = 0 \\Rightarrow w = 0, 1$.",
-        "Both cases give $|Z| = 1$."
+        "Modulus $r = \\sqrt{(-1)^2 + (\\sqrt{3})^2} = \\sqrt{4} = 2$.",
+        "Point $(-1, \\sqrt{3})$ lies in Quadrant II with reference angle $\\alpha = \\arctan(\\sqrt{3}/1) = \\pi/3$, so $\\operatorname{Arg}(z) = \\pi - \\pi/3 = 2\\pi/3$."
       ],
-      "answerLatex": "$|Z| = 1$"
+      "answerLatex": "$|z| = 2,\\; \\operatorname{Arg}(z) = \\frac{2\\pi}{3}$"
+    },
+    {
+      "exampleId": "M03-EX02",
+      "problemLatex": "Evaluate $(1 - \\omega + \\omega^2)(1 + \\omega - \\omega^2)$ where $\\omega \\neq 1$ is a cube root of unity.",
+      "stepsLatex": [
+        "From $1 + \\omega + \\omega^2 = 0$, replace $1 + \\omega^2 = -\\omega$ and $1 + \\omega = -\\omega^2$.",
+        "Product becomes $(-\\omega - \\omega)(-\\omega^2 - \\omega^2) = (-2\\omega)(-2\\omega^2) = 4\\omega^3 = 4$."
+      ],
+      "answerLatex": "$4$"
     }
   ],
   "wbjeebTraps": [
-    "Reciprocal polynomials: if coefficients are symmetric, roots come in reciprocal pairs.",
-    "$|Z| = 1$ for roots of $Z^2 - Z + 1 = 0$."
+    "Quadrant sign trap: $\\operatorname{Arg}(-1 - i)$ is $-3\\pi/4$, NOT $\\pi/4$ (raw $\\arctan((-1)/(-1)) = \\pi/4$ misses Quadrant III).",
+    "Inequality $z_1 < z_2$ is meaningless for non-real complex numbers — only moduli $|z_1| < |z_2|$ can be ordered.",
+    "Check $\\left(\\frac{1+i}{1-i}\\right) = i$ and $\\left(\\frac{1-i}{1+i}\\right) = -i$ first before expanding high powers like $\\left(\\frac{1+i}{1-i}\\right)^{100} = i^{100} = 1$."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Standard Form of Complex Numbers - Complex Numbers - Engineering Mathematics 1",
+      "url": "https://www.youtube.com/watch?v=oEkhSc-wqak",
+      "videoId": "oEkhSc-wqak",
+      "duration": "14 min",
+      "durationMinutes": 14,
+      "provider": "YouTube · Ekeeda",
+      "channelName": "Ekeeda",
+      "language": "en",
+      "scopeNote": "Cartesian, conjugate, modulus-argument and polar algebra of complex numbers"
+    }
+  ],
   "practiceSetIds": []
 }

@@ -12,30 +12,114 @@
     "jelet-2024-q092",
     "jelet-2025-q092"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q092",
+    "jelet-2024-q092",
+    "jelet-2023-q096",
+    "jelet-2023-q097",
+    "jelet-2022-q092"
+  ],
+  "notes": [
     {
-      "anchor": "emf-equation",
-      "heading": "1. EMF Equation & Construction",
-      "proseLatex": "$E = 4.44 f N \\Phi_m$. Core $B$-$H$ hysteresis loop. Transformation ratio $= N_1/N_2$.",
+      "anchor": "emf-construction",
+      "heading": "1. Mutual Induction Principle, EMF Equation & Constant-Flux Operation",
+      "proseLatex": "A transformer is a STATIC electromagnetic device transferring AC power between circuits at CONSTANT FREQUENCY! Never apply pure DC to a transformer primary — since $d\\Phi/dt = 0$, zero back-EMF is induced and low winding resistance $R_1$ causes primary burnout! Sinusoidal core flux $\\Phi(t) = \\Phi_m\\sin(2\\pi f t)$ induces RMS EMFs $E_1 = 4.44\\,f N_1 \\Phi_m$ and $E_2 = 4.44\\,f N_2 \\Phi_m$ (where $4.44 = \\sqrt{2}\\pi = 4\\times 1.11$ incorporates the sinusoidal form factor $1.11$). Notice $\\Phi_m \\propto V_1/f$: keeping $V_1/f$ constant holds core flux density $B_m$ constant!",
       "keyFormulas": [
         {
           "formulaId": "E02-F01",
-          "label": "EMF Equation",
-          "latex": "$E = 4.44 f N \\Phi_m$",
-          "aiExplainContext": "RMS voltage induced in a transformer winding."
+          "label": "Transformer RMS EMF Equation & Ideal Turns Ratio",
+          "latex": "$E = 4.44\\,f N \\Phi_m = 4.44\\,f N B_m A_c,\\qquad \\frac{E_2}{E_1} = \\frac{N_2}{N_1} = \\frac{I_1}{I_2},\\qquad Z_1' = \\left(\\frac{N_1}{N_2}\\right)^2 Z_2$",
+          "aiExplainContext": "Compute core flux/turns and refer impedances across transformer windings via (N1/N2)^2."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E02-EX01",
+          "problemLatex": "A $2200/220\\text{ V},\\; 50\\text{ Hz}$ transformer has $N_2 = 55$ secondary turns. Find $N_1$ and peak core flux $\\Phi_m$.",
+          "stepsLatex": [
+            "$N_1 = N_2\\frac{E_1}{E_2} = 55\\times\\frac{2200}{220} = 550\\text{ turns}$.",
+            "$\\Phi_m = \\frac{E_2}{4.44\\,f N_2} = \\frac{220}{4.44 \\times 50 \\times 55} = \\frac{220}{12210} \\approx 0.018\\text{ Wb} = 18\\text{ mWb}$."
+          ],
+          "answerLatex": "$N_1 = 550,\\; \\Phi_m \\approx 18\\text{ mWb}$"
         }
       ]
     },
     {
-      "anchor": "efficiency",
-      "heading": "2. Losses, Efficiency & Regulation",
-      "proseLatex": "Core (iron) loss + copper ($I^2R$) loss. Max efficiency when core loss = copper loss. Voltage regulation.",
+      "anchor": "losses-tests",
+      "heading": "2. Core vs Copper Losses, Silicon-Steel Laminations & OC/SC Tests",
+      "proseLatex": "Core (iron) loss $P_i = P_h + P_e$ stays essentially CONSTANT from no-load to full-load (measured by Open-Circuit test at rated voltage on the LV side!): hysteresis loss $P_h \\propto B_m^{1.6} f$ is minimized using high-silicon CRGO steel ($3\\text{--}4\\%\\text{ Si}$), and eddy-current loss $P_e \\propto B_m^2 f^2 t^2$ is minimized using thin insulated laminations ($0.35\\text{--}0.5\\text{ mm}$). Ohmic copper loss $P_{\\text{cu}} = x^2 P_{\\text{cu,fl}}$ varies as the SQUARE of fractional kVA load $x$ (measured by Short-Circuit test at rated current on the HV side!).",
       "keyFormulas": [
         {
           "formulaId": "E02-F02",
-          "label": "Max Efficiency Condition",
-          "latex": "Core loss $=$ Copper loss",
-          "aiExplainContext": "Optimize transformer efficiency."
+          "label": "Hysteresis/Eddy Scaling & OC/SC Test Summary",
+          "latex": "$P_h \\propto B_m^{1.6} f,\\quad P_e \\propto B_m^2 f^2 t^2,\\quad \\text{OC test} \\to P_i,\\qquad \\text{SC test (rated }I\\text{)} \\to P_{\\text{cu,fl}}$",
+          "aiExplainContext": "Match laminations vs silicon steel to eddy vs hysteresis losses and interpret OC/SC wattmeter readings."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "efficiency-regulation",
+      "heading": "3. Efficiency, Maximum-Efficiency Criterion & Voltage Regulation",
+      "proseLatex": "Transformer kVA rating (not kW!) is specified because core loss depends on $V$ and copper loss depends on $I$, independent of load power factor $\\cos\\phi_2$. Efficiency at load fraction $x$ is $\\eta = \\frac{x S\\cos\\phi_2}{x S\\cos\\phi_2 + P_i + x^2 P_{\\text{cu,fl}}}$, reaching MAXIMUM efficiency when variable copper loss equals constant iron loss ($x^2 P_{\\text{cu,fl}} = P_i \\implies x_{\\eta\\max} = \\sqrt{P_i / P_{\\text{cu,fl}}}$) and unity power factor ($\\cos\\phi_2 = 1$). Zero voltage regulation CAN occur only on a LEADING (capacitive) power factor load!",
+      "keyFormulas": [
+        {
+          "formulaId": "E02-F03",
+          "label": "Maximum-Efficiency Condition & Voltage Regulation",
+          "latex": "$\\eta_{\\max}\\text{ at } x^2 P_{\\text{cu,fl}} = P_i \\implies S_{\\eta\\max} = S_{\\text{rated}}\\sqrt{\\frac{P_i}{P_{\\text{cu,fl}}}};\\quad \\text{VR} \\approx I_2 R_{02}\\cos\\phi_2 \\pm I_2 X_{02}\\sin\\phi_2$",
+          "aiExplainContext": "Calculate kVA for maximum efficiency and sign of voltage regulation (+/- for lag/lead)."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E02-EX02",
+          "problemLatex": "A $100\\text{ kVA}$ transformer has core loss $P_i = 1\\text{ kW}$ and full-load copper loss $P_{\\text{cu,fl}} = 4\\text{ kW}$. At what kVA load does maximum efficiency occur?",
+          "stepsLatex": [
+            "$x = \\sqrt{P_i / P_{\\text{cu,fl}}} = \\sqrt{1/4} = 0.5$ (half full-load).",
+            "$S_{\\eta\\max} = 0.5 \\times 100\\text{ kVA} = 50\\text{ kVA}$ (where total loss $= 1 + 1 = 2\\text{ kW}$)."
+          ],
+          "answerLatex": "$50\\text{ kVA}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "emf-construction",
+      "heading": "1. Mutual Induction Principle, EMF Equation & Constant-Flux Operation",
+      "proseLatex": "A transformer is a STATIC electromagnetic device transferring AC power between circuits at CONSTANT FREQUENCY! Never apply pure DC to a transformer primary — since $d\\Phi/dt = 0$, zero back-EMF is induced and low winding resistance $R_1$ causes primary burnout! Sinusoidal core flux $\\Phi(t) = \\Phi_m\\sin(2\\pi f t)$ induces RMS EMFs $E_1 = 4.44\\,f N_1 \\Phi_m$ and $E_2 = 4.44\\,f N_2 \\Phi_m$ (where $4.44 = \\sqrt{2}\\pi = 4\\times 1.11$ incorporates the sinusoidal form factor $1.11$). Notice $\\Phi_m \\propto V_1/f$: keeping $V_1/f$ constant holds core flux density $B_m$ constant!",
+      "keyFormulas": [
+        {
+          "formulaId": "E02-F01",
+          "label": "Transformer RMS EMF Equation & Ideal Turns Ratio",
+          "latex": "$E = 4.44\\,f N \\Phi_m = 4.44\\,f N B_m A_c,\\qquad \\frac{E_2}{E_1} = \\frac{N_2}{N_1} = \\frac{I_1}{I_2},\\qquad Z_1' = \\left(\\frac{N_1}{N_2}\\right)^2 Z_2$",
+          "aiExplainContext": "Compute core flux/turns and refer impedances across transformer windings via (N1/N2)^2."
+        }
+      ]
+    },
+    {
+      "anchor": "losses-tests",
+      "heading": "2. Core vs Copper Losses, Silicon-Steel Laminations & OC/SC Tests",
+      "proseLatex": "Core (iron) loss $P_i = P_h + P_e$ stays essentially CONSTANT from no-load to full-load (measured by Open-Circuit test at rated voltage on the LV side!): hysteresis loss $P_h \\propto B_m^{1.6} f$ is minimized using high-silicon CRGO steel ($3\\text{--}4\\%\\text{ Si}$), and eddy-current loss $P_e \\propto B_m^2 f^2 t^2$ is minimized using thin insulated laminations ($0.35\\text{--}0.5\\text{ mm}$). Ohmic copper loss $P_{\\text{cu}} = x^2 P_{\\text{cu,fl}}$ varies as the SQUARE of fractional kVA load $x$ (measured by Short-Circuit test at rated current on the HV side!).",
+      "keyFormulas": [
+        {
+          "formulaId": "E02-F02",
+          "label": "Hysteresis/Eddy Scaling & OC/SC Test Summary",
+          "latex": "$P_h \\propto B_m^{1.6} f,\\quad P_e \\propto B_m^2 f^2 t^2,\\quad \\text{OC test} \\to P_i,\\qquad \\text{SC test (rated }I\\text{)} \\to P_{\\text{cu,fl}}$",
+          "aiExplainContext": "Match laminations vs silicon steel to eddy vs hysteresis losses and interpret OC/SC wattmeter readings."
+        }
+      ]
+    },
+    {
+      "anchor": "efficiency-regulation",
+      "heading": "3. Efficiency, Maximum-Efficiency Criterion & Voltage Regulation",
+      "proseLatex": "Transformer kVA rating (not kW!) is specified because core loss depends on $V$ and copper loss depends on $I$, independent of load power factor $\\cos\\phi_2$. Efficiency at load fraction $x$ is $\\eta = \\frac{x S\\cos\\phi_2}{x S\\cos\\phi_2 + P_i + x^2 P_{\\text{cu,fl}}}$, reaching MAXIMUM efficiency when variable copper loss equals constant iron loss ($x^2 P_{\\text{cu,fl}} = P_i \\implies x_{\\eta\\max} = \\sqrt{P_i / P_{\\text{cu,fl}}}$) and unity power factor ($\\cos\\phi_2 = 1$). Zero voltage regulation CAN occur only on a LEADING (capacitive) power factor load!",
+      "keyFormulas": [
+        {
+          "formulaId": "E02-F03",
+          "label": "Maximum-Efficiency Condition & Voltage Regulation",
+          "latex": "$\\eta_{\\max}\\text{ at } x^2 P_{\\text{cu,fl}} = P_i \\implies S_{\\eta\\max} = S_{\\text{rated}}\\sqrt{\\frac{P_i}{P_{\\text{cu,fl}}}};\\quad \\text{VR} \\approx I_2 R_{02}\\cos\\phi_2 \\pm I_2 X_{02}\\sin\\phi_2$",
+          "aiExplainContext": "Calculate kVA for maximum efficiency and sign of voltage regulation (+/- for lag/lead)."
         }
       ]
     }
@@ -43,18 +127,40 @@
   "workedExamples": [
     {
       "exampleId": "E02-EX01",
-      "problemLatex": "Ideal transformer: 200 V, 100 W load at 10 V. Primary current?",
+      "problemLatex": "A $2200/220\\text{ V},\\; 50\\text{ Hz}$ transformer has $N_2 = 55$ secondary turns. Find $N_1$ and peak core flux $\\Phi_m$.",
       "stepsLatex": [
-        "$P_{in} = P_{out} = 100$ W.",
-        "$I_{in} = 100/200 = 0.5$ A."
+        "$N_1 = N_2\\frac{E_1}{E_2} = 55\\times\\frac{2200}{220} = 550\\text{ turns}$.",
+        "$\\Phi_m = \\frac{E_2}{4.44\\,f N_2} = \\frac{220}{4.44 \\times 50 \\times 55} = \\frac{220}{12210} \\approx 0.018\\text{ Wb} = 18\\text{ mWb}$."
       ],
-      "answerLatex": "$0.5$ A"
+      "answerLatex": "$N_1 = 550,\\; \\Phi_m \\approx 18\\text{ mWb}$"
+    },
+    {
+      "exampleId": "E02-EX02",
+      "problemLatex": "A $100\\text{ kVA}$ transformer has core loss $P_i = 1\\text{ kW}$ and full-load copper loss $P_{\\text{cu,fl}} = 4\\text{ kW}$. At what kVA load does maximum efficiency occur?",
+      "stepsLatex": [
+        "$x = \\sqrt{P_i / P_{\\text{cu,fl}}} = \\sqrt{1/4} = 0.5$ (half full-load).",
+        "$S_{\\eta\\max} = 0.5 \\times 100\\text{ kVA} = 50\\text{ kVA}$ (where total loss $= 1 + 1 = 2\\text{ kW}$)."
+      ],
+      "answerLatex": "$50\\text{ kVA}$"
     }
   ],
   "wbjeebTraps": [
-    "Ideal transformer: $V_1/V_2 = N_1/N_2 = I_2/I_1$.",
-    "Auto-transformer saves copper compared to two-winding."
+    "Laminating the core reduces EDDY-CURRENT loss; adding silicon reduces HYSTERESIS loss — WBJEEB loves swapping these two!",
+    "At HALF load ($x = 0.5$), copper loss drops to ONE-FOURTH ($\\frac{1}{4}P_{\\text{cu,fl}}$), NOT half, while iron loss $P_i$ stays unchanged!",
+    "Transformers are rated in kVA (not kW), preserve frequency ($f_2 = f_1$), and burn out on DC primary excitation."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Working Principle of Transformer - Single Phase Transformer - Basic Electrical Engineering",
+      "url": "https://www.youtube.com/watch?v=xuIADO0LJfM",
+      "videoId": "xuIADO0LJfM",
+      "duration": "11 min",
+      "durationMinutes": 11,
+      "provider": "YouTube · Ekeeda",
+      "channelName": "Ekeeda",
+      "language": "en",
+      "scopeNote": "Mutual induction, RMS EMF equation, turns ratio, losses & efficiency"
+    }
+  ],
   "practiceSetIds": []
 }

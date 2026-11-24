@@ -18,30 +18,110 @@
     "jelet-2024-q087",
     "jelet-2025-q072"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q072",
+    "jelet-2024-q074",
+    "jelet-2024-q084",
+    "jelet-2024-q085",
+    "jelet-2023-q076",
+    "jelet-2023-q077",
+    "jelet-2023-q081",
+    "jelet-2023-q083",
+    "jelet-2022-q081",
+    "jelet-2024-q087",
+    "jelet-2022-q090"
+  ],
+  "notes": [
     {
-      "anchor": "bond-types",
-      "heading": "1. Electrovalent, Covalent & Coordinate Bonds",
-      "proseLatex": "Ionic (electrovalent), covalent (electron sharing), coordinate (one-sided sharing).",
+      "anchor": "ionic-fajans-vsepr",
+      "heading": "1. Ionic Lattice, Fajans' Polarizability Rules & VSEPR Hybridization",
+      "proseLatex": "Ionic bonding is favoured by low ionization enthalpy, high electron gain affinity, and large lattice energy ($\\propto \\frac{q^+ q^-}{r^+ + r^-}$). By Fajans' rules, a small highly-charged cation + large polarizable anion increases covalent character ($\\text{LiCl} > \\text{NaCl} > \\text{KCl}$; $\\text{AlCl}_3 > \\text{MgCl}_2 > \\text{NaCl}$). Steric number $\\text{SN} = \\frac{1}{2}(V + M - C + A)$ gives hybridization: $2\\to sp$ (linear $180^\\circ$), $3\\to sp^2$ (trigonal planar $120^\\circ$), $4\\to sp^3$ ($\\text{CH}_4\\;109.5^\\circ > \\text{NH}_3\\;107^\\circ > \\text{H}_2\\text{O}\\;104.5^\\circ$ as $\\text{LP--LP} > \\text{LP--BP} > \\text{BP--BP}$), $5\\to sp^3d$, $6\\to sp^3d^2$.",
       "keyFormulas": [
         {
           "formulaId": "C02-F01",
-          "label": "Bond Types",
-          "latex": "Ionic: transfer; Covalent: sharing; Coordinate: donation",
-          "aiExplainContext": "Three fundamental bond types."
+          "label": "Steric Number Hybridization Formula",
+          "latex": "$\\text{SN} = \\frac{1}{2}\\bigl(V + M - C + A\\bigr) = \\text{Bond Pairs} + \\text{Lone Pairs}$",
+          "aiExplainContext": "Predict hybridization and molecular shape of SF4, XeF2,XeF4, I3-, ClF3."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "C02-EX01",
+          "problemLatex": "Find the hybridization, lone pairs on Xe, and molecular shape of $\\text{XeF}_4$.",
+          "stepsLatex": [
+            "$\\text{SN} = \\frac{1}{2}(8 + 4 - 0 + 0) = 6 \\implies sp^3d^2$ octahedral electron geometry.",
+            "With $4$ bond pairs and $6 - 4 = 2$ trans lone pairs, molecular shape is square planar (dipole moment $\\mu = 0$)."
+          ],
+          "answerLatex": "$sp^3d^2$, $2$ lone pairs, square planar"
         }
       ]
     },
     {
-      "anchor": "crystals",
-      "heading": "2. Crystal Types & H-Bonding",
-      "proseLatex": "Ionic, covalent, molecular crystals. Hydrogen bonding in HF, water, ice.",
+      "anchor": "mot-bond-order",
+      "heading": "2. Molecular Orbital Theory (MOT), Bond Order & O₂ Paramagnetism",
+      "proseLatex": "For homonuclear diatomics ($Z_{\\text{total}} \\le 14$: $\\text{B}_2, \\text{C}_2, \\text{N}_2$), $\\pi_{2p}$ lies below $\\sigma_{2p_z}$; for $Z_{\\text{total}} > 14$ ($\\text{O}_2, \\text{F}_2$), $\\sigma_{2p_z}$ lies below $\\pi_{2p}$. Bond order is $\\text{BO} = \\frac{1}{2}(N_b - N_a)$: higher $\\text{BO}$ means shorter bond length and higher bond dissociation energy ($\\text{BO}=0$ means molecule does not exist, e.g. $\\text{He}_2$). Critically, MOT explains that $\\text{O}_2$ ($\\text{BO}=2$) and $\\text{B}_2$ ($\\text{BO}=1$) are PARAMAGNETIC due to two unpaired $\\pi^*$ / $\\pi$ electrons!",
       "keyFormulas": [
         {
           "formulaId": "C02-F02",
-          "label": "H-Bond",
-          "latex": "$\\text{X}-\\text{H}\\cdots\\text{Y}$ (electronegative X, Y)",
-          "aiExplainContext": "Directional intermolecular force."
+          "label": "MOT Bond Order & O₂ Series Ordering",
+          "latex": "$\\text{BO} = \\frac{N_b - N_a}{2};\\qquad \\text{BO}: \\text{O}_2^+\\,(2.5) > \\text{O}_2\\,(2.0) > \\text{O}_2^-\\,(1.5) > \\text{O}_2^{2-}\\,(1.0)$",
+          "aiExplainContext": "Rank bond order, bond length, and paramagnetism of diatomic species."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "dipole-hbond",
+      "heading": "3. Dipole Moment & Intermolecular vs Intramolecular Hydrogen Bonding",
+      "proseLatex": "Vector dipole moment $\\vec{\\mu} = q\\vec{d}$ ($1\\text{ D} = 3.336\\times 10^{-30}\\text{ C\\,m}$) cancels to ZERO in symmetric geometries ($\\text{CO}_2, \\text{BF}_3, \\text{CCl}_4, \\text{XeF}_4, \\text{XeF}_2$). Notice $\\mu(\\text{NH}_3) > \\mu(\\text{NF}_3)$ because the lone-pair dipole adds to $\\text{N--H}$ bond dipoles in $\\text{NH}_3$ but opposes $\\text{N--F}$ bond dipoles in $\\text{NF}_3$! Intermolecular H-bonding ($\\text{H--F, H--O, H--N}$) raises boiling point ($\\text{H}_2\\text{O} \\gg \\text{H}_2\\text{S}$), whereas intramolecular H-bonding in *o*-nitrophenol makes it MORE steam-volatile than *p*-nitrophenol.",
+      "keyFormulas": [
+        {
+          "formulaId": "C02-F03",
+          "label": "Dipole Moment & Percent Ionic Character",
+          "latex": "$\\%\\text{ Ionic character} = \\frac{\\mu_{\\text{obs}}}{\\mu_{\\text{100\\% ionic}}\\;(= e\\cdot d)} \\times 100\\%$",
+          "aiExplainContext": "Compare NH3 vs NF3 dipoles, cis vs trans isomers, and H-bonding boiling trends."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "ionic-fajans-vsepr",
+      "heading": "1. Ionic Lattice, Fajans' Polarizability Rules & VSEPR Hybridization",
+      "proseLatex": "Ionic bonding is favoured by low ionization enthalpy, high electron gain affinity, and large lattice energy ($\\propto \\frac{q^+ q^-}{r^+ + r^-}$). By Fajans' rules, a small highly-charged cation + large polarizable anion increases covalent character ($\\text{LiCl} > \\text{NaCl} > \\text{KCl}$; $\\text{AlCl}_3 > \\text{MgCl}_2 > \\text{NaCl}$). Steric number $\\text{SN} = \\frac{1}{2}(V + M - C + A)$ gives hybridization: $2\\to sp$ (linear $180^\\circ$), $3\\to sp^2$ (trigonal planar $120^\\circ$), $4\\to sp^3$ ($\\text{CH}_4\\;109.5^\\circ > \\text{NH}_3\\;107^\\circ > \\text{H}_2\\text{O}\\;104.5^\\circ$ as $\\text{LP--LP} > \\text{LP--BP} > \\text{BP--BP}$), $5\\to sp^3d$, $6\\to sp^3d^2$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C02-F01",
+          "label": "Steric Number Hybridization Formula",
+          "latex": "$\\text{SN} = \\frac{1}{2}\\bigl(V + M - C + A\\bigr) = \\text{Bond Pairs} + \\text{Lone Pairs}$",
+          "aiExplainContext": "Predict hybridization and molecular shape of SF4, XeF2,XeF4, I3-, ClF3."
+        }
+      ]
+    },
+    {
+      "anchor": "mot-bond-order",
+      "heading": "2. Molecular Orbital Theory (MOT), Bond Order & O₂ Paramagnetism",
+      "proseLatex": "For homonuclear diatomics ($Z_{\\text{total}} \\le 14$: $\\text{B}_2, \\text{C}_2, \\text{N}_2$), $\\pi_{2p}$ lies below $\\sigma_{2p_z}$; for $Z_{\\text{total}} > 14$ ($\\text{O}_2, \\text{F}_2$), $\\sigma_{2p_z}$ lies below $\\pi_{2p}$. Bond order is $\\text{BO} = \\frac{1}{2}(N_b - N_a)$: higher $\\text{BO}$ means shorter bond length and higher bond dissociation energy ($\\text{BO}=0$ means molecule does not exist, e.g. $\\text{He}_2$). Critically, MOT explains that $\\text{O}_2$ ($\\text{BO}=2$) and $\\text{B}_2$ ($\\text{BO}=1$) are PARAMAGNETIC due to two unpaired $\\pi^*$ / $\\pi$ electrons!",
+      "keyFormulas": [
+        {
+          "formulaId": "C02-F02",
+          "label": "MOT Bond Order & O₂ Series Ordering",
+          "latex": "$\\text{BO} = \\frac{N_b - N_a}{2};\\qquad \\text{BO}: \\text{O}_2^+\\,(2.5) > \\text{O}_2\\,(2.0) > \\text{O}_2^-\\,(1.5) > \\text{O}_2^{2-}\\,(1.0)$",
+          "aiExplainContext": "Rank bond order, bond length, and paramagnetism of diatomic species."
+        }
+      ]
+    },
+    {
+      "anchor": "dipole-hbond",
+      "heading": "3. Dipole Moment & Intermolecular vs Intramolecular Hydrogen Bonding",
+      "proseLatex": "Vector dipole moment $\\vec{\\mu} = q\\vec{d}$ ($1\\text{ D} = 3.336\\times 10^{-30}\\text{ C\\,m}$) cancels to ZERO in symmetric geometries ($\\text{CO}_2, \\text{BF}_3, \\text{CCl}_4, \\text{XeF}_4, \\text{XeF}_2$). Notice $\\mu(\\text{NH}_3) > \\mu(\\text{NF}_3)$ because the lone-pair dipole adds to $\\text{N--H}$ bond dipoles in $\\text{NH}_3$ but opposes $\\text{N--F}$ bond dipoles in $\\text{NF}_3$! Intermolecular H-bonding ($\\text{H--F, H--O, H--N}$) raises boiling point ($\\text{H}_2\\text{O} \\gg \\text{H}_2\\text{S}$), whereas intramolecular H-bonding in *o*-nitrophenol makes it MORE steam-volatile than *p*-nitrophenol.",
+      "keyFormulas": [
+        {
+          "formulaId": "C02-F03",
+          "label": "Dipole Moment & Percent Ionic Character",
+          "latex": "$\\%\\text{ Ionic character} = \\frac{\\mu_{\\text{obs}}}{\\mu_{\\text{100\\% ionic}}\\;(= e\\cdot d)} \\times 100\\%$",
+          "aiExplainContext": "Compare NH3 vs NF3 dipoles, cis vs trans isomers, and H-bonding boiling trends."
         }
       ]
     }
@@ -49,18 +129,31 @@
   "workedExamples": [
     {
       "exampleId": "C02-EX01",
-      "problemLatex": "How many types of P-Cl bonds in PCl5?",
+      "problemLatex": "Find the hybridization, lone pairs on Xe, and molecular shape of $\\text{XeF}_4$.",
       "stepsLatex": [
-        "Trigonal bipyramidal: 2 axial + 3 equatorial.",
-        "2 distinct bond types."
+        "$\\text{SN} = \\frac{1}{2}(8 + 4 - 0 + 0) = 6 \\implies sp^3d^2$ octahedral electron geometry.",
+        "With $4$ bond pairs and $6 - 4 = 2$ trans lone pairs, molecular shape is square planar (dipole moment $\\mu = 0$)."
       ],
-      "answerLatex": "2"
+      "answerLatex": "$sp^3d^2$, $2$ lone pairs, square planar"
     }
   ],
   "wbjeebTraps": [
-    "Axial and equatorial positions are chemically distinct in trigonal bipyramidal geometry.",
-    "Ice is less dense than water due to H-bonding."
+    "Classic MOT trap: $\\text{O}_2$ ($16\\,e^-$) and $\\text{B}_2$ ($10\\,e^-$) are PARAMAGNETIC despite having an even total number of electrons!",
+    "$\\mu(\\text{NH}_3 = 1.47\\text{ D}) > \\mu(\\text{NF}_3 = 0.24\\text{ D})$ even though fluorine is more electronegative than hydrogen.",
+    "*o*-Nitrophenol has LOWER boiling point (higher steam volatility) than *p*-nitrophenol due to chelated intramolecular H-bonding."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Hybridisation and VSEPR Part 1 | Lecture 5 | Chemical Bonding",
+      "url": "https://www.youtube.com/watch?v=4lnJZfiUVdA",
+      "videoId": "4lnJZfiUVdA",
+      "duration": "35 min",
+      "durationMinutes": 35,
+      "provider": "YouTube · Nitesh Devnani Chemistry",
+      "channelName": "Nitesh Devnani Chemistry",
+      "language": "en",
+      "scopeNote": "Steric number, hybridization, VSEPR lone-pair geometries, dipole moments & MOT"
+    }
+  ],
   "practiceSetIds": []
 }

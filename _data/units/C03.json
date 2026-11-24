@@ -22,30 +22,124 @@
     "jelet-2025-q087",
     "jelet-2025-q090"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q075",
+    "jelet-2025-q078",
+    "jelet-2024-q071",
+    "jelet-2023-q078",
+    "jelet-2023-q079",
+    "jelet-2022-q071",
+    "jelet-2022-q072",
+    "jelet-2022-q078",
+    "jelet-2022-q079",
+    "jelet-2022-q080",
+    "jelet-2025-q087",
+    "jelet-2025-q090",
+    "jelet-2024-q086",
+    "jelet-2023-q090",
+    "jelet-2022-q086"
+  ],
+  "notes": [
     {
-      "anchor": "ph-scale",
-      "heading": "1. pH Scale & Acid-Base Indicators",
-      "proseLatex": "$\\text{pH} = -\\log[H^+]$. Acidic: pH < 7, basic: pH > 7. Indicators change color at endpoints.",
+      "anchor": "theories-ph",
+      "heading": "1. Brønsted-Lowry / Lewis Theories, Kw & Dilute-Acid pH",
+      "proseLatex": "Brønsted-Lowry acids donate $\\text{H}^+$ and bases accept $\\text{H}^+$ (conjugate pairs differ by exactly one $\\text{H}^+$, e.g., $\\text{H}_2\\text{PO}_4^- / \\text{HPO}_4^{2-}$); Lewis acids accept an electron pair ($\\text{BF}_3, \\text{AlCl}_3, \\text{Ag}^+$) and Lewis bases donate one ($\\text{NH}_3, \\text{OH}^-$). At $25^\\circ\\text{C}$, $K_w = [\\text{H}^+][\\text{OH}^-] = 10^{-14}$, so $\\text{pH} + \\text{pOH} = 14$ where $\\text{pH} = -\\log_{10}[\\text{H}^+]$. For weak monoprotic acid ($K_a$), $[\\text{H}^+] \\approx \\sqrt{K_a C}$.",
       "keyFormulas": [
         {
           "formulaId": "C03-F01",
-          "label": "pH Formula",
-          "latex": "$\\text{pH} = -\\log_{10}[H^+]$",
-          "aiExplainContext": "Measure acidity of a solution."
+          "label": "Water Ionic Product, pH & Ostwald Weak-Acid Formula",
+          "latex": "$\\text{pH} = -\\log_{10}[\\text{H}^+],\\quad \\text{pH} + \\text{pOH} = \\text{p}K_w\\;(14\\text{ at }25^\\circ\\text{C}),\\quad [\\text{H}^+]_{\\text{weak}} = \\sqrt{K_a C}$",
+          "aiExplainContext": "Calculate pH of strong, weak, and ultra-dilute (10^-8 M) acid/base solutions."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "C03-EX01",
+          "problemLatex": "Find the pH of $10^{-8}\\text{ M}$ aqueous $\\text{HCl}$ at $25^\\circ\\text{C}$ ($\\log_{10} 1.1 \\approx 0.04$).",
+          "stepsLatex": [
+            "Do NOT write $\\text{pH} = 8$ (an acid at $25^\\circ\\text{C}$ cannot be basic!). Include water autoionization: $[\\text{H}^+] \\approx 10^{-8} + 10^{-7} = 1.1\\times 10^{-7}\\text{ M}$ (more precisely $1.05\\times 10^{-7}\\text{ M}$).",
+            "$\\text{pH} = -\\log_{10}(1.05\\times 10^{-7}) \\approx 6.98$ (slightly below $7$!)."
+          ],
+          "answerLatex": "$\\approx 6.98$ (between $6.95$ and $7.00$)"
         }
       ]
     },
     {
-      "anchor": "stoichiometry",
-      "heading": "2. Mole Concept, Normality & Molarity",
-      "proseLatex": "Avogadro's number, mole concept. Normality $= $ eq/L, molarity $= $ mol/L, molality $= $ mol/kg.",
+      "anchor": "buffers-hydrolysis",
+      "heading": "2. Buffers (Henderson-Hasselbalch), Salt Hydrolysis & Indicators",
+      "proseLatex": "An acidic buffer (weak acid + conjugate salt, e.g., $\\text{CH}_3\\text{COOH} + \\text{CH}_3\\text{COONa}$) resists pH drift via $\\text{pH} = \\text{p}K_a + \\log_{10}\\!\\frac{[\\text{Salt}]}{[\\text{Acid}]}$. Salt of weak acid + strong base hydrolyzes to give BASIC solution ($\\text{pH} = 7 + \\frac{1}{2}(\\text{p}K_a + \\log C)$), whereas strong acid + weak base gives ACIDIC solution ($\\text{pH} = 7 - \\frac{1}{2}(\\text{p}K_b + \\log C)$). Phenolphthalein ($\\text{pH } 8.3\\text{--}10$) suits weak-acid vs strong-base titrations; methyl orange ($\\text{pH } 3.1\\text{--}4.4$) suits strong-acid vs weak-base.",
       "keyFormulas": [
         {
           "formulaId": "C03-F02",
-          "label": "Molarity",
-          "latex": "$M = \\frac{\\text{moles}}{\\text{litres}}$",
-          "aiExplainContext": "Concentration measure for solutions."
+          "label": "Henderson-Hasselbalch Buffer & Salt Hydrolysis",
+          "latex": "$\\text{pH}_{\\text{acid buf}} = \\text{p}K_a + \\log_{10}\\!\\frac{[\\text{Salt}]}{[\\text{Acid}]},\\qquad \\text{pOH}_{\\text{base buf}} = \\text{p}K_b + \\log_{10}\\!\\frac{[\\text{Salt}]}{[\\text{Base}]}$",
+          "aiExplainContext": "Compute buffer pH, maximum buffer capacity (pH = pKa), and salt-solution pH."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "normality-molarity",
+      "heading": "3. Molarity, Normality, n-Factor & Equivalence Law",
+      "proseLatex": "Molarity $M = n_{\\text{mol}}/V(\\text{L})$ depends on temperature, whereas molality $m = n_{\\text{mol}}/W_{\\text{solvent}}(\\text{kg})$ is temperature-independent! Normality $N = n_f \\times M$ uses valence factor $n_f$ (basicity for acids: $\\text{H}_2\\text{SO}_4\\to 2$, $\\text{H}_3\\text{PO}_4\\to 3$, $\\text{H}_3\\text{PO}_3\\to 2$, $\\text{H}_3\\text{PO}_2\\to 1$!). At complete neutralization, gram equivalents match: $N_1 V_1 = N_2 V_2$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C03-F03",
+          "label": "Normality-Molarity & Neutralization Equivalence",
+          "latex": "$N = n_f \\cdot M,\\qquad E = \\frac{\\text{Molar mass}}{n_f},\\qquad N_1 V_1 = N_2 V_2$",
+          "aiExplainContext": "Convert molarity to normality (especially oxoacids of phosphorus) and solve titrations."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "C03-EX02",
+          "problemLatex": "What volume of $0.2\\text{ M }\\text{H}_2\\text{SO}_4$ completely neutralizes $40\\text{ mL}$ of $0.5\\text{ M }\\text{NaOH}$?",
+          "stepsLatex": [
+            "Normality of dibasic $\\text{H}_2\\text{SO}_4$: $N_1 = 2 \\times 0.2 = 0.4\\text{ N}$; for $\\text{NaOH}$: $N_2 = 1 \\times 0.5 = 0.5\\text{ N}$.",
+            "Equate milliequivalents $N_1 V_1 = N_2 V_2 \\implies 0.4\\,V_1 = 0.5 \\times 40 \\implies V_1 = 50\\text{ mL}$."
+          ],
+          "answerLatex": "$50\\text{ mL}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "theories-ph",
+      "heading": "1. Brønsted-Lowry / Lewis Theories, Kw & Dilute-Acid pH",
+      "proseLatex": "Brønsted-Lowry acids donate $\\text{H}^+$ and bases accept $\\text{H}^+$ (conjugate pairs differ by exactly one $\\text{H}^+$, e.g., $\\text{H}_2\\text{PO}_4^- / \\text{HPO}_4^{2-}$); Lewis acids accept an electron pair ($\\text{BF}_3, \\text{AlCl}_3, \\text{Ag}^+$) and Lewis bases donate one ($\\text{NH}_3, \\text{OH}^-$). At $25^\\circ\\text{C}$, $K_w = [\\text{H}^+][\\text{OH}^-] = 10^{-14}$, so $\\text{pH} + \\text{pOH} = 14$ where $\\text{pH} = -\\log_{10}[\\text{H}^+]$. For weak monoprotic acid ($K_a$), $[\\text{H}^+] \\approx \\sqrt{K_a C}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C03-F01",
+          "label": "Water Ionic Product, pH & Ostwald Weak-Acid Formula",
+          "latex": "$\\text{pH} = -\\log_{10}[\\text{H}^+],\\quad \\text{pH} + \\text{pOH} = \\text{p}K_w\\;(14\\text{ at }25^\\circ\\text{C}),\\quad [\\text{H}^+]_{\\text{weak}} = \\sqrt{K_a C}$",
+          "aiExplainContext": "Calculate pH of strong, weak, and ultra-dilute (10^-8 M) acid/base solutions."
+        }
+      ]
+    },
+    {
+      "anchor": "buffers-hydrolysis",
+      "heading": "2. Buffers (Henderson-Hasselbalch), Salt Hydrolysis & Indicators",
+      "proseLatex": "An acidic buffer (weak acid + conjugate salt, e.g., $\\text{CH}_3\\text{COOH} + \\text{CH}_3\\text{COONa}$) resists pH drift via $\\text{pH} = \\text{p}K_a + \\log_{10}\\!\\frac{[\\text{Salt}]}{[\\text{Acid}]}$. Salt of weak acid + strong base hydrolyzes to give BASIC solution ($\\text{pH} = 7 + \\frac{1}{2}(\\text{p}K_a + \\log C)$), whereas strong acid + weak base gives ACIDIC solution ($\\text{pH} = 7 - \\frac{1}{2}(\\text{p}K_b + \\log C)$). Phenolphthalein ($\\text{pH } 8.3\\text{--}10$) suits weak-acid vs strong-base titrations; methyl orange ($\\text{pH } 3.1\\text{--}4.4$) suits strong-acid vs weak-base.",
+      "keyFormulas": [
+        {
+          "formulaId": "C03-F02",
+          "label": "Henderson-Hasselbalch Buffer & Salt Hydrolysis",
+          "latex": "$\\text{pH}_{\\text{acid buf}} = \\text{p}K_a + \\log_{10}\\!\\frac{[\\text{Salt}]}{[\\text{Acid}]},\\qquad \\text{pOH}_{\\text{base buf}} = \\text{p}K_b + \\log_{10}\\!\\frac{[\\text{Salt}]}{[\\text{Base}]}$",
+          "aiExplainContext": "Compute buffer pH, maximum buffer capacity (pH = pKa), and salt-solution pH."
+        }
+      ]
+    },
+    {
+      "anchor": "normality-molarity",
+      "heading": "3. Molarity, Normality, n-Factor & Equivalence Law",
+      "proseLatex": "Molarity $M = n_{\\text{mol}}/V(\\text{L})$ depends on temperature, whereas molality $m = n_{\\text{mol}}/W_{\\text{solvent}}(\\text{kg})$ is temperature-independent! Normality $N = n_f \\times M$ uses valence factor $n_f$ (basicity for acids: $\\text{H}_2\\text{SO}_4\\to 2$, $\\text{H}_3\\text{PO}_4\\to 3$, $\\text{H}_3\\text{PO}_3\\to 2$, $\\text{H}_3\\text{PO}_2\\to 1$!). At complete neutralization, gram equivalents match: $N_1 V_1 = N_2 V_2$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C03-F03",
+          "label": "Normality-Molarity & Neutralization Equivalence",
+          "latex": "$N = n_f \\cdot M,\\qquad E = \\frac{\\text{Molar mass}}{n_f},\\qquad N_1 V_1 = N_2 V_2$",
+          "aiExplainContext": "Convert molarity to normality (especially oxoacids of phosphorus) and solve titrations."
         }
       ]
     }
@@ -53,18 +147,40 @@
   "workedExamples": [
     {
       "exampleId": "C03-EX01",
-      "problemLatex": "Solution X has pH 6, Y has pH 7. How many times is X more acidic than Y?",
+      "problemLatex": "Find the pH of $10^{-8}\\text{ M}$ aqueous $\\text{HCl}$ at $25^\\circ\\text{C}$ ($\\log_{10} 1.1 \\approx 0.04$).",
       "stepsLatex": [
-        "$[H^+]_X = 10^{-6}$, $[H^+]_Y = 10^{-7}$.",
-        "Ratio $= 10^{-6}/10^{-7} = 10$."
+        "Do NOT write $\\text{pH} = 8$ (an acid at $25^\\circ\\text{C}$ cannot be basic!). Include water autoionization: $[\\text{H}^+] \\approx 10^{-8} + 10^{-7} = 1.1\\times 10^{-7}\\text{ M}$ (more precisely $1.05\\times 10^{-7}\\text{ M}$).",
+        "$\\text{pH} = -\\log_{10}(1.05\\times 10^{-7}) \\approx 6.98$ (slightly below $7$!)."
       ],
-      "answerLatex": "10 times"
+      "answerLatex": "$\\approx 6.98$ (between $6.95$ and $7.00$)"
+    },
+    {
+      "exampleId": "C03-EX02",
+      "problemLatex": "What volume of $0.2\\text{ M }\\text{H}_2\\text{SO}_4$ completely neutralizes $40\\text{ mL}$ of $0.5\\text{ M }\\text{NaOH}$?",
+      "stepsLatex": [
+        "Normality of dibasic $\\text{H}_2\\text{SO}_4$: $N_1 = 2 \\times 0.2 = 0.4\\text{ N}$; for $\\text{NaOH}$: $N_2 = 1 \\times 0.5 = 0.5\\text{ N}$.",
+        "Equate milliequivalents $N_1 V_1 = N_2 V_2 \\implies 0.4\\,V_1 = 0.5 \\times 40 \\implies V_1 = 50\\text{ mL}$."
+      ],
+      "answerLatex": "$50\\text{ mL}$"
     }
   ],
   "wbjeebTraps": [
-    "pH is a logarithmic scale — each unit change = 10× change in $[H^+]$.",
-    "Salt hydrolysis: salt of weak acid + strong base gives basic solution."
+    "Ultra-dilute acid trap: $10^{-8}\\text{ M HCl}$ at $25^\\circ\\text{C}$ has $\\text{pH} \\approx 6.98 < 7$, NEVER $\\text{pH} = 8$!",
+    "Oxoacid basicity trap: $\\text{H}_3\\text{PO}_3$ is DIBASIC ($n_f=2$, one $\\text{P--H}$ bond) and $\\text{H}_3\\text{PO}_2$ is MONOBASIC ($n_f=1$, two $\\text{P--H}$ bonds)!",
+    "Autoionization of water is endothermic: at $60^\\circ\\text{C}$, $K_w > 10^{-14}$, so pure NEUTRAL water has $\\text{pH} < 7$ (still neutral because $[\\text{H}^+] = [\\text{OH}^-]$!)."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Chemistry Lecture: The pH Scale",
+      "url": "https://www.youtube.com/watch?v=pbb1L64_qsA",
+      "videoId": "pbb1L64_qsA",
+      "duration": "14 min",
+      "durationMinutes": 14,
+      "provider": "YouTube · KcoolScience",
+      "channelName": "KcoolScience",
+      "language": "en",
+      "scopeNote": "Arrhenius/Bronsted/Lewis acids & bases, Kw, pH/pOH calculations & neutralizations"
+    }
+  ],
   "practiceSetIds": []
 }

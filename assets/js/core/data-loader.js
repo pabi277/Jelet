@@ -145,11 +145,161 @@ export async function loadSolutionsForQuestions(questions) {
   return out;
 }
 
+/** Extract an 11-char (or valid) YouTube video ID from a watch/short/embed URL. */
+export function extractYouTubeId(url) {
+  if (!url || typeof url !== "string") return "";
+  const trimmed = url.trim();
+  const patterns = [
+    /[?&]v=([A-Za-z0-9_-]{6,})/,
+    /youtu\.be\/([A-Za-z0-9_-]{6,})/,
+    /youtube(?:-nocookie)?\.com\/(?:embed|shorts|live)\/([A-Za-z0-9_-]{6,})/,
+  ];
+  for (const rx of patterns) {
+    const m = trimmed.match(rx);
+    if (m) return m[1];
+  }
+  return "";
+}
+
+function slugAnchor(heading, idx) {
+  const s = String(heading || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return s || `sec-${idx + 1}`;
+}
+
+function parseDurationMinutes(duration, durationMinutes) {
+  if (Number.isFinite(Number(durationMinutes)) && Number(durationMinutes) > 0) {
+    return Number(durationMinutes);
+  }
+  if (typeof duration === "number" && duration > 0) return duration;
+  if (typeof duration === "string") {
+    const colon = duration.trim().match(/^(\d+):(\d{2})(?::(\d{2}))?$/);
+    if (colon) {
+      return colon[3]
+        ? Number(colon[1]) * 60 + Number(colon[2]) + Math.round(Number(colon[3]) / 60)
+        : Math.max(1, Number(colon[1]));
+    }
+    const minMatch = duration.match(/(\d+(?:\.\d+)?)\s*(?:min|m\b)/i);
+    if (minMatch) return Math.round(Number(minMatch[1]));
+    const plainNum = duration.trim().match(/^(\d+)$/);
+    if (plainNum) return Number(plainNum[1]);
+  }
+  return 0;
+}
+
+/**
+ * Schema migration guard for `_data/units/*.json`.
+ * Tolerates both legacy Phase 03/04 unit objects (`sections`, `workedExamples`,
+ * `videoLectures[].videoId`, `pyqIds`) and Phase 06 self-contained unit objects
+ * (`notes[]`, `videoLectures[]{title,url,duration,provider}`, `practiceQuestions[]`).
+ */
+export function normalizeUnit(raw = {}) {
+  const unitId = String(raw.unitId || "").toUpperCase();
+  const pyqIds = Array.isArray(raw.pyqIds) ? raw.pyqIds.filter(Boolean) : [];
+
+  const practiceQuestions = Array.isArray(raw.practiceQuestions)
+    ? raw.practiceQuestions
+        .map((item) => (typeof item === "string" ? item : item?.questionId || item?.id || ""))
+        .filter(Boolean)
+    : [...pyqIds];
+
+  const hasNotes = Array.isArray(raw.notes) && raw.notes.length > 0;
+  const hasSections = Array.isArray(raw.sections) && raw.sections.length > 0;
+
+  const notes = (hasNotes ? raw.notes : hasSections ? raw.sections : []).map((sec, idx) => ({
+    anchor: sec.anchor || slugAnchor(sec.heading, idx),
+    heading: sec.heading || `Section ${idx + 1}`,
+    proseLatex: sec.proseLatex || "",
+    keyFormulas: Array.isArray(sec.keyFormulas) ? sec.keyFormulas : [],
+    examples: Array.isArray(sec.examples) ? sec.examples : [],
+  }));
+
+  const sections = hasSections
+    ? raw.sections.map((sec, idx) => ({
+        anchor: sec.anchor || slugAnchor(sec.heading, idx),
+        heading: sec.heading || `Section ${idx + 1}`,
+        proseLatex: sec.proseLatex || "",
+        keyFormulas: Array.isArray(sec.keyFormulas) ? sec.keyFormulas : [],
+      }))
+    : notes.map(({ anchor, heading, proseLatex, keyFormulas }) => ({
+        anchor,
+        heading,
+        proseLatex,
+        keyFormulas,
+      }));
+
+  const seenExamples = new Set();
+  const workedExamples = [];
+  for (const ex of [
+    ...notes.flatMap((n) => n.examples || []),
+    ...(Array.isArray(raw.workedExamples) ? raw.workedExamples : []),
+  ]) {
+    if (!ex || typeof ex !== "object") continue;
+    const key = ex.exampleId || ex.problemLatex || JSON.stringify(ex);
+    if (seenExamples.has(key)) continue;
+    seenExamples.add(key);
+    workedExamples.push(ex);
+  }
+
+  const videoLectures = (Array.isArray(raw.videoLectures) ? raw.videoLectures : [])
+    .filter((v) => v && typeof v === "object")
+    .map((v) => {
+      const videoId = v.videoId || extractYouTubeId(v.url);
+      const url = v.url || (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "");
+      const durationMinutes = parseDurationMinutes(v.duration, v.durationMinutes);
+      const duration =
+        v.duration || (durationMinutes ? `${durationMinutes} min` : "");
+      const provider = v.provider || (videoId ? "YouTube" : "External");
+      const channelFromProvider =
+        typeof provider === "string" && provider.includes("·")
+          ? provider.split("·").slice(1).join("·").trim()
+          : "";
+      const channelName = v.channelName || channelFromProvider || provider;
+      return {
+        ...v,
+        title: v.title || `${unitId} Video Lecture`,
+        url,
+        videoId,
+        duration,
+        durationMinutes,
+        provider,
+        channelName,
+        language: v.language || "en",
+      };
+    })
+    .filter((v) => Boolean(v.videoId || v.url));
+
+  const formulas =
+    Array.isArray(raw.formulas) && raw.formulas.length
+      ? raw.formulas
+      : sections.flatMap((s) => s.keyFormulas || []);
+
+  const overviewLatex = raw.overviewLatex || notes[0]?.proseLatex || "";
+
+  return {
+    ...raw,
+    unitId: unitId || raw.unitId || "",
+    pyqIds,
+    practiceQuestions,
+    notes,
+    sections,
+    workedExamples,
+    wbjeebTraps: Array.isArray(raw.wbjeebTraps) ? raw.wbjeebTraps : [],
+    videoLectures,
+    practiceSetIds: Array.isArray(raw.practiceSetIds) ? raw.practiceSetIds : [],
+    formulas,
+    overviewLatex,
+  };
+}
+
 /** Load a single unit workbook (`M01`..`E08`). */
 export async function loadUnit(unitId) {
   const id = String(unitId).toUpperCase();
   if (_cache.units.has(id)) return _cache.units.get(id);
-  const data = await fetchJson(`./_data/units/${id}.json`);
+  const raw = await fetchJson(`./_data/units/${id}.json`);
+  const data = normalizeUnit(raw);
   _cache.units.set(id, data);
   return data;
 }

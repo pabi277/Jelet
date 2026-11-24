@@ -22,30 +22,124 @@
     "jelet-2025-q073",
     "jelet-2025-q086"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q071",
+    "jelet-2025-q073",
+    "jelet-2024-q072",
+    "jelet-2024-q073",
+    "jelet-2024-q082",
+    "jelet-2023-q071",
+    "jelet-2023-q072",
+    "jelet-2023-q073",
+    "jelet-2023-q075",
+    "jelet-2022-q073",
+    "jelet-2022-q074",
+    "jelet-2022-q077",
+    "jelet-2025-q086",
+    "jelet-2023-q086",
+    "jelet-2023-q087"
+  ],
+  "notes": [
     {
-      "anchor": "quantum",
-      "heading": "1. Quantum Numbers & Orbitals",
-      "proseLatex": "Quantum numbers $(n,l,m,s)$. $l = 0,1,2,3 \\to s,p,d,f$. Aufbau, Pauli, Hund's rule.",
+      "anchor": "bohr-spectrum",
+      "heading": "1. Bohr Model, Hydrogenic Radii/Energies & Rydberg Spectral Lines",
+      "proseLatex": "For one-electron hydrogenic species ($\\text{H}, \\text{He}^+, \\text{Li}^{2+}$) of atomic number $Z$, angular momentum is quantized as $mvr = \\frac{nh}{2\\pi}$, giving orbit radius $r_n = 0.529\\,\\frac{n^2}{Z}\\text{ \\AA}$, speed $v_n \\propto \\frac{Z}{n}$, and total energy $E_n = -13.6\\,\\frac{Z^2}{n^2}\\text{ eV}$ (with $K = -E$ and $U = 2E$). Transitions from $n_2 \\to n_1$ emit wavenumbers $\\bar{\\nu} = \\frac{1}{\\lambda} = R_H Z^2\\left(\\frac{1}{n_1^2} - \\frac{1}{n_2^2}\\right)$ across Lyman ($n_1=1$, UV), Balmer ($n_1=2$, visible), and Paschen ($n_1=3$, IR), producing up to $\\frac{\\Delta n(\\Delta n+1)}{2}$ distinct spectral lines.",
       "keyFormulas": [
         {
           "formulaId": "C01-F01",
-          "label": "Quantum Numbers",
-          "latex": "$n=1,2,...$; $l=0,...,n-1$; $m=-l,...,+l$",
-          "aiExplainContext": "Define the state of an electron."
+          "label": "Bohr Radius, Energy & Rydberg Formula",
+          "latex": "$r_n = 0.529\\,\\frac{n^2}{Z}\\text{ \\AA},\\quad E_n = -13.6\\,\\frac{Z^2}{n^2}\\text{ eV},\\quad \\frac{1}{\\lambda} = R_H Z^2\\!\\left(\\frac{1}{n_1^2} - \\frac{1}{n_2^2}\\right)$",
+          "aiExplainContext": "Scale Bohr radius/energy for H, He+, Li2+ and identify spectral series."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "C01-EX01",
+          "problemLatex": "Calculate the ionization energy (from ground state $n=1$ to $\\infty$) of singly ionized helium $\\text{He}^+$ ($Z = 2$).",
+          "stepsLatex": [
+            "Ground-state energy $E_1 = -13.6 \\times \\frac{2^2}{1^2} = -54.4\\text{ eV}$.",
+            "Ionization energy $= E_\\infty - E_1 = 0 - (-54.4) = +54.4\\text{ eV}$."
+          ],
+          "answerLatex": "$54.4\\text{ eV}$"
         }
       ]
     },
     {
-      "anchor": "hybridization",
-      "heading": "2. Hybridization & Molecular Geometry",
-      "proseLatex": "$sp^3$ (tetrahedral), $sp^2$ (trigonal planar), $sp$ (linear) hybridization and geometry.",
+      "anchor": "quantum-numbers",
+      "heading": "2. Quantum Numbers (n, l, m, s), Nodes & Heisenberg Uncertainty",
+      "proseLatex": "Four quantum numbers specify every orbital electron: principal $n = 1,2,3,\\dots$, azimuthal $l = 0,\\dots,n-1$ ($s,p,d,f$), magnetic $m_l = -l,\\dots,+l$ ($2l+1$ orbitals per subshell; $n^2$ orbitals and $2n^2$ max electrons per shell), and spin $m_s = \\pm\\frac{1}{2}$. Any $(n,l)$ orbital has $l$ angular nodes and $(n - l - 1)$ radial nodes ($n - 1$ total nodes). Heisenberg's uncertainty principle demands $\\Delta x\\cdot\\Delta p_x \\ge \\frac{h}{4\\pi}$.",
       "keyFormulas": [
         {
           "formulaId": "C01-F02",
-          "label": "Hybridization",
-          "latex": "$\\text{Steric number} = \\text{bonds} + \\text{lone pairs}$",
-          "aiExplainContext": "Determine hybridization from electron domains."
+          "label": "Subshell Capacity, Node Counts & Heisenberg Limit",
+          "latex": "$\\text{Radial nodes} = n - l - 1,\\quad \\text{Angular nodes} = l,\\quad e^-_{\\max,\\text{shell}} = 2n^2,\\quad \\Delta x\\,\\Delta p \\ge \\frac{h}{4\\pi}$",
+          "aiExplainContext": "Validate allowed (n, l, m_l, m_s) tuples and count radial/angular nodes."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "C01-EX02",
+          "problemLatex": "How many radial nodes and angular nodes are present in a $4d$ orbital?",
+          "stepsLatex": [
+            "For $4d$, $n = 4$ and $l = 2$.",
+            "Angular nodes $= l = 2$; radial nodes $= n - l - 1 = 4 - 2 - 1 = 1$ (total nodes $= 3$)."
+          ],
+          "answerLatex": "$1$ radial node, $2$ angular nodes"
+        }
+      ]
+    },
+    {
+      "anchor": "filling-rules",
+      "heading": "3. Aufbau (n + l) Rule, Pauli Exclusion, Hund's Rule & Cr/Cu Exceptions",
+      "proseLatex": "Subshells fill in increasing $(n + l)$ order (lower $n$ wins ties, e.g., $4s$ [$4+0=4$] fills before $3d$ [$3+2=5$]). Pauli forbids two electrons sharing all four quantum numbers, while Hund's rule maximizes parallel spins in degenerate orbitals with spin-only magnetic moment $\\mu = \\sqrt{n(n+2)}\\text{ BM}$ ($n =$ unpaired electrons). Half-filled and fully-filled exchange stability gives $\\text{Cr}$ ($Z=24$): $[\\text{Ar}]\\,3d^5 4s^1$ and $\\text{Cu}$ ($Z=29$): $[\\text{Ar}]\\,3d^{10} 4s^1$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C01-F03",
+          "label": "Spin-Only Magnetic Moment & Orbital Angular Momentum",
+          "latex": "$\\mu_{\\text{spin}} = \\sqrt{n(n + 2)}\\;\\text{BM},\\qquad L_{\\text{orbital}} = \\sqrt{l(l + 1)}\\,\\frac{h}{2\\pi}$",
+          "aiExplainContext": "Count unpaired d-electrons (watch 4s removal first in transition ions!) and compute BM."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "bohr-spectrum",
+      "heading": "1. Bohr Model, Hydrogenic Radii/Energies & Rydberg Spectral Lines",
+      "proseLatex": "For one-electron hydrogenic species ($\\text{H}, \\text{He}^+, \\text{Li}^{2+}$) of atomic number $Z$, angular momentum is quantized as $mvr = \\frac{nh}{2\\pi}$, giving orbit radius $r_n = 0.529\\,\\frac{n^2}{Z}\\text{ \\AA}$, speed $v_n \\propto \\frac{Z}{n}$, and total energy $E_n = -13.6\\,\\frac{Z^2}{n^2}\\text{ eV}$ (with $K = -E$ and $U = 2E$). Transitions from $n_2 \\to n_1$ emit wavenumbers $\\bar{\\nu} = \\frac{1}{\\lambda} = R_H Z^2\\left(\\frac{1}{n_1^2} - \\frac{1}{n_2^2}\\right)$ across Lyman ($n_1=1$, UV), Balmer ($n_1=2$, visible), and Paschen ($n_1=3$, IR), producing up to $\\frac{\\Delta n(\\Delta n+1)}{2}$ distinct spectral lines.",
+      "keyFormulas": [
+        {
+          "formulaId": "C01-F01",
+          "label": "Bohr Radius, Energy & Rydberg Formula",
+          "latex": "$r_n = 0.529\\,\\frac{n^2}{Z}\\text{ \\AA},\\quad E_n = -13.6\\,\\frac{Z^2}{n^2}\\text{ eV},\\quad \\frac{1}{\\lambda} = R_H Z^2\\!\\left(\\frac{1}{n_1^2} - \\frac{1}{n_2^2}\\right)$",
+          "aiExplainContext": "Scale Bohr radius/energy for H, He+, Li2+ and identify spectral series."
+        }
+      ]
+    },
+    {
+      "anchor": "quantum-numbers",
+      "heading": "2. Quantum Numbers (n, l, m, s), Nodes & Heisenberg Uncertainty",
+      "proseLatex": "Four quantum numbers specify every orbital electron: principal $n = 1,2,3,\\dots$, azimuthal $l = 0,\\dots,n-1$ ($s,p,d,f$), magnetic $m_l = -l,\\dots,+l$ ($2l+1$ orbitals per subshell; $n^2$ orbitals and $2n^2$ max electrons per shell), and spin $m_s = \\pm\\frac{1}{2}$. Any $(n,l)$ orbital has $l$ angular nodes and $(n - l - 1)$ radial nodes ($n - 1$ total nodes). Heisenberg's uncertainty principle demands $\\Delta x\\cdot\\Delta p_x \\ge \\frac{h}{4\\pi}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C01-F02",
+          "label": "Subshell Capacity, Node Counts & Heisenberg Limit",
+          "latex": "$\\text{Radial nodes} = n - l - 1,\\quad \\text{Angular nodes} = l,\\quad e^-_{\\max,\\text{shell}} = 2n^2,\\quad \\Delta x\\,\\Delta p \\ge \\frac{h}{4\\pi}$",
+          "aiExplainContext": "Validate allowed (n, l, m_l, m_s) tuples and count radial/angular nodes."
+        }
+      ]
+    },
+    {
+      "anchor": "filling-rules",
+      "heading": "3. Aufbau (n + l) Rule, Pauli Exclusion, Hund's Rule & Cr/Cu Exceptions",
+      "proseLatex": "Subshells fill in increasing $(n + l)$ order (lower $n$ wins ties, e.g., $4s$ [$4+0=4$] fills before $3d$ [$3+2=5$]). Pauli forbids two electrons sharing all four quantum numbers, while Hund's rule maximizes parallel spins in degenerate orbitals with spin-only magnetic moment $\\mu = \\sqrt{n(n+2)}\\text{ BM}$ ($n =$ unpaired electrons). Half-filled and fully-filled exchange stability gives $\\text{Cr}$ ($Z=24$): $[\\text{Ar}]\\,3d^5 4s^1$ and $\\text{Cu}$ ($Z=29$): $[\\text{Ar}]\\,3d^{10} 4s^1$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C01-F03",
+          "label": "Spin-Only Magnetic Moment & Orbital Angular Momentum",
+          "latex": "$\\mu_{\\text{spin}} = \\sqrt{n(n + 2)}\\;\\text{BM},\\qquad L_{\\text{orbital}} = \\sqrt{l(l + 1)}\\,\\frac{h}{2\\pi}$",
+          "aiExplainContext": "Count unpaired d-electrons (watch 4s removal first in transition ions!) and compute BM."
         }
       ]
     }
@@ -53,18 +147,40 @@
   "workedExamples": [
     {
       "exampleId": "C01-EX01",
-      "problemLatex": "An orbital with $n=5$, $l=3$ is designated as:",
+      "problemLatex": "Calculate the ionization energy (from ground state $n=1$ to $\\infty$) of singly ionized helium $\\text{He}^+$ ($Z = 2$).",
       "stepsLatex": [
-        "$l = 3 \\Rightarrow f$ orbital.",
-        "Designation: $5f$."
+        "Ground-state energy $E_1 = -13.6 \\times \\frac{2^2}{1^2} = -54.4\\text{ eV}$.",
+        "Ionization energy $= E_\\infty - E_1 = 0 - (-54.4) = +54.4\\text{ eV}$."
       ],
-      "answerLatex": "$5f$"
+      "answerLatex": "$54.4\\text{ eV}$"
+    },
+    {
+      "exampleId": "C01-EX02",
+      "problemLatex": "How many radial nodes and angular nodes are present in a $4d$ orbital?",
+      "stepsLatex": [
+        "For $4d$, $n = 4$ and $l = 2$.",
+        "Angular nodes $= l = 2$; radial nodes $= n - l - 1 = 4 - 2 - 1 = 1$ (total nodes $= 3$)."
+      ],
+      "answerLatex": "$1$ radial node, $2$ angular nodes"
     }
   ],
   "wbjeebTraps": [
-    "$l = 0,1,2,3$ correspond to $s,p,d,f$.",
-    "Hund's rule: fill degenerate orbitals singly first."
+    "Transition-metal ion trap: when ionizing $\\text{Fe}$ ($[\\text{Ar}]3d^6 4s^2$) to $\\text{Fe}^{2+}$, remove $4s$ electrons FIRST $\\to [\\text{Ar}]3d^6$ ($4$ unpaired $e^-$, NOT $[\\text{Ar}]3d^4 4s^2$!).",
+    "Remember $\\text{Cr}$ ($3d^5 4s^1$, $6$ unpaired $e^-$ in total!) and $\\text{Cu}$ ($3d^{10} 4s^1$, $1$ unpaired $e^-$).",
+    "Bohr formulas apply ONLY to 1-electron species ($\\text{H}, \\text{He}^+, \\text{Li}^{2+}$), NOT neutral $\\text{He}$ or $\\text{Li}^+$."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Bohr-Sommerfeld Model of Atom, Class-11, Unit-2, Atomic Structure",
+      "url": "https://www.youtube.com/watch?v=uRuUO0aD-Iw",
+      "videoId": "uRuUO0aD-Iw",
+      "duration": "25 min",
+      "durationMinutes": 25,
+      "provider": "YouTube · Chemistry Class by PM Mishra",
+      "channelName": "Chemistry Class by PM Mishra",
+      "language": "en",
+      "scopeNote": "Bohr radii & energy levels, hydrogen spectrum, quantum numbers & electronic configurations"
+    }
+  ],
   "practiceSetIds": []
 }

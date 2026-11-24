@@ -19,30 +19,121 @@
     "jelet-2025-q062",
     "jelet-2025-q069"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q057",
+    "jelet-2025-q058",
+    "jelet-2025-q061",
+    "jelet-2025-q062",
+    "jelet-2024-q053",
+    "jelet-2023-q047",
+    "jelet-2023-q048",
+    "jelet-2022-q055",
+    "jelet-2022-q062",
+    "jelet-2025-q069",
+    "jelet-2024-q070",
+    "jelet-2022-q066"
+  ],
+  "notes": [
     {
-      "anchor": "first-law",
-      "heading": "1. First Law & Internal Energy",
-      "proseLatex": "$\\Delta U = Q - W$. $Q$ is heat added, $W$ is work done by the system.",
+      "anchor": "zeroth-first-law",
+      "heading": "1. Zeroth & First Laws, Internal Energy & Mayer's Relation",
+      "proseLatex": "The Zeroth law defines temperature via transitive thermal equilibrium. In physics sign convention, First Law energy conservation reads $\\Delta Q = \\Delta U + \\Delta W$ where $\\Delta W = \\int P\\,dV$ is work done BY the system (area under $P$-$V$ curve; clockwise cycle gives $\\Delta W > 0$ and $\\Delta U_{\\text{cycle}} = 0$). For an ideal gas with $f$ degrees of freedom ($3$ monatomic, $5$ rigid diatomic), internal energy $U = \\frac{f}{2}nRT = nC_V T$ is a pure state function of $T$, with $C_P - C_V = R$ and $\\gamma = \\frac{C_P}{C_V} = 1 + \\frac{2}{f}$.",
       "keyFormulas": [
         {
           "formulaId": "P11-F01",
-          "label": "First Law",
-          "latex": "$\\Delta U = Q - W$",
-          "aiExplainContext": "Energy conservation for thermodynamic systems."
+          "label": "First Law, Ideal Gas Internal Energy & Mayer's Relation",
+          "latex": "$\\Delta Q = \\Delta U + \\int P\\,dV,\\quad \\Delta U = n C_V \\Delta T = \\frac{f}{2}nR\\Delta T,\\quad C_P - C_V = R,\\quad \\gamma = 1 + \\frac{2}{f}$",
+          "aiExplainContext": "Distinguish path functions (Q, W) from state function U(T) and compute gamma."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P11-EX01",
+          "problemLatex": "Find the fraction $\\Delta W / \\Delta Q$ when a rigid diatomic ideal gas expands isobarically.",
+          "stepsLatex": [
+            "At constant pressure, $\\Delta Q = nC_P\\Delta T$ and $\\Delta U = nC_V\\Delta T$, so $\\frac{\\Delta W}{\\Delta Q} = 1 - \\frac{C_V}{C_P} = 1 - \\frac{1}{\\gamma}$.",
+            "For a rigid diatomic gas ($f=5$), $\\gamma = 7/5$, giving $\\frac{\\Delta W}{\\Delta Q} = 1 - \\frac{5}{7} = \\frac{2}{7}$."
+          ],
+          "answerLatex": "$\\frac{2}{7}$"
         }
       ]
     },
     {
       "anchor": "processes",
-      "heading": "2. Thermodynamic Processes",
-      "proseLatex": "Isothermal ($PV = $ const), isobaric ($P = $ const), isochoric ($V = $ const), adiabatic ($PV^\\gamma = $ const).",
+      "heading": "2. Isothermal, Adiabatic, Isobaric & Isochoric Processes",
+      "proseLatex": "Isochoric ($\\Delta V = 0 \\implies W = 0,\\; \\Delta Q = \\Delta U$); isobaric ($\\Delta P = 0 \\implies W = P\\Delta V = nR\\Delta T$). Isothermal ($\\Delta T = 0 \\implies \\Delta U = 0$ for ideal gas) obeys $PV = \\text{const}$ with $W = nRT\\ln(V_2/V_1)$ and bulk modulus $K_T = P$. Reversible adiabatic ($\\Delta Q = 0 \\implies W = -\\Delta U$) obeys $PV^\\gamma = \\text{const}$ (equivalently $TV^{\\gamma-1} = \\text{const}$ and $P^{1-\\gamma}T^\\gamma = \\text{const}$) with steeper $P$-$V$ slope $\\left(\\frac{dP}{dV}\\right)_{\\text{ad}} = -\\gamma\\frac{P}{V} = \\gamma\\left(\\frac{dP}{dV}\\right)_{\\text{iso}}$.",
       "keyFormulas": [
         {
           "formulaId": "P11-F02",
-          "label": "Adiabatic Relation",
-          "latex": "$PV^\\gamma = \\text{const}$",
-          "aiExplainContext": "No heat exchange in adiabatic processes."
+          "label": "Isothermal vs Adiabatic Work & Slope Ratio",
+          "latex": "$W_{\\text{iso}} = nRT\\ln\\!\\frac{V_2}{V_1},\\quad W_{\\text{ad}} = \\frac{P_1 V_1 - P_2 V_2}{\\gamma - 1} = \\frac{nR(T_1 - T_2)}{\\gamma - 1},\\quad \\text{Slope}_{\\text{ad}} = \\gamma\\,\\text{Slope}_{\\text{iso}}$",
+          "aiExplainContext": "Compute reversible isothermal/adiabatic work and identify steeper adiabats on PV plots."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "second-law-carnot",
+      "heading": "3. Second Law, Carnot Heat Engine & Refrigerator COP",
+      "proseLatex": "No cyclic engine converts heat $100\\%$ into work (Kelvin-Planck) and heat never flows spontaneously from cold to hot without external work (Clausius). A reversible Carnot engine operating between hot reservoir $T_H$ and cold sink $T_C$ (in KELVIN!) achieves maximum theoretical efficiency $\\eta = 1 - \\frac{T_C}{T_H} = \\frac{W}{Q_H}$, while a Carnot refrigerator has coefficient of performance $\\text{COP} = \\frac{Q_C}{W} = \\frac{T_C}{T_H - T_C}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P11-F03",
+          "label": "Carnot Efficiency & Refrigerator COP",
+          "latex": "$\\eta_{\\text{Carnot}} = 1 - \\frac{T_C}{T_H} = 1 - \\frac{Q_C}{Q_H},\\qquad \\text{COP}_{\\text{ref}} = \\frac{T_C}{T_H - T_C} = \\frac{1 - \\eta}{\\eta}$",
+          "aiExplainContext": "Evaluate Carnot engine efficiency and refrigerator COP strictly in Kelvin."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P11-EX02",
+          "problemLatex": "A Carnot engine operates between $127^\\circ\\text{C}$ and $27^\\circ\\text{C}$ absorbing $800\\text{ J}$ per cycle. Find work output $W$.",
+          "stepsLatex": [
+            "Convert to Kelvin: $T_H = 127 + 273 = 400\\text{ K}$ and $T_C = 27 + 273 = 300\\text{ K}$.",
+            "$\\eta = 1 - \\frac{300}{400} = 0.25 \\implies W = \\eta Q_H = 0.25 \\times 800\\text{ J} = 200\\text{ J}$."
+          ],
+          "answerLatex": "$200\\text{ J}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "zeroth-first-law",
+      "heading": "1. Zeroth & First Laws, Internal Energy & Mayer's Relation",
+      "proseLatex": "The Zeroth law defines temperature via transitive thermal equilibrium. In physics sign convention, First Law energy conservation reads $\\Delta Q = \\Delta U + \\Delta W$ where $\\Delta W = \\int P\\,dV$ is work done BY the system (area under $P$-$V$ curve; clockwise cycle gives $\\Delta W > 0$ and $\\Delta U_{\\text{cycle}} = 0$). For an ideal gas with $f$ degrees of freedom ($3$ monatomic, $5$ rigid diatomic), internal energy $U = \\frac{f}{2}nRT = nC_V T$ is a pure state function of $T$, with $C_P - C_V = R$ and $\\gamma = \\frac{C_P}{C_V} = 1 + \\frac{2}{f}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P11-F01",
+          "label": "First Law, Ideal Gas Internal Energy & Mayer's Relation",
+          "latex": "$\\Delta Q = \\Delta U + \\int P\\,dV,\\quad \\Delta U = n C_V \\Delta T = \\frac{f}{2}nR\\Delta T,\\quad C_P - C_V = R,\\quad \\gamma = 1 + \\frac{2}{f}$",
+          "aiExplainContext": "Distinguish path functions (Q, W) from state function U(T) and compute gamma."
+        }
+      ]
+    },
+    {
+      "anchor": "processes",
+      "heading": "2. Isothermal, Adiabatic, Isobaric & Isochoric Processes",
+      "proseLatex": "Isochoric ($\\Delta V = 0 \\implies W = 0,\\; \\Delta Q = \\Delta U$); isobaric ($\\Delta P = 0 \\implies W = P\\Delta V = nR\\Delta T$). Isothermal ($\\Delta T = 0 \\implies \\Delta U = 0$ for ideal gas) obeys $PV = \\text{const}$ with $W = nRT\\ln(V_2/V_1)$ and bulk modulus $K_T = P$. Reversible adiabatic ($\\Delta Q = 0 \\implies W = -\\Delta U$) obeys $PV^\\gamma = \\text{const}$ (equivalently $TV^{\\gamma-1} = \\text{const}$ and $P^{1-\\gamma}T^\\gamma = \\text{const}$) with steeper $P$-$V$ slope $\\left(\\frac{dP}{dV}\\right)_{\\text{ad}} = -\\gamma\\frac{P}{V} = \\gamma\\left(\\frac{dP}{dV}\\right)_{\\text{iso}}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P11-F02",
+          "label": "Isothermal vs Adiabatic Work & Slope Ratio",
+          "latex": "$W_{\\text{iso}} = nRT\\ln\\!\\frac{V_2}{V_1},\\quad W_{\\text{ad}} = \\frac{P_1 V_1 - P_2 V_2}{\\gamma - 1} = \\frac{nR(T_1 - T_2)}{\\gamma - 1},\\quad \\text{Slope}_{\\text{ad}} = \\gamma\\,\\text{Slope}_{\\text{iso}}$",
+          "aiExplainContext": "Compute reversible isothermal/adiabatic work and identify steeper adiabats on PV plots."
+        }
+      ]
+    },
+    {
+      "anchor": "second-law-carnot",
+      "heading": "3. Second Law, Carnot Heat Engine & Refrigerator COP",
+      "proseLatex": "No cyclic engine converts heat $100\\%$ into work (Kelvin-Planck) and heat never flows spontaneously from cold to hot without external work (Clausius). A reversible Carnot engine operating between hot reservoir $T_H$ and cold sink $T_C$ (in KELVIN!) achieves maximum theoretical efficiency $\\eta = 1 - \\frac{T_C}{T_H} = \\frac{W}{Q_H}$, while a Carnot refrigerator has coefficient of performance $\\text{COP} = \\frac{Q_C}{W} = \\frac{T_C}{T_H - T_C}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P11-F03",
+          "label": "Carnot Efficiency & Refrigerator COP",
+          "latex": "$\\eta_{\\text{Carnot}} = 1 - \\frac{T_C}{T_H} = 1 - \\frac{Q_C}{Q_H},\\qquad \\text{COP}_{\\text{ref}} = \\frac{T_C}{T_H - T_C} = \\frac{1 - \\eta}{\\eta}$",
+          "aiExplainContext": "Evaluate Carnot engine efficiency and refrigerator COP strictly in Kelvin."
         }
       ]
     }
@@ -50,18 +141,40 @@
   "workedExamples": [
     {
       "exampleId": "P11-EX01",
-      "problemLatex": "System goes $a \\to b$ via $acb$: $Q = 200$ J, $W = 80$ J. Via $adb$: $Q = 144$ J. Find $W$.",
+      "problemLatex": "Find the fraction $\\Delta W / \\Delta Q$ when a rigid diatomic ideal gas expands isobarically.",
       "stepsLatex": [
-        "$\\Delta U = 200 - 80 = 120$ J (path independent).",
-        "$W = Q - \\Delta U = 144 - 120 = 24$ J."
+        "At constant pressure, $\\Delta Q = nC_P\\Delta T$ and $\\Delta U = nC_V\\Delta T$, so $\\frac{\\Delta W}{\\Delta Q} = 1 - \\frac{C_V}{C_P} = 1 - \\frac{1}{\\gamma}$.",
+        "For a rigid diatomic gas ($f=5$), $\\gamma = 7/5$, giving $\\frac{\\Delta W}{\\Delta Q} = 1 - \\frac{5}{7} = \\frac{2}{7}$."
       ],
-      "answerLatex": "$24$ J"
+      "answerLatex": "$\\frac{2}{7}$"
+    },
+    {
+      "exampleId": "P11-EX02",
+      "problemLatex": "A Carnot engine operates between $127^\\circ\\text{C}$ and $27^\\circ\\text{C}$ absorbing $800\\text{ J}$ per cycle. Find work output $W$.",
+      "stepsLatex": [
+        "Convert to Kelvin: $T_H = 127 + 273 = 400\\text{ K}$ and $T_C = 27 + 273 = 300\\text{ K}$.",
+        "$\\eta = 1 - \\frac{300}{400} = 0.25 \\implies W = \\eta Q_H = 0.25 \\times 800\\text{ J} = 200\\text{ J}$."
+      ],
+      "answerLatex": "$200\\text{ J}$"
     }
   ],
   "wbjeebTraps": [
-    "Internal energy is a state function; $Q$ and $W$ are path-dependent.",
-    "For ideal gas: $C_p - C_v = R$."
+    "Physics vs Chemistry sign trap: physics uses $\\Delta Q = \\Delta U + W_{\\text{by}}$ ($W>0$ in expansion), whereas chemistry writes $\\Delta U = q + w_{\\text{on}}$ ($w<0$ in expansion) — read carefully whether 'work done BY' or 'work done ON' the gas is asked!",
+    "Lowering sink temperature $T_C$ by $\\Delta T$ boosts Carnot efficiency MORE than raising source temperature $T_H$ by the same $\\Delta T$!",
+    "Free expansion into vacuum ($P_{\\text{ext}} = 0$) is adiabatic with $Q = 0,\\; W = 0,\\; \\Delta U = 0$, so an ideal gas suffers ZERO temperature change even though $PV^\\gamma = \\text{const}$ does NOT apply (irreversible!)."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "First law of thermodynamics || Isochoric Process || Isobaric Process || Isothermal Process",
+      "url": "https://www.youtube.com/watch?v=bQf1KcRXpZE",
+      "videoId": "bQf1KcRXpZE",
+      "duration": "26 min",
+      "durationMinutes": 26,
+      "provider": "YouTube · Blue Sky Academy",
+      "channelName": "Blue Sky Academy",
+      "language": "en",
+      "scopeNote": "First law sign convention, PV indicator work, isothermal/adiabatic processes & Carnot cycle"
+    }
+  ],
   "practiceSetIds": []
 }

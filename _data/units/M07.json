@@ -20,30 +20,122 @@
     "jelet-2025-q026",
     "jelet-2025-q035"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q025",
+    "jelet-2025-q026",
+    "jelet-2024-q009",
+    "jelet-2024-q018",
+    "jelet-2024-q019",
+    "jelet-2023-q019",
+    "jelet-2023-q020",
+    "jelet-2023-q021",
+    "jelet-2022-q019",
+    "jelet-2022-q021",
+    "jelet-2025-q035",
+    "jelet-2024-q037",
+    "jelet-2023-q037"
+  ],
+  "notes": [
     {
-      "anchor": "geometric-meaning",
-      "heading": "1. Tangents, Normals & Rate of Change",
-      "proseLatex": "The derivative $f'(x)$ gives the slope of the tangent. Rate of change of a quantity is its derivative.",
+      "anchor": "tangents-rates",
+      "heading": "1. Tangents, Normals, Subtangent & Related Rates",
+      "proseLatex": "At $(x_0, y_0)$ on $y = f(x)$, the tangent slope is $m_T = f'(x_0)$ with equation $y - y_0 = m_T(x - x_0)$, and the normal has slope $m_N = -1/m_T$ (vertical tangent when $1/m_T = 0$). Two curves intersect orthogonally at $P$ if $m_1 m_2 = -1$ at $P$. Related-rate problems differentiate geometric relations (such as $V = \\frac{4}{3}\\pi r^3$ or $x^2+y^2=\\ell^2$) with respect to time $t$ via the chain rule.",
       "keyFormulas": [
         {
           "formulaId": "M07-F01",
-          "label": "Tangent Slope",
-          "latex": "Slope of tangent at $x_0$: $f'(x_0)$",
-          "aiExplainContext": "Geometric interpretation of the derivative."
+          "label": "Tangent, Normal & Orthogonal Curves",
+          "latex": "$y - y_0 = f'(x_0)(x - x_0),\\quad y - y_0 = -\\frac{1}{f'(x_0)}(x - x_0),\\quad m_1 m_2 = -1 \\text{ (orthogonal)}$",
+          "aiExplainContext": "Write tangent/normal equations and test orthogonal intersection of curves."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M07-EX01",
+          "problemLatex": "Find the slope of the normal to $y = x^3 - 3x + 2$ at $x = 2$.",
+          "stepsLatex": [
+            "Differentiate: $y' = 3x^2 - 3$, so tangent slope at $x=2$ is $m_T = 3(4) - 3 = 9$.",
+            "Normal slope $m_N = -1/m_T = -1/9$."
+          ],
+          "answerLatex": "$-\\frac{1}{9}$"
+        }
+      ]
+    },
+    {
+      "anchor": "monotonicity",
+      "heading": "2. Monotonicity, Concavity & Inflection Points",
+      "proseLatex": "On an interval $I$, $f'(x) > 0$ implies $f$ is strictly increasing and $f'(x) < 0$ implies $f$ is strictly decreasing (isolated zeros of $f'$ where sign does not flip, such as $x^3$ at $x=0$, preserve strict monotonicity!). Second derivative $f''(x) > 0$ marks upward concavity (convex) and $f''(x) < 0$ marks downward concavity; a point of inflection occurs only where concavity ACTUALLY changes sign across $x_0$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M07-F02",
+          "label": "Monotonicity & Inflection Criterion",
+          "latex": "$f'(x) > 0 \\implies f \\uparrow;\\quad f''(x_0)=0 \\text{ with sign change of } f'' \\implies \\text{point of inflection}$",
+          "aiExplainContext": "Distinguish genuine inflection points from flat fourth-degree minima."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "maxima-minima",
+      "heading": "3. Local vs Global Maxima & Minima",
+      "proseLatex": "Critical points occur where $f'(c) = 0$ or $f'(c)$ is undefined inside the domain. At a stationary point $f'(c)=0$: $f''(c) < 0$ gives a strict local maximum, $f''(c) > 0$ gives a strict local minimum, and if $f''(c)=0$ one checks the first non-zero higher derivative $f^{(k)}(c)$ (even $k$ gives extremum; odd $k$ gives inflection). On a closed interval $[a,b]$, global extrema MUST compare all interior critical values against the endpoint values $f(a)$ and $f(b)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M07-F03",
+          "label": "Second Derivative Test & Standard Extrema",
+          "latex": "$f'(c)=0,\\; f''(c)<0 \\Rightarrow \\text{local max};\\quad \\max_{x>0}\\frac{\\ln x}{x} = \\frac{1}{e}\\text{ at }x=e;\\quad \\min_{x>0}\\!\\left(x+\\frac{1}{x}\\right)=2$",
+          "aiExplainContext": "Apply 2nd-derivative test and recall high-frequency JELET extrema."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M07-EX02",
+          "problemLatex": "Find the maximum value of $f(x) = x e^{-x}$ for $x \\in [0, \\infty)$.",
+          "stepsLatex": [
+            "$f'(x) = e^{-x}(1 - x) = 0 \\implies x = 1$.",
+            "$f''(x) = e^{-x}(x - 2)$, so $f''(1) = -e^{-1} < 0$ (local & global max on $[0,\\infty)$), with $f(1) = \\frac{1}{e}$."
+          ],
+          "answerLatex": "$\\frac{1}{e}$ at $x = 1$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "tangents-rates",
+      "heading": "1. Tangents, Normals, Subtangent & Related Rates",
+      "proseLatex": "At $(x_0, y_0)$ on $y = f(x)$, the tangent slope is $m_T = f'(x_0)$ with equation $y - y_0 = m_T(x - x_0)$, and the normal has slope $m_N = -1/m_T$ (vertical tangent when $1/m_T = 0$). Two curves intersect orthogonally at $P$ if $m_1 m_2 = -1$ at $P$. Related-rate problems differentiate geometric relations (such as $V = \\frac{4}{3}\\pi r^3$ or $x^2+y^2=\\ell^2$) with respect to time $t$ via the chain rule.",
+      "keyFormulas": [
+        {
+          "formulaId": "M07-F01",
+          "label": "Tangent, Normal & Orthogonal Curves",
+          "latex": "$y - y_0 = f'(x_0)(x - x_0),\\quad y - y_0 = -\\frac{1}{f'(x_0)}(x - x_0),\\quad m_1 m_2 = -1 \\text{ (orthogonal)}$",
+          "aiExplainContext": "Write tangent/normal equations and test orthogonal intersection of curves."
+        }
+      ]
+    },
+    {
+      "anchor": "monotonicity",
+      "heading": "2. Monotonicity, Concavity & Inflection Points",
+      "proseLatex": "On an interval $I$, $f'(x) > 0$ implies $f$ is strictly increasing and $f'(x) < 0$ implies $f$ is strictly decreasing (isolated zeros of $f'$ where sign does not flip, such as $x^3$ at $x=0$, preserve strict monotonicity!). Second derivative $f''(x) > 0$ marks upward concavity (convex) and $f''(x) < 0$ marks downward concavity; a point of inflection occurs only where concavity ACTUALLY changes sign across $x_0$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M07-F02",
+          "label": "Monotonicity & Inflection Criterion",
+          "latex": "$f'(x) > 0 \\implies f \\uparrow;\\quad f''(x_0)=0 \\text{ with sign change of } f'' \\implies \\text{point of inflection}$",
+          "aiExplainContext": "Distinguish genuine inflection points from flat fourth-degree minima."
         }
       ]
     },
     {
       "anchor": "maxima-minima",
-      "heading": "2. Maxima & Minima",
-      "proseLatex": "For maxima/minima: $f'(x) = 0$ and $f''(x) < 0$ (max) or $> 0$ (min).",
+      "heading": "3. Local vs Global Maxima & Minima",
+      "proseLatex": "Critical points occur where $f'(c) = 0$ or $f'(c)$ is undefined inside the domain. At a stationary point $f'(c)=0$: $f''(c) < 0$ gives a strict local maximum, $f''(c) > 0$ gives a strict local minimum, and if $f''(c)=0$ one checks the first non-zero higher derivative $f^{(k)}(c)$ (even $k$ gives extremum; odd $k$ gives inflection). On a closed interval $[a,b]$, global extrema MUST compare all interior critical values against the endpoint values $f(a)$ and $f(b)$.",
       "keyFormulas": [
         {
-          "formulaId": "M07-F02",
-          "label": "Optimization Condition",
-          "latex": "$f'(x) = 0,\\; f''(x) \\neq 0$",
-          "aiExplainContext": "Find and classify critical points."
+          "formulaId": "M07-F03",
+          "label": "Second Derivative Test & Standard Extrema",
+          "latex": "$f'(c)=0,\\; f''(c)<0 \\Rightarrow \\text{local max};\\quad \\max_{x>0}\\frac{\\ln x}{x} = \\frac{1}{e}\\text{ at }x=e;\\quad \\min_{x>0}\\!\\left(x+\\frac{1}{x}\\right)=2$",
+          "aiExplainContext": "Apply 2nd-derivative test and recall high-frequency JELET extrema."
         }
       ]
     }
@@ -51,19 +143,40 @@
   "workedExamples": [
     {
       "exampleId": "M07-EX01",
-      "problemLatex": "Maximize the volume of a cylinder inscribed in a cone of volume $p$.",
+      "problemLatex": "Find the slope of the normal to $y = x^3 - 3x + 2$ at $x = 2$.",
       "stepsLatex": [
-        "Optimize $r_c = 2r/3$, $h_c = h/3$.",
-        "$V_{cyl} = 4\\pi r^2h/27$.",
-        "Ratio $p:q = 9:4$."
+        "Differentiate: $y' = 3x^2 - 3$, so tangent slope at $x=2$ is $m_T = 3(4) - 3 = 9$.",
+        "Normal slope $m_N = -1/m_T = -1/9$."
       ],
-      "answerLatex": "$9:4$"
+      "answerLatex": "$-\\frac{1}{9}$"
+    },
+    {
+      "exampleId": "M07-EX02",
+      "problemLatex": "Find the maximum value of $f(x) = x e^{-x}$ for $x \\in [0, \\infty)$.",
+      "stepsLatex": [
+        "$f'(x) = e^{-x}(1 - x) = 0 \\implies x = 1$.",
+        "$f''(x) = e^{-x}(x - 2)$, so $f''(1) = -e^{-1} < 0$ (local & global max on $[0,\\infty)$), with $f(1) = \\frac{1}{e}$."
+      ],
+      "answerLatex": "$\\frac{1}{e}$ at $x = 1$"
     }
   ],
   "wbjeebTraps": [
-    "Check second derivative for max vs min.",
-    "Boundary values may also give extrema."
+    "$f''(c) = 0$ does NOT automatically mean an inflection point: for $f(x) = x^4$, $f''(0)=0$ yet $x=0$ is a strict minimum.",
+    "For $f(x) = x + \\frac{1}{x}$ ($x\\neq 0$), the local maximum $(-2$ at $x=-1)$ is LESS than the local minimum $(+2$ at $x=1)$ because $x=0$ splits the domain.",
+    "On a closed interval $[a,b]$, forgetting to evaluate endpoints $f(a), f(b)$ misses global maxima/minima when $f$ is monotonic."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Application of Derivative | Maxima and Minima class 12 | Engineering | math",
+      "url": "https://www.youtube.com/watch?v=esF7M2o3duo",
+      "videoId": "esF7M2o3duo",
+      "duration": "22 min",
+      "durationMinutes": 22,
+      "provider": "YouTube · Arya Anjum",
+      "channelName": "Arya Anjum",
+      "language": "en",
+      "scopeNote": "Critical points, first and second derivative tests for local extrema"
+    }
+  ],
   "practiceSetIds": []
 }

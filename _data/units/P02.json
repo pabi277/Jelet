@@ -22,30 +22,136 @@
     "jelet-2025-q066",
     "jelet-2025-q070"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q043",
+    "jelet-2025-q044",
+    "jelet-2025-q046",
+    "jelet-2025-q047",
+    "jelet-2024-q042",
+    "jelet-2024-q046",
+    "jelet-2024-q060",
+    "jelet-2024-q062",
+    "jelet-2023-q043",
+    "jelet-2022-q043",
+    "jelet-2022-q044",
+    "jelet-2022-q045",
+    "jelet-2025-q066",
+    "jelet-2025-q070",
+    "jelet-2024-q066"
+  ],
+  "notes": [
     {
       "anchor": "graphs",
-      "heading": "1. Position-Time & Velocity-Time Graphs",
-      "proseLatex": "Slope of x-t gives velocity; slope of v-t gives acceleration. Area under v-t gives displacement.",
+      "heading": "1. Differential Kinematics, x-t / v-t Graphs & Uniform Acceleration",
+      "proseLatex": "Instantaneous velocity is $v = \\frac{dx}{dt}$ (slope of $x$-$t$ graph) and acceleration is $a = \\frac{dv}{dt} = v\\frac{dv}{dx}$ (slope of $v$-$t$ graph). Signed area $\\int_{t_1}^{t_2} v\\,dt$ gives displacement $\\Delta x$, while unsigned area $\\int_{t_1}^{t_2} |v|\\,dt$ gives total distance travelled. Under constant acceleration $a$, the three SUVAT equations plus $n$-th second displacement $s_n = u + \\frac{a}{2}(2n - 1)$ hold strictly in vector form.",
       "keyFormulas": [
         {
           "formulaId": "P02-F01",
-          "label": "Graph Interpretation",
-          "latex": "$v = dx/dt$, $a = dv/dt$",
-          "aiExplainContext": "Read kinematic quantities from graphs."
+          "label": "Calculus Kinematics & n-th Second Displacement",
+          "latex": "$v = \\frac{dx}{dt},\\quad a = \\frac{dv}{dt} = v\\frac{dv}{dx},\\quad s_n = u + \\frac{a}{2}(2n - 1)$",
+          "aiExplainContext": "Connect x(t), v(t), a(x) via derivatives/integrals and compute nth-second displacement."
+        },
+        {
+          "formulaId": "P02-F02",
+          "label": "Equal-Distance vs Equal-Time Average Speed",
+          "latex": "$v_{\\text{avg, equal }d} = \\frac{2 v_1 v_2}{v_1 + v_2}\\;\\text{(harmonic)},\\qquad v_{\\text{avg, equal }t} = \\frac{v_1 + v_2}{2}\\;\\text{(arithmetic)}$",
+          "aiExplainContext": "Avoid mixing up equal-distance harmonic mean with equal-time arithmetic mean."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P02-EX01",
+          "problemLatex": "A car accelerates uniformly from rest for $4\\text{ s}$ at $3\\text{ m/s}^2$, then cruises at constant velocity for $6\\text{ s}$. Find total displacement and describe the $x$-$t$ curve.",
+          "stepsLatex": [
+            "Phase 1 ($0\\le t\\le 4$): $x_1 = \\frac{1}{2}(3)(4^2) = 24\\text{ m}$ (upward-concave parabola), reaching $v = 12\\text{ m/s}$.",
+            "Phase 2 ($4\\le t\\le 10$): $x_2 = 12 \\times 6 = 72\\text{ m}$ (tangent straight line), so total displacement $= 96\\text{ m}$."
+          ],
+          "answerLatex": "$96\\text{ m}$ (parabolic for $0\\text{--}4\\text{ s}$, then linear)"
+        }
+      ]
+    },
+    {
+      "anchor": "projectile-relative",
+      "heading": "2. 2D Projectile Motion & Relative Velocity",
+      "proseLatex": "Launching at speed $u$ and angle $\\theta$ above horizontal decouples into uniform horizontal motion ($v_x = u\\cos\\theta$) and vertical free fall ($a_y = -g$), giving parabolic path $y = x\\tan\\theta - \\frac{gx^2}{2u^2\\cos^2\\theta}$. Complementary launch angles $\\theta$ and $(90^\\circ - \\theta)$ yield identical horizontal range $R$ with height ratio $H_1/H_2 = \\tan^2\\theta$, and $R$ peaks at $\\theta = 45^\\circ$ ($R_{\\max} = u^2/g$). Relative velocity is $\\vec{v}_{AB} = \\vec{v}_A - \\vec{v}_B$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P02-F03",
+          "label": "Projectile Time of Flight, Max Height & Range",
+          "latex": "$T = \\frac{2u\\sin\\theta}{g},\\quad H = \\frac{u^2\\sin^2\\theta}{2g},\\quad R = \\frac{u^2\\sin 2\\theta}{g},\\quad \\frac{R}{H} = \\frac{4}{\\tan\\theta}$",
+          "aiExplainContext": "Solve projectile range, height, and angle ratios without separate step derivations."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P02-EX02",
+          "problemLatex": "At what projection angle $\\theta$ does the horizontal range equal four times the maximum height ($R = 4H$)?",
+          "stepsLatex": [
+            "Use the universal projectile ratio $\\frac{R}{H} = \\frac{4}{\\tan\\theta}$.",
+            "Setting $R/H = 4$ gives $\\tan\\theta = 1 \\implies \\theta = 45^\\circ$."
+          ],
+          "answerLatex": "$45^\\circ$"
         }
       ]
     },
     {
       "anchor": "circular",
-      "heading": "2. Circular Motion",
-      "proseLatex": "Angular displacement, velocity, acceleration. Centripetal acceleration $= v^2/r$.",
+      "heading": "3. Uniform & Non-Uniform Circular Kinematics",
+      "proseLatex": "For radius $r$, linear speed $v = \\omega r$ is tangential while centripetal acceleration $a_c = \\frac{v^2}{r} = \\omega^2 r$ ALWAYS points radially inward even at constant speed ($\\Delta\\vec{v} \\neq \\vec{0}$!). When speed also changes, tangential acceleration $a_t = \\frac{dv}{dt} = \\alpha r$ combines orthogonally with $a_c$ to give net acceleration $a_{\\text{net}} = \\sqrt{a_c^2 + a_t^2}$.",
       "keyFormulas": [
         {
+          "formulaId": "P02-F04",
+          "label": "Centripetal & Total Acceleration in Circular Motion",
+          "latex": "$a_c = \\frac{v^2}{r} = \\omega^2 r,\\qquad a_t = \\alpha r = \\frac{dv}{dt},\\qquad a_{\\text{net}} = \\sqrt{a_c^2 + a_t^2}$",
+          "aiExplainContext": "Separate radial direction-change acceleration from tangential speed-change acceleration."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "graphs",
+      "heading": "1. Differential Kinematics, x-t / v-t Graphs & Uniform Acceleration",
+      "proseLatex": "Instantaneous velocity is $v = \\frac{dx}{dt}$ (slope of $x$-$t$ graph) and acceleration is $a = \\frac{dv}{dt} = v\\frac{dv}{dx}$ (slope of $v$-$t$ graph). Signed area $\\int_{t_1}^{t_2} v\\,dt$ gives displacement $\\Delta x$, while unsigned area $\\int_{t_1}^{t_2} |v|\\,dt$ gives total distance travelled. Under constant acceleration $a$, the three SUVAT equations plus $n$-th second displacement $s_n = u + \\frac{a}{2}(2n - 1)$ hold strictly in vector form.",
+      "keyFormulas": [
+        {
+          "formulaId": "P02-F01",
+          "label": "Calculus Kinematics & n-th Second Displacement",
+          "latex": "$v = \\frac{dx}{dt},\\quad a = \\frac{dv}{dt} = v\\frac{dv}{dx},\\quad s_n = u + \\frac{a}{2}(2n - 1)$",
+          "aiExplainContext": "Connect x(t), v(t), a(x) via derivatives/integrals and compute nth-second displacement."
+        },
+        {
           "formulaId": "P02-F02",
-          "label": "Centripetal Acceleration",
-          "latex": "$a_c = v^2/r = \\omega^2 r$",
-          "aiExplainContext": "Uniform circular motion formula."
+          "label": "Equal-Distance vs Equal-Time Average Speed",
+          "latex": "$v_{\\text{avg, equal }d} = \\frac{2 v_1 v_2}{v_1 + v_2}\\;\\text{(harmonic)},\\qquad v_{\\text{avg, equal }t} = \\frac{v_1 + v_2}{2}\\;\\text{(arithmetic)}$",
+          "aiExplainContext": "Avoid mixing up equal-distance harmonic mean with equal-time arithmetic mean."
+        }
+      ]
+    },
+    {
+      "anchor": "projectile-relative",
+      "heading": "2. 2D Projectile Motion & Relative Velocity",
+      "proseLatex": "Launching at speed $u$ and angle $\\theta$ above horizontal decouples into uniform horizontal motion ($v_x = u\\cos\\theta$) and vertical free fall ($a_y = -g$), giving parabolic path $y = x\\tan\\theta - \\frac{gx^2}{2u^2\\cos^2\\theta}$. Complementary launch angles $\\theta$ and $(90^\\circ - \\theta)$ yield identical horizontal range $R$ with height ratio $H_1/H_2 = \\tan^2\\theta$, and $R$ peaks at $\\theta = 45^\\circ$ ($R_{\\max} = u^2/g$). Relative velocity is $\\vec{v}_{AB} = \\vec{v}_A - \\vec{v}_B$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P02-F03",
+          "label": "Projectile Time of Flight, Max Height & Range",
+          "latex": "$T = \\frac{2u\\sin\\theta}{g},\\quad H = \\frac{u^2\\sin^2\\theta}{2g},\\quad R = \\frac{u^2\\sin 2\\theta}{g},\\quad \\frac{R}{H} = \\frac{4}{\\tan\\theta}$",
+          "aiExplainContext": "Solve projectile range, height, and angle ratios without separate step derivations."
+        }
+      ]
+    },
+    {
+      "anchor": "circular",
+      "heading": "3. Uniform & Non-Uniform Circular Kinematics",
+      "proseLatex": "For radius $r$, linear speed $v = \\omega r$ is tangential while centripetal acceleration $a_c = \\frac{v^2}{r} = \\omega^2 r$ ALWAYS points radially inward even at constant speed ($\\Delta\\vec{v} \\neq \\vec{0}$!). When speed also changes, tangential acceleration $a_t = \\frac{dv}{dt} = \\alpha r$ combines orthogonally with $a_c$ to give net acceleration $a_{\\text{net}} = \\sqrt{a_c^2 + a_t^2}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P02-F04",
+          "label": "Centripetal & Total Acceleration in Circular Motion",
+          "latex": "$a_c = \\frac{v^2}{r} = \\omega^2 r,\\qquad a_t = \\alpha r = \\frac{dv}{dt},\\qquad a_{\\text{net}} = \\sqrt{a_c^2 + a_t^2}$",
+          "aiExplainContext": "Separate radial direction-change acceleration from tangential speed-change acceleration."
         }
       ]
     }
@@ -53,18 +159,40 @@
   "workedExamples": [
     {
       "exampleId": "P02-EX01",
-      "problemLatex": "Car accelerates uniformly for 4 s, then moves at uniform velocity. Describe the x-t graph.",
+      "problemLatex": "A car accelerates uniformly from rest for $4\\text{ s}$ at $3\\text{ m/s}^2$, then cruises at constant velocity for $6\\text{ s}$. Find total displacement and describe the $x$-$t$ curve.",
       "stepsLatex": [
-        "Phase 1: $x = \\frac{1}{2}at^2$ (parabolic).",
-        "Phase 2: $x = v(t-4)$ (linear)."
+        "Phase 1 ($0\\le t\\le 4$): $x_1 = \\frac{1}{2}(3)(4^2) = 24\\text{ m}$ (upward-concave parabola), reaching $v = 12\\text{ m/s}$.",
+        "Phase 2 ($4\\le t\\le 10$): $x_2 = 12 \\times 6 = 72\\text{ m}$ (tangent straight line), so total displacement $= 96\\text{ m}$."
       ],
-      "answerLatex": "Parabolic then linear"
+      "answerLatex": "$96\\text{ m}$ (parabolic for $0\\text{--}4\\text{ s}$, then linear)"
+    },
+    {
+      "exampleId": "P02-EX02",
+      "problemLatex": "At what projection angle $\\theta$ does the horizontal range equal four times the maximum height ($R = 4H$)?",
+      "stepsLatex": [
+        "Use the universal projectile ratio $\\frac{R}{H} = \\frac{4}{\\tan\\theta}$.",
+        "Setting $R/H = 4$ gives $\\tan\\theta = 1 \\implies \\theta = 45^\\circ$."
+      ],
+      "answerLatex": "$45^\\circ$"
     }
   ],
   "wbjeebTraps": [
-    "Area under v-t = displacement.",
-    "Slope of x-t = velocity, slope of v-t = acceleration."
+    "Signed area under $v$-$t$ gives DISPLACEMENT; flip negative lobes positive ($\\int |v|\\,dt$) when asked for TOTAL DISTANCE.",
+    "At the apex of projectile flight, vertical velocity $v_y = 0$, NOT total velocity: $v_{\\text{top}} = u\\cos\\theta$ and $\\vec{a} = -g\\hat{j} \\perp \\vec{v}_{\\text{top}}$.",
+    "In uniform circular motion, speed and kinetic energy are constant, yet velocity $\\vec{v}$, momentum $\\vec{p}$, and acceleration $\\vec{a}_c$ are ALL continuously changing direction!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Equations of motion by graphical method - Unit 2 Kinematics - Class 11 Physics",
+      "url": "https://www.youtube.com/watch?v=Bk_xk2kiefM",
+      "videoId": "Bk_xk2kiefM",
+      "duration": "19 min",
+      "durationMinutes": 19,
+      "provider": "YouTube · Talha's Physics Academy",
+      "channelName": "Talha's Physics Academy",
+      "language": "en",
+      "scopeNote": "Position-time and velocity-time graph slopes, areas & kinematic equations"
+    }
+  ],
   "practiceSetIds": []
 }

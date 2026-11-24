@@ -18,30 +18,119 @@
     "jelet-2024-q094",
     "jelet-2025-q094"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q094",
+    "jelet-2024-q094",
+    "jelet-2023-q049",
+    "jelet-2023-q056",
+    "jelet-2023-q061",
+    "jelet-2023-q092",
+    "jelet-2023-q095",
+    "jelet-2022-q095",
+    "jelet-2023-q068",
+    "jelet-2023-q069"
+  ],
+  "notes": [
     {
-      "anchor": "theorems",
-      "heading": "1. Network Theorems",
-      "proseLatex": "KCL, KVL, Superposition, Thevenin's, Norton's, Maximum Power Transfer.",
+      "anchor": "kcl-kvl-theorems",
+      "heading": "1. KCL, KVL, Superposition & Star-Delta (Y–Δ) Conversions",
+      "proseLatex": "Kirchhoff's Current Law ($\\sum I = 0$ at a node) expresses charge conservation; Kirchhoff's Voltage Law ($\\sum V = 0$ around a closed loop) expresses energy conservation. Superposition applies to voltages and currents in linear bilateral networks (deactivating independent voltage sources to SHORT circuits and independent current sources to OPEN circuits — NEVER deactivate dependent sources, and NEVER add component powers $I^2 R$ by superposition!). Equal resistors convert cleanly via $R_\\Delta = 3 R_Y$.",
       "keyFormulas": [
         {
           "formulaId": "E04-F01",
-          "label": "Thevenin's Theorem",
-          "latex": "Any linear network = voltage source + series resistance",
-          "aiExplainContext": "Simplify complex networks."
+          "label": "Current/Voltage Divider & Symmetric Y–Δ Rule",
+          "latex": "$I_1 = I\\,\\frac{R_2}{R_1 + R_2},\\qquad V_1 = V\\,\\frac{R_1}{R_1 + R_2},\\qquad R_\\Delta = 3 R_Y\\;\\text{(symmetric)}$",
+          "aiExplainContext": "Apply current divider (opposite branch R in numerator!) and star-delta collapse."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "thevenin-mpt",
+      "heading": "2. Thévenin, Norton & Maximum Power Transfer Theorem",
+      "proseLatex": "Any linear two-terminal network reduces to a Thévenin voltage $V_{\\text{th}} = V_{\\text{oc}}$ in series with $R_{\\text{th}}$ (or Norton current $I_N = I_{\\text{sc}} = V_{\\text{th}}/R_{\\text{th}}$ in parallel with $R_N = R_{\\text{th}}$). A variable resistive load $R_L$ extracts MAXIMUM power when matched to the source resistance $R_L = R_{\\text{th}}$, yielding $P_{\\max} = \\frac{V_{\\text{th}}^2}{4 R_{\\text{th}}}$ at exactly $50\\%$ efficiency! (Notice $50\\%$ is efficiency AT maximum power transfer, NOT maximum efficiency — $\\eta = \\frac{R_L}{R_L + R_{\\text{th}}} \\to 100\\%$ as $R_L \\to \\infty$!).",
+      "keyFormulas": [
+        {
+          "formulaId": "E04-F02",
+          "label": "Thévenin-Norton Duality & Maximum Power Transfer",
+          "latex": "$V_{\\text{th}} = I_N R_{\\text{th}},\\qquad R_L = R_{\\text{th}} \\implies P_{\\max} = \\frac{V_{\\text{th}}^2}{4 R_{\\text{th}}}\\;(\\eta = 50\\%)$",
+          "aiExplainContext": "Compute Vth, Rth, maximum load power, and distinguish max power from max efficiency."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E04-EX01",
+          "problemLatex": "A linear DC network has open-circuit voltage $24\\text{ V}$ and short-circuit current $6\\text{ A}$ at terminals $A$-$B$. Find $R_L$ for maximum power transfer and $P_{\\max}$.",
+          "stepsLatex": [
+            "$R_{\\text{th}} = \\frac{V_{\\text{oc}}}{I_{\\text{sc}}} = \\frac{24}{6} = 4\\,\\Omega$, so choose $R_L = R_{\\text{th}} = 4\\,\\Omega$.",
+            "$P_{\\max} = \\frac{V_{\\text{th}}^2}{4 R_{\\text{th}}} = \\frac{24^2}{4 \\times 4} = \\frac{576}{16} = 36\\text{ W}$."
+          ],
+          "answerLatex": "$R_L = 4\\,\\Omega,\\; P_{\\max} = 36\\text{ W}$"
         }
       ]
     },
     {
-      "anchor": "transients",
-      "heading": "2. RC & RL Transients",
-      "proseLatex": "Time constants: $\\tau = RC$ (charging/discharging), $\\tau = L/R$.",
+      "anchor": "rc-rl-transients",
+      "heading": "3. First-Order RC & RL DC Transients & Steady-State Shortcuts",
+      "proseLatex": "Capacitor voltage $v_C(t)$ and inductor current $i_L(t)$ CANNOT jump instantaneously ($v_C(0^+) = v_C(0^-)$ and $i_L(0^+) = i_L(0^-)$). In DC steady state ($t \\to \\infty$), an ideal capacitor acts as an OPEN CIRCUIT and an ideal inductor acts as a SHORT CIRCUIT! Every first-order transient obeys $x(t) = x(\\infty) + [x(0^+) - x(\\infty)]e^{-t/\\tau}$ with time constant $\\tau_{RC} = R_{\\text{th}} C$ and $\\tau_{RL} = \\frac{L}{R_{\\text{th}}}$ (reaching $63.2\\%$ of total change at $t = \\tau$ and $>99\\%$ by $5\\tau$).",
+      "keyFormulas": [
+        {
+          "formulaId": "E04-F03",
+          "label": "Universal First-Order Step Response & Time Constants",
+          "latex": "$x(t) = x(\\infty) + \\bigl[x(0^+) - x(\\infty)\\bigr]e^{-t/\\tau},\\qquad \\tau_{RC} = R_{\\text{th}}C,\\qquad \\tau_{RL} = \\frac{L}{R_{\\text{th}}}$",
+          "aiExplainContext": "Evaluate t = 0+ continuity, t = infinity open/short equivalents, and RC/RL time constants."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E04-EX02",
+          "problemLatex": "An uncharged $10\\,\\mu\\text{F}$ capacitor is connected across $100\\text{ V}$ DC through $R = 50\\text{ k}\\Omega$ at $t = 0$. Find time constant $\\tau$ and $v_C(0.5\\text{ s})$.",
+          "stepsLatex": [
+            "$\\tau = RC = (50\\times 10^3)(10\\times 10^{-6}) = 0.5\\text{ s}$.",
+            "At $t = \\tau = 0.5\\text{ s}$, $v_C = 100(1 - e^{-1}) \\approx 63.2\\text{ V}$."
+          ],
+          "answerLatex": "$\\tau = 0.5\\text{ s},\\; v_C \\approx 63.2\\text{ V}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "kcl-kvl-theorems",
+      "heading": "1. KCL, KVL, Superposition & Star-Delta (Y–Δ) Conversions",
+      "proseLatex": "Kirchhoff's Current Law ($\\sum I = 0$ at a node) expresses charge conservation; Kirchhoff's Voltage Law ($\\sum V = 0$ around a closed loop) expresses energy conservation. Superposition applies to voltages and currents in linear bilateral networks (deactivating independent voltage sources to SHORT circuits and independent current sources to OPEN circuits — NEVER deactivate dependent sources, and NEVER add component powers $I^2 R$ by superposition!). Equal resistors convert cleanly via $R_\\Delta = 3 R_Y$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E04-F01",
+          "label": "Current/Voltage Divider & Symmetric Y–Δ Rule",
+          "latex": "$I_1 = I\\,\\frac{R_2}{R_1 + R_2},\\qquad V_1 = V\\,\\frac{R_1}{R_1 + R_2},\\qquad R_\\Delta = 3 R_Y\\;\\text{(symmetric)}$",
+          "aiExplainContext": "Apply current divider (opposite branch R in numerator!) and star-delta collapse."
+        }
+      ]
+    },
+    {
+      "anchor": "thevenin-mpt",
+      "heading": "2. Thévenin, Norton & Maximum Power Transfer Theorem",
+      "proseLatex": "Any linear two-terminal network reduces to a Thévenin voltage $V_{\\text{th}} = V_{\\text{oc}}$ in series with $R_{\\text{th}}$ (or Norton current $I_N = I_{\\text{sc}} = V_{\\text{th}}/R_{\\text{th}}$ in parallel with $R_N = R_{\\text{th}}$). A variable resistive load $R_L$ extracts MAXIMUM power when matched to the source resistance $R_L = R_{\\text{th}}$, yielding $P_{\\max} = \\frac{V_{\\text{th}}^2}{4 R_{\\text{th}}}$ at exactly $50\\%$ efficiency! (Notice $50\\%$ is efficiency AT maximum power transfer, NOT maximum efficiency — $\\eta = \\frac{R_L}{R_L + R_{\\text{th}}} \\to 100\\%$ as $R_L \\to \\infty$!).",
       "keyFormulas": [
         {
           "formulaId": "E04-F02",
-          "label": "Time Constant",
-          "latex": "$\\tau = RC$ or $L/R$",
-          "aiExplainContext": "Rate of charging/discharging in transient circuits."
+          "label": "Thévenin-Norton Duality & Maximum Power Transfer",
+          "latex": "$V_{\\text{th}} = I_N R_{\\text{th}},\\qquad R_L = R_{\\text{th}} \\implies P_{\\max} = \\frac{V_{\\text{th}}^2}{4 R_{\\text{th}}}\\;(\\eta = 50\\%)$",
+          "aiExplainContext": "Compute Vth, Rth, maximum load power, and distinguish max power from max efficiency."
+        }
+      ]
+    },
+    {
+      "anchor": "rc-rl-transients",
+      "heading": "3. First-Order RC & RL DC Transients & Steady-State Shortcuts",
+      "proseLatex": "Capacitor voltage $v_C(t)$ and inductor current $i_L(t)$ CANNOT jump instantaneously ($v_C(0^+) = v_C(0^-)$ and $i_L(0^+) = i_L(0^-)$). In DC steady state ($t \\to \\infty$), an ideal capacitor acts as an OPEN CIRCUIT and an ideal inductor acts as a SHORT CIRCUIT! Every first-order transient obeys $x(t) = x(\\infty) + [x(0^+) - x(\\infty)]e^{-t/\\tau}$ with time constant $\\tau_{RC} = R_{\\text{th}} C$ and $\\tau_{RL} = \\frac{L}{R_{\\text{th}}}$ (reaching $63.2\\%$ of total change at $t = \\tau$ and $>99\\%$ by $5\\tau$).",
+      "keyFormulas": [
+        {
+          "formulaId": "E04-F03",
+          "label": "Universal First-Order Step Response & Time Constants",
+          "latex": "$x(t) = x(\\infty) + \\bigl[x(0^+) - x(\\infty)\\bigr]e^{-t/\\tau},\\qquad \\tau_{RC} = R_{\\text{th}}C,\\qquad \\tau_{RL} = \\frac{L}{R_{\\text{th}}}$",
+          "aiExplainContext": "Evaluate t = 0+ continuity, t = infinity open/short equivalents, and RC/RL time constants."
         }
       ]
     }
@@ -49,17 +138,40 @@
   "workedExamples": [
     {
       "exampleId": "E04-EX01",
-      "problemLatex": "Maximum power transfer condition.",
+      "problemLatex": "A linear DC network has open-circuit voltage $24\\text{ V}$ and short-circuit current $6\\text{ A}$ at terminals $A$-$B$. Find $R_L$ for maximum power transfer and $P_{\\max}$.",
       "stepsLatex": [
-        "$R_{load} = R_{source}$ for maximum power."
+        "$R_{\\text{th}} = \\frac{V_{\\text{oc}}}{I_{\\text{sc}}} = \\frac{24}{6} = 4\\,\\Omega$, so choose $R_L = R_{\\text{th}} = 4\\,\\Omega$.",
+        "$P_{\\max} = \\frac{V_{\\text{th}}^2}{4 R_{\\text{th}}} = \\frac{24^2}{4 \\times 4} = \\frac{576}{16} = 36\\text{ W}$."
       ],
-      "answerLatex": "$R_{load} = R_{source}$"
+      "answerLatex": "$R_L = 4\\,\\Omega,\\; P_{\\max} = 36\\text{ W}$"
+    },
+    {
+      "exampleId": "E04-EX02",
+      "problemLatex": "An uncharged $10\\,\\mu\\text{F}$ capacitor is connected across $100\\text{ V}$ DC through $R = 50\\text{ k}\\Omega$ at $t = 0$. Find time constant $\\tau$ and $v_C(0.5\\text{ s})$.",
+      "stepsLatex": [
+        "$\\tau = RC = (50\\times 10^3)(10\\times 10^{-6}) = 0.5\\text{ s}$.",
+        "At $t = \\tau = 0.5\\text{ s}$, $v_C = 100(1 - e^{-1}) \\approx 63.2\\text{ V}$."
+      ],
+      "answerLatex": "$\\tau = 0.5\\text{ s},\\; v_C \\approx 63.2\\text{ V}$"
     }
   ],
   "wbjeebTraps": [
-    "Superposition applies only to linear circuits.",
-    "5 time constants $\\approx$ fully charged/discharged."
+    "Notice $\\tau_{RC} = R\\cdot C$ whereas $\\tau_{RL} = L / R$ (do NOT write $L\\cdot R$!).",
+    "Charging an uncharged capacitor $C$ from a constant DC source $V$ through ANY resistance $R$ stores $\\frac{1}{2}CV^2$ in the capacitor and ALWAYS dissipates an equal $\\frac{1}{2}CV^2$ as heat in $R$ (50% charging efficiency regardless of $R$!).",
+    "Superposition NEVER applies directly to power ($P = I^2 R$ is non-linear): compute net $I = I_1 + I_2$ FIRST, then square!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Introduction to DC circuit analysis",
+      "url": "https://www.youtube.com/watch?v=15bBCrtIz4Y",
+      "videoId": "15bBCrtIz4Y",
+      "duration": "26 min",
+      "durationMinutes": 26,
+      "provider": "YouTube · Ricky Castles",
+      "channelName": "Ricky Castles",
+      "language": "en",
+      "scopeNote": "KCL/KVL, nodal/mesh analysis, Thevenin/Norton equivalents & maximum power transfer"
+    }
+  ],
   "practiceSetIds": []
 }

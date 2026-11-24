@@ -14,30 +14,116 @@
     "jelet-2024-q091",
     "jelet-2025-q091"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q091",
+    "jelet-2024-q091",
+    "jelet-2023-q057",
+    "jelet-2023-q058",
+    "jelet-2023-q059",
+    "jelet-2023-q060",
+    "jelet-2022-q091"
+  ],
+  "notes": [
     {
-      "anchor": "instruments",
-      "heading": "1. PMMC & Moving Iron Instruments",
-      "proseLatex": "PMMC: moving coil, DC only, linear scale. MI: moving iron, AC/DC, non-linear scale.",
+      "anchor": "pmmc-mi",
+      "heading": "1. PMMC, Moving-Iron (MI) & Electrodynamometer Meters",
+      "proseLatex": "A Permanent-Magnet Moving-Coil (PMMC) instrument develops deflecting torque $T_d = NBIA \\propto I$, giving a UNIFORM (linear) scale with eddy-current damping, and responds strictly to the AVERAGE (DC) value — pure sinusoidal AC produces zero net deflection! A Moving-Iron (MI) instrument develops $T_d = \\frac{1}{2}I^2\\frac{dL}{d\\theta} \\propto I^2$, giving a NON-LINEAR cramped scale (air-friction damped) that reads TRUE RMS on BOTH AC and DC! Electrodynamometers serve as standard wattmeters reading real average power $P = VI\\cos\\phi$.",
       "keyFormulas": [
         {
           "formulaId": "E01-F01",
-          "label": "PMMC Deflection",
-          "latex": "$\\theta \\propto I$ (DC only)",
-          "aiExplainContext": "PMMC reads average current."
+          "label": "PMMC (Average) vs Moving-Iron (True RMS) Readings",
+          "latex": "$I_{\\text{PMMC}} = I_0\\text{ (DC component)};\\qquad I_{\\text{MI}} = I_{\\text{rms}} = \\sqrt{I_0^2 + \\sum \\frac{I_m^2}{2}}$",
+          "aiExplainContext": "Predict exact PMMC vs MI readings on mixed DC + AC waveforms."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E01-EX01",
+          "problemLatex": "Current $i(t) = 3 + 4\\sqrt{2}\\sin(100\\pi t)\\text{ A}$ passes through a PMMC ammeter in series with a Moving-Iron ammeter. Find both readings.",
+          "stepsLatex": [
+            "PMMC reads average value over a cycle: $\\langle i(t)\\rangle = 3 + 0 = 3\\text{ A}$.",
+            "MI reads true RMS: $I_{\\text{rms}} = \\sqrt{3^2 + (4\\sqrt{2}/\\sqrt{2})^2} = \\sqrt{9 + 16} = 5\\text{ A}$."
+          ],
+          "answerLatex": "PMMC $= 3\\text{ A}$, Moving-Iron $= 5\\text{ A}$"
         }
       ]
     },
     {
-      "anchor": "bridge",
-      "heading": "2. Wheatstone Bridge & Range Extension",
-      "proseLatex": "Balance condition: $R_1/R_2 = R_3/R_4$. Ammeter shunt and voltmeter multiplier for range extension.",
+      "anchor": "shunt-multiplier",
+      "heading": "2. Ammeter Shunt, Voltmeter Multiplier & Ideal Meter Resistances",
+      "proseLatex": "An ideal ammeter has $R_A = 0\\,\\Omega$ (connected in series) and an ideal voltmeter has $R_V = \\infty$ (connected in parallel). To extend a coil ($I_g, R_g$) to full-scale current $I = m I_g$, place a low manganin SHUNT $R_{\\text{sh}} = \\frac{R_g}{m - 1}$ in PARALLEL; to extend full-scale voltage from $V_g = I_g R_g$ to $V = m V_g$, place a high MULTIPLIER $R_s = (m - 1)R_g$ in SERIES. Voltmeter sensitivity is $S_V = \\frac{1}{I_{\\text{fsd}}}\\;\\Omega/\\text{V}$ (higher $\\Omega/\\text{V}$ means LESS circuit loading error!).",
       "keyFormulas": [
         {
           "formulaId": "E01-F02",
-          "label": "Wheatstone Balance",
-          "latex": "$\\frac{R_1}{R_2} = \\frac{R_3}{R_4}$ at balance",
-          "aiExplainContext": "Zero-current condition in the bridge."
+          "label": "Parallel Shunt, Series Multiplier & Ω/V Sensitivity",
+          "latex": "$R_{\\text{sh}} = \\frac{I_g R_g}{I - I_g} = \\frac{R_g}{m - 1},\\qquad R_{\\text{mult}} = \\frac{V}{I_g} - R_g = (m - 1)R_g,\\qquad S_V = \\frac{1}{I_{\\text{fsd}}}$",
+          "aiExplainContext": "Design shunts and multipliers and compare voltmeter loading."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E01-EX02",
+          "problemLatex": "Convert a $1\\text{ mA},\\; 50\\,\\Omega$ PMMC coil into a $0\\text{--}10\\text{ V}$ DC voltmeter.",
+          "stepsLatex": [
+            "Full-scale coil drop $V_g = 10^{-3}\\times 50 = 0.05\\text{ V}$, so multiplying factor $m = 10 / 0.05 = 200$.",
+            "Series multiplier $R_s = (200 - 1)\\times 50\\,\\Omega = 9950\\,\\Omega = 9.95\\text{ k}\\Omega$."
+          ],
+          "answerLatex": "$9950\\,\\Omega$ in series"
+        }
+      ]
+    },
+    {
+      "anchor": "bridges-passive",
+      "heading": "3. Resistance Bridges (Wheatstone, Kelvin, Megger) & AC Bridges",
+      "proseLatex": "Medium resistances ($1\\,\\Omega\\text{--}100\\text{ k}\\Omega$) use the Wheatstone bridge ($R_1 R_4 = R_2 R_3$ at null); LOW resistances ($< 1\\,\\Omega$) require Kelvin's double bridge to eliminate lead/contact resistance; and HIGH insulation resistances ($> 100\\text{ k}\\Omega$) use a Megger or loss-of-charge method. Standard AC bridges: Maxwell inductance-capacitance bridge ($L_1 = R_2 R_3 C_4$, medium-$Q$ coils), Hay's bridge (high-$Q$ coils), Schering bridge (capacitance & dielectric loss), and Wien bridge (frequency).",
+      "keyFormulas": [
+        {
+          "formulaId": "E01-F03",
+          "label": "Wheatstone & Maxwell Bridge Null Conditions",
+          "latex": "$\\frac{R_1}{R_2} = \\frac{R_3}{R_4}\\;\\text{(Wheatstone)},\\qquad Z_1 Z_4 = Z_2 Z_3\\;\\text{(general AC bridge)}$",
+          "aiExplainContext": "Select the right bridge for low/medium/high R, L, C, and frequency."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "pmmc-mi",
+      "heading": "1. PMMC, Moving-Iron (MI) & Electrodynamometer Meters",
+      "proseLatex": "A Permanent-Magnet Moving-Coil (PMMC) instrument develops deflecting torque $T_d = NBIA \\propto I$, giving a UNIFORM (linear) scale with eddy-current damping, and responds strictly to the AVERAGE (DC) value — pure sinusoidal AC produces zero net deflection! A Moving-Iron (MI) instrument develops $T_d = \\frac{1}{2}I^2\\frac{dL}{d\\theta} \\propto I^2$, giving a NON-LINEAR cramped scale (air-friction damped) that reads TRUE RMS on BOTH AC and DC! Electrodynamometers serve as standard wattmeters reading real average power $P = VI\\cos\\phi$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E01-F01",
+          "label": "PMMC (Average) vs Moving-Iron (True RMS) Readings",
+          "latex": "$I_{\\text{PMMC}} = I_0\\text{ (DC component)};\\qquad I_{\\text{MI}} = I_{\\text{rms}} = \\sqrt{I_0^2 + \\sum \\frac{I_m^2}{2}}$",
+          "aiExplainContext": "Predict exact PMMC vs MI readings on mixed DC + AC waveforms."
+        }
+      ]
+    },
+    {
+      "anchor": "shunt-multiplier",
+      "heading": "2. Ammeter Shunt, Voltmeter Multiplier & Ideal Meter Resistances",
+      "proseLatex": "An ideal ammeter has $R_A = 0\\,\\Omega$ (connected in series) and an ideal voltmeter has $R_V = \\infty$ (connected in parallel). To extend a coil ($I_g, R_g$) to full-scale current $I = m I_g$, place a low manganin SHUNT $R_{\\text{sh}} = \\frac{R_g}{m - 1}$ in PARALLEL; to extend full-scale voltage from $V_g = I_g R_g$ to $V = m V_g$, place a high MULTIPLIER $R_s = (m - 1)R_g$ in SERIES. Voltmeter sensitivity is $S_V = \\frac{1}{I_{\\text{fsd}}}\\;\\Omega/\\text{V}$ (higher $\\Omega/\\text{V}$ means LESS circuit loading error!).",
+      "keyFormulas": [
+        {
+          "formulaId": "E01-F02",
+          "label": "Parallel Shunt, Series Multiplier & Ω/V Sensitivity",
+          "latex": "$R_{\\text{sh}} = \\frac{I_g R_g}{I - I_g} = \\frac{R_g}{m - 1},\\qquad R_{\\text{mult}} = \\frac{V}{I_g} - R_g = (m - 1)R_g,\\qquad S_V = \\frac{1}{I_{\\text{fsd}}}$",
+          "aiExplainContext": "Design shunts and multipliers and compare voltmeter loading."
+        }
+      ]
+    },
+    {
+      "anchor": "bridges-passive",
+      "heading": "3. Resistance Bridges (Wheatstone, Kelvin, Megger) & AC Bridges",
+      "proseLatex": "Medium resistances ($1\\,\\Omega\\text{--}100\\text{ k}\\Omega$) use the Wheatstone bridge ($R_1 R_4 = R_2 R_3$ at null); LOW resistances ($< 1\\,\\Omega$) require Kelvin's double bridge to eliminate lead/contact resistance; and HIGH insulation resistances ($> 100\\text{ k}\\Omega$) use a Megger or loss-of-charge method. Standard AC bridges: Maxwell inductance-capacitance bridge ($L_1 = R_2 R_3 C_4$, medium-$Q$ coils), Hay's bridge (high-$Q$ coils), Schering bridge (capacitance & dielectric loss), and Wien bridge (frequency).",
+      "keyFormulas": [
+        {
+          "formulaId": "E01-F03",
+          "label": "Wheatstone & Maxwell Bridge Null Conditions",
+          "latex": "$\\frac{R_1}{R_2} = \\frac{R_3}{R_4}\\;\\text{(Wheatstone)},\\qquad Z_1 Z_4 = Z_2 Z_3\\;\\text{(general AC bridge)}$",
+          "aiExplainContext": "Select the right bridge for low/medium/high R, L, C, and frequency."
         }
       ]
     }
@@ -45,18 +131,40 @@
   "workedExamples": [
     {
       "exampleId": "E01-EX01",
-      "problemLatex": "PMMC measures $i(t) = (5 + 5\\sin 100\\pi t)$ A. Reading?",
+      "problemLatex": "Current $i(t) = 3 + 4\\sqrt{2}\\sin(100\\pi t)\\text{ A}$ passes through a PMMC ammeter in series with a Moving-Iron ammeter. Find both readings.",
       "stepsLatex": [
-        "PMMC reads average value.",
-        "Average of $5 + 5\\sin 100\\pi t$ over a cycle $= 5$ A."
+        "PMMC reads average value over a cycle: $\\langle i(t)\\rangle = 3 + 0 = 3\\text{ A}$.",
+        "MI reads true RMS: $I_{\\text{rms}} = \\sqrt{3^2 + (4\\sqrt{2}/\\sqrt{2})^2} = \\sqrt{9 + 16} = 5\\text{ A}$."
       ],
-      "answerLatex": "$5$ A"
+      "answerLatex": "PMMC $= 3\\text{ A}$, Moving-Iron $= 5\\text{ A}$"
+    },
+    {
+      "exampleId": "E01-EX02",
+      "problemLatex": "Convert a $1\\text{ mA},\\; 50\\,\\Omega$ PMMC coil into a $0\\text{--}10\\text{ V}$ DC voltmeter.",
+      "stepsLatex": [
+        "Full-scale coil drop $V_g = 10^{-3}\\times 50 = 0.05\\text{ V}$, so multiplying factor $m = 10 / 0.05 = 200$.",
+        "Series multiplier $R_s = (200 - 1)\\times 50\\,\\Omega = 9950\\,\\Omega = 9.95\\text{ k}\\Omega$."
+      ],
+      "answerLatex": "$9950\\,\\Omega$ in series"
     }
   ],
   "wbjeebTraps": [
-    "PMMC cannot measure AC (average of sine = 0).",
-    "Shunt resistor is in parallel; multiplier is in series."
+    "Swapping supply and galvanometer across opposite corners of an ALREADY BALANCED Wheatstone bridge leaves the bridge BALANCED!",
+    "Connecting an ammeter accidentally across a voltage source (in parallel) draws destructive short-circuit current because $R_A \\approx 0$.",
+    "PMMC measures DC ONLY ($0$ on pure AC); Moving-Iron measures true RMS of BOTH AC and DC."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "GALVANOMETER, AMMETER & VOLTMETER | Class 12 Physics | Current Electricity",
+      "url": "https://www.youtube.com/watch?v=8dCcZZFhVxY",
+      "videoId": "8dCcZZFhVxY",
+      "duration": "34 min",
+      "durationMinutes": 34,
+      "provider": "YouTube · CrossEducare",
+      "channelName": "CrossEducare",
+      "language": "en",
+      "scopeNote": "PMMC galvanometer, parallel shunt ammeter, series multiplier voltmeter & sensitivity"
+    }
+  ],
   "practiceSetIds": []
 }

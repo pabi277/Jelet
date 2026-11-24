@@ -20,30 +20,122 @@
     "jelet-2025-q019",
     "jelet-2025-q023"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q011",
+    "jelet-2025-q019",
+    "jelet-2025-q023",
+    "jelet-2024-q011",
+    "jelet-2024-q012",
+    "jelet-2024-q013",
+    "jelet-2023-q012",
+    "jelet-2023-q013",
+    "jelet-2022-q012",
+    "jelet-2022-q013",
+    "jelet-2024-q035",
+    "jelet-2023-q035",
+    "jelet-2022-q035"
+  ],
+  "notes": [
     {
-      "anchor": "operations",
-      "heading": "1. Addition, Subtraction & Scalar Multiplication",
-      "proseLatex": "Vectors add component-wise; scalar multiplication scales each component.",
+      "anchor": "vector-ops",
+      "heading": "1. Unit Vectors, Direction Cosines & Scalar (Dot) Product",
+      "proseLatex": "For $\\vec{r} = x\\hat{i} + y\\hat{j} + z\\hat{k}$, magnitude is $|\\vec{r}| = \\sqrt{x^2+y^2+z^2}$, unit vector is $\\hat{r} = \\vec{r}/|\\vec{r}|$, and direction cosines $(l,m,n) = (\\cos\\alpha,\\cos\\beta,\\cos\\gamma)$ satisfy $l^2 + m^2 + n^2 = 1$. The scalar product $\\vec{a}\\cdot\\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta = a_1 b_1 + a_2 b_2 + a_3 b_3$ tests orthogonality ($\\vec{a}\\perp\\vec{b} \\iff \\vec{a}\\cdot\\vec{b} = 0$) and gives scalar projection of $\\vec{a}$ along $\\vec{b}$ as $\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}$.",
       "keyFormulas": [
         {
           "formulaId": "M05-F01",
-          "label": "BAC-CAB Rule",
-          "latex": "$\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = \\vec{b}(\\vec{a}\\cdot\\vec{c}) - \\vec{c}(\\vec{a}\\cdot\\vec{b})$",
-          "aiExplainContext": "Expand triple cross products."
+          "label": "Direction Cosines & Vector Projection",
+          "latex": "$l^2 + m^2 + n^2 = 1,\\quad \\sin^2\\alpha + \\sin^2\\beta + \\sin^2\\gamma = 2,\\quad \\operatorname{proj}_{\\vec{b}}\\vec{a} = \\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|^2}\\vec{b}$",
+          "aiExplainContext": "Direction cosine identities and orthogonal vector projection."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M05-EX01",
+          "problemLatex": "Find the scalar projection of $\\vec{a} = 2\\hat{i} - \\hat{j} + 2\\hat{k}$ onto $\\vec{b} = \\hat{i} + 2\\hat{j} + 2\\hat{k}$.",
+          "stepsLatex": [
+            "Compute $\\vec{a}\\cdot\\vec{b} = 2(1) + (-1)(2) + 2(2) = 4$ and $|\\vec{b}| = \\sqrt{1 + 4 + 4} = 3$.",
+            "Scalar projection $= \\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|} = \\frac{4}{3}$."
+          ],
+          "answerLatex": "$\\frac{4}{3}$"
+        }
+      ]
+    },
+    {
+      "anchor": "cross-lagrange",
+      "heading": "2. Cross Product, Area Formulas & Lagrange's Identity",
+      "proseLatex": "The vector product $\\vec{a}\\times\\vec{b} = |\\vec{a}||\\vec{b}|\\sin\\theta\\,\\hat{n}$ is anti-commutative ($\\vec{b}\\times\\vec{a} = -\\vec{a}\\times\\vec{b}$) and vanishes for nonzero collinear vectors. Geometrically, $|\\vec{a}\\times\\vec{b}|$ equals the area of a parallelogram with adjacent sides $\\vec{a},\\vec{b}$ (and $\\frac{1}{2}|\\vec{a}\\times\\vec{b}|$ is the triangle area). Lagrange's identity $|\\vec{a}\\times\\vec{b}|^2 + (\\vec{a}\\cdot\\vec{b})^2 = |\\vec{a}|^2|\\vec{b}|^2$ links dot and cross magnitudes without finding $\\theta$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M05-F02",
+          "label": "Lagrange's Identity & Parallelogram Area",
+          "latex": "$|\\vec{a}\\times\\vec{b}|^2 + (\\vec{a}\\cdot\\vec{b})^2 = |\\vec{a}|^2|\\vec{b}|^2,\\quad \\text{Area}_{\\triangle} = \\frac{1}{2}|\\vec{a}\\times\\vec{b}|$",
+          "aiExplainContext": "Compute |a x b| directly from |a|, |b|, and a.b."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "triple-products",
+      "heading": "3. Scalar & Vector Triple Products (Coplanarity & BAC-CAB)",
+      "proseLatex": "The scalar triple product $[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = \\vec{a}\\cdot(\\vec{b}\\times\\vec{c})$ equals the $3\\times 3$ component determinant and represents the signed volume of the parallelepiped; $[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = 0$ is the exact condition for coplanarity. Cyclic shifts preserve $[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = [\\vec{b}\\;\\vec{c}\\;\\vec{a}] = [\\vec{c}\\;\\vec{a}\\;\\vec{b}]$. The vector triple product expands by the BAC-CAB rule $\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = (\\vec{a}\\cdot\\vec{c})\\vec{b} - (\\vec{a}\\cdot\\vec{b})\\vec{c}$, which lies in the plane of $\\vec{b}$ and $\\vec{c}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M05-F03",
+          "label": "Coplanarity Determinant & BAC-CAB Rule",
+          "latex": "$[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = 0 \\iff \\text{coplanar};\\qquad \\vec{a}\\times(\\vec{b}\\times\\vec{c}) = (\\vec{a}\\cdot\\vec{c})\\vec{b} - (\\vec{a}\\cdot\\vec{b})\\vec{c}$",
+          "aiExplainContext": "Expand vector triple products and check four-point coplanarity."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M05-EX02",
+          "problemLatex": "Simplify $\\hat{i}\\times(\\vec{r}\\times\\hat{i}) + \\hat{j}\\times(\\vec{r}\\times\\hat{j}) + \\hat{k}\\times(\\vec{r}\\times\\hat{k})$ for any vector $\\vec{r} = x\\hat{i}+y\\hat{j}+z\\hat{k}$.",
+          "stepsLatex": [
+            "By BAC-CAB, $\\hat{i}\\times(\\vec{r}\\times\\hat{i}) = (\\hat{i}\\cdot\\hat{i})\\vec{r} - (\\hat{i}\\cdot\\vec{r})\\hat{i} = \\vec{r} - x\\hat{i}$.",
+            "Summing over $\\hat{i},\\hat{j},\\hat{k}$ gives $3\\vec{r} - (x\\hat{i}+y\\hat{j}+z\\hat{k}) = 3\\vec{r} - \\vec{r} = 2\\vec{r}$."
+          ],
+          "answerLatex": "$2\\vec{r}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "vector-ops",
+      "heading": "1. Unit Vectors, Direction Cosines & Scalar (Dot) Product",
+      "proseLatex": "For $\\vec{r} = x\\hat{i} + y\\hat{j} + z\\hat{k}$, magnitude is $|\\vec{r}| = \\sqrt{x^2+y^2+z^2}$, unit vector is $\\hat{r} = \\vec{r}/|\\vec{r}|$, and direction cosines $(l,m,n) = (\\cos\\alpha,\\cos\\beta,\\cos\\gamma)$ satisfy $l^2 + m^2 + n^2 = 1$. The scalar product $\\vec{a}\\cdot\\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta = a_1 b_1 + a_2 b_2 + a_3 b_3$ tests orthogonality ($\\vec{a}\\perp\\vec{b} \\iff \\vec{a}\\cdot\\vec{b} = 0$) and gives scalar projection of $\\vec{a}$ along $\\vec{b}$ as $\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M05-F01",
+          "label": "Direction Cosines & Vector Projection",
+          "latex": "$l^2 + m^2 + n^2 = 1,\\quad \\sin^2\\alpha + \\sin^2\\beta + \\sin^2\\gamma = 2,\\quad \\operatorname{proj}_{\\vec{b}}\\vec{a} = \\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|^2}\\vec{b}$",
+          "aiExplainContext": "Direction cosine identities and orthogonal vector projection."
+        }
+      ]
+    },
+    {
+      "anchor": "cross-lagrange",
+      "heading": "2. Cross Product, Area Formulas & Lagrange's Identity",
+      "proseLatex": "The vector product $\\vec{a}\\times\\vec{b} = |\\vec{a}||\\vec{b}|\\sin\\theta\\,\\hat{n}$ is anti-commutative ($\\vec{b}\\times\\vec{a} = -\\vec{a}\\times\\vec{b}$) and vanishes for nonzero collinear vectors. Geometrically, $|\\vec{a}\\times\\vec{b}|$ equals the area of a parallelogram with adjacent sides $\\vec{a},\\vec{b}$ (and $\\frac{1}{2}|\\vec{a}\\times\\vec{b}|$ is the triangle area). Lagrange's identity $|\\vec{a}\\times\\vec{b}|^2 + (\\vec{a}\\cdot\\vec{b})^2 = |\\vec{a}|^2|\\vec{b}|^2$ links dot and cross magnitudes without finding $\\theta$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M05-F02",
+          "label": "Lagrange's Identity & Parallelogram Area",
+          "latex": "$|\\vec{a}\\times\\vec{b}|^2 + (\\vec{a}\\cdot\\vec{b})^2 = |\\vec{a}|^2|\\vec{b}|^2,\\quad \\text{Area}_{\\triangle} = \\frac{1}{2}|\\vec{a}\\times\\vec{b}|$",
+          "aiExplainContext": "Compute |a x b| directly from |a|, |b|, and a.b."
         }
       ]
     },
     {
       "anchor": "triple-products",
-      "heading": "2. Triple Products",
-      "proseLatex": "Scalar triple product $\\vec{a}\\cdot(\\vec{b}\\times\\vec{c})$ gives volume; vector triple product gives a vector in the plane.",
+      "heading": "3. Scalar & Vector Triple Products (Coplanarity & BAC-CAB)",
+      "proseLatex": "The scalar triple product $[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = \\vec{a}\\cdot(\\vec{b}\\times\\vec{c})$ equals the $3\\times 3$ component determinant and represents the signed volume of the parallelepiped; $[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = 0$ is the exact condition for coplanarity. Cyclic shifts preserve $[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = [\\vec{b}\\;\\vec{c}\\;\\vec{a}] = [\\vec{c}\\;\\vec{a}\\;\\vec{b}]$. The vector triple product expands by the BAC-CAB rule $\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = (\\vec{a}\\cdot\\vec{c})\\vec{b} - (\\vec{a}\\cdot\\vec{b})\\vec{c}$, which lies in the plane of $\\vec{b}$ and $\\vec{c}$.",
       "keyFormulas": [
         {
-          "formulaId": "M05-F02",
-          "label": "Vector Triple Product Sum",
-          "latex": "$\\sum \\hat{i}\\times(\\vec{a}\\times\\hat{i}) = 2\\vec{a}$",
-          "aiExplainContext": "Sum over unit vectors."
+          "formulaId": "M05-F03",
+          "label": "Coplanarity Determinant & BAC-CAB Rule",
+          "latex": "$[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = 0 \\iff \\text{coplanar};\\qquad \\vec{a}\\times(\\vec{b}\\times\\vec{c}) = (\\vec{a}\\cdot\\vec{c})\\vec{b} - (\\vec{a}\\cdot\\vec{b})\\vec{c}$",
+          "aiExplainContext": "Expand vector triple products and check four-point coplanarity."
         }
       ]
     }
@@ -51,18 +143,40 @@
   "workedExamples": [
     {
       "exampleId": "M05-EX01",
-      "problemLatex": "Evaluate $\\hat{i}\\times(\\vec{a}\\times\\hat{i}) + \\hat{j}\\times(\\vec{a}\\times\\hat{j}) + \\hat{k}\\times(\\vec{a}\\times\\hat{k})$.",
+      "problemLatex": "Find the scalar projection of $\\vec{a} = 2\\hat{i} - \\hat{j} + 2\\hat{k}$ onto $\\vec{b} = \\hat{i} + 2\\hat{j} + 2\\hat{k}$.",
       "stepsLatex": [
-        "Each term: $\\vec{a} - \\hat{i}(\\hat{i}\\cdot\\vec{a})$.",
-        "Sum: $3\\vec{a} - \\vec{a} = 2\\vec{a}$."
+        "Compute $\\vec{a}\\cdot\\vec{b} = 2(1) + (-1)(2) + 2(2) = 4$ and $|\\vec{b}| = \\sqrt{1 + 4 + 4} = 3$.",
+        "Scalar projection $= \\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|} = \\frac{4}{3}$."
       ],
-      "answerLatex": "$2\\vec{a}$"
+      "answerLatex": "$\\frac{4}{3}$"
+    },
+    {
+      "exampleId": "M05-EX02",
+      "problemLatex": "Simplify $\\hat{i}\\times(\\vec{r}\\times\\hat{i}) + \\hat{j}\\times(\\vec{r}\\times\\hat{j}) + \\hat{k}\\times(\\vec{r}\\times\\hat{k})$ for any vector $\\vec{r} = x\\hat{i}+y\\hat{j}+z\\hat{k}$.",
+      "stepsLatex": [
+        "By BAC-CAB, $\\hat{i}\\times(\\vec{r}\\times\\hat{i}) = (\\hat{i}\\cdot\\hat{i})\\vec{r} - (\\hat{i}\\cdot\\vec{r})\\hat{i} = \\vec{r} - x\\hat{i}$.",
+        "Summing over $\\hat{i},\\hat{j},\\hat{k}$ gives $3\\vec{r} - (x\\hat{i}+y\\hat{j}+z\\hat{k}) = 3\\vec{r} - \\vec{r} = 2\\vec{r}$."
+      ],
+      "answerLatex": "$2\\vec{r}$"
     }
   ],
   "wbjeebTraps": [
-    "BAC-CAB is the key to simplifying cross-product triples.",
-    "Vector triple product lies in the plane of the two inner vectors."
+    "Vector triple product is NOT associative: $\\vec{a}\\times(\\vec{b}\\times\\vec{c}) \\neq (\\vec{a}\\times\\vec{b})\\times\\vec{c}$ in general.",
+    "Projection of $\\vec{a}$ ON $\\vec{b}$ divides by $|\\vec{b}|$, NOT $|\\vec{a}|$: $\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}$.",
+    "Notice $[\\vec{a}+\\vec{b},\\;\\vec{b}+\\vec{c},\\;\\vec{c}+\\vec{a}] = 2[\\vec{a}\\;\\vec{b}\\;\\vec{c}]$, whereas $[\\vec{a}-\\vec{b},\\;\\vec{b}-\\vec{c},\\;\\vec{c}-\\vec{a}] = 0$ always."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "A Crash Course on Vectors: Dot Product, Cross Product, and Magnitude",
+      "url": "https://www.youtube.com/watch?v=-PvP7aRjuI0",
+      "videoId": "-PvP7aRjuI0",
+      "duration": "21 min",
+      "durationMinutes": 21,
+      "provider": "YouTube · Math Crash Course",
+      "channelName": "Math Crash Course",
+      "language": "en",
+      "scopeNote": "Unit vectors, projection, dot product, cross product and geometric areas"
+    }
+  ],
   "practiceSetIds": []
 }

@@ -10,17 +10,102 @@
     "jelet-2022-q065",
     "jelet-2024-q048"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2024-q048",
+    "jelet-2022-q054",
+    "jelet-2022-q065"
+  ],
+  "notes": [
     {
-      "anchor": "expansion",
-      "heading": "1. Linear, Areal & Volume Expansion",
-      "proseLatex": "$\\\\Delta L = L\\alpha\\Delta T$, $\\\\Delta A = A\\beta\\Delta T$, $\\\\Delta V = V\\gamma\\Delta T$. Relations: $\\beta = 2\\alpha$, $\\gamma = 3\\alpha$.",
+      "anchor": "linear-areal-volume",
+      "heading": "1. Linear (α), Superficial (β) & Volume (γ) Expansion",
+      "proseLatex": "Heating an isotropic solid by $\\Delta T$ expands every linear dimension — including cavities and hole diameters! — according to $L = L_0(1 + \\alpha\\Delta T)$, area $A = A_0(1 + \\beta\\Delta T)$, and volume $V = V_0(1 + \\gamma\\Delta T)$. For small $\\alpha\\Delta T \\ll 1$, isotropic solids satisfy the exact ratio $\\alpha : \\beta : \\gamma = 1 : 2 : 3$, while solid density decreases with temperature as $\\rho_T = \\frac{\\rho_0}{1 + \\gamma\\Delta T} \\approx \\rho_0(1 - \\gamma\\Delta T)$.",
       "keyFormulas": [
         {
           "formulaId": "P09-F01",
-          "label": "Expansion Coefficients",
-          "latex": "$\\beta = 2\\alpha,\\; \\gamma = 3\\alpha$",
-          "aiExplainContext": "Approximate relations for isotropic solids."
+          "label": "Isotropic Expansion Coefficients & Density Shift",
+          "latex": "$L = L_0(1 + \\alpha\\Delta T),\\quad \\beta = 2\\alpha,\\quad \\gamma = 3\\alpha,\\quad \\rho_T = \\frac{\\rho_0}{1 + \\gamma\\Delta T}$",
+          "aiExplainContext": "Relate alpha, beta, gamma and compute heated density or cavity expansion."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P09-EX01",
+          "problemLatex": "If the linear expansion coefficient of brass is $\\alpha = 1.9\\times 10^{-5}\\text{ }^\\circ\\text{C}^{-1}$, find the percentage increase in volume of a brass sphere heated by $100^\\circ\\text{C}$.",
+          "stepsLatex": [
+            "Isotropic volume coefficient $\\gamma = 3\\alpha = 5.7\\times 10^{-5}\\text{ }^\\circ\\text{C}^{-1}$.",
+            "$(\\Delta V/V_0)\\times 100\\% = \\gamma\\Delta T\\times 100\\% = (5.7\\times 10^{-5})(100)\\times 100\\% = 0.57\\%$."
+          ],
+          "answerLatex": "$0.57\\%$"
+        }
+      ]
+    },
+    {
+      "anchor": "pendulum-bimetallic",
+      "heading": "2. Bimetallic Strips, Constant-Difference Rods & Pendulum Clock Drift",
+      "proseLatex": "When two welded strips ($\\alpha_1 > \\alpha_2$) are heated, the bimetallic strip bends with the HIGHER-$\\alpha$ metal on the OUTER convex side (and flips concave on cooling). Two rods maintain a temperature-independent length difference $L_2 - L_1 = \\text{const}$ if and only if $L_1\\alpha_1 = L_2\\alpha_2$. A metal pendulum clock ($T = 2\\pi\\sqrt{L/g}$) lengthens when heated, increasing $T$ so the clock runs SLOW and loses $\\frac{\\Delta t}{t} = \\frac{1}{2}\\alpha\\Delta T$ seconds per second.",
+      "keyFormulas": [
+        {
+          "formulaId": "P09-F02",
+          "label": "Constant Length Difference & Pendulum Clock Loss",
+          "latex": "$L_2 - L_1 = \\text{const} \\iff L_1\\alpha_1 = L_2\\alpha_2,\\qquad \\frac{\\Delta T_{\\text{pend}}}{T_{\\text{pend}}} = \\frac{1}{2}\\alpha\\Delta\\theta$",
+          "aiExplainContext": "Design temperature-compensated rods and compute seconds lost/gained per day."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "liquid-apparent-water",
+      "heading": "3. Real vs Apparent Liquid Expansion & Anomalous Water (4 °C)",
+      "proseLatex": "Because a heated container also expands ($\\gamma_g = 3\\alpha_g$), observed apparent expansion of a liquid $\\gamma_{\\text{app}}$ is smaller than real expansion $\\gamma_{\\text{real}} = \\gamma_{\\text{app}} + \\gamma_g$. Water exhibits anomalous behaviour between $0^\\circ\\text{C}$ and $4^\\circ\\text{C}$: heating from $0^\\circ\\text{C}$ to $4^\\circ\\text{C}$ CONTRACTS its volume, reaching MAXIMUM density ($1000\\text{ kg/m}^3$) and MINIMUM volume at $4^\\circ\\text{C}$, allowing aquatic life to survive beneath $0^\\circ\\text{C}$ surface ice.",
+      "keyFormulas": [
+        {
+          "formulaId": "P09-F03",
+          "label": "Real vs Apparent Liquid Expansion",
+          "latex": "$\\gamma_{\\text{real}} = \\gamma_{\\text{apparent}} + \\gamma_{\\text{vessel}} = \\gamma_{\\text{apparent}} + 3\\alpha_{\\text{vessel}}$",
+          "aiExplainContext": "Account for container expansion and water's 4 deg C density maximum."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "linear-areal-volume",
+      "heading": "1. Linear (α), Superficial (β) & Volume (γ) Expansion",
+      "proseLatex": "Heating an isotropic solid by $\\Delta T$ expands every linear dimension — including cavities and hole diameters! — according to $L = L_0(1 + \\alpha\\Delta T)$, area $A = A_0(1 + \\beta\\Delta T)$, and volume $V = V_0(1 + \\gamma\\Delta T)$. For small $\\alpha\\Delta T \\ll 1$, isotropic solids satisfy the exact ratio $\\alpha : \\beta : \\gamma = 1 : 2 : 3$, while solid density decreases with temperature as $\\rho_T = \\frac{\\rho_0}{1 + \\gamma\\Delta T} \\approx \\rho_0(1 - \\gamma\\Delta T)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P09-F01",
+          "label": "Isotropic Expansion Coefficients & Density Shift",
+          "latex": "$L = L_0(1 + \\alpha\\Delta T),\\quad \\beta = 2\\alpha,\\quad \\gamma = 3\\alpha,\\quad \\rho_T = \\frac{\\rho_0}{1 + \\gamma\\Delta T}$",
+          "aiExplainContext": "Relate alpha, beta, gamma and compute heated density or cavity expansion."
+        }
+      ]
+    },
+    {
+      "anchor": "pendulum-bimetallic",
+      "heading": "2. Bimetallic Strips, Constant-Difference Rods & Pendulum Clock Drift",
+      "proseLatex": "When two welded strips ($\\alpha_1 > \\alpha_2$) are heated, the bimetallic strip bends with the HIGHER-$\\alpha$ metal on the OUTER convex side (and flips concave on cooling). Two rods maintain a temperature-independent length difference $L_2 - L_1 = \\text{const}$ if and only if $L_1\\alpha_1 = L_2\\alpha_2$. A metal pendulum clock ($T = 2\\pi\\sqrt{L/g}$) lengthens when heated, increasing $T$ so the clock runs SLOW and loses $\\frac{\\Delta t}{t} = \\frac{1}{2}\\alpha\\Delta T$ seconds per second.",
+      "keyFormulas": [
+        {
+          "formulaId": "P09-F02",
+          "label": "Constant Length Difference & Pendulum Clock Loss",
+          "latex": "$L_2 - L_1 = \\text{const} \\iff L_1\\alpha_1 = L_2\\alpha_2,\\qquad \\frac{\\Delta T_{\\text{pend}}}{T_{\\text{pend}}} = \\frac{1}{2}\\alpha\\Delta\\theta$",
+          "aiExplainContext": "Design temperature-compensated rods and compute seconds lost/gained per day."
+        }
+      ]
+    },
+    {
+      "anchor": "liquid-apparent-water",
+      "heading": "3. Real vs Apparent Liquid Expansion & Anomalous Water (4 °C)",
+      "proseLatex": "Because a heated container also expands ($\\gamma_g = 3\\alpha_g$), observed apparent expansion of a liquid $\\gamma_{\\text{app}}$ is smaller than real expansion $\\gamma_{\\text{real}} = \\gamma_{\\text{app}} + \\gamma_g$. Water exhibits anomalous behaviour between $0^\\circ\\text{C}$ and $4^\\circ\\text{C}$: heating from $0^\\circ\\text{C}$ to $4^\\circ\\text{C}$ CONTRACTS its volume, reaching MAXIMUM density ($1000\\text{ kg/m}^3$) and MINIMUM volume at $4^\\circ\\text{C}$, allowing aquatic life to survive beneath $0^\\circ\\text{C}$ surface ice.",
+      "keyFormulas": [
+        {
+          "formulaId": "P09-F03",
+          "label": "Real vs Apparent Liquid Expansion",
+          "latex": "$\\gamma_{\\text{real}} = \\gamma_{\\text{apparent}} + \\gamma_{\\text{vessel}} = \\gamma_{\\text{apparent}} + 3\\alpha_{\\text{vessel}}$",
+          "aiExplainContext": "Account for container expansion and water's 4 deg C density maximum."
         }
       ]
     }
@@ -28,17 +113,31 @@
   "workedExamples": [
     {
       "exampleId": "P09-EX01",
-      "problemLatex": "Find $\\gamma$ for a solid given $\\alpha$.",
+      "problemLatex": "If the linear expansion coefficient of brass is $\\alpha = 1.9\\times 10^{-5}\\text{ }^\\circ\\text{C}^{-1}$, find the percentage increase in volume of a brass sphere heated by $100^\\circ\\text{C}$.",
       "stepsLatex": [
-        "$\\gamma = 3\\alpha$ (for isotropic solids)."
+        "Isotropic volume coefficient $\\gamma = 3\\alpha = 5.7\\times 10^{-5}\\text{ }^\\circ\\text{C}^{-1}$.",
+        "$(\\Delta V/V_0)\\times 100\\% = \\gamma\\Delta T\\times 100\\% = (5.7\\times 10^{-5})(100)\\times 100\\% = 0.57\\%$."
       ],
-      "answerLatex": "$\\gamma = 3\\alpha$"
+      "answerLatex": "$0.57\\%$"
     }
   ],
   "wbjeebTraps": [
-    "Density decreases with temperature as $\\rho \\propto 1/V$.",
-    "Expansion coefficients vary with temperature."
+    "Photographic-enlargement rule: heating a metal plate with a circular hole INCREASES the hole's diameter (never shrinks inward!).",
+    "Heating water filled to the brim at $4^\\circ\\text{C}$ OR cooling it below $4^\\circ\\text{C}$ BOTH cause water to overflow, because volume is minimum at $4^\\circ\\text{C}$.",
+    "In pendulum drift $\\Delta t/t = \\frac{1}{2}\\alpha\\Delta\\theta$, don't forget the factor $\\frac{1}{2}$ from $\\sqrt{L}$ nor $86{,}400\\text{ s/day}$."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Calorimetry, Heat Transfer & Thermal Expansion in ONE SHOT | Class 11 Physics",
+      "url": "https://www.youtube.com/watch?v=inKnR0PNLM0",
+      "videoId": "inKnR0PNLM0",
+      "duration": "46 min",
+      "durationMinutes": 46,
+      "provider": "YouTube · NEET Physics Kota",
+      "channelName": "NEET Physics Kota",
+      "language": "en",
+      "scopeNote": "Linear, superficial & cubical expansion, pendulum clock drift & anomalous water expansion"
+    }
+  ],
   "practiceSetIds": []
 }

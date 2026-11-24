@@ -63,7 +63,8 @@ export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
   let activeFilter = "all"; // "all" | "studying" | "revised" | "high"
 
   const indexedUnits = allUnits.map((u) => {
-    const formulasText = (u.sections || [])
+    const secSource = u.notes?.length ? u.notes : u.sections || [];
+    const formulasText = secSource
       .flatMap((s) => [
         s.heading,
         stripLatexForSearch(s.proseLatex),
@@ -285,10 +286,62 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
   const posPct = Math.round(((idxInSubject + 1) * 100) / Math.max(1, subjectUnits.length));
 
   const unitPyqs = (unit.pyqIds || []).map((id) => qIndex.get(id)).filter(Boolean);
+  const practiceIdList =
+    Array.isArray(unit.practiceQuestions) && unit.practiceQuestions.length
+      ? unit.practiceQuestions
+      : unit.pyqIds || [];
+  const unitPracticeQs = practiceIdList
+    .map((id) => qIndex.get(id))
+    .filter((q) => q && !isVoidedQuestion(q));
+  const noteSections =
+    Array.isArray(unit.notes) && unit.notes.length ? unit.notes : unit.sections || [];
   let solutionsCache = null;
   let activeTab = "workbook"; // "workbook" | "pyqs" | "videos"
 
   const isBookmarkedInit = Boolean(bookmarksMap.get(unit.unitId)?.bookmarked);
+
+  async function launchUnitPractice(mode = "assisted") {
+    if (!unitPracticeQs.length) {
+      location.hash = `#/practice?unit=${encodeURIComponent(unit.unitId)}`;
+      return;
+    }
+    const sess = await createSession({
+      kind: "drill",
+      mode,
+      title: `${unit.unitId} · ${unit.title} (${unitPracticeQs.length} PYQs)`,
+      questions: unitPracticeQs,
+    });
+    location.hash = `#/practice-run/${sess.sessionId}`;
+  }
+
+  function buildWorkedExampleHtml(ex) {
+    const stepsHtml = (ex.stepsLatex || [])
+      .map(
+        (st, idx) => `
+        <div class="worked-step">
+          <div class="solution-step__head">Step ${idx + 1}</div>
+          <div>${renderLatex(st)}</div>
+        </div>
+      `
+      )
+      .join("");
+    return `
+      <div class="worked-example stack-s">
+        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+          <strong style="color:var(--brand-primary);display:flex;align-items:center;gap:var(--space-xs)">
+            ${icon("icon-spark")} Worked Example
+          </strong>
+          <span class="mono pill">${escapeHtml(ex.exampleId || unit.unitId)}</span>
+        </div>
+        <div class="lesson-prose">${renderLatex(ex.problemLatex || "")}</div>
+        <hr style="border:none;border-top:1px solid var(--border-subtle);margin:0" />
+        <div class="stack-xs">${stepsHtml}</div>
+        <div class="badge badge--correct" style="align-self:flex-start">
+          Answer: ${renderLatex(ex.answerLatex || "")}
+        </div>
+      </div>
+    `;
+  }
 
   const root = el(`
     <div class="lesson-shell">
@@ -323,7 +376,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
           <h3 class="card__title" style="margin:0">${escapeHtml(unit.title)}</h3>
           <p class="card__meta">Est. ${unit.estimatedMinutes || 30} min · ${unitPyqs.length} Verified PYQs</p>
           <div class="stack-xs" id="lessonOutlineLinks">
-            ${(unit.sections || [])
+            ${noteSections
               .map(
                 (sec) =>
                   `<a class="lesson-outline-link" href="#/learn/${escapeHtml(unit.unitId)}" data-anchor="${escapeHtml(sec.anchor)}">${escapeHtml(sec.heading)}</a>`
@@ -349,7 +402,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
       <!-- Sticky Bottom Action Bar (05-lesson.png) -->
       <footer class="lesson-bottom-bar">
         <button type="button" class="btn btn--primary" id="lessonPracticeBtn">
-          Practise this topic (${unitPyqs.length} PYQs) ${icon("icon-chevron")}
+          Practise this topic (${unitPracticeQs.length} PYQs) ${icon("icon-chevron")}
         </button>
         <button type="button" class="btn btn--ghost" id="lessonReviseBtn"></button>
       </footer>
@@ -392,8 +445,10 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
     slot.innerHTML = "";
 
     if (activeTab === "workbook") {
-      // 1. Theory Sections + Key Formulas + "Explain this step"
-      for (const sec of unit.sections || []) {
+      const renderedExampleIds = new Set();
+
+      // 1. Detailed Notes Sections + Key Formulas + Inline Worked Examples
+      for (const sec of noteSections) {
         const formulasHtml = (sec.keyFormulas || [])
           .map(
             (kf) => `
@@ -412,11 +467,19 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
           )
           .join("");
 
+        const inlineExamplesHtml = (sec.examples || [])
+          .map((ex) => {
+            if (ex.exampleId) renderedExampleIds.add(ex.exampleId);
+            return buildWorkedExampleHtml(ex);
+          })
+          .join("");
+
         const secEl = el(`
           <section class="card stack-s" id="sec-${escapeHtml(sec.anchor || "")}">
             <h2 class="card__title" style="margin:0">${escapeHtml(sec.heading)}</h2>
             <div class="lesson-prose">${renderLatex(sec.proseLatex || "", { preserveNewlines: true })}</div>
             ${formulasHtml}
+            ${inlineExamplesHtml}
           </section>
         `);
 
@@ -436,36 +499,10 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
         slot.appendChild(secEl);
       }
 
-      // 2. Mint-Tinted Worked Examples (`05-lesson.png`)
+      // 2. Any standalone Worked Examples not already shown inline (`05-lesson.png`)
       for (const ex of unit.workedExamples || []) {
-        const stepsHtml = (ex.stepsLatex || [])
-          .map(
-            (st, idx) => `
-            <div class="worked-step">
-              <div class="solution-step__head">Step ${idx + 1}</div>
-              <div>${renderLatex(st)}</div>
-            </div>
-          `
-          )
-          .join("");
-
-        const exCard = el(`
-          <section class="worked-example stack-s">
-            <div class="row-between">
-              <strong style="color:var(--brand-primary);display:flex;align-items:center;gap:var(--space-xs)">
-                ${icon("icon-spark")} Worked Example
-              </strong>
-              <span class="mono pill">${escapeHtml(ex.exampleId || unit.unitId)}</span>
-            </div>
-            <div class="lesson-prose">${renderLatex(ex.problemLatex || "")}</div>
-            <hr style="border:none;border-top:1px solid var(--border-subtle);margin:0" />
-            <div class="stack-xs">${stepsHtml}</div>
-            <div class="badge badge--correct" style="align-self:flex-start">
-              Answer: ${renderLatex(ex.answerLatex || "")}
-            </div>
-          </section>
-        `);
-        slot.appendChild(exCard);
+        if (ex.exampleId && renderedExampleIds.has(ex.exampleId)) continue;
+        slot.appendChild(el(buildWorkedExampleHtml(ex)));
       }
 
       // 3. Warm Amber WBJEEB Traps Callout
@@ -481,6 +518,34 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
           </section>
         `);
         slot.appendChild(trapsCard);
+      }
+
+      // 4. Focused Unit Practice Launcher (`practiceQuestions[]` curated from verified PYQs)
+      if (unitPracticeQs.length) {
+        const cat1Count = unitPracticeQs.filter((q) => q.category === 1).length;
+        const cat2Count = unitPracticeQs.filter((q) => q.category === 2).length;
+        const pracCard = el(`
+          <section class="card card--accent-border stack-s">
+            <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+              <div>
+                <span class="badge badge--brand">Focused Unit Practice</span>
+                <h3 class="card__title" style="margin-top:var(--space-2xs)">${escapeHtml(unit.unitId)} Curated PYQ Set (${unitPracticeQs.length} Qs)</h3>
+                <p class="card__meta">${cat1Count} Cat-I (+1 / −0.25) · ${cat2Count} Cat-II (+2 multi-correct) · 2022–2025 verified</p>
+              </div>
+            </div>
+            <div class="cluster-xs">
+              <button type="button" class="btn btn--primary btn--sm" id="unitPracAssistedBtn">
+                ${icon("icon-play")} Start Assisted Set
+              </button>
+              <button type="button" class="btn btn--ghost btn--sm" id="unitPracIndepBtn">
+                Independent Drill
+              </button>
+            </div>
+          </section>
+        `);
+        $("#unitPracAssistedBtn", pracCard).addEventListener("click", () => launchUnitPractice("assisted"));
+        $("#unitPracIndepBtn", pracCard).addEventListener("click", () => launchUnitPractice("independent"));
+        slot.appendChild(pracCard);
       }
 
       // 4. Personal Study Note for Unit
@@ -601,21 +666,31 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
       const langNames = { bn: "Bengali", en: "English", hi: "Hindi" };
 
       for (const vid of videos) {
-        const isWatched = watchedSet.has(vid.videoId);
+        const watchKey = vid.videoId || vid.url;
+        const isWatched = watchedSet.has(watchKey);
         const startSec = Number(vid.startSeconds) || 0;
-        const deepLink = `https://youtu.be/${encodeURIComponent(vid.videoId)}${startSec ? `?t=${startSec}` : ""}`;
-        const embedUrl = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid.videoId)}?rel=0${startSec ? `&start=${startSec}` : ""}`;
+        const deepLink = vid.videoId
+          ? `https://youtu.be/${encodeURIComponent(vid.videoId)}${startSec ? `?t=${startSec}` : ""}`
+          : vid.url;
+        const embedUrl = vid.videoId
+          ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid.videoId)}?rel=0${startSec ? `&start=${startSec}` : ""}`
+          : "";
+        const durationBadge =
+          vid.duration || (vid.durationMinutes ? `${vid.durationMinutes} min` : "");
+        const providerMeta = [vid.channelName || vid.provider, vid.scopeNote]
+          .filter(Boolean)
+          .join(" · ");
 
         const vCard = el(`
           <article class="card stack-s">
-            <div class="row-between" style="align-items:flex-start">
-              <div>
+            <div class="row-between" style="align-items:flex-start;gap:var(--space-xs);flex-wrap:wrap">
+              <div style="flex:1;min-width:0">
                 <div class="cluster-xs">
-                  <span class="badge badge--brand">${escapeHtml(langNames[vid.language] || vid.language || "Lecture")}</span>
-                  ${vid.durationMinutes ? `<span class="pill">${vid.durationMinutes} min</span>` : ""}
+                  <span class="badge badge--brand">${escapeHtml(langNames[vid.language] || vid.provider || "Lecture")}</span>
+                  ${durationBadge ? `<span class="pill">${escapeHtml(durationBadge)}</span>` : ""}
                 </div>
                 <h3 class="card__title" style="margin-top:var(--space-xs)">${escapeHtml(vid.title)}</h3>
-                <p class="card__meta">${escapeHtml(vid.channelName || "")} ${vid.scopeNote ? `· ${escapeHtml(vid.scopeNote)}` : ""}</p>
+                <p class="card__meta">${escapeHtml(providerMeta)}</p>
               </div>
               <button type="button" class="btn btn--ghost btn--sm js-watch-toggle">
                 ${isWatched ? `${icon("icon-check")} Watched` : "Mark Watched"}
@@ -623,41 +698,52 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
             </div>
             <div class="js-video-stage">
               <div class="cluster-xs">
-                <button type="button" class="btn btn--primary btn--sm js-mount-yt">
-                  ${icon("icon-play")} Watch Inside App
-                </button>
-                <a class="btn btn--ghost btn--sm" href="${escapeHtml(deepLink)}" target="_blank" rel="noopener noreferrer">
-                  ${icon("icon-external")} Open in YouTube App
-                </a>
+                ${
+                  embedUrl
+                    ? `<button type="button" class="btn btn--primary btn--sm js-mount-yt">
+                        ${icon("icon-play")} Watch Inside App
+                      </button>`
+                    : ""
+                }
+                ${
+                  deepLink
+                    ? `<a class="btn btn--ghost btn--sm" href="${escapeHtml(deepLink)}" target="_blank" rel="noopener noreferrer">
+                        ${icon("icon-external")} ${vid.videoId ? "Open in YouTube App" : "Open Lecture"}
+                      </a>`
+                    : ""
+                }
               </div>
             </div>
           </article>
         `);
 
         $(".js-watch-toggle", vCard).addEventListener("click", async () => {
-          currentProg = await toggleWatchedVideo(unit.unitId, vid.videoId);
+          currentProg = await toggleWatchedVideo(unit.unitId, watchKey);
           renderTabContent();
         });
 
-        $(".js-mount-yt", vCard).addEventListener("click", () => {
-          const stage = $(".js-video-stage", vCard);
-          if (typeof navigator !== "undefined" && navigator.onLine === false) {
-            stage.innerHTML = `<div class="exam-trap">You are currently offline. Video streaming requires internet — your workbook, formulas, and ${unitPyqs.length} PYQs remain 100% available offline.</div>`;
-            return;
-          }
-          stage.innerHTML = `
-            <div class="video-embed-frame">
-              <iframe
-                src="${escapeHtml(embedUrl)}"
-                title="${escapeHtml(vid.title)}"
-                loading="lazy"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allow="accelerometer; encrypted-media; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </div>
-          `;
-        });
+        const mountBtn = $(".js-mount-yt", vCard);
+        if (mountBtn) {
+          mountBtn.addEventListener("click", () => {
+            const stage = $(".js-video-stage", vCard);
+            if (typeof navigator !== "undefined" && navigator.onLine === false) {
+              stage.innerHTML = `<div class="exam-trap">You are currently offline. Video streaming requires internet — your workbook, formulas, and ${unitPyqs.length} PYQs remain 100% available offline.</div>`;
+              return;
+            }
+            stage.innerHTML = `
+              <div class="video-embed-frame">
+                <iframe
+                  src="${escapeHtml(embedUrl)}"
+                  title="${escapeHtml(vid.title)}"
+                  loading="lazy"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allow="accelerometer; encrypted-media; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            `;
+          });
+        }
 
         slot.appendChild(vCard);
       }
@@ -695,20 +781,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
     showToast(nextStatus === "revised" ? `${unit.unitId} marked Revised!` : `${unit.unitId} set to Studying`);
   });
 
-  $("#lessonPracticeBtn", root).addEventListener("click", async () => {
-    const activeQs = unitPyqs.filter((q) => !isVoidedQuestion(q));
-    if (!activeQs.length) {
-      location.hash = `#/practice?unit=${encodeURIComponent(unit.unitId)}`;
-      return;
-    }
-    const sess = await createSession({
-      kind: "drill",
-      mode: "assisted",
-      title: `${unit.unitId} · ${unit.title} (${activeQs.length} PYQs)`,
-      questions: activeQs,
-    });
-    location.hash = `#/practice-run/${sess.sessionId}`;
-  });
+  $("#lessonPracticeBtn", root).addEventListener("click", () => launchUnitPractice("assisted"));
 
   syncReviseBtn();
   renderTabs();

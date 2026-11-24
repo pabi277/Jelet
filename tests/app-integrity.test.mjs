@@ -103,15 +103,94 @@ test("All 400 PYQs, 400 solutions & 42 units render offline KaTeX with 0 errors 
     assert.equal(scored.totalTwelfths, 1440, `${yr} perfect key must equal 1440 twelfths`);
   }
 
+  const { normalizeUnit } = await import("../assets/js/core/data-loader.js");
+
   const manifest = JSON.parse(fs.readFileSync("./_data/manifest.json", "utf8"));
   assert.equal(manifest.units.length, 42);
   for (const uMeta of manifest.units) {
-    const u = JSON.parse(fs.readFileSync(`./_data/units/${uMeta.unitId}.json`, "utf8"));
+    const raw = JSON.parse(fs.readFileSync(`./_data/units/${uMeta.unitId}.json`, "utf8"));
+    const u = normalizeUnit(raw);
+    assert.ok(Array.isArray(u.notes) && u.notes.length >= 2, `${u.unitId} must have rich notes[]`);
+    assert.ok(Array.isArray(u.practiceQuestions), `${u.unitId} must define practiceQuestions[]`);
+    const pyqSet = new Set(u.pyqIds);
+    for (const pq of u.practiceQuestions) {
+      assert.ok(pyqSet.has(pq), `${u.unitId} practiceQuestion ${pq} must exist in pyqIds`);
+    }
+    for (const vid of u.videoLectures || []) {
+      assert.ok(vid.title && vid.url && vid.duration && vid.provider, `${u.unitId} video missing metadata`);
+      assert.ok(vid.videoId, `${u.unitId} video url must resolve a valid videoId`);
+    }
     assert.ok(!renderLatex(u.overviewLatex).includes("katex-error"), `KaTeX error in ${u.unitId} overview`);
-    for (const f of u.formulas || []) {
-      assert.ok(!renderLatex(f.latex, { displayIfBare: true }).includes("katex-error"), `KaTeX error in ${u.unitId} formula ${f.id}`);
+    for (const sec of u.notes) {
+      assert.ok(!renderLatex(sec.proseLatex).includes("katex-error"), `KaTeX error in ${u.unitId} ${sec.anchor}`);
+      for (const f of sec.keyFormulas || []) {
+        assert.ok(!renderLatex(f.latex, { displayIfBare: true }).includes("katex-error"), `KaTeX error in ${u.unitId} formula ${f.formulaId}`);
+      }
+      for (const ex of sec.examples || []) {
+        assert.ok(!renderLatex(ex.problemLatex).includes("katex-error"), `KaTeX error in ${ex.exampleId} problem`);
+        for (const st of ex.stepsLatex || []) {
+          assert.ok(!renderLatex(st).includes("katex-error"), `KaTeX error in ${ex.exampleId} step`);
+        }
+        assert.ok(!renderLatex(ex.answerLatex).includes("katex-error"), `KaTeX error in ${ex.exampleId} answer`);
+      }
+    }
+    for (const tr of u.wbjeebTraps || []) {
+      assert.ok(!renderLatex(tr).includes("katex-error"), `KaTeX error in ${u.unitId} trap`);
     }
   }
+});
+
+test("normalizeUnit migration guard tolerates both legacy and Phase 06 unit schemas", async () => {
+  const { normalizeUnit } = await import("../assets/js/core/data-loader.js");
+
+  const legacy = normalizeUnit({
+    unitId: "m01",
+    pyqIds: ["jelet-2025-q002", "jelet-2025-q003"],
+    sections: [
+      {
+        anchor: "intro",
+        heading: "1. Intro",
+        proseLatex: "$A^T = A$",
+        keyFormulas: [{ formulaId: "M01-F01", label: "Sym", latex: "$A=A^T$" }],
+      },
+    ],
+    workedExamples: [{ exampleId: "EX-1", problemLatex: "$x$", stepsLatex: ["$1$"], answerLatex: "$1$" }],
+    videoLectures: [{ videoId: "8sWzGgj-4Wc", title: "Matrices", durationMinutes: 18, channelName: "Profound" }],
+  });
+  assert.equal(legacy.unitId, "M01");
+  assert.equal(legacy.notes.length, 1);
+  assert.deepEqual(legacy.practiceQuestions, ["jelet-2025-q002", "jelet-2025-q003"]);
+  assert.equal(legacy.videoLectures[0].url, "https://www.youtube.com/watch?v=8sWzGgj-4Wc");
+  assert.equal(legacy.videoLectures[0].duration, "18 min");
+
+  const modern = normalizeUnit({
+    unitId: "p02",
+    pyqIds: ["jelet-2025-q043", "jelet-2025-q044"],
+    practiceQuestions: ["jelet-2025-q043"],
+    notes: [
+      {
+        heading: "1. Kinematics Graphs",
+        proseLatex: "$v = dx/dt$",
+        keyFormulas: [{ formulaId: "P02-F01", label: "Velocity", latex: "$v = dx/dt$" }],
+        examples: [{ exampleId: "P02-EX01", problemLatex: "$s$", stepsLatex: ["$s=vt$"], answerLatex: "$vt$" }],
+      },
+    ],
+    videoLectures: [
+      {
+        title: "Kinematics Lecture",
+        url: "https://www.youtube.com/watch?v=Bk_xk2kiefM",
+        duration: "19 min",
+        provider: "YouTube · Talha's Physics Academy",
+      },
+    ],
+  });
+  assert.equal(modern.unitId, "P02");
+  assert.equal(modern.sections.length, 1);
+  assert.equal(modern.workedExamples.length, 1);
+  assert.deepEqual(modern.practiceQuestions, ["jelet-2025-q043"]);
+  assert.equal(modern.videoLectures[0].videoId, "Bk_xk2kiefM");
+  assert.equal(modern.videoLectures[0].durationMinutes, 19);
+  assert.equal(modern.videoLectures[0].channelName, "Talha's Physics Academy");
 });
 
 test("Phone-first CSS & SVG icon sprite integrity across all views", () => {

@@ -15,30 +15,107 @@
     "jelet-2024-q055",
     "jelet-2025-q064"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q064",
+    "jelet-2024-q055",
+    "jelet-2023-q062",
+    "jelet-2023-q063",
+    "jelet-2023-q064",
+    "jelet-2023-q065",
+    "jelet-2022-q060",
+    "jelet-2022-q070"
+  ],
+  "notes": [
     {
-      "anchor": "photoemission",
-      "heading": "1. Photoelectric Effect",
-      "proseLatex": "Photoemission occurs when light frequency $>\\nu_0$ (threshold). Einstein's equation: $K_{\\max} = h\\nu - \\phi_0$.",
+      "anchor": "einstein-photoelectric",
+      "heading": "1. Photon Quanta, Work Function & Einstein's Photoelectric Equation",
+      "proseLatex": "Light of frequency $\\nu$ (wavelength $\\lambda$) consists of photons carrying energy $E = h\\nu = \\frac{hc}{\\lambda}$ ($\\approx \\frac{1240\\text{ eV\\,nm}}{\\lambda(\\text{nm})}$) and momentum $p = \\frac{h}{\\lambda} = \\frac{E}{c}$ (rest mass $= 0$). Emission occurs without time lag ONLY if $\\nu \\ge \\nu_0$ ($\\lambda \\le \\lambda_0$), where work function $\\phi_0 = h\\nu_0 = \\frac{hc}{\\lambda_0}$ is a pure cathode-material constant (lowest for alkali metals like Cs). Einstein's equation gives $K_{\\max} = eV_s = h\\nu - \\phi_0 = h(\\nu - \\nu_0)$.",
       "keyFormulas": [
         {
           "formulaId": "P15-F01",
-          "label": "Einstein's Equation",
-          "latex": "$K_{\\max} = h\\nu - \\phi_0$",
-          "aiExplainContext": "Energy conservation for photoelectrons."
+          "label": "Einstein's Photoelectric Law & 1240 eV·nm Shortcut",
+          "latex": "$E(\\text{eV}) \\approx \\frac{1240}{\\lambda(\\text{nm})},\\qquad K_{\\max} = eV_s = h\\nu - \\phi_0 = hc\\!\\left(\\frac{1}{\\lambda} - \\frac{1}{\\lambda_0}\\right)$",
+          "aiExplainContext": "Compute stopping potential Vs and Kmax cleanly in eV using 1240 eV.nm."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P15-EX01",
+          "problemLatex": "Light of wavelength $310\\text{ nm}$ strikes a metal of work function $\\phi_0 = 2.2\\text{ eV}$. Find $K_{\\max}$ and stopping potential $V_s$.",
+          "stepsLatex": [
+            "Incident photon energy $E = \\frac{1240\\text{ eV\\,nm}}{310\\text{ nm}} = 4.0\\text{ eV}$.",
+            "$K_{\\max} = 4.0 - 2.2 = 1.8\\text{ eV}$, hence stopping potential $V_s = 1.8\\text{ V}$."
+          ],
+          "answerLatex": "$K_{\\max} = 1.8\\text{ eV},\\; V_s = 1.8\\text{ V}$"
         }
       ]
     },
     {
-      "anchor": "solar",
-      "heading": "2. Solar Photovoltaic Cell",
-      "proseLatex": "Photons generate electron-hole pairs in a semiconductor, producing current.",
+      "anchor": "intensity-frequency-graphs",
+      "heading": "2. Intensity vs Frequency Independence & Stopping-Potential Slope",
+      "proseLatex": "Above threshold ($\\nu > \\nu_0$), increasing optical INTENSITY (at fixed $\\nu$) sends more photons per second, increasing saturation photocurrent $I_{\\text{sat}} \\propto I$ linearly while leaving $K_{\\max}$ and stopping potential $V_s$ COMPLETELY UNCHANGED! Conversely, raising FREQUENCY $\\nu$ raises $V_s$ linearly along $V_s = \\left(\\frac{h}{e}\\right)\\nu - \\frac{\\phi_0}{e}$ — every metal yields parallel straight lines with identical universal slope $h/e$.",
       "keyFormulas": [
         {
           "formulaId": "P15-F02",
-          "label": "Stopping Potential",
-          "latex": "$eV_0 = h\\nu - \\phi_0$",
-          "aiExplainContext": "Maximum KE measured by stopping potential."
+          "label": "Stopping Potential Line & Universal Slope (h / e)",
+          "latex": "$V_s = \\left(\\frac{h}{e}\\right)\\nu - \\frac{\\phi_0}{e},\\qquad I_{\\text{sat}} \\propto \\text{Intensity}\\;(\\nu > \\nu_0),\\qquad \\text{Slope} = \\frac{h}{e}$",
+          "aiExplainContext": "Separate intensity effects (photocurrent) from frequency effects (stopping potential) and read Planck's constant."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "de-broglie-solar",
+      "heading": "3. de Broglie Matter Waves & Solar Photovoltaic Cell",
+      "proseLatex": "Every moving particle of momentum $p$ has de Broglie wavelength $\\lambda = \\frac{h}{p} = \\frac{h}{\\sqrt{2mK}}$; for an electron accelerated from rest across $V$ volts, $\\lambda(\\text{\\AA}) \\approx \\frac{12.27}{\\sqrt{V}}$. A solar PV cell is an unbiased $p$-$n$ photodiode operating in the FOURTH quadrant of its $I$-$V$ plot (photovoltaic mode, no external bias!), absorbing $h\\nu > E_g$ photons ($\\text{Si}: E_g \\approx 1.1\\text{ eV},\\; \\text{GaAs} \\approx 1.43\\text{ eV}$) to sweep electron-hole pairs across the depletion field, characterized by $V_{\\text{oc}}$, $I_{\\text{sc}}$, and fill factor.",
+      "keyFormulas": [
+        {
+          "formulaId": "P15-F03",
+          "label": "de Broglie Wavelength & Solar Cell Efficiency",
+          "latex": "$\\lambda = \\frac{h}{p} = \\frac{h}{\\sqrt{2mqV}},\\qquad \\lambda_e(\\text{\\AA}) \\approx \\frac{12.27}{\\sqrt{V}},\\qquad \\eta_{\\text{PV}} = \\frac{\\text{FF}\\cdot V_{\\text{oc}} I_{\\text{sc}}}{P_{\\text{in}}}$",
+          "aiExplainContext": "Compute matter-wave wavelengths and recall solar-cell fourth-quadrant operation."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "einstein-photoelectric",
+      "heading": "1. Photon Quanta, Work Function & Einstein's Photoelectric Equation",
+      "proseLatex": "Light of frequency $\\nu$ (wavelength $\\lambda$) consists of photons carrying energy $E = h\\nu = \\frac{hc}{\\lambda}$ ($\\approx \\frac{1240\\text{ eV\\,nm}}{\\lambda(\\text{nm})}$) and momentum $p = \\frac{h}{\\lambda} = \\frac{E}{c}$ (rest mass $= 0$). Emission occurs without time lag ONLY if $\\nu \\ge \\nu_0$ ($\\lambda \\le \\lambda_0$), where work function $\\phi_0 = h\\nu_0 = \\frac{hc}{\\lambda_0}$ is a pure cathode-material constant (lowest for alkali metals like Cs). Einstein's equation gives $K_{\\max} = eV_s = h\\nu - \\phi_0 = h(\\nu - \\nu_0)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P15-F01",
+          "label": "Einstein's Photoelectric Law & 1240 eV·nm Shortcut",
+          "latex": "$E(\\text{eV}) \\approx \\frac{1240}{\\lambda(\\text{nm})},\\qquad K_{\\max} = eV_s = h\\nu - \\phi_0 = hc\\!\\left(\\frac{1}{\\lambda} - \\frac{1}{\\lambda_0}\\right)$",
+          "aiExplainContext": "Compute stopping potential Vs and Kmax cleanly in eV using 1240 eV.nm."
+        }
+      ]
+    },
+    {
+      "anchor": "intensity-frequency-graphs",
+      "heading": "2. Intensity vs Frequency Independence & Stopping-Potential Slope",
+      "proseLatex": "Above threshold ($\\nu > \\nu_0$), increasing optical INTENSITY (at fixed $\\nu$) sends more photons per second, increasing saturation photocurrent $I_{\\text{sat}} \\propto I$ linearly while leaving $K_{\\max}$ and stopping potential $V_s$ COMPLETELY UNCHANGED! Conversely, raising FREQUENCY $\\nu$ raises $V_s$ linearly along $V_s = \\left(\\frac{h}{e}\\right)\\nu - \\frac{\\phi_0}{e}$ — every metal yields parallel straight lines with identical universal slope $h/e$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P15-F02",
+          "label": "Stopping Potential Line & Universal Slope (h / e)",
+          "latex": "$V_s = \\left(\\frac{h}{e}\\right)\\nu - \\frac{\\phi_0}{e},\\qquad I_{\\text{sat}} \\propto \\text{Intensity}\\;(\\nu > \\nu_0),\\qquad \\text{Slope} = \\frac{h}{e}$",
+          "aiExplainContext": "Separate intensity effects (photocurrent) from frequency effects (stopping potential) and read Planck's constant."
+        }
+      ]
+    },
+    {
+      "anchor": "de-broglie-solar",
+      "heading": "3. de Broglie Matter Waves & Solar Photovoltaic Cell",
+      "proseLatex": "Every moving particle of momentum $p$ has de Broglie wavelength $\\lambda = \\frac{h}{p} = \\frac{h}{\\sqrt{2mK}}$; for an electron accelerated from rest across $V$ volts, $\\lambda(\\text{\\AA}) \\approx \\frac{12.27}{\\sqrt{V}}$. A solar PV cell is an unbiased $p$-$n$ photodiode operating in the FOURTH quadrant of its $I$-$V$ plot (photovoltaic mode, no external bias!), absorbing $h\\nu > E_g$ photons ($\\text{Si}: E_g \\approx 1.1\\text{ eV},\\; \\text{GaAs} \\approx 1.43\\text{ eV}$) to sweep electron-hole pairs across the depletion field, characterized by $V_{\\text{oc}}$, $I_{\\text{sc}}$, and fill factor.",
+      "keyFormulas": [
+        {
+          "formulaId": "P15-F03",
+          "label": "de Broglie Wavelength & Solar Cell Efficiency",
+          "latex": "$\\lambda = \\frac{h}{p} = \\frac{h}{\\sqrt{2mqV}},\\qquad \\lambda_e(\\text{\\AA}) \\approx \\frac{12.27}{\\sqrt{V}},\\qquad \\eta_{\\text{PV}} = \\frac{\\text{FF}\\cdot V_{\\text{oc}} I_{\\text{sc}}}{P_{\\text{in}}}$",
+          "aiExplainContext": "Compute matter-wave wavelengths and recall solar-cell fourth-quadrant operation."
         }
       ]
     }
@@ -46,18 +123,31 @@
   "workedExamples": [
     {
       "exampleId": "P15-EX01",
-      "problemLatex": "Two metals illuminated with $\\lambda_1 = 350$ nm and $\\lambda_2 = 540$ nm. Compare max speeds.",
+      "problemLatex": "Light of wavelength $310\\text{ nm}$ strikes a metal of work function $\\phi_0 = 2.2\\text{ eV}$. Find $K_{\\max}$ and stopping potential $V_s$.",
       "stepsLatex": [
-        "Shorter wavelength $\\Rightarrow$ higher photon energy $\\Rightarrow$ higher $K_{\\max}$.",
-        "$v_1 > v_2$."
+        "Incident photon energy $E = \\frac{1240\\text{ eV\\,nm}}{310\\text{ nm}} = 4.0\\text{ eV}$.",
+        "$K_{\\max} = 4.0 - 2.2 = 1.8\\text{ eV}$, hence stopping potential $V_s = 1.8\\text{ V}$."
       ],
-      "answerLatex": "$v_1 > v_2$"
+      "answerLatex": "$K_{\\max} = 1.8\\text{ eV},\\; V_s = 1.8\\text{ V}$"
     }
   ],
   "wbjeebTraps": [
-    "Photoelectric effect is instantaneous — no time lag.",
-    "Intensity increases photocurrent, not KE."
+    "Doubling light intensity NEVER doubles $K_{\\max}$ or $V_s$ — it doubles saturation photocurrent (provided $\\nu > \\nu_0$); if $\\nu < \\nu_0$, current stays ZERO at any intensity!",
+    "Non-linear trap: doubling incident photon frequency ($2\\nu$) makes $K_{\\max}' = 2h\\nu - \\phi_0 = 2K_{\\max} + \\phi_0$, which is STRICTLY MORE than $2K_{\\max}$!",
+    "Slope of $V_s$ vs $\\nu$ is $h/e$, whereas slope of $K_{\\max}$ vs $\\nu$ is $h$ — check which axis is plotted!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Photoelectric Effect Explained: Einstein's Equation and Photons",
+      "url": "https://www.youtube.com/watch?v=3YF12Orwol4",
+      "videoId": "3YF12Orwol4",
+      "duration": "18 min",
+      "durationMinutes": 18,
+      "provider": "YouTube · Dr. Lokender Kumar",
+      "channelName": "Dr. Lokender Kumar",
+      "language": "en",
+      "scopeNote": "Photon energy, work function, threshold frequency, stopping potential & I-V curves"
+    }
+  ],
   "practiceSetIds": []
 }
