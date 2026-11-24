@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 220" width="240" height="220" role="img" aria-label="2022 Q48: Disc with point mass">
   <rect x="0" y="0" width="240" height="220" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2022 Q48: Disc with point mass</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Disc with point mass</text>
-  <circle cx="120" cy="120" r="60" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <circle cx="120" cy="120" r="3" fill="#f8fafc"/>
-  <circle cx="120" cy="60" r="5" fill="#f87171"/>
-  <text x="125" y="55" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="start">P (top)</text>
-  <circle cx="120" cy="180" r="5" fill="#34d399"/>
-  <text x="125" y="195" font-family="monospace" font-size="9" fill="#6ee7b7" text-anchor="start">P2 (bottom)</text>
-  <text x="60" y="125" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">M, R</text>
-  <text x="120" y="20" font-family="monospace" font-size="11" fill="#f87171" text-anchor="middle">m</text>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-axis)">2022 Q48: Disc with point mass</text>
+  <text x="40" y="25" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">Disc with point mass</text>
+  <circle cx="120" cy="120" r="60" stroke="var(--fig-primary)" stroke-width="2" fill="none"/>
+  <circle cx="120" cy="120" r="3" fill="var(--fig-node)"/>
+  <circle cx="120" cy="60" r="5" fill="var(--fig-danger)"/>
+  <text x="125" y="55" font-family="monospace" font-size="9" fill="var(--fig-danger-soft)" text-anchor="start">P (top)</text>
+  <circle cx="120" cy="180" r="5" fill="var(--fig-secondary)"/>
+  <text x="125" y="195" font-family="monospace" font-size="9" fill="var(--fig-secondary-soft)" text-anchor="start">P2 (bottom)</text>
+  <text x="60" y="125" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">M, R</text>
+  <text x="120" y="20" font-family="monospace" font-size="11" fill="var(--fig-danger)" text-anchor="middle">m</text>
 </svg>

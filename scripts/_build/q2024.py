@@ -64,7 +64,7 @@ Q2024 = [
  ["B"],"hard",["vectors","dot-product","triple-sum"],None),
 
 (13,"MATH","M05",1,5,
- "A particle acted on by constant forces $4\\hat{i} + \\hat{j} - 3\\hat{k}$ and $3\\hat{i} + \\hat{j} - \\hat{k}$ is displaced from the point $\hat{i} + 2\\hat{j} + 3\\hat{k}$ to the point $5\\hat{i} + 4\\hat{j} + \\hat{k}$, then the work done by the forces is",
+ "A particle acted on by constant forces $4\\hat{i} + \\hat{j} - 3\\hat{k}$ and $3\\hat{i} + \\hat{j} - \\hat{k}$ is displaced from the point $\\hat{i} + 2\\hat{j} + 3\\hat{k}$ to the point $5\\hat{i} + 4\\hat{j} + \\hat{k}$, then the work done by the forces is",
  {"A":"$36$ units","B":"$40$ units","C":"$42$ units","D":"$60$ units"},
  ["B"],"medium",["vectors","work","dot-product"],None),
 
@@ -114,7 +114,7 @@ Q2024 = [
  ["C"],"medium",["definite-integral","exponential"],None),
 
 (23,"MATH","M09",1,7,
- "If $\\displaystyle\\int \\dfrac{\cos 4x + 1}{\cot x - \\tan x}\\,dx = k\\cos 4x + c$, then $k =$",
+ "If $\\displaystyle\\int \\dfrac{\\cos 4x + 1}{\\cot x - \\tan x}\\,dx = k\\cos 4x + c$, then $k =$",
  {"A":"$\\dfrac{1}{2}$","B":"$\\dfrac{1}{2}$","C":"$\\dfrac{1}{4}$","D":"$\\dfrac{1}{8}$"},
  ["D"],"hard",["integration","trigonometric","identity"],None),
 
@@ -216,8 +216,8 @@ Q2024 = [
  ["A"],"medium",["kinematics","projectile","graph"],"fig-2024-q42"),
 
 (43,"PHYS","P13",1,11,
- "A beam of light moving through medium 1 is refracted in another medium 2 as shown in figure. If the wavelength of the light in medium 1 is $\\lambda_{1}$, and in medium 2 is $\\lambda_{2}$, then $\\dfrac{\sin\\alpha_{2}}{\sin\\alpha_{1}}$ equals",
- {"A":"$\\lambda_{2} = 2\\lambda_{1}$","B":"$\\dfrac{\lambda_{2}}{\lambda_{1}} = \\dfrac{\sin\\alpha_{2}}{\sin\\alpha_{1}}$","C":"$\\dfrac{\cos\\alpha_{2}}{\\cos\\alpha_{1}}$","D":"$\\dfrac{\lambda_{2}}{\lambda_{1}} = \\dfrac{\sin\\alpha_{2}}{\\sin\\alpha_{1}}$"},
+ "A beam of light moving through medium 1 is refracted in another medium 2 as shown in figure. If the wavelength of the light in medium 1 is $\\lambda_{1}$, and in medium 2 is $\\lambda_{2}$, then $\\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}$ equals",
+ {"A":"$\\lambda_{2} = 2\\lambda_{1}$","B":"$\\dfrac{\\lambda_{2}}{\\lambda_{1}} = \\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}$","C":"$\\dfrac{\\cos\\alpha_{2}}{\\cos\\alpha_{1}}$","D":"$\\dfrac{\\lambda_{2}}{\\lambda_{1}} = \\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}$"},
  ["B"],"medium",["refraction","snells-law","wavelength"],"fig-2024-q43"),
 
 (44,"PHYS","P06",1,12,
@@ -282,7 +282,7 @@ Q2024 = [
 
 (56,"PHYS","P08",1,15,
  "A solid cylinder of height $H$, radius $R$ and density $\\rho$, floats vertically on the surface of a liquid of density $\\sigma$. The cylinder will be set into oscillatory motion by applying a small downward instantaneous force on it. The frequency of this small oscillation is",
- {"A":"$\\dfrac{1}{2\\pi}\\sqrt{\dfrac{g\\sigma}{\\rho H}}$","B":"$\\dfrac{1}{2\\pi}\\sqrt{\dfrac{g\\rho}{\\sigma H}}$","C":"$\\dfrac{1}{2\\pi}\\sqrt{\dfrac{g\\sigma}{\\rho R}}$","D":"$\\dfrac{1}{2\\pi}\\sqrt{\dfrac{g\\rho}{\\sigma R}}$"},
+ {"A":"$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\sigma}{\\rho H}}$","B":"$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\rho}{\\sigma H}}$","C":"$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\sigma}{\\rho R}}$","D":"$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\rho}{\\sigma R}}$"},
  ["A"],"hard",["oscillation","buoyancy","fluid"],None),
 
 (57,"PHYS","P04",1,15,

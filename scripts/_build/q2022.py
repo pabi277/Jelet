@@ -20,12 +20,12 @@ Q2022 = [
 
 (4,"MATH","M01",1,3,
  "Let $A = \\begin{bmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 0 & 0 \\end{bmatrix}$. Then $A^{3} - A^{2} - A + I$, ($I$ is the identity matrix of order $3$) is",
- {"A":"Identity matrix of order $3$","B":"null matrix of order $3$","C":"non-null matrix of order $3$","D":"$\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$"},
+ {"A":"Identity matrix of order $3$","B":"null matrix of order $3$","C":"non-null matrix of order $3$","D":"$\\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$"},
  ["B"],"hard",["matrices","nilpotent","matrix-power"],None),
 
 (5,"MATH","M02",1,4,
  "Let $\\Delta = \\begin{vmatrix} a & b & f \\\\ c & d & g \\\\ e & h & i \\end{vmatrix}$, then $\\dfrac{\\Delta}{a}$ is",
- {"A":"$\dfrac{BC - F^{2}}{a^{2}}$","B":"$\dfrac{BC - F^{2}}{a}$","C":"$\dfrac{BC - F^{2}}{2a^{2}}$","D":"$\dfrac{BC - F^{2}}{2a}$"},
+ {"A":"$\\dfrac{BC - F^{2}}{a^{2}}$","B":"$\\dfrac{BC - F^{2}}{a}$","C":"$\\dfrac{BC - F^{2}}{2a^{2}}$","D":"$\\dfrac{BC - F^{2}}{2a}$"},
  ["A"],"hard",["determinants","cofactors","expansion"],None),
 
 (6,"MATH","M02",1,4,
@@ -55,7 +55,7 @@ Q2022 = [
 
 (11,"MATH","M04",1,5,
  "Consider a branch of the hyperbola $x^{2} - 2y^{2} - 2\\sqrt{2}x - 4\\sqrt{2}y - 6 = 0$ with vertex $A$. Let $B$ be one of the end points of its latus rectum. If $C$ is the focus of the hyperbola, nearer to $A$, then the area of the triangle $ABC$ is",
- {"A":"$\dfrac{2}{3}$ sq. unit","B":"$\\dfrac{3\\sqrt{2}}{2} - 1$ sq. unit","C":"$\dfrac{\\sqrt{2}}{3}$ sq. unit","D":"$\\dfrac{3\\sqrt{2}}{2} + 1$ sq. unit"},
+ {"A":"$\\dfrac{2}{3}$ sq. unit","B":"$\\dfrac{3\\sqrt{2}}{2} - 1$ sq. unit","C":"$\\dfrac{\\sqrt{2}}{3}$ sq. unit","D":"$\\dfrac{3\\sqrt{2}}{2} + 1$ sq. unit"},
  ["C"],"hard",["hyperbola","latus-rectum","area"],None),
 
 (12,"MATH","M05",1,5,
@@ -115,7 +115,7 @@ Q2022 = [
 
 (23,"MATH","M08",1,7,
  "Let $v(x, y) = \\sin^{-1}\\dfrac{y}{x}$. Then $x\\dfrac{\\partial v}{\\partial x} + y\\dfrac{\\partial v}{\\partial y}$",
- {"A":"does not exist","B":"exists and is $0$","C":"exists and is $\tan v$","D":"exists and is $\cot v$"},
+ {"A":"does not exist","B":"exists and is $0$","C":"exists and is $\\tan v$","D":"exists and is $\\cot v$"},
  ["D"],"hard",["partial-differentiation","homogeneous-function"],None),
 
 (24,"MATH","M09",1,7,
@@ -130,7 +130,7 @@ Q2022 = [
 
 (26,"MATH","M09",1,8,
  "$\\displaystyle\\int \\dfrac{dx}{\\sqrt{x+1} - \\sqrt{x-1}} =$",
- {"A":"$\dfrac{2(\\sqrt{x}-1)}{\\sqrt{1-x}} + C$","B":"$\dfrac{2(1+x)}{\\sqrt{1-x}} + C$","C":"$\dfrac{2(\\sqrt{x}+1)}{\\sqrt{1-x}} + C$","D":"$\dfrac{2\\sqrt{x}}{\\sqrt{1-x}} + C$"},
+ {"A":"$\\dfrac{2(\\sqrt{x}-1)}{\\sqrt{1-x}} + C$","B":"$\\dfrac{2(1+x)}{\\sqrt{1-x}} + C$","C":"$\\dfrac{2(\\sqrt{x}+1)}{\\sqrt{1-x}} + C$","D":"$\\dfrac{2\\sqrt{x}}{\\sqrt{1-x}} + C$"},
  ["A"],"hard",["integration","rationalization","substitution"],None),
 
 (27,"MATH","M10",1,8,
@@ -195,7 +195,7 @@ Q2022 = [
  ["D"],"hard",["partial-differentiation","continuity","limits"],None),
 
 (39,"MATH","M09",2,10,
- "If $\\displaystyle\\int \\dfrac{\sin x + \\cos x}{\\sqrt{\\sin x \\cos x}}\\,dx = f(x) + C$, then $f(x)$ equals",
+ "If $\\displaystyle\\int \\dfrac{\\sin x + \\cos x}{\\sqrt{\\sin x \\cos x}}\\,dx = f(x) + C$, then $f(x)$ equals",
  {"A":"$\\sqrt{2}\\sin^{-1}(\\sin x - \\cos x)$","B":"$-\\sqrt{2}\\cos^{-1}(\\sin x - \\cos x)$","C":"$\\sin^{-1}(\\sin x - \\cos x)$","D":"$\\cos^{-1}(\\sin x - \\cos x)$"},
  ["A"],"hard",["integration","trigonometric","substitution"],None),
 
@@ -227,7 +227,7 @@ Q2022 = [
 
 (45,"PHYS","P02",1,11,
  "The trajectory of a point particle in a projectile motion is given by the equation $y = 2x - 5x^{2}$, where $y$ is height and $x$ is horizontal distance. With what velocity was the particle projected? ($g = -10\\,\\text{m/s}^{2}$)",
- {"A":"$\hat{i} + \\hat{j}\\,\\text{m/s}$","B":"$2\\hat{i} + \\hat{j}\\,\\text{m/s}$","C":"$\hat{i} + 2\\hat{j}\\,\\text{m/s}$","D":"$3\\hat{i} + \\hat{j}\\,\\text{m/s}$"},
+ {"A":"$\\hat{i} + \\hat{j}\\,\\text{m/s}$","B":"$2\\hat{i} + \\hat{j}\\,\\text{m/s}$","C":"$\\hat{i} + 2\\hat{j}\\,\\text{m/s}$","D":"$3\\hat{i} + \\hat{j}\\,\\text{m/s}$"},
  ["C"],"hard",["kinematics","projectile","trajectory"],None),
 
 (46,"PHYS","P03",1,12,
@@ -378,7 +378,7 @@ Q2022 = [
  ["C"],"easy",["atomic-structure","electronic-configuration","cu+"],None),
 
 (75,"CHEM","C04",1,19,
- "A strong electrolyte $M_{\nu_{+}}A_{\nu_{-}}$ yielding the ions $M^{z+}$ and $A^{z-}$ in solution, the relation between equivalent conductivity ($\\Lambda_{eq}$) and molar conductivity ($\\Lambda_{m}$) is",
+ "A strong electrolyte $M_{\\nu_{+}}A_{\\nu_{-}}$ yielding the ions $M^{z+}$ and $A^{z-}$ in solution, the relation between equivalent conductivity ($\\Lambda_{eq}$) and molar conductivity ($\\Lambda_{m}$) is",
  {"A":"$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$","B":"$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$","C":"$\\Lambda_{eq} = \\Lambda_{m}(\\nu_{+} + \\nu_{-})$","D":"$\\Lambda_{eq} = \\dfrac{\\nu_{+}\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$"},
  ["A"],"medium",["electrochemistry","conductivity","electrolytes"],None),
 
@@ -413,7 +413,7 @@ Q2022 = [
  ["A"],"easy",["chemical-bonding","vsepr","molecular-shape"],None),
 
 (82,"CHEM","C08",1,20,
- "How many isomers are possible with molecular formula $\text{C}_{4}\\text{H}_{9}\\text{Cl}$?",
+ "How many isomers are possible with molecular formula $\\text{C}_{4}\\text{H}_{9}\\text{Cl}$?",
  {"A":"$3$","B":"$4$","C":"$2$","D":"$5$"},
  ["B"],"medium",["organic","isomers","structural"],None),
 

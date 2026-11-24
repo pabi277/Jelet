@@ -10,10 +10,14 @@ Checks:
   6. All unit references resolve to existing unit files
   7. Twelfths values are correct for category
   8. Voided questions are properly marked
+  9. No control characters in any parsed (json.loads) string value across
+     _data/**/*.json — catches LaTeX commands whose leading backslash was
+     swallowed by a Python escape (e.g. "\\vec" -> VT + "ec", "\\tan" -> TAB + "an",
+     "\\begin" -> BS + "egin", "\\alpha" -> BEL + "lpha", "\\frac" -> FF + "rac").
 
 Exit code 0 = all gates pass, 1 = failure.
 """
-import json, os, sys
+import glob, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "_data")
@@ -42,6 +46,38 @@ def check(cond, msg):
 def load_json(path):
     with open(path, "r") as f:
         return json.load(f)
+
+# Control characters that must never appear in a parsed JSON string value.
+CONTROL_CHAR_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\t]")
+# A CR anywhere, or a LF glued to a letter, means "\right" / "\neq" / "\nu"
+# lost its backslash to a Python "\r" / "\n" escape.
+SWALLOWED_NL_RE = re.compile(r"\r|\n(?=[A-Za-z])")
+
+def _iter_strings(node, path):
+    if isinstance(node, dict):
+        for k, v in node.items():
+            yield from _iter_strings(v, f"{path}.{k}")
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            yield from _iter_strings(v, f"{path}[{i}]")
+    elif isinstance(node, str):
+        yield path, node
+
+def check_control_chars():
+    """Gate 9: parse every _data/**/*.json with json.loads and reject control chars."""
+    files = sorted(glob.glob(os.path.join(DATA, "**", "*.json"), recursive=True))
+    hits = 0
+    for path in files:
+        rel = os.path.relpath(path, ROOT)
+        with open(path, "r", encoding="utf-8") as fh:
+            doc = json.loads(fh.read())
+        for jpath, text in _iter_strings(doc, "$"):
+            for rx in (CONTROL_CHAR_RE, SWALLOWED_NL_RE):
+                for m in rx.finditer(text):
+                    hits += 1
+                    ctx = text[max(0, m.start() - 12):m.end() + 12]
+                    check(False, f"{rel}: control char {m.group()!r} at {jpath}: {ctx!r}")
+    print(f"✓ Control chars: {hits} found across {len(files)} JSON files (json.loads-parsed)")
 
 def main():
     # 1. Manifest
@@ -157,6 +193,9 @@ def main():
             check("steps" in s, f"{qid}: missing steps")
             check("verification" in s, f"{qid}: missing verification")
         print(f"✓ {year} solutions: {len(sols)} entries")
+
+    # 9. Control characters in parsed JSON strings
+    check_control_chars()
 
     # 5. Figure count
     fig_count = 0

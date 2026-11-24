@@ -1,46 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200" width="260" height="200" role="img" aria-label="2022 Q98: Boolean circuit">
   <rect x="0" y="0" width="260" height="200" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2022 Q98: Boolean circuit</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Boolean circuit</text>
-  <line x1="50" y1="50" x2="50" y2="80" stroke="#60a5fa" stroke-width="1.5"/>
-  <circle cx="50" cy="50" r="3" fill="#60a5fa"/>
-  <text x="50" y="42" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">A</text>
-  <line x1="80" y1="50" x2="80" y2="80" stroke="#60a5fa" stroke-width="1.5"/>
-  <circle cx="80" cy="50" r="3" fill="#60a5fa"/>
-  <text x="80" y="42" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">B</text>
-  <line x1="110" y1="50" x2="110" y2="80" stroke="#60a5fa" stroke-width="1.5"/>
-  <circle cx="110" cy="50" r="3" fill="#60a5fa"/>
-  <text x="110" y="42" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">C</text>
-  <line x1="140" y1="50" x2="140" y2="80" stroke="#60a5fa" stroke-width="1.5"/>
-  <circle cx="140" cy="50" r="3" fill="#60a5fa"/>
-  <text x="140" y="42" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">D</text>
-  <line x1="170" y1="50" x2="170" y2="80" stroke="#60a5fa" stroke-width="1.5"/>
-  <circle cx="170" cy="50" r="3" fill="#60a5fa"/>
-  <text x="170" y="42" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">E</text>
-  <line x1="200" y1="50" x2="200" y2="80" stroke="#60a5fa" stroke-width="1.5"/>
-  <circle cx="200" cy="50" r="3" fill="#60a5fa"/>
-  <text x="200" y="42" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">F</text>
-  <line x1="230" y1="50" x2="230" y2="80" stroke="#60a5fa" stroke-width="1.5"/>
-  <circle cx="230" cy="50" r="3" fill="#60a5fa"/>
-  <text x="230" y="42" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">G</text>
-  <line x1="50" y1="80" x2="50" y2="120" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="80" y1="80" x2="80" y2="120" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="110" y1="80" x2="110" y2="120" stroke="#60a5fa" stroke-width="1.5"/>
-  <rect x="50" y="120" width="60" height="25" fill="none" stroke="#34d399" stroke-width="1.5"/>
-  <text x="80" y="133" font-family="monospace" font-size="10" fill="#6ee7b7" text-anchor="middle">+</text>
-  <line x1="110" y1="80" x2="140" y2="80" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="140" y1="80" x2="140" y2="120" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="170" y1="80" x2="170" y2="120" stroke="#60a5fa" stroke-width="1.5"/>
-  <rect x="140" y="120" width="60" height="25" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="170" y="133" font-family="monospace" font-size="10" fill="#fcd34d" text-anchor="middle">·</text>
-  <line x1="200" y1="80" x2="200" y2="120" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="230" y1="80" x2="230" y2="120" stroke="#60a5fa" stroke-width="1.5"/>
-  <rect x="200" y="120" width="60" height="25" fill="none" stroke="#f87171" stroke-width="1.5"/>
-  <text x="230" y="133" font-family="monospace" font-size="10" fill="#fca5a5" text-anchor="middle">+</text>
-  <line x1="80" y1="145" x2="80" y2="160" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="170" y1="145" x2="170" y2="160" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="80" y1="160" x2="170" y2="160" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="170" y1="160" x2="210" y2="160" stroke="#f59e0b" stroke-width="1.8"/>
-  <polygon points="210,160 203.1,164.0 203.1,156.0" fill="#f59e0b"/>
-  <text x="215" y="155" font-family="monospace" font-size="12" fill="#cbd5e1">out</text>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-axis)">2022 Q98: Boolean circuit</text>
+  <text x="40" y="25" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">Boolean circuit</text>
+  <line x1="50" y1="50" x2="50" y2="80" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <circle cx="50" cy="50" r="3" fill="var(--fig-primary)"/>
+  <text x="50" y="42" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="middle">A</text>
+  <line x1="80" y1="50" x2="80" y2="80" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <circle cx="80" cy="50" r="3" fill="var(--fig-primary)"/>
+  <text x="80" y="42" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="middle">B</text>
+  <line x1="110" y1="50" x2="110" y2="80" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <circle cx="110" cy="50" r="3" fill="var(--fig-primary)"/>
+  <text x="110" y="42" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="middle">C</text>
+  <line x1="140" y1="50" x2="140" y2="80" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <circle cx="140" cy="50" r="3" fill="var(--fig-primary)"/>
+  <text x="140" y="42" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="middle">D</text>
+  <line x1="170" y1="50" x2="170" y2="80" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <circle cx="170" cy="50" r="3" fill="var(--fig-primary)"/>
+  <text x="170" y="42" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="middle">E</text>
+  <line x1="200" y1="50" x2="200" y2="80" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <circle cx="200" cy="50" r="3" fill="var(--fig-primary)"/>
+  <text x="200" y="42" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="middle">F</text>
+  <line x1="230" y1="50" x2="230" y2="80" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <circle cx="230" cy="50" r="3" fill="var(--fig-primary)"/>
+  <text x="230" y="42" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="middle">G</text>
+  <line x1="50" y1="80" x2="50" y2="120" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="80" y1="80" x2="80" y2="120" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="110" y1="80" x2="110" y2="120" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <rect x="50" y="120" width="60" height="25" fill="none" stroke="var(--fig-secondary)" stroke-width="1.5"/>
+  <text x="80" y="133" font-family="monospace" font-size="10" fill="var(--fig-secondary-soft)" text-anchor="middle">+</text>
+  <line x1="110" y1="80" x2="140" y2="80" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="140" y1="80" x2="140" y2="120" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="170" y1="80" x2="170" y2="120" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <rect x="140" y="120" width="60" height="25" fill="none" stroke="var(--fig-accent)" stroke-width="1.5"/>
+  <text x="170" y="133" font-family="monospace" font-size="10" fill="var(--fig-accent-tint)" text-anchor="middle">·</text>
+  <line x1="200" y1="80" x2="200" y2="120" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="230" y1="80" x2="230" y2="120" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <rect x="200" y="120" width="60" height="25" fill="none" stroke="var(--fig-danger)" stroke-width="1.5"/>
+  <text x="230" y="133" font-family="monospace" font-size="10" fill="var(--fig-danger-soft)" text-anchor="middle">+</text>
+  <line x1="80" y1="145" x2="80" y2="160" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="170" y1="145" x2="170" y2="160" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="80" y1="160" x2="170" y2="160" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="170" y1="160" x2="210" y2="160" stroke="var(--fig-accent)" stroke-width="1.8"/>
+  <polygon points="210,160 203.1,164.0 203.1,156.0" fill="var(--fig-accent)"/>
+  <text x="215" y="155" font-family="monospace" font-size="12" fill="var(--fig-text)">out</text>
 </svg>

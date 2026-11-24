@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" role="img" aria-label="2022 Q46: Spring-mass with force">
   <rect x="0" y="0" width="240" height="180" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2022 Q46: Spring-mass with force</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Spring-mass system</text>
-  <line x1="30" y1="100" x2="30" y2="160" stroke="#94a3b8" stroke-width="3"/>
-  <polyline points="30,100 30,95 35,95 30,90 35,90 30,85 35,85 30,80 35,80 30,75 35,75 30,70 35,70" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <line x1="35" y1="70" x2="90" y2="70" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="90" y1="60" x2="140" y2="60" stroke="#60a5fa" stroke-width="2"/>
-  <line x1="90" y1="60" x2="90" y2="90" stroke="#60a5fa" stroke-width="2"/>
-  <line x1="140" y1="60" x2="140" y2="90" stroke="#60a5fa" stroke-width="2"/>
-  <line x1="90" y1="90" x2="140" y2="90" stroke="#60a5fa" stroke-width="2"/>
-  <text x="115" y="78" font-family="monospace" font-size="11" fill="#cbd5e1" text-anchor="middle">m</text>
-  <line x1="150" y1="75" x2="210" y2="75" stroke="#f87171" stroke-width="1.8"/>
-  <polygon points="210,75 203.1,79.0 203.1,71.0" fill="#f87171"/>
-  <text x="215" y="70" font-family="monospace" font-size="12" fill="#cbd5e1">F</text>
-  <text x="115" y="120" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">Spring constant k</text>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-axis)">2022 Q46: Spring-mass with force</text>
+  <text x="40" y="25" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">Spring-mass system</text>
+  <line x1="30" y1="100" x2="30" y2="160" stroke="var(--fig-axis)" stroke-width="3"/>
+  <polyline points="30,100 30,95 35,95 30,90 35,90 30,85 35,85 30,80 35,80 30,75 35,75 30,70 35,70" stroke="var(--fig-primary)" stroke-width="2" fill="none"/>
+  <line x1="35" y1="70" x2="90" y2="70" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="90" y1="60" x2="140" y2="60" stroke="var(--fig-primary)" stroke-width="2"/>
+  <line x1="90" y1="60" x2="90" y2="90" stroke="var(--fig-primary)" stroke-width="2"/>
+  <line x1="140" y1="60" x2="140" y2="90" stroke="var(--fig-primary)" stroke-width="2"/>
+  <line x1="90" y1="90" x2="140" y2="90" stroke="var(--fig-primary)" stroke-width="2"/>
+  <text x="115" y="78" font-family="monospace" font-size="11" fill="var(--fig-text)" text-anchor="middle">m</text>
+  <line x1="150" y1="75" x2="210" y2="75" stroke="var(--fig-danger)" stroke-width="1.8"/>
+  <polygon points="210,75 203.1,79.0 203.1,71.0" fill="var(--fig-danger)"/>
+  <text x="215" y="70" font-family="monospace" font-size="12" fill="var(--fig-text)">F</text>
+  <text x="115" y="120" font-family="monospace" font-size="9" fill="var(--fig-axis)" text-anchor="middle">Spring constant k</text>
 </svg>

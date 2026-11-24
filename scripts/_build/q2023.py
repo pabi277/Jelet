@@ -59,7 +59,7 @@ Q2023 = [
  ["B"],"hard",["hyperbola","parametric","foci"],None),
 
 (12,"MATH","M05",1,4,
- "If $\vec{a}$ and $\vec{b}$ are two unit vectors, then the vector $(\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
+ "If $\\vec{a}$ and $\\vec{b}$ are two unit vectors, then the vector $(\\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
  {"A":"$\\vec{a} + \\vec{b}$","B":"$\\vec{a} - \\vec{b}$","C":"$2\\vec{a} + 3\\vec{b}$","D":"$2\\vec{a} - 3\\vec{b}$"},
  ["B"],"hard",["vector-algebra","cross-product","triple-product"],None),
 
@@ -130,7 +130,7 @@ Q2023 = [
 
 (26,"MATH","M09",1,7,
  "The area of the region bounded by the curves $y = x^{2}$ and $x = y^{2}$ is",
- {"A":"$\\dfrac{1}{3}$ sq. unit","B":"$\dfrac{1}{2}$ sq. unit","C":"$\dfrac{2}{3}$ sq. unit","D":"$1$ sq. unit"},
+ {"A":"$\\dfrac{1}{3}$ sq. unit","B":"$\\dfrac{1}{2}$ sq. unit","C":"$\\dfrac{2}{3}$ sq. unit","D":"$1$ sq. unit"},
  ["C"],"hard",["area","definite-integral","conic"],None),
 
 (27,"MATH","M10",1,7,
@@ -139,7 +139,7 @@ Q2023 = [
  ["D"],"hard",["ode","exact","general-solution"],None),
 
 (28,"MATH","M10",1,7,
- "The particular solution of $\dfrac{dy}{dx} = \\dfrac{3x + 4y}{\log x}$, $y(0) = 0$ is",
+ "The particular solution of $\\dfrac{dy}{dx} = \\dfrac{3x + 4y}{\\log x}$, $y(0) = 0$ is",
  {"A":"$4e^{3x} + 3e^{-4y} = 7$","B":"$4e^{3x} + 3e^{4y} = 7$","C":"$e^{3x} + e^{-4y} = 1$","D":"$4e^{3x} + 3e^{-4y} = -7$"},
  ["A"],"hard",["ode","variable-separable","particular-solution"],None),
 
@@ -175,7 +175,7 @@ Q2023 = [
  ["D"],"hard",["coordinate-geometry","triangle","area"],None),
 
 (35,"MATH","M05",2,8,
- "Let $\vec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\vec{W} = \\hat{i} + 3\\hat{k}$. If $\vec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
+ "Let $\\vec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\\vec{W} = \\hat{i} + 3\\hat{k}$. If $\\vec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
  {"A":"$\\sqrt{59}$","B":"$\\sqrt{59}$","C":"$1$","D":"$\\sqrt{59}$"},
  ["B"],"hard",["vectors","scalar-triple-product","maximum"],None),
 
@@ -237,7 +237,7 @@ Q2023 = [
 
 (47,"PHYS","P11",1,12,
  "In an ideal gas, root mean square speed of the gas molecules is $C$. If pressure of the gas is increased to three times its initial value, temperature remaining constant, what would be the r.m.s. speed?",
- {"A":"$C/3$","B":"$C$","C":"$3C$","D":"$\sqrt{3}C$"},
+ {"A":"$C/3$","B":"$C$","C":"$3C$","D":"$\\sqrt{3}C$"},
  ["B"],"medium",["kinetic-theory","rms-speed","pressure"],None),
 
 (48,"PHYS","P11",1,12,
@@ -247,12 +247,12 @@ Q2023 = [
 
 (49,"PHYS","P03",1,12,
  "A charge $q$ is situated at the centre of the circular base of a right circular cone of height $H$ and radius of the base is $r$. Electrostatic flux through the curved surface of the cone is",
- {"A":"$\dfrac{q}{2\\varepsilon_0}$","B":"$\dfrac{q}{3\\varepsilon_0}$","C":"$\dfrac{qH}{4\\varepsilon_0 r}$","D":"$\dfrac{q}{4\\varepsilon_0 r}$"},
+ {"A":"$\\dfrac{q}{2\\varepsilon_0}$","B":"$\\dfrac{q}{3\\varepsilon_0}$","C":"$\\dfrac{qH}{4\\varepsilon_0 r}$","D":"$\\dfrac{q}{4\\varepsilon_0 r}$"},
  ["B"],"hard",["electrostatics","flux","gauss-law"],None),
 
 (50,"PHYS","P03",1,12,
  "Consider two point charges $q_1$ and $q_2$ having masses $m_1$ and $m_2$ respectively. They are released from an initial separation $r_0$. The relative velocity when the separation becomes large is given by (where $M = m_1 + m_2$)",
- {"A":"$\\sqrt{\dfrac{2Kq_1q_2}{Mr_0}}$","B":"$\\sqrt{\dfrac{2Kq_1q_2\\mu}{r_0}}$","C":"$\\sqrt{\dfrac{Kq_1q_2}{Mr_0}}$","D":"$\\sqrt{\dfrac{Kq_1q_2}{r_0}}$"},
+ {"A":"$\\sqrt{\\dfrac{2Kq_1q_2}{Mr_0}}$","B":"$\\sqrt{\\dfrac{2Kq_1q_2\\mu}{r_0}}$","C":"$\\sqrt{\\dfrac{Kq_1q_2}{Mr_0}}$","D":"$\\sqrt{\\dfrac{Kq_1q_2}{r_0}}$"},
  ["A"],"hard",["electrostatics","energy-conservation","relative-velocity"],None),
 
 (51,"PHYS","P13",1,12,
@@ -348,7 +348,7 @@ Q2023 = [
 
 (69,"PHYS","P03",2,17,
  "A solid non-conducting sphere of radius $R$ carries a non-uniform charge distribution with charge density $\\rho = \\rho_0 r$ ($\\rho_0 = $ constant) and $r$ is the distance from the centre of the sphere. Then which of the following statement(s) is/are true?",
- {"A":"The total charge $Q$ on the sphere is $\\dfrac{\\pi \\rho_0 R^{3}}{4}$.","B":"The total charge $Q$ on the sphere is $\dfrac{3\\pi \\rho_0 R^{3}}{4}$.","C":"The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{4}} r$.","D":"The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{3}} r$."},
+ {"A":"The total charge $Q$ on the sphere is $\\dfrac{\\pi \\rho_0 R^{3}}{4}$.","B":"The total charge $Q$ on the sphere is $\\dfrac{3\\pi \\rho_0 R^{3}}{4}$.","C":"The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{4}} r$.","D":"The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{3}} r$."},
  ["A","C"],"hard",["electrostatics","gauss-law","charge-density"],None),
 
 (70,"PHYS","P12",2,17,
@@ -368,7 +368,7 @@ Q2023 = [
  ["C"],"hard",["atomic-structure","bohr-model","radius"],None),
 
 (73,"CHEM","C01",1,18,
- "In the ground state of $\text{Cu}^{+}$, the number of shells occupied, subshells, filled orbitals and unpaired electrons are respectively",
+ "In the ground state of $\\text{Cu}^{+}$, the number of shells occupied, subshells, filled orbitals and unpaired electrons are respectively",
  {"A":"$4, 8, 15, 0$","B":"$3, 6, 14, 0$","C":"$3, 6, 15, 1$","D":"$4, 7, 14, 2$"},
  ["B"],"medium",["atomic-structure","electronic-configuration","cu+"],None),
 
@@ -388,7 +388,7 @@ Q2023 = [
  ["C"],"hard",["chemical-bonding","bond-energy","molecular-orbital"],None),
 
 (77,"CHEM","C02",1,19,
- "Equal number of $\sigma$ and $\pi$ bonds are present in",
+ "Equal number of $\\sigma$ and $\\pi$ bonds are present in",
  {"A":"$\\text{HCO}_3^{-}$","B":"$\\text{CH}_2(\\text{CN})_2$","C":"$(\\text{CN})_2$","D":"$\\text{XeO}_4$"},
  ["D"],"hard",["chemical-bonding","sigma-pi-bonds","structure"],None),
 
@@ -409,11 +409,11 @@ Q2023 = [
 
 (81,"CHEM","C02",1,20,
  "The correct order of covalent character is:",
- {"A":"$\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$","B":"$\\text{LiCl} > \\text{BeCl}_2 > \\text{BCl}_3 > \\text{CCl}_4$","C":"$\\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$","D":"$\\text{LiCl} > \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$"},
+ {"A":"$\\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$","B":"$\\text{LiCl} > \\text{BeCl}_2 > \\text{BCl}_3 > \\text{CCl}_4$","C":"$\\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$","D":"$\\text{LiCl} > \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$"},
  ["C"],"hard",["chemical-bonding","fajans-rule","covalent-character"],None),
 
 (82,"CHEM","C05",1,20,
- "The ratio of $K_p$ to $K_c$ for the reaction, $\text{CO}(g) + \\dfrac{1}{2}\\text{O}_2(g) \\rightleftharpoons \\text{CO}_2(g)$ is",
+ "The ratio of $K_p$ to $K_c$ for the reaction, $\\text{CO}(g) + \\dfrac{1}{2}\\text{O}_2(g) \\rightleftharpoons \\text{CO}_2(g)$ is",
  {"A":"$(RT)^{1/2}$","B":"$(RT)^{-1/2}$","C":"$RT$","D":"$1$"},
  ["A"],"medium",["equilibrium","kp-kc","thermodynamics"],None),
 
@@ -423,7 +423,7 @@ Q2023 = [
  ["C"],"medium",["chemical-bonding","vsepr","molecular-shape"],None),
 
 (84,"CHEM","C08",1,20,
- "How many tertiary carbon atom(s) is/are present in the given compound? $\text{CH}_3$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}_3$",
+ "How many tertiary carbon atom(s) is/are present in the given compound? $\\text{CH}_3$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}_3$",
  {"A":"$1$","B":"$2$","C":"$3$","D":"nil/absent"},
  ["A"],"hard",["organic","carbon-types","structural-formula"],None),
 
@@ -444,7 +444,7 @@ Q2023 = [
  ["B","C"],"hard",["atomic-structure","quantum-numbers","p-electron"],None),
 
 (88,"CHEM","C05",2,21,
- "For the equilibrium $\text{H}_2\\text{O}(\\text{solid}) \\rightleftharpoons \\text{H}_2\\text{O}(\\text{liq.})$ the correct statement is",
+ "For the equilibrium $\\text{H}_2\\text{O}(\\text{solid}) \\rightleftharpoons \\text{H}_2\\text{O}(\\text{liq.})$ the correct statement is",
  {"A":"If pressure of the system is increased, more ice will be melted to water.","B":"Pressure has no effect upon the equilibrium.","C":"If pressure increases, more ice will be formed.","D":"Pressure can shorten the time to reach the equilibrium."},
  ["W"],"voided",["equilibrium","phase-equilibrium","le-chatelier"],None),
 

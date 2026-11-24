@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" role="img" aria-label="2022 Q96: Circuit diagram">
   <rect x="0" y="0" width="240" height="180" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2022 Q96: Circuit diagram</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Circuit diagram</text>
-  <circle cx="80" cy="100" r="25" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <text x="80" y="100" font-family="monospace" font-size="7" fill="#cbd5e1" text-anchor="middle">Vm sin ωt</text>
-  <line x1="80" y1="75" x2="80" y2="50" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="80" y1="50" x2="160" y2="50" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="160" y1="50" x2="160" y2="75" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="160" y1="75" x2="160" y2="125" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="160" y1="125" x2="80" y2="125" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="80" y1="125" x2="80" y2="100" stroke="#60a5fa" stroke-width="1.5"/>
-  <text x="160" y="40" font-family="monospace" font-size="9" fill="#f87171" text-anchor="middle">v₀(t)</text>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-axis)">2022 Q96: Circuit diagram</text>
+  <text x="40" y="25" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">Circuit diagram</text>
+  <circle cx="80" cy="100" r="25" stroke="var(--fig-primary)" stroke-width="2" fill="none"/>
+  <text x="80" y="100" font-family="monospace" font-size="7" fill="var(--fig-text)" text-anchor="middle">Vm sin ωt</text>
+  <line x1="80" y1="75" x2="80" y2="50" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="80" y1="50" x2="160" y2="50" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="160" y1="50" x2="160" y2="75" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="160" y1="75" x2="160" y2="125" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="160" y1="125" x2="80" y2="125" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <line x1="80" y1="125" x2="80" y2="100" stroke="var(--fig-primary)" stroke-width="1.5"/>
+  <text x="160" y="40" font-family="monospace" font-size="9" fill="var(--fig-danger)" text-anchor="middle">v₀(t)</text>
 </svg>

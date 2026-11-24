@@ -598,7 +598,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If $\u000bec{a}$ and $\u000bec{b}$ are two unit vectors, then the vector $(\u000bec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
+      "stemLatex": "If $\\vec{a}$ and $\\vec{b}$ are two unit vectors, then the vector $(\\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
       "stemFigure": null,
       "options": [
         {
@@ -1703,7 +1703,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "Let $\u000bec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\u000bec{W} = \\hat{i} + 3\\hat{k}$. If $\u000bec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
+      "stemLatex": "Let $\\vec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\\vec{W} = \\hat{i} + 3\\hat{k}$. If $\\vec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
       "stemFigure": null,
       "options": [
         {
@@ -3583,7 +3583,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 18,
-      "stemLatex": "In the ground state of $\text{Cu}^{+}$, the number of shells occupied, subshells, filled orbitals and unpaired electrons are respectively",
+      "stemLatex": "In the ground state of $\\text{Cu}^{+}$, the number of shells occupied, subshells, filled orbitals and unpaired electrons are respectively",
       "stemFigure": null,
       "options": [
         {
@@ -3972,7 +3972,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$",
+          "latex": "$\\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$",
           "figure": null
         },
         {
@@ -4015,7 +4015,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The ratio of $K_p$ to $K_c$ for the reaction, $\text{CO}(g) + \\dfrac{1}{2}\\text{O}_2(g) \\rightleftharpoons \\text{CO}_2(g)$ is",
+      "stemLatex": "The ratio of $K_p$ to $K_c$ for the reaction, $\\text{CO}(g) + \\dfrac{1}{2}\\text{O}_2(g) \\rightleftharpoons \\text{CO}_2(g)$ is",
       "stemFigure": null,
       "options": [
         {
@@ -4111,7 +4111,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "How many tertiary carbon atom(s) is/are present in the given compound? $\text{CH}_3$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}_3$",
+      "stemLatex": "How many tertiary carbon atom(s) is/are present in the given compound? $\\text{CH}_3$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}_3$",
       "stemFigure": null,
       "options": [
         {
@@ -4305,7 +4305,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "For the equilibrium $\text{H}_2\\text{O}(\\text{solid}) \\rightleftharpoons \\text{H}_2\\text{O}(\\text{liq.})$ the correct statement is",
+      "stemLatex": "For the equilibrium $\\text{H}_2\\text{O}(\\text{solid}) \\rightleftharpoons \\text{H}_2\\text{O}(\\text{liq.})$ the correct statement is",
       "stemFigure": null,
       "options": [
         {

@@ -14,7 +14,7 @@
     {
       "anchor": "boolean",
       "heading": "1. Boolean Algebra & De Morgan",
-      "proseLatex": "Laws of Boolean algebra, De Morgan's theorems: $\\overline{A+B} = \\bar{A}\\cdot\\bar{B}$, $\\overline{AB} = \\bar{A}+\bar{B}$.",
+      "proseLatex": "Laws of Boolean algebra, De Morgan's theorems: $\\overline{A+B} = \\bar{A}\\cdot\\bar{B}$, $\\overline{AB} = \\bar{A}+\\bar{B}$.",
       "keyFormulas": [
         {
           "formulaId": "E08-F01",

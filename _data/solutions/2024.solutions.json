@@ -739,7 +739,7 @@
         {
           "stepNumber": 3,
           "title": "Invertibility",
-          "bodyLatex": "$A$ invertible iff $|A|\neq 0$. $\\text{adj }A$ invertible iff $|A|\neq 0$."
+          "bodyLatex": "$A$ invertible iff $|A|\\neq 0$. $\\text{adj }A$ invertible iff $|A|\\neq 0$."
         },
         {
           "stepNumber": 4,
@@ -834,7 +834,7 @@
         {
           "stepNumber": 2,
           "title": "Derivative",
-          "bodyLatex": "$f'(2^-) = 24 \neq f'(2^+) = -1$. Not differentiable at 2."
+          "bodyLatex": "$f'(2^-) = 24 \\neq f'(2^+) = -1$. Not differentiable at 2."
         },
         {
           "stepNumber": 3,
@@ -1129,7 +1129,7 @@
         {
           "stepNumber": 1,
           "title": "Forces",
-          "bodyLatex": "Upthrust $= V\\rho_w g$, weight $= V\\rho g$. Net $= Vg(\\rho-\rho_w)$."
+          "bodyLatex": "Upthrust $= V\\rho_w g$, weight $= V\\rho g$. Net $= Vg(\\rho-\\rho_w)$."
         },
         {
           "stepNumber": 2,

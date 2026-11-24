@@ -235,7 +235,7 @@
         },
         {
           "id": "D",
-          "latex": "$\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$",
+          "latex": "$\\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$",
           "figure": null
         }
       ],
@@ -1141,7 +1141,7 @@
         },
         {
           "id": "C",
-          "latex": "exists and is $\tan v$",
+          "latex": "exists and is $\\tan v$",
           "figure": null
         },
         {
@@ -3684,7 +3684,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "A strong electrolyte $M_{\nu_{+}}A_{\nu_{-}}$ yielding the ions $M^{z+}$ and $A^{z-}$ in solution, the relation between equivalent conductivity ($\\Lambda_{eq}$) and molar conductivity ($\\Lambda_{m}$) is",
+      "stemLatex": "A strong electrolyte $M_{\\nu_{+}}A_{\\nu_{-}}$ yielding the ions $M^{z+}$ and $A^{z-}$ in solution, the relation between equivalent conductivity ($\\Lambda_{eq}$) and molar conductivity ($\\Lambda_{m}$) is",
       "stemFigure": null,
       "options": [
         {
@@ -4021,7 +4021,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "How many isomers are possible with molecular formula $\text{C}_{4}\\text{H}_{9}\\text{Cl}$?",
+      "stemLatex": "How many isomers are possible with molecular formula $\\text{C}_{4}\\text{H}_{9}\\text{Cl}$?",
       "stemFigure": null,
       "options": [
         {

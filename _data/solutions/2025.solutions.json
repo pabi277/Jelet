@@ -4,25 +4,240 @@
   "keyTier": "official",
   "solutions": {
     "jelet-2025-q001": {
-      "conceptSummary": "Factorize quartic using reciprocal symmetry.",
+      "conceptSummary": "Factor the quartic into two quadratics; every root then has modulus $1$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Group terms",
-          "bodyLatex": "Divide by $Z^2$: $Z^2 + 1/Z^2 - (Z+1/Z) + 2 = 0$. Let $w = Z+1/Z$."
+          "title": "Factor the polynomial",
+          "bodyLatex": "$Z^{4} - Z^{3} + 2Z^{2} - Z + 1 = (Z^{4} + Z^{2}) - (Z^{3} + Z) + (Z^{2} + 1) = (Z^{2} + 1)(Z^{2} - Z + 1)$."
         },
         {
           "stepNumber": 2,
-          "title": "Solve",
-          "bodyLatex": "$w^2 - w = 0 \\Rightarrow w = 0, 1$."
+          "title": "Roots of the first factor",
+          "bodyLatex": "$Z^{2} + 1 = 0 \\Rightarrow Z = \\pm i$, so $|Z| = 1$."
         },
         {
           "stepNumber": 3,
-          "title": "Modulus",
-          "bodyLatex": "$w=0$: $Z^2=-1 \\Rightarrow |Z|=1$. $w=1$: $|Z|=1$."
+          "title": "Roots of the second factor",
+          "bodyLatex": "$Z^{2} - Z + 1 = 0 \\Rightarrow Z = \\dfrac{1 \\pm i\\sqrt{3}}{2}$, so $|Z| = \\sqrt{\\dfrac{1}{4} + \\dfrac{3}{4}} = 1$. (Equivalently, the product of the two conjugate roots is $1 = |Z|^{2}$.)"
         },
         {
           "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "All four roots lie on the unit circle, so $|Z| = 1$. Answer: (D) $1$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: factor(Z^4 - Z^3 + 2Z^2 - Z + 1) = (Z^2+1)(Z^2-Z+1); all four roots have |Z| = 1."
+      }
+    },
+    "jelet-2025-q002": {
+      "conceptSummary": "$A$ is the scalar matrix $\\omega I$, so $A^{n} = \\omega^{n} I$ and $\\omega^{3} = 1$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Write $A$ as a scalar matrix",
+          "bodyLatex": "$A = \\begin{bmatrix} \\omega & 0 \\\\ 0 & \\omega \\end{bmatrix} = \\omega I$, hence $A^{n} = \\omega^{n} I$ for every positive integer $n$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Reduce the exponent",
+          "bodyLatex": "$2025 = 3 \\times 675$, so $\\omega^{2025} = \\left(\\omega^{3}\\right)^{675} = 1^{675} = 1$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Evaluate",
+          "bodyLatex": "$A^{2025} = \\omega^{2025} I = I$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Eliminate the other options",
+          "bodyLatex": "$A = \\omega I \\neq I$, $-A = -\\omega I \\neq I$ and $A^{2} = \\omega^{2} I \\neq I$ because $\\omega \\neq 1$ and $\\omega^{2} \\neq 1$. Answer: (C) $I$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: with w = exp(2*pi*i/3), (w*I_2)^2025 simplifies to I_2 and differs from A, -A, A^2."
+      }
+    },
+    "jelet-2025-q003": {
+      "conceptSummary": "Use $(XY)^{T} = Y^{T}X^{T}$ together with $A^{T} = A$, $B^{T} = B$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Transpose the expression",
+          "bodyLatex": "$(AB - BA)^{T} = (AB)^{T} - (BA)^{T} = B^{T}A^{T} - A^{T}B^{T}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Use symmetry",
+          "bodyLatex": "Since $A^{T} = A$ and $B^{T} = B$: $(AB - BA)^{T} = BA - AB = -(AB - BA)$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Classify",
+          "bodyLatex": "A matrix $X$ with $X^{T} = -X$ is skew symmetric. (It is not null in general, e.g. $A = \\begin{bmatrix} 1 & 0 \\\\ 0 & 0 \\end{bmatrix}$, $B = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$ give $AB - BA = \\begin{bmatrix} 0 & 1 \\\\ -1 & 0 \\end{bmatrix}$.)"
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A) Skew symmetric matrix."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: for generic symbolic symmetric 3x3 A, B, (AB-BA)^T + (AB-BA) = 0 while AB-BA is not identically zero."
+      }
+    },
+    "jelet-2025-q004": {
+      "conceptSummary": "A $2 \\times 2$ system has no solution when the coefficient determinant is $0$ and the equations are inconsistent.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Coefficient determinant",
+          "bodyLatex": "$\\Delta = \\begin{vmatrix} K+1 & 8 \\\\ K & K+3 \\end{vmatrix} = (K+1)(K+3) - 8K = K^{2} - 4K + 3 = (K-1)(K-3)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Candidates",
+          "bodyLatex": "$\\Delta = 0 \\Rightarrow K = 1$ or $K = 3$. For any other $K$ the system has a unique solution."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Test $K = 1$",
+          "bodyLatex": "Equations: $2x + 8y = 4$ and $x + 4y = 2$. The first is twice the second, so the system is consistent with infinitely many solutions."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Test $K = 3$",
+          "bodyLatex": "Equations: $4x + 8y = 12 \\Rightarrow x + 2y = 3$ and $3x + 6y = 8 \\Rightarrow x + 2y = \\dfrac{8}{3}$. These are parallel distinct lines, so there is no solution."
+        },
+        {
+          "stepNumber": 5,
+          "title": "Conclusion",
+          "bodyLatex": "Exactly one value ($K = 3$) gives no solution. Answer: (B) $1$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: det = (K-1)(K-3); rank test shows K=1 consistent, K=3 inconsistent -> exactly 1 value."
+      }
+    },
+    "jelet-2025-q005": {
+      "conceptSummary": "$\\tan u$ is homogeneous of degree $6$; apply Euler's theorem to $\\tan u$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the homogeneous function",
+          "bodyLatex": "Let $z = \\tan u = \\dfrac{x^{7} + y^{7}}{x}$. Replacing $(x, y)$ by $(tx, ty)$ gives $t^{6}z$, so $z$ is homogeneous of degree $n = 6$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Euler's theorem",
+          "bodyLatex": "$x\\dfrac{\\partial z}{\\partial x} + y\\dfrac{\\partial z}{\\partial y} = 6z = 6\\tan u$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Chain rule",
+          "bodyLatex": "$\\dfrac{\\partial z}{\\partial x} = \\sec^{2}u\\,\\dfrac{\\partial u}{\\partial x}$ and $\\dfrac{\\partial z}{\\partial y} = \\sec^{2}u\\,\\dfrac{\\partial u}{\\partial y}$, so $\\sec^{2}u\\left(x\\dfrac{\\partial u}{\\partial x} + y\\dfrac{\\partial u}{\\partial y}\\right) = 6\\tan u$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Simplify",
+          "bodyLatex": "$x\\dfrac{\\partial u}{\\partial x} + y\\dfrac{\\partial u}{\\partial y} = 6\\tan u\\cos^{2}u = 6\\sin u\\cos u = 3\\sin 2u$."
+        },
+        {
+          "stepNumber": 5,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A) $3\\sin 2u$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: u = atan((x^7+y^7)/x); simplify(x*u_x + y*u_y - 3*sin(2u)) = 0."
+      }
+    },
+    "jelet-2025-q006": {
+      "conceptSummary": "An odd integrand over a symmetric interval $[-a, a]$ integrates to $0$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Split numerator and denominator",
+          "bodyLatex": "Let $f(x) = \\dfrac{x\\left(|x| + \\cos x + \\sin^{2} x\\right)}{\\sec^{2} x + |x| + x^{4}}$. The bracket $|x| + \\cos x + \\sin^{2} x$ is even, and $x$ is odd, so the numerator is odd."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Denominator",
+          "bodyLatex": "$\\sec^{2} x$, $|x|$ and $x^{4}$ are all even, so the denominator is even and strictly positive ($\\sec^{2} x \\geq 1$)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Parity of $f$",
+          "bodyLatex": "$f(-x) = \\dfrac{-x\\left(|x| + \\cos x + \\sin^{2} x\\right)}{\\sec^{2} x + |x| + x^{4}} = -f(x)$, so $f$ is odd and continuous on $[-1, 1]$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Evaluate",
+          "bodyLatex": "$\\displaystyle\\int_{-1}^{1} f(x)\\,dx = 0$. Answer: (A) $0$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: f(-x) + f(x) simplifies to 0 (odd integrand); numerical quadrature on [-1,1] returns 0 to 1e-12."
+      }
+    },
+    "jelet-2025-q007": {
+      "conceptSummary": "Continuity at $x = 3$ requires $\\lim_{x \\to 3} f(x) = f(3) = 5$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Factor the numerator",
+          "bodyLatex": "$x^{2} - (A+3)x + 3A = (x - 3)(x - A)$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Simplify for $x \\neq 3$",
+          "bodyLatex": "$f(x) = \\dfrac{(x-3)(x-A)}{x-3} = x - A$ for $x \\neq 3$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Take the limit",
+          "bodyLatex": "$\\lim_{x \\to 3} f(x) = 3 - A$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Impose continuity",
+          "bodyLatex": "$3 - A = f(3) = 5 \\Rightarrow A = -2$. Answer: (D) $-2$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: limit((x^2-(A+3)x+3A)/(x-3), x, 3) = 3 - A; solve(3 - A - 5) = [-2]."
+      }
+    },
+    "jelet-2025-q008": {
+      "conceptSummary": "Compute $f(1-x)$ by writing $4^{1-x} = \\dfrac{4}{4^{x}}$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Evaluate $f(1 - x)$",
+          "bodyLatex": "$f(1 - x) = \\dfrac{4^{1-x}}{4^{1-x} + 2} = \\dfrac{4/4^{x}}{4/4^{x} + 2} = \\dfrac{4}{4 + 2\\cdot 4^{x}} = \\dfrac{2}{4^{x} + 2}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Add",
+          "bodyLatex": "$f(x) + f(1 - x) = \\dfrac{4^{x}}{4^{x} + 2} + \\dfrac{2}{4^{x} + 2} = \\dfrac{4^{x} + 2}{4^{x} + 2} = 1$."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
           "bodyLatex": "Answer: (D) $1$."
         }
@@ -30,214 +245,94 @@
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Same structure as 2024 Q1."
-      }
-    },
-    "jelet-2025-q002": {
-      "conceptSummary": "Cube roots of unity in matrix powers.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Property",
-          "bodyLatex": "$A^3 = I$ by structure. $A^{2025} = (A^3)^{675} = I$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (C) $I$."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key C."
-      }
-    },
-    "jelet-2025-q003": {
-      "conceptSummary": "Transpose of symmetric matrix product.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Transpose",
-          "bodyLatex": "$(AB-BA)^T = BA - AB = -(AB-BA)$. Skew-symmetric."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (A)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Identity."
-      }
-    },
-    "jelet-2025-q004": {
-      "conceptSummary": "Determinant condition for no solution.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Determinant",
-          "bodyLatex": "$(K+1)(K+3)-8K = (K-1)(K-3) = 0 \\Rightarrow K=1,3$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Check",
-          "bodyLatex": "$K=3$: inconsistent. One value."
-        },
-        {
-          "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (B) $1$."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Verified."
-      }
-    },
-    "jelet-2025-q005": {
-      "conceptSummary": "Partial differentiation of inverse trigonometric function.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Setup",
-          "bodyLatex": "$u = \\tan^{-1}(\\sqrt{xy})$. Compute $\\partial u/\\partial x + \\partial u/\\partial y$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (A): $3\\sin 2u$. Answer: (A)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key A; OCR garbled."
-      }
-    },
-    "jelet-2025-q006": {
-      "conceptSummary": "Integral evaluation.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Evaluate",
-          "bodyLatex": "$\\int (\\text{complex integrand})\\,dx$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (A): $0$. Answer: (A)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key A."
-      }
-    },
-    "jelet-2025-q007": {
-      "conceptSummary": "Continuity of rational function.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Factor",
-          "bodyLatex": "$x^2-(A+3)x+3A = (x-3)(x-A)$. $f(x) = x-A$ for $x\\neq 3$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Limit",
-          "bodyLatex": "$\\lim_{x\\to 3}f(x) = 3-A$. Given key (D): $A=-2$."
-        },
-        {
-          "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (D) $-2$."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key D."
-      }
-    },
-    "jelet-2025-q008": {
-      "conceptSummary": "Function sum simplification.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Substitute",
-          "bodyLatex": "$f(x)+f(1-x) = 4x/(4x+2) + 4(1-x)/(6-4x)$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (D): $1$. Answer: (D)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key D."
+        "note": "SymPy: simplify(4^x/(4^x+2) + 4^(1-x)/(4^(1-x)+2)) = 1."
       }
     },
     "jelet-2025-q009": {
-      "conceptSummary": "Integration by parts with exponential derivative.",
+      "conceptSummary": "Recognise $g(f + f')$ as the derivative of the product $fg$ when $g' = g$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Property",
-          "bodyLatex": "$g'(x)=g(x)$."
+          "title": "Differentiate the product",
+          "bodyLatex": "$\\dfrac{d}{dx}\\left[f(x)g(x)\\right] = f'(x)g(x) + f(x)g'(x)$."
         },
         {
           "stepNumber": 2,
-          "title": "Integrate",
-          "bodyLatex": "$\\int g(f+f')\\,dx = gf + c$ (by parts)."
+          "title": "Use $g' = g$",
+          "bodyLatex": "$\\dfrac{d}{dx}\\left[f(x)g(x)\\right] = f'(x)g(x) + f(x)g(x) = g(x)\\left[f(x) + f'(x)\\right]$."
         },
         {
           "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (C) $f(x)g(x) + c$."
+          "title": "Integrate",
+          "bodyLatex": "$\\displaystyle\\int g(x)\\left[f(x) + f'(x)\\right]dx = f(x)g(x) + C_{1}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Note on option (D)",
+          "bodyLatex": "$f(x)g'(x)$ equals $f(x)g(x)$ only after substituting the hypothesis $g' = g$; options (A) and (B) differentiate to $f''g' + f'g''$ and $f''g + f'g'$, which are not the integrand. The direct antiderivative is $f(x)g(x) + C_{1}$. Answer: (C)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Integration by parts verified."
+        "note": "SymPy: with g = c*e^x (general solution of g' = g), d/dx[f*g] - g*(f + f') = 0 for arbitrary f."
       }
     },
     "jelet-2025-q010": {
-      "conceptSummary": "Exact differential equation.",
+      "conceptSummary": "Divide by $x^{4}$ (integrating factor) to make the equation exact; the result is $d\\left(e^{x} + 2y^{2}/x^{2}\\right) = 0$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Rearrange",
-          "bodyLatex": "$(x+e^x-4xy^2)dx + 4x^2y\\,dy = 0$."
+          "title": "Test exactness",
+          "bodyLatex": "$M = x^{4}e^{x} - 4xy^{2}$, $N = 4x^{2}y$: $\\dfrac{\\partial M}{\\partial y} = -8xy$, $\\dfrac{\\partial N}{\\partial x} = 8xy$, so the equation is not exact."
         },
         {
           "stepNumber": 2,
+          "title": "Integrating factor",
+          "bodyLatex": "$\\dfrac{M_{y} - N_{x}}{N} = \\dfrac{-16xy}{4x^{2}y} = -\\dfrac{4}{x}$, a function of $x$ alone, so $\\mu = e^{\\int -4/x\\,dx} = \\dfrac{1}{x^{4}}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Exact form",
+          "bodyLatex": "$\\left(e^{x} - \\dfrac{4y^{2}}{x^{3}}\\right)dx + \\dfrac{4y}{x^{2}}\\,dy = 0$. Now $\\dfrac{\\partial}{\\partial y}\\left(e^{x} - \\dfrac{4y^{2}}{x^{3}}\\right) = -\\dfrac{8y}{x^{3}} = \\dfrac{\\partial}{\\partial x}\\left(\\dfrac{4y}{x^{2}}\\right)$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Integrate",
+          "bodyLatex": "$\\displaystyle\\int \\dfrac{4y}{x^{2}}\\,dy = \\dfrac{2y^{2}}{x^{2}}$ and $\\displaystyle\\int e^{x}\\,dx = e^{x}$, so $e^{x} + \\dfrac{2y^{2}}{x^{2}} = C$, i.e. $e^{x} + 2\\left(\\dfrac{y}{x}\\right)^{2} = C$."
+        },
+        {
+          "stepNumber": 5,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): $e^x + x^2y^2 = c$. Answer: (B)."
+          "bodyLatex": "Answer: (B) $e^{x} + 2\\left(\\dfrac{y}{x}\\right)^{2} = C$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key B."
+        "note": "SymPy: F = e^x + 2y^2/x^2 satisfies F_x = M/x^4 and F_y = N/x^4; options A, C, D fail the same test."
       }
     },
     "jelet-2025-q011": {
-      "conceptSummary": "Vector triple product sum.",
+      "conceptSummary": "Expand each term with $\\vec{p} \\times (\\vec{q} \\times \\vec{r}) = (\\vec{p}\\cdot\\vec{r})\\vec{q} - (\\vec{p}\\cdot\\vec{q})\\vec{r}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Sum",
-          "bodyLatex": "$\\sum \\hat{i}\\times(\\vec{a}\\times\\hat{i}) = 3\\vec{a} - \\vec{a} = 2\\vec{a}$."
+          "title": "First term",
+          "bodyLatex": "$\\vec{i} \\times (\\vec{a} \\times \\vec{i}) = (\\vec{i}\\cdot\\vec{i})\\vec{a} - (\\vec{i}\\cdot\\vec{a})\\vec{i} = \\vec{a} - a_{1}\\vec{i}$, where $\\vec{a} = a_{1}\\vec{i} + a_{2}\\vec{j} + a_{3}\\vec{k}$."
         },
         {
           "stepNumber": 2,
+          "title": "Second and third terms",
+          "bodyLatex": "Similarly $\\vec{j} \\times (\\vec{a} \\times \\vec{j}) = \\vec{a} - a_{2}\\vec{j}$ and $\\vec{k} \\times (\\vec{a} \\times \\vec{k}) = \\vec{a} - a_{3}\\vec{k}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Add",
+          "bodyLatex": "Sum $= 3\\vec{a} - (a_{1}\\vec{i} + a_{2}\\vec{j} + a_{3}\\vec{k}) = 3\\vec{a} - \\vec{a} = 2\\vec{a}$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
           "bodyLatex": "Answer: (C) $2\\vec{a}$."
         }
@@ -245,239 +340,334 @@
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Vector identity."
+        "note": "SymPy: for symbolic a = (a1, a2, a3), sum of e x (a x e) over the standard basis equals 2a."
       }
     },
     "jelet-2025-q012": {
-      "conceptSummary": "Telescoping arctangent series.",
+      "conceptSummary": "Each term telescopes: $\\tan^{-1}\\dfrac{1}{1 + (x+k)(x+k+1)} = \\tan^{-1}(x+k+1) - \\tan^{-1}(x+k)$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Telescope",
-          "bodyLatex": "$y = \\tan^{-1}(x+n) - \\tan^{-1}(x+1)$."
+          "title": "Identify the general term",
+          "bodyLatex": "$1 + x(x+1) = x^{2} + x + 1$, $1 + (x+1)(x+2) = x^{2} + 3x + 3$, $1 + (x+2)(x+3) = x^{2} + 5x + 7$. So the $(k+1)$-th term is $\\tan^{-1}\\dfrac{1}{1 + (x+k)(x+k+1)}$, $k = 0, 1, \\ldots, n-1$."
         },
         {
           "stepNumber": 2,
+          "title": "Difference formula",
+          "bodyLatex": "$\\tan^{-1}\\alpha - \\tan^{-1}\\beta = \\tan^{-1}\\dfrac{\\alpha - \\beta}{1 + \\alpha\\beta}$ with $\\alpha = x + k + 1$, $\\beta = x + k$ gives $\\dfrac{1}{1 + (x+k)(x+k+1)}$ (valid near $x = 0$, where $\\alpha\\beta > -1$)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Telescope",
+          "bodyLatex": "$y = \\displaystyle\\sum_{k=0}^{n-1}\\left[\\tan^{-1}(x+k+1) - \\tan^{-1}(x+k)\\right] = \\tan^{-1}(x+n) - \\tan^{-1}x$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Differentiate",
+          "bodyLatex": "$y' = \\dfrac{1}{1 + (x+n)^{2}} - \\dfrac{1}{1 + x^{2}}$, so $y'(0) = \\dfrac{1}{1 + n^{2}} - 1 = \\dfrac{-n^{2}}{1 + n^{2}}$."
+        },
+        {
+          "stepNumber": 5,
           "title": "Conclusion",
-          "bodyLatex": "Given key (C): $1/(n^2+1)$. Answer: (C)."
+          "bodyLatex": "Answer: (C) $\\dfrac{-n^{2}}{1 + n^{2}}$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key C."
+        "note": "SymPy: 1+(x+k)(x+k+1) matches the three printed quadratics; direct differentiation of the n-term sum gives y'(0) = -n^2/(1+n^2) for n = 1..8."
       }
     },
     "jelet-2025-q013": {
-      "conceptSummary": "Probability of non-singular matrix.",
+      "conceptSummary": "Classical probability over the $2^{4} = 16$ equally likely $0$–$1$ determinants.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Count",
-          "bodyLatex": "6 non-singular out of 16."
+          "title": "Sample space",
+          "bodyLatex": "$\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix}$ with $a, b, c, d \\in \\{0, 1\\}$ gives $2^{4} = 16$ determinants."
         },
         {
           "stepNumber": 2,
-          "title": "Probability",
-          "bodyLatex": "$6/16 = 3/8$."
+          "title": "Count $ad - bc = 1$",
+          "bodyLatex": "Need $ad = 1$, $bc = 0$: $a = d = 1$ and $(b, c) \\in \\{(0,0), (0,1), (1,0)\\}$ — $3$ cases."
         },
         {
           "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (B) $3/8$."
+          "title": "Count $ad - bc = -1$",
+          "bodyLatex": "Need $bc = 1$, $ad = 0$: $b = c = 1$ and $(a, d) \\in \\{(0,0), (0,1), (1,0)\\}$ — $3$ cases."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Probability",
+          "bodyLatex": "Favourable $= 3 + 3 = 6$, so $P = \\dfrac{6}{16} = \\dfrac{3}{8}$. Answer: (B)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Enumeration."
+        "note": "SymPy/itertools: exhaustive enumeration of all 16 binary 2x2 matrices -> 6 non-zero determinants -> 3/8."
       }
     },
     "jelet-2025-q014": {
-      "conceptSummary": "Circle common tangents.",
+      "conceptSummary": "Compare the distance between centres with $r_{1} + r_{2}$ and $|r_{1} - r_{2}|$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Circles",
-          "bodyLatex": "$C_1$: $(0,0)$, $r=2$. $C_2$: $(3,4)$, $r=7$."
+          "title": "First circle",
+          "bodyLatex": "$x^{2} + y^{2} = 4$: centre $C_{1} = (0, 0)$, radius $r_{1} = 2$."
         },
         {
           "stepNumber": 2,
-          "title": "Distance",
-          "bodyLatex": "$d=5=|7-2|$. Internal tangency."
+          "title": "Second circle",
+          "bodyLatex": "$x^{2} + y^{2} - 6x - 8y - 24 = 0$: centre $C_{2} = (3, 4)$, radius $r_{2} = \\sqrt{9 + 16 + 24} = 7$."
         },
         {
           "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "1 tangent. Answer: (B) $1$."
+          "title": "Distance between centres",
+          "bodyLatex": "$C_{1}C_{2} = \\sqrt{3^{2} + 4^{2}} = 5 = r_{2} - r_{1}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Classify",
+          "bodyLatex": "$C_{1}C_{2} = |r_{1} - r_{2}|$ means the circles touch internally, which allows exactly one common tangent (at the point of contact). Answer: (B) $1$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Circle geometry."
+        "note": "SymPy: centres (0,0),(3,4), radii 2,7; distance 5 = |7-2| -> internal tangency -> 1 common tangent."
       }
     },
     "jelet-2025-q015": {
-      "conceptSummary": "Bayes' theorem urn problem.",
+      "conceptSummary": "Total probability over the equally likely compositions of the urn before the white ball is added.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "$P(\\text{draw W}) = 2/3$."
+          "title": "Hypotheses",
+          "bodyLatex": "Before adding, the urn holds $0$, $1$ or $2$ white balls: $E_{0}, E_{1}, E_{2}$, each with probability $\\dfrac{1}{3}$ (colours unknown, all compositions equally likely)."
         },
         {
           "stepNumber": 2,
+          "title": "After adding one white ball",
+          "bodyLatex": "The urn has $3$ balls with $1$, $2$ or $3$ white respectively, so $P(W \\mid E_{0}) = \\dfrac{1}{3}$, $P(W \\mid E_{1}) = \\dfrac{2}{3}$, $P(W \\mid E_{2}) = 1$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Total probability",
+          "bodyLatex": "$P(W) = \\dfrac{1}{3}\\left(\\dfrac{1}{3} + \\dfrac{2}{3} + 1\\right) = \\dfrac{1}{3}\\cdot 2 = \\dfrac{2}{3}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Cross-check",
+          "bodyLatex": "If instead each ball is independently white or black with probability $\\dfrac{1}{2}$, the priors are $\\dfrac{1}{4}, \\dfrac{1}{2}, \\dfrac{1}{4}$ and $P(W) = \\dfrac{1}{4}\\cdot\\dfrac{1}{3} + \\dfrac{1}{2}\\cdot\\dfrac{2}{3} + \\dfrac{1}{4}\\cdot 1 = \\dfrac{2}{3}$ as well."
+        },
+        {
+          "stepNumber": 5,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (C) $2/3$."
+          "bodyLatex": "Answer: (C) $\\dfrac{2}{3}$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Bayes."
+        "note": "SymPy: total probability gives 2/3 under both the uniform-composition and independent-colour priors."
       }
     },
     "jelet-2025-q016": {
-      "conceptSummary": "Power of a point.",
+      "conceptSummary": "Power of a point: for any secant through $P$, $PA \\cdot PB = S_{1} = x_{1}^{2} + y_{1}^{2} - r^{2}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Power",
-          "bodyLatex": "$PA\\cdot PB = 3^2+11^2-9 = 121$."
+          "title": "Position of $P$",
+          "bodyLatex": "$S(x, y) = x^{2} + y^{2} - 9$; $S(3, 11) = 9 + 121 - 9 = 121 > 0$, so $P$ lies outside the circle."
         },
         {
           "stepNumber": 2,
+          "title": "Power of the point",
+          "bodyLatex": "For every line through $P$ meeting the circle at $A$ and $B$, $PA \\cdot PB = S(3, 11)$ (it equals the square of the tangent length from $P$)."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B) $121$."
+          "bodyLatex": "$PA.PB = 121$. Answer: (B) $121$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Power of point."
+        "note": "SymPy: for a symbolic direction (cos t, sin t), the product of the two roots of |P + s(cos t, sin t)|^2 = 9 equals 121."
       }
     },
     "jelet-2025-q017": {
-      "conceptSummary": "Differentiability of modulus function.",
+      "conceptSummary": "Compare the right- and left-hand derivatives at $x = 0$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "$f(x) = a|\\sin 2x| + b|e^{3x}| + c|2x-\\beta^2|$."
+          "title": "Value at $0$",
+          "bodyLatex": "$f(0) = a\\cdot 0 + b e^{0} + c\\cdot 0 = b$."
         },
         {
           "stepNumber": 2,
-          "title": "Condition",
-          "bodyLatex": "Given key (A): $2a+3b=0$."
+          "title": "Right-hand derivative ($h \\to 0^{+}$)",
+          "bodyLatex": "$f(h) = a\\sin 2h + b e^{3h} + 8c h^{3}$, so $Rf'(0) = \\lim_{h \\to 0^{+}}\\dfrac{a\\sin 2h + b(e^{3h} - 1) + 8ch^{3}}{h} = 2a + 3b$."
         },
         {
           "stepNumber": 3,
+          "title": "Left-hand derivative ($h \\to 0^{-}$)",
+          "bodyLatex": "For $h < 0$: $|\\sin 2h| = -\\sin 2h$, $|3h| = -3h$, $|2h|^{3} = -8h^{3}$, so $Lf'(0) = \\lim_{h \\to 0^{-}}\\dfrac{-a\\sin 2h + b(e^{-3h} - 1) - 8ch^{3}}{h} = -2a - 3b$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Differentiability condition",
+          "bodyLatex": "$Rf'(0) = Lf'(0) \\Rightarrow 2a + 3b = -(2a + 3b) \\Rightarrow 2a + 3b = 0$ ($c$ is unrestricted because $c|2x|^{3}$ is differentiable at $0$)."
+        },
+        {
+          "stepNumber": 5,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A)."
+          "bodyLatex": "Answer: (A) $2a + 3b = 0$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key A."
+        "note": "SymPy: one-sided limits of the difference quotient are 2a+3b and -(2a+3b); equal iff 2a+3b = 0."
       }
     },
     "jelet-2025-q018": {
-      "conceptSummary": "Even-odd decomposition.",
+      "conceptSummary": "The even part of $a^{x}$ is $g(x) = \\dfrac{a^{x} + a^{-x}}{2}$; expand the required sum.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Decompose",
-          "bodyLatex": "$g(x+y)+g(x-y) = 2g(x)g(y)$."
+          "title": "Even/odd parts",
+          "bodyLatex": "$g(x) = \\dfrac{f(x) + f(-x)}{2} = \\dfrac{a^{x} + a^{-x}}{2}$ and $h(x) = \\dfrac{a^{x} - a^{-x}}{2}$."
         },
         {
           "stepNumber": 2,
+          "title": "Expand the left side",
+          "bodyLatex": "$g(x+y) + g(x-y) = \\dfrac{a^{x+y} + a^{-x-y} + a^{x-y} + a^{-x+y}}{2}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Expand $2g(x)g(y)$",
+          "bodyLatex": "$2g(x)g(y) = 2\\cdot\\dfrac{(a^{x} + a^{-x})(a^{y} + a^{-y})}{4} = \\dfrac{a^{x+y} + a^{x-y} + a^{-x+y} + a^{-x-y}}{2}$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A) $2g(x)g(y)$."
+          "bodyLatex": "The two expressions are identical, so $g(x+y) + g(x-y) = 2g(x)g(y)$. Answer: (A)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Identity."
+        "note": "SymPy: with g = (a^x + a^-x)/2, simplify(g(x+y) + g(x-y) - 2g(x)g(y)) = 0."
       }
     },
     "jelet-2025-q019": {
-      "conceptSummary": "Vector perpendicularity.",
+      "conceptSummary": "$\\vec{c}$ lies in the plane of $\\vec{a}, \\vec{b}$, so a vector perpendicular to both $\\vec{a}$ and $\\vec{c}$ is normal to that plane, i.e. parallel to $\\vec{a} \\times \\vec{b}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "$\\vec{a}\\times\\vec{b}$ direction, then $\\vec{d} = \\vec{a}\\times\\vec{c}$."
+          "title": "Locate $\\vec{d}$",
+          "bodyLatex": "$\\vec{a}$ and $\\vec{c}$ are non-parallel ($\\vec{c} \\perp \\vec{a}$) and both lie in the plane of $\\vec{a}, \\vec{b}$. Hence $\\vec{d} \\perp \\vec{a}, \\vec{c}$ means $\\vec{d}$ is normal to that plane: $\\vec{d} \\parallel \\vec{a} \\times \\vec{b}$."
         },
         {
           "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (B): $(-2\\hat{j}+\\hat{k})/\\sqrt{5}$. Answer: (B)."
+          "title": "Compute the normal",
+          "bodyLatex": "$(\\vec{i} + \\vec{j} - \\vec{k}) \\times (\\vec{i} - \\vec{j} + \\vec{k}) = \\begin{vmatrix} \\vec{i} & \\vec{j} & \\vec{k} \\\\ 1 & 1 & -1 \\\\ 1 & -1 & 1 \\end{vmatrix} = 0\\,\\vec{i} - 2\\vec{j} - 2\\vec{k}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Normalise",
+          "bodyLatex": "$\\vec{d} = \\pm\\dfrac{-2\\vec{j} - 2\\vec{k}}{2\\sqrt{2}} = \\pm\\dfrac{1}{\\sqrt{2}}\\left(\\vec{j} + \\vec{k}\\right)$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Explicit check",
+          "bodyLatex": "$\\vec{c} = \\dfrac{1}{\\sqrt{6}}\\left(2\\vec{i} - \\vec{j} + \\vec{k}\\right)$ (component of $\\vec{b}$ perpendicular to $\\vec{a}$, normalised). Then $(\\vec{j} + \\vec{k})\\cdot(\\vec{i} + \\vec{j} - \\vec{k}) = 0$ and $(\\vec{j} + \\vec{k})\\cdot(2\\vec{i} - \\vec{j} + \\vec{k}) = 0$. Answer: (B) $\\dfrac{1}{\\sqrt{2}}\\left(\\vec{j} + \\vec{k}\\right)$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key B."
+        "note": "SymPy: c = normalised (b - proj_a b) = (2,-1,1)/sqrt6; d = a x c normalised = ±(0,1,1)/sqrt2; options A, C, D fail perpendicularity."
       }
     },
     "jelet-2025-q020": {
-      "conceptSummary": "Coaxial circles tangent length.",
+      "conceptSummary": "The square of the tangent length from $(x_{1}, y_{1})$ to $S = 0$ equals $S(x_{1}, y_{1})$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Radii",
-          "bodyLatex": "$R_1 = \\sqrt{g^2+f^2-\\alpha}$, $R_2 = \\sqrt{g^2+f^2-\\beta}$."
+          "title": "Point on the first circle",
+          "bodyLatex": "If $(x_{1}, y_{1})$ lies on the first circle, then $x_{1}^{2} + y_{1}^{2} + 2gx_{1} + 2fy_{1} = -\\alpha$."
         },
         {
           "stepNumber": 2,
-          "title": "Tangent length",
-          "bodyLatex": "$\\sqrt{R_1^2-R_2^2} = \\sqrt{\\beta-\\alpha}$."
+          "title": "Tangent length to the second circle",
+          "bodyLatex": "$L^{2} = x_{1}^{2} + y_{1}^{2} + 2gx_{1} + 2fy_{1} + \\beta = -\\alpha + \\beta$."
         },
         {
           "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (C) $\\sqrt{\\beta-\\alpha}$."
+          "bodyLatex": "$L = \\sqrt{\\beta - \\alpha}$ (real when $\\beta > \\alpha$, i.e. the first circle encloses the concentric second one). Answer: (C) $\\sqrt{\\beta - \\alpha}$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Coaxial circles."
+        "note": "SymPy: substituting x1^2+y1^2+2g x1+2f y1 = -alpha into S2 gives beta - alpha identically."
       }
     },
     "jelet-2025-q021": {
-      "conceptSummary": "Matrix determinant and Cayley-Hamilton.",
+      "conceptSummary": "Factor out $A^{2008}$ and use $|XY| = |X||Y|$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "$|A^{2009}-5A^{2008}| = |A|^{2008}\\cdot|A-5I|$."
+          "title": "Factor",
+          "bodyLatex": "$A^{2009} - 5A^{2008} = A^{2008}(A - 5I)$."
         },
         {
           "stepNumber": 2,
+          "title": "Determinant of $A$",
+          "bodyLatex": "$|A| = 1\\cdot 5 - 2\\cdot 3 = -1$, so $|A^{2008}| = (-1)^{2008} = 1$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Determinant of $A - 5I$",
+          "bodyLatex": "$A - 5I = \\begin{bmatrix} -4 & 2 \\\\ 3 & 0 \\end{bmatrix}$, so $|A - 5I| = (-4)(0) - (2)(3) = -6$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): $-6$. Answer: (B)."
+          "bodyLatex": "$\\left|A^{2009} - 5A^{2008}\\right| = 1 \\times (-6) = -6$. Answer: (B) $-6$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key B."
+        "note": "SymPy: exact integer computation of det(A^2009 - 5*A^2008) = -6."
       }
     },
     "jelet-2025-q022": {
-      "conceptSummary": "Determinant for non-trivial solution.",
+      "conceptSummary": "A homogeneous system has a non-trivial solution iff its coefficient determinant is $0$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Determinant",
-          "bodyLatex": "$2r^3-4r-8 = (r-2)(r^2+2r+2) = 0$. Real root: $r=2$."
+          "title": "Coefficient determinant",
+          "bodyLatex": "$\\Delta = \\begin{vmatrix} 2r & -2 & 3 \\\\ 1 & r & 2 \\\\ 2 & 0 & r \\end{vmatrix} = 2r(r^{2} - 0) + 2(r - 4) + 3(0 - 2r) = 2r^{3} - 4r - 8$."
         },
         {
           "stepNumber": 2,
+          "title": "Factor",
+          "bodyLatex": "$2r^{3} - 4r - 8 = 2(r^{3} - 2r - 4) = 2(r - 2)(r^{2} + 2r + 2)$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Real roots",
+          "bodyLatex": "$r^{2} + 2r + 2 = (r + 1)^{2} + 1 > 0$ has no real root, so the only real solution is $r = 2$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
           "bodyLatex": "Answer: (D) $2$."
         }
@@ -485,67 +675,97 @@
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Determinant."
+        "note": "SymPy: det = 2r^3 - 4r - 8 = 2(r-2)(r^2+2r+2); only real root r = 2."
       }
     },
     "jelet-2025-q023": {
-      "conceptSummary": "Unit vector properties.",
+      "conceptSummary": "Expand $|\\vec{a} - \\vec{b}|^{2}$ with $|\\vec{a}| = |\\vec{b}| = 1$ and use $1 - \\cos\\theta = 2\\sin^{2}\\dfrac{\\theta}{2}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "Unit vectors with angle $\\theta$."
+          "title": "Expand",
+          "bodyLatex": "$|\\vec{a} - \\vec{b}|^{2} = |\\vec{a}|^{2} + |\\vec{b}|^{2} - 2\\vec{a}\\cdot\\vec{b} = 2 - 2\\cos\\theta$."
         },
         {
           "stepNumber": 2,
+          "title": "Half-angle identity",
+          "bodyLatex": "$2 - 2\\cos\\theta = 4\\sin^{2}\\dfrac{\\theta}{2}$, so $|\\vec{a} - \\vec{b}| = 2\\left|\\sin\\dfrac{\\theta}{2}\\right|$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Sign",
+          "bodyLatex": "$0 \\leq \\theta \\leq \\pi \\Rightarrow 0 \\leq \\dfrac{\\theta}{2} \\leq \\dfrac{\\pi}{2}$, so $\\sin\\dfrac{\\theta}{2} \\geq 0$ and $\\sin\\dfrac{\\theta}{2} = \\dfrac{1}{2}|\\vec{a} - \\vec{b}|$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A): $0$. Answer: (A)."
+          "bodyLatex": "Answer: (A) $\\dfrac{1}{2}\\left|\\vec{a} - \\vec{b}\\right|$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key A."
+        "note": "SymPy: with a = (1,0), b = (cos t, sin t), |a-b|^2/4 - sin^2(t/2) simplifies to 0."
       }
     },
     "jelet-2025-q024": {
-      "conceptSummary": "Limit evaluation.",
+      "conceptSummary": "Rewrite $\\sin(\\pi\\cos^{2}x) = \\sin(\\pi\\sin^{2}x)$ and use $\\lim_{t \\to 0}\\dfrac{\\sin t}{t} = 1$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Evaluate",
-          "bodyLatex": "$\\lim_{x\\to 0}\\sin(\\pi\\cos(1/x))$."
+          "title": "Use $\\sin(\\pi - t) = \\sin t$",
+          "bodyLatex": "$\\pi\\cos^{2}x = \\pi - \\pi\\sin^{2}x$, so $\\sin\\left(\\pi\\cos^{2}x\\right) = \\sin\\left(\\pi\\sin^{2}x\\right)$."
         },
         {
           "stepNumber": 2,
+          "title": "Rearrange",
+          "bodyLatex": "$\\dfrac{\\sin\\left(\\pi\\sin^{2}x\\right)}{x^{2}} = \\dfrac{\\sin\\left(\\pi\\sin^{2}x\\right)}{\\pi\\sin^{2}x}\\cdot\\pi\\cdot\\left(\\dfrac{\\sin x}{x}\\right)^{2}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Take the limit",
+          "bodyLatex": "As $x \\to 0$, $\\pi\\sin^{2}x \\to 0$, so the limit is $1 \\cdot \\pi \\cdot 1^{2} = \\pi$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (C): $\\pi$. Answer: (C)."
+          "bodyLatex": "Answer: (C) $\\pi$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key C."
+        "note": "SymPy: limit(sin(pi*cos(x)^2)/x^2, x, 0) = pi."
       }
     },
     "jelet-2025-q025": {
-      "conceptSummary": "Derivative sign analysis.",
+      "conceptSummary": "Show $y' \\geq 0$ on $\\mathbb{R}$ with equality only at the isolated point $x = 0$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Derivative",
-          "bodyLatex": "$f'(x) = 2 - 1/(1+x^2) + 1/x > 0$ for $x > 0$."
+          "title": "Differentiate term by term",
+          "bodyLatex": "$\\dfrac{d}{dx}(2x) = 2$, $\\dfrac{d}{dx}\\cot^{-1}x = -\\dfrac{1}{1 + x^{2}}$, $\\dfrac{d}{dx}\\log\\left(\\sqrt{1 + x^{2}} - x\\right) = \\dfrac{\\dfrac{x}{\\sqrt{1 + x^{2}}} - 1}{\\sqrt{1 + x^{2}} - x} = -\\dfrac{1}{\\sqrt{1 + x^{2}}}$."
         },
         {
           "stepNumber": 2,
+          "title": "Combine",
+          "bodyLatex": "$y' = 2 - \\dfrac{1}{1 + x^{2}} - \\dfrac{1}{\\sqrt{1 + x^{2}}} = \\left(1 - \\dfrac{1}{1 + x^{2}}\\right) + \\left(1 - \\dfrac{1}{\\sqrt{1 + x^{2}}}\\right)$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Sign of $y'$",
+          "bodyLatex": "Both brackets are $\\geq 0$ for all real $x$ (since $1 + x^{2} \\geq 1$), and both vanish only at $x = 0$. Hence $y' > 0$ for $x \\neq 0$ and $y'(0) = 0$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (D). Answer: (D)."
+          "bodyLatex": "A derivative that is positive except at one isolated point makes $y$ strictly increasing on the whole real line $(-\\infty, \\infty)$; (A) and (C) are false, and (B) is only the restriction of this result to $[0, \\infty)$. Answer: (D) increases on $(-\\infty, \\infty)$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key D."
+        "note": "SymPy: y' - [(1 - 1/(1+x^2)) + (1 - 1/sqrt(1+x^2))] simplifies to 0; y'(0) = 0 and y' > 0 at sampled x != 0."
       }
     },
     "jelet-2025-q026": {

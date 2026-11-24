@@ -1,4 +1,6 @@
-# JELET 2025 Paper-I Set A — question data (reconstructed from official OCR, validated against WBJEEB Final Answer Key JEEB/Reg-171/25).
+# JELET 2025 Paper-I Set A — question data, validated against WBJEEB Final Answer Key JEEB/Reg-171/25.
+# Q1–Q25: verbatim visual transcription from 180-DPI renders of the official Set A booklet (PDF pages 2–6).
+# Q26–Q100: pending visual re-verification in later batches.
 # Each entry: (qNumber, subjectId, unitId, category, pdfPage, stemLatex, {A,B,C,D: latex}, correct(list), difficulty, tags, figureKeyOrNone)
 
 Q2025 = [
@@ -6,127 +8,127 @@ Q2025 = [
 (1,"MATH","M03",1,2,
  "Let $Z$ be a complex number such that $Z^{4} - Z^{3} + 2Z^{2} - Z + 1 = 0$. The value of $|Z|$ is",
  {"A":"$\\dfrac{1}{4}$","B":"$\\dfrac{1}{2}$","C":"$\\dfrac{3}{4}$","D":"$1$"},
- ["D"],"medium",["complex-modulus","reciprocal-polynomial","roots"],None),
+ ["D"],"medium",["complex-modulus", "quartic-factorisation", "roots-of-unity"],None),
 
 (2,"MATH","M01",1,2,
- "If $\\omega (\\neq 1)$ be a cube root of unity and $A = \\begin{bmatrix} 0 & 0 \\\\ 0 & 0 \\end{bmatrix}$, then $A^{2025}$ is equal to",
+ "If $\\omega\\,(\\neq 1)$ be a cube root of unity and $A = \\begin{bmatrix} \\omega & 0 \\\\ 0 & \\omega \\end{bmatrix}$, then $A^{2025}$ is equal to",
  {"A":"$A$","B":"$-A$","C":"$I$","D":"$A^{2}$"},
- ["C"],"medium",["cube-root-unity","matrix-power","identity"],None),
+ ["C"],"easy",["cube-root-unity", "matrix-power", "scalar-matrix"],None),
 
 (3,"MATH","M01",1,2,
  "If $A$ and $B$ both are symmetric matrices, then $AB - BA$ is a",
- {"A":"skew symmetric matrix","B":"symmetric matrix","C":"diagonal matrix","D":"null matrix"},
- ["A"],"easy",["symmetric","skew-symmetric","commutator"],None),
+ {"A":"Skew symmetric matrix","B":"Symmetric matrix","C":"Diagonal matrix","D":"Null matrix"},
+ ["A"],"easy",["symmetric", "skew-symmetric", "transpose"],None),
 
 (4,"MATH","M02",1,2,
  "The number of values of $K$ for which the system of equations $(K + 1)x + 8y = 4K$, $Kx + (K + 3)y = 3K - 1$ has no solution is",
  {"A":"$0$","B":"$1$","C":"$2$","D":"$3$"},
- ["B"],"medium",["linear-system","no-solution","determinant"],None),
+ ["B"],"medium",["linear-system", "no-solution", "determinant"],None),
 
 (5,"MATH","M08",1,2,
- "If $u = \\tan^{-1}\\left(\\sqrt{xy}\\right)$, then the value of the expression $\\dfrac{\\partial u}{\\partial x} + \\dfrac{\\partial u}{\\partial y}$ is equal to",
+ "If $u = \\tan^{-1}\\!\\left(\\dfrac{x^{7} + y^{7}}{x}\\right)$, then the value of the expression $x\\dfrac{\\partial u}{\\partial x} + y\\dfrac{\\partial u}{\\partial y}$ is equal to",
  {"A":"$3\\sin 2u$","B":"$\\sin 2u$","C":"$5\\sin 2u$","D":"$7\\sin 2u$"},
- ["A"],"hard",["partial-differentiation","inverse-trigonometric","homogeneous"],None),
+ ["A"],"medium",["euler-theorem", "homogeneous-function", "inverse-trigonometric"],None),
 
 (6,"MATH","M09",1,2,
- "The value of $\\displaystyle\\int \\dfrac{x + \\cos x + \\sin^{2} x}{\\sec^{2} x + |x| + x^{4}}\\,dx$ is",
+ "The value of $\\displaystyle\\int_{-1}^{1} \\dfrac{x\\left(|x| + \\cos x + \\sin^{2} x\\right)}{\\left(\\sec^{2} x + |x| + x^{4}\\right)}\\,dx$ is",
  {"A":"$0$","B":"$1$","C":"$2$","D":"$-1$"},
- ["A"],"hard",["integration","definite-property","odd-function"],None),
+ ["A"],"easy",["definite-integral", "odd-function", "symmetric-limits"],None),
 
 (7,"MATH","M06",1,3,
- "If the function $f(x) = \\dfrac{x^{2} - (A+3)x + 3A}{x - 3}$, for $x \\neq 3$, is continuous at $x = 3$, then the value of $A$ is equal to",
+ "If the function $f(x) = \\begin{cases} \\dfrac{x^{2} - (A+3)x + 3A}{x - 3}, & \\text{for } x \\neq 3 \\\\ 5, & \\text{for } x = 3 \\end{cases}$ is continuous at $x = 3$, then the value of $A$ is equal to",
  {"A":"$-5$","B":"$5$","C":"$-3$","D":"$-2$"},
- ["D"],"medium",["continuity","limit","removable-discontinuity"],None),
+ ["D"],"easy",["continuity", "limit", "removable-discontinuity"],None),
 
 (8,"MATH","M06",1,3,
- "If $f(x) = \\dfrac{4x}{4x + 2}$, then $f(x) + f(1 - x)$ is equal to",
- {"A":"$2x$","B":"$4$","C":"$2$","D":"$1$"},
- ["D"],"medium",["function","symmetry","algebra"],None),
+ "If $f(x) = \\dfrac{4^{x}}{4^{x} + 2}$, then $f(x) + f(1 - x)$ is equal to",
+ {"A":"$2^{x}$","B":"$4$","C":"$2$","D":"$1$"},
+ ["D"],"easy",["function", "symmetry", "exponential"],None),
 
 (9,"MATH","M09",1,3,
- "If $g'(x) = g(x)$, then $\\displaystyle\\int g(x)\\left[f(x) + f'(x)\\right]dx$ has the value ($c$ is a constant of integration)",
- {"A":"$f'(x)g'(x) + c$","B":"$f'(x)g(x) + c$","C":"$f(x)g(x) + c$","D":"$f(x)g'(x) + c$"},
- ["C"],"medium",["integration","by-parts","product"],None),
+ "If $g'(x) = g(x)$, then $\\displaystyle\\int g(x)\\left[f(x) + f'(x)\\right]dx$ has the value ($C_{1}$ is a constant of integration)",
+ {"A":"$f'(x)g'(x) + C_{1}$","B":"$f'(x)g(x) + C_{1}$","C":"$f(x)g(x) + C_{1}$","D":"$f(x)g'(x) + C_{1}$"},
+ ["C"],"easy",["integration", "product-rule", "by-parts"],None),
 
 (10,"MATH","M10",1,3,
- "The general solution of $(x + e^{x} - 4xy^{2})\\,dx + 4x^{2}y\\,dy = 0$, is",
- {"A":"$e^{x} + 2x^{2}y^{2} = c$","B":"$e^{x} + x^{2}y^{2} = c$","C":"$e^{x} - 2x^{2}y^{2} = c$","D":"$e^{x} + x^{2}y = c$"},
- ["B"],"hard",["ode","exact","general-solution"],None),
+ "The general solution of $\\left(x^{4}e^{x} - 4xy^{2}\\right)dx + 4x^{2}y\\,dy = 0$, is ($C$ is a constant of integration.)",
+ {"A":"$e^{x} = 2\\left(\\dfrac{y}{x}\\right)^{2} + C$","B":"$e^{x} + 2\\left(\\dfrac{y}{x}\\right)^{2} = C$","C":"$e^{x} + 4\\left(\\dfrac{y}{x}\\right)^{2} = C$","D":"$e^{x} + 2\\left(\\dfrac{x}{y}\\right)^{2} = C$"},
+ ["B"],"medium",["ode", "exact-equation", "integrating-factor"],None),
 
 (11,"MATH","M05",1,3,
- "The expression $\\hat{i} \\times (\\vec{a} \\times \\hat{i}) + \\hat{j} \\times (\\vec{a} \\times \\hat{j}) + \\hat{k} \\times (\\vec{a} \\times \\hat{k})$ simplifies to",
- {"A":"$0$","B":"$\vec{a}$","C":"$2\\vec{a}$","D":"$4\\vec{a}$"},
- ["C"],"hard",["vector","cross-product","baccab"],None),
+ "The expression $\\vec{i} \\times \\left(\\vec{a} \\times \\vec{i}\\right) + \\vec{j} \\times \\left(\\vec{a} \\times \\vec{j}\\right) + \\vec{k} \\times \\left(\\vec{a} \\times \\vec{k}\\right)$ simplifies to",
+ {"A":"$\\vec{0}$","B":"$\\vec{a}$","C":"$2\\vec{a}$","D":"$4\\vec{a}$"},
+ ["C"],"medium",["vector-triple-product", "bac-cab", "cross-product"],None),
 
 (12,"MATH","M06",1,3,
- "If $y = \\tan^{-1}\\dfrac{1}{x^{2}+3x+3} + \\tan^{-1}\\dfrac{1}{x^{2}+5x+7} + \\cdots$ up to $n$ terms, then $y'(0)$ is",
- {"A":"$\\dfrac{1}{n^{2}+1}$","B":"$-\\dfrac{n}{1+n^{2}}$","C":"$\\dfrac{1}{n^{2}+1}$","D":"$1$"},
- ["C"],"hard",["inverse-trigonometric","series","derivative"],None),
+ "If $y = \\tan^{-1}\\dfrac{1}{1 + x + x^{2}} + \\tan^{-1}\\dfrac{1}{x^{2} + 3x + 3} + \\tan^{-1}\\dfrac{1}{x^{2} + 5x + 7} + \\cdots +$ up to $n$ terms, then $y'(0)$ is",
+ {"A":"$\\dfrac{n^{2}}{n^{2} + 1}$","B":"$\\dfrac{-1}{n^{2} + 1}$","C":"$\\dfrac{-n^{2}}{1 + n^{2}}$","D":"$1$"},
+ ["C"],"hard",["inverse-trigonometric", "telescoping-series", "derivative"],None),
 
 (13,"MATH","M11",1,4,
  "A determinant is chosen at random from the set of all determinants of order $2$ with elements $0$ or $1$ only. The event that the determinant is non-zero has the probability",
  {"A":"$\\dfrac{3}{16}$","B":"$\\dfrac{3}{8}$","C":"$\\dfrac{1}{4}$","D":"$\\dfrac{1}{2}$"},
- ["B"],"medium",["probability","determinant","counting"],None),
+ ["B"],"medium",["classical-probability", "determinant", "counting"],None),
 
 (14,"MATH","M04",1,4,
  "The number of common tangents to the circles $x^{2} + y^{2} = 4$ and $x^{2} + y^{2} - 6x - 8y = 24$ is",
  {"A":"$0$","B":"$1$","C":"$3$","D":"$4$"},
- ["B"],"medium",["circle","common-tangent","conic"],None),
+ ["B"],"medium",["circle", "common-tangents", "internal-tangency"],None),
 
 (15,"MATH","M11",1,4,
  "There are two balls in an urn whose colours are not known but each ball is either white or black. A white ball is put into the urn and then a ball is drawn from the urn. The probability that it is white is",
- {"A":"$\\dfrac{1}{3}$","B":"$\\dfrac{1}{2}$","C":"$\\dfrac{2}{3}$","D":"$\\dfrac{1}{6}$"},
- ["C"],"medium",["probability","urn","bayes"],None),
+ {"A":"$\\dfrac{1}{4}$","B":"$\\dfrac{1}{3}$","C":"$\\dfrac{2}{3}$","D":"$\\dfrac{1}{6}$"},
+ ["C"],"medium",["total-probability", "urn", "conditional-probability"],None),
 
 (16,"MATH","M04",1,4,
- "A line is drawn through the point $P(3, 11)$ to cut the circle $x^{2} + y^{2} = 9$ at $A$ and $B$. Then $PA \\cdot PB$ is equal to",
+ "A line is drawn through the point $P(3, 11)$ to cut the circle $x^{2} + y^{2} = 9$ at $A$ and $B$. Then $PA.PB$ is equal to",
  {"A":"$9$","B":"$121$","C":"$205$","D":"$139$"},
- ["B"],"medium",["circle","power-of-point","tangent"],None),
+ ["B"],"easy",["circle", "power-of-a-point", "secant"],None),
 
 (17,"MATH","M06",1,4,
- "If $f(x) = a|\\sin 2x| + b|e^{3x}| + c|2x - \\beta^{2}|$, is differentiable at $x = 0$, then",
+ "If $f(x) = a|\\sin 2x| + be^{|3x|} + c|2x|^{3}$, is differentiable at $x = 0$, then",
  {"A":"$2a + 3b = 0$","B":"$3b + 8c = 0$","C":"$a = b = c = 0$","D":"$a = 0$ and $c = 0$"},
- ["A"],"hard",["differentiability","modulus","absolute-value"],None),
+ ["A"],"medium",["differentiability", "one-sided-derivative", "modulus"],None),
 
 (18,"MATH","M06",1,4,
- "Let $f(x) = a^{x}$ ($a > 0$) be written as $f(x) = g(x) + h(x)$, where $g(x)$ is even and $h(x)$ is odd. Then $g(x + y) + g(x - y)$ is equal to",
- {"A":"$2g(x)g(y)$","B":"$2g(x+y)g(x-y)$","C":"$2g(x)$","D":"$g(x)h(x)$"},
- ["A"],"hard",["even-odd","function-decomposition","exponential"],None),
+ "Let $f(x) = a^{x}\\ (a > 0)$ be written as $f(x) = g(x) + h(x)$, where $g(x)$ is even and $h(x)$ is odd. Then $g(x + y) + g(x - y)$ is equal to",
+ {"A":"$2g(x)g(y)$","B":"$2g(x + y)g(x - y)$","C":"$2g(x)$","D":"$g(x)\\,h(x)$"},
+ ["A"],"medium",["even-odd-decomposition", "functional-identity", "exponential"],None),
 
 (19,"MATH","M05",1,5,
- "Let $\vec{a} = \\lambda(\\hat{i} + \\hat{j} - \\hat{k})$ and $\vec{b} = \\mu(\\hat{i} - \\hat{j} + \\hat{k})$ be two given vectors. $\\hat{c}$ is a unit vector perpendicular to $\\vec{a}$ but coplanar with $\\vec{a}$ and $\vec{b}$. Then the unit vector $\vec{d}$ perpendicular to both $\vec{a}$ and $\vec{c}$ is",
- {"A":"$\\dfrac{2\\hat{i} - \\hat{j} + \\hat{k}}{\\sqrt{6}}$","B":"$\\dfrac{-2\\hat{j} + \\hat{k}}{\\sqrt{5}}$","C":"$\\dfrac{\\hat{i} + \\hat{j} + \\hat{k}}{\\sqrt{3}}$","D":"$\\dfrac{\\hat{i} - \\hat{j} + \\hat{k}}{\\sqrt{3}}$"},
- ["B"],"hard",["vectors","unit-vector","perpendicular"],None),
+ "Let $\\vec{a} = \\lambda(\\vec{i} + \\vec{j} - \\vec{k})$ and $\\vec{b} = \\mu(\\vec{i} - \\vec{j} + \\vec{k})$ be two given vectors. $\\vec{c}$ is a unit vector perpendicular to $\\vec{a}$ but coplanar with $\\vec{a}$ and $\\vec{b}$. Then the unit vector $\\vec{d}$ perpendicular to both $\\vec{a}$ and $\\vec{c}$ is",
+ {"A":"$\\dfrac{1}{\\sqrt{6}}\\left(2\\vec{i} - \\vec{j} + \\vec{k}\\right)$","B":"$\\dfrac{1}{\\sqrt{2}}\\left(\\vec{j} + \\vec{k}\\right)$","C":"$\\dfrac{1}{\\sqrt{6}}\\left(\\vec{i} - 2\\vec{j} + \\vec{k}\\right)$","D":"$\\dfrac{1}{\\sqrt{2}}\\left(\\vec{j} - \\vec{k}\\right)$"},
+ ["B"],"medium",["cross-product", "coplanar-vectors", "unit-normal"],None),
 
 (20,"MATH","M04",1,5,
- "The length of the tangent drawn from any point on the circle $x^{2} + y^{2} + 2gx + 2fy + \\alpha = 0$ to the circle $x^{2} + y^{2} + 2gx + 2fy + \\beta = 0$, is",
- {"A":"$\\sqrt{\\alpha - \\beta}$","B":"$\\sqrt{\\alpha}$","C":"$\\sqrt{\\beta - \\alpha}$","D":"$\\sqrt{\\alpha\\beta}$"},
- ["C"],"medium",["circle","tangent-length","coaxial"],None),
+ "The length of the tangent drawn from any point on the circle $x^{2} + y^{2} + 2gx + 2fy + \\alpha = 0$ to the circle $x^{2} + y^{2} + 2gx + 2fy + \\beta = 0$ is",
+ {"A":"$\\sqrt{\\alpha - \\beta}$","B":"$\\sqrt{\\dfrac{\\alpha}{\\beta}}$","C":"$\\sqrt{\\beta - \\alpha}$","D":"$\\sqrt{\\alpha\\beta}$"},
+ ["C"],"easy",["circle", "length-of-tangent", "concentric-circles"],None),
 
-(21,"MATH","M01",1,5,
- "If $A = \\begin{bmatrix} 1 & 5 \\\\ 3 & t \\end{bmatrix}$ and $|A^{2009} - 5A^{2008}|$, then the value of the determinant",
+(21,"MATH","M02",1,5,
+ "If $A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 5 \\end{bmatrix}$, then the value of the determinant $\\left|A^{2009} - 5A^{2008}\\right|$ is",
  {"A":"$-5$","B":"$-6$","C":"$4$","D":"$-9$"},
- ["B"],"hard",["matrix","determinant","cayley-hamilton"],None),
+ ["B"],"medium",["determinant", "product-rule-of-determinants", "matrix-power"],None),
 
 (22,"MATH","M02",1,5,
- "If the system of equations $2rx - 2y + 3z = 0$, $x + ry + 2z = 0$, $2x + rz = 0$ has a non-trivial solution, then the real value of $r$ is",
+ "If the system of equations — $2rx - 2y + 3z = 0$, $x + ry + 2z = 0$, $2x + rz = 0$ has a non-trivial solution, then the real value of $r$ is",
  {"A":"$1$","B":"$-2$","C":"$3$","D":"$2$"},
- ["D"],"hard",["linear-system","non-trivial","determinant"],None),
+ ["D"],"medium",["homogeneous-system", "non-trivial-solution", "determinant"],None),
 
 (23,"MATH","M05",1,5,
- "If $\\vec{a}$ and $\\vec{b}$ be two unit vectors and $\\theta$ is the angle between them, then $\\sin\\theta$ is",
- {"A":"$0$","B":"$1$","C":"$\\pm 1$","D":"$\\dfrac{1}{2}$"},
- ["A"],"easy",["unit-vector","angle","sin"],None),
+ "If $\\vec{a}$ and $\\vec{b}$ be two unit vectors and $\\theta$ is the angle between them, then $\\sin\\dfrac{\\theta}{2}$ is",
+ {"A":"$\\dfrac{1}{2}\\left|\\vec{a} - \\vec{b}\\right|$","B":"$1$","C":"$\\dfrac{1}{2}\\left|\\vec{a} + \\vec{b}\\right|$","D":"$0$"},
+ ["A"],"easy",["dot-product", "unit-vectors", "half-angle"],None),
 
 (24,"MATH","M06",1,6,
- "The value of $\\displaystyle\\lim_{x \\to 0} \\dfrac{\sin(\\pi\\cos\\frac{1}{x})}{1}$ is",
+ "The value of $\\displaystyle\\lim_{x \\to 0} \\dfrac{\\sin\\left(\\pi\\cos^{2} x\\right)}{x^{2}}$ is",
  {"A":"$-\\pi$","B":"$\\dfrac{\\pi}{2}$","C":"$\\pi$","D":"$0$"},
- ["C"],"medium",["limit","trigonometric","squeeze"],None),
+ ["C"],"medium",["limit", "standard-limit", "trigonometric"],None),
 
 (25,"MATH","M07",1,6,
- "If $y = 2x + \\cot^{-1}x + \\log x$, then $y'$",
+ "If $y = 2x + \\cot^{-1} x + \\log\\left(\\sqrt{1 + x^{2}} - x\\right)$, then $y$",
  {"A":"decreases on $(-\\infty, \\infty)$","B":"increases on $[0, \\infty)$","C":"decreases on $[0, \\infty)$","D":"increases on $(-\\infty, \\infty)$"},
- ["D"],"medium",["derivative","increasing-function","logarithm"],None),
+ ["D"],"medium",["monotonicity", "derivative-sign", "inverse-trigonometric"],None),
 
 (26,"MATH","M07",1,6,
  "A given right circular cone has a volume $p$, and the largest right circular cylinder that can be inscribed in the cone has a volume $q$. Then $p : q$ is",
@@ -160,7 +162,7 @@ Q2025 = [
  ["A","B","C","D"],"medium",["adjoint","invertible","matrix-properties"],None),
 
 (32,"MATH","M06",2,7,
- "Let $f(x) = \\begin{cases} \\dfrac{\sin x}{x}, & x \\neq 0 \\\\ 0, & x = 0 \\end{cases}$. Then",
+ "Let $f(x) = \\begin{cases} \\dfrac{\\sin x}{x}, & x \\neq 0 \\\\ 0, & x = 0 \\end{cases}$. Then",
  {"A":"$f$ and $f'$ both are continuous at $x = 0$.","B":"$f$ is continuous at $x = 0$.","C":"$f$ is derivable at $x = 0$.","D":"$f$ is derivable at $x = 0$ but $f'$ is not continuous at $x = 0$."},
  ["B","C","D"],"hard",["continuity","differentiability","sinx/x"],None),
 
@@ -200,13 +202,13 @@ Q2025 = [
  ["A","C"],"hard",["linear-system","consistency","cyclic"],None),
 
 (40,"MATH","M09",2,9,
- "The value of $\\displaystyle\\int \\dfrac{\tan x}{x}\\,dx$ is",
- {"A":"$\\dfrac{1}{2}\\ln\\sec^{2}x + c$","B":"$\\ln\\sec x + c$","C":"$\\dfrac{\pi}{2}\\ln a$","D":"$2\\ln\\sec x + c$"},
+ "The value of $\\displaystyle\\int \\dfrac{\\tan x}{x}\\,dx$ is",
+ {"A":"$\\dfrac{1}{2}\\ln\\sec^{2}x + c$","B":"$\\ln\\sec x + c$","C":"$\\dfrac{\\pi}{2}\\ln a$","D":"$2\\ln\\sec x + c$"},
  ["B"],"medium",["integration","tangent","logarithm"],None),
 
 # ---------------- PHYSICS Cat-I (Q41-65) ----------------
 (41,"PHYS","P01",1,10,
- "The equation of state of some gases can be expressed as $\\left(P + \\dfrac{a}{V^{2}}\right)(V - b) = RT$ where $P$ is pressure, $V$ is volume, $T$ is absolute temperature and $a, b, R$ are constants. The dimension of $'a'$ is",
+ "The equation of state of some gases can be expressed as $\\left(P + \\dfrac{a}{V^{2}}\\right)(V - b) = RT$ where $P$ is pressure, $V$ is volume, $T$ is absolute temperature and $a, b, R$ are constants. The dimension of $'a'$ is",
  {"A":"$[ML^{2}T^{-2}]$","B":"$[ML^{-1}T^{-2}]$","C":"$[L^{2}]$","D":"$[L]$"},
  ["W"],"voided",["dimensions","dimensional-analysis","equation-of-state","voided"],None),
 
@@ -217,7 +219,7 @@ Q2025 = [
 
 (43,"PHYS","P05",1,10,
  "If three vectors satisfy the relation $\\vec{A} \\cdot \\vec{B} = 0$ and $\\vec{A} \\cdot \\vec{C} = 0$, then $\\vec{A}$ can be parallel to",
- {"A":"$\vec{C}$","B":"$\vec{B}$","C":"$\vec{B} \\times \\vec{C}$","D":"$\vec{B} \\cdot \\vec{C}$"},
+ {"A":"$\\vec{C}$","B":"$\\vec{B}$","C":"$\\vec{B} \\times \\vec{C}$","D":"$\\vec{B} \\cdot \\vec{C}$"},
  ["C"],"medium",["vectors","dot-product","cross-product"],None),
 
 (44,"PHYS","P02",1,10,
@@ -266,7 +268,7 @@ Q2025 = [
  ["A"],"easy",["momentum","inelastic-collision","conservation"],None),
 
 (53,"PHYS","P03",1,12,
- "A rod of length $L$ has its linear density increasing linearly from zero at one end to $\lambda_{0}$ at the other end. If $L$ is the length of rod and $x$ is the position of an elementary mass from one end of the rod, then the position of its centre of mass from $x = 0$ end is",
+ "A rod of length $L$ has its linear density increasing linearly from zero at one end to $\\lambda_{0}$ at the other end. If $L$ is the length of rod and $x$ is the position of an elementary mass from one end of the rod, then the position of its centre of mass from $x = 0$ end is",
  {"A":"$\\dfrac{2L}{3}$","B":"$\\dfrac{L}{3}$","C":"$\\dfrac{3L}{4}$","D":"$\\dfrac{L}{4}$"},
  ["D"],"hard",["centre-of-mass","linear-density","rod"],None),
 
@@ -353,7 +355,7 @@ Q2025 = [
 
 (70,"PHYS","P05",2,18,
  "For a vector, $\\vec{P} = (\\vec{A} \\times \\vec{B}) \\times (\\vec{C} \\times \\vec{D})$, choose the correct alternative(s).",
- {"A":"Vector $\vec{P}$ is perpendicular to the plane containing $\vec{A}$ and $\vec{B}$.","B":"$\vec{P}$ resides in a plane containing $\vec{A}$ and $\vec{B}$.","C":"$\vec{P}$ resides in a plane containing $\vec{C}$ and $\vec{D}$.","D":"$\vec{P}$ is parallel to the line of intersection of two planes containing $\vec{A}, \\vec{B}$ and $\vec{C}, \\vec{D}$ respectively."},
+ {"A":"Vector $\\vec{P}$ is perpendicular to the plane containing $\\vec{A}$ and $\\vec{B}$.","B":"$\\vec{P}$ resides in a plane containing $\\vec{A}$ and $\\vec{B}$.","C":"$\\vec{P}$ resides in a plane containing $\\vec{C}$ and $\\vec{D}$.","D":"$\\vec{P}$ is parallel to the line of intersection of two planes containing $\\vec{A}, \\vec{B}$ and $\\vec{C}, \\vec{D}$ respectively."},
  ["B","C","D"],"hard",["vectors","cross-product","triple-product"],None),
 
 # ---------------- CHEMISTRY Cat-I (Q71-85) ----------------
@@ -418,7 +420,7 @@ Q2025 = [
  ["C"],"medium",["organic","isomerism","structural"],"fig-2025-q82"),
 
 (83,"CHEM","C08",1,21,
- "The major product in the following reaction is $\\text{CH}_{3}\\text{Cl} \\xrightarrow[(i)\\,\\text{Mg/Ether}]{\\ (ii)\,\\text{CH}_{3}\\text{COOH}}$",
+ "The major product in the following reaction is $\\text{CH}_{3}\\text{Cl} \\xrightarrow[(i)\\,\\text{Mg/Ether}]{\\ (ii)\\,\\text{CH}_{3}\\text{COOH}}$",
  {"A":"$\\text{CH}_{4}$","B":"$\\text{C}_{2}\\text{H}_{6}$","C":"$\\text{CH}_{3}\\text{COOCH}_{3}$","D":"None of these"},
  ["A"],"medium",["organic","grignard","ester"],"fig-2025-q83"),
 
@@ -428,7 +430,7 @@ Q2025 = [
  ["W"],"voided",["hybridization","carbanion"],None),
 
 (85,"CHEM","C08",1,21,
- "The major product in the following reaction is $\\text{HC} \\equiv \\text{CH} \\xrightarrow[\\text{(ii) Ethylbromide (excess)}]{\\ (i)\,\\text{NaNH}_{2}/\\text{liq. NH}_{3}}$",
+ "The major product in the following reaction is $\\text{HC} \\equiv \\text{CH} \\xrightarrow[\\text{(ii) Ethylbromide (excess)}]{\\ (i)\\,\\text{NaNH}_{2}/\\text{liq. NH}_{3}}$",
  {"A":"$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$","B":"$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$","C":"$\\text{CH}_{3}\\text{CH}_{2}-\\text{Br}$","D":"$\\text{NH}_{2}$"},
  ["B"],"medium",["organic","acetylene","alkylation"],"fig-2025-q85"),
 
