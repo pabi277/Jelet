@@ -2212,6 +2212,154 @@
   align-items: center;
 }
 
+/* ==========================================================================
+   Phase 07 — Adaptive Learning, Weak Areas, Mistake Notebook & Readiness UI
+   (Strictly token-driven, mobile-first, min-width only, zero overflow)
+   ========================================================================== */
+
+.weak-area-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding: var(--space-s);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+}
+.weak-area-row__info {
+  flex: 1 1 180px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+.weak-area-row__title {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  overflow-wrap: anywhere;
+}
+
+.accuracy-breakdown-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) 0;
+}
+
+.weak-unit-breakdown-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.weak-unit-breakdown-item:last-child {
+  border-bottom: none;
+}
+.weak-unit-breakdown-item__main {
+  flex: 1 1 160px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.weak-unit-breakdown-item__title {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  overflow-wrap: anywhere;
+}
+
+.practice-routing-bar {
+  padding: var(--space-s) var(--space-m);
+}
+.segmented--compact {
+  min-width: 190px;
+}
+.segmented--compact .segmented__opt {
+  min-height: 36px;
+  padding: 0 var(--space-s);
+  font-size: var(--fs-caption);
+}
+.segmented__opt:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.mistake-notebook-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding: var(--space-s);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+}
+.mistake-notebook-item__info {
+  flex: 1 1 180px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+.mistake-redrill-banner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-s) var(--space-m);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--status-partial-fg);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+}
+
+/* ---------------------------------------------------------------------------
+ * 24. Readiness Snapshot Card (`#/you` · Phase 07 Slice 4)
+ * ------------------------------------------------------------------------- */
+.readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-s);
+}
+@media (min-width: 768px) {
+  .readiness-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.readiness-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  padding: var(--space-s);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+  min-width: 0;
+}
+.readiness-metric__label {
+  font-size: var(--fs-caption);
+  color: var(--fg-muted);
+}
+.readiness-metric__val {
+  font-size: var(--fs-h3);
+  color: var(--fg-primary);
+}
+.readiness-empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-s);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+}
+
 
 
 

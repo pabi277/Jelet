@@ -10,10 +10,16 @@
  */
 
 import * as db from "../db/indexeddb.js";
-import { scoreAttempt, MAX_PAPER_TWELFTHS } from "./scoring.js";
+import { scoreAttempt, MAX_PAPER_TWELFTHS, isVoidedQuestion } from "./scoring.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-const LEITNER_INTERVAL_DAYS = [0, 1, 3, 7, 14];
+export const SPACED_INTERVAL_DAYS = [0, 1, 3, 7];
+export const MISTAKE_GRADUATION_THRESHOLD = 2;
+
+export const WEAK_AREA_MIN_ATTEMPTS = 3;
+export const WEAK_AREA_TOP_K = 3;
+export const ADAPTIVE_MIN_ATTEMPTS = 5;
+export const ADAPTIVE_MAINTENANCE_FLOOR = 0.25;
 
 function localDateKey(isoOrMs) {
   const d = new Date(isoOrMs);
@@ -60,6 +66,7 @@ export async function createSession({
   title = "Practice Session",
   questions = [],
   durationMinutes = null,
+  mistakeContext = null,
 }) {
   const now = new Date().toISOString();
   const sessionId = `sess-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
@@ -77,6 +84,7 @@ export async function createSession({
     markedForReview: [], // qId[]
     assistedQuestionIds: [], // qIds where hint/AI was opened
     revealedQuestionIds: [], // qIds already checked in assisted drill
+    mistakeContext: mistakeContext || null, // qId -> prior mistake attempt metadata
     durationMs: remainingMs,
     remainingMs,
     lastTickAt: Date.now(),
@@ -111,9 +119,294 @@ export async function getActiveSessions() {
     .sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
 }
 
+/* ------------------------------------------------------------------ *
+ * Spaced Mistake Notebook & Graduation Engine (Phase 07 · Slice 3)
+ * ------------------------------------------------------------------ */
+
+/** True when a `questionStats` record is currently active in the Mistake Queue. */
+export function isMistakeRecordActive(
+  rec,
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  if (!rec) return false;
+  if (typeof rec.inMistakeQueue === "boolean") {
+    return rec.inMistakeQueue;
+  }
+  if (rec.flaggedAsMistake) return true;
+  if ((rec.mistakeCount || 0) > 0) {
+    const streak = rec.consecutiveCorrect ?? rec.leitnerBox ?? 0;
+    return streak < graduationThreshold;
+  }
+  return false;
+}
+
+/** True when an active mistake's scheduled review time has arrived. */
+export function isMistakeRecordDue(
+  rec,
+  nowMs = Date.now(),
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  if (!isMistakeRecordActive(rec, { graduationThreshold })) return false;
+  const nowIso = new Date(nowMs).toISOString();
+  return (rec.leitnerBox ?? 0) === 0 || !rec.nextReviewAt || rec.nextReviewAt <= nowIso;
+}
+
+/**
+ * Pure state transition for a single independent question attempt.
+ *   - Wrong/partial -> enters active mistake queue, due immediately (Box 0).
+ *   - Correct while in mistake queue -> advances through 1-day / 3-day / 7-day
+ *     deterministic spaced intervals and graduates out once answered correctly
+ *     `graduationThreshold` (default N=2) consecutive times.
+ */
+export function applyQuestionAttemptToStat(
+  prev,
+  item,
+  questionMeta = {},
+  nowMs = Date.now(),
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  const nowIso = new Date(nowMs).toISOString();
+  const wasActiveMistake = isMistakeRecordActive(prev, { graduationThreshold });
+  const isMiss = item.outcome === "incorrect" || item.outcome === "partial";
+  const isCorrect = item.outcome === "correct";
+
+  const attemptsCount = (prev?.attemptsCount || 0) + 1;
+  const correctCount = (prev?.correctCount || 0) + (isCorrect ? 1 : 0);
+  const mistakeCount = (prev?.mistakeCount || 0) + (isMiss ? 1 : 0);
+
+  let inMistakeQueue = false;
+  let consecutiveCorrect = 0;
+  let leitnerBox = 0;
+  let nextReviewMs = nowMs;
+  let flaggedAsMistake = Boolean(prev?.flaggedAsMistake);
+  let graduatedAt = prev?.graduatedAt || null;
+  let lastMistakeSelected = prev?.lastMistakeSelected || [];
+  let lastMistakeOutcome = prev?.lastMistakeOutcome || null;
+
+  if (isMiss) {
+    inMistakeQueue = true;
+    consecutiveCorrect = 0;
+    leitnerBox = 0;
+    nextReviewMs = nowMs + SPACED_INTERVAL_DAYS[0] * DAY_MS;
+    graduatedAt = null;
+    lastMistakeSelected = [...(item.selected || [])];
+    lastMistakeOutcome = item.outcome;
+  } else if (isCorrect && wasActiveMistake) {
+    const prevStreak = prev?.consecutiveCorrect ?? prev?.leitnerBox ?? 0;
+    consecutiveCorrect = prevStreak + 1;
+    leitnerBox = Math.min(SPACED_INTERVAL_DAYS.length - 1, consecutiveCorrect);
+    nextReviewMs = nowMs + SPACED_INTERVAL_DAYS[leitnerBox] * DAY_MS;
+
+    if (!lastMistakeSelected.length && prev?.lastSelected?.length && prev?.lastOutcome !== "correct") {
+      lastMistakeSelected = [...prev.lastSelected];
+      lastMistakeOutcome = prev.lastOutcome || null;
+    }
+
+    if (consecutiveCorrect >= graduationThreshold) {
+      inMistakeQueue = false;
+      flaggedAsMistake = false;
+      graduatedAt = nowIso;
+    } else {
+      inMistakeQueue = true;
+      graduatedAt = null;
+    }
+  } else {
+    consecutiveCorrect = (prev?.consecutiveCorrect || 0) + 1;
+    leitnerBox = Math.min(SPACED_INTERVAL_DAYS.length - 1, (prev?.leitnerBox ?? 0) + 1);
+    nextReviewMs = nowMs + SPACED_INTERVAL_DAYS[leitnerBox] * DAY_MS;
+    inMistakeQueue = false;
+    flaggedAsMistake = false;
+  }
+
+  return {
+    questionId: item.questionId,
+    sourceType: questionMeta?.sourceType || prev?.sourceType || "official-pyq",
+    subjectId: item.subjectId || questionMeta?.subjectId || prev?.subjectId || "",
+    unitId: item.unitId || questionMeta?.unitId || prev?.unitId || "",
+    attemptsCount,
+    correctCount,
+    mistakeCount,
+    consecutiveCorrect,
+    inMistakeQueue,
+    flaggedAsMistake,
+    graduatedAt,
+    lastAttemptAt: nowIso,
+    lastOutcome: item.outcome,
+    lastSelected: [...(item.selected || [])],
+    lastMistakeSelected,
+    lastMistakeOutcome,
+    leitnerBox,
+    nextReviewAt: new Date(nextReviewMs).toISOString(),
+    updatedAt: nowIso,
+  };
+}
+
+/** Pure helper to explicitly flag or unflag a question in the Mistake Queue. */
+export function applyMistakeFlagToStat(
+  prev,
+  questionMeta = {},
+  flagged = true,
+  nowMs = Date.now(),
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  const nowIso = new Date(nowMs).toISOString();
+  const qId = questionMeta.id || questionMeta.questionId || prev?.questionId;
+  if (!qId) return null;
+
+  if (!flagged) {
+    if (!prev || ((prev.attemptsCount || 0) === 0 && (prev.mistakeCount || 0) === 0)) {
+      return null;
+    }
+    const stillUnresolvedMistake =
+      (prev.mistakeCount || 0) > 0 &&
+      (prev.consecutiveCorrect ?? prev.leitnerBox ?? 0) < graduationThreshold &&
+      !prev.graduatedAt;
+    return {
+      ...prev,
+      flaggedAsMistake: false,
+      inMistakeQueue: stillUnresolvedMistake,
+      updatedAt: nowIso,
+    };
+  }
+
+  return {
+    questionId: qId,
+    sourceType: questionMeta.sourceType || prev?.sourceType || "official-pyq",
+    subjectId: questionMeta.subjectId || prev?.subjectId || "",
+    unitId: questionMeta.unitId || prev?.unitId || "",
+    attemptsCount: prev?.attemptsCount || 0,
+    correctCount: prev?.correctCount || 0,
+    mistakeCount: prev?.mistakeCount || 0,
+    consecutiveCorrect: 0,
+    inMistakeQueue: true,
+    flaggedAsMistake: true,
+    graduatedAt: null,
+    lastAttemptAt: prev?.lastAttemptAt || null,
+    lastOutcome: prev?.lastOutcome || null,
+    lastSelected: prev?.lastSelected || [],
+    lastMistakeSelected: prev?.lastMistakeSelected || [],
+    lastMistakeOutcome: prev?.lastMistakeOutcome || null,
+    leitnerBox: 0,
+    nextReviewAt: nowIso,
+    updatedAt: nowIso,
+  };
+}
+
+/** Partition `questionStats` into active, due, scheduled, and graduated mistake lists. */
+export function computeMistakeQueueState(
+  questionStats = [],
+  nowMs = Date.now(),
+  { graduationThreshold = MISTAKE_GRADUATION_THRESHOLD } = {}
+) {
+  const dueMistakes = [];
+  const scheduledMistakes = [];
+  const graduatedMistakes = [];
+
+  for (const rec of questionStats || []) {
+    if (!rec) continue;
+    if (isMistakeRecordActive(rec, { graduationThreshold })) {
+      if (isMistakeRecordDue(rec, nowMs, { graduationThreshold })) {
+        dueMistakes.push(rec);
+      } else {
+        scheduledMistakes.push(rec);
+      }
+    } else if ((rec.mistakeCount || 0) > 0 || Boolean(rec.graduatedAt)) {
+      graduatedMistakes.push(rec);
+    }
+  }
+
+  const dueSort = (a, b) =>
+    (a.leitnerBox ?? 0) - (b.leitnerBox ?? 0) ||
+    String(a.nextReviewAt || "").localeCompare(String(b.nextReviewAt || "")) ||
+    String(a.questionId).localeCompare(String(b.questionId));
+
+  const schedSort = (a, b) =>
+    String(a.nextReviewAt || "").localeCompare(String(b.nextReviewAt || "")) ||
+    String(a.questionId).localeCompare(String(b.questionId));
+
+  dueMistakes.sort(dueSort);
+  scheduledMistakes.sort(schedSort);
+
+  return {
+    dueMistakes,
+    scheduledMistakes,
+    activeMistakes: [...dueMistakes, ...scheduledMistakes],
+    graduatedMistakes,
+    graduationThreshold,
+  };
+}
+
+export async function getQuestionStatsMap() {
+  const rows = await db.getAll("questionStats");
+  return new Map(rows.map((r) => [r.questionId, r]));
+}
+
+export async function toggleMistakeFlag(questionMeta, nowMs = Date.now()) {
+  const qId = questionMeta?.id || questionMeta?.questionId;
+  if (!qId) return null;
+  const prev = await db.get("questionStats", qId);
+  const nextFlagged = !Boolean(prev?.flaggedAsMistake);
+  const updated = applyMistakeFlagToStat(prev, questionMeta, nextFlagged, nowMs);
+  if (!updated) {
+    await db.deleteRecord("questionStats", qId);
+    return null;
+  }
+  await db.put("questionStats", updated);
+  return updated;
+}
+
+/**
+ * Create a focused Mistake Re-drill session (single item or due batch),
+ * attaching prior mistake answer & attempt metadata so the runner can display it.
+ */
+export async function createMistakeRedrillSession({
+  questions = [],
+  mistakeRecords = null,
+  title = null,
+} = {}) {
+  const statsMap = mistakeRecords
+    ? new Map(mistakeRecords.map((r) => [r.questionId, r]))
+    : await getQuestionStatsMap();
+
+  const mistakeContext = {};
+  for (const q of questions) {
+    const rec = statsMap.get(q.id);
+    if (rec) {
+      mistakeContext[q.id] = {
+        previousSelected:
+          rec.lastMistakeSelected?.length
+            ? rec.lastMistakeSelected
+            : rec.lastSelected || [],
+        lastSelected: rec.lastSelected || [],
+        lastOutcome: rec.lastMistakeOutcome || rec.lastOutcome || null,
+        lastAttemptAt: rec.lastAttemptAt || rec.updatedAt || null,
+        attemptsCount: rec.attemptsCount || 0,
+        consecutiveCorrect: rec.consecutiveCorrect ?? rec.leitnerBox ?? 0,
+        flaggedAsMistake: Boolean(rec.flaggedAsMistake),
+      };
+    }
+  }
+
+  const singleQ = questions.length === 1 ? questions[0] : null;
+  const resolvedTitle =
+    title ||
+    (singleQ
+      ? `Mistake Re-drill · ${singleQ.year ? `JELET ${singleQ.year} Q${singleQ.qNumber}` : singleQ.id}`
+      : `Spaced Mistake Queue (${questions.length} Qs)`);
+
+  return createSession({
+    kind: "mistake",
+    mode: "independent",
+    title: resolvedTitle,
+    questions,
+    durationMinutes: null,
+    mistakeContext,
+  });
+}
+
 /**
  * Finalize a session into an immutable `attempts` record and update `questionStats`
- * (Leitner spaced-repetition boxes) for independent attempts.
+ * (Spaced Mistake Queue intervals + graduation) for independent attempts.
  */
 export async function submitSessionToAttempt({ session, questions }) {
   const nowMs = Date.now();
@@ -159,7 +452,7 @@ export async function submitSessionToAttempt({ session, questions }) {
 
   await db.put("attempts", attempt);
 
-  // Update per-question stats & Leitner spaced-repetition ONLY for unassisted items
+  // Update per-question stats & Spaced Mistake Queue ONLY for unassisted items
   const existingStats = await db.getAll("questionStats");
   const statMap = new Map(existingStats.map((r) => [r.questionId, r]));
   const qMap = new Map(questions.map((q) => [q.id, q]));
@@ -171,35 +464,7 @@ export async function submitSessionToAttempt({ session, questions }) {
 
     const q = qMap.get(item.questionId);
     const prev = statMap.get(item.questionId);
-    const prevBox = prev?.leitnerBox ?? 0;
-
-    let nextBox = 0;
-    let nextReviewMs = nowMs;
-    if (item.outcome === "correct") {
-      nextBox = Math.min(4, prevBox + 1);
-      nextReviewMs = nowMs + LEITNER_INTERVAL_DAYS[nextBox] * DAY_MS;
-    } else {
-      // incorrect or partial -> Leitner Box 0 (due immediately in Mistake Queue)
-      nextBox = 0;
-      nextReviewMs = nowMs;
-    }
-
-    updates.push({
-      questionId: item.questionId,
-      sourceType: q?.sourceType || "official-pyq",
-      subjectId: item.subjectId,
-      unitId: item.unitId,
-      attemptsCount: (prev?.attemptsCount || 0) + 1,
-      correctCount: (prev?.correctCount || 0) + (item.outcome === "correct" ? 1 : 0),
-      mistakeCount:
-        (prev?.mistakeCount || 0) +
-        (item.outcome === "incorrect" || item.outcome === "partial" ? 1 : 0),
-      lastOutcome: item.outcome,
-      lastSelected: item.selected,
-      leitnerBox: nextBox,
-      nextReviewAt: new Date(nextReviewMs).toISOString(),
-      updatedAt: nowIso,
-    });
+    updates.push(applyQuestionAttemptToStat(prev, item, q, nowMs));
   }
 
   if (updates.length) {
@@ -222,14 +487,7 @@ export async function getAllAttempts() {
 /** Return questionStats records due today in the Spaced Mistake Queue. */
 export async function getDueMistakeRecords(nowMs = Date.now()) {
   const stats = await db.getAll("questionStats");
-  const nowIso = new Date(nowMs).toISOString();
-  return stats
-    .filter(
-      (s) =>
-        (s.mistakeCount || 0) > 0 &&
-        (s.leitnerBox === 0 || !s.nextReviewAt || s.nextReviewAt <= nowIso)
-    )
-    .sort((a, b) => (a.leitnerBox - b.leitnerBox) || String(a.nextReviewAt).localeCompare(String(b.nextReviewAt)));
+  return computeMistakeQueueState(stats, nowMs).dueMistakes;
 }
 
 /* ------------------------------------------------------------------ *
@@ -312,6 +570,327 @@ export async function savePersonalNote(targetId, type = "question", noteText = "
 }
 
 /* ------------------------------------------------------------------ *
+ * Weak-Area Detection (Phase 07 · Slice 1)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Aggregate per-unit and per-subject accuracy from real independent `questionStats`.
+ * Only surfaces units/subjects with at least `minAttempts` (default 3) attempts,
+ * sorted worst-first (lowest accuracy ratio, then most mistakes, then canonical ID).
+ */
+export function computeWeakAreas(
+  questionStats = [],
+  manifestUnits = [],
+  { minAttempts = WEAK_AREA_MIN_ATTEMPTS, topK = WEAK_AREA_TOP_K } = {}
+) {
+  const unitMetaMap = new Map();
+  for (const u of manifestUnits || []) {
+    if (u && u.unitId) unitMetaMap.set(u.unitId, u);
+  }
+
+  const unitBuckets = new Map();
+  const subjectBuckets = new Map();
+  for (const sid of ["MATH", "PHYS", "CHEM", "FEEE"]) {
+    subjectBuckets.set(sid, {
+      subjectId: sid,
+      attempts: 0,
+      correct: 0,
+      mistakes: 0,
+      questionsAttempted: 0,
+    });
+  }
+
+  let totalAttempts = 0;
+
+  for (const rec of questionStats || []) {
+    if (!rec) continue;
+    const att = Number(rec.attemptsCount) || 0;
+    if (att <= 0) continue;
+    const corr = Math.min(att, Math.max(0, Number(rec.correctCount) || 0));
+    const mist = Math.max(0, Number(rec.mistakeCount) || 0);
+    totalAttempts += att;
+
+    if (rec.unitId) {
+      const meta = unitMetaMap.get(rec.unitId);
+      let uBucket = unitBuckets.get(rec.unitId);
+      if (!uBucket) {
+        uBucket = {
+          unitId: rec.unitId,
+          subjectId: rec.subjectId || meta?.subjectId || "",
+          officialCode: meta?.officialCode || rec.unitId,
+          title: meta?.title || rec.unitId,
+          attempts: 0,
+          correct: 0,
+          mistakes: 0,
+          questionsAttempted: 0,
+        };
+        unitBuckets.set(rec.unitId, uBucket);
+      }
+      uBucket.attempts += att;
+      uBucket.correct += corr;
+      uBucket.mistakes += mist;
+      uBucket.questionsAttempted += 1;
+    }
+
+    const sid = rec.subjectId || unitMetaMap.get(rec.unitId)?.subjectId;
+    if (sid && subjectBuckets.has(sid)) {
+      const sBucket = subjectBuckets.get(sid);
+      sBucket.attempts += att;
+      sBucket.correct += corr;
+      sBucket.mistakes += mist;
+      sBucket.questionsAttempted += 1;
+    }
+  }
+
+  const finalize = (bucket) => ({
+    ...bucket,
+    accuracyRatio: bucket.attempts > 0 ? bucket.correct / bucket.attempts : null,
+    accuracyPct: bucket.attempts > 0 ? Math.round((bucket.correct * 100) / bucket.attempts) : null,
+  });
+
+  const worstFirstUnitSort = (a, b) =>
+    a.accuracyRatio - b.accuracyRatio ||
+    b.mistakes - a.mistakes ||
+    b.attempts - a.attempts ||
+    String(a.unitId).localeCompare(String(b.unitId));
+
+  const worstFirstSubjectSort = (a, b) =>
+    a.accuracyRatio - b.accuracyRatio ||
+    b.mistakes - a.mistakes ||
+    b.attempts - a.attempts ||
+    String(a.subjectId).localeCompare(String(b.subjectId));
+
+  const units = [...unitBuckets.values()]
+    .filter((u) => u.attempts >= minAttempts)
+    .map(finalize)
+    .sort(worstFirstUnitSort);
+
+  const subjects = [...subjectBuckets.values()]
+    .filter((s) => s.attempts >= minAttempts)
+    .map(finalize)
+    .sort(worstFirstSubjectSort);
+
+  const topWeakUnits = units.slice(0, Math.max(0, topK));
+
+  return {
+    minAttempts,
+    topK,
+    totalAttempts,
+    hasEnoughData: units.length > 0 || subjects.length > 0,
+    topWeakUnits,
+    units,
+    subjects,
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * Adaptive Question Routing & Unit Pool Resolution (Phase 07 · Slice 2)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Determine default Practice Arena routing mode from local independent `questionStats`.
+ * Defaults to `"adaptive"` once >= `minAttempts` (5) independent question attempts exist;
+ * falls back to `"balanced"` below that threshold.
+ */
+export function resolveDefaultRoutingStrategy(
+  questionStats = [],
+  { minAttempts = ADAPTIVE_MIN_ATTEMPTS } = {}
+) {
+  let totalAttempts = 0;
+  for (const rec of questionStats || []) {
+    totalAttempts += Math.max(0, Number(rec?.attemptsCount) || 0);
+  }
+  const adaptiveReady = totalAttempts >= minAttempts;
+  return {
+    strategy: adaptiveReady ? "adaptive" : "balanced",
+    adaptiveReady,
+    totalAttempts,
+    minAttempts,
+  };
+}
+
+/**
+ * Resolve a syllabus unit's active practice pool from `unit.practiceQuestions`
+ * (falling back to `unit.pyqIds`), strictly curated from the 400 verified questions.
+ */
+export function resolveUnitQuestionPool(unit, questionIndex, { filterFn = null } = {}) {
+  if (!unit || !questionIndex) return [];
+  const lookup =
+    questionIndex instanceof Map
+      ? (id) => questionIndex.get(id)
+      : (id) => questionIndex[id];
+
+  const candidateIds =
+    Array.isArray(unit.practiceQuestions) && unit.practiceQuestions.length > 0
+      ? unit.practiceQuestions
+      : Array.isArray(unit.pyqIds)
+      ? unit.pyqIds
+      : [];
+
+  const seen = new Set();
+  const out = [];
+  for (const qId of candidateIds) {
+    if (!qId || seen.has(qId)) continue;
+    seen.add(qId);
+    const q = lookup(qId);
+    if (!q || isVoidedQuestion(q)) continue;
+    if (filterFn && !filterFn(q)) continue;
+    out.push(q);
+  }
+  return out;
+}
+
+/**
+ * Compute strictly positive adaptive selection weight for a question `q`.
+ * Weak units/subjects & missed items get higher weight, while mastered items
+ * keep a positive `ADAPTIVE_MAINTENANCE_FLOOR` so topics are never hard-blocked.
+ */
+export function computeQuestionAdaptiveWeight(
+  question,
+  questionStatsMap = new Map(),
+  unitAccMap = new Map(),
+  subjectAccMap = new Map()
+) {
+  const qStat = questionStatsMap.get(question.id);
+  const uStat = unitAccMap.get(question.unitId);
+  const sStat = subjectAccMap.get(question.subjectId);
+
+  const unitErrorRate =
+    uStat && uStat.attempts > 0 ? 1 - uStat.correct / uStat.attempts : 0.5;
+  const subjectErrorRate =
+    sStat && sStat.attempts > 0 ? 1 - sStat.correct / sStat.attempts : 0.5;
+
+  // Topic weakness factor in [1.0, 3.6]
+  const topicMultiplier = 1 + 2.0 * unitErrorRate + 0.6 * subjectErrorRate;
+
+  let itemMultiplier = 1.3; // unseen item baseline
+  const att = Number(qStat?.attemptsCount) || 0;
+  if (att > 0) {
+    const corr = Math.min(att, Math.max(0, Number(qStat?.correctCount) || 0));
+    const qErr = 1 - corr / att;
+    if (qErr <= 0) {
+      // Mastered item: preserve small maintenance rotation (never 0 / hard-blocked)
+      itemMultiplier = ADAPTIVE_MAINTENANCE_FLOOR;
+    } else {
+      const recentMissBoost =
+        qStat.lastOutcome === "incorrect" || qStat.lastOutcome === "partial" ? 0.8 : 0;
+      itemMultiplier = 1.2 + 2.2 * qErr + recentMissBoost;
+    }
+  }
+
+  return Math.max(
+    ADAPTIVE_MAINTENANCE_FLOOR,
+    Number((topicMultiplier * itemMultiplier).toFixed(4))
+  );
+}
+
+/**
+ * Sample up to `count` questions from `pool` using either `"adaptive"`
+ * (accuracy-weighted without replacement + maintenance floor) or `"balanced"`
+ * (uniform Fisher-Yates random sampling). Automatically falls back to `"balanced"`
+ * when `mode !== "independent"` or fewer than `minAttempts` (5) attempts exist.
+ */
+export function samplePracticeQuestions(
+  pool = [],
+  count = 10,
+  {
+    strategy = "adaptive",
+    mode = "independent",
+    questionStats = [],
+    minAttempts = ADAPTIVE_MIN_ATTEMPTS,
+    rng = Math.random,
+  } = {}
+) {
+  const eligible = (pool || []).filter((q) => q && !isVoidedQuestion(q));
+  const readiness = resolveDefaultRoutingStrategy(questionStats, { minAttempts });
+  const limit = Math.max(0, Math.min(Number(count) || eligible.length, eligible.length));
+
+  const effectiveStrategy =
+    mode === "independent" && strategy === "adaptive" && readiness.adaptiveReady
+      ? "adaptive"
+      : "balanced";
+
+  if (limit === 0) {
+    return {
+      questions: [],
+      effectiveStrategy,
+      adaptiveReady: readiness.adaptiveReady,
+      totalAttempts: readiness.totalAttempts,
+    };
+  }
+
+  if (effectiveStrategy === "balanced") {
+    const copy = [...eligible];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.min(i, Math.max(0, Math.floor(rng() * (i + 1))));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return {
+      questions: copy.slice(0, limit),
+      effectiveStrategy: "balanced",
+      adaptiveReady: readiness.adaptiveReady,
+      totalAttempts: readiness.totalAttempts,
+    };
+  }
+
+  // Build accuracy lookup maps from recorded independent questionStats
+  const statMap = new Map();
+  const unitAccMap = new Map();
+  const subjAccMap = new Map();
+
+  for (const rec of questionStats || []) {
+    if (!rec || !rec.questionId) continue;
+    statMap.set(rec.questionId, rec);
+    const att = Number(rec.attemptsCount) || 0;
+    if (att <= 0) continue;
+    const corr = Math.min(att, Math.max(0, Number(rec.correctCount) || 0));
+
+    if (rec.unitId) {
+      const prevU = unitAccMap.get(rec.unitId) || { attempts: 0, correct: 0 };
+      prevU.attempts += att;
+      prevU.correct += corr;
+      unitAccMap.set(rec.unitId, prevU);
+    }
+    if (rec.subjectId) {
+      const prevS = subjAccMap.get(rec.subjectId) || { attempts: 0, correct: 0 };
+      prevS.attempts += att;
+      prevS.correct += corr;
+      subjAccMap.set(rec.subjectId, prevS);
+    }
+  }
+
+  const remaining = eligible.map((q) => ({
+    q,
+    weight: computeQuestionAdaptiveWeight(q, statMap, unitAccMap, subjAccMap),
+  }));
+
+  const picked = [];
+  for (let k = 0; k < limit && remaining.length > 0; k++) {
+    let totalW = 0;
+    for (const item of remaining) totalW += item.weight;
+
+    let threshold = rng() * totalW;
+    let chosenIdx = remaining.length - 1;
+    for (let idx = 0; idx < remaining.length; idx++) {
+      threshold -= remaining[idx].weight;
+      if (threshold <= 0) {
+        chosenIdx = idx;
+        break;
+      }
+    }
+    picked.push(remaining[chosenIdx].q);
+    remaining.splice(chosenIdx, 1);
+  }
+
+  return {
+    questions: picked,
+    effectiveStrategy: "adaptive",
+    adaptiveReady: true,
+    totalAttempts: readiness.totalAttempts,
+  };
+}
+
+/* ------------------------------------------------------------------ *
  * Aggregated Honest Dashboard & Subject Snapshot
  * ------------------------------------------------------------------ */
 export async function computeHubSnapshot(manifest) {
@@ -325,14 +904,15 @@ export async function computeHubSnapshot(manifest) {
   ]);
 
   const nowMs = Date.now();
-  const nowIso = new Date(nowMs).toISOString();
 
   const streakDays = computeStreakDays(
     attempts.map((a) => a.submittedAt),
     nowMs
   );
 
-  const officialStats = qStats.filter((s) => (s.sourceType || "official-pyq") === "official-pyq");
+  const officialStats = qStats.filter(
+    (s) => (s.sourceType || "official-pyq") === "official-pyq" && (s.attemptsCount || 0) > 0
+  );
   const officialPyqsPracticed = officialStats.length;
   const totalOfficialPyqs = manifest?.totals?.questions || 400;
 
@@ -364,12 +944,9 @@ export async function computeHubSnapshot(manifest) {
     }
   }
 
-  // Due mistakes in Leitner queue
-  const dueMistakes = qStats.filter(
-    (s) =>
-      (s.mistakeCount || 0) > 0 &&
-      (s.leitnerBox === 0 || !s.nextReviewAt || s.nextReviewAt <= nowIso)
-  );
+  // Spaced Mistake Notebook (due + scheduled + graduated)
+  const mistakeQueue = computeMistakeQueueState(qStats, nowMs);
+  const dueMistakes = mistakeQueue.dueMistakes;
 
   // Per-subject mastery (combined unit revision + independent PYQ practice)
   const unitMap = new Map(unitRows.map((u) => [u.unitId, u]));
@@ -417,11 +994,21 @@ export async function computeHubSnapshot(manifest) {
     .filter((u) => u.lastVisitedAt || u.updatedAt)
     .sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
 
+  const weakAreas = computeWeakAreas(qStats, manifestUnits);
+  const routingInfo = resolveDefaultRoutingStrategy(qStats);
+  const readiness = computeReadinessEstimate({
+    attempts,
+    questionStats: qStats,
+    totalUnits: manifestUnits.length || 42,
+    totalQuestions: totalOfficialPyqs,
+  });
+
   return {
     meta,
     activeSession: sessions[0] || null,
     activeSessions: sessions,
     attempts,
+    questionStats: qStats,
     streakDays,
     officialPyqsPracticed,
     totalOfficialPyqs,
@@ -429,11 +1016,177 @@ export async function computeHubSnapshot(manifest) {
     mockBestTwelfths,
     paperBestMap,
     dueMistakes,
+    mistakeQueue,
+    weakAreas,
+    routingInfo,
+    readiness,
     subjectStats,
     unitMap,
     roadmapUnit,
     savedBookmarks,
     bookmarkRows,
     recentlyVisitedUnits,
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * Readiness Snapshot (Phase 07 · Slice 4 — Estimate Only)
+ * ------------------------------------------------------------------ */
+
+export const READINESS_MIN_ATTEMPTS = 5;
+
+/**
+ * Computes an honest, local-only study readiness estimate from independent
+ * attempt history — NEVER a prediction or guarantee of exam score/GMR.
+ *
+ * Breakdown:
+ *  - totalQuestionAttempts & sessionCount (independent only)
+ *  - averageAccuracyPct (totalCorrect / totalQuestionAttempts)
+ *  - coverage across 42 syllabus units & 400 official PYQs
+ *  - trend ("improving" | "flat" | "declining" | "insufficient") across recent independent sessions
+ */
+export function computeReadinessEstimate({
+  attempts = [],
+  questionStats = [],
+  totalUnits = 42,
+  totalQuestions = 400,
+  minAttempts = READINESS_MIN_ATTEMPTS,
+} = {}) {
+  const safeStats = Array.isArray(questionStats) ? questionStats : [];
+  const safeAttempts = Array.isArray(attempts) ? attempts : [];
+
+  let totalQuestionAttempts = 0;
+  let totalCorrect = 0;
+  const coveredUnits = new Set();
+  let officialAttemptedCount = 0;
+
+  for (const s of safeStats) {
+    if (!s) continue;
+    const att = Math.max(0, Number(s.attemptsCount) || 0);
+    if (att <= 0) continue;
+    const corr = Math.min(att, Math.max(0, Number(s.correctCount) || 0));
+    totalQuestionAttempts += att;
+    totalCorrect += corr;
+    if (s.unitId) coveredUnits.add(s.unitId);
+    if ((s.sourceType || "official-pyq") === "official-pyq") {
+      officialAttemptedCount += 1;
+    }
+  }
+
+  const averageAccuracyPct =
+    totalQuestionAttempts > 0
+      ? Math.round((totalCorrect * 100) / totalQuestionAttempts)
+      : null;
+
+  const unitsCovered = Math.min(totalUnits, coveredUnits.size);
+  const unitCoveragePct =
+    totalUnits > 0 ? Math.round((unitsCovered * 100) / totalUnits) : 0;
+
+  const questionsCovered = Math.min(totalQuestions, officialAttemptedCount);
+  const questionCoveragePct =
+    totalQuestions > 0 ? Math.round((questionsCovered * 100) / totalQuestions) : 0;
+
+  // Independent session accuracy trend (oldest -> newest across up to last 6 scored sessions)
+  const independentSessions = safeAttempts
+    .filter((a) => a && a.mode === "independent")
+    .slice()
+    .sort((a, b) => String(a.submittedAt || "").localeCompare(String(b.submittedAt || "")));
+
+  const scoredSessions = independentSessions
+    .map((a) => {
+      const c = a.counts || {};
+      const answered = (c.correct || 0) + (c.partial || 0) + (c.incorrect || 0);
+      if (answered <= 0) return null;
+      return {
+        submittedAt: a.submittedAt,
+        accRatio: (c.correct || 0) / answered,
+      };
+    })
+    .filter(Boolean);
+
+  let trend = "insufficient";
+  let trendDeltaPct = null;
+  let trendLabel = "Practice more to establish trend";
+
+  if (scoredSessions.length >= 2) {
+    const windowSessions = scoredSessions.slice(-6);
+    const splitIdx = Math.floor(windowSessions.length / 2);
+    const firstHalf = windowSessions.slice(0, splitIdx);
+    const secondHalf = windowSessions.slice(splitIdx);
+    const mean = (arr) => arr.reduce((acc, x) => acc + x.accRatio, 0) / arr.length;
+    const earlierAcc = mean(firstHalf);
+    const recentAcc = mean(secondHalf);
+    trendDeltaPct = Math.round((recentAcc - earlierAcc) * 100);
+    if (trendDeltaPct >= 5) {
+      trend = "improving";
+      trendLabel = `Improving (+${trendDeltaPct}%)`;
+    } else if (trendDeltaPct <= -5) {
+      trend = "declining";
+      trendLabel = `Dipping (${trendDeltaPct}%)`;
+    } else {
+      trend = "flat";
+      trendLabel = `Flat (${trendDeltaPct >= 0 ? "+" : ""}${trendDeltaPct}%)`;
+    }
+  } else if (scoredSessions.length === 1) {
+    trend = "flat";
+    trendDeltaPct = 0;
+    trendLabel = "Flat (1 session baseline)";
+  }
+
+  const hasEnoughData = totalQuestionAttempts >= minAttempts;
+
+  if (!hasEnoughData) {
+    return {
+      minAttempts,
+      hasEnoughData: false,
+      estimatePct: null,
+      stageLabel: "Insufficient data",
+      sessionCount: independentSessions.length,
+      totalQuestionAttempts,
+      totalCorrect,
+      averageAccuracyPct,
+      unitsCovered,
+      totalUnits,
+      unitCoveragePct,
+      questionsCovered,
+      totalQuestions,
+      questionCoveragePct,
+      trend: "insufficient",
+      trendDeltaPct: null,
+      trendLabel: "Need more attempts",
+    };
+  }
+
+  const trendBonus = trend === "improving" ? 5 : trend === "flat" ? 2.5 : 0;
+  const rawEstimate =
+    (averageAccuracyPct || 0) * 0.5 +
+    unitCoveragePct * 0.25 +
+    questionCoveragePct * 0.2 +
+    trendBonus;
+  const estimatePct = Math.max(0, Math.min(100, Math.round(rawEstimate)));
+
+  let stageLabel = "Early Foundation";
+  if (estimatePct >= 80) stageLabel = "Broad Revision";
+  else if (estimatePct >= 60) stageLabel = "Expanding Mastery";
+  else if (estimatePct >= 35) stageLabel = "Building Coverage";
+
+  return {
+    minAttempts,
+    hasEnoughData: true,
+    estimatePct,
+    stageLabel,
+    sessionCount: independentSessions.length,
+    totalQuestionAttempts,
+    totalCorrect,
+    averageAccuracyPct,
+    unitsCovered,
+    totalUnits,
+    unitCoveragePct,
+    questionsCovered,
+    totalQuestions,
+    questionCoveragePct,
+    trend,
+    trendDeltaPct,
+    trendLabel,
   };
 }

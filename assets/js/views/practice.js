@@ -17,6 +17,7 @@
 import {
   loadManifest,
   loadAllPapers,
+  loadAllUnits,
   loadAllPracticeSets,
   getQuestionIndex,
   loadSolutionForQuestion,
@@ -29,13 +30,22 @@ import {
   SUBJECT_META,
 } from "../core/scoring.js";
 import {
+  ADAPTIVE_MIN_ATTEMPTS,
+  MISTAKE_GRADUATION_THRESHOLD,
   computeHubSnapshot,
   createSession,
+  createMistakeRedrillSession,
   getSession,
   saveSession,
   submitSessionToAttempt,
   getBookmarksMap,
   toggleBookmark,
+  getQuestionStatsMap,
+  toggleMistakeFlag,
+  isMistakeRecordActive,
+  resolveDefaultRoutingStrategy,
+  resolveUnitQuestionPool,
+  samplePracticeQuestions,
 } from "../core/stats.js";
 import {
   $,
@@ -52,9 +62,10 @@ import {
 export async function renderPracticeArena(main, query) {
   main.innerHTML = `<div class="view"><p class="view__placeholder">Loading Practice Arena…</p></div>`;
 
-  const [manifest, papers, practiceSets] = await Promise.all([
+  const [manifest, papers, allUnits, practiceSets] = await Promise.all([
     loadManifest(),
     loadAllPapers(),
+    loadAllUnits(),
     loadAllPracticeSets(),
   ]);
   const snapshot = await computeHubSnapshot(manifest);
@@ -67,9 +78,23 @@ export async function renderPracticeArena(main, query) {
       ? manifest.units.find((u) => u.unitId === initialUnit)?.subjectId || "ALL"
       : "ALL");
 
+  const routingDefaults = resolveDefaultRoutingStrategy(snapshot.questionStats);
+  const requestedRouting = query?.get("routing")?.toLowerCase();
+
   let mode = query?.get("mode") === "assisted" ? "assisted" : "independent";
+  let routingStrategy =
+    requestedRouting === "balanced"
+      ? "balanced"
+      : requestedRouting === "adaptive" && routingDefaults.adaptiveReady
+      ? "adaptive"
+      : routingDefaults.strategy; // "adaptive" (>=5 attempts) | "balanced" (<5 attempts)
   let sourceFilter = "official-pyq"; // "official-pyq" | "curated-practice" | "combined"
-  let expandedPanel = initialUnit !== "ALL" ? "drill" : null; // "drill" | "exam" | "sets" | null
+  let expandedPanel =
+    initialUnit !== "ALL"
+      ? "drill"
+      : query?.get("panel") === "mistake"
+      ? "mistake"
+      : null; // "drill" | "exam" | "sets" | "mistake" | null
 
   let drillSubject = initialSubject;
   let drillUnit = initialUnit;
@@ -77,7 +102,16 @@ export async function renderPracticeArena(main, query) {
   let drillCount = 10;
 
   const allPyqs = papers.flatMap((p) => p.questions);
+  const pyqById = new Map(allPyqs.map((q) => [q.id, q]));
+  const unitById = new Map(allUnits.map((u) => [u.unitId, u]));
   const allPracticeQs = practiceSets.flatMap((s) => s.questions || []);
+  const allQuestionsMap = new Map([...allPyqs, ...allPracticeQs].map((q) => [q.id, q]));
+
+  function getEffectiveRouting() {
+    if (mode !== "independent") return "balanced";
+    if (routingStrategy === "adaptive" && routingDefaults.adaptiveReady) return "adaptive";
+    return "balanced";
+  }
 
   function getSourcePool() {
     if (sourceFilter === "official-pyq") return allPyqs;
@@ -88,11 +122,26 @@ export async function renderPracticeArena(main, query) {
   const root = el(`
     <div class="view stack-m">
       <!-- Top Segmented Pill Toggle (04-practice-options.png) -->
-      <div class="segmented" role="tablist" aria-label="Practice assistance mode">
+      <div class="segmented" id="practiceAssistSegmented" role="tablist" aria-label="Practice assistance mode">
         <button type="button" class="segmented__opt is-active" data-mode="independent">Independent</button>
         <button type="button" class="segmented__opt" data-mode="assisted">With assistance</button>
       </div>
       <p class="card__meta" id="practiceModeNote" style="margin-top:calc(-1 * var(--space-xs))"></p>
+
+      <!-- Adaptive vs Balanced Question Routing Toggle (Phase 07 · Slice 2) -->
+      <div class="card card--subtle stack-xs practice-routing-bar" id="practiceRoutingCard">
+        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+          <div class="cluster-xs">
+            <strong>Question Routing</strong>
+            <span class="pill mono" id="practiceRoutingBadge"></span>
+          </div>
+          <div class="segmented segmented--compact" id="practiceRoutingToggle" role="tablist" aria-label="Question routing strategy">
+            <button type="button" class="segmented__opt" data-routing="adaptive">Adaptive</button>
+            <button type="button" class="segmented__opt" data-routing="balanced">Balanced</button>
+          </div>
+        </div>
+        <p class="card__meta" id="practiceRoutingNote"></p>
+      </div>
 
       <!-- Question Source Filter Chips -->
       <div class="chip-row" id="practiceSourceChips" aria-label="Question source"></div>
@@ -112,13 +161,44 @@ export async function renderPracticeArena(main, query) {
   main.appendChild(root);
 
   function syncModeButtons() {
-    root.querySelectorAll(".segmented__opt").forEach((btn) => {
+    root.querySelectorAll("#practiceAssistSegmented .segmented__opt").forEach((btn) => {
       btn.classList.toggle("is-active", btn.dataset.mode === mode);
     });
     $("#practiceModeNote", root).textContent =
       mode === "independent"
         ? "Independent mode: Answers checked on submit. Updates your true accuracy & Spaced Mistake Queue."
         : "With assistance: Immediate option feedback, concept hints, SymPy steps & Codec AI Tutor unlocked (tracked separately).";
+
+    const effRouting = getEffectiveRouting();
+    root.querySelectorAll("#practiceRoutingToggle .segmented__opt").forEach((btn) => {
+      const isSelected = btn.dataset.routing === effRouting;
+      btn.classList.toggle("is-active", isSelected);
+      btn.setAttribute("aria-selected", String(isSelected));
+      btn.disabled = mode !== "independent";
+    });
+
+    const badgeEl = $("#practiceRoutingBadge", root);
+    const noteEl = $("#practiceRoutingNote", root);
+    if (mode !== "independent") {
+      badgeEl.className = "pill mono";
+      badgeEl.textContent = "Balanced (Assisted)";
+      noteEl.textContent =
+        "With assistance uses Balanced sampling so every topic can be explored with hints.";
+    } else if (!routingDefaults.adaptiveReady) {
+      badgeEl.className = "pill mono";
+      badgeEl.textContent = `${routingDefaults.totalAttempts}/${ADAPTIVE_MIN_ATTEMPTS} attempts`;
+      noteEl.textContent = `Balanced active — solve ${ADAPTIVE_MIN_ATTEMPTS - routingDefaults.totalAttempts} more independent question${ADAPTIVE_MIN_ATTEMPTS - routingDefaults.totalAttempts === 1 ? "" : "s"} to auto-unlock Adaptive weak-area weighting.`;
+    } else if (effRouting === "adaptive") {
+      badgeEl.className = "badge badge--brand mono";
+      badgeEl.textContent = `Adaptive · ${routingDefaults.totalAttempts} attempts`;
+      noteEl.textContent =
+        "Weights questions toward weak units & missed PYQs while keeping a maintenance rotation of mastered topics.";
+    } else {
+      badgeEl.className = "pill mono";
+      badgeEl.textContent = `Balanced · ${routingDefaults.totalAttempts} attempts`;
+      noteEl.textContent =
+        "Uniform random sampling across your selected syllabus pool (switch to Adaptive anytime).";
+    }
   }
 
   function renderSourceChips() {
@@ -180,6 +260,24 @@ export async function renderPracticeArena(main, query) {
   }
 
   function getFilteredDrillPool() {
+    // Reuse canonical unit.practiceQuestions / unit.pyqIds mapping for unit-scoped drills
+    if (drillUnit !== "ALL" && sourceFilter !== "curated-practice") {
+      const unitObj = unitById.get(drillUnit);
+      const unitPyqPool = resolveUnitQuestionPool(unitObj, pyqById, {
+        filterFn: (q) => drillYear === "ALL" || String(q.year) === drillYear,
+      });
+      if (sourceFilter === "official-pyq") {
+        return unitPyqPool;
+      }
+      const extraUnitPool = allPracticeQs.filter(
+        (q) =>
+          !isVoidedQuestion(q) &&
+          q.unitId === drillUnit &&
+          (drillYear === "ALL" || String(q.year) === drillYear)
+      );
+      return [...unitPyqPool, ...extraUnitPool];
+    }
+
     return getSourcePool().filter((q) => {
       if (isVoidedQuestion(q)) return false; // Exclude voided items from custom topic drills so every item has active options
       if (drillSubject !== "ALL" && q.subjectId !== drillSubject) return false;
@@ -256,7 +354,7 @@ export async function renderPracticeArena(main, query) {
             </label>
           </div>
           <button type="button" class="btn btn--primary btn--block" id="launchDrillBtn" style="margin-top:var(--space-s)">
-            ${icon("icon-play")} Start Drill (${Math.min(drillCount, drillMatching.length)} Qs · ${mode === "assisted" ? "With Assistance" : "Independent"})
+            ${icon("icon-play")} Start ${getEffectiveRouting() === "adaptive" ? "Adaptive " : ""}Drill (${Math.min(drillCount, drillMatching.length)} Qs · ${mode === "assisted" ? "With Assistance" : "Independent"})
           </button>
         </div>
       </div>
@@ -284,14 +382,19 @@ export async function renderPracticeArena(main, query) {
       renderModeCards();
     });
     $("#launchDrillBtn", drillCard)?.addEventListener("click", () => {
-      const selectedQs = drillMatching.slice(0, drillCount);
+      const sampled = samplePracticeQuestions(drillMatching, drillCount, {
+        strategy: routingStrategy,
+        mode,
+        questionStats: snapshot.questionStats,
+      });
+      const prefix = sampled.effectiveStrategy === "adaptive" ? "Adaptive" : "Balanced";
       const label =
         drillUnit !== "ALL"
-          ? `Unit ${drillUnit} Topic Drill`
+          ? `Unit ${drillUnit} ${prefix} Drill`
           : drillSubject !== "ALL"
-          ? `${SUBJECT_META[drillSubject]?.name || drillSubject} Drill`
-          : "Mixed Syllabus Topic Drill";
-      startPracticeSession({ kind: "drill", title: label, pool: selectedQs });
+          ? `${SUBJECT_META[drillSubject]?.name || drillSubject} ${prefix} Drill`
+          : `Mixed Syllabus ${prefix} Drill`;
+      startPracticeSession({ kind: "drill", title: label, pool: sampled.questions });
     });
     slot.appendChild(drillCard);
 
@@ -309,11 +412,15 @@ export async function renderPracticeArena(main, query) {
       </div>
     `);
     $("#startCat2Btn", cat2Card).addEventListener("click", () => {
-      const sample = cat2Pool.slice(0, 15);
+      const sampled = samplePracticeQuestions(cat2Pool, 15, {
+        strategy: routingStrategy,
+        mode,
+        questionStats: snapshot.questionStats,
+      });
       startPracticeSession({
         kind: "cat2",
-        title: "Category-II Multi-Correct Mastery (15 Qs)",
-        pool: sample,
+        title: `Category-II Multi-Correct Mastery (${sampled.questions.length} Qs)`,
+        pool: sampled.questions,
       });
     });
     slot.appendChild(cat2Card);
@@ -417,39 +524,150 @@ export async function renderPracticeArena(main, query) {
     });
     slot.appendChild(examCard);
 
-    // 5. Spaced Mistake Queue (replaces mockup's non-existent "Live Study Room")
+    // 5. Spaced Mistake Notebook (Phase 07 · Slice 3: 1d/3d/7d spaced schedule + N=2 graduation + 1-tap re-drill)
+    const scheduledMistakes = snapshot.mistakeQueue?.scheduledMistakes || [];
+    const graduatedMistakes = snapshot.mistakeQueue?.graduatedMistakes || [];
+    const activeMistakeCount = dueCount + scheduledMistakes.length;
+
     const mistakeCard = el(`
-      <div class="card">
-        <button type="button" class="mode-card-btn" id="startMistakeQueueBtn">
+      <div class="card stack-s">
+        <button type="button" class="mode-card-btn" id="toggleMistakePanel">
           <span class="mode-card-btn__icon">${icon("icon-refresh")}</span>
           <span class="mode-card-btn__body">
-            <span class="mode-card-btn__title">Spaced Mistake Queue</span>
+            <span class="mode-card-btn__title">Spaced Mistake Notebook</span>
             <span class="mode-card-btn__desc">${
               dueCount > 0
-                ? `${dueCount} missed/partial question(s) due today in Leitner review`
-                : "0 questions due today — solve an Independent drill or mock to populate"
+                ? `${dueCount} due now · ${scheduledMistakes.length} scheduled (1d/3d/7d) · graduates at ${MISTAKE_GRADUATION_THRESHOLD}/2 correct`
+                : scheduledMistakes.length > 0
+                ? `0 due now · ${scheduledMistakes.length} scheduled on 1d/3d/7d review intervals`
+                : "0 active mistakes — missed independent answers or flagged items queue here"
             }</span>
           </span>
-          <span class="badge ${dueCount > 0 ? "badge--partial" : "badge--brand"}">${dueCount} due</span>
+          <div class="cluster-xs">
+            <span class="badge ${dueCount > 0 ? "badge--partial" : "badge--brand"} mono">${dueCount} due</span>
+            ${icon(expandedPanel === "mistake" ? "icon-chevron-down" : "icon-chevron")}
+          </div>
         </button>
+
+        <div class="mode-config stack-s" ${expandedPanel === "mistake" ? "" : "hidden"}>
+          ${
+            dueCount > 0
+              ? `<button type="button" class="btn btn--primary btn--block" id="startMistakeQueueBtn">
+                   ${icon("icon-play")} Re-drill All Due (${Math.min(dueCount, 20)} Q${dueCount === 1 ? "" : "s"})
+                 </button>`
+              : ""
+          }
+          <div id="arenaMistakeDueList" class="stack-xs"></div>
+          ${
+            scheduledMistakes.length > 0
+              ? `<details class="tiebreak-details">
+                   <summary>Scheduled Upcoming Reviews (${scheduledMistakes.length})</summary>
+                   <div class="stack-xs" style="margin-top:var(--space-s)" id="arenaMistakeScheduledList"></div>
+                 </details>`
+              : ""
+          }
+          ${
+            activeMistakeCount === 0
+              ? `<p class="card__meta">Your active mistake queue is clear${graduatedMistakes.length ? ` (${graduatedMistakes.length} question${graduatedMistakes.length === 1 ? "" : "s"} graduated after ${MISTAKE_GRADUATION_THRESHOLD} correct re-drills)` : ""}. Solve an Independent drill/mock or flag any tricky question in Results to schedule spaced re-drills.</p>`
+              : ""
+          }
+        </div>
       </div>
     `);
-    $("#startMistakeQueueBtn", mistakeCard).addEventListener("click", async () => {
-      if (dueCount === 0) {
-        showToast("Mistake Queue is clear! Take an Independent drill or mock first.");
-        return;
-      }
-      const qIndex = await getQuestionIndex();
+
+    $("#toggleMistakePanel", mistakeCard).addEventListener("click", () => {
+      expandedPanel = expandedPanel === "mistake" ? null : "mistake";
+      renderModeCards();
+    });
+
+    $("#startMistakeQueueBtn", mistakeCard)?.addEventListener("click", async () => {
       const dueQs = snapshot.dueMistakes
-        .map((r) => qIndex.get(r.questionId))
+        .map((r) => allQuestionsMap.get(r.questionId))
         .filter(Boolean)
         .slice(0, 20);
-      await startPracticeSession({
-        kind: "mistake",
+      if (!dueQs.length) return;
+      const sess = await createMistakeRedrillSession({
+        questions: dueQs,
+        mistakeRecords: snapshot.dueMistakes,
         title: `Spaced Mistake Review (${dueQs.length} Qs)`,
-        pool: dueQs,
       });
+      location.hash = `#/practice-run/${sess.sessionId}`;
     });
+
+    const dueListEl = $("#arenaMistakeDueList", mistakeCard);
+    if (dueListEl && dueCount > 0) {
+      for (const rec of snapshot.dueMistakes.slice(0, 12)) {
+        const q = allQuestionsMap.get(rec.questionId);
+        if (!q) continue;
+        const streak = rec.consecutiveCorrect ?? rec.leitnerBox ?? 0;
+        const lastStr = rec.lastAttemptAt
+          ? new Date(rec.lastAttemptAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })
+          : null;
+        const qLabel = q.year ? `JELET ${q.year} · Q${q.qNumber}` : q.id;
+        const row = el(`
+          <div class="mistake-notebook-item">
+            <div class="mistake-notebook-item__info">
+              <div class="cluster-xs">
+                <strong class="mono" style="font-size:var(--fs-caption)">${escapeHtml(qLabel)}</strong>
+                ${subjectBadgeHtml(q.subjectId)}
+                <span class="mono pill">${escapeHtml(q.unitId)}</span>
+                ${rec.flaggedAsMistake ? `<span class="badge badge--review">Flagged</span>` : ""}
+              </div>
+              <span class="card__meta mono">
+                ${rec.attemptsCount || 0} attempt${(rec.attemptsCount || 0) === 1 ? "" : "s"}${lastStr ? ` · Last ${escapeHtml(lastStr)}` : ""} · ${streak}/${MISTAKE_GRADUATION_THRESHOLD} to graduate
+              </span>
+            </div>
+            <button type="button" class="btn btn--primary btn--sm js-arena-redrill-one" data-qid="${escapeHtml(q.id)}">
+              ${icon("icon-play")} Re-drill
+            </button>
+          </div>
+        `);
+        $(".js-arena-redrill-one", row).addEventListener("click", async () => {
+          const sess = await createMistakeRedrillSession({
+            questions: [q],
+            mistakeRecords: [rec],
+          });
+          location.hash = `#/practice-run/${sess.sessionId}`;
+        });
+        dueListEl.appendChild(row);
+      }
+    }
+
+    const schedListEl = $("#arenaMistakeScheduledList", mistakeCard);
+    if (schedListEl && scheduledMistakes.length > 0) {
+      for (const rec of scheduledMistakes.slice(0, 12)) {
+        const q = allQuestionsMap.get(rec.questionId);
+        if (!q) continue;
+        const dueDateStr = rec.nextReviewAt
+          ? new Date(rec.nextReviewAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })
+          : "Upcoming";
+        const streak = rec.consecutiveCorrect ?? rec.leitnerBox ?? 0;
+        const qLabel = q.year ? `JELET ${q.year} · Q${q.qNumber}` : q.id;
+        const row = el(`
+          <div class="mistake-notebook-item">
+            <div class="mistake-notebook-item__info">
+              <div class="cluster-xs">
+                <strong class="mono" style="font-size:var(--fs-caption)">${escapeHtml(qLabel)}</strong>
+                ${subjectBadgeHtml(q.subjectId)}
+                <span class="mono pill">Due ${escapeHtml(dueDateStr)}</span>
+              </div>
+              <span class="card__meta mono">${streak}/${MISTAKE_GRADUATION_THRESHOLD} correct · ${rec.attemptsCount || 0} attempt(s)</span>
+            </div>
+            <button type="button" class="btn btn--ghost btn--sm js-arena-redrill-sched" data-qid="${escapeHtml(q.id)}">
+              Re-drill
+            </button>
+          </div>
+        `);
+        $(".js-arena-redrill-sched", row).addEventListener("click", async () => {
+          const sess = await createMistakeRedrillSession({
+            questions: [q],
+            mistakeRecords: [rec],
+          });
+          location.hash = `#/practice-run/${sess.sessionId}`;
+        });
+        schedListEl.appendChild(row);
+      }
+    }
     slot.appendChild(mistakeCard);
   }
 
@@ -480,9 +698,26 @@ export async function renderPracticeArena(main, query) {
     }
   }
 
-  root.querySelectorAll(".segmented__opt").forEach((btn) => {
+  root.querySelectorAll("#practiceAssistSegmented .segmented__opt").forEach((btn) => {
     btn.addEventListener("click", () => {
       mode = btn.dataset.mode;
+      syncModeButtons();
+      renderModeCards();
+    });
+  });
+
+  root.querySelectorAll("#practiceRoutingToggle .segmented__opt").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (mode !== "independent") return;
+      const target = btn.dataset.routing;
+      if (target === "adaptive" && !routingDefaults.adaptiveReady) {
+        routingStrategy = "balanced";
+        showToast(
+          `Solve ${ADAPTIVE_MIN_ATTEMPTS - routingDefaults.totalAttempts} more independent question(s) to unlock Adaptive routing.`
+        );
+      } else {
+        routingStrategy = target;
+      }
       syncModeButtons();
       renderModeCards();
     });
@@ -530,7 +765,10 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
     return;
   }
 
-  let bookmarksMap = await getBookmarksMap();
+  let [bookmarksMap, qStatsMap] = await Promise.all([
+    getBookmarksMap(),
+    getQuestionStatsMap(),
+  ]);
 
   let currentIndex = Math.min(Math.max(0, session.currentIndex || 0), questions.length - 1);
   const responses = { ...(session.responses || {}) };
@@ -581,7 +819,24 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
     const isCat2 = q.category === 2;
     const isRevealed = revealedSet.has(q.id);
     const isBkm = Boolean(bookmarksMap.get(q.id)?.bookmarked);
+    const liveStat = qStatsMap.get(q.id);
+    const isFlaggedMistake = Boolean(liveStat?.flaggedAsMistake);
     const unitTitle = unitTitleMap.get(q.unitId) || q.unitId;
+
+    const priorCtx =
+      session.mistakeContext?.[q.id] ||
+      (session.kind === "mistake" && liveStat
+        ? {
+            previousSelected: liveStat.lastMistakeSelected?.length
+              ? liveStat.lastMistakeSelected
+              : liveStat.lastSelected || [],
+            lastOutcome: liveStat.lastMistakeOutcome || liveStat.lastOutcome || null,
+            lastAttemptAt: liveStat.lastAttemptAt || null,
+            attemptsCount: liveStat.attemptsCount || 0,
+            consecutiveCorrect: liveStat.consecutiveCorrect ?? liveStat.leitnerBox ?? 0,
+            flaggedAsMistake: Boolean(liveStat.flaggedAsMistake),
+          }
+        : null);
 
     $("#pracProgressPill", root).textContent = `${currentIndex + 1} / ${questions.length}`;
     $("#pracProgressBar", root).style.width = `${Math.round(((currentIndex + 1) * 100) / questions.length)}%`;
@@ -627,6 +882,32 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
       })
       .join("");
 
+    let mistakeBannerHtml = "";
+    if (priorCtx) {
+      const prevPickText = priorCtx.previousSelected?.length
+        ? `Previous answer: ${priorCtx.previousSelected.join(", ")}${priorCtx.lastOutcome ? ` (${priorCtx.lastOutcome})` : ""}`
+        : priorCtx.flaggedAsMistake
+        ? "Explicitly flagged for spaced review"
+        : "Queued from past mistake";
+      const lastDateText = priorCtx.lastAttemptAt
+        ? ` · Last ${new Date(priorCtx.lastAttemptAt).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+          })}`
+        : "";
+      mistakeBannerHtml = `
+        <div class="mistake-redrill-banner" id="pracMistakeBanner">
+          <div class="cluster-xs">
+            <span class="badge badge--partial">${icon("icon-refresh")} Mistake Re-drill</span>
+            <span class="mono pill">${priorCtx.consecutiveCorrect || 0}/${MISTAKE_GRADUATION_THRESHOLD} correct to graduate</span>
+          </div>
+          <p class="card__meta mono" style="margin:0">
+            ${escapeHtml(prevPickText)} · ${priorCtx.attemptsCount || 0} attempt${(priorCtx.attemptsCount || 0) === 1 ? "" : "s"}${escapeHtml(lastDateText)}
+          </p>
+        </div>
+      `;
+    }
+
     const card = el(`
       <article class="card stack-s">
         <div class="row-between" style="align-items:flex-start">
@@ -636,10 +917,17 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
             <span class="pill">${escapeHtml(q.unitId)} · ${escapeHtml(unitTitle)}</span>
             <span class="badge ${isCat2 ? "badge--partial" : "badge--brand"}">${escapeHtml(categoryLabel(q))}</span>
           </div>
-          <button type="button" class="icon-btn js-prac-bkm" aria-label="Bookmark question" aria-pressed="${isBkm}">
-            ${icon(isBkm ? "icon-bookmark-filled" : "icon-bookmark")}
-          </button>
+          <div class="cluster-xs" style="flex-wrap:nowrap">
+            <button type="button" class="icon-btn js-prac-flag-mistake" title="${isFlaggedMistake ? "Unflag from Mistake Notebook" : "Flag into Mistake Notebook"}" aria-label="Flag question in Mistake Notebook" aria-pressed="${isFlaggedMistake}">
+              ${icon("icon-alert")}
+            </button>
+            <button type="button" class="icon-btn js-prac-bkm" aria-label="Bookmark question" aria-pressed="${isBkm}">
+              ${icon(isBkm ? "icon-bookmark-filled" : "icon-bookmark")}
+            </button>
+          </div>
         </div>
+
+        ${mistakeBannerHtml}
 
         <div class="question-stem">${renderLatex(q.stemLatex, { preserveNewlines: true })}</div>
         ${q.stemFigure?.src ? `<div class="figure-frame" data-stem-figure="true"></div>` : ""}
@@ -661,11 +949,19 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
             <button type="button" class="btn btn--ghost btn--sm" id="pracHintBtn">
               ${icon("icon-spark")} ${isSessionAssisted ? "Hint / AI Tutor" : "Need Hint (Marks Q Assisted)"}
             </button>
+            ${
+              priorCtx && !isRevealed
+                ? `<button type="button" class="btn btn--ghost btn--sm" id="pracPrevSolBtn">
+                     ${icon("icon-layers")} Previous Answer &amp; Solution (Marks Assisted)
+                   </button>`
+                : ""
+            }
           </div>
           ${isRevealed && scoredItem ? outcomeBadgeHtml(scoredItem) : ""}
         </div>
 
         <div id="pracHintBox" hidden></div>
+        <div id="pracPrevSolBox" hidden></div>
         <div id="pracSolutionBox" ${isRevealed ? "" : "hidden"}></div>
       </article>
     `);
@@ -752,6 +1048,58 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
           studentSelected: [...selected],
         });
       });
+    });
+
+    $("#pracPrevSolBtn", card)?.addEventListener("click", async () => {
+      assistedSet.add(q.id);
+      await persist();
+      const sol = await loadSolutionForQuestion(q);
+      const prevBox = $("#pracPrevSolBox", card);
+      prevBox.hidden = false;
+      prevBox.innerHTML = "";
+      const prevPickDisplay = priorCtx?.previousSelected?.length
+        ? priorCtx.previousSelected.join(", ")
+        : "None (Flagged)";
+      prevBox.appendChild(
+        el(`
+          <div class="worked-example" style="margin-bottom:var(--space-xs)">
+            <div class="solution-step__head">Previous Attempt Record</div>
+            <p class="card__meta mono" style="margin:0">
+              Previously given answer: <strong>${escapeHtml(prevPickDisplay)}</strong> · Official Key: <strong>${escapeHtml((q.key?.correct || []).join(", "))}</strong>
+            </p>
+          </div>
+        `)
+      );
+      prevBox.appendChild(
+        buildSolutionBlock(q, sol, {
+          onAskAi: openAiTutor
+            ? (question, solution) =>
+                openAiTutor({
+                  question,
+                  solution,
+                  studentSelected: priorCtx?.previousSelected || [],
+                })
+            : null,
+        })
+      );
+    });
+
+    $(".js-prac-flag-mistake", card).addEventListener("click", async (ev) => {
+      const btn = ev.currentTarget;
+      const updated = await toggleMistakeFlag(q);
+      qStatsMap = await getQuestionStatsMap();
+      const nowFlagged = Boolean(updated?.flaggedAsMistake);
+      btn.setAttribute("aria-pressed", String(nowFlagged));
+      btn.title = nowFlagged
+        ? "Unflag from Mistake Notebook"
+        : "Flag into Mistake Notebook";
+      showToast(
+        nowFlagged
+          ? "Added to Spaced Mistake Notebook"
+          : isMistakeRecordActive(updated)
+          ? "Manual flag cleared (past mistake still in queue)"
+          : "Removed from Spaced Mistake Notebook"
+      );
     });
 
     $(".js-prac-bkm", card).addEventListener("click", async (ev) => {
