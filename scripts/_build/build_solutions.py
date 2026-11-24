@@ -12,6 +12,7 @@ from s2025_batch2 import S2025_B2
 from s2025_batch3 import S2025_B3
 from s2025_batch4 import S2025_B4
 from s2024_batchA import S2024_A
+from s2024_batchB import S2024_B
 
 # Solution data: {qNumber: (conceptSummary, steps[list of (title, bodyLatex)], verified, note)}
 S2024 = {
@@ -233,6 +234,7 @@ S2024 = {
 }
 
 S2024.update(S2024_A)
+S2024.update(S2024_B)
 
 S2025 = {
 # Q1–Q25: hand-written, SymPy-verified derivations live in s2025_batch1.py (merged below).

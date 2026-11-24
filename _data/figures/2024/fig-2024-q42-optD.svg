@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 90" width="320" height="90" role="img" aria-label="Graph (D): v_x–t rises linearly from zero to a peak and falls back to zero; v_y–t horizontal line">
+  <rect x="0" y="0" width="320" height="90" fill="transparent"/>
+  <polyline data-role="x-t" points="34.0,78.0 90.0,31.2 143.8,78.0" stroke="var(--fig-primary)" stroke-width="1.5" fill="none"/>
+  <line x1="34" y1="78" x2="158" y2="78" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="158,78 151.1,82.0 151.1,74.0" fill="var(--fig-axis)"/>
+  <line x1="34" y1="78" x2="34" y2="10" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="34,10 38.0,16.9 30.0,16.9" fill="var(--fig-axis)"/>
+  <text x="12" y="16" font-family="Times New Roman, serif" font-size="12" font-style="italic" fill="var(--fig-text)" text-anchor="start">v<tspan dy="3" font-size="8">x</tspan></text>
+  <text x="166" y="82" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">t</text>
+  <polyline data-role="y-t" points="184.0,40.8 275.8,40.8" stroke="var(--fig-primary)" stroke-width="1.5" fill="none"/>
+  <line x1="184" y1="78" x2="308" y2="78" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="308,78 301.1,82.0 301.1,74.0" fill="var(--fig-axis)"/>
+  <line x1="184" y1="78" x2="184" y2="10" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="184,10 188.0,16.9 180.0,16.9" fill="var(--fig-axis)"/>
+  <text x="162" y="16" font-family="Times New Roman, serif" font-size="12" font-style="italic" fill="var(--fig-text)" text-anchor="start">v<tspan dy="3" font-size="8">y</tspan></text>
+  <text x="316" y="82" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">t</text>
+</svg>

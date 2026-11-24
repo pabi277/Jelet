@@ -2006,22 +2006,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$[FT^{2}V^{-2}]$",
+          "latex": "$FT^{2}V^{-2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$[FTV^{-1}]$",
+          "latex": "$FTV^{-1}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$[F^{2}T^{-2}V^{2}]$",
+          "latex": "$F^{2}T^{-2}V^{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$[FTV]$",
+          "latex": "$FTV$",
           "figure": null
         }
       ],
@@ -2033,10 +2033,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q41)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "dimensions",
-        "dimensional-analysis"
+        "dimensional-analysis",
+        "basic-quantities"
       ]
     },
     {
@@ -2048,34 +2049,58 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "A particle is thrown with initial speed $u$ at an angle $\\theta$ with the horizontal line. It follows a parabolic path as shown in the figure. Which of the following represents the speed-time graphs ($v_{x}$ and $v_{y}$ are the speed along $x$-axis and $y$-axis, respectively) ?",
+      "stemLatex": "A particle is thrown with initial speed $u$ at an angle $\\theta$ with the horizontal line. It follows a parabolic path as shown in the figure. Which of the following represents the speed-time graphs [$v_{x}$ and $v_{y}$ are the speed along $x$-axis, and y-axis, respectively]",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q42.svg",
-        "alt": "Figure for JELET 2024 Q42",
-        "width": 420,
-        "height": 220,
+        "alt": "Projectile: axes x and y; a velocity arrow u from the origin at angle θ above the x-axis, and the parabolic path rising from the origin and returning to the x-axis",
+        "width": 270,
+        "height": 155,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$v_{x}$ constant, $v_{y}$ linearly varying",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q42-optA.svg",
+            "alt": "Graph (A): left, v_x versus t is a horizontal line (constant); right, v_y versus t falls linearly to zero and then rises linearly (V shape)",
+            "width": 320,
+            "height": 90,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "$v_{x}$ linearly varying, $v_{y}$ constant",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q42-optB.svg",
+            "alt": "Graph (B): left, v_x versus t falls linearly to zero and then rises linearly (V shape); right, v_y versus t is a horizontal line",
+            "width": 320,
+            "height": 90,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "both $v_{x}$ and $v_{y}$ constant",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q42-optC.svg",
+            "alt": "Graph (C): left, v_x versus t is a horizontal line; right, v_y versus t rises linearly from zero to a peak and falls linearly back to zero (triangle)",
+            "width": 320,
+            "height": 90,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "both $v_{x}$ and $v_{y}$ linearly varying",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q42-optD.svg",
+            "alt": "Graph (D): left, v_x versus t rises linearly from zero to a peak and falls back to zero (triangle); right, v_y versus t is a horizontal line",
+            "width": 320,
+            "height": 90,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -2086,11 +2111,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q42)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "kinematics",
         "projectile",
-        "graph"
+        "speed-time-graph",
+        "components"
       ]
     },
     {
@@ -2102,33 +2127,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "A beam of light moving through medium 1 is refracted in another medium 2 as shown in figure. If the wavelength of the light in medium 1 is $\\lambda_{1}$, and in medium 2 is $\\lambda_{2}$, then $\\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}$ equals",
+      "stemLatex": "A beam of light moving through medium 1 is refracted in another medium 2 as shown in figure. If the wavelength of the light in medium 1 is $\\lambda_{1}$ and in medium 2 is $\\lambda_{2}$ then",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q43.svg",
-        "alt": "Figure for JELET 2024 Q43",
-        "width": 420,
-        "height": 220,
+        "alt": "Refraction: a vertical normal and a horizontal interface; medium 1 below and medium 2 above. The incident ray comes up from the lower left making angle α1 with the normal; the refracted ray leaves to the upper right making a larger angle α2 with the normal",
+        "width": 200,
+        "height": 165,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\lambda_{2} = 2\\lambda_{1}$",
+          "latex": "$\\lambda_{1} = \\lambda_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{\\lambda_{2}}{\\lambda_{1}} = \\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}$",
+          "latex": "$\\lambda_{2} = \\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}\\lambda_{1}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{\\cos\\alpha_{2}}{\\cos\\alpha_{1}}$",
+          "latex": "$\\lambda_{2} = \\dfrac{\\sin\\alpha_{1}}{\\sin\\alpha_{2}}\\lambda_{1}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{\\lambda_{2}}{\\lambda_{1}} = \\dfrac{\\sin\\alpha_{2}}{\\sin\\alpha_{1}}$",
+          "latex": "$\\lambda_{2} = \\dfrac{\\cos\\alpha_{2}}{\\cos\\alpha_{1}}\\lambda_{1}$",
           "figure": null
         }
       ],
@@ -2140,10 +2165,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q43)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "refraction",
-        "snells-law",
+        "snell-law",
         "wavelength"
       ]
     },
@@ -2188,11 +2213,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q44)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "elasticity",
         "stress",
-        "tensile"
+        "elasticity"
       ]
     },
     {
@@ -2204,8 +2228,14 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A particle moves with constant speed $v$ along a circle of radius $R$. If the angular momentum of the particle about centre $C$ is $L_{C}$, and about a point $O$ is $L_{O}$, then $\\dfrac{L_{C}}{L_{O}}$",
-      "stemFigure": null,
+      "stemLatex": "A particle moves with constant speed $v$ along a circle of radius $R$. If the angular momentum of the particle about centre $C$ is $L_{c}$ and about point $O$ is $L_{o}$, then $\\dfrac{L_{o}}{L_{c}}$ is",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q45.svg",
+        "alt": "Circle with centre C on a dashed horizontal diameter; O is the left end of that diameter on the circle; a radius from C to the particle makes angle θ with the diameter, and the velocity v is tangent at the particle",
+        "width": 240,
+        "height": 175,
+        "themeAdaptive": true
+      },
       "options": [
         {
           "id": "A",
@@ -2219,12 +2249,12 @@
         },
         {
           "id": "C",
-          "latex": "$\\cos^{2}\\theta$",
+          "latex": "$\\cos^{2}\\dfrac{\\theta}{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{1}{\\cos^{2}\\theta}$",
+          "latex": "$1$",
           "figure": null
         }
       ],
@@ -2236,11 +2266,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q45)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "angular-momentum",
         "circular-motion",
-        "vector"
+        "reference-point"
       ]
     },
     {
@@ -2252,12 +2282,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A particle starts moving from rest in a straight line with acceleration $a$. The maximum velocity attained by the particle during the motion is (acceleration varies as shown)",
+      "stemLatex": "A particle starts moving from rest in a straight line with acceleration $a$. The variation of acceleration vs. time graph is given below in the figure. The maximum velocity attained by the particle during the motion is",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q46.svg",
-        "alt": "Figure for JELET 2024 Q46",
-        "width": 420,
-        "height": 220,
+        "alt": "Acceleration a (ms⁻²) versus t (s): a straight line falling from a = 10 at t = 0 to a = 0 at t = 25",
+        "width": 280,
+        "height": 140,
         "themeAdaptive": true
       },
       "options": [
@@ -2290,11 +2320,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q46)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "kinematics",
-        "velocity",
-        "acceleration-graph"
+        "acceleration-time-graph",
+        "area-under-curve"
       ]
     },
     {
@@ -2306,27 +2335,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A drilling machine of power $P$ is used to drill a hole in a metal block of mass $M$ and specific heat $s\\,\\text{J kg}^{-1}\\,^{\\circ}\\text{C}^{-1}$. If $20\\%$ of the power is lost due to heating of the machine, the rise in temperature of the block (in $^{\\circ}\\text{C}$) in $t$ seconds will be",
+      "stemLatex": "A drilling machine of power '$P$' is used to drill a hole in a metal block of mass '$M$' and specific heat '$s$' $\\text{J kg}^{-1}\\,^{\\circ}\\text{C}^{-1}$. If $20\\%$ of the power is lost due to heating of the machine, the rise in temperature of the block (in $^{\\circ}\\text{C}$) in '$t$' seconds will be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{0.8Pt}{Ms}$",
+          "latex": "$\\dfrac{0.4\\,Pt}{Ms}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{0.4Pt}{Ms}$",
+          "latex": "$\\dfrac{0.8\\,Pt}{Ms}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{0.2Pt}{Ms}$",
+          "latex": "$\\dfrac{0.8\\,P}{Ms\\,t}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{0.8P}{Mst}$",
+          "latex": "$\\dfrac{0.2\\,Pt}{Ms}$",
           "figure": null
         }
       ],
@@ -2338,11 +2367,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q47)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "work-power-energy",
+        "power",
         "heat",
-        "power"
+        "specific-heat"
       ]
     },
     {
@@ -2354,22 +2383,22 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "Suppose the same liquid is heated in two vessels $A$ and $B$ having coefficient of linear expansion $\\alpha_{A}$ and $\\alpha_{B}$ respectively. If coefficient of apparent expansion of the liquid in the two vessels are $\\gamma_{A}$ and $\\gamma_{B}$ and if $\\alpha_{A} > \\alpha_{B}$ then",
+      "stemLatex": "Suppose same liquid is heated in two vessels $A$ and $B$ having coefficient of linear expansion $\\alpha_{A}$ and $\\alpha_{B}$ respectively. If co-efficient of apparent expansion of liquid in two vessels are $\\gamma_{A}^{a}$ and $\\gamma_{B}^{a}$ and if $\\alpha_{A} > \\alpha_{B}$ then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\gamma_{A} > \\gamma_{B}$",
+          "latex": "$\\gamma_{A}^{a} > \\gamma_{B}^{a}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\gamma_{A} < \\gamma_{B}$",
+          "latex": "$\\gamma_{A}^{a} < \\gamma_{B}^{a}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\gamma_{A} = \\gamma_{B}$",
+          "latex": "$\\gamma_{A}^{a} = \\gamma_{B}^{a}$",
           "figure": null
         },
         {
@@ -2386,10 +2415,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q48)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "thermal-expansion",
-        "apparent-expansion"
+        "apparent-expansion",
+        "thermal-expansion"
       ]
     },
     {
@@ -2401,27 +2430,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "A metal rod consists of two parts of equal cross-section $A$, but length of one is $l$ and that of the other is $2l$ and their thermal conductivities are respectively $k$ and $2k$, as shown in the figure. The temperatures at the two ends of the rod are $t_{1}$ and $t_{2}$ ($t_{1} > t_{2}$) as shown. What is the heat current at the steady state ?",
-      "stemFigure": null,
+      "stemLatex": "A metal rod consists of two parts of equal cross-section $A$, but length of one is $l$ and that of the other is $2l$ and their thermal conductivities are respectively $k$ and $2k$, as shown in the figure. The temperatures at the two ends of the rod and $t_{1}$ and $t_{2}$ $(t_{1} > t_{2})$ as shown. What is the heat current at the steady state ?",
+      "stemFigure": {
+        "src": "./_data/figures/2024/fig-2024-q49.svg",
+        "alt": "Composite rod: two equal-section parts in series, the left of length l and conductivity k, the right of length 2l and conductivity 2k; end temperatures t1 on the left and t2 on the right",
+        "width": 230,
+        "height": 80,
+        "themeAdaptive": true
+      },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{2kA(t_{1} - t_{2})}{3l}$",
+          "latex": "$\\dfrac{3kA(t_{2} - t_{1})}{2l}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{2kA(t_{1} - t_{2})}{2l}$",
+          "latex": "$\\dfrac{2kA(t_{1} - t_{2})}{l}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{kA(t_{1} - t_{2})}{2l}$",
+          "latex": "$\\dfrac{kA}{l}(t_{1} - t_{2})$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{3kA(t_{1} - t_{2})}{2l}$",
+          "latex": "$\\dfrac{kA(t_{1} - t_{2})}{3l}$",
           "figure": null
         }
       ],
@@ -2433,11 +2468,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q49)"
       },
-      "difficulty": "voided",
+      "difficulty": "medium",
       "tags": [
         "thermal-conduction",
-        "steady-state",
-        "voided"
+        "series-resistance",
+        "withdrawn"
       ]
     },
     {
@@ -2449,7 +2484,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "An eye specialist prescribed spectacles of power $+1.5\\,\\text{D}$ to a patient of hypermetropic eye. What is the near point of his defective eye ?",
+      "stemLatex": "An Eye specialist prescribed spectacles of power $+1.5\\,\\text{D}$ to a patient of hypermetropic eye. What is the near point of his defective eye ?",
       "stemFigure": null,
       "options": [
         {
@@ -2481,11 +2516,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q50)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "lens",
-        "power",
-        "hypermetropia"
+        "hypermetropia",
+        "lens-power",
+        "near-point"
       ]
     },
     {
@@ -2531,8 +2566,7 @@
       },
       "difficulty": "easy",
       "tags": [
-        "thermal-conductivity",
-        "material"
+        "thermal-conductivity"
       ]
     },
     {
@@ -2544,12 +2578,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "An equiconvex lens of focal length $f$ is broken into four parts and then re-arranged as shown in the figure. After rearrangement, the equivalent focal length of the lens system is",
+      "stemLatex": "An equiconvex lens of focal length $f$ is broken into four parts and then re-arranged as shown in the figure. After rearrangement, the equivalent focal length lens system is",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q52.svg",
-        "alt": "Figure for JELET 2024 Q52",
-        "width": 420,
-        "height": 220,
+        "alt": "Left: an equiconvex lens cut by a vertical and a horizontal line into quarters A, B (top) and C, D (bottom). An arrow labelled Rearrangement points to four quarter pieces A, B, C, D standing side by side on a horizontal line, each with its flat cut face vertical and its curved face to the left",
+        "width": 400,
+        "height": 180,
         "themeAdaptive": true
       },
       "options": [
@@ -2560,12 +2594,12 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{f}{4}$",
+          "latex": "$f$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$f$",
+          "latex": "$\\dfrac{f}{4}$",
           "figure": null
         },
         {
@@ -2582,11 +2616,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q52)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "lens",
-        "focal-length",
-        "rearrangement"
+        "lens-combination",
+        "plano-convex",
+        "lens-maker"
       ]
     },
     {
@@ -2632,8 +2666,8 @@
       },
       "difficulty": "easy",
       "tags": [
-        "thermodynamics",
-        "first-law"
+        "first-law",
+        "thermodynamics"
       ]
     },
     {
@@ -2645,33 +2679,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "In the above figure all the strings are massless and the pulley is frictionless. Which of the following statement(s) is/are correct ?",
+      "stemLatex": "In the above figure all the strings are massless and pulley is frictionless. Which of the following statement(s) is/are correct ?",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q54.svg",
-        "alt": "Figure for JELET 2024 Q54",
-        "width": 420,
-        "height": 220,
+        "alt": "A fixed frictionless pulley hung from a ceiling. Left string (tension T1) holds a 5 kg block, below which a string of tension T2 holds a 10 kg block. Right string (tension T1) holds a 10 kg block, below which a string of tension T3 holds a 5 kg block",
+        "width": 200,
+        "height": 225,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$T > T_{2} > T_{3}$",
+          "latex": "$T_{1} > T_{2} > T_{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$T < T_{2} < T_{3}$",
+          "latex": "$T_{1} < T_{2} < T_{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$T = T_{2} = T_{3}$",
+          "latex": "$T_{1} = T_{3} = T_{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$T_{2} > T_{1} = T_{3}$",
+          "latex": "$T_{2} > T_{3} = T_{1}$",
           "figure": null
         }
       ],
@@ -2683,10 +2717,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q54)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "strings-pulley",
         "tension",
+        "pulley",
         "equilibrium"
       ]
     },
@@ -2699,12 +2733,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "In an experiment on photoelectric effect the stopping potential $V_{0}$ is plotted against the frequency $(\\nu)$ of the light incident on a metal surface as shown in the figure. The work function of the surface of the metal is obtained from",
+      "stemLatex": "In an experiment on photoelectric effect the stopping potential $V_{o}$ is plotted against the frequency $(\\nu)$ of the light incident on a metal surface as shown in the figure. The work function of the surface of the metal is obtained from the",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q55.svg",
-        "alt": "Figure for JELET 2024 Q55",
-        "width": 420,
-        "height": 220,
+        "alt": "Stopping potential V_o versus frequency ν: a straight line starting at A on the negative V_o axis below the origin O, crossing the ν-axis at B and rising to C",
+        "width": 285,
+        "height": 155,
         "themeAdaptive": true
       },
       "options": [
@@ -2737,11 +2771,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q55)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "photoelectric",
-        "work-function",
-        "stopping-potential"
+        "photoelectric-effect",
+        "stopping-potential",
+        "work-function"
       ]
     },
     {
@@ -2758,22 +2792,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\sigma}{\\rho H}}$",
+          "latex": "$\\omega = \\sqrt{\\dfrac{\\sigma g}{\\rho H}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\rho}{\\sigma H}}$",
+          "latex": "$\\omega = \\sqrt{\\dfrac{\\rho g}{\\sigma H}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\sigma}{\\rho R}}$",
+          "latex": "$\\omega = \\sqrt{\\dfrac{\\sigma g}{\\rho R}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{1}{2\\pi}\\sqrt{\\dfrac{g\\rho}{\\sigma R}}$",
+          "latex": "$\\omega = \\sqrt{\\dfrac{\\rho g}{\\sigma R}}$",
           "figure": null
         }
       ],
@@ -2785,11 +2819,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q56)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "oscillation",
         "buoyancy",
-        "fluid"
+        "shm",
+        "floating-body"
       ]
     },
     {
@@ -2804,30 +2838,30 @@
       "stemLatex": "The figure shows the variation of potential energy $V(x)$ of a particle with distance $x$. The particle has",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q57.svg",
-        "alt": "Figure for JELET 2024 Q57",
-        "width": 420,
-        "height": 220,
+        "alt": "Potential energy V(x) versus x: the curve rises to a high maximum, falls to a minimum, rises to a lower maximum and falls again",
+        "width": 305,
+        "height": 145,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "two equilibrium points, one stable and another unstable.",
+          "latex": "Two equilibrium points, one stable and another unstable.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "two equilibrium points, both stable.",
+          "latex": "Two equilibrium points, both stable.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "three equilibrium points, one stable, two unstable.",
+          "latex": "Three equilibrium points, one stable, two unstable.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "three equilibrium points, two stable, one unstable.",
+          "latex": "Three equilibrium points, two stable, one unstable.",
           "figure": null
         }
       ],
@@ -2839,11 +2873,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q57)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "potential-energy",
+        "potential-energy-curve",
         "equilibrium",
-        "graph"
+        "stability"
       ]
     },
     {
@@ -2855,7 +2889,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "The radius of the earth is approximately $6400\\,\\text{km}$. The height at which the acceleration due to gravity differs from $g$ (acceleration due to gravity at the Earth's surface) by approximately $2\\%$ is",
+      "stemLatex": "The radius of the earth is approximately $6400\\,\\text{km}$. The height at which the acceleration due to gravity differs from $g$(acceleration due to gravity at the Earth's surface) by approximately $2\\%$ is",
       "stemFigure": null,
       "options": [
         {
@@ -2887,11 +2921,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q58)"
       },
-      "difficulty": "voided",
+      "difficulty": "medium",
       "tags": [
-        "gravitation",
-        "variation-of-g",
-        "voided"
+        "gravity-with-height",
+        "withdrawn"
       ]
     },
     {
@@ -2903,27 +2936,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "Two satellites $S_{1}$ and $S_{2}$ revolve round a planet in coplanar circular orbits in the same sense. Their periods of revolution are $1\\,\\text{h}$ and $8\\,\\text{h}$, respectively. The radius of the orbit of $S_{1}$ is $10^{4}\\,\\text{km}$. When $S_{2}$ is closest to $S_{1}$, then the angular speed of $S_{2}$ as observed by an astronaut in $S_{1}$ is",
+      "stemLatex": "Two satellites $S_{1}$ and $S_{2}$ revolve round a planet in coplanar circular orbits in the same sense. Their periods of revolution are $1\\,\\text{h}$ and $8\\,\\text{h}$, respectively. The radius of the orbit of $S_{1}$ is $10^{4}\\,\\text{km}$. When $S_{2}$ is closest to $S_{1}$ then the angular speed of $S_{2}$ as observed by an astronaut in $S_{1}$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{\\pi}{2}\\,\\text{rad h}^{-1}$",
+          "latex": "$\\dfrac{\\pi}{2}\\,\\text{rad/h}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\pi\\,\\text{rad h}^{-1}$",
-          "figure": null
-        },
-        {
-          "id": "C",
           "latex": "$\\dfrac{\\pi}{4}\\,\\text{rad h}^{-1}$",
           "figure": null
         },
         {
-          "id": "D",
+          "id": "C",
           "latex": "$\\dfrac{\\pi}{3}\\,\\text{rad h}^{-1}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\pi\\,\\text{rad h}^{-1}$",
           "figure": null
         }
       ],
@@ -2937,9 +2970,9 @@
       },
       "difficulty": "hard",
       "tags": [
-        "gravitation",
-        "satellite",
-        "relative-angular-speed"
+        "kepler-third-law",
+        "relative-angular-velocity",
+        "satellites"
       ]
     },
     {
@@ -2951,27 +2984,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A man standing on a road has to hold his umbrella at $30^{\\circ}$ with the vertical to keep the rain away. He throws the umbrella and starts running at $10\\,\\text{km/h}$. He finds that rain drops are hitting his head vertically. The speed of rain with respect to the ground $V_{rg}$ and with respect to the man $V_{rm}$ are respectively",
+      "stemLatex": "A man standing on a road has to hold his umbrella at $30^{\\circ}$ with the vertical to keep the rain away. He throws the umbrella and starts running at $10\\,\\text{km/h}$. He finds that rain drops are hitting his head vertically. The speed of rain drops with respect to the road $(V_{rg})$ and the moving man $(V_{rm})$ are respectively.",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$V_{rg} = 20\\,\\text{km/h}, V_{rm} = 10\\sqrt{3}\\,\\text{km/h}$",
+          "latex": "$V_{rg} = 20\\,\\text{km/h}$, $V_{rm} = 10\\sqrt{3}\\,\\text{km/h}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$V_{rg} = 10\\,\\text{km/h}, V_{rm} = 20\\,\\text{km/h}$",
+          "latex": "$V_{rg} = 10\\,\\text{km/h}$, $V_{rm} = 20\\,\\text{km/h}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$V_{rg} = 10\\sqrt{3}\\,\\text{km/h}, V_{rm} = 20\\sqrt{3}\\,\\text{km/h}$",
+          "latex": "$V_{rg} = 10\\sqrt{3}\\,\\text{km/h}$, $V_{rm} = 20\\sqrt{3}\\,\\text{km/h}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$V_{rg} = 10\\,\\text{km/h}, V_{rm} = 20\\sqrt{3}\\,\\text{km/h}$",
+          "latex": "$V_{rg} = 10\\,\\text{km/h}$, $V_{rm} = 20\\sqrt{3}\\,\\text{km/h}$",
           "figure": null
         }
       ],
@@ -2983,9 +3016,8 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q60)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "kinematics",
         "relative-velocity",
         "rain-umbrella"
       ]
@@ -2999,34 +3031,52 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A body of mass $m$ falls from a height $H$. The variations of its potential energy $(V)$ and kinetic energy $(K)$ as a function of time $(t)$ is",
-      "stemFigure": {
-        "src": "./_data/figures/2024/fig-2024-q61.svg",
-        "alt": "Figure for JELET 2024 Q61",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemLatex": "A particle of mass $m$ is falling freely under gravity from height $H$ from rest. The variations of its potential energy $(V)$ and kinetic energy $(K)$ as a function of time $(t)$ is",
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$V$ decreases, $K$ increases, both bounded by $mgH$",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q61-optA.svg",
+            "alt": "Graph (A): V falls from mgH along a curve that is flat at t = 0 and steepens (concave down) to zero at t = sqrt(2h/g); K rises from zero along a curve that is flat at t = 0 and steepens (concave up) to mgH; dashed lines mark mgH and t = sqrt(2h/g)",
+            "width": 190,
+            "height": 130,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "$V$ constant, $K$ increases",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q61-optB.svg",
+            "alt": "Graph (B): V falls from mgH along a concave-down curve to zero at t = sqrt(2h/g); K rises steeply from zero and flattens (concave down) to mgH; dashed lines mark mgH and t = sqrt(2h/g)",
+            "width": 190,
+            "height": 130,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "$V$ increases, $K$ decreases",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q61-optC.svg",
+            "alt": "Graph (C): V falls steeply from mgH and flattens (concave up) to zero at t = sqrt(2h/g); K rises from zero along a concave-up curve to mgH; dashed lines mark mgH and t = sqrt(2h/g)",
+            "width": 190,
+            "height": 130,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "$V$ and $K$ both constant",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q61-optD.svg",
+            "alt": "Graph (D): V falls from mgH along a concave-down curve and K rises along a concave-up curve, both reaching their end values at t = sqrt(h/g); dashed lines mark mgH and t = sqrt(h/g)",
+            "width": 190,
+            "height": 130,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -3039,9 +3089,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "energy",
-        "potential-kinetic",
-        "graph"
+        "free-fall",
+        "energy-time-graph",
+        "conservation-of-energy"
       ]
     },
     {
@@ -3053,7 +3103,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A particle is moving in a $X$-$Y$ plane where $X$ and $Y$ coordinates are time dependent as follows: $X(t) = At^{4} + Bt$ and $Y(t) = Ct^{3} + D$ (Here $A = 1.00\\,\\text{m/s}^{4}$, $B = -2.00\\,\\text{m/s}$, $C = 2.00\\,\\text{m/s}^{3}$ and $D = 10\\,\\text{m}$). The position of the particle at $t = 2\\,\\text{sec}$ is",
+      "stemLatex": "A particle is moving in a X-Y plane where X and Y coordinates are time dependent as follows : $X(t) = At^{4} + Bt$ and $Y(t) = Ct^{3} + D$ (Here $A = 1.00\\,\\text{m/s}^{4}$, $B = -2.00\\,\\text{m/s}$, $C = 2.00\\,\\text{m/s}^{3}$ and $D = 10\\,\\text{m}$). The position of the particle at $t = 2$ sec is",
       "stemFigure": null,
       "options": [
         {
@@ -3063,7 +3113,7 @@
         },
         {
           "id": "B",
-          "latex": "$(-5\\,\\text{m})\\hat{i} + (15\\,\\text{m})\\hat{j}$",
+          "latex": "$(-5\\,\\text{m})\\hat{i} + 15\\,\\text{m}\\hat{j}$",
           "figure": null
         },
         {
@@ -3085,11 +3135,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q62)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "kinematics",
         "position-vector",
-        "polynomial"
+        "kinematics-2d"
       ]
     },
     {
@@ -3101,27 +3150,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 17,
-      "stemLatex": "A body of mass $m$ is lifted up from the earth surface to a height $R$. The potential energy of the body with respect to the earth surface is [Assume acceleration due to gravity on earth surface is $g_{0}$]",
+      "stemLatex": "A body of mass $m$ is lifted up from the earth surface to a height $R$. The potential energy of the body with respect to the earth surface is [Assume acceleration due to gravity on earth surface is $g_{o}$]",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$mg_{0}R$",
+          "latex": "$mg_{o}R$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{mg_{0}R}{2}$",
+          "latex": "$\\dfrac{mg_{o}R}{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$-\\dfrac{mg_{0}R}{2}$",
+          "latex": "$-\\dfrac{mg_{o}R}{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$-mg_{0}R$",
+          "latex": "$-mg_{o}R$",
           "figure": null
         }
       ],
@@ -3135,9 +3184,8 @@
       },
       "difficulty": "medium",
       "tags": [
-        "gravitation",
-        "potential-energy",
-        "earth"
+        "gravitational-potential-energy",
+        "height-equal-radius"
       ]
     },
     {
@@ -3154,12 +3202,12 @@
       "options": [
         {
           "id": "A",
-          "latex": "doubled",
+          "latex": "Doubled",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "four times of the original one",
+          "latex": "Four times of the original one",
           "figure": null
         },
         {
@@ -3196,12 +3244,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 17,
-      "stemLatex": "The dependence of the potential energy $(V)$ of a particle on its displacement $(x)$ is given in figure. The force $(F)$ acting on the particle is",
+      "stemLatex": "The dependence of the potential energy $(V)$ of a particle on its displacement $(x)$ is given in figure. The force $(F)$ acting on the particle is ($k$ is a constant)",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q65.svg",
-        "alt": "Figure for JELET 2024 Q65",
-        "width": 420,
-        "height": 220,
+        "alt": "Potential energy V versus x: a parabola opening upwards, symmetric about the V-axis, with its lowest point V_o on the V-axis above the x-axis",
+        "width": 250,
+        "height": 135,
         "themeAdaptive": true
       },
       "options": [
@@ -3222,7 +3270,7 @@
         },
         {
           "id": "D",
-          "latex": "$F = -kx + F_{0}$, where $F_{0}$ is a constant depending on $V_{0}$",
+          "latex": "$F = -kx + F_{o}$, where $F_{o}$ is a constant depending on $V_{o}$.",
           "figure": null
         }
       ],
@@ -3234,11 +3282,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q65)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "force",
         "potential-energy",
-        "graph"
+        "force-from-potential",
+        "parabolic-well"
       ]
     },
     {
@@ -3250,34 +3298,52 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "A particle of mass $m$ is moving along $x$-axis in a medium where the retarding force is proportional to its velocity. If the particle starts with an initial velocity $V_{0}$, then velocity $(V)$ versus displacement $(x)$ curve will look like",
-      "stemFigure": {
-        "src": "./_data/figures/2024/fig-2024-q66.svg",
-        "alt": "Figure for JELET 2024 Q66",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemLatex": "A particle of mass $m$ is moving along $x$-axis in a medium where the retarding force is proportional to its velocity. If the particle starts with an initial velocity $V_{o}$, then velocity $(V)$ versus displacement $(x)$ curve will look like",
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$V$ decreases exponentially with $x$",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q66-optA.svg",
+            "alt": "Graph (A): V versus x; V starts at V_o and decreases along a curve that flattens out, approaching the x-axis without reaching it",
+            "width": 200,
+            "height": 112,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "$V$ decreases linearly with $x$",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q66-optB.svg",
+            "alt": "Graph (B): V versus x; V decreases along a straight line from V_o to zero at a finite x",
+            "width": 200,
+            "height": 112,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "$V$ remains constant",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q66-optC.svg",
+            "alt": "Graph (C): V versus x; V falls very steeply from V_o and then flattens along the x-axis",
+            "width": 200,
+            "height": 112,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "$V$ increases with $x$",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q66-optD.svg",
+            "alt": "Graph (D): V versus x; V falls from V_o, crosses the x-axis, dips below it and then oscillates about the axis with decreasing amplitude",
+            "width": 200,
+            "height": 112,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -3290,9 +3356,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "kinematics",
-        "retarding-force",
-        "velocity-displacement"
+        "viscous-drag",
+        "velocity-displacement",
+        "linear-retardation"
       ]
     },
     {
@@ -3304,33 +3370,33 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 18,
-      "stemLatex": "A block of mass $1\\,\\text{kg}$ is held stationary against a rough vertical plate due to the acceleration $(a)$ of the plate, as shown in the figure. The coefficient of friction between block and plate will be",
+      "stemLatex": "A block of mass $1\\,\\text{kg}$ is held stationary against a rough vertical plate due to the acceleration $(\\vec{a})$ of the plate, as shown in the figure. The coefficient of friction between block and plate will be",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q67.svg",
-        "alt": "Figure for JELET 2024 Q67",
-        "width": 420,
-        "height": 220,
+        "alt": "A vertical rectangular plate drawn in perspective, with a 1 kg cube against its face; an arrow a on the left shows the acceleration of the plate, perpendicular to its face",
+        "width": 200,
+        "height": 190,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{g}{a}$",
+          "latex": "$< \\dfrac{g}{a}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{a}{g}$",
+          "latex": "$> \\dfrac{g}{a}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{a}{g}$",
+          "latex": "$= \\dfrac{g}{a}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{g}{a}$",
+          "latex": "$= \\dfrac{a}{g}$",
           "figure": null
         }
       ],
@@ -3346,8 +3412,8 @@
       "difficulty": "medium",
       "tags": [
         "friction",
-        "equilibrium",
-        "block-plate"
+        "pseudo-force",
+        "non-inertial-frame"
       ]
     },
     {
@@ -3359,12 +3425,12 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 18,
-      "stemLatex": "Three rods $A, B, C$ made of the same material are joined as shown in the figure. Rods $A$ and $B$ have the same length and cross sectional area. Rod $C$ has length and cross sectional area both twice of those of rod $A$. The end of $A$ is kept at $0\\,^{\\circ}\\text{C}$ and those of $B$ and $C$ at $100\\,^{\\circ}\\text{C}$. Find the temperature at the junction of three rods.",
+      "stemLatex": "Three rods $A$, $B$, $C$ made of the same material are joined as shown in the figure. Rods $A$ and $B$ have the same length and cross sectional area. Rod $C$ has length and cross sectional area both twice of those of rod $A$. The end of $A$ is kept at $0\\,^{\\circ}\\text{C}$ and those of $B$ and $C$ at $100\\,^{\\circ}\\text{C}$. Find the temperature at the junction of three rods.",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q68.svg",
-        "alt": "Figure for JELET 2024 Q68",
-        "width": 420,
-        "height": 220,
+        "alt": "Y-shaped junction of three rods: rod B goes to the upper left with its end at 100 °C, rod A to the lower left with its end at 0 °C, and the wider rod C runs horizontally to the right with its end at 100 °C",
+        "width": 345,
+        "height": 185,
         "themeAdaptive": true
       },
       "options": [
@@ -3397,11 +3463,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q68)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "thermal-conduction",
-        "junction",
-        "rods"
+        "junction-temperature",
+        "thermal-resistance"
       ]
     },
     {
@@ -3445,11 +3511,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q69)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "surface-tension",
         "surface-energy",
-        "drops"
+        "drops-coalescence"
       ]
     },
     {
@@ -3464,30 +3529,30 @@
       "stemLatex": "$PV$ plots of adiabatic processes for two different gases are shown in the figure. Gas 1 and gas 2 will be",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q70.svg",
-        "alt": "Figure for JELET 2024 Q70",
-        "width": 420,
-        "height": 220,
+        "alt": "P–V diagram: two adiabatic curves starting from the same point; the gas 1 curve falls more steeply and ends lower, and the gas 2 curve falls less steeply",
+        "width": 220,
+        "height": 140,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "He and $N_{2}$",
+          "latex": "He and $\\text{N}_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$N_{2}$ and He",
+          "latex": "$\\text{N}_{2}$ and He",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$CO_{2}$ and $O_{2}$",
+          "latex": "$\\text{CO}_{2}$ and $\\text{O}_{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$CO_{2}$ and Ar",
+          "latex": "$\\text{CO}_{2}$ and Ar",
           "figure": null
         }
       ],
@@ -3499,11 +3564,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q70)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "thermodynamics",
-        "adiabatic",
-        "gases"
+        "adiabatic-process",
+        "gamma",
+        "pv-diagram"
       ]
     },
     {

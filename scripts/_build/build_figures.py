@@ -49,194 +49,354 @@ def dot(cx, cy, r=3, fill="var(--fig-node)"):
     return f'  <circle cx="{cx}" cy="{cy}" r="{r}" fill="{fill}"/>\n'
 
 # ---- 2024 figures ----
+# ---------------------------------------------------------------------------
+# JELET 2024 Batch B (Physics Q41–Q70): faithful redraws of the Set-A booklet figures
+# (PDF pages 11–18, read at 180 DPI with 300-DPI crops).  Curves are dense polylines from
+# explicit formulas and key elements carry data-role attributes, so that
+# scripts/verify_solutions_sympy.py can read the geometry back (slopes, extrema, angles,
+# intercepts, areas).  Colours: var(--fig-*) tokens only.
+# ---------------------------------------------------------------------------
+import math as _m
+
+def _p24_role(svg_el, role):
+    """Attach a data-role attribute to the first element of an SVG snippet."""
+    i = svg_el.index("<") + 1
+    j = svg_el.index(" ", i)
+    return svg_el[:j] + f' data-role="{role}"' + svg_el[j:]
+
+def _p24_poly(pts, role, stroke="var(--fig-primary)", sw=1.6):
+    return _p24_role(polyline(_fmt(pts), stroke=stroke, sw=sw), role)
+
+def _p24_sub(x, y, base, sub, size=12, italic=True, anchor="start"):
+    """Base letter with a subscript (booklet style, e.g. V_o, v_x)."""
+    style = ' font-style="italic"' if italic else ""
+    return (f'  <text x="{x}" y="{y}" font-family="Times New Roman, serif" font-size="{size}"{style} fill="var(--fig-text)" text-anchor="{anchor}">'
+            f'{base}<tspan dy="3" font-size="{int(size*0.72)}">{sub}</tspan></text>\n')
+
+def _p24_hatched_rect(x, y, w, h, gap=5, role=None):
+    """Rectangle with '/' hatching (booklet block style); hatch lines clipped analytically to the box."""
+    body = f'  <rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="var(--fig-line)" stroke-width="1.4"{f" data-role={chr(34)}{role}{chr(34)}" if role else ""}/>\n'
+    c = gap
+    while c < w + h:
+        # line u + v = c in box-local coords (u right, v down from the top-left corner)
+        p0 = (max(0, c - h), min(h, c)); p1 = (min(w, c), max(0, c - w))
+        if p0 != p1:
+            # v measured downwards from the top edge: u + v = c then leans '/' as printed
+            body += line(round(x + p0[0], 1), round(y + p0[1], 1), round(x + p1[0], 1), round(y + p1[1], 1), stroke="var(--fig-line)", sw=0.8)
+        c += gap
+    return body
+
+def _p24_radical(x, y, num, den, size=10):
+    """Booklet-style  √(num/den)  label: radical sign, vinculum and a stacked fraction (x = left edge)."""
+    wd = 6 + 6*max(len(num), len(den))
+    body = path(f"M {x},{y-6} L {x+3},{y-8} L {x+6},{y+6} L {x+9},{y-16} L {x+9+wd},{y-16}", stroke="var(--fig-text)", sw=0.9)
+    body += mlabel(x + 9 + wd/2, y - 7, num, size)
+    body += line(x + 11, y - 4, x + 7 + wd, y - 4, stroke="var(--fig-text)", sw=0.8)
+    body += mlabel(x + 9 + wd/2, y + 6, den, size)
+    return body
+
+def _p24_arc(cx, cy, r, a0, a1, role=None, sw=1.1):
+    """Circular arc (screen angles in degrees, measured clockwise from +x) from a0 to a1, sweep clockwise."""
+    x0, y0 = cx + r*_m.cos(_m.radians(a0)), cy + r*_m.sin(_m.radians(a0))
+    x1, y1 = cx + r*_m.cos(_m.radians(a1)), cy + r*_m.sin(_m.radians(a1))
+    large = 1 if (a1 - a0) % 360 > 180 else 0
+    el = path(f"M {x0:.1f},{y0:.1f} A {r},{r} 0 {large} 1 {x1:.1f},{y1:.1f}", stroke="var(--fig-line)", sw=sw)
+    return _p24_role(el, role) if role else el
+
+# ---- Q42: projectile stem + four paired (v_x–t, v_y–t) option graphs --------------
+Q42_STEM = dict(ox=40, oy=140, rng=170, h=90)
 
 def fig_2024_q42():
-    """v-t graph for acceleration shown in a-t graph: a is constant then zero."""
-    body = ""
-    # a-t graph (top): constant a then 0
-    body += label(40, 30, "a-t", 10)
-    body += line(40, 50, 200, 50)
-    body += line(40, 50, 40, 90)
-    body += line(200, 50, 200, 90)
-    body += line(40, 70, 120, 70, stroke="var(--fig-danger)", sw=2)
-    body += label(70, 65, "a = const", 10, "var(--fig-danger-soft)")
-    # v-t graph (bottom): v increases linearly then constant
-    body += label(40, 130, "v-t", 10)
-    body += line(40, 160, 200, 160)
-    body += line(40, 160, 40, 200)
-    body += line(200, 160, 200, 200)
-    body += polyline("40,200 120,140 200,140", stroke="var(--fig-primary)", sw=2)
-    body += label(160, 155, "v increasing then constant", 9, "var(--fig-text)")
-    return svg_wrap(240, 220, body, "2024 Q42: a-t and v-t graphs")
+    o = Q42_STEM
+    body = axes_xy(o["ox"], o["oy"], o["ox"], 250, o["oy"], 10)
+    body += mlabel(o["ox"] - 6, 14, "y", 13, italic=True) + mlabel(258, o["oy"] + 4, "x", 13, italic=True)
+    path_pts = [(o["ox"] + o["rng"]*s, o["oy"] - 4*o["h"]*s*(1 - s)) for s in (k/40 for k in range(41))]
+    body += _p24_poly(path_pts, "trajectory", stroke="var(--fig-line)", sw=1.4)
+    slope = 4*o["h"]/o["rng"]                                   # launch direction = tangent of the path at O
+    L = 78; ux, uy = L/_m.hypot(1, slope), L*slope/_m.hypot(1, slope)
+    body += _p24_role(arrow(o["ox"], o["oy"], round(o["ox"] + ux, 1), round(o["oy"] - uy, 1), stroke="var(--fig-line)", sw=1.3), "u")
+    body += mlabel(round(o["ox"] + ux + 4, 1), round(o["oy"] - uy - 2, 1), "u", 13, anchor="start")
+    th = _m.degrees(_m.atan(slope))
+    body += _p24_arc(o["ox"], o["oy"], 16, -th, 0, role="theta")
+    body += mlabel(o["ox"] + 27, o["oy"] - 8, "θ", 12)
+    return svg_plain(270, 155, body, "2024 Q42: " + "projectile launched from the origin with speed u at angle θ to the x-axis, following a parabolic path back to the x-axis")
+
+_p24_Q42P = dict(w=112, h=60, oy=78, ox=(34, 184))
+
+def _p24_q42_panel(k, comp, shape):
+    """One speed–time panel. shape: 'const' | 'V' | 'tri' (booklet proportions)."""
+    o = _p24_Q42P; ox, oy, w, h = o["ox"][k], o["oy"], o["w"], o["h"]
+    body = axes_xy(ox, oy, ox, ox + w + 12, oy, oy - h - 8)
+    body += _p24_sub(ox - 22, oy - h - 2, "v", comp, 12) + mlabel(ox + w + 20, oy + 4, "t", 12)
+    if shape == "const":
+        pts = [(ox, oy - 0.62*h), (ox + 0.82*w, oy - 0.62*h)]
+    elif shape == "V":
+        pts = [(ox, oy - 0.88*h), (ox + 0.38*w, oy), (ox + 0.88*w, oy - 0.72*h)]
+    else:
+        pts = [(ox, oy), (ox + 0.50*w, oy - 0.78*h), (ox + 0.98*w, oy)]
+    return _p24_poly(pts, f"{comp}-t", stroke="var(--fig-primary)", sw=1.5)  + body
+
+def _p24_q42_opt(sx, sy, aria):
+    return svg_plain(320, 90, _p24_q42_panel(0, "x", sx) + _p24_q42_panel(1, "y", sy), aria)
+
+def fig_2024_q42_optA():
+    return _p24_q42_opt("const", "V", "Graph (A): v_x–t horizontal line; v_y–t falls linearly to zero then rises linearly")
+def fig_2024_q42_optB():
+    return _p24_q42_opt("V", "const", "Graph (B): v_x–t falls linearly to zero then rises linearly; v_y–t horizontal line")
+def fig_2024_q42_optC():
+    return _p24_q42_opt("const", "tri", "Graph (C): v_x–t horizontal line; v_y–t rises linearly from zero to a peak and falls back to zero")
+def fig_2024_q42_optD():
+    return _p24_q42_opt("tri", "const", "Graph (D): v_x–t rises linearly from zero to a peak and falls back to zero; v_y–t horizontal line")
+
+# ---- Q43: refraction from medium 1 (below) into medium 2 (above) ---------------------
+Q43_GEOM = dict(ox=80, oy=82, a1=35.0, a2=54.0)       # angles of incidence / refraction from the NORMAL, as drawn
 
 def fig_2024_q43():
-    """vectors A, B, C: A perpendicular to B and C."""
-    body = ""
-    body += label(40, 30, "Vectors A, B, C", 10)
-    # origin
-    body += dot(120, 130)
-    body += arrow(120, 130, 200, 80, stroke="var(--fig-primary)", label="A", label_pos=(205, 75))
-    body += arrow(120, 130, 60, 60, stroke="var(--fig-secondary)", label="B", label_pos=(30, 55))
-    body += arrow(120, 130, 60, 200, stroke="var(--fig-accent)", label="C", label_pos=(25, 215))
-    body += label(120, 150, "A ⊥ B, A ⊥ C", 10, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 240, body, "2024 Q43: Perpendicular vectors")
+    g = Q43_GEOM; ox, oy = g["ox"], g["oy"]
+    body = _p24_role(line(ox, 8, ox, 160, stroke="var(--fig-line)", sw=1.3), "normal")
+    body += _p24_role(line(15, oy, 180, oy, stroke="var(--fig-line)", sw=1.3), "interface")
+    a1, a2 = _m.radians(g["a1"]), _m.radians(g["a2"])
+    sx, sy = ox - 82*_m.sin(a1), oy + 82*_m.cos(a1)                  # incident ray comes up from the lower left
+    ex, ey = ox + 120*_m.sin(a2), oy - 120*_m.cos(a2)                # refracted ray leaves to the upper right
+    body += _p24_role(line(round(sx, 1), round(sy, 1), ox, oy, stroke="var(--fig-line)", sw=1.3), "incident")
+    body += _arrowhead(round(sx + 0.25*(ox - sx), 1), round(sy + 0.25*(oy - sy), 1), _m.degrees(_m.atan2(oy - sy, ox - sx)), 6)
+    body += _p24_role(line(ox, oy, round(ex, 1), round(ey, 1), stroke="var(--fig-line)", sw=1.3), "refracted")
+    body += _arrowhead(round(ox + 0.8*(ex - ox), 1), round(oy + 0.8*(ey - oy), 1), _m.degrees(_m.atan2(ey - oy, ex - ox)), 6)
+    # α1: between the downward normal (screen angle 90°) and the incident ray (screen angle 90° + a1)
+    body += _p24_arc(ox, oy, 22, 90, 90 + g["a1"], role="alpha1")
+    # α2: between the upward normal (screen angle 270°) and the refracted ray (screen angle 270° + a2)
+    body += _p24_arc(ox, oy, 22, 270, 270 + g["a2"], role="alpha2")
+    body += _p24_sub(54, 128, "α", "1", 13, italic=False) + _p24_sub(84, 46, "α", "2", 13, italic=False)
+    body += mlabel(178, 18, "2", 13) + mlabel(150, 150, "1", 13)
+    return svg_plain(200, 165, body, "2024 Q43: " + "refraction; ray from medium 1 below at angle α1 to the normal, refracted into medium 2 above at a larger angle α2 to the normal")
+
+# ---- Q45: circle, centre C, point O on the circle, particle at angle θ -------------------
+Q45_GEOM = dict(cx=120, cy=95, r=70, th=60.0)
+
+def fig_2024_q45():
+    g = Q45_GEOM; cx, cy, r = g["cx"], g["cy"], g["r"]; th = _m.radians(g["th"])
+    body = _p24_role(circle(cx, cy, r, stroke="var(--fig-line)", sw=1.4), "orbit")
+    body += _p24_role(line(cx - r - 26, cy, cx + r + 22, cy, stroke="var(--fig-line)", sw=1.2, dash="7,5"), "diameter")
+    body += dot(cx, cy, 3)
+    px, py = cx + r*_m.cos(th), cy - r*_m.sin(th)
+    body += _p24_role(line(cx, cy, round(px, 1), round(py, 1), stroke="var(--fig-line)", sw=1.3), "radius")
+    tx, ty = px - 36*_m.sin(th), py - 36*_m.cos(th)              # tangent, counter-clockwise sense
+    body += _p24_role(arrow(round(px, 1), round(py, 1), round(tx, 1), round(ty, 1), stroke="var(--fig-line)", sw=1.3), "velocity")
+    body += mlabel(round(px + 9, 1), round(py - 4, 1), "v", 13, italic=True)
+    body += _p24_arc(cx, cy, 16, -g["th"], 0, role="theta") + mlabel(cx + 25, cy - 9, "θ", 12)
+    body += mlabel(cx - r - 10, cy + 18, "O", 13) + mlabel(cx, cy + 20, "C", 13)
+    return svg_plain(240, 175, body, "2024 Q45: " + "particle on a circle of centre C; O is the left end of the horizontal diameter; the radius to the particle makes angle θ with the diameter and v is tangent")
+
+# ---- Q46: a–t graph, straight line from 10 m/s² at t = 0 to 0 at t = 25 s ------------------
+Q46_AXES = dict(ox=62, oy=118, t25=172, a10=38)
 
 def fig_2024_q46():
-    """displacement-time graph with regions AB, BC, CD, DE."""
-    body = ""
-    body += label(40, 30, "x-t graph", 10)
-    body += line(40, 60, 200, 60)
-    body += line(40, 60, 40, 180)
-    body += line(200, 60, 200, 180)
-    # curve: AB (curved), BC (straight), CD (curved), DE (straight)
-    body += polyline("40,160 80,140 120,100 160,120 200,80", stroke="var(--fig-primary)", sw=2)
-    for x, y, t in [(40,160,"A"),(80,140,"B"),(120,100,"C"),(160,120,"D"),(200,80,"E")]:
-        body += dot(x, y, 3)
-        body += label(x-5, y+18, t, 10, "var(--fig-text)", "middle")
-    return svg_wrap(240, 200, body, "2024 Q46: Displacement-time graph")
+    g = Q46_AXES
+    body = arrow(40, g["oy"], 245, g["oy"], stroke="var(--fig-axis)", sw=1.2)
+    body += arrow(g["ox"], 130, g["ox"], 12, stroke="var(--fig-axis)", sw=1.2)
+    body += _p24_poly([(g["ox"], g["a10"]), (g["t25"], g["oy"])], "a-t", stroke="var(--fig-primary)", sw=1.5)
+    body += _p24_role(mlabel(g["ox"] - 14, g["a10"] + 4, "10", 12), "tick-a")
+    body += _p24_role(mlabel(g["t25"], g["oy"] + 16, "25", 12), "tick-t")
+    body += mlabel(g["ox"] + 10, 20, "a (ms⁻²)", 12, anchor="start") + mlabel(249, g["oy"] + 4, "t(s)", 12, anchor="start")
+    return svg_plain(280, 140, body, "2024 Q46: " + "acceleration a (ms⁻²) versus t (s); a straight line from a = 10 at t = 0 down to a = 0 at t = 25")
+
+# ---- Q49: composite rod, l with k then 2l with 2k ----------------------------------
+def fig_2024_q49():
+    body = f'  <rect x="50" y="30" width="72" height="36" fill="none" stroke="var(--fig-line)" stroke-width="1.4"/>\n'
+    body += f'  <rect x="122" y="30" width="72" height="36" fill="none" stroke="var(--fig-line)" stroke-width="1.4"/>\n'
+    body += mlabel(86, 22, "l", 13, italic=True) + mlabel(151, 22, "2<tspan font-style=\"italic\">l</tspan>", 13, anchor="start")
+    body += mlabel(86, 53, "k", 13) + mlabel(158, 53, "2k", 13)
+    body += _p24_sub(24, 53, "t", "1", 13, italic=False) + _p24_sub(200, 53, "t", "2", 13, italic=False)
+    return svg_plain(230, 80, body, "2024 Q49: " + "composite rod; left part length l, conductivity k; right part length 2l, conductivity 2k; ends at t1 (left) and t2 (right)")
+
+# ---- Q52: equiconvex lens cut into quarters, re-arranged side by side --------------------
+Q52 = dict(cx=60, top=15, bot=165, half_w=30, base=95, x0=250, piece_w=30)
 
 def fig_2024_q52():
-    """rolling disc on horizontal then inclined plane."""
-    body = ""
-    body += label(40, 30, "Disc rolling", 10)
-    # horizontal surface
-    body += line(30, 140, 130, 140, stroke="var(--fig-axis)", sw=2)
-    # incline
-    body += line(130, 140, 210, 80, stroke="var(--fig-axis)", sw=2)
-    body += line(130, 140, 130, 160, stroke="var(--fig-axis)", sw=1)
-    body += line(210, 80, 210, 160, stroke="var(--fig-axis)", sw=1)
-    # disc on incline
-    body += circle(170, 115, 12, stroke="var(--fig-primary)", sw=2, fill="var(--fig-fill)")
-    body += arrow(185, 115, 200, 115, stroke="var(--fig-danger)", sw=1.5, label="v", label_pos=(202, 110))
-    body += label(170, 145, "incline", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 170, body, "2024 Q52: Rolling disc on incline")
+    g = Q52; cx, top, bot, hw = g["cx"], g["top"], g["bot"], g["half_w"]
+    half_h = (bot - top)/2; R = (half_h**2 + hw**2)/(2*hw)            # lens-face radius through the vertex and the rim
+    body = _p24_role(path(f"M {cx},{top} A {R:.2f},{R:.2f} 0 0 0 {cx},{bot} A {R:.2f},{R:.2f} 0 0 0 {cx},{top} Z", stroke="var(--fig-line)", sw=1.4), "lens")
+    body += line(cx, top, cx, bot, stroke="var(--fig-line)", sw=1.2) + line(cx - hw, (top + bot)/2, cx + hw, (top + bot)/2, stroke="var(--fig-line)", sw=1.2)
+    for t, (x, y) in zip("ABCD", [(cx - 13, 82), (cx + 13, 82), (cx - 13, 112), (cx + 13, 112)]):
+        body += mlabel(x, y, t, 13)
+    body += arrow(110, g["base"], 232, g["base"], stroke="var(--fig-line)", sw=1.2) + mlabel(171, g["base"] - 8, "Rearrangement", 12)
+    body += line(g["x0"] - 8, g["base"], g["x0"] + 4*g["piece_w"] + 24, g["base"], stroke="var(--fig-line)", sw=1.4)
+    for k, t in enumerate("ABCD"):
+        x = g["x0"] + k*g["piece_w"]
+        # quarter piece: flat horizontal cut on the line, flat vertical cut on the right, curved face on the left
+        body += _p24_role(path(f"M {x},{g['base']} A {R:.2f},{R:.2f} 0 0 1 {x + hw},{g['base'] - half_h:.1f} L {x + hw},{g['base']}", stroke="var(--fig-line)", sw=1.4), f"piece-{t}")
+        body += mlabel(x + hw/2 + 3, g["base"] - 10, t, 13)
+    return svg_plain(400, 180, body, "2024 Q52: " + "equiconvex lens cut into quarters A, B, C, D; after rearrangement the four quarter pieces stand side by side on a line, each with one curved face")
+
+# ---- Q54: pulley with blocks 5 kg + 10 kg (left) and 10 kg + 5 kg (right) -----------------
+Q54_BLOCKS = [  # (x, y, w, h, label, label_xy)
+    (50, 140, 33, 22, "5 kg", (22, 156)),
+    (52, 192, 33, 24, "10 kg", (19, 209)),
+    (99, 112, 33, 24, "10 kg", (161, 128)),
+    (101, 166, 33, 22, "5 kg", (158, 181)),
+]
 
 def fig_2024_q54():
-    """extension-load graph for two materials."""
-    body = ""
-    body += label(40, 30, "Load vs Extension", 10)
-    body += line(40, 160, 200, 160)
-    body += line(40, 160, 40, 40)
-    body += label(30, 165, "ext", 9, "var(--fig-axis)", "middle")
-    body += label(205, 165, "load", 9, "var(--fig-axis)")
-    # line A (steeper)
-    body += line(40, 160, 180, 60, stroke="var(--fig-primary)", sw=2)
-    # line B (less steep)
-    body += line(40, 160, 180, 110, stroke="var(--fig-secondary)", sw=2)
-    body += label(175, 55, "A", 11, "var(--fig-primary)")
-    body += label(175, 105, "B", 11, "var(--fig-secondary)")
-    return svg_wrap(240, 180, body, "2024 Q54: Extension-load graph")
+    body = line(64, 12, 112, 12, stroke="var(--fig-line)", sw=1.4)
+    for k in range(7):
+        body += line(66 + 7*k, 12, 72 + 7*k, 5, stroke="var(--fig-line)", sw=0.9)
+    body += line(88, 12, 88, 32, stroke="var(--fig-line)", sw=1.3)
+    body += _p24_role(circle(88, 54, 22, stroke="var(--fig-line)", sw=1.4), "pulley")
+    body += line(66, 54, 66, 140, stroke="var(--fig-line)", sw=1.3) + line(110, 54, 110, 112, stroke="var(--fig-line)", sw=1.3)
+    body += line(68, 162, 68, 192, stroke="var(--fig-line)", sw=1.3) + line(117, 136, 117, 166, stroke="var(--fig-line)", sw=1.3)
+    for (x, y, w, h, lab, (lx, ly)) in Q54_BLOCKS:
+        body += _p24_hatched_rect(x, y, w, h, role="block")
+        body += _p24_role(mlabel(lx, ly, lab, 13), "mass")
+    body += _arrowhead(66, 92, -90, 6) + _p24_sub(40, 98, "T", "1", 13, italic=False)
+    body += _arrowhead(110, 92, -90, 6) + _p24_sub(115, 98, "T", "1", 13, italic=False)
+    body += _arrowhead(68, 177, -90, 6) + _p24_sub(42, 183, "T", "2", 13, italic=False)
+    body += _arrowhead(117, 151, -90, 6) + _p24_sub(122, 157, "T", "3", 13, italic=False)
+    return svg_plain(200, 225, body, "2024 Q54: " + "pulley; left string T1 holds 5 kg with 10 kg below on T2; right string T1 holds 10 kg with 5 kg below on T3")
+
+# ---- Q55: stopping potential V_o versus frequency ν ---------------------------------
+Q55_PTS = dict(O=(60, 95), A=(61, 129), B=(103, 95))
 
 def fig_2024_q55():
-    """three liquids mixing diagram."""
-    body = ""
-    body += label(40, 30, "Three liquids A, B, C", 10)
-    for i, (y, name, col) in enumerate([(50, "A", "var(--fig-primary)"), (90, "B", "var(--fig-secondary)"), (130, "C", "var(--fig-accent)")]):
-        body += f'  <rect x="50" y="{y}" width="140" height="30" fill="{col}" fill-opacity="0.2" stroke="{col}" stroke-width="1.5"/>\n'
-        body += label(60, y+20, name, 12, col)
-    return svg_wrap(240, 180, body, "2024 Q55: Three liquids")
+    O, A, B = Q55_PTS["O"], Q55_PTS["A"], Q55_PTS["B"]
+    C = (round(B[0] + 1.75*(B[0] - A[0]), 1), round(B[1] + 1.75*(B[1] - A[1]), 1))
+    body = arrow(61, 150, 59, 10, stroke="var(--fig-axis)", sw=1.2)
+    body += arrow(O[0], O[1], 270, O[1] - 2, stroke="var(--fig-axis)", sw=1.2)
+    body += _p24_poly([A, B, C], "line-AC", stroke="var(--fig-primary)", sw=1.5)
+    body += _p24_sub(36, 16, "V", "o", 13, italic=False) + mlabel(252, O[1] + 18, "ν", 13, italic=True)
+    body += _p24_role(mlabel(O[0] - 12, O[1] + 4, "O", 13), "label-O") + _p24_role(mlabel(A[0] - 12, A[1] + 6, "A", 13), "label-A")
+    body += _p24_role(mlabel(B[0] + 2, B[1] + 18, "B", 13), "label-B") + _p24_role(mlabel(C[0] + 10, C[1] - 2, "C", 13), "label-C")
+    return svg_plain(285, 155, body, "2024 Q55: " + "stopping potential V_o versus frequency ν; straight line from A on the V_o-axis below O, through B on the ν-axis, up to C")
+
+# ---- Q57: V(x) with a high maximum, a minimum and a lower maximum ------------------------
+Q57_KNOTS = [(64, 96), (90, 38), (134, 114), (166, 70), (182, 106)]   # start, max, min, max, end
+
+def _p24_q57_curve():
+    k = Q57_KNOTS; segs = []
+    for i in range(4):
+        (x0, y0), (x1, y1) = k[i], k[i + 1]
+        d = (x1 - x0)/3
+        s0 = 0 if i > 0 else -2.4*d          # extrema have horizontal tangents; the end-points are steep
+        s1 = 0 if i < 3 else 1.8*d
+        segs.append(("C", (x0, y0), (x0 + d, y0 + s0), (x1 - d, y1 - s1), (x1, y1)))
+    out = []
+    for i, seg in enumerate(segs):
+        f = _bez(*seg[1:]); pts = [f(j/30) for j in range(31)]
+        out += pts[1:] if out else pts
+    return out
 
 def fig_2024_q57():
-    """P-V diagram: isothermal expansion then isobaric compression."""
-    body = ""
-    body += label(40, 30, "P-V diagram", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-axis)")
-    body += line(40, 160, 40, 40, stroke="var(--fig-axis)")
-    body += label(25, 165, "V", 9, "var(--fig-axis)", "middle")
-    body += label(30, 35, "P", 9, "var(--fig-axis)", "middle")
-    # isothermal (PV=const) then isobaric (P=const)
-    body += path("M 50,140 Q 120,140 150,90", stroke="var(--fig-primary)", sw=2)
-    body += line(150, 90, 180, 90, stroke="var(--fig-danger)", sw=2, dash="5,3")
-    body += dot(50, 140, 3)
-    body += dot(150, 90, 3)
-    body += dot(180, 90, 3)
-    body += label(55, 155, "A", 10, "var(--fig-text)")
-    body += label(145, 85, "B", 10, "var(--fig-text)")
-    body += label(175, 85, "final", 9, "var(--fig-text)")
-    return svg_wrap(240, 180, body, "2024 Q57: P-V diagram")
+    body = axes_xy(40, 132, 40, 290, 132, 10)
+    body += mlabel(8, 18, "V(<tspan font-style=\"italic\">x</tspan>)", 13, anchor="start") + mlabel(296, 136, "x", 13, italic=True)
+    body += _p24_poly(_p24_q57_curve(), "V-x", stroke="var(--fig-primary)", sw=1.6)
+    return svg_plain(305, 145, body, "2024 Q57: " + "potential energy V(x) versus x; the curve rises to a high maximum, falls to a minimum, rises to a lower maximum and falls again")
 
-def fig_2024_q61():
-    """heat input graph: solid, melting, liquid, boiling, gas."""
-    body = ""
-    body += label(40, 30, "Heat vs Temperature", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-axis)")
-    body += line(40, 160, 40, 40, stroke="var(--fig-axis)")
-    body += label(25, 165, "T", 9, "var(--fig-axis)", "middle")
-    body += label(30, 35, "Q", 9, "var(--fig-axis)", "middle")
-    # segments: AB solid, BC melting, CD liquid, DE gas
-    body += polyline("40,150 100,150 100,100 160,100 160,50 200,50", stroke="var(--fig-primary)", sw=2)
-    for x, y, t in [(40,150,"A"),(100,150,"B"),(100,100,"C"),(160,100,"D"),(160,50,"E"),(200,50,"F")]:
-        body += dot(x, y, 2.5)
-        body += label(x-5, y+18, t, 9, "var(--fig-text)", "middle")
-    return svg_wrap(240, 180, body, "2024 Q61: Heating curve")
+# ---- Q61: four V, K versus t option graphs ------------------------------------------
+_p24_Q61 = dict(ox=48, oy=100, top=30, T=128)
+
+def _p24_q61_frame(v_f, k_f, labels, num, aria):
+    o = _p24_Q61; w = o["T"] - o["ox"]; hh = o["oy"] - o["top"]
+    body = axes_xy(o["ox"], o["oy"], o["ox"], o["T"] + 30, o["oy"], 6)
+    body += line(o["ox"], o["top"], o["T"], o["top"], stroke="var(--fig-line)", sw=1.1, dash="4,3")
+    body += line(o["T"], o["top"], o["T"], o["oy"], stroke="var(--fig-line)", sw=1.1, dash="4,3")
+    body += mlabel(o["ox"] - 22, o["top"] + 4, "mgH", 12) + mlabel(o["T"] + 38, o["oy"] + 4, "t", 12)
+    body += _p24_role(_p24_radical(o["T"] - 14, o["oy"] + 22, num, "g"), "t-end")
+    pv = [(o["ox"] + w*s, o["oy"] - hh*v_f(s)) for s in (j/32 for j in range(33))]
+    pk = [(o["ox"] + w*s, o["oy"] - hh*k_f(s)) for s in (j/32 for j in range(33))]
+    body += _p24_poly(pv, "V", sw=1.4) + _p24_poly(pk, "K", sw=1.4)
+    if labels:
+        body += mlabel(o["ox"] + 26, o["top"] + 24, "V", 13) + mlabel(o["ox"] + 46, o["oy"] - 10, "K", 13)
+    return svg_plain(190, 130, body, aria)
+
+def fig_2024_q61_optA():
+    return _p24_q61_frame(lambda s: 1 - s*s, lambda s: s*s, True, "2h",
+                      "Graph (A): V falls from mgH, flat at first then steeper (concave down), to zero at t = sqrt(2h/g); K rises from zero, flat at first then steeper (concave up), to mgH")
+def fig_2024_q61_optB():
+    return _p24_q61_frame(lambda s: 1 - s*s, lambda s: 1 - (1 - s)**2, True, "2h",
+                      "Graph (B): V falls from mgH along a concave-down curve to zero at t = sqrt(2h/g); K rises steeply from zero and flattens (concave down) to mgH")
+def fig_2024_q61_optC():
+    return _p24_q61_frame(lambda s: (1 - s)**2, lambda s: s*s, False, "2h",
+                      "Graph (C): V falls steeply from mgH and flattens (concave up) to zero at t = sqrt(2h/g); K rises along a concave-up curve to mgH")
+def fig_2024_q61_optD():
+    return _p24_q61_frame(lambda s: 1 - s*s, lambda s: s*s, False, "h",
+                      "Graph (D): V falls from mgH along a concave-down curve and K rises along a concave-up curve, both ending at t = sqrt(h/g)")
+
+# ---- Q65: parabolic potential well with its vertex V_o on the V-axis ------------------------
+Q65 = dict(axis_x=110, base_y=122, vertex_y=100, top_y=10, half_w=62)
 
 def fig_2024_q65():
-    """bullet hitting block."""
-    body = ""
-    body += label(40, 30, "Bullet embeds in block", 10)
-    # bullet path
-    body += arrow(40, 90, 90, 90, stroke="var(--fig-danger)", sw=2, label="bullet", label_pos=(50, 80))
-    # block
-    body += f'  <rect x="90" y="70" width="80" height="40" fill="none" stroke="var(--fig-primary)" stroke-width="2"/>\n'
-    body += label(130, 95, "block", 10, "var(--fig-text)", "middle")
-    body += label(130, 145, "frictionless surface", 9, "var(--fig-axis)", "middle")
-    body += line(30, 150, 220, 150, stroke="var(--fig-line)", sw=1)
-    return svg_wrap(240, 170, body, "2024 Q65: Bullet into block")
+    g = Q65; a = (g["vertex_y"] - g["top_y"])/g["half_w"]**2
+    body = line(20, g["base_y"], 228, g["base_y"], stroke="var(--fig-axis)", sw=1.2)
+    body += line(g["axis_x"], g["base_y"], g["axis_x"], 6, stroke="var(--fig-axis)", sw=1.2)
+    pts = [(g["axis_x"] + dx, g["vertex_y"] - a*dx*dx) for dx in (g["half_w"]*(j/24 - 1)*1 for j in range(49))]
+    body += _p24_poly(pts, "V-x", stroke="var(--fig-primary)", sw=1.6)
+    body += mlabel(g["axis_x"] + 10, 16, "V", 13, italic=True) + mlabel(236, g["base_y"] + 4, "x", 13, italic=True)
+    body += _p24_sub(g["axis_x"] + 3, g["vertex_y"] + 15, "V", "o", 12)
+    return svg_plain(250, 135, body, "2024 Q65: " + "potential energy V versus x; an upward parabola symmetric about the V-axis with its minimum V_o on that axis above the x-axis")
 
-def fig_2024_q66():
-    """logic gate circuit."""
-    body = ""
-    body += label(40, 30, "Logic circuit", 10)
-    body += circle(70, 90, 20, stroke="var(--fig-primary)", sw=2)
-    body += label(70, 95, "NAND", 9, "var(--fig-text)", "middle")
-    body += circle(140, 90, 20, stroke="var(--fig-primary)", sw=2)
-    body += label(140, 95, "NOT", 9, "var(--fig-text)", "middle")
-    body += line(40, 90, 50, 90)
-    body += dot(50, 90, 3)
-    body += line(90, 90, 120, 90)
-    body += line(160, 90, 190, 90)
-    body += label(30, 95, "A", 10, "var(--fig-text)", "middle")
-    body += label(30, 115, "B", 10, "var(--fig-text)", "middle")
-    body += label(195, 95, "Y", 10, "var(--fig-text)")
-    return svg_wrap(240, 140, body, "2024 Q66: Logic circuit")
+# ---- Q66: four V–x option graphs (no stem figure) --------------------------------------
+_p24_Q66P = dict(ox=34, oy=86, xr=180, v0=26)
 
+def _p24_q66_frame(fn, xmax, aria, x_lab_under=False):
+    o = _p24_Q66P; h = o["oy"] - o["v0"]
+    body = line(o["ox"], o["oy"], o["xr"], o["oy"], stroke="var(--fig-axis)", sw=1.2)
+    body += line(o["ox"], o["oy"], o["ox"], 8, stroke="var(--fig-axis)", sw=1.2)
+    body += mlabel(o["ox"] - 6, 14, "V", 12) + _p24_sub(o["ox"] - 22, o["v0"] + 4, "V", "o", 11, italic=False)
+    body += mlabel(o["xr"] - 26, o["oy"] + 16, "x", 12, italic=True) if x_lab_under else mlabel(o["xr"] + 8, o["oy"] + 4, "x", 12, italic=True)
+    pts = [(o["ox"] + xmax*s, o["oy"] - h*fn(xmax*s)) for s in (j/60 for j in range(61))]
+    return svg_plain(200, 112, body + _p24_poly(pts, "V-x", sw=1.5), aria)
+
+def fig_2024_q66_optA():
+    return _p24_q66_frame(lambda x: _m.exp(-x/42), 140, "Graph (A): V decreases from V_o along a curve that flattens out, approaching the x-axis without reaching it")
+def fig_2024_q66_optB():
+    return _p24_q66_frame(lambda x: 1 - x/115, 115, "Graph (B): V decreases along a straight line from V_o to zero at a finite x")
+def fig_2024_q66_optC():
+    return _p24_q66_frame(lambda x: _m.exp(-x/18), 140, "Graph (C): V falls very steeply from V_o and then flattens along the x-axis", x_lab_under=True)
+def fig_2024_q66_optD():
+    return _p24_q66_frame(lambda x: _m.exp(-x/38)*_m.cos(2*_m.pi*x/88), 140, "Graph (D): V falls from V_o, crosses the x-axis and oscillates about it with decreasing amplitude", x_lab_under=True)
+
+# ---- Q67: vertical plate in perspective with a 1 kg block; acceleration a to the left -----------
 def fig_2024_q67():
-    """block hanging from pulley, force F applied."""
-    body = ""
-    body += label(40, 30, "Pulley system", 10)
-    # support
-    body += line(30, 50, 200, 50, stroke="var(--fig-line)", sw=2)
-    # pulley
-    body += circle(100, 70, 12, stroke="var(--fig-primary)", sw=2, fill="var(--fig-fill)")
-    # string
-    body += line(100, 82, 100, 120, stroke="var(--fig-axis)", sw=1.5)
-    # block
-    body += f'  <rect x="85" y="120" width="30" height="25" fill="none" stroke="var(--fig-primary)" stroke-width="2"/>\n'
-    body += label(100, 115, "block (2 kg)", 9, "var(--fig-text)", "middle")
-    # force F
-    body += arrow(170, 70, 200, 70, stroke="var(--fig-danger)", sw=2, label="F = 40 N", label_pos=(172, 60))
-    return svg_wrap(240, 160, body, "2024 Q67: Pulley with force")
+    P1, P2, P3, P4 = (40, 22), (176, 74), (176, 178), (42, 126)       # front face (parallelogram)
+    d = (12, -6)
+    q = lambda p: (p[0] + d[0], p[1] + d[1])
+    body = _p24_role(polyline(_fmt([P1, P2, P3, P4, P1]), stroke="var(--fig-line)", sw=1.4), "plate")
+    body += polyline(_fmt([P1, q(P1), q(P2), P2]), stroke="var(--fig-line)", sw=1.4)
+    body += polyline(_fmt([q(P2), q(P3), P3]), stroke="var(--fig-line)", sw=1.4)
+    for k in range(1, 14):                                         # hatched right edge (the plate's thickness)
+        y = P2[1] + 7.6*k
+        body += line(P2[0], round(y, 1), P2[0] + d[0], round(y - 9, 1), stroke="var(--fig-line)", sw=0.8)
+    c0 = (70, 84); s = 22; e = (9, -7)                               # cube: front square + top + side faces
+    body += _p24_role(f'  <rect x="{c0[0]}" y="{c0[1]}" width="{s}" height="{s}" fill="none" stroke="var(--fig-line)" stroke-width="1.3"/>\n', "block")
+    body += polyline(_fmt([(c0[0], c0[1]), (c0[0] + e[0], c0[1] + e[1]), (c0[0] + s + e[0], c0[1] + e[1]), (c0[0] + s + e[0], c0[1] + s + e[1]), (c0[0] + s, c0[1] + s)]), stroke="var(--fig-line)", sw=1.3)
+    body += line(c0[0] + s, c0[1], c0[0] + s + e[0], c0[1] + e[1], stroke="var(--fig-line)", sw=1.3)
+    body += mlabel(112, 124, "1 kg", 12)
+    body += _p24_role(arrow(76, 62, 44, 62, stroke="var(--fig-line)", sw=1.3), "acceleration")
+    body += mlabel(34, 66, "a", 13) + path("M 30,54 L 38,54", stroke="var(--fig-text)", sw=0.8) + _arrowhead(39, 54, 0, 3, "var(--fig-text)")
+    return svg_plain(200, 190, body, "2024 Q67: " + "a vertical rough plate drawn in perspective with a 1 kg block held against its face; arrow a shows the plate accelerating horizontally")
+
+# ---- Q68: Y-junction of rods A (to 0 °C), B and C (to 100 °C); C drawn wider ---------------------
+Q68_OUTLINE = [(x + 46, y) for x, y in [(29, 22), (18, 43), (112, 88), (22, 142), (33.6, 162.7), (130.3, 102.8), (248, 99), (248, 67.7), (119.9, 70.8)]]
 
 def fig_2024_q68():
-    """elliptical orbit of planet around Sun."""
-    body = ""
-    body += label(40, 30, "Elliptical orbit", 10)
-    body += path("M 120,40 Q 200,110 120,160 Q 40,110 120,40", stroke="var(--fig-primary)", sw=1.5, fill="none")
-    body += dot(120, 100, 5, fill="var(--fig-accent-soft)")
-    body += label(125, 95, "Sun", 10, "var(--fig-accent-soft)")
-    body += dot(180, 75, 4, fill="var(--fig-primary)")
-    body += label(185, 72, "Planet", 9, "var(--fig-primary)")
-    return svg_wrap(240, 180, body, "2024 Q68: Elliptical orbit")
+    body = _p24_role(polyline(_fmt(Q68_OUTLINE + [Q68_OUTLINE[0]]), stroke="var(--fig-line)", sw=1.4), "rods")
+    body += mlabel(80, 16, "B", 13) + mlabel(60, 36, "100 °C", 12, anchor="end")
+    body += mlabel(60, 156, "A", 13) + mlabel(82, 177, "0 °C", 12)
+    body += mlabel(268, 64, "C", 13) + mlabel(298, 90, "100 °C", 12, anchor="start")
+    return svg_plain(345, 185, body, "2024 Q68: " + "Y-junction of three rods; B to the upper left at 100 °C, A to the lower left at 0 °C, the wider rod C to the right at 100 °C")
+
+# ---- Q70: two adiabats from a common point; gas 1 steeper than gas 2 ---------------------------
+Q70 = dict(ox=30, oy=128, start=(92, 30))
 
 def fig_2024_q70():
-    """vector P = (A×B)×(C×D)."""
-    body = ""
-    body += label(40, 30, "P = (A×B)×(C×D)", 10)
-    body += dot(120, 100, 4)
-    body += arrow(120, 100, 200, 60, stroke="var(--fig-primary)", sw=2, label="A×B", label_pos=(160, 55))
-    body += arrow(120, 100, 60, 140, stroke="var(--fig-secondary)", sw=2, label="C×D", label_pos=(20, 155))
-    body += arrow(120, 100, 160, 140, stroke="var(--fig-danger)", sw=2, label="P", label_pos=(165, 155))
-    return svg_wrap(240, 180, body, "2024 Q70: Vector product")
+    g = Q70; s = g["start"]
+    body = arrow(g["ox"], g["oy"], g["ox"], 8, stroke="var(--fig-axis)", sw=1.2) + arrow(g["ox"], g["oy"], 200, g["oy"], stroke="var(--fig-axis)", sw=1.2)
+    body += mlabel(g["ox"] + 8, 14, "P", 13) + mlabel(208, g["oy"] + 5, "V", 13)
+    gas1 = [_bez(s, (93, 58), (100, 94), (120, 112))(j/30) for j in range(31)]
+    gas2 = [_bez(s, (100, 52), (114, 72), (144, 84))(j/30) for j in range(31)]
+    body += _p24_poly(gas1, "gas1", sw=1.5) + _p24_poly(gas2, "gas2", sw=1.5)
+    body += mlabel(84, 112, "gas 1", 12) + mlabel(132, 62, "gas 2", 12)
+    return svg_plain(220, 140, body, "2024 Q70: " + "P–V diagram; two adiabatic curves from the same point, gas 1 falling more steeply than gas 2")
+
 
 def fig_2024_q94():
     """power supply block diagram."""
@@ -1447,15 +1607,27 @@ def main():
         },
         "2024": {
             "fig-2024-q42": fig_2024_q42,
+            "fig-2024-q42-optA": fig_2024_q42_optA,
+            "fig-2024-q42-optB": fig_2024_q42_optB,
+            "fig-2024-q42-optC": fig_2024_q42_optC,
+            "fig-2024-q42-optD": fig_2024_q42_optD,
             "fig-2024-q43": fig_2024_q43,
+            "fig-2024-q45": fig_2024_q45,
             "fig-2024-q46": fig_2024_q46,
+            "fig-2024-q49": fig_2024_q49,
             "fig-2024-q52": fig_2024_q52,
             "fig-2024-q54": fig_2024_q54,
             "fig-2024-q55": fig_2024_q55,
             "fig-2024-q57": fig_2024_q57,
-            "fig-2024-q61": fig_2024_q61,
+            "fig-2024-q61-optA": fig_2024_q61_optA,
+            "fig-2024-q61-optB": fig_2024_q61_optB,
+            "fig-2024-q61-optC": fig_2024_q61_optC,
+            "fig-2024-q61-optD": fig_2024_q61_optD,
             "fig-2024-q65": fig_2024_q65,
-            "fig-2024-q66": fig_2024_q66,
+            "fig-2024-q66-optA": fig_2024_q66_optA,
+            "fig-2024-q66-optB": fig_2024_q66_optB,
+            "fig-2024-q66-optC": fig_2024_q66_optC,
+            "fig-2024-q66-optD": fig_2024_q66_optD,
             "fig-2024-q67": fig_2024_q67,
             "fig-2024-q68": fig_2024_q68,
             "fig-2024-q70": fig_2024_q70,

@@ -26,11 +26,17 @@ Checks:
      Cat-II Q31–Q40 judge all four options. Replaces the three legacy 2024
      checks (Q20/Q22/Q37) that targeted the corrupted OCR stems. A 2024 Batch A
      coverage gate requires 40/40 checks, method sympy and >= 3 steps.
-  9. Report coverage statistics
+  9. 2024 Q41–Q70 (Batch B, Physics): 30 independent checks from the verbatim
+     stems; booklet figure layout asserted for every item (stem figures, the
+     four option graphs of Q42/Q61/Q66, Q61/Q66 stemFigure null) and answers
+     read back from the redrawn SVG geometry (data-role attributes); numeric
+     options bound to printed values; Cat-II Q66–Q70 evaluate all four options;
+     withdrawn Q49/Q58 must have no correct option and state the +1 rule.
+ 10. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
-import json, os, re, sys
+import json, math, os, re, sys
 
 try:
     import sympy
@@ -2230,6 +2236,567 @@ def _a24_q40():
 A_TESTS_2024 = [(f"2024 Q{n}", f"jelet-2024-q{n:03d}", globals()[f"_a24_q{n}"]) for n in range(1, 41)]
 
 
+# ---------------------------------------------------------------------------
+# 2024 Batch B (Physics, Q41–Q70): independent re-derivations from the verbatim
+# stems (PDF pages 11–18) plus geometry read back from the redrawn SVGs
+# (_data/figures/2024/fig-2024-qNN*.svg).  Each check asserts stem/option
+# fingerprints, the booklet figure layout (which items carry a stem figure and
+# which carry option figures), option-value binding for numeric options, and an
+# exact true set equal to key.correct.  Cat-II Q66–Q70 evaluate all four options.
+# Withdrawn items (Q49, Q58) must have no correct option and state the award rule.
+# ---------------------------------------------------------------------------
+INTERPRETATION_NOTES_2024[67] = (
+    "(D) 'mu = a/g' satisfies the holding condition mu >= g/a only when a >= g, so it is judged FALSE as a general "
+    "statement; (B) mu > g/a and (C) mu = g/a (limiting friction) both keep the block stationary. Official key "
+    "WBE/Ex-71 lists B, C — kept unchanged.")
+
+# (stem figure printed?, number of option figures) for every Physics item; all others: (False, 0)
+LAYOUT_2024_B = {42: (True, 4), 43: (True, 0), 45: (True, 0), 46: (True, 0), 49: (True, 0), 52: (True, 0),
+                 54: (True, 0), 55: (True, 0), 57: (True, 0), 61: (False, 4), 65: (True, 0), 66: (False, 4),
+                 67: (True, 0), 68: (True, 0), 70: (True, 0)}
+
+def _physval(latex):
+    """Numeric value of a physics option: strips units (\\text{...}, ^{\\circ}), handles a \\times 10^{n} and ratios a : b."""
+    t = latex.strip()
+    if t.count("$") != 2:
+        return None
+    t = t.strip("$").strip()
+    m = re.fullmatch(r"(\d+)\s*:\s*(\d+)", t)
+    if m:
+        return sympy.Rational(int(m.group(1)), int(m.group(2)))
+    t = re.sub(r"\\,\s*\^\{\\circ\}\\text\{C\}", "", t)
+    t = re.sub(r"\\,\s*\\text\{[^{}]*\}(\^\{-?\d+\})?", "", t)
+    t = re.sub(r"\\times\s*10\^\{(-?\d+)\}", r"*10**(\1)", t)
+    return _numval("$" + t + "$")
+
+def _b24_layout(qnum):
+    q = _paper_2024()[qnum]
+    want_stem, want_opts = LAYOUT_2024_B.get(qnum, (False, 0))
+    sf = q.get("stemFigure"); ofs = {o["id"]: o.get("figure") for o in q["options"]}
+    n_opt = sum(1 for f in ofs.values() if f)
+    if bool(sf) != want_stem or n_opt != want_opts:
+        return False, f"figure layout differs from the booklet: stemFigure={'yes' if sf else 'null'} (booklet {'yes' if want_stem else 'none'}), option figures={n_opt} (booklet {want_opts})"
+    if sf and sf["src"] != f"./_data/figures/2024/fig-2024-q{qnum}.svg":
+        return False, f"stem figure src {sf['src']} is not fig-2024-q{qnum}.svg"
+    for k, f in ofs.items():
+        if f and f["src"] != f"./_data/figures/2024/fig-2024-q{qnum}-opt{k}.svg":
+            return False, f"option {k} figure src {f['src']} is not fig-2024-q{qnum}-opt{k}.svg"
+    for f in [sf] + list(ofs.values()):
+        if f and not os.path.exists(os.path.join(ROOT, f["src"][2:])):
+            return False, f"figure file missing: {f['src']}"
+    return True, ""
+
+def _b24_common(qnum, stem_fps, opt_fps, enc=None, tol=0):
+    q = _paper_2024()[qnum]
+    missing = [fp for fp in stem_fps if fp not in q["stemLatex"]]
+    if missing:
+        return f"stem fingerprint(s) {missing} not found in stemLatex"
+    olatex = {o["id"]: o["latex"] for o in q["options"]}
+    omissing = [fp for fp in opt_fps if fp.split(":", 1)[1] not in olatex.get(fp.split(":", 1)[0], "")]
+    if omissing:
+        return f"option fingerprint(s) {omissing} not found in option latex"
+    if len(set(olatex.values())) != 4:
+        return f"options are not four distinct printed choices: {olatex}"
+    if enc:
+        def bad(k, v):
+            pv = _physval(olatex[k])
+            return pv is None or abs(float(pv - v)) > max(tol, 1e-9*abs(float(v)))
+        b = [k for k, v in enc.items() if bad(k, v)]
+        if b:
+            return f"option(s) {b} in the paper do not encode the values evaluated by the check ({ {k: olatex[k] for k in b} })"
+    ok, why = _b24_layout(qnum)
+    return None if ok else why
+
+def _b24_result(qnum, stem_fps, opt_fps, matched, detail, enc=None, tol=0):
+    err = _b24_common(qnum, stem_fps, opt_fps, enc, tol)
+    if err:
+        return False, err
+    q = _paper_2024()[qnum]
+    key = sorted(q["key"]["correct"])
+    if qnum in INTERPRETATION_NOTES_2024:
+        KEY_DISPUTE_LOG.append(f"2024 Q{qnum} (interpretation): {INTERPRETATION_NOTES_2024[qnum]}")
+    return matched == key, f"{detail}; true option(s) {matched} vs key {key}"
+
+def _b24_withdrawn(qnum, stem_fps, matched, must, detail, enc=None, tol=0):
+    err = _b24_common(qnum, stem_fps, [], enc, tol)
+    if err:
+        return False, err
+    q = _paper_2024()[qnum]
+    withdrawn = q["key"]["status"] == "voided" and q["key"]["correct"] == ["W"]
+    full = q["fullTwelfths"] == 12 and q["category"] == 1
+    sol = load_json(os.path.join(DATA, "solutions", "2024.solutions.json"))["solutions"][f"jelet-2024-q{qnum:03d}"]
+    text = " ".join(s["bodyLatex"] for s in sol["steps"])
+    sol_ok = all(m in text for m in must) and "+12" in text and "+1" in text and "0 marks" not in text
+    return (matched == [] and withdrawn and full and sol_ok), (f"{detail}; options matching {matched} (none) -> key W; withdrawn={withdrawn}, "
+                                                              f"Cat-I 12 twelfths={full}, solution states analysis + '+1 mark (+12 twelfths)'={sol_ok}")
+
+def _svg24(qnum, opt=None):
+    """Parse a 2024 SVG into {role: [attr dicts]}, all <text> items, and raw text."""
+    q = _paper_2024()[qnum]
+    f = q["stemFigure"] if opt is None else next(o for o in q["options"] if o["id"] == opt)["figure"]
+    if not f:
+        return None
+    svg = open(os.path.join(ROOT, f["src"][2:]), encoding="utf-8").read()
+    roles = {}
+    for tag, attrs in re.findall(r"<(\w+) ([^>]*?)/?>", svg):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs)); a["_tag"] = tag
+        if "data-role" in a:
+            roles.setdefault(a["data-role"], []).append(a)
+    texts = []
+    for attrs, body in re.findall(r"<text\b([^>]*)>(.*?)</text>", svg):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs))
+        texts.append((float(a["x"]), float(a["y"]), re.sub(r"<[^>]+>", "", body)))
+    axes = [tuple(map(float, m[:4])) for m in re.findall(r'<line x1="([-0-9.]+)" y1="([-0-9.]+)" x2="([-0-9.]+)" y2="([-0-9.]+)"([^>]*)/>', svg)
+            if "--fig-axis" in m[4] and "dasharray" not in m[4]]
+    hax = min(axes, key=lambda l: abs(l[3] - l[1]) / (abs(l[2] - l[0]) + 1e-9)) if axes else None
+    vax = min(axes, key=lambda l: abs(l[2] - l[0]) / (abs(l[3] - l[1]) + 1e-9)) if axes else None
+    return dict(roles=roles, texts=texts, raw=svg, hax=hax, vax=vax)
+
+def _pt_line_dist(p, l):
+    (x1, y1, x2, y2) = l
+    return abs((x2 - x1)*(y1 - p[1]) - (x1 - p[0])*(y2 - y1)) / math.hypot(x2 - x1, y2 - y1)
+
+def _origin(G):
+    """Intersection of the horizontal and vertical axis lines."""
+    (a1, b1, a2, b2), (c1, d1, c2, d2) = G["hax"], G["vax"]
+    den = (a1 - a2)*(d1 - d2) - (b1 - b2)*(c1 - c2)
+    px = ((a1*b2 - b1*a2)*(c1 - c2) - (a1 - a2)*(c1*d2 - d1*c2)) / den
+    py = ((a1*b2 - b1*a2)*(d1 - d2) - (b1 - b2)*(c1*d2 - d1*c2)) / den
+    return px, py
+
+def _pts_of(a):
+    return [tuple(map(float, p.split(","))) for p in a["points"].split()]
+
+def _line_of(a):
+    return tuple(float(a[k]) for k in ("x1", "y1", "x2", "y2"))
+
+def _arc_of(a):
+    m = re.match(r"M ([-0-9.]+),([-0-9.]+) A ([-0-9.]+),[-0-9.]+ \d \d \d ([-0-9.]+),([-0-9.]+)", a["d"])
+    return tuple(map(float, m.groups()))      # x0, y0, r, x1, y1
+
+def _b24_q41():
+    a, b, c = sympy.symbols("a b c")
+    sol = sympy.solve([a - 1, a + c, -2*a + b - c], [a, b, c])            # M: F^a T^b V^c with F = MLT^-2, V = LT^-1
+    opts = {"A": (1, 2, -2), "B": (1, 1, -1), "C": (2, -2, 2), "D": (1, 1, 1)}
+    m = _pick(opts, lambda e: e == (sol[a], sol[b], sol[c]))
+    return _b24_result(41, ["velocity, time and force", "dimension of mass"], ["A:FT^{2}V^{-2}", "B:FTV^{-1}", "C:F^{2}T^{-2}V^{2}", "D:FTV$"],
+                       m, f"exponents (F, T, V) = ({sol[a]}, {sol[b]}, {sol[c]})")
+
+def _shape42(pts, oy):
+    ys = [oy - y for _, y in pts]
+    if len(set(ys)) == 1:
+        return "const"
+    if len(ys) == 3 and abs(ys[1]) < 1e-6 and ys[0] > 0 and ys[2] > 0:
+        return "V"
+    if len(ys) == 3 and abs(ys[0]) < 1e-6 and abs(ys[2]) < 1e-6 and ys[1] > 0:
+        return "tri"
+    return "other"
+
+def _b24_q42():
+    t = sympy.symbols("t", nonnegative=True); u, g, th = sympy.symbols("u g theta", positive=True)
+    vx, vy = u*cos(th), u*sin(th) - g*t
+    T = 2*u*sin(th)/g
+    sub = {u: 10, g: sympy.Rational(98, 10), th: sympy.pi/4}
+    sp = [abs(vy.subs(sub).subs(t, k*T.subs(sub)/4)) for k in range(5)]
+    expect_y = "V" if (sp[0] > 0 and sp[2] == 0 and sympy.simplify(sp[1] - sp[3]) == 0 and sp[4] == sp[0]) else "?"
+    expect = ("const" if sympy.diff(vx, t) == 0 else "?", expect_y)
+    shapes = {}
+    for k in "ABCD":
+        G = _svg24(42, k)
+        if not G:
+            return False, f"option {k} figure missing"
+        shapes[k] = tuple(_shape42(_pts_of(G["roles"][f"{c}-t"][0]), G["hax"][1]) for c in "xy")
+    S = _svg24(42)
+    tr = _pts_of(S["roles"]["trajectory"][0]); ua = _line_of(S["roles"]["u"][0])
+    tangent = abs(math.degrees(math.atan2(tr[0][1] - tr[1][1], tr[1][0] - tr[0][0])) - math.degrees(math.atan2(ua[1] - ua[3], ua[2] - ua[0]))) < 3
+    m = _pick(shapes, lambda s: s == expect) if tangent else []
+    return _b24_result(42, ["initial speed $u$", "parabolic path", "speed-time graphs"], [], m,
+                       f"physics (v_x, |v_y|) shapes = {expect}; SVG panel shapes {shapes}; u tangent to path at launch: {tangent}")
+
+def _b24_q43():
+    G = _svg24(43)
+    nx = _line_of(G["roles"]["normal"][0])[0]
+    inc = _line_of(G["roles"]["incident"][0]); ref = _line_of(G["roles"]["refracted"][0])
+    ox, oy = inc[2], inc[3]
+    a1 = math.degrees(math.atan2(abs(inc[0] - ox), abs(inc[1] - oy)))           # angle of the incident ray from the normal
+    a2 = math.degrees(math.atan2(abs(ref[2] - ox), abs(ref[3] - oy)))
+    def arc_ok(role, ray_end):
+        x0, y0, r, x1, y1 = _arc_of(G["roles"][role][0])
+        on_normal = abs(x0 - nx) < 0.6
+        ang_ray = math.atan2(ray_end[1] - oy, ray_end[0] - ox); ang_end = math.atan2(y1 - oy, x1 - ox)
+        return on_normal and abs(ang_ray - ang_end) < 0.02
+    arcs = arc_ok("alpha1", inc[:2]) and arc_ok("alpha2", ref[2:])
+    s1, s2 = sympy.sin(sympy.rad(sympy.Float(a1))), sympy.sin(sympy.rad(sympy.Float(a2)))
+    c1, c2 = sympy.cos(sympy.rad(sympy.Float(a1))), sympy.cos(sympy.rad(sympy.Float(a2)))
+    snell = s2/s1                                                               # lambda2/lambda1 = n1/n2 = sin a2 / sin a1
+    opts = {"A": 1, "B": s2/s1, "C": s1/s2, "D": c2/c1}
+    m = _pick(opts, lambda r: abs(float(r - snell)) < 1e-9) if arcs else []
+    return _b24_result(43, ["medium 1", "medium 2", r"$\lambda_{1}$", r"$\lambda_{2}$"],
+                       [r"B:\lambda_{2} = \dfrac{\sin\alpha_{2}}{\sin\alpha_{1}}\lambda_{1}", r"D:\dfrac{\cos\alpha_{2}}{\cos\alpha_{1}}"], m,
+                       f"SVG: alpha arcs start on the normal and end on the rays: {arcs}; drawn alpha1 = {a1:.1f} deg, alpha2 = {a2:.1f} deg; lambda2/lambda1 = {float(snell):.4f}")
+
+def _b24_q44():
+    stress = 4*sympy.Rational(31, 10)*sympy.pi/(sympy.pi*sympy.Rational(2, 1000)**2)
+    opts = {"A": sympy.Rational(31, 10)*10**6, "B": sympy.Rational(28, 10)*10**4, "C": sympy.Rational(68, 10)*10**8, "D": sympy.Rational(98, 10)*10**3}
+    m = _pick(opts, lambda v: v == stress)
+    return _b24_result(44, [r"$4\,\text{kg}$", r"$2\,\text{mm}$", r"$g = 3.1\pi\,\text{ms}^{-2}$"], [], m, f"stress = {stress} N/m^2", enc=opts)
+
+def _b24_q45():
+    th, R, v, m_ = sympy.symbols("theta R v m", positive=True)
+    P = Matrix([R*cos(th), R*sin(th)]); V = Matrix([-v*sin(th), v*cos(th)]); O = Matrix([-R, 0])
+    cz = lambda a, b: a[0]*b[1] - a[1]*b[0]
+    ratio = sympy.simplify(cz(P - O, V)/cz(P, V))
+    G = _svg24(45)
+    c = G["roles"]["orbit"][0]; cx, cy, r = float(c["cx"]), float(c["cy"]), float(c["r"])
+    dia = _line_of(G["roles"]["diameter"][0]); rad = _line_of(G["roles"]["radius"][0]); vel = _line_of(G["roles"]["velocity"][0])
+    Ox, Oy = cx - r, cy                                                         # left end of the horizontal diameter
+    geo = (abs(dia[1] - cy) < 1e-6 and abs(dia[3] - cy) < 1e-6 and dia[0] < Ox < dia[2]
+           and abs(math.hypot(rad[2] - cx, rad[3] - cy) - r) < 0.2 and (rad[0], rad[1]) == (cx, cy)
+           and (vel[0], vel[1]) == (rad[2], rad[3])
+           and abs((vel[2] - vel[0])*(rad[2] - cx) + (vel[3] - vel[1])*(rad[3] - cy)) / (math.hypot(vel[2] - vel[0], vel[3] - vel[1])*r) < 0.01)
+    thd = math.atan2(cy - rad[3], rad[2] - cx)
+    num = ((rad[2] - Ox)*(-(vel[3] - vel[1])) - (-(rad[3] - Oy))*(vel[2] - vel[0])) / ((rad[2] - cx)*(-(vel[3] - vel[1])) - (-(rad[3] - cy))*(vel[2] - vel[0]))
+    opts = {"A": cos(th)**2, "B": 1 + cos(th), "C": cos(th/2)**2, "D": sympy.Integer(1)}
+    m = _pick(opts, lambda e: _zero(e - ratio) and abs(float(e.subs(th, thd)) - num) < 0.01) if geo else []
+    return _b24_result(45, ["constant speed $v$", "about centre $C$", "about point $O$", r"\dfrac{L_{o}}{L_{c}}"],
+                       [r"B:1 + \cos\theta", r"C:\cos^{2}\dfrac{\theta}{2}"], m,
+                       f"L_O/L_C = {ratio}; SVG: O on circle at end of diameter, v tangent: {geo}; drawn theta = {math.degrees(thd):.1f} deg, ratio from SVG = {num:.4f}")
+
+def _b24_q46():
+    G = _svg24(46); pts = _pts_of(G["roles"]["a-t"][0])
+    ta = next(t for t in G["texts"] if t[2] == "10"); tt = next(t for t in G["texts"] if t[2] == "25")
+    ox, oy = _origin(G)
+    tied = abs(ta[1] - 4 - pts[0][1]) < 1 and abs(tt[0] - pts[-1][0]) < 1 and abs(pts[0][0] - ox) < 0.5 and abs(pts[-1][1] - oy) < 0.5
+    t = sympy.symbols("t", nonnegative=True)
+    a = 10*(1 - t/25)                                                           # line through (0, 10) and (25, 0) as drawn
+    vmax = sympy.integrate(a, (t, 0, 25)) if tied else None
+    opts = {"A": 225, "B": 120, "C": 100, "D": 125}
+    m = _pick(opts, lambda v: v == vmax)
+    return _b24_result(46, ["starts moving from rest", "acceleration vs. time graph", "maximum velocity"], [], m,
+                       f"SVG line from a = 10 (t = 0) to a = 0 (t = 25) with tick labels tied: {tied}; v_max = area = {vmax}", enc=opts)
+
+def _b24_q47():
+    P, t, M, s, dT = sympy.symbols("P t M s dT", positive=True)
+    sol = sympy.solve(sympy.Rational(4, 5)*P*t - M*s*dT, dT)[0]
+    opts = {"A": sympy.Rational(2, 5)*P*t/(M*s), "B": sympy.Rational(4, 5)*P*t/(M*s), "C": sympy.Rational(4, 5)*P/(M*s*t), "D": sympy.Rational(1, 5)*P*t/(M*s)}
+    m = _pick(opts, lambda e: _zero(e - sol))
+    return _b24_result(47, ["$20\\%$ of the power is lost", "'$t$' seconds"], [r"A:\dfrac{0.4\,Pt}{Ms}", r"B:\dfrac{0.8\,Pt}{Ms}", r"C:\dfrac{0.8\,P}{Ms\,t}", r"D:\dfrac{0.2\,Pt}{Ms}"],
+                       m, f"dT = {sol}")
+
+def _b24_q48():
+    g, aB, d = sympy.symbols("gamma_r alpha_B delta", positive=True)
+    aA = aB + d                                                                 # alpha_A > alpha_B
+    diff = sympy.simplify((g - 3*aA) - (g - 3*aB))
+    props = {"A": diff.is_positive, "B": diff.is_negative, "C": diff.is_zero}
+    props["D"] = not any(props.values())
+    return _b24_result(48, [r"\alpha_{A} > \alpha_{B}", "apparent expansion"], [r"B:\gamma_{A}^{a} < \gamma_{B}^{a}", "D:None of these"], _true(props),
+                       f"gamma_A^a - gamma_B^a = {diff}")
+
+def _b24_q49():
+    k, A, l, t1, t2 = sympy.symbols("k A l t1 t2", positive=True)
+    R = l/(k*A) + 2*l/(2*k*A)
+    H = sympy.simplify((t1 - t2)/R)
+    opts = {"A": 3*k*A*(t2 - t1)/(2*l), "B": 2*k*A*(t1 - t2)/l, "C": k*A/l*(t1 - t2), "D": k*A*(t1 - t2)/(3*l)}
+    ratios = {kk: sympy.simplify(e/H) for kk, e in opts.items()}
+    m = _pick(opts, lambda e: _zero(e - H))
+    G = _svg24(49); labels = {t[2] for t in G["texts"]}
+    fig_ok = {"l", "2l", "k", "2k", "t1", "t2"} <= labels
+    return _b24_withdrawn(49, ["length of one is $l$", "$2l$", "$k$ and $2k$"], m if fig_ok else ["fig"], ["2l", "W"],
+                          f"H = {H}; option/H ratios {ratios}; figure labels l, 2l, k, 2k, t1, t2 present: {fig_ok}")
+
+def _b24_q50():
+    v = sympy.symbols("v")
+    f = sympy.Rational(100)/sympy.Rational(3, 2)
+    img = sympy.solve(1/v - 1/sympy.Integer(-25) - 1/f, v)[0]
+    opts = {"A": 40, "B": 30, "C": 50, "D": 15}
+    m = _pick(opts, lambda d: img == -d)
+    return _b24_result(50, [r"$+1.5\,\text{D}$", "hypermetropic", "near point"], [], m, f"f = {f} cm, image of an object at 25 cm at v = {img} cm", enc=opts)
+
+def _b24_q51():
+    k0, A, L, dT, mass = sympy.symbols("k0 A L dT m", positive=True)
+    H = k0*A*dT/L                                                               # Fourier's law for a rod of material constant k0
+    k = sympy.simplify(H*L/(A*dT))
+    props = {"A": sympy.diff(k, L) != 0, "B": sympy.diff(k, mass) != 0, "C": sympy.diff(k, A) != 0, "D": sympy.diff(k, k0) != 0}
+    return _b24_result(51, ["thermal conductivity of a rod depends on"], ["D:material of the rod"], _true(props), f"k = H L/(A dT) = {k}")
+
+def _b24_q52():
+    mu, R, f = sympy.symbols("mu R f", positive=True)
+    G = _svg24(52)
+    lens_arcs = G["roles"]["lens"][0]["d"].count(" A ")
+    pieces = [G["roles"].get(f"piece-{t}", [None])[0] for t in "ABCD"]
+    curved = [p["d"].count(" A ") if p else 0 for p in pieces]
+    fig_ok = lens_arcs == 2 and curved == [1, 1, 1, 1]
+    inv_f = 2*(mu - 1)/R                                                        # equiconvex
+    inv_piece = (mu - 1)/R * (curved[0] if fig_ok else 0)                       # one curved face per piece
+    F = sympy.simplify(1/(4*inv_piece)).subs(R, sympy.solve(sympy.Eq(1/f, inv_f), R)[0]) if fig_ok else None
+    opts = {"A": f/2, "B": f, "C": f/4, "D": 4*f}
+    m = _pick(opts, lambda e: F is not None and _zero(e - F))
+    return _b24_result(52, ["equiconvex lens", "broken into four parts", "re-arranged"], [r"A:\dfrac{f}{2}", r"C:\dfrac{f}{4}", "D:$4f$"], m,
+                       f"SVG: lens has {lens_arcs} curved faces, pieces have {curved} curved faces; F = {F}")
+
+def _b24_q53():
+    dQ, dU, dW = sympy.symbols("dQ dU dW")
+    law = sympy.Eq(dQ, dU + dW)
+    sol = sympy.solve(law, dU)[0]                                               # dU = dQ - dW: an energy balance
+    props = {"A": sympy.simplify(sol - dQ) == 0,           # heat alone conserved only if no work: not a general statement
+             "B": sympy.simplify(sol + dW) == 0,           # work alone
+             "C": False,                                   # no momentum term appears in the law
+             "D": sympy.simplify(sol + dW - dQ) == 0}      # total energy transfer balances the internal-energy change
+    return _b24_result(53, ["first law of thermodynamics"], ["D:conservation of energy", "C:conservation of momentum"], _true(props), f"first law: dU = {sol}")
+
+def _b24_q54():
+    G = _svg24(54)
+    px = float(G["roles"]["pulley"][0]["cx"])
+    blocks = [(float(b["x"]) + float(b["width"])/2, float(b["y"]) + float(b["height"])/2) for b in G["roles"]["block"]]
+    masses = [(x, y, int(t.split()[0])) for x, y, t in G["texts"] if t.endswith("kg")]
+    assoc = {}
+    for bx, by in blocks:
+        mx = min(masses, key=lambda q: math.hypot(q[0] - bx, q[1] - by))
+        assoc[(bx, by)] = mx[2]
+    left = sorted([(by, mm) for (bx, by), mm in assoc.items() if bx < px]); right = sorted([(by, mm) for (bx, by), mm in assoc.items() if bx > px])
+    g = sympy.Symbol("g", positive=True)
+    ML, MR = sum(mm for _, mm in left), sum(mm for _, mm in right)
+    a = (ML - MR)*g/(ML + MR)
+    T1 = (ML*(g - a)) if len(left) == 2 else None
+    T2 = left[-1][1]*(g - a); T3 = right[-1][1]*(g + a)
+    tl = {t[2]: t[0] for t in G["texts"] if t[2] in ("T1", "T2", "T3")}
+    labels_ok = len([t for t in G["texts"] if t[2] == "T1"]) == 2 and tl.get("T2", 1e9) < px and tl.get("T3", -1) > px
+    props = {"A": T1 > T2 > T3, "B": T1 < T2 < T3, "C": T1 == T3 == T2, "D": (T2 > T3) and T3 == T1} if labels_ok and len(right) == 2 else {}
+    return _b24_result(54, ["strings are massless", "pulley is frictionless"], [r"A:T_{1} > T_{2} > T_{3}", r"D:T_{2} > T_{3} = T_{1}"], _true(props),
+                       f"SVG masses left {[mm for _, mm in left]}, right {[mm for _, mm in right]} -> a = {a}; T1, T2, T3 = {T1}, {T2}, {T3}")
+
+def _b24_q55():
+    G = _svg24(55)
+    A_, B_, C_ = _pts_of(G["roles"]["line-AC"][0])
+    lab = {t[2]: (t[0], t[1]) for t in G["texts"] if t[2] in "OABC" and len(t[2]) == 1}
+    ox, oy = _origin(G)
+    collinear = abs((B_[0] - A_[0])*(C_[1] - A_[1]) - (B_[1] - A_[1])*(C_[0] - A_[0])) < 1e-6
+    geo = (collinear and _pt_line_dist(A_, G["vax"]) < 1 and _pt_line_dist(B_, G["hax"]) < 1 and A_[1] > oy + 5 and B_[0] > ox + 5
+           and C_[0] > B_[0] and lab["A"][1] > lab["O"][1])
+    h, e, phi, nu = sympy.symbols("h e phi nu", positive=True)
+    V = h/e*nu - phi/e
+    OA = -V.subs(nu, 0)                                                        # A lies below O: OA = phi/e
+    slope = sympy.diff(V, nu)
+    opts = {"A": slope, "B": slope*e, "C": OA*e, "D": OA}
+    m = _pick(opts, lambda q: _zero(q - phi)) if geo else []
+    return _b24_result(55, ["stopping potential $V_{o}$", "frequency $(\\nu)$", "work function"],
+                       ["C:product of the intercept $OA$ and the charge of the electron.", "D:intercept $OA$."], m,
+                       f"SVG: A on V_o-axis below O, B on nu-axis, A-B-C collinear: {geo}; V_o = {V}, OA = {OA}")
+
+def _b24_q56():
+    y = sympy.Function("y"); t = sympy.symbols("t")
+    rho, sigma, g, H, R, A = sympy.symbols("rho sigma g H R A", positive=True)
+    ode = sympy.Eq(rho*A*H*y(t).diff(t, 2), -sigma*A*g*y(t))
+    w2 = sympy.simplify(-ode.rhs/(rho*A*H*y(t)))
+    w = sympy.sqrt(w2)
+    opts = {"A": sympy.sqrt(sigma*g/(rho*H)), "B": sympy.sqrt(rho*g/(sigma*H)), "C": sympy.sqrt(sigma*g/(rho*R)), "D": sympy.sqrt(rho*g/(sigma*R))}
+    m = _pick(opts, lambda e: _zero(e - w))
+    return _b24_result(56, ["floats vertically", "small downward instantaneous force"], [r"A:\omega = \sqrt{\dfrac{\sigma g}{\rho H}}", r"D:\omega = \sqrt{\dfrac{\rho g}{\sigma R}}"],
+                       m, f"omega^2 = {w2}")
+
+def _b24_q57():
+    G = _svg24(57); pts = _pts_of(G["roles"]["V-x"][0])
+    ys = [y for _, y in pts]
+    ext = []
+    for i in range(1, len(ys) - 1):
+        if ys[i] < ys[i - 1] and ys[i] <= ys[i + 1]:
+            ext.append("max")                                                  # screen y minimum = V maximum
+        elif ys[i] > ys[i - 1] and ys[i] >= ys[i + 1]:
+            ext.append("min")
+    n, stable = len(ext), ext.count("min")
+    opts = {"A": (2, 1, 1), "B": (2, 2, 0), "C": (3, 1, 2), "D": (3, 2, 1)}
+    m = _pick(opts, lambda o: o == (n, stable, n - stable))
+    return _b24_result(57, ["potential energy $V(x)$", "The particle has"], ["C:Three equilibrium points, one stable, two unstable."], m,
+                       f"SVG extrema sequence {ext} -> {n} equilibria, {stable} stable, {n - stable} unstable")
+
+def _b24_q58():
+    h = sympy.symbols("h", positive=True)
+    R = 6400
+    h_approx = sympy.solve(2*h/R - sympy.Rational(2, 100), h)[0]
+    h_exact = sympy.solve((R/(R + h))**2 - sympy.Rational(98, 100), h)[0]
+    opts = {"A": sympy.Rational(625, 10), "B": sympy.Rational(639, 10), "C": sympy.Rational(642, 10), "D": sympy.Rational(653, 10)}
+    m = _pick(opts, lambda v: abs(float(v - h_approx)) < 0.05 or abs(float(v - h_exact)) < 0.05)
+    return _b24_withdrawn(58, [r"$6400\,\text{km}$", r"$2\%$"], m, ["64", "W"],
+                          f"h (binomial) = {h_approx} km, h (exact) = {float(h_exact):.3f} km", enc=opts)
+
+def _b24_q59():
+    r1, T1, T2 = 10**4, 1, 8
+    r2 = sympy.nsimplify(r1*sympy.Integer(T2/T1)**sympy.Rational(2, 3))
+    v1, v2 = 2*sympy.pi*r1/T1, 2*sympy.pi*r2/T2
+    w = sympy.simplify(abs(v2 - v1)/(r2 - r1))
+    opts = {"A": sympy.pi/2, "B": sympy.pi/4, "C": sympy.pi/3, "D": sympy.pi}
+    m = _pick(opts, lambda v: _zero(v - w))
+    return _b24_result(59, ["same sense", r"$1\,\text{h}$ and $8\,\text{h}$", r"$10^{4}\,\text{km}$", "closest to"], [], m,
+                       f"r2 = {r2} km, v1 = {v1}, v2 = {v2} km/h, omega_rel = {w}", enc=opts)
+
+def _b24_q60():
+    Vrg = sympy.solve(sympy.Symbol("V")*sympy.sin(sympy.pi/6) - 10, sympy.Symbol("V"))[0]
+    Vrm = Vrg*sympy.cos(sympy.pi/6)
+    opts = {"A": (20, 10*sympy.sqrt(3)), "B": (10, 20), "C": (10*sympy.sqrt(3), 20*sympy.sqrt(3)), "D": (10, 20*sympy.sqrt(3))}
+    olatex = {o["id"]: o["latex"] for o in _paper_2024()[60]["options"]}
+    def printed(lat):
+        vals = []
+        for part in re.findall(r"= ([^$]*?)\\,\\text\{km/h\}", lat):
+            vals.append(_numval("$" + part.replace("\\sqrt{3}", "sqrt(3)").strip() + "$"))
+        return tuple(vals)
+    bound = all(len(printed(olatex[k])) == 2 and all(_zero(a - b) for a, b in zip(printed(olatex[k]), v)) for k, v in opts.items())
+    m = _pick(opts, lambda p: _zero(p[0] - Vrg) and _zero(p[1] - Vrm)) if bound else []
+    return _b24_result(60, [r"$30^{\circ}$ with the vertical", r"$10\,\text{km/h}$", "hitting his head vertically"], [], m,
+                       f"V_rg = {Vrg} km/h, V_rm = {Vrm} km/h; printed option values bound: {bound}")
+
+def _q61_read(k):
+    G = _svg24(61, k)
+    V = _pts_of(G["roles"]["V"][0]); K = _pts_of(G["roles"]["K"][0])
+    ox, oy = K[0]; top = V[0][1]; T = V[-1][0]
+    v = [((x - ox)/(T - ox), (oy - y)/(oy - top)) for x, y in V]
+    kk = [((x - ox)/(T - ox), (oy - y)/(oy - top)) for x, y in K]
+    i = G["raw"].index('data-role="t-end"')
+    num, den = [re.sub(r"<[^>]+>", "", s) for s in re.findall(r"<text [^>]*>(.*?)</text>", G["raw"][i:])[:2]]
+    conc = lambda p: sum(p[j - 1][1] - 2*p[j][1] + p[j + 1][1] for j in range(1, len(p) - 1))
+    return dict(Vconc=conc(v), Kconc=conc(kk), Vslope0=(v[1][1] - v[0][1])/(v[1][0] - v[0][0]), Kslope0=(kk[1][1] - kk[0][1])/(kk[1][0] - kk[0][0]),
+                sum_dev=max(abs(a[1] + b[1] - 1) for a, b in zip(v, kk)), ends=(v[0][1], v[-1][1], kk[0][1], kk[-1][1]), label=(num, den))
+
+def _b24_q61():
+    t = sympy.symbols("t", nonnegative=True); m_, g, H = sympy.symbols("m g H", positive=True)
+    K = m_*(g*t)**2/2; V = m_*g*H - K
+    T = sympy.solve(sympy.Eq(g*t**2/2, H), t)[0]
+    phys = dict(Vconc=sympy.diff(V, t, 2).is_negative, Kconc=sympy.diff(K, t, 2).is_positive,
+                flat0=sympy.diff(V, t).subs(t, 0) == 0 and sympy.diff(K, t).subs(t, 0) == 0,
+                const=sympy.simplify(V + K - m_*g*H) == 0, T=T)
+    truth, desc = {}, {}
+    for k in "ABCD":
+        r = _q61_read(k)
+        ok = (r["Vconc"] < 0 if phys["Vconc"] else r["Vconc"] > 0) and (r["Kconc"] > 0 if phys["Kconc"] else r["Kconc"] < 0)
+        ok = ok and phys["flat0"] and abs(r["Vslope0"]) < 0.1 and abs(r["Kslope0"]) < 0.1
+        ok = ok and phys["const"] and r["sum_dev"] < 0.01 and max(abs(a - b) for a, b in zip(r["ends"], (1, 0, 0, 1))) < 0.01
+        num = r["label"][0].replace("h", "*H").lstrip("*") if r["label"][0] != "h" else "H"
+        label_T = sympy.sqrt(sympy.sympify(num, locals={"H": H})/sympy.sympify(r["label"][1], locals={"g": g}))
+        ok = ok and _zero(label_T - T)
+        truth[k] = ok; desc[k] = (round(r["Vconc"], 3), round(r["Kconc"], 3), round(r["sum_dev"], 3), "/".join(r["label"]))
+    return _b24_result(61, ["falling freely under gravity from height $H$", "potential energy $(V)$", "kinetic energy $(K)$"], [], _true(truth),
+                       f"physics: V concave down, K concave up, flat at t = 0, V + K = mgH, T = {T}; SVG (Vconc, Kconc, |V+K-1|, end label) = {desc}")
+
+def _b24_q62():
+    t = sympy.symbols("t")
+    X = 1*t**4 - 2*t; Y = 2*t**3 + 10
+    pos = (X.subs(t, 2), Y.subs(t, 2))
+    olatex = {o["id"]: o["latex"] for o in _paper_2024()[62]["options"]}
+    printed = {k: tuple(int(n) for n in re.findall(r"-?\d+", v.replace("\\hat{i}", "").replace("\\hat{j}", ""))) for k, v in olatex.items()}
+    m = _pick(printed, lambda p: p == pos)
+    return _b24_result(62, [r"$X(t) = At^{4} + Bt$", r"$Y(t) = Ct^{3} + D$", r"$B = -2.00\,\text{m/s}$", r"$D = 10\,\text{m}$", "$t = 2$ sec"], [], m,
+                       f"r(2) = {pos}; printed option components {printed}")
+
+def _b24_q63():
+    G, M, m_, R, g0 = sympy.symbols("G M m R g_o", positive=True)
+    dU = sympy.simplify((-G*M*m_/(2*R)) - (-G*M*m_/R)).subs(G*M, g0*R**2)
+    dU = sympy.simplify(dU.subs(G, g0*R**2/M))
+    opts = {"A": m_*g0*R, "B": m_*g0*R/2, "C": -m_*g0*R/2, "D": -m_*g0*R}
+    m = _pick(opts, lambda e: _zero(e - dU))
+    return _b24_result(63, ["to a height $R$", "with respect to the earth surface", "$g_{o}$"], [r"B:\dfrac{mg_{o}R}{2}", r"C:-\dfrac{mg_{o}R}{2}"], m, f"Delta U = {dU}")
+
+def _b24_q64():
+    m_, l, g = sympy.symbols("m l g", positive=True)
+    w = sympy.sqrt(sympy.simplify((m_*g)/(m_*l)))                               # m l th'' = -m g th
+    T = 2*sympy.pi/w
+    ratio = sympy.simplify(T.subs(m_, 2*m_)/T)
+    opts = {"A": 2, "B": 4, "C": sympy.Rational(1, 2), "D": 1}
+    m = _pick(opts, lambda v: v == ratio)
+    return _b24_result(64, ["made doubled", "time period"], ["D:no change of time period", "A:Doubled"], m, f"T = {T}; T(2m)/T(m) = {ratio}")
+
+def _b24_q65():
+    G = _svg24(65); pts = _pts_of(G["roles"]["V-x"][0])
+    ax, base = _origin(G)
+    X = [x - ax for x, _ in pts]; Vv = [base - y for _, y in pts]
+    a2, b1, c0, rms = _fit_quadratic(X, Vv)
+    vertex = -b1/(2*a2)
+    x, k = sympy.symbols("x k", real=True)
+    k_fit = 2*a2
+    Vfit = sympy.Float(a2)*x**2 + sympy.Float(b1)*x + sympy.Float(c0)
+    F = -sympy.diff(Vfit, x)
+    F0 = float(F.subs(x, 0))
+    good = rms < 0.2 and a2 > 0 and abs(vertex) < 0.3 and c0 > 0
+    props = {"A": good and abs(F0) < 0.05*k_fit*50, "B": good and a2 < 0, "C": not good, "D": good and abs(F0) >= 0.05*k_fit*50}
+    return _b24_result(65, ["potential energy $(V)$", "given in figure", "($k$ is a constant)"], ["A:$F = -kx$", "D:where $F_{o}$ is a constant depending on $V_{o}$."],
+                       _true(props), f"SVG quadratic fit: V = {a2:.5f} x^2 + {b1:.2e} x + {c0:.2f} (rms {rms:.3f}), vertex x = {vertex:.2e} on the V-axis, V_o = {c0:.1f} > 0 -> F = -kx, F0 = {F0:.1e}")
+
+def _b24_q66():
+    x = sympy.symbols("x", nonnegative=True); m_, b, V0 = sympy.symbols("m b V_0", positive=True)
+    V = sympy.Function("V")
+    sol = sympy.dsolve(sympy.Eq(m_*V(x)*V(x).diff(x), -b*V(x)), V(x), ics={V(0): V0})
+    sol = sol[0].rhs if isinstance(sol, list) else sol.rhs
+    linear = sympy.diff(sol, x, 2) == 0 and sympy.diff(sol, x).is_negative
+    xmax = sympy.solve(sol, x)[0]
+    truth, desc = {}, {}
+    for k in "ABCD":
+        G = _svg24(66, k); pts = _pts_of(G["roles"]["V-x"][0])
+        ox, oy = _origin(G)
+        X = [px - ox for px, _ in pts]; Y = [oy - py for _, py in pts]
+        chord = lambda xx: Y[0] + (Y[-1] - Y[0])*(xx - X[0])/(X[-1] - X[0])
+        dev = max(abs(yy - chord(xx)) for xx, yy in zip(X, Y))/Y[0]
+        mono = all(b2 <= a1 + 1e-9 for a1, b2 in zip(Y, Y[1:]))
+        stops = abs(Y[-1]) < 0.5
+        truth[k] = bool(linear) and dev < 0.01 and mono and stops
+        desc[k] = (round(dev, 3), mono, stops)
+    return _b24_result(66, ["retarding force is proportional to its velocity", "initial velocity $V_{o}$", "versus displacement $(x)$"], [], _true(truth),
+                       f"V(x) = {sol} (linear, stops at x = {xmax}); SVG (max deviation from chord / V_o, monotone, reaches 0) = {desc}")
+
+def _b24_q67():
+    mu, g = sympy.symbols("mu g", positive=True)
+    held = lambda mu_v, a_v: sympy.simplify(mu_v*a_v - g) >= 0                  # mu N >= m g with N = m a (m = 1 kg cancels)
+    lams = [sympy.Rational(1, 2), sympy.Integer(1), sympy.Integer(2), sympy.Integer(5)]
+    eps = sympy.Rational(1, 10)
+    props = {"A": all(held(g/(l*g)*(1 - eps), l*g) for l in lams),
+             "B": all(held(g/(l*g)*(1 + eps), l*g) for l in lams),
+             "C": all(held(g/(l*g), l*g) for l in lams),
+             "D": all(held(l*g/g, l*g) for l in lams)}
+    G = _svg24(67)
+    acc = _line_of(G["roles"]["acceleration"][0])
+    fig_ok = acc[1] == acc[3] and acc[2] < acc[0] and "block" in G["roles"] and any(t[2] == "1 kg" for t in G["texts"])
+    return _b24_result(67, [r"$1\,\text{kg}$", "rough vertical plate", r"$(\vec{a})$"], [r"A:$< \dfrac{g}{a}$", r"B:$> \dfrac{g}{a}$", r"C:$= \dfrac{g}{a}$", r"D:$= \dfrac{a}{g}$"],
+                       _true(props) if fig_ok else [], f"holding condition mu >= g/a tested for a = (1/2, 1, 2, 5) g: {props}; SVG: horizontal acceleration arrow + 1 kg block: {fig_ok}")
+
+def _b24_q68():
+    T = sympy.symbols("T"); k, L, A0 = sympy.symbols("k L A0", positive=True)
+    RA = L/(k*A0); RB = RA; RC = 2*L/(k*2*A0)
+    Tj = sympy.solve((T - 0)/RA + (T - 100)/RB + (T - 100)/RC, T)[0]
+    G = _svg24(68); P = _pts_of(G["roles"]["rods"][0])
+    # perpendicular band widths of each leg (outline order: B cap, notch, A cap, C cap, back to B)
+    wB = (_pt_line_dist(P[1], P[8] + P[0]) + _pt_line_dist(P[0], P[1] + P[2]))/2
+    wA = (_pt_line_dist(P[4], P[2] + P[3]) + _pt_line_dist(P[3], P[4] + P[5]))/2
+    wC = (_pt_line_dist(P[7], P[5] + P[6]) + _pt_line_dist(P[6], P[7] + P[8]))/2
+    fig_ok = wC > 1.2*wA and abs(wA - wB) < 0.03*wB
+    opts = {"A": sympy.Rational(6667, 100), "B": sympy.Rational(3333, 100), "C": 50, "D": 25}
+    m = _pick(opts, lambda v: abs(float(v - Tj)) < 0.01) if fig_ok else []
+    return _b24_result(68, ["same material", "twice of those of rod $A$", r"$0\,^{\circ}\text{C}$", r"$100\,^{\circ}\text{C}$"], [], m,
+                       f"R_A = R_B = R_C -> T = {Tj} = {float(Tj):.2f} C; SVG rod widths A {wA:.1f}, B {wB:.1f}, C {wC:.1f} (C wider): {fig_ok}", enc=opts)
+
+def _b24_q69():
+    r = sympy.symbols("r", positive=True)
+    R = sympy.root(8*r**3, 3)
+    ratio = sympy.simplify(4*sympy.pi*R**2/(8*4*sympy.pi*r**2))
+    opts = {"A": sympy.Rational(1, 64), "B": sympy.Rational(1, 8), "C": sympy.Rational(1, 2), "D": sympy.Rational(1, 4)}
+    m = _pick(opts, lambda v: v == ratio)
+    return _b24_result(69, ["Eight small water drops", "final surface energy to the total initial surface energy"], [], m, f"R = {R}, E_f/E_i = {ratio}", enc=opts)
+
+def _b24_q70():
+    G = _svg24(70)
+    g1 = _pts_of(G["roles"]["gas1"][0]); g2 = _pts_of(G["roles"]["gas2"][0])
+    common = g1[0] == g2[0]
+    slope = lambda p: abs((p[3][1] - p[0][1])/(p[3][0] - p[0][0]))             # screen |dP/dV| near the common state
+    s1, s2 = slope(g1), slope(g2)
+    P, V, gam = sympy.symbols("P V gamma", positive=True)
+    adiabat_slope = -gam*P/V                                                   # from d(P V^gamma) = 0
+    steeper_is_larger = sympy.simplify(adiabat_slope.subs(gam, 2) - adiabat_slope.subs(gam, 1)).is_negative
+    gamma = {"He": sympy.Rational(5, 3), "Ar": sympy.Rational(5, 3), "N2": sympy.Rational(7, 5), "O2": sympy.Rational(7, 5), "CO2": sympy.Rational(13, 10)}
+    pairs = {"A": ("He", "N2"), "B": ("N2", "He"), "C": ("CO2", "O2"), "D": ("CO2", "Ar")}
+    gas1_larger = common and steeper_is_larger and s1 > s2
+    m = _pick(pairs, lambda pr: (gamma[pr[0]] > gamma[pr[1]]) == gas1_larger and gamma[pr[0]] != gamma[pr[1]])
+    return _b24_result(70, ["adiabatic processes", "Gas 1 and gas 2"], ["A:He and $\\text{N}_{2}$", "D:$\\text{CO}_{2}$ and Ar"], m,
+                       f"SVG: common start {common}, initial |slope| gas1 = {s1:.2f} > gas2 = {s2:.2f}; dP/dV = {adiabat_slope} -> gamma1 > gamma2")
+
+B_TESTS_2024 = [(f"2024 Q{n}", f"jelet-2024-q{n:03d}", globals()[f"_b24_q{n}"]) for n in range(41, 71)]
+
+
 def main():
     if not HAS_SYMPY:
         print("⚠️  sympy not installed — skipping independent SymPy re-verification")
@@ -2276,7 +2843,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + A_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
+        ] + A_TESTS_2024 + B_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -2299,6 +2866,18 @@ def main():
             print(f"  ❌ 2024 Batch A coverage gate: missing checks {miss24}, stubs {stub24}")
         else:
             print(f"  ✅ 2024 Batch A coverage gate: Q1–Q40 (Mathematics) 40/40 hand-written, SymPy-verified and independently re-checked (0 stubs)")
+
+        # 2024 Batch B gate: every Physics item Q41–Q70 must be a hand-written derivation
+        # (sympy-verified, >= 3 steps) backed by its own independent _b24 check.
+        wantB = [f"jelet-2024-q{n:03d}" for n in range(41, 71)]
+        covB = {qid for _, qid, _ in B_TESTS_2024}
+        missB = [q for q in wantB if q not in covB]
+        stubB = [q for q in wantB if q not in sol24 or sol24[q]["verification"].get("method") != "sympy" or len(sol24[q].get("steps", [])) < 3]
+        if missB or stubB:
+            errors.append(f"2024 Batch B (Q41–Q70) coverage gate: without independent check {missB}, stub/unverified {stubB}")
+            print(f"  ❌ 2024 Batch B (Q41–Q70) coverage gate: missing checks {missB}, stubs {stubB}")
+        else:
+            print(f"  ✅ 2024 Batch B (Q41–Q70) coverage gate: Physics 30/30 hand-written, SymPy-verified and independently re-checked, figure layout + SVG geometry asserted (0 stubs)")
 
         # 2025 completion gate: every 2025 solution must be a hand-written batch derivation
         # (sympy-verified, >= 3 steps) backed by its own independent batch check — no stubs.
