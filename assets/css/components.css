@@ -778,3 +778,372 @@
   transform: translate(-50%, 0);
 }
 
+/* ------------------------------------------------------------------ *
+ * Live Timed Exam & OMR Runner (11-phone-live-exam-omr & 09-desktop)
+ * ------------------------------------------------------------------ */
+.exam-runner {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-canvas);
+}
+
+.exam-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-topbar);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 52px;
+  padding: 0 var(--space-s);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.exam-header__title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.exam-timer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-s);
+  border-radius: var(--radius-pill);
+  background: var(--brand-tint);
+  color: var(--brand-primary);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+}
+.exam-timer-pill[data-urgency="warn"] {
+  background: var(--status-partial-bg);
+  color: var(--status-partial-fg);
+}
+.exam-timer-pill[data-urgency="danger"] {
+  background: var(--status-wrong-bg);
+  color: var(--status-wrong-fg);
+}
+
+.exam-desktop-submit {
+  display: none;
+}
+
+.exam-subject-strip {
+  position: sticky;
+  top: 52px;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 44px;
+  padding: var(--space-2xs) var(--space-m);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.exam-subject-strip::-webkit-scrollbar { display: none; }
+.exam-subject-strip .chip {
+  min-height: 36px;
+  padding: var(--space-2xs) var(--space-s);
+}
+.exam-subj-count {
+  padding: 0 var(--space-2xs);
+  border-radius: var(--radius-pill);
+  background: var(--hero-overlay);
+  font-size: var(--fs-micro);
+}
+
+.exam-workspace {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-m) var(--space-m) calc(var(--bottom-nav-h) + var(--space-2xl) + env(safe-area-inset-bottom));
+}
+
+.exam-docked-palette {
+  display: none;
+}
+
+.exam-q-heading {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  margin: 0;
+}
+.exam-q-of {
+  font-weight: var(--fw-regular);
+  color: var(--text-secondary);
+}
+
+.cat2-callout {
+  margin-top: var(--space-s);
+  padding: var(--space-xs) var(--space-s);
+  border-radius: var(--radius-s);
+  background: var(--status-partial-bg);
+  color: var(--status-partial-fg);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+}
+
+.exam-option {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: var(--fs-option);
+  line-height: var(--lh-normal);
+  color: var(--text-primary);
+  align-items: flex-start;
+}
+.exam-option__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-top: var(--space-3xs);
+}
+.option__radio {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-top: var(--space-2xs);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--border-strong);
+  background: var(--bg-surface);
+}
+.exam-option[data-selected="true"] .option__radio {
+  border-color: var(--brand-primary);
+  border-width: 6px;
+}
+.option__check {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-top: var(--space-2xs);
+  border-radius: var(--radius-xs);
+  border: 2px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  background: var(--bg-surface);
+}
+.exam-option[data-selected="true"] .option__check {
+  border-color: var(--brand-primary);
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+.omr-cell.is-current {
+  outline: 2.5px solid var(--brand-primary);
+  outline-offset: 1px;
+  font-weight: var(--fw-bold);
+}
+.omr-cell[data-state="answered-review"] {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+  border-color: var(--status-review-fg);
+  box-shadow: inset 0 0 0 2px var(--status-review-bg);
+}
+
+.omr-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-m);
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+.omr-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+.omr-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-xs);
+  display: inline-block;
+}
+.omr-dot--answered { background: var(--brand-primary); }
+.omr-dot--review   { background: var(--status-review-fg); }
+.omr-dot--left     { background: var(--bg-surface-subtle); border: 1px solid var(--border-strong); }
+
+.exam-sheet-actions {
+  margin-top: var(--space-m);
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.exam-bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-bottomnav);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr 1.2fr;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-m) calc(var(--space-xs) + env(safe-area-inset-bottom));
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-s);
+}
+.exam-bottom-bar .btn {
+  padding: var(--space-xs) var(--space-s);
+  font-size: var(--fs-caption);
+}
+.exam-review-btn.is-reviewed {
+  background: var(--status-review-bg);
+  color: var(--status-review-fg);
+  border-color: var(--status-review-fg);
+}
+
+.exam-submit-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-toast);
+  background: rgba(8, 14, 14, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-m);
+}
+.exam-submit-modal[hidden] {
+  display: none;
+}
+.exam-submit-modal__card {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Desktop Split OMR Runner (>=1024px — 09-live-exam-omr-runner.png) */
+@media (min-width: 1024px) {
+  .exam-header {
+    padding: 0 var(--space-xl);
+    min-height: 60px;
+  }
+  .exam-header__title {
+    font-size: var(--fs-h3);
+  }
+  .exam-omr-trigger {
+    display: none;
+  }
+  .exam-desktop-submit {
+    display: inline-flex;
+  }
+  .exam-subject-strip {
+    top: 60px;
+    padding: var(--space-2xs) var(--space-xl);
+  }
+  .exam-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: var(--space-l);
+    align-items: start;
+    padding: var(--space-l) var(--space-xl) calc(var(--bottom-nav-h) + var(--space-2xl));
+  }
+  .exam-docked-palette {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+    position: sticky;
+    top: 120px;
+    max-height: calc(100dvh - 190px);
+    overflow-y: auto;
+  }
+  .exam-bottom-bar {
+    padding: var(--space-s) var(--space-xl);
+    grid-template-columns: auto auto 1fr auto;
+  }
+}
+
+/* Printable A4 OMR Sheet */
+.print-omr-sheet__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-m);
+  padding-bottom: var(--space-s);
+  border-bottom: 1px solid var(--border-strong);
+}
+.print-omr-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  font-size: var(--fs-caption);
+}
+.print-omr-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-m);
+}
+@media (min-width: 768px) {
+  .print-omr-columns {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.print-omr-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-s);
+  padding: var(--space-xs);
+}
+.print-omr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs);
+  padding: 2px var(--space-2xs);
+  font-size: var(--fs-micro);
+}
+.print-omr-row--cat2 {
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-xs);
+}
+.print-omr-qnum {
+  width: 24px;
+  font-weight: var(--fw-bold);
+}
+.print-omr-cat {
+  width: 16px;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.print-omr-bubble {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+@media print {
+  .topbar,
+  .bottom-nav,
+  .no-print {
+    display: none !important;
+  }
+  .app-main {
+    padding: 0 !important;
+  }
+  .print-omr-columns {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+

@@ -10,6 +10,7 @@
 import { openDB, getMeta, setMeta, onSync } from "./db/indexeddb.js";
 import { $, el, icon } from "./core/ui.js";
 import { renderPapersLibrary, renderPaperReader } from "./views/papers.js";
+import { renderLiveExam, renderPrintableOmr } from "./views/exam.js";
 
 /* ------------------------------------------------------------------ *
  * Route table — five global destinations only (no audit clutter)
@@ -249,6 +250,11 @@ export async function render() {
       await renderPapersLibrary(main, { openAiTutor: openAiTutorContext });
     } else if (route.view === "paper-reader") {
       await renderPaperReader(main, route.param, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "exam") {
+      const cleanup = await renderLiveExam(main, route.param, { openSheet, closeSheet });
+      setViewCleanup(cleanup);
+    } else if (route.view === "omr-print") {
+      await renderPrintableOmr(main, route.param);
     } else if (route.view === "today") {
       renderTodayFallback(main);
     } else {
