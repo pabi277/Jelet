@@ -21,11 +21,16 @@ Checks:
      (IUPAC namer for Q81, carbocation engine for Q88), netlists extracted from
      the circuit SVGs (Q95 phase test, Q100 truth table), stoichiometry/redox
      balances, and a 2025 coverage gate (100/100 independently checked, 0 stubs).
-  8. Report coverage statistics
+  8. 2024 Q1–Q40 (Batch A, Mathematics): 40 independent checks re-derived from
+     the verbatim booklet stems (pages 3–10) with stem + option fingerprints;
+     Cat-II Q31–Q40 judge all four options. Replaces the three legacy 2024
+     checks (Q20/Q22/Q37) that targeted the corrupted OCR stems. A 2024 Batch A
+     coverage gate requires 40/40 checks, method sympy and >= 3 steps.
+  9. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
-import json, os, sys
+import json, os, re, sys
 
 try:
     import sympy
@@ -43,40 +48,6 @@ def load_json(path):
     with open(path, "r") as f:
         return json.load(f)
 
-def sympy_verify_2024_q20():
-    """Verify 2024 Q20: u = atan(x/y), du/dx - du/dy = (x+y)/(x²+y²) = option A."""
-    if not HAS_SYMPY:
-        return None, "sympy not available"
-    x, y = sympy.symbols("x y", positive=True)
-    u = sympy.atan(x / y)
-    expr = sympy.diff(u, x) - sympy.diff(u, y)
-    simplified = sympy.simplify(expr)
-    expected = (x + y) / (x**2 + y**2)
-    match = sympy.simplify(simplified - expected) == 0
-    return match, f"du/dx - du/dy = {simplified}, matches (x+y)/(x²+y²): {match}"
-
-def sympy_verify_2024_q22():
-    """Verify 2024 Q22: determinant condition gives r=2."""
-    if not HAS_SYMPY:
-        return None, "sympy not available"
-    r = sympy.symbols("r")
-    det = sympy.Matrix([[2*r, -2, 3], [1, r, 2], [2, 0, r]]).det()
-    det = sympy.expand(det)
-    roots = sympy.solve(det, r)
-    real_roots = [root for root in roots if root.is_real]
-    return 2 in real_roots, f"det = {det}, real roots: {real_roots}, r=2 in roots: {2 in real_roots}"
-
-def sympy_verify_2024_q37():
-    """Verify 2024 Q37: pq=1/12, (1-p)(1-q)=1/2 → p+q=7/12, roots 1/3, 1/4."""
-    if not HAS_SYMPY:
-        return None, "sympy not available"
-    p = sympy.symbols("p")
-    # From pq=1/12 and p+q=7/12: q = 7/12 - p, p(7/12-p)=1/12
-    q = sympy.Rational(7, 12) - p
-    eq = p * q - sympy.Rational(1, 12)
-    roots = sympy.solve(eq, p)
-    return set(roots) == {sympy.Rational(1, 3), sympy.Rational(1, 4)}, f"roots: {roots}"
-
 def sympy_verify_2025_q4():
     """Verify 2025 Q4: (K+1)(K+3)-8K = (K-1)(K-3), K=3 gives inconsistent system."""
     if not HAS_SYMPY:
@@ -88,8 +59,13 @@ def sympy_verify_2025_q4():
     return roots == [1, 3], f"det = {factored}, roots: {roots}"
 
 def sympy_verify_2025_q22():
-    """Verify 2025 Q22: same determinant as 2024 Q22."""
-    return sympy_verify_2024_q22()
+    """Verify 2025 Q22: det [[2r,-2,3],[1,r,2],[2,0,r]] = 0 has the single real root r = 2."""
+    if not HAS_SYMPY:
+        return None, "sympy not available"
+    r = sympy.symbols("r")
+    det = sympy.expand(sympy.Matrix([[2*r, -2, 3], [1, r, 2], [2, 0, r]]).det())
+    real_roots = [root for root in sympy.solve(det, r) if root.is_real]
+    return real_roots == [2], f"det = {det}, real roots: {real_roots}"
 
 def sympy_verify_2025_q59():
     """Verify 2025 Q59: SHM T = 2π√((x₁²-x₂²)/(v₂²-v₁²))."""
@@ -1749,6 +1725,511 @@ def _b4_with_layout(n):
 
 B4_TESTS_2025 = [(f"2025 Q{n}", f"jelet-2025-q{n:03d}", _b4_with_layout(n)) for n in range(76, 101)]
 
+# ---------------------------------------------------------------------------
+# 2024 Batch A (Mathematics, Q1–Q40): independent SymPy re-derivation from the
+# verbatim stems transcribed from booklet pages 3–10. Each check (a) asserts
+# stem and option fingerprints of the exact LaTeX in _data/papers/2024.json,
+# (b) recomputes the mathematics from scratch, (c) evaluates ALL FOUR options
+# (Cat-II Q31–Q40 judge each option's truth independently), and (d) requires
+# the SymPy-true option set to equal key.correct (WBE/Ex-71, Set A).
+# These replace the three legacy 2024 checks (Q20, Q22, Q37) that were written
+# for the corrupted OCR stems on `main`.
+# ---------------------------------------------------------------------------
+
+def _paper_2024():
+    if not hasattr(_paper_2024, "cache"):
+        paper = load_json(os.path.join(DATA, "papers", "2024.json"))
+        _paper_2024.cache = {q["qNumber"]: q for q in paper["questions"]}
+    return _paper_2024.cache
+
+# Interpretation notes: options whose truth depends on reading; the official key is kept.
+INTERPRETATION_NOTES_2024 = {
+    36: "(B) 'continuous in R but not derivable in R' is judged FALSE under the reading 'not derivable anywhere "
+        "in R' (f is derivable at every x != 1, 2); under the weaker reading 'not derivable at every point of R' "
+        "it would be true. Official key WBE/Ex-71 lists only A, C — kept unchanged.",
+}
+
+def _numval(latex):
+    """Parse a numeric option such as '$-\\dfrac{29}{2}$', '$36$ units', '$2\\pi$ sq. unit', '$2(e - 1)$',
+    '$\\operatorname{rank} A = 2$' into a SymPy value (None if it is not a pure number)."""
+    from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application
+    t = latex.strip()
+    t = re.sub(r"^\$|\$$", "", re.sub(r"\$\s*(units|sq\. unit)$", "$", t)).strip()
+    t = re.sub(r"^\\operatorname\{rank\} A =\s*", "", t)
+    for _ in range(3):
+        t = re.sub(r"\\d?frac\{([^{}]*)\}\{([^{}]*)\}", r"((\1)/(\2))", t)
+        t = re.sub(r"\\sqrt\{([^{}]*)\}", r"sqrt(\1)", t)
+    t = t.replace("\\pi", " pi ").replace("\\cdot", "*")
+    if "\\" in t or re.search(r"[A-DF-Za-df-hj-oq-z]", t.replace("sqrt", "").replace("pi", "")):
+        return None
+    try:
+        return parse_expr(t, local_dict={"e": sympy.E, "pi": sympy.pi},
+                          transformations=standard_transformations + (implicit_multiplication_application,))
+    except Exception:
+        return None
+
+def _a24_result(qnum, stem_fps, opt_fps, matched, detail, enc=None):
+    q = _paper_2024()[qnum]
+    stem = q["stemLatex"]
+    missing = [fp for fp in stem_fps if fp not in stem]
+    if missing:
+        return False, f"stem fingerprint(s) {missing} not found in stemLatex"
+    olatex = {o["id"]: o["latex"] for o in q["options"]}
+    omissing = [fp for fp in opt_fps if fp.split(":", 1)[1] not in olatex.get(fp.split(":", 1)[0], "")]
+    if omissing:
+        return False, f"option fingerprint(s) {omissing} not found in option latex"
+    if len(set(olatex.values())) != 4:
+        return False, f"options are not four distinct printed choices: {olatex}"
+    if enc:
+        bad = [k for k, v in enc.items() if (lambda pv: pv is None or sympy.simplify(pv - v) != 0)(_numval(olatex[k]))]
+        if bad:
+            return False, f"option(s) {bad} in the paper do not encode the values evaluated by the check ({ {k: olatex[k] for k in bad} })"
+    if q.get("stemFigure") or any(o.get("figure") for o in q["options"]):
+        return False, "Batch A (Mathematics) has no printed figures — stemFigure/option figures must be null"
+    key = sorted(q["key"]["correct"])
+    if qnum in INTERPRETATION_NOTES_2024:
+        KEY_DISPUTE_LOG.append(f"2024 Q{qnum} (interpretation): {INTERPRETATION_NOTES_2024[qnum]}")
+    return matched == key, f"{detail}; SymPy-true option(s) {matched} vs key {key}"
+
+def _true(props):
+    return sorted(k for k, v in props.items() if v)
+
+def _zero(e):
+    return sympy.simplify(e) == 0
+
+def _numeq(f, g, samples, tol=1e-9):
+    """True if callables f and g agree (as complex numbers) on every sample."""
+    for smp in samples:
+        a, b = complex(sympy.N(f(*smp))), complex(sympy.N(g(*smp)))
+        if abs(a - b) > tol * max(1, abs(a)):
+            return False
+    return True
+
+def _a24_q1():
+    t, s = sympy.symbols("t s", real=True)
+    R = Matrix([[cos(t), -sin(t)], [sin(t), cos(t)]])         # every 2x2 orthogonal matrix with det +1
+    F = Matrix([[cos(s), sin(s)], [sin(s), -cos(s)]])         # every 2x2 orthogonal matrix with det -1
+    dets = (sympy.simplify(R.det()), sympy.simplify(F.det()))
+    d = sympy.simplify((R + F).det())
+    M = (R + F).subs({t: sympy.pi/2, s: 0})                     # explicit instance for B, C
+    Rz = Matrix([[cos(t), -sin(t), 0], [sin(t), cos(t), 0], [0, 0, 1]])
+    Fz = Matrix([[1, 0, 0], [0, 1, 0], [0, 0, -1]]) * Matrix([[cos(s), 0, sin(s)], [0, 1, 0], [-sin(s), 0, cos(s)]])
+    d3 = sympy.simplify((Rz + Fz).det())
+    props = {"A": d == 0 and d3 == 0, "B": M == M.T, "C": M.T * M == sympy.eye(2), "D": d != 0}
+    return _a24_result(1, [r"real orthogonal matrices", r"\det(A) + \det(B) = 0"], ["D:(A + B)^{-1}"],
+                       _true(props), f"det R, det F = {dets}; det(R+F) = {d}; 3x3 sample det = {d3}")
+
+def _a24_q2():
+    A = Matrix([[1, 0, 3], [4, -1, 5], [2, 0, 6]])
+    rk = A.rank()
+    opts = {"A": 0, "B": 1, "C": 2, "D": 3}
+    m = _pick(opts, lambda v: v == rk)
+    return _a24_result(2, [r"\begin{pmatrix} 1 & 0 & 3 \\ 4 & -1 & 5 \\ 2 & 0 & 6 \end{pmatrix}"], ["C:\\operatorname{rank} A = 2"],
+                       m, f"det = {A.det()}, rank = {rk}", enc=opts)
+
+def _a24_q3():
+    K = sympy.symbols("K")
+    A = Matrix([[3, -4], [1, -1]])
+    opts = {"A": Matrix([[1 + 2*K, -4*K], [K, 1 - 2*K]]), "B": Matrix([[1 + 2*K, -4*K], [K, 1 - 3*K]]),
+            "C": Matrix([[1 + K**2, -4*K**2], [K**2, 1 - 3*K**2]]), "D": Matrix([[K, 0], [0, K]])}
+    N2 = (A - sympy.eye(2))**2
+    m = _pick(opts, lambda M: all(M.subs(K, k) == A**k for k in range(1, 9)))
+    return _a24_result(3, [r"\begin{pmatrix} 3 & -4 \\ 1 & -1 \end{pmatrix}", "A^{K}"], ["B:1-3K", "C:1+K^{2}"],
+                       m, f"(A-I)^2 = {N2.tolist()}")
+
+def _a24_q4():
+    L = sympy.symbols("lambda")
+    D = Matrix([[L**2 + 3*L, L - 1, L + 3], [L + 1, 2 - L, L - 3], [L - 3, L + 4, 3*L]])
+    P = sympy.Poly(sympy.expand(D.det()), L)
+    t = P.coeff_monomial(1)
+    opts = {"A": 33, "B": 22, "C": 21, "D": -33}
+    m = _pick(opts, lambda v: v == t)
+    return _a24_result(4, [r"p\lambda^{4} + q\lambda^{3}", r"\lambda^{2}+3\lambda & \lambda-1 & \lambda+3", r"\lambda-3 & \lambda+4 & 3\lambda"],
+                       [], m, f"det = {P.as_expr()} (degree {P.degree()}), t = {t}", enc=opts)
+
+def _a24_q5():
+    x, a, b = sympy.symbols("x a b")
+    D1 = Matrix([[x, b, b], [a, x, b], [a, a, x]]).det()
+    D2 = Matrix([[x, b], [a, x]]).det()
+    props = {"A": _zero(D1 - 3*D2**2), "B": _zero(sympy.diff(D1, x) - 3*D2),
+             "C": _zero(sympy.diff(D1, x) - 3*D2**2), "D": _zero(D1 - 3*D2**4)}
+    return _a24_result(5, [r"x & b & b \\ a & x & b \\ a & a & x", r"\Delta_{2} = \begin{vmatrix} x & b \\ a & x \end{vmatrix}"],
+                       ["B:\\dfrac{d}{dx}(\\Delta_{1}) = 3\\Delta_{2}"], _true(props), f"D1 = {sympy.expand(D1)}, D2 = {D2}")
+
+def _a24_q6():
+    a, b, c = sympy.symbols("a b c")
+    M = Matrix([[a**2, b*c, a*c + c**2], [a**2 + a*b, b**2, a*c], [a*b, b**2 + b*c, c**2]])
+    K = sympy.simplify(M.det() / (a**2 * b**2 * c**2))
+    opts = {"A": 2, "B": 4, "C": 8, "D": 16}
+    m = _pick(opts, lambda v: v == K)
+    return _a24_result(6, [r"a^{2} & bc & ac+c^{2}", r"a^{2}+ab & b^{2} & ac", r"ab & b^{2}+bc & c^{2}", "Ka^{2}b^{2}c^{2}"],
+                       [], m, f"factor(det) = {sympy.factor(M.det())}, K = {K}", enc=opts)
+
+def _a24_q7():
+    import random
+    rng = random.Random(2024)
+    samples = [(rng.randint(-5, 5), rng.randint(-5, 5), sympy.Rational(rng.randint(1, 600), 100), sympy.Rational(rng.randint(1, 600), 100)) for _ in range(6)]
+    expr = lambda m, n, th, ph: sympy.exp(sympy.I*m*th)/sympy.exp(sympy.I*n*ph) + sympy.exp(sympy.I*n*ph)/sympy.exp(sympy.I*m*th)
+    opts = {"A": lambda m, n, th, ph: 2*cos(m*ph - n*th), "B": lambda m, n, th, ph: 2*cos(m*th - n*ph),
+            "C": lambda m, n, th, ph: 2*cos((m - n)*th), "D": lambda m, n, th, ph: 2*cos((m - n)*ph)}
+    m = _pick(opts, lambda g: _numeq(expr, g, samples))
+    return _a24_result(7, [r"x = e^{i\theta}", r"y = e^{i\phi}", r"\dfrac{x^{m}}{y^{n}} + \dfrac{y^{n}}{x^{m}}"],
+                       ["B:2\\cos(m\\theta - n\\phi)"], m, f"{len(samples)} random (m, n, theta, phi) samples")
+
+def _conic_type(F, x, y):
+    P = sympy.Poly(sympy.expand(F), x, y)
+    A, B, C = P.coeff_monomial(x**2), P.coeff_monomial(x*y), P.coeff_monomial(y**2)
+    disc = sympy.simplify(B**2 - 4*A*C)
+    if A == C and A != 0 and B == 0:
+        return "circle"
+    if disc == 0:
+        return "parabola"
+    return "ellipse" if disc.is_negative else "hyperbola"
+
+def _a24_q8():
+    x, y = sympy.symbols("x y", real=True)
+    Z = x + sympy.I*y
+    w = sympy.expand((Z - sympy.I) * sympy.conjugate(Z - 1))          # numerator of (Z-i)/(Z-1)
+    re_num = sympy.expand(sympy.re(w))
+    kind = _conic_type(re_num, x, y)
+    m = _pick({"A": "ellipse", "B": "circle", "C": "hyperbola", "D": "parabola"}, lambda v: v == kind)
+    return _a24_result(8, [r"\dfrac{Z - i}{Z - 1}", "purely imaginary"], [], m, f"Re numerator = {re_num} -> {kind}")
+
+def _a24_q9():
+    X, Y, t, t1 = sympy.symbols("X Y t t1", nonzero=True)
+    e = sympy.E
+    slope_tan = sympy.solve(sympy.diff(X*sympy.Function("y")(X) - e**2, X), sympy.Derivative(sympy.Function("y")(X), X))[0]
+    slope_tan = slope_tan.subs(sympy.Function("y")(X), e/t1).subs(X, e*t1)
+    slope_n = sympy.simplify(-1/slope_tan)
+    roots = sympy.solve(sympy.Eq(e/t - e/t1, slope_n*(e*t - e*t1)), t)
+    t2 = [r for r in roots if sympy.simplify(r - t1) != 0][0]
+    props = {"A": _zero((t1*t2)**2 + 1), "B": _zero(t1**3*t2 + 1), "C": _zero(t1**3*t2 - 1), "D": _zero((t1*t2)**2 - 1)}
+    return _a24_result(9, [r"xy = e^{2}", r"\left(et_{1}, \dfrac{e}{t_{1}}\right)", r"\left(et_{2}, \dfrac{e}{t_{2}}\right)"],
+                       ["B:t_{1}^{3}t_{2} = -1"], _true(props), f"normal slope = {slope_n}, t2 = {t2}")
+
+def _a24_q10():
+    g, f, cp, r, th = sympy.symbols("g f cp r theta", real=True)
+    c = g**2 + f**2 - r**2                                           # first circle: centre (-g,-f), radius r
+    h, k = -g + r*cos(th), -f + r*sin(th)
+    power = sympy.simplify(h**2 + k**2 + 2*g*h + 2*f*k + cp)
+    L = sympy.sqrt(power)
+    opts = {"A": c - cp, "B": sympy.sqrt(cp - c), "C": sympy.sqrt(c - cp), "D": sympy.sqrt(c**2 + cp**2 - 2*c*cp)}
+    m = _pick(opts, lambda v: _zero(v - L))
+    return _a24_result(10, [r"x^{2} + y^{2} + 2gx + 2fy + c = 0", r"x^{2} + y^{2} + 2gx + 2fy + c' = 0"],
+                       ["B:(c' - c)^{\\frac{1}{2}}"], m, f"S'(P) = {sympy.simplify(power - (cp - c))} + (c' - c)")
+
+def _a24_q11():
+    a = sympy.symbols("a1:4", real=True); b = sympy.symbols("b1:4", real=True)
+    A, B = Matrix(a), Matrix(b)
+    ident = sympy.expand((A + B).dot(A + B) - (A - B).dot(A - B) - 4*A.dot(B))
+    theta = sympy.symbols("theta")
+    sol = sympy.solveset(cos(theta), theta, sympy.Interval(0, sympy.pi))
+    opts = {"A": sympy.pi, "B": sympy.pi/2, "C": sympy.pi/3, "D": sympy.pi/4}
+    m = _pick(opts, lambda v: v in sol)
+    return _a24_result(11, [r"\left|\vec{A} + \vec{B}\right| = \left|\vec{A} - \vec{B}\right|"], [],
+                       m, f"|A+B|^2 - |A-B|^2 - 4A.B = {ident}; cos(theta) = 0 on [0, pi] -> {sol}", enc=opts)
+
+def _a24_q12():
+    cphi = sympy.Rational(-7, 8)                                     # from |a + b| = 2 with |a| = 3, |b| = 4
+    a = Matrix([3, 0]); b = 4*Matrix([cphi, sympy.sqrt(1 - cphi**2)]); c = -(a + b)
+    norms = [sympy.sqrt(v.dot(v)).simplify() for v in (a, b, c)]
+    S = sympy.simplify(a.dot(b) + b.dot(c) + c.dot(a))
+    opts = {"A": sympy.Rational(28, 3), "B": sympy.Rational(-29, 2), "C": sympy.Rational(29, 2), "D": sympy.Rational(26, 3)}
+    m = _pick(opts, lambda v: v == S) if norms == [3, 4, 2] else []
+    return _a24_result(12, [r"\vec{a} + \vec{b} + \vec{c} = \vec{0}", r"|\vec{a}| = 3", r"|\vec{b}| = 4", r"|\vec{c}| = 2"],
+                       ["B:-\\dfrac{29}{2}"], m, f"|a|,|b|,|c| = {norms}, S = {S}", enc=opts)
+
+def _a24_q13():
+    F = Matrix([4, 1, -3]) + Matrix([3, 1, -1]); d = Matrix([5, 4, 1]) - Matrix([1, 2, 3])
+    W = F.dot(d)
+    opts = {"A": 36, "B": 40, "C": 42, "D": 60}
+    m = _pick(opts, lambda v: v == W)
+    return _a24_result(13, [r"4\hat{i} + \hat{j} - 3\hat{k}", r"3\hat{i} + \hat{j} - \hat{k}", r"\hat{i} + 2\hat{j} + 3\hat{k}", r"5\hat{i} + 4\hat{j} + \hat{k}"],
+                       [], m, f"F = {list(F)}, d = {list(d)}, W = {W}", enc=opts)
+
+def _a24_q14():
+    x = sympy.symbols("x", real=True)
+    g = sympy.log(x**2/2, 2)
+    dom = sympy.reduce_inequalities([g >= -1, g <= 1], x).as_set()
+    I = sympy.Interval
+    s2 = sympy.sqrt(2)
+    opts = {"A": I(-2, -1) | I(1, 2), "B": I(-s2, -1) | I(1, 2), "C": I(-s2, -1) | I(1, s2), "D": I(-2, -1) | I(1, s2)}
+    m = _pick(opts, lambda v: v == dom)
+    return _a24_result(14, [r"\sin^{-1}\log_{2}\left(\dfrac{x^{2}}{2}\right)"], ["A:[-2, -1] \\cup [1, 2]"], m, f"domain = {dom}")
+
+def _a24_q15():
+    a, h, x = sympy.symbols("a h x")
+    tests = [sympy.sin(x), sympy.exp(x), x**3, sympy.log(1 + x**2)]
+    ok = {k: True for k in "ABCD"}
+    for f in tests:
+        L = sympy.limit((f.subs(x, a + h) - f.subs(x, a - h))/h, h, 0)
+        fa, fpa = f.subs(x, a), sympy.diff(f, x).subs(x, a)
+        for k, v in {"A": fa, "B": fpa, "C": 2*fpa, "D": fa + fpa}.items():
+            ok[k] = ok[k] and _zero(L - v)
+    return _a24_result(15, [r"\lim_{h \to 0} \dfrac{f(a + h) - f(a - h)}{h}"], ["C:2f'(a)"], _true(ok),
+                       "limit evaluated symbolically for sin, exp, x^3, log(1+x^2)")
+
+def _a24_q16():
+    x = sympy.symbols("x")
+    L = sympy.limit((1 - cos(7*(x - sympy.pi)))/(x - sympy.pi), x, sympy.pi)
+    opts = {"A": 7, "B": sympy.Rational(7, 2), "C": -7, "D": 0}
+    m = _pick(opts, lambda v: v == L)
+    return _a24_result(16, [r"\dfrac{1 - \cos 7(x - \pi)}{x - \pi}", r"f(\pi)"], [], m, f"limit = {L}", enc=opts)
+
+def _a24_q17():
+    x, k = sympy.symbols("x k")
+    f = sympy.Function("f")
+    gen = sympy.dsolve(sympy.Eq(f(x).diff(x), 0), f(x)).rhs                # general solution of f' = 0
+    const = sympy.diff(gen, x) == 0
+    witness = sympy.Integer(5)                                             # satisfies the hypotheses on [1, 2]
+    def representable(form):
+        return bool(sympy.solve(sympy.Poly(form - witness, x).all_coeffs(), k, dict=True))
+    props = {"A": representable(k*x), "B": const, "C": representable(k*x**2)}
+    props["D"] = not any(props.values())
+    return _a24_result(17, [r"f'(x) = 0", r"continuous function on $[a, b]$"], ["D:None of the above"],
+                       _true(props), f"dsolve(f' = 0) -> f = {gen}; f = 5 representable as kx: {props['A']}, kx^2: {props['C']}")
+
+def _a24_q18():
+    x = sympy.symbols("x", real=True)
+    f = 2*sympy.log(x - 2) - x**2 + 4*x + 1
+    fp = sympy.together(sympy.diff(f, x))
+    inc = sympy.solve_univariate_inequality(fp > 0, x, relational=False) & sympy.Interval.open(2, sympy.oo)
+    O = sympy.Interval.open
+    m = _pick({"A": O(1, 2), "B": O(2, 3), "C": O(1, 4), "D": O(2, 4)}, lambda v: v.is_subset(inc))
+    return _a24_result(18, [r"2\log_{e}(x - 2) - x^{2} + 4x + 1"], ["B:(2, 3)"], m, f"f' = {sympy.factor(fp)}, increasing on {inc}")
+
+def _a24_q19():
+    x = sympy.symbols("x", real=True)
+    P = x*(5 - 3*x)/4
+    crit = sympy.solve(sympy.diff(P, x), x)
+    best = max(P.subs(x, c0) for c0 in crit)
+    concave = sympy.diff(P, x, 2) < 0
+    opts = {k: sympy.Rational(n, 48) for k, n in zip("ABCD", (26, 25, 24, 23))}
+    m = _pick(opts, lambda v: v == best) if concave else []
+    return _a24_result(19, [r"3x + 4y = 5", "maximum value of $xy$"], [], m, f"critical x = {crit}, max = {best}", enc=opts)
+
+def _a24_q20():
+    x, y = sympy.symbols("x y", real=True)
+    u = sympy.atan((x**3 + y**3)/(x - y))
+    E = x*sympy.diff(u, x) + y*sympy.diff(u, y)
+    samples = [(sympy.Rational(3, 2), sympy.Rational(1, 3)), (2, -1), (sympy.Rational(-1, 2), sympy.Rational(5, 4)), (3, 1)]
+    opts = {"A": sympy.sin(2*u), "B": sympy.cos(2*u), "C": 2*sympy.tan(u), "D": 2*sympy.cot(u)}
+    m = _pick(opts, lambda v: all(abs(sympy.N((E - v).subs({x: p, y: q}))) < 1e-12 for p, q in samples))
+    exact = _zero(sympy.trigsimp(E - sympy.sin(2*u)))
+    return _a24_result(20, [r"u = \tan^{-1}\dfrac{x^{3} + y^{3}}{x - y}"], ["A:= \\sin 2u", "D:= 2\\cot u"],
+                       m, f"x u_x + y u_y - sin 2u simplifies to 0: {exact}")
+
+def _a24_q21():
+    x, y, z = sympy.symbols("x y z", positive=True)
+    u = sympy.log(x**3 + y**3 + z**3 - 3*x*y*z)
+    S = sympy.simplify(sum(sympy.diff(u, v) for v in (x, y, z)))
+    s = x + y + z
+    m = _pick({"A": 0, "B": 1/s, "C": 3/s, "D": -3/s**2}, lambda v: _zero(S - v))
+    return _a24_result(21, [r"\log(x^{3} + y^{3} + z^{3} - 3xyz)"], ["C:\\dfrac{3}{x+y+z}"], m, f"sum of partials = {S}")
+
+def _a24_q22():
+    x = sympy.symbols("x", real=True)
+    I = sympy.integrate(-x + sympy.exp(-x), (x, -1, 0)) + sympy.integrate(x + sympy.exp(x), (x, 0, 1))
+    e = sympy.E
+    opts = {"A": 2*(e - 1), "B": 2*(e + 1), "C": 2*e - 1, "D": 2*e + 1}
+    m = _pick(opts, lambda v: _zero(I - v))
+    return _a24_result(22, [r"\int_{-1}^{1} \left(|x| + e^{|x|}\right)dx"], [], m, f"integral = {sympy.simplify(I)}", enc=opts)
+
+def _a24_q23():
+    x = sympy.symbols("x")
+    g = (cos(4*x) + 1)/(sympy.cot(x) - sympy.tan(x))
+    pts = [sympy.Rational(1, 10), sympy.Rational(37, 100), sympy.Rational(9, 10), sympy.Rational(13, 10)]
+    opts = {"A": sympy.Rational(-1, 2), "B": sympy.Rational(1, 2), "C": sympy.Rational(1, 4), "D": sympy.Rational(-1, 8)}
+    m = _pick(opts, lambda k: all(abs(sympy.N((sympy.diff(k*cos(4*x), x) - g).subs(x, p))) < 1e-12 for p in pts))
+    reduced = sympy.simplify((g - sympy.sin(4*x)/2).rewrite(sympy.exp)) == 0
+    m = m if reduced else []
+    return _a24_result(23, [r"\dfrac{\cos 4x + 1}{\cot x - \tan x}", r"k\cos 4x + c"], ["D:-\\dfrac{1}{8}"],
+                       m, f"integrand == sin(4x)/2 (exact, exp form): {reduced}", enc=opts)
+
+def _a24_q24():
+    import mpmath
+    x = sympy.symbols("x")
+    g = 1/(1 + sympy.tan(x)**3)
+    king = _zero(sympy.simplify(g + g.subs(x, sympy.pi/2 - x)) - 1)
+    val = mpmath.quad(lambda t: 1/(1 + mpmath.tan(t)**3), [0, mpmath.pi/4, mpmath.pi/2])
+    opts = {"A": 0, "B": 1, "C": sympy.pi/2, "D": sympy.pi/4}
+    m = _pick(opts, lambda v: abs(float(v) - float(val)) < 1e-10) if king else []
+    return _a24_result(24, [r"\int_{0}^{\pi/2} \dfrac{dx}{1 + \tan^{3}x}"], [], m, f"king identity: {king}, quadrature = {val}", enc=opts)
+
+def _a24_q25():
+    x = sympy.symbols("x", real=True)
+    A = sympy.integrate(sympy.Rational(3, 4)*sympy.sqrt(16 - x**2), (x, 0, 4))
+    opts = {k: n*sympy.pi for k, n in zip("ABCD", (2, 3, 4, 5))}
+    m = _pick(opts, lambda v: _zero(A - v))
+    return _a24_result(25, [r"\dfrac{x^{2}}{16} + \dfrac{y^{2}}{9} = 1", "first quadrant"], [], m, f"area = {A}", enc=opts)
+
+def _a24_q26():
+    x, y = sympy.symbols("x y")
+    slope = sympy.sin(x)/x**2 - 2*y/x
+    pi = sympy.pi
+    forms = {"A": (-x**2*y + cos(x), -pi**2/4), "B": (x**2*y + cos(x), pi**2/4),
+             "C": (x**2*y - sin(x), pi**2/4 - 1), "D": (x**2*y + sin(x), pi**2/4 + 1)}
+    def ok(F, rhs):
+        through = _zero(F.subs({x: pi/2, y: 1}) - rhs)
+        yprime = -sympy.diff(F, x)/sympy.diff(F, y)
+        return through and _zero(yprime - slope)
+    m = _pick(forms, lambda v: ok(*v))
+    Y = sympy.Function("Y")
+    sol = sympy.dsolve(sympy.Eq(Y(x).diff(x), slope.subs(y, Y(x))), Y(x), ics={Y(pi/2): 1}).rhs
+    return _a24_result(26, [r"\left(\dfrac{\pi}{2}, 1\right)", r"\dfrac{\sin x}{x^{2}} - \dfrac{2y}{x}"], ["B:x^{2}y + \\cos x = \\dfrac{\\pi^{2}}{4}"],
+                       m, f"dsolve -> y = {sympy.simplify(sol)}")
+
+def _a24_q27():
+    x, t, k = sympy.symbols("x t k", positive=True)
+    y = x**k                                                          # Y(t) = e^{kt} under x = e^t
+    lhs_x = sympy.simplify((x**2*sympy.diff(y, x, 2) - 2*x*sympy.diff(y, x) + 2*y)/y)
+    rhs_t = sympy.simplify((x**3).subs(x, sympy.exp(t)))
+    opts = {"A": (1, -3, 2), "B": (-1, 3, -2), "C": (1, 4, 3), "D": (-1, -3, -2)}
+    m = _pick(opts, lambda v: _zero(lhs_x - (v[0]*k**2 + v[1]*k + v[2])) and rhs_t == sympy.exp(3*t))
+    return _a24_result(27, [r"x = e^{t}", r"x^{2}\dfrac{d^{2}}{dx^{2}}y(x) - 2x\dfrac{d}{dx}y(x) + 2y(x) = x^{3}", "e^{3t}"],
+                       ["A:a = 1, b = -3, c = 2"], m, f"characteristic polynomial in t-domain = {sympy.expand(lhs_x)}, RHS = {rhs_t}")
+
+def _a24_q28():
+    x, y = sympy.symbols("x y", real=True)
+    Y = sympy.Function("Y")
+    sol = sympy.dsolve(sympy.Eq(Y(x).diff(x), -x/Y(x)), Y(x), ics={Y(4): 3})
+    sol = sol[0] if isinstance(sol, list) else sol
+    F = sympy.expand(x**2 + sol.rhs**2)                               # should be the constant 25
+    kind = _conic_type(x**2 + y**2 - F, x, y)
+    m = _pick({"A": "circle", "B": "line", "C": "ellipse", "D": "parabola"}, lambda v: v == kind)
+    return _a24_result(28, [r"\dfrac{dy}{dx} = -\dfrac{x}{y}", "y(4) = 3"], [], m, f"x^2 + y^2 = {F} -> {kind}")
+
+def _a24_q29():
+    import itertools
+    outs = list(itertools.product("HT", repeat=2))
+    p = sympy.Rational(sum(1 for o in outs if "H" in o), len(outs))
+    opts = {"A": sympy.Rational(1, 3), "B": sympy.Rational(1, 4), "C": sympy.Rational(3, 4), "D": 1}
+    m = _pick(opts, lambda v: v == p)
+    return _a24_result(29, ["tossed twice", "at least one head"], [], m, f"P = {p}", enc=opts)
+
+def _a24_q30():
+    pAB = sympy.symbols("pAB")
+    half = sympy.Rational(1, 2)
+    sol = sympy.solve(sympy.Eq(1 - (half + half - pAB), sympy.Rational(1, 3)), pAB)[0]
+    val = 1 - sol
+    opts = {"A": sympy.Rational(1, 3), "B": sympy.Rational(2, 3), "C": 1, "D": sympy.Rational(3, 4)}
+    m = _pick(opts, lambda v: v == val)
+    return _a24_result(30, [r"P(A^{c} \cap B^{c}) = \dfrac{1}{3}", r"P(A^{c} \cup B^{c})"], [], m, f"P(A∩B) = {sol}, answer = {val}", enc=opts)
+
+def _a24_q31():
+    A = sympy.Symbol("A", commutative=False)
+    B = 1 - A
+    red = lambda e: sympy.expand(e).subs(A**2, A)
+    props = {"A": red(B*B - B) == 0, "B": red(A*B) == 0, "C": red(B*A) == 0}
+    Ac = Matrix([[1, 1], [0, 0]]); Bc = sympy.eye(2) - Ac             # non-symmetric idempotent
+    concrete = (Ac*Ac == Ac, Bc*Bc == Bc, Ac*Bc == sympy.zeros(2), Bc*Ac == sympy.zeros(2))
+    props = {k: v and all(concrete) for k, v in props.items()}
+    props["D"] = props["A"] and props["B"] and not props["C"]
+    return _a24_result(31, [r"A^{2} = A", r"A + B = I", r"null matrix"], ["D:only (A) and (B) are correct but (C) is false."],
+                       _true(props), f"non-commutative reduction + concrete idempotent checks {concrete}")
+
+def _a24_q32():
+    x, a = sympy.symbols("x a")
+    c = sympy.symbols("c0:3"); u = sympy.symbols("u0:9"); v = sympy.symbols("v0:9")
+    common = [c[j] + 0*x for j in range(3)]
+    rows = [[common[j] + (x - a)*(u[3*i + j] + v[3*i + j]*x) for j in range(3)] for i in range(3)]
+    det = sympy.expand(Matrix(rows).det())
+    rem = lambda n: sympy.rem(det, (x - a)**n, x)
+    props = {"A": _zero(rem(1)), "B": _zero(rem(2)), "C": _zero(rem(3))}
+    props["D"] = not props["A"]
+    ex = sympy.factor(Matrix([[1, 0, 0], [1, x - a, 0], [1, 0, x - a]]).det())
+    return _a24_result(32, [r"$3 \times 3$ matrix", r"three rows become identical"], ["B:(x - a)^{2}", "C:(x - a)^{3}"],
+                       _true(props), f"generic rows agreeing at x = a: (x-a)^2 | det, (x-a)^3 ∤ det; example det = {ex}")
+
+def _a24_q33():
+    x, y = sympy.symbols("x y", real=True)
+    Z = x + sympy.I*y
+    eq = sympy.expand(sympy.I*Z**2 - sympy.conjugate(Z))
+    sols = sympy.solve([sympy.re(eq), sympy.im(eq)], [x, y], dict=True)
+    mods = {sympy.simplify(sympy.sqrt(s[x]**2 + s[y]**2)) for s in sols}
+    props = {"A": 0 in mods, "B": 1 in mods, "C": 2 in mods, "D": 3 in mods or 4 in mods}
+    return _a24_result(33, [r"iZ^{2} - \overline{Z} = 0"], ["D:$3$ or $4$"], _true(props), f"{len(sols)} solutions, |Z| in {mods}")
+
+def _a24_q34():
+    x, y, a, b, c = sympy.symbols("x y a b c", positive=True)
+    def rect(F):
+        P = sympy.Poly(sympy.expand(F), x, y)
+        A, B, C = P.coeff_monomial(x**2), P.coeff_monomial(x*y), P.coeff_monomial(y**2)
+        return _zero(A + C) and sympy.simplify(B**2 - 4*A*C).is_positive
+    props = {"A": rect(x*y - c**2), "B": rect(x**2/a**2 - y**2/b**2 - 1), "C": rect(x**2/b**2 - y**2/a**2 - 1), "D": rect(x**2 - y**2 - c**2)}
+    return _a24_result(34, ["rectangular hyperbola"], ["A:xy = c^{2}", "C:\\dfrac{x^{2}}{b^{2}} - \\dfrac{y^{2}}{a^{2}} = 1"],
+                       _true(props), "trace of quadratic form = 0 and B^2 - 4AC > 0 (general a, b)")
+
+def _a24_q35():
+    a = Matrix(sympy.symbols("a1:4")); b = Matrix(sympy.symbols("b1:4")); c = Matrix(sympy.symbols("c1:4"))
+    al, be = sympy.symbols("alpha beta")
+    box = lambda p, q, r: Matrix.hstack(p, q, r).det()
+    V = box(a.cross(b), b.cross(c), c.cross(a))
+    T = box(a, b, c)
+    copl = sympy.expand(V.subs({c[i]: al*a[i] + be*b[i] for i in range(3)}, simultaneous=True))
+    props = {"A": sympy.expand(V - 2*T) == 0, "B": sympy.expand(V - 2*T**2) == 0, "C": sympy.expand(V - T**2) == 0, "D": copl == 0}
+    return _a24_result(35, [r"\vec{a} \times \vec{b} \;\; \vec{b} \times \vec{c} \;\; \vec{c} \times \vec{a}"],
+                       ["C:\\left[\\vec{a} \\;\\; \\vec{b} \\;\\; \\vec{c}\\right]^{2}", "D:coplanar"], _true(props),
+                       f"V - [abc]^2 = {sympy.expand(V - T**2)}; coplanar value = {copl}")
+
+def _a24_q36():
+    x, h = sympy.symbols("x h", real=True)
+    f = sympy.Abs(x - 1) + sympy.Abs(x - 2)
+    def cont(p):
+        return sympy.limit(f, x, p, "-") == f.subs(x, p) == sympy.limit(f, x, p, "+")
+    def one_sided(p):
+        q = (f.subs(x, p + h) - f.subs(x, p))/h
+        return sympy.limit(q, h, 0, "-"), sympy.limit(q, h, 0, "+")
+    corners = {p: one_sided(p) for p in (1, 2)}
+    deriv_at = lambda p: (lambda lr: lr[0] == lr[1])(one_sided(p))
+    others = [sympy.Rational(-3, 2), 0, sympy.Rational(3, 2), sympy.Rational(7, 4), 3, 10]
+    cont_all = cont(1) and cont(2) and all(cont(p) for p in others)
+    corner_nd = not deriv_at(1) and not deriv_at(2)
+    elsewhere = all(deriv_at(p) for p in others)
+    props = {"A": cont_all,
+             "B": cont_all and not any(deriv_at(p) for p in others + [1, 2]),   # read as "nowhere derivable" (see note)
+             "C": cont_all and corner_nd and elsewhere,
+             "D": (not cont(1) and not cont(2)) and all(deriv_at(p) for p in others + [1, 2])}
+    return _a24_result(36, [r"f(x) = |x - 1| + |x - 2|"], ["C:except $x = 1$ and $2$", "D:is not continuous at $x = 1$ and $2$"],
+                       _true(props), f"one-sided derivatives {corners}; continuous everywhere: {cont_all}")
+
+def _a24_q37():
+    x = sympy.symbols("x", real=True)
+    f = x**3 - 6*x**2 + 24*x + 4
+    fp = sympy.diff(f, x)
+    crit = sympy.solve(fp, x)
+    disc = sympy.discriminant(fp, x)
+    is_ext = lambda p: fp.subs(x, p) == 0 and sympy.diff(f, x, 2).subs(x, p) != 0
+    props = {"A": is_ext(2), "B": is_ext(-1), "C": is_ext(-2) and is_ext(-1), "D": len(crit) == 0}
+    return _a24_result(37, [r"f(x) = x^{3} - 6x^{2} + 24x + 4"], ["C:$x = -2$ and $x = -1$"], _true(props),
+                       f"f' = {fp}, discriminant = {disc}, real critical points = {crit}")
+
+def _a24_q38():
+    x, a, b, c = sympy.symbols("x a b c")
+    I = sympy.integrate(a*cos(x) + b*x + c*x**2, (x, -sympy.pi, sympy.pi))
+    dep = {s for s in (a, b, c) if sympy.diff(I, s) != 0}
+    props = {"A": dep == {a}, "B": dep == {b}, "C": dep == {c}, "D": dep == {a, c}}
+    return _a24_result(38, [r"\int_{-\pi}^{\pi} (a\cos x + bx + cx^{2})\,dx"], ["D:only $a, c$ not $b$"], _true(props),
+                       f"integral = {I}, depends on {sorted(map(str, dep))}")
+
+def _a24_q39():
+    x = sympy.symbols("x")
+    opts = {"A": sin(x), "B": cos(x), "C": 2*cos(x) + 3*sin(x), "D": -sympy.Rational(7, 11)*sin(x) + sympy.Rational(9, 132)*cos(x)}
+    props = {k: _zero(sympy.diff(v, x, 2) + v) for k, v in opts.items()}
+    return _a24_result(39, [r"\dfrac{d^{2}y}{dx^{2}} + y = 0"], ["D:\\dfrac{9}{132}\\cos x"], _true(props), "y'' + y = 0 checked for each option")
+
+def _a24_q40():
+    p, q = sympy.symbols("p q")
+    sols = sympy.solve([(1 - p)*q - sympy.Rational(2, 15), p*(1 - q) - sympy.Rational(1, 6)], [p, q], dict=True)
+    PB = {s[q] for s in sols if 0 <= s[p] <= 1 and 0 <= s[q] <= 1}
+    opts = {"A": sympy.Rational(1, 5), "B": sympy.Rational(1, 6), "C": sympy.Rational(4, 5), "D": sympy.Rational(5, 6)}
+    props = {k: v in PB for k, v in opts.items()}
+    return _a24_result(40, ["independent events", r"P(A' \cap B) = \dfrac{2}{15}", r"P(A \cap B') = \dfrac{1}{6}"], [],
+                       _true(props), f"(P(A), P(B)) solutions = {[(s[p], s[q]) for s in sols]}", enc=opts)
+
+A_TESTS_2024 = [(f"2024 Q{n}", f"jelet-2024-q{n:03d}", globals()[f"_a24_q{n}"]) for n in range(1, 41)]
+
+
 def main():
     if not HAS_SYMPY:
         print("⚠️  sympy not installed — skipping independent SymPy re-verification")
@@ -1792,13 +2273,10 @@ def main():
     if HAS_SYMPY:
         print("\n🔬 Independent SymPy re-verification:")
         tests = [
-            ("2024 Q20", "jelet-2024-q020", sympy_verify_2024_q20),
-            ("2024 Q22", "jelet-2024-q022", sympy_verify_2024_q22),
-            ("2024 Q37", "jelet-2024-q037", sympy_verify_2024_q37),
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
+        ] + A_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -1808,6 +2286,19 @@ def main():
             else:
                 print(f"  ❌ {label}: FAIL — {note}")
                 errors.append(f"{label}: SymPy re-verification failed — {note}")
+
+        # 2024 Batch A gate: every Mathematics item Q1–Q40 must be a hand-written derivation
+        # (sympy-verified, >= 3 steps) backed by its own independent _a24 check.
+        sol24 = load_json(os.path.join(DATA, "solutions", "2024.solutions.json"))["solutions"]
+        want = [f"jelet-2024-q{n:03d}" for n in range(1, 41)]
+        cov24 = {qid for _, qid, _ in A_TESTS_2024}
+        miss24 = [q for q in want if q not in cov24]
+        stub24 = [q for q in want if q not in sol24 or sol24[q]["verification"].get("method") != "sympy" or len(sol24[q].get("steps", [])) < 3]
+        if miss24 or stub24:
+            errors.append(f"2024 Batch A coverage gate: without independent check {miss24}, stub/unverified {stub24}")
+            print(f"  ❌ 2024 Batch A coverage gate: missing checks {miss24}, stubs {stub24}")
+        else:
+            print(f"  ✅ 2024 Batch A coverage gate: Q1–Q40 (Mathematics) 40/40 hand-written, SymPy-verified and independently re-checked (0 stubs)")
 
         # 2025 completion gate: every 2025 solution must be a hand-written batch derivation
         # (sympy-verified, >= 3 steps) backed by its own independent batch check — no stubs.

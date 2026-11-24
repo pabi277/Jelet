@@ -14,6 +14,9 @@ Checks:
      _data/**/*.json — catches LaTeX commands whose leading backslash was
      swallowed by a Python escape (e.g. "\\vec" -> VT + "ec", "\\tan" -> TAB + "an",
      "\\begin" -> BS + "egin", "\\alpha" -> BEL + "lpha", "\\frac" -> FF + "rac").
+ 10. No orphaned figure SVGs (every SVG is referenced by a stem or option figure).
+ 11. Unit mapping consistency: each question appears in exactly one unit's pyqIds,
+     equal to its own unitId.
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -240,6 +243,27 @@ def main():
     check(not orphans, f"Orphaned figure SVG(s) not referenced by any question: {orphans}")
     if not orphans:
         print(f"✓ Orphaned figures: 0 (all {len(on_disk)} SVGs referenced)")
+
+    # 11. Unit mapping consistency: every question is listed in exactly one unit's
+    #     pyqIds, and that unit is the question's own unitId (catches a paper unitId
+    #     remap that was not propagated to _data/units, or vice versa).
+    q_unit = {}
+    for paper_path in glob.glob(os.path.join(DATA, "papers", "*.json")):
+        for q in load_json(paper_path).get("questions", []):
+            q_unit[q["id"]] = q.get("unitId")
+    listed = {}
+    for unit_path in glob.glob(os.path.join(DATA, "units", "*.json")):
+        u = load_json(unit_path)
+        for pid in u.get("pyqIds", []):
+            listed.setdefault(pid, []).append(u.get("unitId"))
+    multi = sorted(p for p, us in listed.items() if len(us) > 1)
+    wrong = sorted((p, us[0], q_unit.get(p)) for p, us in listed.items() if len(us) == 1 and q_unit.get(p) != us[0])
+    unlisted = sorted(p for p in q_unit if p not in listed)
+    check(not multi, f"Question(s) listed in more than one unit: {multi[:10]}")
+    check(not wrong, f"Unit pyqIds disagree with paper unitId (qid, unit file, paper unitId): {wrong[:10]}")
+    check(not unlisted, f"Question(s) not listed in any unit's pyqIds: {unlisted[:10]}")
+    if not (multi or wrong or unlisted):
+        print(f"✓ Unit mapping: {len(q_unit)} questions, each in exactly its own unit's pyqIds")
 
     # Report
     print()
