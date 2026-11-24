@@ -685,14 +685,69 @@
 .paper-card__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-xs);
   margin-top: var(--space-m);
 }
-.paper-card__actions .btn--primary {
-  flex: 1 1 160px;
+.paper-card__actions > * {
+  flex: 1 1 auto;
+  min-width: 0;
 }
-.paper-card__actions .btn--ghost:not(.btn--icon-only) {
-  flex: 1 1 130px;
+
+/* Unified compact action bar in Paper Reader header (Phase 06 §4):
+   groups Read & Keys + Print OMR + Start 2h Mock side-by-side */
+.reader-action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+}
+.reader-action-bar__item {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 38px;
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-s);
+  font-family: inherit;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.reader-action-bar__item .icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+.reader-action-bar__item:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+.reader-action-bar__item.is-active {
+  background: var(--bg-surface);
+  color: var(--brand-primary);
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-s);
+}
+.reader-action-bar__item--primary {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+.reader-action-bar__item--primary:hover {
+  background: var(--brand-primary-hover);
+  color: var(--text-on-brand);
 }
 .question-stem {
   font-size: var(--fs-question);
