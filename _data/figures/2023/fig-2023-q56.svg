@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 124" width="350" height="124" role="img" aria-label="2023 Q56: a cylindrical conductor narrowing from a wide left part of diameter D1 carrying current I1 to a narrow right part of diameter D2 carrying current I2; current arrows to the right">
+  <rect x="0" y="0" width="350" height="124" fill="transparent"/>
+  <ellipse cx="36" cy="62" rx="11" ry="36" stroke="var(--fig-line)" stroke-width="1.4" fill="none" data-role="end-1"/>
+  <line x1="36" y1="26" x2="196" y2="26" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="36" y1="98" x2="196" y2="98" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <path d="M 196,26 C 210,26 210,46 222,46" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <path d="M 196,98 C 210,98 210,78 222,78" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <line x1="222" y1="46" x2="330" y2="46" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="222" y1="78" x2="330" y2="78" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <ellipse cx="330" cy="62" rx="6" ry="16" stroke="var(--fig-line)" stroke-width="1.4" fill="none" data-role="end-2"/>
+  <ellipse cx="262" cy="62" rx="5" ry="16" stroke="var(--fig-line)" stroke-width="1.1" fill="none" stroke-dasharray="1.5,2"/>
+  <line data-role="D1" x1="54" y1="27" x2="54" y2="97" stroke="var(--fig-line)" stroke-width="1.0"/>
+  <polygon points="54.0,27.0 51.0,33.0 57.0,33.0" fill="var(--fig-line)"/>
+  <polygon points="54.0,97.0 57.0,91.0 51.0,91.0" fill="var(--fig-line)"/>
+  <line data-role="D2" x1="250" y1="47" x2="250" y2="77" stroke="var(--fig-line)" stroke-width="1.0"/>
+  <polygon points="250.0,47.0 247.5,52.0 252.5,52.0" fill="var(--fig-line)"/>
+  <polygon points="250.0,77.0 252.5,72.0 247.5,72.0" fill="var(--fig-line)"/>
+  <line data-role="I1" x1="120" y1="58" x2="146" y2="58" stroke="var(--fig-line)" stroke-width="1.2"/>
+  <polygon points="146,58 139.1,62.0 139.1,54.0" fill="var(--fig-line)"/>
+  <line data-role="I2" x1="272" y1="62" x2="300" y2="62" stroke="var(--fig-line)" stroke-width="1.2"/>
+  <polygon points="300,62 293.1,66.0 293.1,58.0" fill="var(--fig-line)"/>
+  <text x="58" y="70" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">D<tspan dy="3" font-size="9">1</tspan></text>
+  <text x="126" y="50" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">I<tspan dy="3" font-size="9">1</tspan></text>
+  <text x="228" y="66" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">D<tspan dy="3" font-size="9">2</tspan></text>
+  <text x="274" y="56" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">I<tspan dy="3" font-size="9">2</tspan></text>
+</svg>

@@ -129,6 +129,24 @@
 
   --tap-min:         48px;   /* thumb-zone minimum tap target */
   --omr-cell-min:    40px;   /* OMR palette cell minimum */
+
+  /* ------------------------------------------------------------------ *
+   * 2.9  Figure palette (_data/figures/<year>/*.svg — inline SVG only)
+   *      Every value ≥ 4.5:1 contrast on #FFFFFF (text-safe).
+   * ------------------------------------------------------------------ */
+  --fig-axis:            #475569;
+  --fig-line:            #64748B;
+  --fig-text:            #1E293B;
+  --fig-node:            #0F172A;
+  --fig-fill:            #E2E8F0;
+  --fig-primary:         #1D4ED8;
+  --fig-secondary:       #047857;
+  --fig-secondary-soft:  #065F46;
+  --fig-accent:          #B45309;
+  --fig-accent-soft:     #A16207;
+  --fig-accent-tint:     #854D0E;
+  --fig-danger:          #DC2626;
+  --fig-danger-soft:     #B91C1C;
 }
 
 /* ==========================================================================
@@ -172,4 +190,19 @@
   --shadow-m:  0 2px 8px rgba(0, 0, 0, 0.55);
   --shadow-l:  0 8px 24px rgba(0, 0, 0, 0.6);
   --shadow-sheet: 0 -8px 30px rgba(0, 0, 0, 0.7);
+
+  /* Figure palette — every value ≥ 4.5:1 contrast on #070C0C */
+  --fig-axis:            #94A3B8;
+  --fig-line:            #7C8BA1;
+  --fig-text:            #CBD5E1;
+  --fig-node:            #F8FAFC;
+  --fig-fill:            #1E293B;
+  --fig-primary:         #60A5FA;
+  --fig-secondary:       #34D399;
+  --fig-secondary-soft:  #6EE7B7;
+  --fig-accent:          #F59E0B;
+  --fig-accent-soft:     #FBBF24;
+  --fig-accent-tint:     #FCD34D;
+  --fig-danger:          #F87171;
+  --fig-danger-soft:     #FCA5A5;
 }

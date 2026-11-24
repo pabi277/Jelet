@@ -6,14 +6,13 @@
   "estimatedMinutes": 25,
   "examFrequency": "medium",
   "pyqIds": [
+    "jelet-2022-q049",
+    "jelet-2022-q064",
     "jelet-2024-q058",
     "jelet-2024-q059",
     "jelet-2024-q063",
-    "jelet-2025-q043",
-    "jelet-2025-q045",
     "jelet-2025-q049",
-    "jelet-2025-q068",
-    "jelet-2025-q070"
+    "jelet-2025-q068"
   ],
   "sections": [
     {
@@ -37,7 +36,7 @@
         {
           "formulaId": "P05-F02",
           "label": "Orbital Energy",
-          "latex": "$E = -\frac{GMm}{2r},\\; U = -\frac{GMm}{r},\\; K = \\frac{GMm}{2r}$",
+          "latex": "$E = -\\frac{GMm}{2r},\\; U = -\\frac{GMm}{r},\\; K = \\frac{GMm}{2r}$",
           "aiExplainContext": "Energy relations for circular orbits."
         }
       ]

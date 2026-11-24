@@ -71,7 +71,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $A = \\begin{bmatrix} 0 & \\sqrt{2} & 0 \\\\ \\sqrt{2} & 0 & 1 \\\\ 0 & 1 & 0 \\end{bmatrix}$ and $Q^{T}AQ$ is",
+      "stemLatex": "Let $A = \\begin{pmatrix} 5 & 0 & 1 \\\\ 0 & -2 & 0 \\\\ 1 & 0 & 5 \\end{pmatrix}$, $Q = \\begin{pmatrix} 0 & \\dfrac{1}{\\sqrt{2}} & \\dfrac{1}{\\sqrt{2}} \\\\ -1 & 0 & 0 \\\\ 0 & -\\dfrac{1}{\\sqrt{2}} & \\dfrac{1}{\\sqrt{2}} \\end{pmatrix}$. Then $Q^{T}AQ$ is",
       "stemFigure": null,
       "options": [
         {
@@ -100,14 +100,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q1)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q1 (Set A, Q1)"
       },
       "difficulty": "medium",
       "tags": [
-        "matrices",
-        "diagonalization",
-        "orthogonal-transformation"
+        "orthogonal-diagonalisation",
+        "eigenvectors",
+        "symmetric-matrix"
       ]
     },
     {
@@ -119,22 +119,22 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "If $A = \\begin{bmatrix} 2 & 2 \\\\ 2 & 4 \\end{bmatrix}$ and $I$ is the unit matrix of order $2$, then $A^{2}$ equals",
+      "stemLatex": "If $A = \\begin{pmatrix} 2 & -1 \\\\ -1 & 2 \\end{pmatrix}$ and $I$ is the unit matrix of order $2$ then $A^{2}$ equal to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$A - I$",
-          "figure": null
-        },
-        {
-          "id": "B",
           "latex": "$4A - 3I$",
           "figure": null
         },
         {
-          "id": "C",
+          "id": "B",
           "latex": "$3A - 4I$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$A - I$",
           "figure": null
         },
         {
@@ -146,16 +146,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q2)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q2 (Set A, Q2)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "matrices",
         "cayley-hamilton",
-        "matrix-power"
+        "matrix-square"
       ]
     },
     {
@@ -167,7 +166,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $A = \\begin{bmatrix} 3 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & -1 \\end{bmatrix}$. Then",
+      "stemLatex": "Let $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 2 \\end{pmatrix}$",
       "stemFigure": null,
       "options": [
         {
@@ -196,14 +195,13 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q3)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q3 (Set A, Q3)"
       },
       "difficulty": "easy",
       "tags": [
-        "matrices",
-        "diagonalizable",
-        "eigenvalues"
+        "eigenvalues",
+        "diagonalisability"
       ]
     },
     {
@@ -215,7 +213,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $A = \\begin{bmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 0 & 0 \\end{bmatrix}$. Then $A^{3} - A^{2} - A + I$, ($I$ is the identity matrix of order $3$) is",
+      "stemLatex": "Let $A = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$, then $A^{3} - A^{2} - A + I_{3}$ ($I_{3}$ is the identity matrix of order $3$) is",
       "stemFigure": null,
       "options": [
         {
@@ -235,7 +233,7 @@
         },
         {
           "id": "D",
-          "latex": "$\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$",
+          "latex": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$",
           "figure": null
         }
       ],
@@ -244,14 +242,13 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q4)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q4 (Set A, Q4)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "matrices",
-        "nilpotent",
-        "matrix-power"
+        "cayley-hamilton",
+        "characteristic-polynomial"
       ]
     },
     {
@@ -263,43 +260,43 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "Let $\\Delta = \\begin{vmatrix} a & b & f \\\\ c & d & g \\\\ e & h & i \\end{vmatrix}$, then $\\dfrac{\\Delta}{a}$ is",
+      "stemLatex": "Let $\\Delta = \\begin{vmatrix} a & h & g \\\\ h & b & f \\\\ g & f & c \\end{vmatrix}$, then Where $B$, $C$, $F$ are respectively the co-factors of $b$, $c$, $f$ to $\\Delta$.",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{BC - F^{2}}{a^{2}}$",
+          "latex": "$\\dfrac{BC - F^{2}}{a} = \\Delta^{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{BC - F^{2}}{a}$",
+          "latex": "$\\dfrac{BC - F^{2}}{a} = \\Delta$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{BC - F^{2}}{2a^{2}}$",
+          "latex": "$\\dfrac{BC - F^{2}}{a} = \\dfrac{\\Delta}{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{BC - F^{2}}{2a}$",
+          "latex": "$\\dfrac{BC - F^{2}}{a^{2}} = \\Delta$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q5)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q5 (Set A, Q5)"
       },
       "difficulty": "hard",
       "tags": [
-        "determinants",
         "cofactors",
-        "expansion"
+        "symmetric-determinant",
+        "adjoint"
       ]
     },
     {
@@ -311,7 +308,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If $\\begin{vmatrix} -ab & -ac \\\\ -bc & c^{2} \\\\ ca & bc \\end{vmatrix} = Ka^{2}b^{2}c^{2}$, then $K =$",
+      "stemLatex": "If $\\begin{vmatrix} a^{2} & -ab & -ac \\\\ -ab & b^{2} & -bc \\\\ ca & bc & -c^{2} \\end{vmatrix} = Ka^{2}b^{2}c^{2}$, then $K =$",
       "stemFigure": null,
       "options": [
         {
@@ -338,16 +335,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q6)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q6 (Set A, Q6)"
       },
       "difficulty": "medium",
       "tags": [
-        "determinants",
-        "matrix",
-        "expansion"
+        "determinant",
+        "factorisation"
       ]
     },
     {
@@ -359,43 +355,43 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "Let $z = 1 + i\\tan\\dfrac{3\\pi}{5}$. Then",
+      "stemLatex": "Let $z = 1 + i\\tan\\dfrac{3\\pi}{5}$,Then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{3\\pi}{5}$",
+          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5}$, $\\arg z = \\dfrac{3\\pi}{5}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{3\\pi}{5}$",
+          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5}$, $\\arg z = -\\dfrac{7\\pi}{5}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{2\\pi}{5}$",
+          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5}$, $\\arg z = \\dfrac{2\\pi}{5}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{4\\pi}{5}$",
+          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5}$, $\\arg z = \\dfrac{4\\pi}{5}$",
           "figure": null
         }
       ],
       "key": {
-        "status": "active",
+        "status": "voided",
         "correct": [
-          "B"
+          "W"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q7)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q7; W: no printed option is correct (true arg z = -2π/5); withdrawn by owner decision 2026-11-24 (Set A, Q7)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "modulus",
-        "argument"
+        "modulus-argument",
+        "principal-argument",
+        "withdrawn"
       ]
     },
     {
@@ -417,17 +413,17 @@
         },
         {
           "id": "B",
-          "latex": "$2$",
-          "figure": null
-        },
-        {
-          "id": "C",
           "latex": "$\\dfrac{1}{2}$",
           "figure": null
         },
         {
+          "id": "C",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
           "id": "D",
-          "latex": "$3$",
+          "latex": "$\\dfrac{1}{3}$",
           "figure": null
         }
       ],
@@ -436,13 +432,13 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q8)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q8 (Set A, Q8)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "roots",
+        "complex-roots",
+        "factorisation",
         "modulus"
       ]
     },
@@ -455,42 +451,42 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "The locus of the point which moves in such a way that the difference of its distance from the point $(3, 0)$ and $(9, 0)$ is $4$ units is a conic section whose eccentricity is",
+      "stemLatex": "The locus of the point which moves in such a way that the difference of its distance from the point $(3, 0)$ and $(9, 0)$ is $4$ units in a conic section whose eccentricity is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{5}{2}$",
-          "figure": null
-        },
-        {
-          "id": "B",
           "latex": "$2$",
           "figure": null
         },
         {
-          "id": "C",
+          "id": "B",
           "latex": "$\\dfrac{5}{2}$",
           "figure": null
         },
         {
-          "id": "D",
+          "id": "C",
           "latex": "$\\dfrac{3}{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{4}{3}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q9)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q9 (Set A, Q9)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "coordinate-geometry",
         "hyperbola",
+        "focal-distance",
         "eccentricity"
       ]
     },
@@ -503,7 +499,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "A triangle $ABC$ of area $\\Delta$ is inscribed in the parabola $y^{2} = 4ax$ ($a > 0$) such that the vertex of the parabola is at $A$, and the base $BC$ is a focal chord. The difference of ordinates of $B$ and $C$ is",
+      "stemLatex": "A triangle $ABC$ of area $\\Delta$ is inscribed in the parabola $y^{2} = 4ax$ $(a > 0)$ such that the vertex of the parabola is at $A$, and the base $BC$ is a focal chord. The differences of ordinates of $B$ and $C$ is",
       "stemFigure": null,
       "options": [
         {
@@ -532,14 +528,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q10)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q10 (Set A, Q10)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "parabola",
         "focal-chord",
-        "area"
+        "area-of-triangle"
       ]
     },
     {
@@ -551,43 +547,43 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "Consider a branch of the hyperbola $x^{2} - 2y^{2} - 2\\sqrt{2}x - 4\\sqrt{2}y - 6 = 0$ with vertex $A$. Let $B$ be one of the end points of its latus rectum. If $C$ is the focus of the hyperbola, nearer to $A$, then the area of the triangle $ABC$ is",
+      "stemLatex": "Consider a branch of the hyperbola $x^{2} - 2y^{2} - 2\\sqrt{2}\\,x - 4\\sqrt{2}\\,y - 6 = 0$ with vertex $A$. Let $B$ be one of the end points of its latus rectum. If $c$ is the focus of the hyperbola, nearer to $A$, then, the area of the triangle $ABC$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{2}{3}$ sq. unit",
+          "latex": "$1 - \\sqrt{\\dfrac{2}{3}}$ sq. unit",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{3\\sqrt{2}}{2} - 1$ sq. unit",
+          "latex": "$\\sqrt{\\dfrac{3}{2}} - 1$ sq. unit",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{\\sqrt{2}}{3}$ sq. unit",
+          "latex": "$1 + \\sqrt{\\dfrac{2}{3}}$ sq. unit",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{3\\sqrt{2}}{2} + 1$ sq. unit",
+          "latex": "$\\sqrt{\\dfrac{3}{2}} + 1$ sq. unit",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q11)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q11 (Set A, Q11)"
       },
       "difficulty": "hard",
       "tags": [
         "hyperbola",
         "latus-rectum",
-        "area"
+        "completing-the-square"
       ]
     },
     {
@@ -599,7 +595,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "If $\\vec{\\alpha} = \\hat{i} + 2\\hat{j} + 2\\hat{k}$, $|\\vec{\\beta}| = 5$ and the angle between $\\vec{\\alpha}$ and $\\vec{\\beta}$ is $\\dfrac{\\pi}{6}$, then the area of the triangle formed by $\\vec{\\alpha}$ and $\\vec{\\beta}$ as two sides is",
+      "stemLatex": "If $\\vec{\\alpha} = \\hat{i} + 2\\hat{j} + 2\\hat{k}$, $|\\vec{\\beta}| = 5$ and the angle between $\\vec{\\alpha}$ and $\\vec{\\beta}$ is $\\dfrac{\\pi}{6}$, then, the area of the triangle formed by $\\vec{\\alpha}$ and $\\vec{\\beta}$ as two sides is",
       "stemFigure": null,
       "options": [
         {
@@ -626,16 +622,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q12)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q12 (Set A, Q12)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
         "cross-product",
-        "area"
+        "area-of-triangle"
       ]
     },
     {
@@ -647,7 +642,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "A force of magnitude $\\sqrt{6}$ acting along the line joining the points $A(2, -1, 1)$ and $B(3, 1, 2)$ displaces a particle from $A$ to $B$. The work done by the force is",
+      "stemLatex": "A force of magnitude $\\sqrt{6}$ acting along the line joining the points $A\\,(2, -1, 1)$ and $B\\,(3, 1, 2)$ displaces a particle from $A$ to $B$. The work done by the force is",
       "stemFigure": null,
       "options": [
         {
@@ -676,14 +671,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q13)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q13 (Set A, Q13)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
-        "work",
-        "dot-product"
+        "work-done",
+        "dot-product",
+        "unit-vector"
       ]
     },
     {
@@ -724,14 +719,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q14)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q14 (Set A, Q14)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "differentiation",
-        "ode",
-        "conservation"
+        "derivative",
+        "constant-function",
+        "chain-rule"
       ]
     },
     {
@@ -748,7 +743,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "no solution in $\\mathbb{R}$.",
+          "latex": "no solution in $\\mathbb{R}$",
           "figure": null
         },
         {
@@ -770,16 +765,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q15)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q15 (Set A, Q15)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "exponential",
-        "equations",
-        "analysis"
+        "exponential-equation",
+        "roots"
       ]
     },
     {
@@ -791,12 +785,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "$\\displaystyle\\lim_{x \\to 0} \\left(\\dfrac{1}{x}\\right)^{\\frac{1}{x}}$",
+      "stemLatex": "$\\lim\\limits_{x \\to 0} \\left(e^{x} + x\\right)^{1/x}$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "does not exist",
+          "latex": "does not exists",
           "figure": null
         },
         {
@@ -818,16 +812,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q16)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q16 (Set A, Q16)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
         "limit",
-        "exponential",
-        "l'hospital"
+        "one-power-infinity",
+        "lhopital"
       ]
     },
     {
@@ -844,7 +838,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "Rolle's theorem is always applicable to $f$ in $[a, b]$ ($a < b$)",
+          "latex": "Rolle's theorem is always applicable to $f$ in $[a, b]$ $(\\subset \\mathbb{R})$",
           "figure": null
         },
         {
@@ -866,64 +860,63 @@
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q17)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q17 (Set A, Q17)"
       },
       "difficulty": "medium",
       "tags": [
         "rolle-theorem",
-        "differentiability",
-        "absolute-value"
+        "modulus-function",
+        "differentiability"
       ]
     },
     {
       "id": "jelet-2022-q018",
       "qNumber": 18,
       "subjectId": "MATH",
-      "unitId": "M07",
+      "unitId": "M06",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "On the curve $y = x^{3}$, consider the chord joining $A(-1, -1)$ and $B(2, 8)$. Then",
+      "stemLatex": "On the curve $y = x^{3}$, consider the chord joining $A\\,(-1, -1)$ and $B\\,(2, 8)$. Then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "there is a point on the curve at which the tangent is parallel to chord $AB$.",
+          "latex": "$\\exists$ a point on the curve at which the tg (tangent) is parallel to chord $AB$.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "there is no point satisfying the stipulation mentioned in (A).",
+          "latex": "$\\exists$ no point satisfying the stipulation mentioned in (A).",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "there are two points on the curve at which the tangents are parallel to chord $AB$.",
+          "latex": "$\\exists$ two points on the curve at which the tgs are parallel to chord $AB$.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "tangents at every point on the curve is perpendicular to $AB$.",
+          "latex": "tgs at every point on the curve is perpendicular to $AB$.",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q18)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q18 (Set A, Q18)"
       },
       "difficulty": "medium",
       "tags": [
-        "mean-value-theorem",
-        "tangent",
-        "chord"
+        "lagrange-mvt",
+        "tangent-slope"
       ]
     },
     {
@@ -964,21 +957,20 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q19)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q19 (Set A, Q19)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "maxima-minima",
-        "rectangle",
-        "triangle"
+        "optimisation"
       ]
     },
     {
       "id": "jelet-2022-q020",
       "qNumber": 20,
       "subjectId": "MATH",
-      "unitId": "M07",
+      "unitId": "M04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -998,24 +990,24 @@
         },
         {
           "id": "C",
-          "latex": "$90^{\\circ}$",
+          "latex": "$60^{\\circ}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$60^{\\circ}$",
+          "latex": "$90^{\\circ}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q20)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q20 (Set A, Q20)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "parabola",
         "tangent",
@@ -1058,16 +1050,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q21)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q21 (Set A, Q21)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "rates",
-        "shadow",
-        "related-rates"
+        "rate-of-change",
+        "similar-triangles"
       ]
     },
     {
@@ -1079,7 +1070,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "If $u = \\dfrac{x}{y} + \\dfrac{y}{x}$, then $\\dfrac{\\partial u}{\\partial x}$ is",
+      "stemLatex": "If $u = \\dfrac{x}{a} + f(ay - bx)$, then $a\\dfrac{\\partial u}{\\partial x} + b\\dfrac{\\partial u}{\\partial y}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1089,32 +1080,32 @@
         },
         {
           "id": "B",
-          "latex": "$b$",
+          "latex": "$1$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{a}{b}$",
+          "latex": "$b$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{b}{a}$",
+          "latex": "$a/b$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q22)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q22 (Set A, Q22)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "partial-differentiation",
-        "homogeneous"
+        "partial-derivative",
+        "chain-rule"
       ]
     },
     {
@@ -1126,7 +1117,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "Let $v(x, y) = \\sin^{-1}\\dfrac{y}{x}$. Then $x\\dfrac{\\partial v}{\\partial x} + y\\dfrac{\\partial v}{\\partial y}$",
+      "stemLatex": "Let $v(x, y) = \\sin^{-1}\\left(\\sqrt{x^{2} + y^{2}}\\right)$. Then $x\\dfrac{\\partial v}{\\partial x} + y\\dfrac{\\partial v}{\\partial y}$",
       "stemFigure": null,
       "options": [
         {
@@ -1141,7 +1132,7 @@
         },
         {
           "id": "C",
-          "latex": "exists and is $\tan v$",
+          "latex": "exists and is $\\tan v$",
           "figure": null
         },
         {
@@ -1153,15 +1144,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q23)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q23 (Set A, Q23)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "partial-differentiation",
-        "homogeneous-function"
+        "euler-theorem",
+        "homogeneous-function",
+        "partial-derivative"
       ]
     },
     {
@@ -1173,7 +1165,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "$\\displaystyle\\int \\dfrac{dx}{x^{n}(1 + x^{m})^{1/n}} = \\dfrac{K}{x} + C$, where $C$ is an arbitrary constant. Then $K =$",
+      "stemLatex": "If $\\displaystyle\\int \\dfrac{dx}{x^{n}(1 + x^{n})^{1/n}} = K\\left(\\dfrac{x^{n} + 1}{x^{n}}\\right)^{\\frac{n-1}{n}} + C$, where $C$ is an arbitrary constant, then $K =$",
       "stemFigure": null,
       "options": [
         {
@@ -1183,7 +1175,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{m}$",
+          "latex": "$-\\dfrac{1}{n}$",
           "figure": null
         },
         {
@@ -1193,23 +1185,22 @@
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{1}{m-1}$",
+          "latex": "$-\\dfrac{1}{n-1}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q24)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q24 (Set A, Q24)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "integration",
         "substitution",
-        "binomial"
+        "indefinite-integral"
       ]
     },
     {
@@ -1231,7 +1222,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{19}{4}$",
+          "latex": "$\\dfrac{19}{3}$",
           "figure": null
         },
         {
@@ -1250,14 +1241,13 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q25)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q25 (Set A, Q25)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "definite-integral",
-        "absolute-value",
-        "piecewise"
+        "modulus-function"
       ]
     },
     {
@@ -1269,43 +1259,43 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 8,
-      "stemLatex": "$\\displaystyle\\int \\dfrac{dx}{\\sqrt{x+1} - \\sqrt{x-1}} =$",
+      "stemLatex": "$I = \\displaystyle\\int \\dfrac{dx}{\\left(1 + \\sqrt{x}\\right)\\left(\\sqrt{x - x^{2}}\\right)}$, then $I =$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{2(\\sqrt{x}-1)}{\\sqrt{1-x}} + C$",
+          "latex": "$\\dfrac{\\sqrt{x} + 1}{\\sqrt{x} - 1} + c$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{2(1+x)}{\\sqrt{1-x}} + C$",
+          "latex": "$\\dfrac{1 - \\sqrt{x}}{1 + \\sqrt{x}} + c$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{2(\\sqrt{x}+1)}{\\sqrt{1-x}} + C$",
+          "latex": "$\\dfrac{2\\left(\\sqrt{x} - 1\\right)}{\\sqrt{(1 - x)}} + c$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{2\\sqrt{x}}{\\sqrt{1-x}} + C$",
+          "latex": "$\\dfrac{2\\left(\\sqrt{1 + x)}\\right)}{\\sqrt{(1 - x)}} + c$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q26)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q26 (Set A, Q26)"
       },
       "difficulty": "hard",
       "tags": [
-        "integration",
-        "rationalization",
-        "substitution"
+        "substitution",
+        "indefinite-integral",
+        "differentiate-options"
       ]
     },
     {
@@ -1317,27 +1307,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 8,
-      "stemLatex": "The equation of curve passing through the point $(1, 1)$ and having slope at tangent at any point $(x, y)$ as $\\dfrac{-\\cos x}{x(1 + \\tan\\frac{x}{2})}$ is",
+      "stemLatex": "The equation of curve passing through the point $\\left(1, \\dfrac{\\pi}{4}\\right)$ and having slope at tangent at any point $(x, y)$ as $\\dfrac{y}{x} - \\cos^{2}\\left(\\dfrac{y}{x}\\right)$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$x = e^{\\sin^{-1}(\\tan\\frac{x}{2})}$",
+          "latex": "$x = e^{1 + \\tan\\left(\\frac{y}{x}\\right)}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$x = e^{\\sin^{-1}(\\cot\\frac{x}{2})}$",
+          "latex": "$x = e^{1 - \\tan\\left(\\frac{y}{x}\\right)}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$x = e^{\\cos^{-1}(\\tan\\frac{x}{2})}$",
+          "latex": "$x = e^{1 + \\tan\\left(\\frac{x}{y}\\right)}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$x = e^{\\tan^{-1}(\\cot\\frac{x}{2})}$",
+          "latex": "$x = e^{1 - \\tan\\left(\\frac{x}{y}\\right)}$",
           "figure": null
         }
       ],
@@ -1346,14 +1336,13 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q27)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q27 (Set A, Q27)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ode",
-        "curve",
-        "slope"
+        "homogeneous-ode",
+        "initial-value"
       ]
     },
     {
@@ -1365,42 +1354,41 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 8,
-      "stemLatex": "If $\\dfrac{dy}{dx} + y = 2e^{2x}$, then",
+      "stemLatex": "$\\dfrac{d^{2}y}{dx^{2}} + 2\\dfrac{dy}{dx} + y = 2e^{2x}$, then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$y = (A + Bx)e^{x} + \\dfrac{2x}{9}$",
+          "latex": "$y = c_{1}e^{x} + c_{2}e^{-x} + e^{2x}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$y = (A + Bx)e^{2x} + \\dfrac{9}{2}$",
+          "latex": "$y = (A + Bx)e^{-x} + \\dfrac{1}{9}e^{2x}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$y = (A + Bx)e^{-x} + \\dfrac{9}{2}$",
+          "latex": "$y = (A + Bx)e^{-x} + \\dfrac{2}{9}e^{2x}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$y = A\\cos x + B\\sin x + \\dfrac{9}{2}$",
+          "latex": "$y = A\\cos x + B\\sin x + \\dfrac{e^{2x}}{9}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q28)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q28 (Set A, Q28)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ode",
-        "linear",
+        "linear-ode-constant-coefficients",
         "particular-integral"
       ]
     },
@@ -1413,27 +1401,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 8,
-      "stemLatex": "A number is chosen at random from the numbers $1, 2, 3, \\ldots, 36$. The probability that this number is divisible by $6$ is",
+      "stemLatex": "The digits $1, 2, 3, \\ldots, 9$ are written in random order to form a nine digit number. The probability that this number is divisible by $36$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{6}$",
+          "latex": "$\\dfrac{2}{9}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{2}{6}$",
-          "figure": null
-        },
-        {
-          "id": "C",
           "latex": "$\\dfrac{1}{9}$",
           "figure": null
         },
         {
-          "id": "D",
+          "id": "C",
           "latex": "$\\dfrac{1}{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{4}{9}$",
           "figure": null
         }
       ],
@@ -1442,14 +1430,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q29)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q29 (Set A, Q29)"
       },
       "difficulty": "medium",
       "tags": [
-        "probability",
         "divisibility",
-        "counting"
+        "permutations",
+        "classical-probability"
       ]
     },
     {
@@ -1490,14 +1478,13 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q30)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q30 (Set A, Q30)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "probability",
-        "complement",
-        "inclusion-exclusion"
+        "addition-theorem",
+        "complement"
       ]
     },
     {
@@ -1509,7 +1496,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "Let $A = \\begin{bmatrix} \\lambda & 1 & 0 \\\\ 3 & -2 & 1 \\\\ 0 & \\lambda+1 & 0 \\end{bmatrix}$. Rank of $A$ is",
+      "stemLatex": "Let $A = \\begin{pmatrix} \\lambda & 1 & 0 \\\\ 3 & \\lambda - 2 & 1 \\\\ 3(\\lambda + 1) & 0 & \\lambda + 1 \\end{pmatrix}$. Rank of $A$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1539,14 +1526,14 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q31)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q31 (Set A, Q31)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "matrices",
         "rank",
-        "determinant"
+        "determinant",
+        "parameter"
       ]
     },
     {
@@ -1558,7 +1545,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "Under which of the following conditions the system of equations $ax + by + cz = 0$, $bx + cy + az = 0$, $cx + ay + bz = 0$ has non-trivial solution?",
+      "stemLatex": "Under which of the following conditions the system of equations $ax + by + cz = 0$, $bx + cy + az = 0$, $cx + ay + bz = 0$ have a non-zero solution ?",
       "stemFigure": null,
       "options": [
         {
@@ -1588,14 +1575,14 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q32)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q32 (Set A, Q32)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "linear-system",
-        "determinant",
-        "homogeneous"
+        "homogeneous-system",
+        "circulant-determinant",
+        "interpretation-note"
       ]
     },
     {
@@ -1622,28 +1609,29 @@
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{x}{y} - \\dfrac{y}{x} = 2\\cos(\\theta - \\phi)$",
+          "latex": "$xy + \\dfrac{1}{xy} = 2\\cos(\\theta + \\phi)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{x}{y} - \\dfrac{y}{x} = \\cos(\\theta + \\phi)$",
+          "latex": "$xy + \\dfrac{1}{xy} = 2\\cos(\\theta - \\phi)$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "A",
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q33)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q33 (Set A, Q33)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "trigonometry",
-        "roots"
+        "de-moivre",
+        "cis-form",
+        "interpretation-note"
       ]
     },
     {
@@ -1655,17 +1643,17 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "If the latus rectum of the hyperbola $\\dfrac{x^{2}}{a^{2}} - \\dfrac{y^{2}}{b^{2}} = 1$ subtend a right angle at the centre of the hyperbola, then eccentricity of the hyperbola is",
+      "stemLatex": "If the latus rectum of the hyperbola $\\dfrac{x^{2}}{a^{2}} - \\dfrac{y^{2}}{b^{2}} = 1$ subtend a right angle at the centre of the hyperbola, then eccentricity of the ellipse is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{\\sqrt{5}+1}{2}$",
+          "latex": "$\\dfrac{\\sqrt{5} + 1}{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{\\sqrt{5}+2}{2}$",
+          "latex": "$\\dfrac{\\sqrt{5} + 2}{2}$",
           "figure": null
         },
         {
@@ -1685,14 +1673,15 @@
           "A",
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q34)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q34 (Set A, Q34)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "hyperbola",
         "latus-rectum",
-        "eccentricity"
+        "eccentricity",
+        "misprint"
       ]
     },
     {
@@ -1704,7 +1693,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "The vector $\\vec{a} \\times (\\vec{b} \\times \\vec{c})$ is",
+      "stemLatex": "The vector $\\vec{a} \\times \\left(\\vec{b} \\times \\vec{c}\\right)$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1731,16 +1720,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "B",
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q35)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q35 (Set A, Q35)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
-        "triple-product",
-        "identity"
+        "vector-triple-product",
+        "bac-cab"
       ]
     },
     {
@@ -1762,7 +1751,7 @@
         },
         {
           "id": "B",
-          "latex": "not defined for any real $x$",
+          "latex": "continuous at $x = 0$",
           "figure": null
         },
         {
@@ -1780,15 +1769,16 @@
         "status": "active",
         "correct": [
           "A",
+          "B",
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q36)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q36 (Set A, Q36)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "functions",
-        "absolute-value",
+        "piecewise-function",
+        "continuity",
         "differentiability"
       ]
     },
@@ -1796,12 +1786,12 @@
       "id": "jelet-2022-q037",
       "qNumber": 37,
       "subjectId": "MATH",
-      "unitId": "M07",
+      "unitId": "M04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 10,
-      "stemLatex": "The equation(s) of the tangents to the ellipse $\\dfrac{x^{2}}{16} + \\dfrac{y^{2}}{9} = 1$ parallel to the line $y = x$ is (are)",
+      "stemLatex": "The equation (s) of the tangents to the ellipse $\\dfrac{x^{2}}{16} + \\dfrac{y}{9} = 1$ parallel to the line $y = x$ is (are)",
       "stemFigure": null,
       "options": [
         {
@@ -1831,14 +1821,14 @@
           "A",
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q37)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q37 (Set A, Q37)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
         "ellipse",
-        "tangent",
-        "parallel-lines"
+        "tangent-condition",
+        "misprint"
       ]
     },
     {
@@ -1850,43 +1840,43 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 10,
-      "stemLatex": "Let $f(x, y) = \\begin{cases} \\dfrac{xy}{x^{2}+y^{2}}, & x^{2}+y^{2} \\neq 0 \\\\ 0, & x^{2}+y^{2} = 0 \\end{cases}$. Then",
+      "stemLatex": "Let $f(x, y) = \\begin{cases} \\dfrac{xy^{2} + x^{2}y}{x^{2} + y^{2}}, & x^{2} + y^{2} \\neq 0 \\\\ 0, & x^{2} + y^{2} = 0 \\end{cases}$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "neither $f_x$ nor $f_y$ exists at $(0, 0)$ but $f$ is continuous at $(0, 0)$",
+          "latex": "neither $f_{x}$ nor $f_{y}$ exists at $(0, 0)$ but $f$ is continuous at $(0, 0)$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$f_x(0, 0) = 1$ but $f_y$ does not exist at $(0, 0)$",
+          "latex": "$f_{x}(0, 0) = 1$ but $f_{y}$ does not exist at $(0, 0)$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$f$ is continuous at $(0, 0)$",
+          "latex": "$f$ is continuou at $(0, 0)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$f_x, f_y$ exist at $(0, 0)$ and both are $0$",
+          "latex": "$f_{x}$, $f_{y}$ exist at $(0, 0)$ and both are $0$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
+          "C",
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q38)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q38 (Set A, Q38)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "partial-differentiation",
-        "continuity",
-        "limits"
+        "partial-derivative",
+        "continuity-two-variables"
       ]
     },
     {
@@ -1898,17 +1888,17 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 10,
-      "stemLatex": "If $\\displaystyle\\int \\dfrac{\\sin x + \\cos x}{\\sqrt{\\sin x \\cos x}}\\,dx = f(x) + C$, then $f(x)$ equals",
+      "stemLatex": "If $\\displaystyle\\int \\dfrac{\\sin x + \\cos x}{\\sqrt{\\sin x\\cos x}}\\,dx = f(x) + c$, then $f(x)$ equals",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\sqrt{2}\\sin^{-1}(\\sin x - \\cos x)$",
+          "latex": "$\\sqrt{2}\\,\\sin^{-1}(\\sin x - \\cos x)$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$-\\sqrt{2}\\cos^{-1}(\\sin x - \\cos x)$",
+          "latex": "$-\\sqrt{2}\\,\\cos^{-1}(\\sin x - \\cos x)$",
           "figure": null
         },
         {
@@ -1925,16 +1915,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "A",
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q39)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q39 (Set A, Q39)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "integration",
-        "trigonometric",
-        "substitution"
+        "substitution",
+        "antiderivative-up-to-constant"
       ]
     },
     {
@@ -1973,28 +1963,29 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "A",
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q40)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q40 (Set A, Q40)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ode",
-        "variable-separable",
-        "initial-condition"
+        "exact-differential",
+        "initial-value",
+        "implicit-solution"
       ]
     },
     {
       "id": "jelet-2022-q041",
       "qNumber": 41,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "The equation of a wave is given by $y = A\\sin(\\omega t - kx)$ where the symbols $A$, $\\omega$ and $k$ have their usual meanings. The dimension of $p$ and $q$ in $y = A\\sin(pt - qx)$ are respectively",
+      "stemLatex": "The equation of a wave is given by $y = A\\sin\\omega\\left(\\dfrac{p}{v} - q\\pi\\right)$ where the symbols $A$, $\\omega$ and $v$ have their usual meanings. The dimension of $p$ and $q$ are respectively,",
       "stemFigure": null,
       "options": [
         {
@@ -2021,54 +2012,48 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q41)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q41 (Set A, Q41)"
       },
       "difficulty": "easy",
       "tags": [
         "dimensions",
-        "waves",
-        "dimensional-analysis"
+        "dimensional-analysis",
+        "waves"
       ]
     },
     {
       "id": "jelet-2022-q042",
       "qNumber": 42,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "The length, breadth and thickness of a strip are given by $L = (10.0 \\pm 0.1)\\,\\text{cm}$, $h = (1.00 \\pm 0.01)\\,\\text{cm}$, $t = (0.1 \\pm 0.001)\\,\\text{cm}$. The most probable error in volume will be",
-      "stemFigure": {
-        "src": "./_data/figures/2022/fig-2022-q42.svg",
-        "alt": "Figure for JELET 2022 Q42",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemLatex": "The length, breadth and thickness of a strip are given by $L = (10.0 \\pm 0.1)$ cm, $h = (1.00 \\pm 0.01)$ cm, $t = (0.1 \\pm 0.001)$ cm. The most probable error in volume will be",
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$0.03\\,\\text{cm}^{3}$",
+          "latex": "$0.03\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0.111\\,\\text{cm}^{3}$",
+          "latex": "$0.111\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0.012\\,\\text{cm}^{3}$",
+          "latex": "$0.012\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0.12\\,\\text{cm}^{3}$",
+          "latex": "$0.12\\ \\text{cm}^{3}$",
           "figure": null
         }
       ],
@@ -2077,14 +2062,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q42)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q42 (Set A, Q42)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "errors",
-        "error-analysis",
-        "volume"
+        "relative-error",
+        "measurement"
       ]
     },
     {
@@ -2101,36 +2086,36 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{\\sqrt{107}}{2}$ sq. unit",
+          "latex": "$\\sqrt{107}$ sq.unit",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\sqrt{107}$ sq. unit",
+          "latex": "$2\\sqrt{107}$ sq.unit",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3\\sqrt{2}$ sq. unit",
+          "latex": "$37\\sqrt{2}$ sq.unit",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{2}{\\sqrt{107}}$ sq. unit",
+          "latex": "$\\dfrac{1}{2}\\sqrt{107}$ sq.unit",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q43)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q43 (Set A, Q43)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
+        "vectors",
         "cross-product",
         "area"
       ]
@@ -2144,22 +2129,22 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "The kinetic energy of a particle moving along a circle of radius $R$ is $ax$ where $\\alpha$ is a constant and $x$ is the distance covered. The force acting in the radial direction is proportional to",
+      "stemLatex": "The kinetic energy of a particle moving along a circle of radius $R$ is $\\alpha x$ where $\\alpha$ is a constant and $x$ is the distance covered. The force acting in the radial direction is proportional to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{x}$",
+          "latex": "$x$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{x^{2}}$",
+          "latex": "$x^{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$x$",
+          "latex": "$\\dfrac{1}{x}$",
           "figure": null
         },
         {
@@ -2171,16 +2156,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q44)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q44 (Set A, Q44)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "rotation",
-        "force",
-        "centripetal"
+        "circular-motion",
+        "centripetal-force",
+        "kinetic-energy"
       ]
     },
     {
@@ -2192,27 +2177,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "The trajectory of a point particle in a projectile motion is given by the equation $y = 2x - 5x^{2}$, where $y$ is height and $x$ is horizontal distance. With what velocity was the particle projected? ($g = -10\\,\\text{m/s}^{2}$)",
+      "stemLatex": "The trajectory of a point particle in a projectile motion is given by the equation $Y = 2x - 5x^{2}$, where $Y$ is height and $x$ is horizontal distance. With what velocity was the particle projected? ($g = 10\\ \\text{m/s}^{2}$)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\hat{i} + \\hat{j}\\,\\text{m/s}$",
+          "latex": "$\\hat{i} + \\hat{j}$ m/s",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2\\hat{i} + \\hat{j}\\,\\text{m/s}$",
+          "latex": "$2\\hat{i} + \\hat{j}$ m/s",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\hat{i} + 2\\hat{j}\\,\\text{m/s}$",
+          "latex": "$\\hat{i} + 2\\hat{j}$ m/s",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$3\\hat{i} + \\hat{j}\\,\\text{m/s}$",
+          "latex": "$3\\hat{i} + \\hat{j}$ m/s",
           "figure": null
         }
       ],
@@ -2221,14 +2206,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q45)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q45 (Set A, Q45)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "kinematics",
         "projectile",
-        "trajectory"
+        "trajectory-equation",
+        "velocity-components"
       ]
     },
     {
@@ -2240,66 +2225,67 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A constant force $F$ is applied to the block of mass $m$ connected to the spring of spring constant $k$ as shown in figure. Initially ($t = 0$), the block is at rest. The amplitude of oscillation of $m$ will be",
+      "stemLatex": "A constant force $F$ is applied to the block of mass $m$ connected to the spring of spring constant $k$ as shown in figure. Initially ($t = 0$), the block is at rest. The amplitude of oscillation of $m$ will be $\\left(\\text{consider } \\omega = \\sqrt{\\dfrac{k}{m}}\\right)$",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q46.svg",
-        "alt": "Figure for JELET 2022 Q46",
-        "width": 420,
-        "height": 220,
+        "alt": "A vertical hatched wall on the left and a hatched floor; a spring k joins the wall to a block m resting on the floor; a constant force F pulls the block to the right",
+        "width": 290,
+        "height": 108,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{F}{k}$",
+          "latex": "$\\dfrac{F}{m\\omega}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{F}{m\\omega}$",
-          "figure": null
-        },
-        {
-          "id": "C",
           "latex": "$\\dfrac{F}{m\\omega^{2}}$",
           "figure": null
         },
         {
+          "id": "C",
+          "latex": "$\\dfrac{F}{m}$",
+          "figure": null
+        },
+        {
           "id": "D",
-          "latex": "$\\dfrac{F}{m\\omega}$",
+          "latex": "$\\dfrac{F\\omega^{2}}{m}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q46)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q46 (Set A, Q46)"
       },
       "difficulty": "medium",
       "tags": [
-        "spring",
-        "oscillation",
-        "amplitude"
+        "spring-mass",
+        "shm",
+        "amplitude",
+        "equilibrium-shift"
       ]
     },
     {
       "id": "jelet-2022-q047",
       "qNumber": 47,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A block of mass $1.0\\,\\text{kg}$ moving on a smooth horizontal surface with speed $2\\,\\text{m/s}$ enters a rough surface. The retarding force $(F)$ on the block is given by $F = \\dfrac{k}{x}$; $10\\,\\text{m} < x < 100\\,\\text{m}$, where $k = 0.5\\,\\text{J}$. The kinetic energy of the block at $x = 100\\,\\text{m}$ will be (given, $\\ln 10 = 2.3$)",
+      "stemLatex": "A block of mass $1.0$ kg moving on a smooth horizontal surface with speed $2$ m/s enters a rough surface. The retarding force $(F_{r})$ on the block is given by $F_{r} = \\begin{cases} -\\dfrac{k}{x}\\ ; & 10\\,\\text{m} < x < 100\\,\\text{m} \\\\ 0\\ ; & x < 10\\,\\text{m and } x > 100\\,\\text{m} \\end{cases}$, Where $k = 0.5$ J. The kinetic energy of the block at $x = 100$ m will be (given, $\\ln 10 = 2.3$)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$2\\,\\text{J}$",
+          "latex": "$2$ J",
           "figure": null
         },
         {
@@ -2309,12 +2295,12 @@
         },
         {
           "id": "C",
-          "latex": "$1.15\\,\\text{J}$",
+          "latex": "$1.15$ J",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0.85\\,\\text{J}$",
+          "latex": "$0.85$ J",
           "figure": null
         }
       ],
@@ -2323,13 +2309,13 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q47)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q47 (Set A, Q47)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "work-energy",
-        "force",
+        "work-energy-theorem",
+        "variable-force",
         "integration"
       ]
     },
@@ -2337,107 +2323,125 @@
       "id": "jelet-2022-q048",
       "qNumber": 48,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A uniform disc of mass $M$ and radius $R$ can rotate in vertical plane about its horizontal axis. A point mass $m$ is glued to the disc at point $P$, as shown in figure. If the system is released from rest, the angular velocity of the disc when the point mass reaches the bottom most point $P_{2}$ is",
+      "stemLatex": "A uniform disc of mass $M$ and radius $R$ can rotate in vertical plane about its horizontal axis. A point mass $m$ is glued to the disc at point $P_{1}$ as shown in figure. If the system is released from rest, the angular velocity of the disc when the point mass reaches the bottom most point $P_{2}$ is",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q48.svg",
-        "alt": "Figure for JELET 2022 Q48",
-        "width": 420,
-        "height": 220,
+        "alt": "A disc of mass M with centre C on its horizontal axis (drawn slanting through C); a dashed horizontal diameter; the point mass m at P1, the left end of that diameter; a radius R drawn from C; a curved arrow at P1 pointing downward; P2 is the lowest point of the rim",
+        "width": 260,
+        "height": 196,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\sqrt{\\dfrac{4mg}{(2M+m)R}}$ rad/sec",
+          "latex": "$\\dfrac{2mg}{(m+M)R}$ rad/sec",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\sqrt{\\dfrac{4mg}{(m+M)R}}$ rad/sec",
+          "latex": "$\\dfrac{4mg}{(2M+m)}$ rad/sec",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\sqrt{\\dfrac{4mg}{(2m+M)R}}$ rad/sec",
+          "latex": "$\\dfrac{4mg}{(M+m)R}$ rad/sec",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{\\dfrac{4mg}{(M+m)R}}$ rad/sec",
+          "latex": "$\\dfrac{4mg}{(2m+M)R}$ rad/sec",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q48)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q48 (Set A, Q48)"
       },
       "difficulty": "hard",
       "tags": [
         "rotation",
         "energy-conservation",
-        "angular-velocity"
+        "moment-of-inertia"
       ]
     },
     {
       "id": "jelet-2022-q049",
       "qNumber": 49,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P05",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
       "stemLatex": "Two identical point masses are placed on $y$ axis at $y = a$ and $y = -a$. The variation of the magnitude of the gravitational potential $|V(x)|$ as a function of $x$ is given by",
-      "stemFigure": {
-        "src": "./_data/figures/2022/fig-2022-q49.svg",
-        "alt": "Figure for JELET 2022 Q49",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "graph A",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-optA.svg",
+            "alt": "Graph (A): |V(x)| versus x; zero at x = 0, rising on both sides to level off at a constant value (an inverted bell touching the x-axis at the origin)",
+            "width": 200,
+            "height": 116,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "graph B",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-optB.svg",
+            "alt": "Graph (B): |V(x)| versus x; a U-shaped curve above the x-axis with its minimum at x = 0, rising steeply on both sides",
+            "width": 200,
+            "height": 116,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "graph C",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-optC.svg",
+            "alt": "Graph (C): |V(x)| versus x; a semicircular hump centred on x = 0 that meets the x-axis at two points",
+            "width": 200,
+            "height": 116,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "graph D",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-optD.svg",
+            "alt": "Graph (D): |V(x)| versus x; a bell-shaped curve with its maximum at x = 0, falling on both sides and approaching the x-axis without touching it",
+            "width": 200,
+            "height": 116,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q49)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q49 (Set A, Q49)"
       },
       "difficulty": "medium",
       "tags": [
-        "gravitation",
-        "potential",
+        "gravitational-potential",
+        "superposition",
         "graph"
       ]
     },
@@ -2445,12 +2449,12 @@
       "id": "jelet-2022-q050",
       "qNumber": 50,
       "subjectId": "PHYS",
-      "unitId": "P08",
+      "unitId": "P06",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "If the change in volume is $0.4\\%$ due to a change in length is $1\\%$ when a stress is applied along the length of the rod, the Poisson ratio of the material is",
+      "stemLatex": "If the change in volume is $0.4\\ \\%$ due to a change in length is $1\\%$ when a stress is applied along the length of the rod, the Poisson ratio of the material is",
       "stemFigure": null,
       "options": [
         {
@@ -2479,14 +2483,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q50)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q50 (Set A, Q50)"
       },
       "difficulty": "medium",
       "tags": [
         "elasticity",
         "poisson-ratio",
-        "stress-strain"
+        "volume-strain"
       ]
     },
     {
@@ -2498,50 +2502,50 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "A large open tank has two holes in the wall. One is a square hole of side $L$ at a depth $y$ and the other is a circular hole of radius $R$ at a depth $2y$. If the rate of water flow through both the holes are equal, then $R$ is equal to",
+      "stemLatex": "A large open tank has two holes in the wall. One is a square hole of side $L$ at a depth $y$ from the top and the other is a circular hole of radius $R$ at a depth $2y$ from the top. The quantities of water flowing out per second from both holes are the same. Then $R/L$ is equal to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{L}{\\sqrt{2\\pi}}$",
+          "latex": "$\\dfrac{1}{\\sqrt{2}\\,\\pi}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{L}{2\\pi}$",
+          "latex": "$\\dfrac{1}{2^{\\frac{1}{4}}\\sqrt{\\pi}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{L}{\\pi}$",
+          "latex": "$\\dfrac{1}{2^{\\frac{1}{4}}\\,\\pi}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{L}{24\\pi}$",
+          "latex": "$\\dfrac{1}{2\\pi}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q51)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q51 (Set A, Q51)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "fluid",
         "torricelli",
-        "flow-rate"
+        "efflux",
+        "equation-of-continuity"
       ]
     },
     {
       "id": "jelet-2022-q052",
       "qNumber": 52,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P08",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -2575,46 +2579,47 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q52)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q52 (Set A, Q52)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "fluid",
         "viscosity",
-        "terminal-velocity"
+        "stokes-law",
+        "terminal-velocity",
+        "power"
       ]
     },
     {
       "id": "jelet-2022-q053",
       "qNumber": 53,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P10",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "A well lagged wire of length $L$ and cross-sectional area $S$ has its ends maintained at temperatures $T_{1}$ and $T_{2}$. The thermal conductivity of the wire is given by $K = \\beta + T$ where $T$ is the temperature and $\\beta$ and $\\gamma$ are constants. Then the rate of flow of heat along the wire is equal to",
+      "stemLatex": "A well lagged wire of length $L$ and cross-sectional area $S$ has its ends maintained at temperatures $T_{1}$ and $T_{2}$. The thermal conductivity of the wire is given by $K = \\beta + \\gamma T$ where $T$ is the temperature and $\\beta$ and $\\gamma$ are constants. Then the rate of flow of heat along the wire is equal to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{S\\beta}{L}(T_{1}-T_{2})$ if $\\gamma = 0$",
+          "latex": "$\\dfrac{S\\beta}{L}(T_{1} - T_{2})$ if $\\gamma = 0$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{S\\gamma}{L}(T_{1}+T_{2})$ if $\\beta = 0$",
+          "latex": "$\\dfrac{S\\gamma}{2L}(T_{1}^{2} + T_{2}^{2})$ if $\\beta = 0$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{S\\beta}{L}(T_{1}-T_{2})$ if $\\gamma = 0, \\beta = 0$",
+          "latex": "$\\dfrac{S}{L}(T_{1} - T_{2})$ if $\\gamma = 0, \\beta = 0$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{S\\gamma}{L}(T_{1}+T_{2})$ if $\\beta = 0$",
+          "latex": "$\\dfrac{S\\beta}{L}(T_{1}^{2} - T_{2}^{2})$ if $\\gamma = \\dfrac{\\beta}{2}$",
           "figure": null
         }
       ],
@@ -2623,46 +2628,46 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q53)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q53 (Set A, Q53)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "thermodynamics",
-        "heat-conduction",
-        "conductivity"
+        "conduction",
+        "variable-conductivity",
+        "heat-current"
       ]
     },
     {
       "id": "jelet-2022-q054",
       "qNumber": 54,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P09",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "A one litre glass flask contains some mercury. It is found that at different temperatures, the volume of air in the empty space in the flask remains the same. What is the volume of mercury in the flask? (The co-efficient of linear expansion of glass is $9 \\times 10^{-6}\\,^{\\circ}\\text{C}^{-1}$ and the volume expansion of mercury is $1.8 \\times 10^{-4}\\,^{\\circ}\\text{C}^{-1}$)",
+      "stemLatex": "A one litre glass flask contains some mercury. It is found that at different temperatures, the volume of air in the empty space in the flask remains the same. What is the volume of mercury in the flask ? (The co-efficient of linear expansion of glass is $9 \\times 10^{-6}\\ ^{\\circ}\\text{C}^{-1}$ and the volume expansion of mercury is $1.8 \\times 10^{-4}\\ ^{\\circ}\\text{C}^{-1}$)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$50\\,\\text{cm}^{3}$",
+          "latex": "$50\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$150\\,\\text{cm}^{3}$",
+          "latex": "$150\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$450\\,\\text{cm}^{3}$",
+          "latex": "$450\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$400\\,\\text{cm}^{3}$",
+          "latex": "$400\\ \\text{cm}^{3}$",
           "figure": null
         }
       ],
@@ -2671,14 +2676,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q54)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q54 (Set A, Q54)"
       },
       "difficulty": "medium",
       "tags": [
         "thermal-expansion",
-        "expansion",
-        "volume"
+        "volume-expansion",
+        "constant-air-gap"
       ]
     },
     {
@@ -2693,46 +2698,46 @@
       "stemLatex": "Consider an isobaric process of a monoatomic gas as shown in figure. The ratio of work done by the gas to the heat absorbed by it, when it undergoes a change from state $A$ to state $B$ is",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q55.svg",
-        "alt": "Figure for JELET 2022 Q55",
-        "width": 420,
-        "height": 220,
+        "alt": "P versus V: a horizontal line at constant pressure with point A and, to its right, point B",
+        "width": 240,
+        "height": 124,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{2}{5}$",
+          "latex": "$\\dfrac{2}{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{5}$",
+          "latex": "$\\dfrac{1}{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{3}{5}$",
+          "latex": "$\\dfrac{2}{7}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{1}{3}$",
+          "latex": "$\\dfrac{2}{5}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q55)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q55 (Set A, Q55)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "thermodynamics",
-        "isobaric",
-        "work-heat"
+        "isobaric-process",
+        "first-law",
+        "molar-heat-capacity"
       ]
     },
     {
@@ -2744,7 +2749,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "The angle of prism and refractive index of its material are $A$ and $\\cot\\dfrac{A}{2}$. Then $\\cos\\delta_{m}$ is ($\\delta_{m}$ : angle of minimum deviation) ($A < \\pi/2$)",
+      "stemLatex": "The angle of prism and refractive index of its material are $A$ and $\\cot\\dfrac{A}{2}$ respectively. Then $\\cos\\delta_{m}$ is ($\\delta_{m}$ : angle of minimum deviation) ($A < \\pi/2$)",
       "stemFigure": null,
       "options": [
         {
@@ -2773,14 +2778,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q56)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q56 (Set A, Q56)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "refraction",
         "prism",
-        "minimum-deviation"
+        "minimum-deviation",
+        "trigonometry"
       ]
     },
     {
@@ -2792,34 +2797,58 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "A vessel of height $H$ contains a liquid of refractive index $\\mu$. A spot $P$ at the bottom of the vessel creates an image $P'$ at a distance $d$ from the top of the vessel when viewed from the top. The liquid gradually drains out from a hole at the bottom. If $x$ represents the height of the water from the bottom at any instant, then the graph $d$ versus $x$ will be like",
+      "stemLatex": "A vessel of height $H$ contains a liquid of refractive index ‘$\\mu$’. A spot $P$ at the bottom of the vessel creates an image $P'$ at a distance '$d$' from the top of the vessel when viewed from the top. The liquid gradually drains out from a hole at the bottom. If ‘$x$’ represents the height of the water from the bottom at any instant, then the graph $d$ versus $x$ will be like,",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q57.svg",
-        "alt": "Figure for JELET 2022 Q57",
-        "width": 420,
-        "height": 220,
+        "alt": "A vessel of height H viewed by an eye at Q above the top; liquid fills it to height x; the spot P at the bottom and its image P' at depth d below the top; a small outlet at the bottom right",
+        "width": 220,
+        "height": 214,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "graph A",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-optA.svg",
+            "alt": "Graph (A): d versus x; a straight line rising from d = H at x = 0 to d = μH at x = H",
+            "width": 200,
+            "height": 128,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "graph B",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-optB.svg",
+            "alt": "Graph (B): d versus x; a straight line falling from d = H at x = 0 to d = H/μ at x = H",
+            "width": 200,
+            "height": 128,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "graph C",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-optC.svg",
+            "alt": "Graph (C): d versus x; a straight line rising from d = H/μ at x = 0 to d = H at x = H",
+            "width": 200,
+            "height": 128,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "graph D",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-optD.svg",
+            "alt": "Graph (D): d versus x; a straight line rising from the origin O to d = H at x = H",
+            "width": 200,
+            "height": 128,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -2827,13 +2856,13 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q57)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q57 (Set A, Q57)"
       },
       "difficulty": "medium",
       "tags": [
-        "refraction",
         "apparent-depth",
+        "refraction",
         "graph"
       ]
     },
@@ -2841,12 +2870,12 @@
       "id": "jelet-2022-q058",
       "qNumber": 58,
       "subjectId": "PHYS",
-      "unitId": "P14",
+      "unitId": "P13",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A point source of monochromatic light $S$ is kept at the centre of the bottom of a cylinder of radius $15\\,\\text{cm}$. The cylinder contains liquid of refractive index $\\mu$ to a height of $7.0\\,\\text{cm}$. If the area of liquid surface through which the light emerges in air is $200\\,\\text{cm}^{2}$, then $\\mu^{2}$ equals to",
+      "stemLatex": "A point source of monochromatic light $S$ is kept at the centre of the bottom of a cylinder of radius $15$ cm. The cylinder contains liquid of refractive index $\\mu$ to a height of $7.0$ cm. If the area of liquid surface through which the light emerges in air is $200\\ \\text{cm}^{2}$, then $\\mu^{2}$ equal to",
       "stemFigure": null,
       "options": [
         {
@@ -2875,14 +2904,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q58)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q58 (Set A, Q58)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "refraction",
         "total-internal-reflection",
-        "critical-angle"
+        "critical-angle",
+        "circle-of-light"
       ]
     },
     {
@@ -2894,7 +2923,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A thin biconvex lens of radius $10\\,\\text{cm}$ and index $\\dfrac{3}{2}$ is placed on a horizontal plane mirror. The space between the lens and the mirror is filled with a liquid of refractive index $\\mu$. If the system has a focal length of $25\\,\\text{cm}$, then $\\mu$ equals to",
+      "stemLatex": "A thin biconvex lens of radius $10$ cm and index $\\dfrac{3}{2}$ is placed on a horizontal plane mirror. The space between the lens and the mirror is filled with a liquid of refractive index $\\mu$. If the system has a focal length of $25$ cm, then $\\mu$ equals to",
       "stemFigure": null,
       "options": [
         {
@@ -2923,14 +2952,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q59)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q59 (Set A, Q59)"
       },
       "difficulty": "hard",
       "tags": [
-        "lens",
-        "mirror",
-        "liquid-lens"
+        "lens-combination",
+        "liquid-lens",
+        "lens-maker"
       ]
     },
     {
@@ -2942,27 +2971,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "Given that a photon of light of wavelength $10,000\\,\\text{\\AA}$ has an energy equal to $1.243\\,\\text{eV}$. When light of wavelength $5000\\,\\text{\\AA}$ and intensity $I_{0}$ falls on a photo electric cell, the surface current is $0.4\\,\\mu\\text{A}$ and the stopping potential is $1.36\\,\\text{V}$. Then the work function is approximately",
+      "stemLatex": "Given that a photon of light of wavelength $10{,}000\\ \\text{A}^{\\circ}$ has an energy equal to $1.243$ eV. When light of wavelength $5000\\ \\text{A}^{\\circ}$ and intensity $I_{0}$ falls on a photo electric cell, the surface current is $0.4\\ \\mu\\text{A}$ and the stopping potential is $1.36$ V. Then the work function is approximately",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$0.43\\,\\text{eV}$",
+          "latex": "$0.43$ eV",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$1.54\\,\\text{eV}$",
+          "latex": "$1.54$ eV",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0.57\\,\\text{eV}$",
+          "latex": "$0.57$ eV",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1.12\\,\\text{eV}$",
+          "latex": "$1.12$ eV",
           "figure": null
         }
       ],
@@ -2971,12 +3000,12 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q60)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q60 (Set A, Q60)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "photoelectric",
+        "photoelectric-effect",
         "work-function",
         "stopping-potential"
       ]
@@ -2990,17 +3019,17 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A and B are two identical balls. Ball A moving with a speed of $6\\,\\text{m/s}$ along the positive $x$ axis collides with ball B at rest. After collision each ball moves making a direction $30^{\\circ}$ with $x$ axis. Then,",
+      "stemLatex": "$A$ and $B$ are two identical balls. Ball $A$ moving with a speed of $6$ m/s along the positive $x$ axis collides with ball $B$ at rest. After collision each ball moves making a direction $30^{\\circ}$ with $x$ axis. Then,",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "Speed of ball A after collision is $\\sqrt{3}\\,\\text{m/s}$",
+          "latex": "Speed of ball $A$ after collision is $\\sqrt{3}$ m/s",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "Speed of ball B after collision is $\\sqrt{3}\\,\\text{m/s}$",
+          "latex": "Speed of ball $B$ after collision is $\\sqrt{3}$ m/s",
           "figure": null
         },
         {
@@ -3019,14 +3048,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q61)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q61 (Set A, Q61)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "collision",
-        "elastic",
-        "momentum-conservation"
+        "oblique-collision",
+        "momentum-conservation",
+        "kinetic-energy"
       ]
     },
     {
@@ -3038,49 +3067,73 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A cyclic process $ABCA$, shown in $V$-$T$ diagram, is performed with a constant mass of an ideal gas. Which of the following graphs represents the corresponding process on a $P$-$V$ diagram?",
+      "stemLatex": "A cyclic process $ABCA$, shown in $V$-$T$ diagram, is performed with a constant mass of an ideal gas. Which of the following graphs represents the corresponding prosses on a $P$-$V$ diagram ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q62.svg",
-        "alt": "Figure for JELET 2022 Q62",
-        "width": 420,
-        "height": 220,
+        "alt": "V versus T with origin O: from A a straight line rises to B (upper right), B to C runs horizontally to the left at constant V, and C to A drops vertically at constant T; arrows A→B→C→A",
+        "width": 252,
+        "height": 166,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "graph A",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-optA.svg",
+            "alt": "Graph (A): P–V diagram; from A a curve falls gently to B, B to C is vertical downward, and a steeper curve returns from C up to A",
+            "width": 200,
+            "height": 126,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "graph B",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-optB.svg",
+            "alt": "Graph (B): P–V diagram; A to B vertical downward, B to C horizontal to the right, and a curve returns from C up to A",
+            "width": 200,
+            "height": 126,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "graph C",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-optC.svg",
+            "alt": "Graph (C): P–V diagram; A to B horizontal to the right, B to C vertical downward, and a curve returns from C up to A",
+            "width": 200,
+            "height": 126,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "graph D",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-optD.svg",
+            "alt": "Graph (D): P–V diagram; A to B horizontal to the right, B to C vertical downward, and a straight sloping line returns from C to A",
+            "width": 200,
+            "height": 126,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q62)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q62 (Set A, Q62)"
       },
       "difficulty": "medium",
       "tags": [
-        "thermodynamics",
+        "cyclic-process",
         "pv-diagram",
-        "cycle"
+        "vt-diagram"
       ]
     },
     {
@@ -3092,7 +3145,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A piece of ice floats in a liquid of density $\\rho_{L}$. Density of water is $\\rho_{W}$ and $\\rho_{L} \\neq \\rho_{W}$. When the ice melts completely, the level of liquid",
+      "stemLatex": "A piece of ice floats in a liquid of density $\\rho_{L}$. Density of water is $\\rho w$ and $\\rho_{L} \\neq \\rho_{W}$. When the ice melts completely, the level of liquid",
       "stemFigure": null,
       "options": [
         {
@@ -3121,21 +3174,21 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q63)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q63 (Set A, Q63)"
       },
       "difficulty": "medium",
       "tags": [
-        "fluid",
-        "buoyancy",
-        "density"
+        "floatation",
+        "archimedes",
+        "melting-ice"
       ]
     },
     {
       "id": "jelet-2022-q064",
       "qNumber": 64,
       "subjectId": "PHYS",
-      "unitId": "P15",
+      "unitId": "P05",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -3145,70 +3198,70 @@
       "options": [
         {
           "id": "A",
-          "latex": "$V_{P} + V_{Q} = V_{W}$",
+          "latex": "$V_{W} < V_{Q} = V_{P}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$V_{P} + V_{Q} > V_{W}$",
+          "latex": "$V_{W} > V_{Q} = V_{P}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$V_{P} + V_{Q} < V_{W}$",
+          "latex": "$V_{W} > V_{Q} > V_{P}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$V_{P} = V_{Q} = V_{W}$",
+          "latex": "$V_{Q} > V_{W} > V_{P}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q64)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q64 (Set A, Q64)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "gravitation",
         "escape-velocity",
-        "density"
+        "uniform-density",
+        "scaling"
       ]
     },
     {
       "id": "jelet-2022-q065",
       "qNumber": 65,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P09",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A rod of length $1000\\,\\text{mm}$ and co-efficient of linear expansion $\\alpha = 10^{-4}\\,^{\\circ}\\text{C}^{-1}$ is placed symmetrically between fixed walls separated by $1001\\,\\text{mm}$. The Young's modulus of the rod is $10^{11}\\,\\text{N/m}^{2}$. If the temperature is increased by $30^{\\circ}\\text{C}$, then the stress developed in the rod is",
+      "stemLatex": "A rod of length $1000$ mm and co-efficient of linear expansion $\\alpha = 10^{-4}\\ ^{\\circ}\\text{C}^{-1}$ is placed symmetrically between fixed walls separated by $1001$ mm. The Young's modulus of the rod is $10^{11}\\ \\text{N/m}^{2}$. If the temperature is increased by $30^{\\circ}\\text{C}$, then the stress developed in the rod is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$10^{8}\\,\\text{Pa}$",
+          "latex": "$10^{8}$ Pa",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2 \\times 10^{8}\\,\\text{Pa}$",
+          "latex": "$2 \\times 10^{8}$ Pa",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3 \\times 10^{8}\\,\\text{Pa}$",
+          "latex": "$3 \\times 10^{8}$ Pa",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$4 \\times 10^{8}\\,\\text{Pa}$",
+          "latex": "$4 \\times 10^{8}$ Pa",
           "figure": null
         }
       ],
@@ -3217,14 +3270,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q65)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q65 (Set A, Q65)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "elasticity",
         "thermal-stress",
-        "young-modulus"
+        "young-modulus",
+        "expansion-gap"
       ]
     },
     {
@@ -3236,12 +3289,12 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "A closed container of fixed volume has a mixture of one mole of hydrogen and one mole of helium in equilibrium at temperature $T$. Assume the gases are ideal. Which of the following statement(s) is/are true?",
+      "stemLatex": "A closed container of fixed volume has a mixture of one mole of hydrogen and one mole of helium in equilibrium at temperature $T$. Assume the gases are ideal. Which of the following statement (s) is/are true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "The average energy per mole of the mixture is $\\dfrac{3}{2}RT$",
+          "latex": "$\\gamma\\left(= \\dfrac{C_{P}}{C_{V}}\\right)$ of the mixture is $\\dfrac{3}{2}$",
           "figure": null
         },
         {
@@ -3256,22 +3309,23 @@
         },
         {
           "id": "D",
-          "latex": "The ratio of rms speed of the Helium molecules to that of hydrogen molecules is $1:\\sqrt{2}$",
+          "latex": "The ratio of rms speed of the Helium molecules to that of hydrogen molecules is $1 : \\sqrt{2}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
+          "A",
           "B",
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q66)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q66 (Set A, Q66)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "kinetic-theory",
+        "gas-mixture",
         "degrees-of-freedom",
         "rms-speed"
       ]
@@ -3280,12 +3334,12 @@
       "id": "jelet-2022-q067",
       "qNumber": 67,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "A particle of mass $m$ moves rectilinearly under the force $F = A - Bx$ where $A > 0$, $B > 0$ and $x$ is the distance from the point where the particle was initially at rest. If $d$ is the distance travelled by the particle till it comes to rest, then which of the following statement(s) is/are true?",
+      "stemLatex": "A particle of mass '$m$' moves rectilinearly under the force $F = A - Bx$ where $A > 0$, $B > 0$ and ‘$x$’ is the distance from the point where the particle was initially at rest. If ‘$d$’ is the distance travelled by the particle till it comes to rest, then which of the following statement(s) is/are true ?",
       "stemFigure": null,
       "options": [
         {
@@ -3300,7 +3354,7 @@
         },
         {
           "id": "C",
-          "latex": "Speed of the particle at a distance $x = \\dfrac{A}{B}$ is $\\dfrac{A}{\\sqrt{mB}}$",
+          "latex": "Speed of the particle at a distance $x = \\dfrac{A}{B}$ is $B\\sqrt{\\dfrac{m}{A}}$",
           "figure": null
         },
         {
@@ -3315,31 +3369,31 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q67)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q67 (Set A, Q67)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "work-energy",
-        "force",
-        "acceleration"
+        "work-energy-theorem",
+        "variable-force",
+        "shm"
       ]
     },
     {
       "id": "jelet-2022-q068",
       "qNumber": 68,
       "subjectId": "PHYS",
-      "unitId": "P04",
+      "unitId": "P03",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 18,
-      "stemLatex": "A stone of mass $m$ travels with a uniform speed $v_{0}$ perpendicular to a stick of mass $m$ and length $L$ at rest. The stone collides elastically with the stick at a distance $h$ from its centre of mass. The stone and the stick move with equal speed after collision. Assume that stone moves in the same direction after collision. Then which of the following statement(s) is/are true?",
+      "stemLatex": "A stone of mass '$m$' travels with a uniform speed $v_{0}$ perpendicular to a stick of mass ‘$m$’ and length $L$ at rest. The stone collides elastically with the stick at a distance ‘$h$’ from its centre of mass. The stone and the stick move with equal speed after collision. Assume that stone moves in the same direction after collision. Then which of the following statement(s) is/are true ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q68.svg",
-        "alt": "Figure for JELET 2022 Q68",
-        "width": 420,
-        "height": 220,
+        "alt": "A stone m moving to the right with speed v0 along a dashed horizontal line that meets a vertical stick; the stick's centre of mass CM lies a distance h below the line of motion",
+        "width": 250,
+        "height": 216,
         "themeAdaptive": true
       },
       "options": [
@@ -3350,7 +3404,7 @@
         },
         {
           "id": "B",
-          "latex": "The angular velocity of the stick is $\\dfrac{\\sqrt{6}v_{0}}{L}$",
+          "latex": "The angular velocity of the stick is $\\dfrac{\\sqrt{6}\\,v_{0}}{L}$",
           "figure": null
         },
         {
@@ -3360,7 +3414,7 @@
         },
         {
           "id": "D",
-          "latex": "The speed of the stone after collision is $v_{0}$",
+          "latex": "$h = \\dfrac{L}{\\sqrt{6}}$",
           "figure": null
         }
       ],
@@ -3368,16 +3422,17 @@
         "status": "active",
         "correct": [
           "A",
-          "B"
+          "B",
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q68)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q68 (Set A, Q68)"
       },
       "difficulty": "hard",
       "tags": [
-        "collision",
+        "elastic-collision",
         "angular-momentum",
-        "elastic"
+        "rigid-body"
       ]
     },
     {
@@ -3389,23 +3444,23 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 18,
-      "stemLatex": "A biconvex lens of focal length $15\\,\\text{cm}$ is placed $10\\,\\text{cm}$ in front of a plane mirror. A small object $O$ is kept at a distance of $30\\,\\text{cm}$ in front of the lens as shown in the figure. Then which of the following statement(s) is/are true?",
+      "stemLatex": "A biconvex lens of focal length $15$ cm is placed $10$ cm in front of a plane mirror. A small object $O$ is kept at a distance of $30$ cm in front of the lens as shown in the figure. Then which of the following statement(s) is /are true ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q69.svg",
-        "alt": "Figure for JELET 2022 Q69",
-        "width": 420,
-        "height": 220,
+        "alt": "Principal axis (arrow to the right) with object O, the points I2 and IF, a biconvex lens, a plane mirror 10 cm to the right of the lens, and I1 beyond the mirror; O is 30 cm to the left of the lens",
+        "width": 356,
+        "height": 148,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "The second image $I_{2}$ will be formed at a distance $10\\,\\text{cm}$ to the left of the lens.",
+          "latex": "The second image $I_{2}$ will be formed at a distance $10$ cm to the left of the lens.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "The final image at $I_{P}$ is at a distance $16\\,\\text{cm}$ from mirror.",
+          "latex": "The final image at $I_{F}$ is at a distance $16$ cm from mirror.",
           "figure": null
         },
         {
@@ -3423,15 +3478,17 @@
         "status": "active",
         "correct": [
           "A",
-          "B"
+          "B",
+          "C",
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q69)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q69 (Set A, Q69)"
       },
       "difficulty": "hard",
       "tags": [
-        "lens",
-        "mirror",
+        "lens-mirror-system",
+        "virtual-object",
         "image-formation"
       ]
     },
@@ -3473,13 +3530,13 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q70)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q70 (Set A, Q70)"
       },
       "difficulty": "medium",
       "tags": [
-        "photoelectric",
-        "frequency",
+        "photoelectric-effect",
+        "photon-flux",
         "intensity"
       ]
     },
@@ -3492,27 +3549,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "Let $x$ ml of a solution of a substance $A$ reacts with $y$ ml of a solution of a substance $B$ according to the reaction $2A + 3B \\rightarrow \\text{products}$. If molar concentrations of the solutions of $A$ and $B$ are $M_{1}$ and $M_{2}$ respectively, then",
+      "stemLatex": "Let $x$ ml of a solution of a substance A reacts with $y$ ml of a solution of a substance B according to the reaction $2\\text{A} + 3\\text{B} \\rightarrow \\text{products}$. If molar concentrations of the solutions of A and B are $(\\text{M}_{1})$ and $(\\text{M}_{2})$ respectively, then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$2xM_{1} = 3yM_{2}$",
+          "latex": "$2x\\text{M}_{1} = 3y\\text{M}_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$3xM_{1} = 2yM_{2}$",
+          "latex": "$3x\\text{M}_{1} = 2y\\text{M}_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$2xM_{2} = 3yM_{1}$",
+          "latex": "$2x\\text{M}_{2} = 3y\\text{M}_{1}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$3xM_{2} = 2yM_{1}$",
+          "latex": "$3x\\text{M}_{2} = 2y\\text{M}_{1}$",
           "figure": null
         }
       ],
@@ -3521,14 +3578,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q71)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q71 (Set A, Q71)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "stoichiometry",
-        "concentration",
-        "reactions"
+        "molarity",
+        "titration"
       ]
     },
     {
@@ -3540,7 +3597,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "If the density of a solution of a substance is $z\\,\\text{gcm}^{-3}$ and gram molecular mass of the substance is $y\\,\\text{g}$, then the molality of the $x$ ($M$) solution is",
+      "stemLatex": "If the density of a solution of a substance is $z\\ \\text{gcm}^{-3}$ and gram molecular mass of the substance is $y$ g, then the molality of the $x$ (M) solution is",
       "stemFigure": null,
       "options": [
         {
@@ -3555,27 +3612,27 @@
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{0.01x}{z - xy}$",
+          "latex": "$\\dfrac{x}{1000z - xy}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{1000x}{1000z - xy}$",
+          "latex": "$\\dfrac{0.01x}{1000z - xy}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q72)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q72 (Set A, Q72)"
       },
       "difficulty": "hard",
       "tags": [
-        "solutions",
         "molality",
+        "molarity",
         "density"
       ]
     },
@@ -3588,7 +3645,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "If an electron is passed through a potential difference of $V$ volts, then de Broglie wavelength of the moving electron is [ $h$ = Planck's constant, $m$ = mass of electron, $e$ = charge of an electron]",
+      "stemLatex": "If an electron is passed through a potential difference of $V$ volts, then de Broglie wavelength of the moving electron is [$h$ = Planck's constant, $m$ = mass of electron, $e$ = charge of an electron]",
       "stemFigure": null,
       "options": [
         {
@@ -3603,12 +3660,12 @@
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{h}{\\sqrt{mveV}}$",
+          "latex": "$\\dfrac{h}{m\\sqrt{eV}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{h}{\\sqrt{m}}$",
+          "latex": "$\\dfrac{heV}{\\sqrt{m}}$",
           "figure": null
         }
       ],
@@ -3617,14 +3674,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q73)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q73 (Set A, Q73)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "de-broglie",
-        "wavelength"
+        "wave-particle-duality",
+        "electron"
       ]
     },
     {
@@ -3641,12 +3698,12 @@
       "options": [
         {
           "id": "A",
-          "latex": "$[\\text{Ar}]3d^{8}4s^{2}$",
+          "latex": "$[\\text{Ar}]3d^{8}\\,4s^{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$[\\text{Ar}]3d^{9}4s^{1}$",
+          "latex": "$[\\text{Ar}]3d^{9}\\,4s^{1}$",
           "figure": null
         },
         {
@@ -3656,7 +3713,7 @@
         },
         {
           "id": "D",
-          "latex": "$1s^{2}2s^{2}2p^{6}3s^{2}3p^{6}3d^{10}4s^{1}$",
+          "latex": "$1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{1}\\,3p^{6}\\,3d^{10}\\,4s^{1}$",
           "figure": null
         }
       ],
@@ -3665,14 +3722,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q74)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q74 (Set A, Q74)"
       },
       "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "electronic-configuration",
-        "cu+"
+        "transition-metals",
+        "ions"
       ]
     },
     {
@@ -3684,27 +3741,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "A strong electrolyte $M_{\nu_{+}}A_{\nu_{-}}$ yielding the ions $M^{z+}$ and $A^{z-}$ in solution, the relation between equivalent conductivity ($\\Lambda_{eq}$) and molar conductivity ($\\Lambda_{m}$) is",
+      "stemLatex": "A strong electrolyte $\\text{M}_{\\nu_{+}}\\text{A}_{\\nu_{-}}$ yielding the ions $\\text{M}^{z+}$ and $\\text{A}^{z-}$ in solution, the relation between equivalent conductivity $(\\Lambda_{eq})$ and molar conductivity $(\\Lambda_{m})$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$",
+          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+}z_{+}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$",
+          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\Lambda_{eq} = \\Lambda_{m}(\\nu_{+} + \\nu_{-})$",
+          "latex": "$\\Lambda_{m} = \\dfrac{\\Lambda_{eq}}{\\nu_{+}z_{+}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\Lambda_{eq} = \\dfrac{\\nu_{+}\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$",
+          "latex": "$\\Lambda_{m} = \\dfrac{\\Lambda_{eq}}{\\nu_{+}}$",
           "figure": null
         }
       ],
@@ -3713,14 +3770,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q75)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q75 (Set A, Q75)"
       },
       "difficulty": "medium",
       "tags": [
-        "electrochemistry",
-        "conductivity",
-        "electrolytes"
+        "conductance",
+        "equivalent-conductivity",
+        "molar-conductivity"
       ]
     },
     {
@@ -3731,28 +3788,28 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 20,
-      "stemLatex": "At a definite temperature the molar concentrations of two monobasic acids $HA$ and $HA'$ in their individual solutions are same. At that temperature if ionization constants of the acids are $K_{a}$ and $K_{a}'$ and $\\alpha$ and $\\alpha'$ are the degrees of ionization respectively, then",
+      "pdfPage": 19,
+      "stemLatex": "At a definite temperature the molar concentrations of two monobasic acids HA and HA' in their individual solutions are same. At that temperature if ionization constants of the acids HA and HA' are $\\kappa_{a}$ and $\\kappa_{a'}$ respectively and degrees of ionization of HA and HA' are $\\alpha$ and $\\alpha'$ respectively, then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{K_{a}}{\\alpha} = \\dfrac{K_{a}'}{\\alpha'}$",
+          "latex": "$\\dfrac{\\alpha}{\\alpha'} = \\sqrt{\\dfrac{\\kappa_{a}}{\\kappa_{a'}}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{K_{a}}{\\alpha'} = \\dfrac{K_{a}'}{\\alpha}$",
+          "latex": "$\\dfrac{\\alpha}{\\alpha'} = \\sqrt{\\kappa_{a}\\kappa_{a'}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{K_{a}K_{a}'}{\\alpha} = \\dfrac{\\alpha'}{1}$",
+          "latex": "$\\dfrac{\\alpha}{\\alpha'} = \\sqrt{\\dfrac{\\kappa_{a'}}{\\kappa_{a}}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{K_{a}}{\\alpha'} = \\dfrac{K_{a}'}{\\alpha'}$",
+          "latex": "$\\dfrac{\\alpha'}{\\alpha} = \\sqrt{\\kappa_{a}\\kappa_{a'}}$",
           "figure": null
         }
       ],
@@ -3761,14 +3818,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q76)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q76 (Set A, Q76)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "equilibrium",
-        "ionization",
-        "acids"
+        "ostwald-dilution-law",
+        "weak-acids",
+        "degree-of-ionization"
       ]
     },
     {
@@ -3780,7 +3837,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "To which of the following ions, Bohr model is applicable?",
+      "stemLatex": "To which of the following ions, Bohr model is applicable ?",
       "stemFigure": null,
       "options": [
         {
@@ -3807,29 +3864,28 @@
       "key": {
         "status": "active",
         "correct": [
-          "C",
-          "D"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q77)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q77 (Set A, Q77)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "bohr-model",
-        "hydrogen-like"
+        "hydrogen-like-species",
+        "electron-count"
       ]
     },
     {
       "id": "jelet-2022-q078",
       "qNumber": 78,
       "subjectId": "CHEM",
-      "unitId": "C06",
+      "unitId": "C03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The metal hydroxide that dissolves both in aqueous $\\text{KOH}$ and ammonia, is:",
+      "stemLatex": "The metal hydroxide that dissolves both in aqueous KOH and ammonia, is :",
       "stemFigure": null,
       "options": [
         {
@@ -3858,26 +3914,26 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q78)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q78 (Set A, Q78)"
       },
       "difficulty": "medium",
       "tags": [
-        "acids-bases",
-        "amphoteric",
-        "complexes"
+        "amphoteric-hydroxides",
+        "ammine-complexes",
+        "zinc"
       ]
     },
     {
       "id": "jelet-2022-q079",
       "qNumber": 79,
       "subjectId": "CHEM",
-      "unitId": "C07",
+      "unitId": "C03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Thiosulphuric acid is:",
+      "stemLatex": "Thiosulphuric acid is :",
       "stemFigure": null,
       "options": [
         {
@@ -3906,26 +3962,26 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q79)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q79 (Set A, Q79)"
       },
       "difficulty": "easy",
       "tags": [
-        "inorganic-chemistry",
-        "acids",
-        "sulphur"
+        "oxoacids",
+        "sulphur",
+        "nomenclature"
       ]
     },
     {
       "id": "jelet-2022-q080",
       "qNumber": 80,
       "subjectId": "CHEM",
-      "unitId": "C05",
+      "unitId": "C03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The correct order of the acidity is:",
+      "stemLatex": "The correct order of the acidity is :",
       "stemFigure": null,
       "options": [
         {
@@ -3954,14 +4010,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q80)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q80 (Set A, Q80)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "acids-bases",
-        "acidity",
-        "oxoacids"
+        "oxoacids",
+        "acid-strength",
+        "chlorine"
       ]
     },
     {
@@ -3973,7 +4029,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The shape of the $\\text{NH}_{3}$ molecules is:",
+      "stemLatex": "The shape of the $\\text{NH}_{3}$ molecules is :",
       "stemFigure": null,
       "options": [
         {
@@ -3988,12 +4044,12 @@
         },
         {
           "id": "C",
-          "latex": "see-saw",
+          "latex": "triangular planar",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "triangular planar",
+          "latex": "see-saw",
           "figure": null
         }
       ],
@@ -4002,14 +4058,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q81)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q81 (Set A, Q81)"
       },
       "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
         "vsepr",
-        "molecular-shape"
+        "molecular-shape",
+        "ammonia"
       ]
     },
     {
@@ -4021,7 +4077,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "How many isomers are possible with molecular formula $\text{C}_{4}\\text{H}_{9}\\text{Cl}$?",
+      "stemLatex": "How many isomers are possible with molecular formula $\\text{C}_{4}\\text{H}_{9}\\text{Cl}$ ?",
       "stemFigure": null,
       "options": [
         {
@@ -4050,26 +4106,26 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q82)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q82 (Set A, Q82)"
       },
       "difficulty": "medium",
       "tags": [
-        "organic",
-        "isomers",
-        "structural"
+        "structural-isomerism",
+        "haloalkanes",
+        "isomer-count"
       ]
     },
     {
       "id": "jelet-2022-q083",
       "qNumber": 83,
       "subjectId": "CHEM",
-      "unitId": "C07",
+      "unitId": "C06",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Which of the following oxides is used as a white pigment?",
+      "stemLatex": "Which of the following oxides is used as a white pigment ?",
       "stemFigure": null,
       "options": [
         {
@@ -4098,14 +4154,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q83)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q83 (Set A, Q83)"
       },
       "difficulty": "easy",
       "tags": [
-        "inorganic-chemistry",
         "oxides",
-        "pigments"
+        "pigments",
+        "uses-of-compounds"
       ]
     },
     {
@@ -4117,27 +4173,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "If heat absorbed by a system and work done by the system are $120\\,\\text{J}$ and $30\\,\\text{J}$ respectively by a process, then change of internal energy of the system is",
+      "stemLatex": "If heat absorbed by a system and work done by the system are $120$ J and $30$ J respectively by a process, then change of internal energy of the system is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$150\\,\\text{J}$",
+          "latex": "$150$ J",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$90\\,\\text{J}$",
+          "latex": "$90$ J",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$-150\\,\\text{J}$",
+          "latex": "$-150$ J",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$-90\\,\\text{J}$",
+          "latex": "$-90$ J",
           "figure": null
         }
       ],
@@ -4146,14 +4202,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q84)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q84 (Set A, Q84)"
       },
       "difficulty": "easy",
       "tags": [
-        "thermodynamics",
         "first-law",
-        "internal-energy"
+        "internal-energy",
+        "thermodynamics"
       ]
     },
     {
@@ -4165,7 +4221,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The element of the following that reacts with $\\text{N}_{2}$ to form a nitride is:",
+      "stemLatex": "The element of the following that reacts with $\\text{N}_{2}$ to form a nitride is :",
       "stemFigure": null,
       "options": [
         {
@@ -4194,26 +4250,26 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q85)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q85 (Set A, Q85)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "inorganic-chemistry",
+        "alkali-metals",
         "nitrides",
-        "alkali-metals"
+        "anomalous-lithium"
       ]
     },
     {
       "id": "jelet-2022-q086",
       "qNumber": 86,
       "subjectId": "CHEM",
-      "unitId": "C05",
+      "unitId": "C03",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Which of the following aqueous solutions of metal chlorides is neutral?",
+      "stemLatex": "Which of the following aqueous solutions of metal chlorides is neutral ?",
       "stemFigure": null,
       "options": [
         {
@@ -4243,26 +4299,26 @@
           "C",
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q86)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q86 (Set A, Q86)"
       },
       "difficulty": "medium",
       "tags": [
-        "solutions",
-        "hydrolysis",
-        "neutral"
+        "salt-hydrolysis",
+        "neutral-salts",
+        "chlorides"
       ]
     },
     {
       "id": "jelet-2022-q087",
       "qNumber": 87,
       "subjectId": "CHEM",
-      "unitId": "C03",
+      "unitId": "C04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Which of the chemical conversion(s) as given below show(s) the highest degree of redox change?",
+      "stemLatex": "Which of the chemical conversion(s) as given below show(s) the highest degree of redox change ?",
       "stemFigure": null,
       "options": [
         {
@@ -4291,14 +4347,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q87)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q87 (Set A, Q87)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
+        "oxidation-number",
         "redox",
-        "oxidation-state",
-        "conversions"
+        "change-in-oxidation-state"
       ]
     },
     {
@@ -4315,22 +4371,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\Delta H = -ve$, $\\Delta S = -ve$, $|\\Delta H| > |T\\Delta S|$",
+          "latex": "$\\Delta H = -\\text{ve}$, $\\Delta S = -\\text{ve}$, $|\\Delta H| > |T\\Delta S|$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\Delta H = +ve$, $\\Delta S = +ve$, $|\\Delta H| < |T\\Delta S|$",
+          "latex": "$\\Delta H = +\\text{ve}$, $\\Delta S = +\\text{ve}$, $|\\Delta H| < |T\\Delta S|$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\Delta H = -ve$, $\\Delta S = -ve$, $|\\Delta H| = |T\\Delta S|$",
+          "latex": "$\\Delta H = -\\text{ve}$, $\\Delta S = -\\text{ve}$, $|\\Delta H| = |T\\Delta S|$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\Delta H = +ve$, $\\Delta S = +ve$, $|\\Delta H| > |T\\Delta S|$",
+          "latex": "$\\Delta H = +\\text{ve}$, $\\Delta S = +\\text{ve}$, $|\\Delta H| > |T\\Delta S|$",
           "figure": null
         }
       ],
@@ -4340,14 +4396,14 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q88)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q88 (Set A, Q88)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "thermodynamics",
+        "gibbs-energy",
         "spontaneity",
-        "gibbs-free-energy"
+        "thermodynamics"
       ]
     },
     {
@@ -4359,12 +4415,12 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Which of the following statement(s) is / are true?",
+      "stemLatex": "Which of the following statement (s) is / are true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$K_{c}$ of a chemical reaction increases with increase in temperature for an exothermic reaction.",
+          "latex": "$K_{p}$ of a chemical reaction increases with increase in temperature for an exothermic reaction.",
           "figure": null
         },
         {
@@ -4374,12 +4430,12 @@
         },
         {
           "id": "C",
-          "latex": "$K_{c}$ of a chemical reaction increases with decrease in temperature for an exothermic reaction.",
+          "latex": "$K_{p}$ of a chemical reaction increases with decrease in temperature for an exothermic reaction.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$K_{c}$ of a chemical reaction decreases with decrease in temperature for an endothermic reaction.",
+          "latex": "$K_{p}$ of a chemical reaction decrease with decrease in temperature for an endothermic reaction.",
           "figure": null
         }
       ],
@@ -4389,14 +4445,14 @@
           "C",
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q89)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q89 (Set A, Q89)"
       },
       "difficulty": "medium",
       "tags": [
-        "equilibrium",
-        "temperature-dependence",
-        "van't-hoff"
+        "van-t-hoff",
+        "equilibrium-constant",
+        "temperature-dependence"
       ]
     },
     {
@@ -4408,7 +4464,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Which of the following compounds have covalent bonds?",
+      "stemLatex": "Which of the following compounds have covalent bonds ?",
       "stemFigure": null,
       "options": [
         {
@@ -4436,23 +4492,24 @@
         "status": "active",
         "correct": [
           "B",
-          "C"
+          "C",
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q90)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q90 (Set A, Q90)"
       },
       "difficulty": "medium",
       "tags": [
-        "chemical-bonding",
-        "covalent",
-        "ionic"
+        "covalent-bond",
+        "ionic-bond",
+        "polyatomic-ions"
       ]
     },
     {
       "id": "jelet-2022-q091",
       "qNumber": 91,
       "subjectId": "FEEE",
-      "unitId": "E04",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -4467,7 +4524,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{2V_{m}}{\\pi}$",
+          "latex": "$\\dfrac{V_{m}}{\\sqrt{2}}$",
           "figure": null
         },
         {
@@ -4477,23 +4534,23 @@
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{V_{m}}{\\sqrt{2}}$",
+          "latex": "$\\dfrac{2V_{m}}{\\pi}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q91)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q91 (Set A, Q91)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
+        "moving-iron",
         "rms-value",
-        "instruments"
+        "measuring-instruments"
       ]
     },
     {
@@ -4505,27 +4562,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "A $25\\,\\text{KVA}$ transformer is constructed to a turn ratio of $N_{1}/N_{2} = 10$. The impedance of the primary winding is $2 + j5\\,\\Omega$ and of the secondary windings is $0.5 + j0.8\\,\\Omega$. What will be the impedance when referred to primary?",
+      "stemLatex": "A $25$ KVA transformer is constructed to a turn ratio of $N_{1}/N_{2} = 10$. The impedance of the primary winding is $2 + j5\\ \\Omega$ and of the secondary windings is $0.5 + j0.8\\ \\Omega$. What will be the impedance when referred to primary?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$52 + j85\\,\\Omega$",
+          "latex": "$52 + j85\\ \\Omega$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2.5 + j5.8\\,\\Omega$",
+          "latex": "$2.5 + j5.8\\ \\Omega$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$50 + j80\\,\\Omega$",
+          "latex": "$50 + j80\\ \\Omega$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0.025 + j0.508\\,\\Omega$",
+          "latex": "$0.025 + J0.508\\ \\Omega$",
           "figure": null
         }
       ],
@@ -4534,13 +4591,13 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q92)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q92 (Set A, Q92)"
       },
       "difficulty": "medium",
       "tags": [
-        "transformers",
-        "impedance",
+        "transformer",
+        "equivalent-impedance",
         "referred-to-primary"
       ]
     },
@@ -4553,12 +4610,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "On the Torque - Speed curve of the Induction motor shown in the figure, four points of operation are marked, as $W$, $X$, $Y$ and $Z$. Which one represents the operation at a slip greater than $1$?",
+      "stemLatex": "On the Torque -Speed curve of the Induction motor shown in the figure, four points of operation are marked, as $W$, $X$, $Y$ and $Z$. Which one represents the operation at a slip greater than $1$ ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q93.svg",
-        "alt": "Figure for JELET 2022 Q93",
-        "width": 420,
-        "height": 220,
+        "alt": "Torque T (vertical axis) versus speed N (horizontal axis) of an induction motor: the curve begins left of the T-axis at W, rises through X to a peak, falls through Y, crosses the N-axis and ends just below it at Z",
+        "width": 370,
+        "height": 216,
         "themeAdaptive": true
       },
       "options": [
@@ -4586,28 +4643,28 @@
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q93)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q93 (Set A, Q93)"
       },
       "difficulty": "medium",
       "tags": [
-        "electrical-machines",
         "induction-motor",
-        "slip"
+        "slip",
+        "torque-speed-characteristic"
       ]
     },
     {
       "id": "jelet-2022-q094",
       "qNumber": 94,
       "subjectId": "FEEE",
-      "unitId": "E04",
+      "unitId": "E05",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "A series circuit consists of two elements has the following current and applied voltage $i = 4\\cos(2000t + 11.32^{\\circ})\\,\\text{A}$ and $v = 200\\sin(2000t + 50^{\\circ})\\,\\text{V}$. The circuit elements are",
+      "stemLatex": "A series circuit consists of two elements has the following current and applied voltage $i = 4\\cos(2000t + 11.32^{\\circ})$ A and $v = 200\\sin(2000t + 50^{\\circ})$ V. The circuit elements are",
       "stemFigure": null,
       "options": [
         {
@@ -4636,46 +4693,46 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q94)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q94 (Set A, Q94)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ac-circuits",
-        "phase",
-        "impedance"
+        "phasors",
+        "series-rc",
+        "phase-angle"
       ]
     },
     {
       "id": "jelet-2022-q095",
       "qNumber": 95,
       "subjectId": "FEEE",
-      "unitId": "E03",
+      "unitId": "E04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "Two incandescent light bulbs of $40\\,\\text{W}$ and $60\\,\\text{W}$ rating are connected in series across the mains. Then",
+      "stemLatex": "Two incandescent light bulbs of $40$W and $60$ W rating are connected in series across the mains. Then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "the bulbs together consume $100\\,\\text{W}$",
+          "latex": "the bulbs together consume $100$ W",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "the bulbs together consume $50\\,\\text{W}$",
+          "latex": "the bulbs together consume $50$ W",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "the $60\\,\\text{W}$ bulb glows brighter",
+          "latex": "the $60$ W bulb glows brighter",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "the $40\\,\\text{W}$ bulb glows brighter",
+          "latex": "the $40$ W bulb glows brighter",
           "figure": null
         }
       ],
@@ -4684,21 +4741,21 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q95)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q95 (Set A, Q95)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "circuits",
         "power",
-        "series-connection"
+        "series-circuit",
+        "bulbs"
       ]
     },
     {
       "id": "jelet-2022-q096",
       "qNumber": 96,
       "subjectId": "FEEE",
-      "unitId": "E04",
+      "unitId": "E06",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -4706,9 +4763,9 @@
       "stemLatex": "The average value of $v_{0}(t)$ in the given circuit will be",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q96.svg",
-        "alt": "Figure for JELET 2022 Q96",
-        "width": 420,
-        "height": 220,
+        "alt": "An AC source Vm sin ωt on the left; the top wire carries a diode whose cathode bar faces the source; a resistor joins the top and bottom wires; output terminals + (top) and − (bottom) give V0(t)",
+        "width": 318,
+        "height": 170,
         "themeAdaptive": true
       },
       "options": [
@@ -4719,12 +4776,12 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{V_{m}}{\\pi}$",
+          "latex": "$\\dfrac{-V_{m}}{\\pi}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{2V_{m}}{\\pi}$",
+          "latex": "$\\dfrac{-V_{m}}{\\sqrt{2}}$",
           "figure": null
         },
         {
@@ -4738,31 +4795,31 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q96)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q96 (Set A, Q96)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ac-circuits",
-        "average-value",
-        "rectifier"
+        "half-wave-rectifier",
+        "diode",
+        "average-value"
       ]
     },
     {
       "id": "jelet-2022-q097",
       "qNumber": 97,
       "subjectId": "FEEE",
-      "unitId": "E05",
+      "unitId": "E07",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "In the comparator shown, $v_{i}$ is a sinusoidal input of peak value $6\\,\\text{V}$. The period (in degrees) for which the output will be high is",
+      "stemLatex": "In the comparator shown, $v_{i}$ is a sinusoidal input of peak value $6$V. The period (in degrees) for which the output will be high is",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q97.svg",
-        "alt": "Figure for JELET 2022 Q97",
-        "width": 420,
-        "height": 220,
+        "alt": "Op-amp comparator: vi to the + input; the − input to a 3 V cell (longer, positive plate towards the input) whose other plate goes to a hatched ground; output V0",
+        "width": 306,
+        "height": 146,
         "themeAdaptive": true
       },
       "options": [
@@ -4792,31 +4849,31 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q97)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q97 (Set A, Q97)"
       },
       "difficulty": "medium",
       "tags": [
-        "digital-electronics",
+        "op-amp",
         "comparator",
-        "duty-cycle"
+        "conduction-angle"
       ]
     },
     {
       "id": "jelet-2022-q098",
       "qNumber": 98,
       "subjectId": "FEEE",
-      "unitId": "E07",
+      "unitId": "E08",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "What Boolean function does the following circuit represents?",
+      "stemLatex": "What Boolean function does the following circuit represents ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q98.svg",
-        "alt": "Figure for JELET 2022 Q98",
-        "width": 420,
-        "height": 220,
+        "alt": "Switch network from input to Y: switch A, then two parallel paths — switches B and C in parallel (upper path), and switches D and E in parallel followed by switch F (lower path) — then switch G to Y",
+        "width": 394,
+        "height": 150,
         "themeAdaptive": true
       },
       "options": [
@@ -4844,16 +4901,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q98)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q98 (Set A, Q98)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "digital-electronics",
+        "switching-circuits",
         "boolean-algebra",
-        "circuits"
+        "series-parallel"
       ]
     },
     {
@@ -4865,33 +4922,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "If $I_{c} = 15\\,\\text{mA}$ and $V_{CB} = 3\\,\\text{V}$, then the value of $V_{CC}$ required is",
+      "stemLatex": "If $I_{C} = 15$ mA and $V_{CB} = 3$ V, then the value of $V_{CC}$ required is",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q99.svg",
-        "alt": "Figure for JELET 2022 Q99",
-        "width": 420,
-        "height": 220,
+        "alt": "Common-base transistor circuit: VEB on the left (− towards the emitter, + towards the base rail); the base goes straight down to the bottom rail; the collector wire carries IC (arrow towards the collector) through a 100 Ω resistor to VCC (+ on the right, − on the left to the base rail); VCB is marked + at the collector and − at the base",
+        "width": 370,
+        "height": 204,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$4\\,\\text{V}$",
+          "latex": "$4$ V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$4.5\\,\\text{V}$",
+          "latex": "$4.5$ V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3.15\\,\\text{V}$",
+          "latex": "$3.15$ V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$18\\,\\text{V}$",
+          "latex": "$18$ V",
           "figure": null
         }
       ],
@@ -4900,14 +4957,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q99)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q99 (Set A, Q99)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "electronic-devices",
-        "transistor",
-        "biasing"
+        "bjt",
+        "common-base",
+        "kvl"
       ]
     },
     {
@@ -4946,16 +5003,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q100)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q100 (Set A, Q100)"
       },
       "difficulty": "medium",
       "tags": [
-        "electrical-machines",
         "dc-shunt-motor",
-        "field-open"
+        "field-failure",
+        "starting"
       ]
     }
   ]

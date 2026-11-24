@@ -3,12 +3,12 @@
 import json, os
 
 KEY_REF = {
-    "2022": {"keyTier": "derived", "keyDocumentRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive)", "examDate": "2022-07-10"},
+    "2022": {"keyTier": "verified-derived", "keyDocumentRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation of all 100 items (_a22/_b22/_c22); no WBJEEB 2022 key archived", "examDate": "2022-07-10"},
     "2023": {"keyTier": "official", "keyDocumentRef": "JEEB/Reg-267/23 (03-08-2023)", "examDate": "2023-07-16"},
     "2024": {"keyTier": "official", "keyDocumentRef": "WBE/Ex-71 (01-08-2024)", "examDate": "2024-07-14"},
     "2025": {"keyTier": "official", "keyDocumentRef": "JEEB/Reg-171/25 (16-11-2025)", "examDate": "2025-10-18"},
 }
-VOIDED = {"2022": [], "2023": [6, 46, 88, 94], "2024": [49, 58], "2025": [41, 79, 84]}
+VOIDED = {"2022": [7], "2023": [6, 46, 88, 94], "2024": [49, 58], "2025": [41, 79, 84]}
 
 papers = []
 total_markable = 0

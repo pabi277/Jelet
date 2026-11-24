@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 104" width="116" height="104" role="img" aria-label="Option (C): salicylic acid, 2-hydroxybenzoic acid">
+  <rect x="0" y="0" width="116" height="104" fill="transparent"/>
+  <g data-struct="C">
+  <line x1="40.0" y1="52.0" x2="59.05" y2="63.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="41.45" y1="56.53" x2="54.4" y2="64.01" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="59.05" y1="63.0" x2="59.05" y2="85.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="59.05" y1="85.0" x2="40.0" y2="96.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="54.4" y1="83.99" x2="41.45" y2="91.47" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="40.0" y1="96.0" x2="20.95" y2="85.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="20.95" y1="85.0" x2="20.95" y2="63.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="24.15" y1="81.48" x2="24.15" y2="66.52" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="20.95" y1="63.0" x2="40.0" y2="52.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="40.0" y1="52.0" x2="40.0" y2="34.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="59.05" y1="63.0" x2="74.64" y2="54.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <text x="30.61" y="30.5" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">OH</text>
+  <text x="77.14" y="58.3" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">COOH</text>
+  </g>
+</svg>

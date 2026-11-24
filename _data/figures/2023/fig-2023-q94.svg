@@ -1,22 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210" role="img" aria-label="2023 Q94: DC circuit">
-  <rect x="0" y="0" width="240" height="210" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2023 Q94: DC circuit</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">DC circuit</text>
-  <line x1="60" y1="50" x2="180" y2="50" stroke="#60a5fa" stroke-width="2"/>
-  <line x1="180" y1="50" x2="180" y2="150" stroke="#60a5fa" stroke-width="2"/>
-  <line x1="180" y1="150" x2="60" y2="150" stroke="#60a5fa" stroke-width="2"/>
-  <line x1="60" y1="150" x2="60" y2="50" stroke="#60a5fa" stroke-width="2"/>
-  <circle cx="80" cy="50" r="8" stroke="#f87171" stroke-width="2" fill="none"/>
-  <text x="80" y="53" font-family="monospace" font-size="7" fill="#fca5a5" text-anchor="middle">50V</text>
-  <rect x="100" y="42" width="20" height="16" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="110" y="35" font-family="monospace" font-size="7" fill="#fcd34d" text-anchor="middle">5Ω</text>
-  <circle cx="140" cy="50" r="8" stroke="#34d399" stroke-width="2" fill="none"/>
-  <text x="140" y="53" font-family="monospace" font-size="7" fill="#6ee7b7" text-anchor="middle">40V</text>
-  <rect x="155" y="42" width="20" height="16" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="165" y="35" font-family="monospace" font-size="7" fill="#fcd34d" text-anchor="middle">4Ω</text>
-  <rect x="80" y="142" width="20" height="16" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="90" y="165" font-family="monospace" font-size="7" fill="#fcd34d" text-anchor="middle">30V</text>
-  <rect x="120" y="142" width="20" height="16" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="130" y="165" font-family="monospace" font-size="7" fill="#fcd34d" text-anchor="middle">3Ω</text>
-  <text x="120" y="180" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">Find V_AB</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 206" width="340" height="206" role="img" aria-label="2023 Q94: three cell–resistor branches 50 V/5 Ω, 40 V/4 Ω, 30 V/3 Ω between A and B, with 2 Ω from A to B">
+  <rect x="0" y="0" width="340" height="206" fill="transparent"/>
+  <line x1="62" y1="40" x2="88" y2="40" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="88" y1="40" x2="91.0" y2="40.0" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="cell" data-pins="91.0,40.0 97.0,40.0">
+  <path d="M 91.0,29.0 L 91.0,51.0" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  <path d="M 97.0,34.0 L 97.0,46.0" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  </g>
+  <line x1="97.0" y1="40.0" x2="100" y2="40" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="100" y1="40" x2="150" y2="40" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="R" data-pins="150,40 198,40">
+  <polyline points="150,40 153.0,35 159.0,45 165.0,35 171.0,45 177.0,35 183.0,45 189.0,35 195.0,45 198,40" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="198" y1="40" x2="254" y2="40" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="62" y1="136" x2="88" y2="136" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="88" y1="136" x2="91.0" y2="136.0" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="cell" data-pins="91.0,136.0 97.0,136.0">
+  <path d="M 91.0,125.0 L 91.0,147.0" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  <path d="M 97.0,130.0 L 97.0,142.0" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  </g>
+  <line x1="97.0" y1="136.0" x2="100" y2="136" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="100" y1="136" x2="150" y2="136" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="R" data-pins="150,136 198,136">
+  <polyline points="150,136 153.0,131 159.0,141 165.0,131 171.0,141 177.0,131 183.0,141 189.0,131 195.0,141 198,136" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="198" y1="136" x2="254" y2="136" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="22" y1="88" x2="88" y2="88" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="88" y1="88" x2="91.0" y2="88.0" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="cell" data-pins="91.0,88.0 97.0,88.0">
+  <path d="M 91.0,77.0 L 91.0,99.0" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  <path d="M 97.0,82.0 L 97.0,94.0" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  </g>
+  <line x1="97.0" y1="88.0" x2="100" y2="88" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="100" y1="88" x2="150" y2="88" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="R" data-pins="150,88 198,88">
+  <polyline points="150,88 153.0,83 159.0,93 165.0,83 171.0,93 177.0,83 183.0,93 189.0,83 195.0,93 198,88" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="198" y1="88" x2="306" y2="88" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="62" y1="40" x2="62" y2="136" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="254" y1="40" x2="254" y2="136" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="22" y1="88" x2="22" y2="178" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="22" y1="178" x2="140" y2="178" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="R" data-pins="140,178 188,178">
+  <polyline points="140,178 143.0,173 149.0,183 155.0,173 161.0,183 167.0,173 173.0,183 179.0,173 185.0,183 188,178" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="188" y1="178" x2="306" y2="178" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="306" y1="178" x2="306" y2="88" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <circle cx="22" cy="88" r="3.4" fill="var(--fig-node)"/>
+  <circle cx="306" cy="88" r="3.4" fill="var(--fig-node)"/>
+  <text x="14" y="93" font-family="Times New Roman, serif" font-size="14" fill="var(--fig-text)" text-anchor="end">A</text>
+  <text x="314" y="93" font-family="Times New Roman, serif" font-size="14" fill="var(--fig-text)" text-anchor="start">B</text>
+  <text x="94" y="26" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">50 V</text>
+  <text x="174" y="28" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">5 Ω</text>
+  <text x="94" y="74" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">40 V</text>
+  <text x="174" y="76" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">4 Ω</text>
+  <text x="94" y="122" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">30 V</text>
+  <text x="174" y="124" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">3 Ω</text>
+  <text x="164" y="200" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">2 Ω</text>
 </svg>

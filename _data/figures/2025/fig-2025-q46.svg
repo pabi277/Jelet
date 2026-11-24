@@ -1,19 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" width="240" height="200" role="img" aria-label="2025 Q46: Displacement-time graph">
-  <rect x="0" y="0" width="240" height="200" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2025 Q46: Displacement-time graph</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">x-t graph</text>
-  <line x1="40" y1="60" x2="200" y2="60" stroke="#94a3b8" stroke-width="1.5"/>
-  <line x1="40" y1="60" x2="40" y2="180" stroke="#94a3b8" stroke-width="1.5"/>
-  <line x1="200" y1="60" x2="200" y2="180" stroke="#94a3b8" stroke-width="1.5"/>
-  <polyline points="40,160 70,150 100,120 130,100 170,110 200,90" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <circle cx="40" cy="160" r="3" fill="#f8fafc"/>
-  <text x="35" y="178" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">A</text>
-  <circle cx="70" cy="150" r="3" fill="#f8fafc"/>
-  <text x="65" y="168" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">B</text>
-  <circle cx="100" cy="120" r="3" fill="#f8fafc"/>
-  <text x="95" y="138" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">C</text>
-  <circle cx="130" cy="100" r="3" fill="#f8fafc"/>
-  <text x="125" y="118" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">D</text>
-  <circle cx="170" cy="110" r="3" fill="#f8fafc"/>
-  <text x="165" y="128" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">E</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 205" width="250" height="205" role="img" aria-label="2025 Q46: displacement versus time; A to B is a straight rising line, B to C a curved dip, C to D a straight falling line, D to E a curve rising and flattening">
+  <rect x="0" y="0" width="250" height="205" fill="transparent"/>
+  <line x1="50" y1="180" x2="50" y2="35" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="50,35 54.0,41.9 46.0,41.9" fill="var(--fig-axis)"/>
+  <line x1="36" y1="180" x2="238" y2="180" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="238,180 231.1,184.0 231.1,176.0" fill="var(--fig-axis)"/>
+  <path d="M71,160 L100,91.5 C105,104 114,113 127,112.5 C140,112 151,104 158.5,94 L187.5,141 C186,118 194,99 218.5,92.5" stroke="var(--fig-primary)" stroke-width="1.6" fill="none"/>
+  <text x="61" y="168" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">A</text>
+  <text x="102.5" y="82" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">B</text>
+  <text x="158.5" y="82" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">C</text>
+  <text x="191" y="156" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">D</text>
+  <text x="229" y="97" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">E</text>
+  <text x="0" y="0" transform="translate(20,118) rotate(-90)" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">Displacement</text>
+  <line x1="37.5" y1="157.5" x2="37.5" y2="124" stroke="var(--fig-axis)" stroke-width="1"/>
+  <polygon points="37.5,124 41.5,130.9 33.5,130.9" fill="var(--fig-axis)"/>
+  <line x1="140" y1="194" x2="172" y2="194" stroke="var(--fig-axis)" stroke-width="1"/>
+  <polygon points="172,194 165.1,198.0 165.1,190.0" fill="var(--fig-axis)"/>
+  <text x="178" y="198" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">Time</text>
 </svg>

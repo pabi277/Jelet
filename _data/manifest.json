@@ -5,8 +5,8 @@
   "totals": {
     "papers": 4,
     "questions": 400,
-    "markableQuestions": 391,
-    "unmarkableQuestions": 9,
+    "markableQuestions": 390,
+    "unmarkableQuestions": 10,
     "units": 42
   },
   "papers": [
@@ -19,9 +19,11 @@
       "maxMarks": 120,
       "maxTwelfths": 1440,
       "questionCount": 100,
-      "voidedQuestions": [],
-      "keyTier": "derived",
-      "keyDocumentRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive)",
+      "voidedQuestions": [
+        7
+      ],
+      "keyTier": "verified-derived",
+      "keyDocumentRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation of all 100 items (_a22/_b22/_c22); no WBJEEB 2022 key archived",
       "bookletSeries": "A",
       "officialPdfSha256": null,
       "dataFile": "./_data/papers/2022.json",

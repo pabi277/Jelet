@@ -1,12 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 170" width="240" height="170" role="img" aria-label="2024 Q65: Bullet into block">
-  <rect x="0" y="0" width="240" height="170" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2024 Q65: Bullet into block</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Bullet embeds in block</text>
-  <line x1="40" y1="90" x2="90" y2="90" stroke="#f87171" stroke-width="2"/>
-  <polygon points="90,90 83.1,94.0 83.1,86.0" fill="#f87171"/>
-  <text x="50" y="80" font-family="monospace" font-size="12" fill="#cbd5e1">bullet</text>
-  <rect x="90" y="70" width="80" height="40" fill="none" stroke="#60a5fa" stroke-width="2"/>
-  <text x="130" y="95" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">block</text>
-  <text x="130" y="145" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">frictionless surface</text>
-  <line x1="30" y1="150" x2="220" y2="150" stroke="#475569" stroke-width="1"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 135" width="250" height="135" role="img" aria-label="2024 Q65: potential energy V versus x; an upward parabola symmetric about the V-axis with its minimum V_o on that axis above the x-axis">
+  <rect x="0" y="0" width="250" height="135" fill="transparent"/>
+  <line x1="20" y1="122" x2="228" y2="122" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <line x1="110" y1="122" x2="110" y2="6" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polyline data-role="V-x" points="48.0,10.0 50.6,17.3 53.2,24.4 55.8,31.1 58.3,37.5 60.9,43.6 63.5,49.4 66.1,54.8 68.7,60.0 71.2,64.8 73.8,69.4 76.4,73.6 79.0,77.5 81.6,81.1 84.2,84.4 86.8,87.3 89.3,90.0 91.9,92.3 94.5,94.4 97.1,96.1 99.7,97.5 102.2,98.6 104.8,99.4 107.4,99.8 110.0,100.0 112.6,99.8 115.2,99.4 117.8,98.6 120.3,97.5 122.9,96.1 125.5,94.4 128.1,92.3 130.7,90.0 133.2,87.3 135.8,84.4 138.4,81.1 141.0,77.5 143.6,73.6 146.2,69.4 148.8,64.8 151.3,60.0 153.9,54.8 156.5,49.4 159.1,43.6 161.7,37.5 164.2,31.1 166.8,24.4 169.4,17.3 172.0,10.0" stroke="var(--fig-primary)" stroke-width="1.6" fill="none"/>
+  <text x="120" y="16" font-family="Times New Roman, serif" font-size="13" font-style="italic" fill="var(--fig-text)" text-anchor="middle">V</text>
+  <text x="236" y="126" font-family="Times New Roman, serif" font-size="13" font-style="italic" fill="var(--fig-text)" text-anchor="middle">x</text>
+  <text x="113" y="115" font-family="Times New Roman, serif" font-size="12" font-style="italic" fill="var(--fig-text)" text-anchor="start">V<tspan dy="3" font-size="8">o</tspan></text>
 </svg>

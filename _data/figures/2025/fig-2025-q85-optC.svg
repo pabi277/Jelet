@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194 62" width="194" height="62" role="img" aria-label="Option (C): CH3CH2–CH=CH–NH2 drawn skeletally (trans C=C)">
+  <rect x="0" y="0" width="194" height="62" fill="transparent"/>
+  <text x="6" y="26" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">CH<tspan dy="3.6" font-size="8.6">3</tspan><tspan dy="-3.6">CH</tspan><tspan dy="3.6" font-size="8.6">2</tspan></text>
+  <line x1="49.66" y1="25" x2="96" y2="44" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="96" y1="44" x2="130" y2="24" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="99.72" y1="37.87" x2="122.84" y2="24.27" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="130" y1="24" x2="163" y2="42" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <text x="165" y="53" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">NH<tspan dy="3.6" font-size="8.6">2</tspan></text>
+</svg>

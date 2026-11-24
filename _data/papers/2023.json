@@ -71,7 +71,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $A = \\begin{bmatrix} a & \\beta \\\\ \\beta & a \\end{bmatrix}$ and $A^{2} = Kxy I$ where $\\beta = \\sqrt{xy}$. Then the value of $K$ is",
+      "stemLatex": "If $A = \\begin{pmatrix} x & y \\\\ y & x \\end{pmatrix}$ and $A^{2} = \\begin{pmatrix} \\alpha & \\beta \\\\ \\beta & \\alpha \\end{pmatrix}$, where $\\beta = \\dfrac{1}{2}Kxy$, then the value of $K$ is",
       "stemFigure": null,
       "options": [
         {
@@ -103,11 +103,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q1)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "matrices",
-        "matrix-power",
-        "identity"
+        "matrix-product",
+        "symmetric-matrix",
+        "matrix-power"
       ]
     },
     {
@@ -119,7 +119,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $P = \\begin{bmatrix} \\sqrt{3}/2 & 1/2 \\\\ 1/2 & \\sqrt{3}/2 \\end{bmatrix}$ and $Q = PAP^{T}$ (where $A$ is any $2 \\times 2$ matrix). Then $P^{T}Q^{99}P$ is",
+      "stemLatex": "Let $P = \\begin{pmatrix} \\dfrac{\\sqrt{3}}{2} & \\dfrac{1}{2} \\\\ -\\dfrac{1}{2} & \\dfrac{\\sqrt{3}}{2} \\end{pmatrix}$ and $Q = PAP^{T}$ (where $A$ is any $2 \\times 2$ matrix). Then $P^{T}Q^{99}P$ is",
       "stemFigure": null,
       "options": [
         {
@@ -151,23 +151,23 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q2)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "matrices",
         "orthogonal-matrix",
-        "powers"
+        "matrix-power",
+        "similarity"
       ]
     },
     {
       "id": "jelet-2023-q003",
       "qNumber": 3,
       "subjectId": "MATH",
-      "unitId": "M02",
+      "unitId": "M01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "If the rank of the matrix $\\begin{bmatrix} 2 & -4 & a-4 \\\\ -2 & 2 & a+1 \\end{bmatrix}$ is $1$, then the value of $a$ is",
+      "stemLatex": "If the rank of the matrix $\\begin{pmatrix} -1 & 2 & 5 \\\\ 2 & -4 & a-4 \\\\ 1 & -2 & a+1 \\end{pmatrix}$ is $1$, then the value of $a$ is",
       "stemFigure": null,
       "options": [
         {
@@ -199,10 +199,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q3)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "determinants",
         "rank",
+        "proportional-rows",
         "matrix"
       ]
     },
@@ -210,12 +210,12 @@
       "id": "jelet-2023-q004",
       "qNumber": 4,
       "subjectId": "MATH",
-      "unitId": "M03",
+      "unitId": "M02",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "In a Geometric Progression, $p$-th, $q$-th and $r$-th terms are $x$, $y$ and $z$ respectively. Then which of the following is correct for the matrix $A = \\begin{bmatrix} \\log x & p \\\\ \\log y & q \\\\ \\log z & r \\end{bmatrix}$ where $x, y, z$ are positive?",
+      "stemLatex": "In a Geometric Progression, $p^{\\text{th}}$, $q^{\\text{th}}$ and $r^{\\text{th}}$ elements are $x$, $y$ and $z$ respectively. Then which of the following is correct for the matrix $A = \\begin{bmatrix} \\log x & p & 1 \\\\ \\log y & q & 1 \\\\ \\log z & r & 1 \\end{bmatrix}$, where $x$, $y$ and $z$ are positive",
       "stemFigure": null,
       "options": [
         {
@@ -230,12 +230,12 @@
         },
         {
           "id": "C",
-          "latex": "$|A| = r \\log y$",
+          "latex": "$|A| = r\\log y$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$|A| = q \\log z$",
+          "latex": "$|A| = q\\log z$",
           "figure": null
         }
       ],
@@ -247,43 +247,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q4)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "gp",
-        "determinant"
+        "determinant",
+        "geometric-progression",
+        "column-operations"
       ]
     },
     {
       "id": "jelet-2023-q005",
       "qNumber": 5,
       "subjectId": "MATH",
-      "unitId": "M05",
+      "unitId": "M04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "If $\\vec{a} \\times \\vec{b} = (a_1, a_2)$ and $\\vec{b} \\times \\vec{c} = (b_1, b_2)$, then which of the following is true?",
+      "stemLatex": "If $(a_{1}, b_{1})$, $(a_{2}, b_{2})$ and $(a_{1} - a_{2}, b_{1} - b_{2})$ are three collinear points, then which of the following is true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$a_1 b_2 = b_1 a_2$",
+          "latex": "$a_{1}b_{2} = b_{1}a_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$a_1 a_2 = b_1 b_2$",
+          "latex": "$a_{1}a_{2} = b_{1}b_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$a_1 b_2 + b_1 a_2 = 0$",
+          "latex": "$a_{1}b_{2} + b_{1}a_{2} = 0$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$a_1 b_1 = a_2 b_2$",
+          "latex": "$a_{1}b_{1} = a_{2}b_{2}$",
           "figure": null
         }
       ],
@@ -295,10 +295,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q5)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
-        "cross-product"
+        "collinearity",
+        "area-of-triangle",
+        "determinant"
       ]
     },
     {
@@ -342,11 +343,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q6)"
       },
-      "difficulty": "voided",
+      "difficulty": "medium",
       "tags": [
         "linear-system",
-        "infinite-solutions",
-        "determinant"
+        "consistency",
+        "withdrawn"
       ]
     },
     {
@@ -358,7 +359,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If $f(x) = \\cos\\left(\\dfrac{a}{x}\\right) + i \\sin\\left(\\dfrac{a}{x}\\right)$, then $\\lim_{n\\to\\infty} f(\\pi)$ equals",
+      "stemLatex": "If $f_{r}(\\alpha) = \\left(\\cos\\dfrac{\\alpha}{r^{2}} + i\\sin\\dfrac{\\alpha}{r^{2}}\\right) \\times \\left(\\cos\\dfrac{2\\alpha}{r^{2}} + i\\sin\\dfrac{2\\alpha}{r^{2}}\\right) \\times \\cdots\\cdots \\times \\left(\\cos\\dfrac{\\alpha}{r} + i\\sin\\dfrac{\\alpha}{r}\\right)$, then $\\lim\\limits_{n \\to \\infty} f_{n}(\\pi)$ equals",
       "stemFigure": null,
       "options": [
         {
@@ -378,7 +379,7 @@
         },
         {
           "id": "D",
-          "latex": "$8$",
+          "latex": "$\\infty$",
           "figure": null
         }
       ],
@@ -390,11 +391,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q7)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "limit",
-        "de-moivre"
+        "de-moivre",
+        "product-of-cis",
+        "limit"
       ]
     },
     {
@@ -406,7 +407,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If $a, b, c$ are the roots of $y^{3} - 3y^{2} + 3y + 26 = 0$ and $\\omega$ is a cube root of unity, then the value of $\\dfrac{b-1}{\\omega} + \\dfrac{c-1}{\\omega^{2}} + \\dfrac{a-1}{1}$ is",
+      "stemLatex": "If $a$, $b$, $c$ are the roots of $y^{3} - 3y^{2} + 3y + 26 = 0$ and $\\omega$ is a cube root of unity, then the value of $\\dfrac{a-1}{b-1} + \\dfrac{b-1}{c-1} + \\dfrac{c-1}{a-1}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -421,12 +422,12 @@
         },
         {
           "id": "C",
-          "latex": "$30$",
+          "latex": "$3\\omega$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$30/2$",
+          "latex": "$3\\omega^{2}$",
           "figure": null
         }
       ],
@@ -438,11 +439,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q8)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "roots-of-unity",
-        "vieta"
+        "cube-roots-of-unity",
+        "cubic-equation",
+        "substitution"
       ]
     },
     {
@@ -454,7 +455,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If a line joining two points $A(2, 0)$ and $B(3, 1)$ is rotated about $A$ in anticlockwise direction through an angle $15^{\\circ}$, then the equation of the line in the new position is",
+      "stemLatex": "If a line joining two points $A\\,(2, 0)$ and $B\\,(3, 1)$ is rotated about $A$ in anticlockwise direction through an angle $15^{\\circ}$, then the equation of the line in the new position is",
       "stemFigure": null,
       "options": [
         {
@@ -474,7 +475,7 @@
         },
         {
           "id": "D",
-          "latex": "$3x - y = 2\\sqrt{3}$",
+          "latex": "$\\sqrt{3}x - y = 2\\sqrt{3}$",
           "figure": null
         }
       ],
@@ -486,11 +487,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q9)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "coordinate-geometry",
+        "straight-line",
         "rotation",
-        "line-equation"
+        "slope"
       ]
     },
     {
@@ -534,11 +535,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q10)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "parabola",
-        "chord",
-        "coordinate-geometry"
+        "chord-length",
+        "intersection"
       ]
     },
     {
@@ -550,7 +551,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "A conic section is defined by the equations $x = -1 + \\sec t$, $y = 2 + 3\\tan t$. The coordinates of the foci are",
+      "stemLatex": "A conic section is defined by the equation $x = -1 + \\sec t$, $y = 2 + 3\\tan t$. The coordinates of the foci are",
       "stemFigure": null,
       "options": [
         {
@@ -582,10 +583,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q11)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "hyperbola",
-        "parametric",
+        "parametric-form",
         "foci"
       ]
     },
@@ -597,8 +598,8 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 4,
-      "stemLatex": "If $\u000bec{a}$ and $\u000bec{b}$ are two unit vectors, then the vector $(\u000bec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
+      "pdfPage": 5,
+      "stemLatex": "If $\\vec{a}$ and $\\vec{b}$ are two-unit vectors, then the vector $(\\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
       "stemFigure": null,
       "options": [
         {
@@ -630,11 +631,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q12)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "vector-algebra",
-        "cross-product",
-        "triple-product"
+        "vector-triple-product",
+        "unit-vectors",
+        "parallel"
       ]
     },
     {
@@ -651,22 +652,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$(2\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
+          "latex": "$\\dfrac{1}{\\sqrt{3}}(2\\hat{i} + 2\\hat{j} + \\hat{k})$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$(\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
+          "latex": "$\\dfrac{1}{3}(2\\hat{i} + \\hat{j} + 2\\hat{k})$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(2\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
+          "latex": "$\\dfrac{1}{3}(\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$(2\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
+          "latex": "$\\dfrac{1}{3}(2\\hat{i} + 2\\hat{j} + \\hat{k})$",
           "figure": null
         }
       ],
@@ -678,11 +679,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q13)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
         "tangent-vector",
-        "curve"
+        "space-curve",
+        "unit-vector"
       ]
     },
     {
@@ -694,7 +695,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "The value of $\\displaystyle\\lim_{x \\to 0} \\dfrac{\\sin(\\pi \\cos^{2} x)}{x^{2}}$ is",
+      "stemLatex": "$\\lim\\limits_{x \\to 0} \\dfrac{\\sin(\\pi\\cos^{2}x)}{x^{2}} =$",
       "stemFigure": null,
       "options": [
         {
@@ -726,11 +727,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q14)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "limit",
-        "trigonometric",
-        "squeeze-theorem"
+        "standard-limit",
+        "trig-identity"
       ]
     },
     {
@@ -742,7 +743,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "If the function $f(x) = \\begin{cases} \\dfrac{x^{2} - (A+2)x + A}{x - 2}, & x \\neq 2 \\\\ 2, & x = 2 \\end{cases}$ is continuous at $x = 2$, then",
+      "stemLatex": "If the function $f(x) = \\begin{cases} \\dfrac{x^{2} - (A+2)x + A}{x - 2} & \\text{for } x \\neq 2 \\\\ 2 & \\text{for } x = 2 \\end{cases}$ is continuous at $x = 2$, then",
       "stemFigure": null,
       "options": [
         {
@@ -774,11 +775,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q15)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
         "continuity",
-        "limit",
-        "removable-discontinuity"
+        "removable-discontinuity",
+        "limit"
       ]
     },
     {
@@ -790,17 +791,17 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "Suppose that $f$ is a differentiable function with the property that $\\lim_{h\\to 0} \\dfrac{f(x+h) - f(x)}{h^{2}} = 3$. Then $f(x)$ is",
+      "stemLatex": "Suppose that $f$ is a differentiable function with the property that $f(x + y) = f(x) + f(y) + xy$, $f(0) = 0$ and $\\lim\\limits_{h \\to 0} \\dfrac{1}{h}f(h) = 3$, then $f(x)$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{3x^{2}}{x+2}$",
+          "latex": "$x + \\dfrac{x^{2}}{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{3x}{x+2}$",
+          "latex": "$3x + \\dfrac{x^{2}}{2}$",
           "figure": null
         },
         {
@@ -822,11 +823,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q16)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "differentiability",
-        "limit",
-        "derivative"
+        "functional-equation",
+        "derivative-from-first-principles"
       ]
     },
     {
@@ -838,7 +838,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "The value of $\\displaystyle\\lim_{x \\to a} \\dfrac{\\sqrt{\\Phi(x)} - b}{\\sqrt{\\Phi(a)} - b}$ where $\\Phi(a) = a^{2}$ is",
+      "stemLatex": "If $f(a) = a^{2}$, $\\phi(a) = b^{2}$ and $f'(a) = 3\\phi'(a)$, then $\\lim\\limits_{x \\to a} \\dfrac{\\sqrt{f(x)} - a}{\\sqrt{\\phi(x)} - b}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -848,7 +848,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{3b}{a}$",
+          "latex": "$\\dfrac{b}{3a}$",
           "figure": null
         },
         {
@@ -870,11 +870,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q17)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "limit",
-        "derivative",
-        "l'hospital"
+        "lhospital",
+        "chain-rule",
+        "limit"
       ]
     },
     {
@@ -886,7 +886,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "The function $f(x) = x(x+3)e^{x}$ satisfies the condition of Rolle's theorem in $[-3, 0]$. The value of $c$, where $f'(c) = 0$, is",
+      "stemLatex": "The function $f(x) = x(x + 3)e^{-\\left(\\frac{1}{2}\\right)x}$ satisfies the condition of Rolle's theorem in $[-3, 0]$. The value of $c$, where $f'(c) = 0$, is",
       "stemFigure": null,
       "options": [
         {
@@ -918,11 +918,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q18)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "rolle-theorem",
-        "derivative",
-        "mean-value"
+        "rolles-theorem",
+        "product-rule",
+        "critical-point"
       ]
     },
     {
@@ -934,27 +934,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "The slope of the tangent to the curve represented by $x = t^{2} + 3t - 8$ and $y = 2t^{2} - 2t - 5$ at the point $M(2, -1)$ is",
+      "stemLatex": "The slope of the tangent to the curve represented by $x = t^{2} + 3t - 8$ and $y = 2t^{2} - 2t - 5$ at the point $M\\,(2, -1)$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{6}{17}$",
+          "latex": "$\\dfrac{6}{7}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$-\\dfrac{6}{17}$",
+          "latex": "$\\dfrac{7}{6}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{3-2}{2-3}$",
+          "latex": "$\\dfrac{3}{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$-\\dfrac{3}{2}$",
+          "latex": "$\\dfrac{2}{3}$",
           "figure": null
         }
       ],
@@ -966,11 +966,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q19)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "parametric-curves",
-        "tangent",
-        "slope"
+        "parametric-derivative",
+        "tangent-slope"
       ]
     },
     {
@@ -982,17 +981,17 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "The tangent to the curve $x = a\\sqrt{\\cos 2\\theta}\\cos\\theta$, $y = a\\sqrt{\\cos 2\\theta}\\sin\\theta$ at the point corresponding to $\\theta = \\dfrac{\\pi}{6}$ is",
+      "stemLatex": "The tangent to the curve $x = a\\sqrt{\\cos 2\\theta}\\,\\cos\\theta$, $y = a\\sqrt{\\cos 2\\theta}\\,\\sin\\theta$ at the point, corresponding to $\\theta = \\dfrac{\\pi}{6}$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "parallel to $x$-axis",
+          "latex": "parallel to $x$ axis",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "parallel to $y$-axis",
+          "latex": "parallel to $y$ axis",
           "figure": null
         },
         {
@@ -1014,11 +1013,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q20)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "parametric-curves",
+        "parametric-derivative",
         "tangent",
-        "polar"
+        "lemniscate"
       ]
     },
     {
@@ -1062,11 +1061,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q21)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "maxima-minima",
         "quadratic",
-        "inequality"
+        "completing-square"
       ]
     },
     {
@@ -1078,7 +1077,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "If the function $u = \\log\\dfrac{x^{3}+x^{2}y}{x-y}$, then $x\\dfrac{\\partial u}{\\partial x} + y\\dfrac{\\partial u}{\\partial y}$ is",
+      "stemLatex": "If the function $u = \\log\\left(\\dfrac{x^{3} + x^{2}y - y^{3}}{x - y}\\right)$, then $x\\dfrac{\\partial u}{\\partial x} + y\\dfrac{\\partial u}{\\partial y}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1110,11 +1109,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q22)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "partial-differentiation",
-        "logarithm",
-        "homogeneous"
+        "euler-theorem",
+        "homogeneous-function",
+        "partial-derivative"
       ]
     },
     {
@@ -1158,10 +1157,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q23)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "partial-differentiation",
-        "homogeneous-function"
+        "partial-derivative",
+        "evaluation"
       ]
     },
     {
@@ -1173,7 +1172,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "If $k = e^{2007}$, the value of $I = \\displaystyle\\int \\dfrac{\\pi \\cos(\\pi \\log x)}{x} \\,dx$ is",
+      "stemLatex": "If $k = e^{2007}$, the value of $I = \\displaystyle\\int_{1}^{k} \\dfrac{\\pi\\cos(\\pi\\log x)}{x}\\,dx$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1205,9 +1204,9 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q24)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "integration",
+        "definite-integral",
         "substitution",
         "logarithm"
       ]
@@ -1221,7 +1220,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "Let $f(x), g(x)$ and $h(x)$ be continuous functions on $[0, a]$ such that $f(x) = f(a-x)$, $g(x) = -g(a-x)$ and $3h(x) - 4h(a-x) = 5$. Then $\\displaystyle\\int_{0}^{a} f(x) g(x) h(x)\\,dx$ is",
+      "stemLatex": "Let $f(x)$, $g(x)$ and $h(x)$ be continuous functions on $[0, a]$ such that $f(x) = f(a - x)$, $g(x) = -g(a - x)$ and $3h(x) - 4h(a - x) = 5$. Then $\\displaystyle\\int_{0}^{a} f(x)\\,g(x)\\,h(x)\\,dx$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1253,11 +1252,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q25)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "definite-integral",
-        "symmetry",
-        "properties"
+        "king-property",
+        "symmetry"
       ]
     },
     {
@@ -1274,7 +1273,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{3}$ sq. unit",
+          "latex": "$1$ sq. unit",
           "figure": null
         },
         {
@@ -1284,12 +1283,12 @@
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{2}{3}$ sq. unit",
+          "latex": "$\\dfrac{1}{3}$ sq. unit",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1$ sq. unit",
+          "latex": "$\\dfrac{2}{3}$ sq. unit",
           "figure": null
         }
       ],
@@ -1301,11 +1300,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q26)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "area",
-        "definite-integral",
-        "conic"
+        "area-between-curves",
+        "parabolas"
       ]
     },
     {
@@ -1317,27 +1315,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "The solution of the differential equation $x\\,d\\Phi = \\Phi \\,d\\left(\\dfrac{y}{x}\\right)$ where $\\Phi(y/x)$ is",
+      "stemLatex": "The solution of the differential equation $y' = \\dfrac{y}{x} + \\dfrac{\\phi(y/x)}{\\phi'(y/x)}$ is (where $c$ is any arbitrary constant.)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$x\\Phi(y/x) = xc$",
+          "latex": "$x\\phi(y/x) = xc$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\Phi(y/x) = c$",
+          "latex": "$\\phi(y/x) = c$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$y\\Phi(y/x) = c$",
+          "latex": "$y\\phi(y/x) = c$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\Phi(y/x) = xc$",
+          "latex": "$\\phi(y/x) = xc$",
           "figure": null
         }
       ],
@@ -1349,11 +1347,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q27)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ode",
-        "exact",
-        "general-solution"
+        "homogeneous-ode",
+        "substitution-y-vx",
+        "separable"
       ]
     },
     {
@@ -1365,7 +1363,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "The particular solution of $\\dfrac{dy}{dx} = \\dfrac{3x + 4y}{\\log x}$, $y(0) = 0$ is",
+      "stemLatex": "The particular solution of $\\log\\dfrac{dy}{dx} = 3x + 4y$, $y(0) = 0$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1397,11 +1395,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q28)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ode",
-        "variable-separable",
-        "particular-solution"
+        "separable-ode",
+        "initial-value",
+        "exponential"
       ]
     },
     {
@@ -1445,11 +1443,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q29)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "probability",
-        "combinatorics",
-        "counting"
+        "combinatorial-probability",
+        "complement"
       ]
     },
     {
@@ -1461,7 +1458,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "For the events $A$ and $B$, if $P(A) = P(A/B) = \\dfrac{1}{4}$ and $P(B/A) = \\dfrac{1}{2}$, then",
+      "stemLatex": "For the events $A$ and $B$ if $P(A) = P(A/B) = \\dfrac{1}{4}$ and $P(B/A) = \\dfrac{1}{2}$, then",
       "stemFigure": null,
       "options": [
         {
@@ -1476,12 +1473,12 @@
         },
         {
           "id": "C",
-          "latex": "$P(A'/B) = \\dfrac{1}{2}$",
+          "latex": "$P(A'/B) = \\dfrac{1}{3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$P(B'/A) = \\dfrac{1}{4}$",
+          "latex": "$P(B'/A') = 1/4$",
           "figure": null
         }
       ],
@@ -1493,10 +1490,9 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q30)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "probability",
-        "conditional",
+        "conditional-probability",
         "independence"
       ]
     },
@@ -1509,7 +1505,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "Let $X$ and $Y$ be two non-zero symmetric matrices of order $3$ and $Z$ be a non-zero skew symmetric matrix of order $3$. Then which of the following matrix/matrices are skew symmetric?",
+      "stemLatex": "Let $X$ and $Y$ be two non-zero symmetric matrices of order $3$ and $Z$ be a non-zero skew symmetric matrix of order $3$. Then which of the following matrix/matrices are skew symmetric ?",
       "stemFigure": null,
       "options": [
         {
@@ -1542,11 +1538,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q31)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "symmetric",
+        "symmetric-matrix",
         "skew-symmetric",
-        "matrix-powers"
+        "transpose"
       ]
     },
     {
@@ -1558,22 +1554,22 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "For non-zero $a, b, c$, the determinant $\\Delta = \\begin{vmatrix} a & b & c \\\\ a\\alpha+b & b\\alpha+c & c\\alpha+a \\\\ a\\alpha^{2}+b & b\\alpha^{2}+c & c\\alpha^{2}+a \\end{vmatrix}$ is equal to zero if",
+      "stemLatex": "For non-zero $\\alpha$, $a$, $b$, $c$, the determinant $\\Delta = \\begin{vmatrix} a & b & a\\alpha + b \\\\ b & c & b\\alpha + c \\\\ a\\alpha + b & b\\alpha + c & 0 \\end{vmatrix}$ is equal to zero if",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$a, b, c$ are in A.P.",
+          "latex": "$a$, $b$, $c$ are in A. P.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$a, b, c$ are in G.P.",
+          "latex": "$a$, $b$, $c$ are in G.P.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$a, b, c$ are in H.P.",
+          "latex": "$a$, $b$, $c$ are in H. P.",
           "figure": null
         },
         {
@@ -1591,11 +1587,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q32)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "determinant",
-        "matrix",
-        "roots"
+        "geometric-progression",
+        "factorisation"
       ]
     },
     {
@@ -1607,7 +1603,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "If $z = \\dfrac{\\sqrt{3} + i^{2007}}{\\sqrt{3} - i^{2007}}$, then",
+      "stemLatex": "If $z = \\left(\\dfrac{\\sqrt{3}}{2} + \\dfrac{i}{2}\\right)^{2007} + \\left(\\dfrac{\\sqrt{3}}{2} - \\dfrac{i}{2}\\right)^{2007}$, then",
       "stemFigure": null,
       "options": [
         {
@@ -1622,12 +1618,12 @@
         },
         {
           "id": "C",
-          "latex": "$\\text{Re}(z) > 0$",
+          "latex": "$\\operatorname{Re}(z) > 0$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{Im}(z) > 0$",
+          "latex": "$\\operatorname{Im}(z) > 0$",
           "figure": null
         }
       ],
@@ -1639,11 +1635,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q33)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "powers-of-i",
-        "modulus"
+        "de-moivre",
+        "conjugates",
+        "polar-form"
       ]
     },
     {
@@ -1660,22 +1656,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\left(\\dfrac{3+\\sqrt{3}}{2}, \\dfrac{3+\\sqrt{3}}{2}\\right)$",
+          "latex": "$\\left(-\\dfrac{3}{2}, \\dfrac{3}{2}\\right)$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\left(\\dfrac{3-\\sqrt{3}}{2}, \\dfrac{3-\\sqrt{3}}{2}\\right)$",
+          "latex": "$\\left(\\dfrac{3}{2}, -\\dfrac{3}{2}\\right)$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(0, 3)$",
+          "latex": "$\\left(\\dfrac{7}{2}, \\dfrac{14}{3}\\right)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$(1, 4)$",
+          "latex": "$\\left(\\dfrac{7}{2}, \\dfrac{13}{2}\\right)$",
           "figure": null
         }
       ],
@@ -1687,11 +1683,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q34)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "coordinate-geometry",
-        "triangle",
-        "area"
+        "area-of-triangle",
+        "locus",
+        "key-dispute"
       ]
     },
     {
@@ -1703,12 +1699,12 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "Let $\u000bec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\u000bec{W} = \\hat{i} + 3\\hat{k}$. If $\u000bec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
+      "stemLatex": "Let $\\vec{V} = 2\\hat{i} + \\hat{j} - \\hat{k}$ and $\\vec{W} = \\hat{i} + 3\\hat{k}$. If $\\vec{U}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\,\\vec{V}\\,\\vec{W}]$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\sqrt{59}$",
+          "latex": "$59$",
           "figure": null
         },
         {
@@ -1723,7 +1719,7 @@
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{59}$",
+          "latex": "$\\sqrt{60}$",
           "figure": null
         }
       ],
@@ -1735,10 +1731,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q35)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "vectors",
         "scalar-triple-product",
+        "cross-product",
         "maximum"
       ]
     },
@@ -1751,7 +1747,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "If $f(x) = \\lim_{n\\to\\infty}\\dfrac{x^{2n+1}}{x^{2n}+1}$, then",
+      "stemLatex": "Let $f(x) = \\lim\\limits_{n \\to \\infty} \\dfrac{x^{2n} - 1}{x^{2n} + 1}$, then",
       "stemFigure": null,
       "options": [
         {
@@ -1784,11 +1780,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q36)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "limit",
-        "function-limit",
-        "piecewise"
+        "limit-of-sequence",
+        "piecewise-function"
       ]
     },
     {
@@ -1833,11 +1828,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q37)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "tangent-normal",
-        "derivative",
-        "coordinate-geometry"
+        "normal",
+        "rectangular-hyperbola",
+        "slope-sign"
       ]
     },
     {
@@ -1849,27 +1844,27 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "If $z = \\log\\sqrt{x^{2} + y^{2}}$, then which of the following is/are true?",
+      "stemLatex": "If $z = \\log\\sqrt{x^{2} + y^{2}}$, then which of the following is/are true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$x\\dfrac{\\partial z}{\\partial x} + y\\dfrac{\\partial z}{\\partial y} = 1$",
+          "latex": "$y\\dfrac{\\partial z}{\\partial x} + x\\dfrac{\\partial z}{\\partial y} = 1$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{\\partial z}{\\partial x} = \\dfrac{y}{x}$",
+          "latex": "$x\\dfrac{\\partial z}{\\partial x} + y\\dfrac{\\partial z}{\\partial y} = 1$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{\\partial z}{\\partial x} + \\dfrac{\\partial z}{\\partial y} = \\dfrac{1}{x+y}$",
+          "latex": "$x\\dfrac{\\partial z}{\\partial x} + y\\dfrac{\\partial z}{\\partial y} = \\sqrt{x^{2} + y^{2}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{\\partial z}{\\partial x} = \\dfrac{x}{x^{2}+y^{2}}$",
+          "latex": "$y\\dfrac{\\partial z}{\\partial x} = x\\dfrac{\\partial z}{\\partial y}$",
           "figure": null
         }
       ],
@@ -1882,11 +1877,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q38)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "partial-differentiation",
+        "partial-derivative",
         "logarithm",
-        "homogeneous"
+        "euler-theorem"
       ]
     },
     {
@@ -1898,7 +1893,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "The value of $\\alpha$ which satisfies $\\displaystyle\\int_{0}^{\\pi/2} \\sin x\\,dx = \\sin 2\\alpha$ ($\\alpha \\in [\\pi, 2\\pi]$) is/are",
+      "stemLatex": "The value of $\\alpha$ which satisfies $\\displaystyle\\int_{\\pi/2}^{\\alpha} \\sin x\\,dx = \\sin 2\\alpha$ $(\\alpha \\in [\\pi, 2\\pi])$ is/are",
       "stemFigure": null,
       "options": [
         {
@@ -1931,11 +1926,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q39)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "definite-integral",
-        "trigonometric",
-        "inverse"
+        "trigonometric-equation"
       ]
     },
     {
@@ -1947,7 +1941,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "The solution of $\\dfrac{dv}{du}$ where $u = y$ and $v = xy$ is/are",
+      "stemLatex": "The solution/solutions of $v = u\\dfrac{dv}{du} + \\left(\\dfrac{dv}{du}\\right)^{2}$, where $u = y$ and $v = xy$ is/are (where $c$, $c_{1}$ are arbitrary constants.)",
       "stemFigure": null,
       "options": [
         {
@@ -1967,7 +1961,7 @@
         },
         {
           "id": "D",
-          "latex": "$xy = cy + c_1$",
+          "latex": "$xy = cy + c_{1}$",
           "figure": null
         }
       ],
@@ -1983,9 +1977,9 @@
       },
       "difficulty": "hard",
       "tags": [
-        "ode",
-        "differentiation",
-        "general-solution"
+        "clairaut-equation",
+        "singular-solution",
+        "substitution"
       ]
     },
     {
@@ -1997,12 +1991,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "The displacement of a particle executing SHM is given by $x = A\\sin(\\omega t + \\phi)$ where $A$ is amplitude. $\\dfrac{A}{\\omega}$ has the dimension of",
+      "stemLatex": "The displacement of a particle executing SHM is given by $x = A\\sin(\\omega t + \\phi)$ where $A$ is the amplitude, $\\omega$ denotes the angular frequency and $\\phi$ denotes the phase. $\\dfrac{A}{\\phi}$ has the dimension of",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$LT^{-1}$",
+          "latex": "$L$",
           "figure": null
         },
         {
@@ -2029,49 +2023,49 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q41)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
         "dimensions",
         "shm",
-        "dimensional-analysis"
+        "phase"
       ]
     },
     {
       "id": "jelet-2023-q042",
       "qNumber": 42,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "Figure shows $(x,t)$, $(y,t)$ diagram of a particle moving in 2 dimensions. If the particle has a mass of $500$ gm, the force acting on the particle is",
+      "stemLatex": "Figure shows $(x, t)$, $(y, t)$ diagram of a particle moving in 2 dimensions. If the particle has a mass of 500 gm, the force acting on the particle is",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q42.svg",
-        "alt": "Figure for JELET 2023 Q42",
-        "width": 420,
-        "height": 220,
+        "alt": "Two graphs side by side. Left: x in m versus t in s, a straight line from the origin, ticks 1, 2 on the x axis and 1, 2, 3 on the t axis, with dashed guides from the point (2, 2). Right: y in m versus t in s, a curve rising from the origin, ticks 1, 4 on the y axis and 1, 2, 3 on the t axis, with dashed guides from the points (1, 1) and (2, 4)",
+        "width": 430,
+        "height": 172,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$1\\,\\text{N}$ along $x$-axis",
+          "latex": "$1$ N along $x$-axis",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0.5\\,\\text{N}$ along $y$-axis",
+          "latex": "$0.5$ N along $y$-axis",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0.5\\,\\text{N}$ along $x$-axis",
+          "latex": "$0.5$ N along $x$-axis",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1\\,\\text{N}$ along $y$-axis",
+          "latex": "$1$ N along $y$-axis",
           "figure": null
         }
       ],
@@ -2085,9 +2079,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "kinematics",
-        "graph",
-        "force"
+        "newtons-second-law",
+        "position-time-graph",
+        "two-dimensional-motion"
       ]
     },
     {
@@ -2099,27 +2093,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "Two trains of length $L_1$ and $L_2$ are moving with speeds $v_1$ and $v_2$ in opposite directions on parallel tracks. The time taken by each train till they cross each other is",
+      "stemLatex": "Two trains of length $L_{1}$ and $L_{2}$ are moving with speeds $V_{1}$ and $V_{2}$ in opposite directions on parallel tracks. The time taken by each train till they cross each other is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{L_1 + L_2}{v_1 + v_2}$",
+          "latex": "$\\dfrac{L_{1} + L_{2}}{V_{1} - V_{2}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{L_1 + L_2}{v_1 - v_2}$",
+          "latex": "$\\dfrac{L_{1} + L_{2}}{V_{1} + V_{2}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{L_1}{v_1 + v_2}$",
+          "latex": "$\\dfrac{L_{1} - L_{2}}{V_{1} + V_{2}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{L_1}{v_1 - v_2}$",
+          "latex": "$\\dfrac{L_{1} - L_{2}}{V_{1} - V_{2}}$",
           "figure": null
         }
       ],
@@ -2131,22 +2125,21 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q43)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "kinematics",
         "relative-velocity",
-        "trains"
+        "crossing-trains"
       ]
     },
     {
       "id": "jelet-2023-q044",
       "qNumber": 44,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 11,
+      "pdfPage": 10,
       "stemLatex": "A constant power is supplied to a rotating disc. Angular velocity $(\\omega)$ of disc varies with angle of rotations $(\\theta)$ made by the disc as",
       "stemFigure": null,
       "options": [
@@ -2157,17 +2150,17 @@
         },
         {
           "id": "B",
-          "latex": "$\\omega \\propto \\theta^{1/3}$",
+          "latex": "$\\omega \\propto \\theta^{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\omega \\propto \\theta^{2/3}$",
+          "latex": "$\\omega \\propto \\theta^{1/3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\omega \\propto \\theta^{2}$",
+          "latex": "$\\omega \\propto \\theta^{2/3}$",
           "figure": null
         }
       ],
@@ -2179,11 +2172,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q44)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "rotation",
         "power",
-        "angular-velocity"
+        "rotational-kinetic-energy",
+        "work-energy"
       ]
     },
     {
@@ -2194,28 +2187,28 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 11,
-      "stemLatex": "A massless string can carry a maximum mass $3\\,\\text{kg}$. If the string is pulled upward with an acceleration $2\\,\\text{m/s}^{2}$ then the maximum mass this string can carry is ($g = 10\\,\\text{m/s}^{2}$)",
+      "pdfPage": 10,
+      "stemLatex": "A massless string can carry a maximum mass 3 kg. If the string is pulled upward with an acceleration $2\\ \\text{m/s}^{2}$ then the maximum mass this string can carry is $[g = 10\\ \\text{m/s}^{2}]$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{15}{4}\\,\\text{kg}$",
+          "latex": "$\\dfrac{15}{4}\\,\\text{Kg}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{5}{2}\\,\\text{kg}$",
+          "latex": "$\\dfrac{5}{2}\\,\\text{Kg}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3\\,\\text{kg}$",
+          "latex": "$3\\,\\text{Kg}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$12\\,\\text{kg}$",
+          "latex": "$1\\dfrac{1}{2}\\,\\text{Kg}$",
           "figure": null
         }
       ],
@@ -2227,11 +2220,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q45)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "newton-laws",
         "tension",
-        "acceleration"
+        "accelerating-frame",
+        "breaking-strength"
       ]
     },
     {
@@ -2243,27 +2236,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "Two particles having masses $6\\,\\text{kg}$ and $4\\,\\text{kg}$ are moving with velocities $(5\\hat{i} - 2\\hat{j} + 10\\hat{k})$ and $(10\\hat{i} + 2\\hat{j} + 5\\hat{k})$ respectively. What is the velocity of their centre of mass?",
+      "stemLatex": "Two particles having masses 6 Kg and 4 Kg are moving with velocities $5\\hat{i} - 2\\hat{j} + 10\\hat{k}$ and $10\\hat{i} + 2\\hat{j} + 5\\hat{k}$ respectively. What is the velocity of their centre of mass ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$(5\\hat{i} + 2\\hat{j} - 8\\hat{k})$",
+          "latex": "$5\\hat{i} + 2\\hat{j} - 8\\hat{k}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$(7\\hat{i} - 2\\hat{j} + 8\\hat{k})$",
+          "latex": "$7\\hat{i} - 2\\hat{j} + 8\\hat{k}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(7\\hat{i} + 2\\hat{j} - 8\\hat{k})$",
+          "latex": "$7\\hat{i} + 2\\hat{j} - 8\\hat{k}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$(5\\hat{i} - 2\\hat{j} + 8\\hat{k})$",
+          "latex": "$5\\hat{i} - 2\\hat{j} + 8\\hat{k}$",
           "figure": null
         }
       ],
@@ -2275,11 +2268,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q46)"
       },
-      "difficulty": "voided",
+      "difficulty": "easy",
       "tags": [
         "centre-of-mass",
-        "momentum",
-        "vectors"
+        "velocity-vector",
+        "withdrawn"
       ]
     },
     {
@@ -2290,8 +2283,8 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 12,
-      "stemLatex": "In an ideal gas, root mean square speed of the gas molecules is $C$. If pressure of the gas is increased to three times its initial value, temperature remaining constant, what would be the r.m.s. speed?",
+      "pdfPage": 11,
+      "stemLatex": "In an ideal gas root mean square speed of the gas molecules is C. If pressure of the gas is increased to three times its initial value, temperature remaining constant, what would be the r. m. s. speed ?",
       "stemFigure": null,
       "options": [
         {
@@ -2311,7 +2304,7 @@
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{3}C$",
+          "latex": "$3/C$",
           "figure": null
         }
       ],
@@ -2323,11 +2316,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q47)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "kinetic-theory",
         "rms-speed",
-        "pressure"
+        "isothermal"
       ]
     },
     {
@@ -2338,24 +2331,24 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 12,
-      "stemLatex": "In the figure, three processes of an ideal gas are shown. $CA$ denotes the adiabatic process, $BA$ denotes the isothermal process. Then $\\gamma$ for this gas is",
+      "pdfPage": 11,
+      "stemLatex": "In the figure, three processes of an ideal gas are shown. CA denotes the adiabatic process, BA denotes the isothermal process. Then $\\gamma$ for this gas is",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q48.svg",
-        "alt": "Figure for JELET 2023 Q48",
-        "width": 420,
-        "height": 220,
+        "alt": "P–V diagram with pressure levels 3P, 2P and P marked by dashed lines. Point A at 3P; B at 2P and C at P lie on the same vertical line to the right. An arrow runs up from C to B, a curve from B to A with its arrow pointing towards A, and a steeper curve from C to A with its arrow pointing towards A",
+        "width": 250,
+        "height": 205,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{\\ln 2}$",
+          "latex": "$\\dfrac{1}{1 - \\ln 2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\ln 2$",
+          "latex": "$\\dfrac{1}{1 - \\dfrac{\\ln 2}{\\ln 3}}$",
           "figure": null
         },
         {
@@ -2365,7 +2358,7 @@
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{\\ln 2}{\\ln 3}$",
+          "latex": "$\\dfrac{1}{1 - \\dfrac{\\ln 3}{\\ln 2}}$",
           "figure": null
         }
       ],
@@ -2377,43 +2370,44 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q48)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "thermodynamics",
         "adiabatic",
-        "pv-diagram"
+        "isothermal",
+        "pv-diagram",
+        "gamma"
       ]
     },
     {
       "id": "jelet-2023-q049",
       "qNumber": 49,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 12,
+      "pdfPage": 11,
       "stemLatex": "A charge $q$ is situated at the centre of the circular base of a right circular cone of height $H$ and radius of the base is $r$. Electrostatic flux through the curved surface of the cone is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{q}{2\\varepsilon_0}$",
+          "latex": "$\\dfrac{q}{\\varepsilon_{0}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{q}{3\\varepsilon_0}$",
+          "latex": "$\\dfrac{q}{2\\varepsilon_{0}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{qH}{4\\varepsilon_0 r}$",
+          "latex": "$\\dfrac{q}{4\\varepsilon_{0}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{q}{4\\varepsilon_0 r}$",
+          "latex": "$\\dfrac{qH}{4\\varepsilon_{0}r}$",
           "figure": null
         }
       ],
@@ -2425,43 +2419,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q49)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "electrostatics",
-        "flux",
-        "gauss-law"
+        "gauss-law",
+        "electric-flux",
+        "symmetry"
       ]
     },
     {
       "id": "jelet-2023-q050",
       "qNumber": 50,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "Consider two point charges $q_1$ and $q_2$ having masses $m_1$ and $m_2$ respectively. They are released from an initial separation $r_0$. The relative velocity when the separation becomes large is given by (where $M = m_1 + m_2$)",
+      "stemLatex": "Consider two point charges $q_{1}$ and $q_{2}$ having masses $m_{1}$ and $m_{2}$ respectively. They are released from an initial separation $r_{0}$. The relative velocity when the separation becomes large is given by $\\left(K = \\dfrac{1}{4\\pi\\varepsilon_{0}};\\ \\dfrac{1}{\\mu} = \\dfrac{1}{m_{1}} + \\dfrac{1}{m_{2}};\\ M = m_{1} + m_{2}\\right)$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\sqrt{\\dfrac{2Kq_1q_2}{Mr_0}}$",
+          "latex": "$\\sqrt{\\dfrac{2}{\\mu}\\dfrac{Kq_{1}q_{2}}{r_{0}}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\sqrt{\\dfrac{2Kq_1q_2\\mu}{r_0}}$",
+          "latex": "$\\sqrt{\\dfrac{2Kq_{1}q_{2}\\mu}{r_{0}}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\sqrt{\\dfrac{Kq_1q_2}{Mr_0}}$",
+          "latex": "$\\sqrt{\\dfrac{Kq_{1}q_{2}}{Mr_{0}}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{\\dfrac{Kq_1q_2}{r_0}}$",
+          "latex": "$\\dfrac{Kq_{1}q_{2}}{r_{0}}$",
           "figure": null
         }
       ],
@@ -2473,11 +2467,12 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q50)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "electrostatics",
         "energy-conservation",
-        "relative-velocity"
+        "momentum-conservation",
+        "reduced-mass",
+        "coulomb"
       ]
     },
     {
@@ -2489,7 +2484,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A glass slab of thickness $8\\,\\text{cm}$ contains the same number of waves as $10\\,\\text{cm}$ of water, when both are traversed by the same monochromatic light. If the refractive index of water is $\\dfrac{4}{3}$, the refractive index of glass is",
+      "stemLatex": "A glass slab of thickness 8 cm contains the same number of waves as 10 cm of water, when both are traversed by the same monochromatic light. If the refractive index of water is $\\dfrac{4}{3}$, the refractive index of glass is",
       "stemFigure": null,
       "options": [
         {
@@ -2521,11 +2516,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q51)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "refraction",
+        "refractive-index",
         "optical-path",
-        "refractive-index"
+        "wavelength-in-medium"
       ]
     },
     {
@@ -2537,27 +2532,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A collimated beam of light of diameter $1\\,\\text{mm}$ is propagating along $x$-axis. The beam is to be expanded to a collimated beam of diameter $10\\,\\text{mm}$ using a combination of two convex lenses. A lens of focal length $50\\,\\text{mm}$ and another lens with focal length $F$ are to be kept at a distance $d$ between them. The values of $F$ and $d$, respectively are",
+      "stemLatex": "A collimated beam of light of diameter 1 mm is propagating along x-axis. The beam is to be expanded to a collimated beam of diameter 10 mm using a combination of two convex lenses. A lens of focal length of 50 mm and another lens with focal length ‘F’ are to be kept at a distance ‘d’ between them. The values of F and d, respectively are",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$450\\,\\text{mm}$ and $10\\,\\text{mm}$",
+          "latex": "$450$ mm and $10$ mm",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$400\\,\\text{mm}$ and $500\\,\\text{mm}$",
+          "latex": "$400$ mm and $500$ mm",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$550\\,\\text{mm}$ and $600\\,\\text{mm}$",
+          "latex": "$550$ mm and $600$ mm",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$500\\,\\text{mm}$ and $550\\,\\text{mm}$",
+          "latex": "$500$ mm and $550$ mm",
           "figure": null
         }
       ],
@@ -2569,11 +2564,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q52)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "lens",
-        "beam-expansion",
-        "focal-length"
+        "lens-combination",
+        "beam-expander",
+        "afocal-system"
       ]
     },
     {
@@ -2585,27 +2580,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "When a light of particular wavelength falls on a plane surface at an angle of incidence $60^{\\circ}$ then the reflected light becomes completely plane polarized. Now the refractive index $(\\mu)$ of the material of the surface and the angle of refraction $(\\theta)$ passing through the plane surface are",
+      "stemLatex": "When a light of particular wavelength falls on a plane surface at an angle of incidence $60^{\\circ}$ then the reflected light becomes completely plane polarized. Now the refractive index $(\\mu)$ of the material of the surface and the angle of the refraction $(\\theta_{r})$ passing through the plane surface are",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\mu = \\sqrt{2},\\; \\theta = 30^{\\circ}$",
+          "latex": "$\\mu = \\sqrt{2},\\ \\theta_{r} = 30^{\\circ}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\mu = \\sqrt{3},\\; \\theta = 30^{\\circ}$",
+          "latex": "$\\mu = \\sqrt{3},\\ \\theta_{r} = 30^{\\circ}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\mu = \\sqrt{3},\\; \\theta = 45^{\\circ}$",
+          "latex": "$\\mu = \\sqrt{3},\\ \\theta_{r} = 45^{\\circ}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\mu = 1/\\sqrt{3},\\; \\theta = 30^{\\circ}$",
+          "latex": "$\\mu = \\dfrac{1}{2},\\ \\theta_{r} = 30^{\\circ}$",
           "figure": null
         }
       ],
@@ -2617,18 +2612,18 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q53)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "refraction",
+        "brewster-angle",
         "polarization",
-        "brewster-angle"
+        "snells-law"
       ]
     },
     {
       "id": "jelet-2023-q054",
       "qNumber": 54,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -2648,7 +2643,7 @@
         },
         {
           "id": "C",
-          "latex": "$60^{\\circ}$",
+          "latex": "$90^{\\circ}$",
           "figure": null
         },
         {
@@ -2665,11 +2660,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q54)"
       },
-      "difficulty": "medium",
+      "difficulty": "hard",
       "tags": [
         "shm",
         "phase-difference",
-        "amplitude"
+        "key-dispute"
       ]
     },
     {
@@ -2681,27 +2676,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "Two solid cubes of the same weight are taken. One is made of Iron (density $8\\,\\text{gm/cc}$) and the other is made of aluminium (density $2.7\\,\\text{gm/cc}$). They are now weighed when fully immersed in water. Then inside water,",
+      "stemLatex": "Two solid cubes of the same weight are taken. One is made of Iron (density 8 gm/cc) and the other is made of aluminium (density 2.7 gm/cc). They are now weighed when fully immersed in water. Then inside water,",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "both will suffer same loss of weight",
+          "latex": "both will suffer same loss of weight.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "the Iron cube will weigh more than the aluminium cube",
+          "latex": "the Iron cube will weigh more than the aluminium cube.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "both will have the same weight as before",
+          "latex": "both will have the same weight as before.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "the aluminium cube will weigh more than the Iron cube",
+          "latex": "the aluminium cube will weigh more than the Iron cube.",
           "figure": null
         }
       ],
@@ -2713,43 +2708,49 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q55)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "fluid",
         "buoyancy",
-        "density"
+        "archimedes-principle",
+        "apparent-weight"
       ]
     },
     {
       "id": "jelet-2023-q056",
       "qNumber": 56,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "Steady current flows through a constricted conductor. The left of the constriction has diameter $D_1$, and current density $j_1$. If the current density is doubled as it emerges from the right side of the constriction, then $D_2$ is",
-      "stemFigure": null,
+      "stemLatex": "Steady current flows through a constricted conductor. The left of the constriction has diameter $D_{1}$ and current density $j_{1}$. If the current density is doubled as it emerges from the right side of the constriction, then $D_{2}$ is",
+      "stemFigure": {
+        "src": "./_data/figures/2023/fig-2023-q56.svg",
+        "alt": "A cylindrical conductor narrowing from a wide left section of diameter D1 carrying current I1 to a narrow right section of diameter D2 carrying current I2; current arrows point to the right",
+        "width": 350,
+        "height": 124,
+        "themeAdaptive": true
+      },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{D_1}{\\sqrt{2}}$",
+          "latex": "$\\dfrac{1}{2}D_{1}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{D_1}{2}$",
+          "latex": "$D_{1}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\sqrt{2}D_1$",
+          "latex": "$\\dfrac{D_{1}}{\\sqrt{2}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{2}D_1$",
+          "latex": "$\\sqrt{2}D_{1}$",
           "figure": null
         }
       ],
@@ -2761,43 +2762,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q56)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "current-density",
         "continuity",
-        "conductor"
+        "steady-current"
       ]
     },
     {
       "id": "jelet-2023-q057",
       "qNumber": 57,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "Two concentric coplanar circular coils of radii $R$ and $R'$ carry steady currents $I$ and $I'$ in opposite directions (one clockwise other anticlockwise). The magnetic field at the centre is half that due to $I'$ alone. If $R = 2R'$, then $I/I'$ is",
+      "stemLatex": "Two concentric coplanar circular coils of radii $R$ and $R'$ carry steady currents $I$ and $I'$ in opposite directions (one clockwise other anticlockwise). The magnetic field at the centre is half that due to $I'$ alone. If $R = 2R'$, then $\\dfrac{I}{I'}$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$1:3$",
+          "latex": "$1 : 3$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$1:2$",
+          "latex": "$1 : 2$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$1:4$",
+          "latex": "$1 : 4$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1:1$",
+          "latex": "$1 : 1$",
           "figure": null
         }
       ],
@@ -2809,23 +2810,22 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q57)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "magnetic-field",
-        "coils",
-        "biot-savart"
+        "magnetic-field-circular-loop",
+        "superposition"
       ]
     },
     {
       "id": "jelet-2023-q058",
       "qNumber": 58,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "Two magnetic fields, inclined to each other at an angle $75^{\\circ}$, act on a bar magnet suspending on the plane of the magnetic fields. The magnitude of one magnetic field is $3\\sqrt{2} \\times 10^{-3}\\,\\text{T}$ and the bar magnet attains stable equilibrium at an angle $45^{\\circ}$ with the other magnetic field. The magnitude of the other magnetic field is",
+      "stemLatex": "Two magnetic fields, inclined to each other at an angle $75^{\\circ}$, act on a bar magnet suspending on the plane of the magnetic fields. The magnitude of one magnetic field is $3\\sqrt{2} \\times 10^{-3}$ T and the bar magnet attains stable equilibrium at an angle $45^{\\circ}$ with the other magnetic field. The magnitude of the other magnetic field is",
       "stemFigure": null,
       "options": [
         {
@@ -2835,7 +2835,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\sqrt{2}\\times 10^{-4}\\,\\text{T}$",
+          "latex": "$\\sqrt{2} \\times 10^{-4}\\,\\text{T}$",
           "figure": null
         },
         {
@@ -2857,43 +2857,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q58)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "magnetic-field",
-        "equilibrium",
-        "torque"
+        "bar-magnet",
+        "torque-equilibrium",
+        "magnetic-fields"
       ]
     },
     {
       "id": "jelet-2023-q059",
       "qNumber": 59,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "An electron of charge $e$ revolves in a circular path of radius $r$ around nucleus. The magnetic field due to its orbital motion at the centre of nucleus is $B$. The frequency of rotation of electron is",
+      "stemLatex": "An electron of charge $e$ revolves in a circular path of radius $r$ around nucleus. The magnetic field due to its orbital motion at the side of nucleus is $B$. The frequency of rotation of electron is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{Br}{2\\mu_0 e}$",
+          "latex": "$\\dfrac{Br}{\\mu_{0}e}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{2Br}{\\mu_0 e}$",
+          "latex": "$\\dfrac{2Br}{\\mu_{0}e}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{Br}{2\\mu_0 e}$",
+          "latex": "$\\dfrac{Br}{2\\mu_{0}e}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{Br}{4\\mu_0 e}$",
+          "latex": "$\\dfrac{Br}{4\\mu_{0}e}$",
           "figure": null
         }
       ],
@@ -2905,49 +2905,48 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q59)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "magnetic-field",
-        "electron-orbit",
-        "frequency"
+        "magnetic-field-circular-loop",
+        "orbital-current"
       ]
     },
     {
       "id": "jelet-2023-q060",
       "qNumber": 60,
       "subjectId": "PHYS",
-      "unitId": "E04",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "In the circuit, the galvanometer $G$ shows zero deflection. If the batteries have negligible internal resistance, the value of the resistor $R$ will be",
+      "stemLatex": "In the circuit, the galvanometer G shows zero deflection. If the batteries have negligible internal resistance, the value of the resistor R will be",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q60.svg",
-        "alt": "Figure for JELET 2023 Q60",
-        "width": 420,
-        "height": 220,
+        "alt": "Circuit: a 12 V cell on the left branch; the top wire runs through a 500 Ω resistor to a junction; resistor R goes from the junction down to the bottom wire; from the junction the top wire continues through galvanometer G to a 2 V cell on the right branch, which returns to the bottom wire",
+        "width": 400,
+        "height": 200,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$100\\,\\Omega$",
+          "latex": "$100\\ \\Omega$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$200\\,\\Omega$",
+          "latex": "$200\\ \\Omega$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$500\\,\\Omega$",
+          "latex": "$500\\ \\Omega$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1000\\,\\Omega$",
+          "latex": "$1000\\ \\Omega$",
           "figure": null
         }
       ],
@@ -2959,11 +2958,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q60)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "circuits",
-        "wheatstone-bridge",
-        "galvanometer"
+        "galvanometer-null",
+        "potential-divider",
+        "kirchhoff"
       ]
     },
     {
@@ -2975,12 +2974,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A cell of emf $E$ and internal resistance $r$ is connected across a load resistance $R$. The variation of power consumed in $R$ with load $R$ is shown in the figure. The co-ordinate of the point $M$ is",
+      "stemLatex": "A cell of emf $E$ and internal resistance $r$ is connected across a load resistance $R$. The variation of power consumed in $R$ with load $(R)$ is shown in the figure. The co-ordinate of the point M is",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q61.svg",
-        "alt": "Figure for JELET 2023 Q61",
-        "width": 420,
-        "height": 220,
+        "alt": "Graph of Pr/E² (vertical axis) versus R/r (horizontal axis) from the origin O: the curve rises to a maximum at point M, marked by a dashed vertical line down to the R/r axis, then falls and levels off",
+        "width": 320,
+        "height": 170,
         "themeAdaptive": true
       },
       "options": [
@@ -2991,17 +2990,17 @@
         },
         {
           "id": "B",
-          "latex": "$(\\dfrac{R}{r}, \\dfrac{E^{2}}{4r})$",
+          "latex": "$\\left(\\dfrac{1}{4}, 1\\right)$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(\\dfrac{E^{2}}{4R}, 1)$",
+          "latex": "$\\left(1, \\dfrac{1}{2}\\right)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$(\\dfrac{r}{R}, \\dfrac{E^{2}}{4R})$",
+          "latex": "$\\left(1, \\dfrac{1}{4}\\right)$",
           "figure": null
         }
       ],
@@ -3013,11 +3012,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q61)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "circuits",
-        "power-max",
-        "load-resistance"
+        "maximum-power-transfer",
+        "internal-resistance"
       ]
     },
     {
@@ -3039,7 +3037,7 @@
         },
         {
           "id": "B",
-          "latex": "$bR^{2}$",
+          "latex": "$R^{2}$",
           "figure": null
         },
         {
@@ -3061,43 +3059,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q62)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "photoelectric",
-        "magnetic-field",
-        "work-function"
+        "photoelectric-effect",
+        "work-function",
+        "magnetic-force-circular-path"
       ]
     },
     {
       "id": "jelet-2023-q063",
       "qNumber": 63,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P15",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A radioactive isotope has a decay constant $\\lambda$ and a molar mass $M$. Taking the Avogadro constant to be $L$, what is the activity of a sample of mass $m$ of this isotope?",
+      "stemLatex": "A radioactive isotope has a decay constant $\\lambda$ and a molar mass $M$. Taking the Avogadro constant to be $L$, what is the activity of a sample of mass $m$ of this isotope ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{\\lambda m L}{M}$",
+          "latex": "$\\dfrac{\\lambda mL}{M}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{m\\lambda}{M}$",
+          "latex": "$\\dfrac{m\\lambda}{ML}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{\\lambda m}{M L}$",
+          "latex": "$\\lambda mML$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{\\lambda}{M}$",
+          "latex": "$\\dfrac{mL}{\\lambda M}$",
           "figure": null
         }
       ],
@@ -3109,11 +3107,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q63)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "radioactivity",
-        "decay-constant",
-        "activity"
+        "activity",
+        "avogadro"
       ]
     },
     {
@@ -3125,7 +3123,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "The energy levels of a certain atom for 1st, 2nd and 3rd levels are $E_1$, $4E$, and $9E$ respectively. A photon of wavelength $\\lambda$ is emitted for a transition $3 \\to 1$. The wavelength of emission for transition $2 \\to 1$ will be",
+      "stemLatex": "The energy levels of a certain atom for $1^{\\text{st}}$, $2^{\\text{nd}}$ and $3^{\\text{rd}}$ levels are $E$, $\\dfrac{4E}{3}$ and $2E$ respectively. A photon of wavelength $\\lambda$ is emitted for a transition $3 \\rightarrow 1$. The wavelength of emission for transition $2 \\rightarrow 1$ will be",
       "stemFigure": null,
       "options": [
         {
@@ -3157,43 +3155,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q64)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "energy-levels",
-        "photon"
+        "photon-emission",
+        "wavelength"
       ]
     },
     {
       "id": "jelet-2023-q065",
       "qNumber": 65,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P15",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A radioactive nucleus ${}^{A}_{Z}X$ emits three $\\alpha$ particles and five $\\beta$ particles. The ratio of the number of neutrons to that of protons in the final product nucleus is",
+      "stemLatex": "A radioactive nucleus ${}_{Z}^{A}X$ emits three $\\alpha$ particles and five $\\beta$ particles. The ratio of the number of neutrons to that of protons in the final product nucleus is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{A-Z-11}{Z-1}$",
+          "latex": "$\\dfrac{A - Z - 11}{Z - 1}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{A-Z}{Z-1}$",
+          "latex": "$\\dfrac{A - Z}{Z - 1}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{A-Z-11}{Z-6}$",
+          "latex": "$\\dfrac{A - Z - 11}{Z - 6}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{A-Z-12}{Z-6}$",
+          "latex": "$\\dfrac{A - Z - 12}{Z - 6}$",
           "figure": null
         }
       ],
@@ -3205,28 +3203,28 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q65)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "radioactivity",
-        "nuclear-decay",
-        "neutrons-protons"
+        "radioactive-decay",
+        "alpha-beta",
+        "nucleon-count"
       ]
     },
     {
       "id": "jelet-2023-q066",
       "qNumber": 66,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 16,
-      "stemLatex": "The spring of spring constant $k$ is attached to a block of mass $4\\,\\text{kg}$. Initially the block is at rest and the spring is unstretched. The horizontal surface is frictionless. A constant horizontal force $F$ is applied on the block, and it moves through a distance $x$. Then which of the following statement(s) is/are true?",
+      "stemLatex": "The spring of spring constant $k$ is attached to a block mass of 4 Kg. Initially the block is at rest and the spring is unstretched. The horizontal surface is frictionless. A constant horizontal force $F$ is applied on the block, and it moves through a distance $x$. Then which of the following statement(s) is/are true ?",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q66.svg",
-        "alt": "Figure for JELET 2023 Q66",
-        "width": 420,
-        "height": 220,
+        "alt": "A block labelled 4 Kg on a horizontal floor, attached by a coiled spring to a vertical wall on the left; an arrow F pulls the block to the right",
+        "width": 330,
+        "height": 132,
         "themeAdaptive": true
       },
       "options": [
@@ -3242,12 +3240,12 @@
         },
         {
           "id": "C",
-          "latex": "If $x = 0.5\\,\\text{m}$, $k = 24\\,\\text{N/m}$, $F = 10\\,\\text{N}$, then speed of the block is $1\\,\\text{m/s}$.",
+          "latex": "If $x = 0.5$ m, $k = 24$ N/m, $F = 10$ N, then speed of the block is 1 m/s.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "At $x = F/k$, acceleration of the block will be zero.",
+          "latex": "At $x = \\dfrac{F}{k}$, acceleration of the block will be zero.",
           "figure": null
         }
       ],
@@ -3261,11 +3259,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q66)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "spring",
-        "work-energy",
-        "force"
+        "work-energy-theorem",
+        "spring-force",
+        "energy-conservation"
       ]
     },
     {
@@ -3310,11 +3308,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q67)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "work-energy",
         "potential-energy",
-        "force"
+        "conservative-force",
+        "unstable-equilibrium"
       ]
     },
     {
@@ -3326,12 +3324,12 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 16,
-      "stemLatex": "In the circuit shown, the capacitor is initially charged by a supply of emf $E$. The switch is closed at time $t = t_0$. Then which statement(s) is/are true?",
+      "stemLatex": "In the circuit shown, the capacitor is initially charged by a supply of emf $E$. The switch is closed at time $t = t_{0}$. Then which statement(s) is/are true ?",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q68.svg",
-        "alt": "Figure for JELET 2023 Q68",
-        "width": 420,
-        "height": 220,
+        "alt": "Circuit loop: capacitor C on the left side, resistor R on the top wire, the right side a plain wire, and an open switch S on the bottom wire",
+        "width": 270,
+        "height": 142,
         "themeAdaptive": true
       },
       "options": [
@@ -3342,7 +3340,7 @@
         },
         {
           "id": "B",
-          "latex": "The charge on the capacitor decreases exponentially to zero.",
+          "latex": "The current is maximum at time $t = \\dfrac{1}{CR}$.",
           "figure": null
         },
         {
@@ -3352,7 +3350,7 @@
         },
         {
           "id": "D",
-          "latex": "The voltage across the capacitor remains constant.",
+          "latex": "The total heat energy dissipated across $R$ will be $\\dfrac{1}{2}CE^{2}$.",
           "figure": null
         }
       ],
@@ -3366,43 +3364,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q68)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "circuits",
-        "rc-circuit",
-        "transient"
+        "rc-discharge",
+        "transient",
+        "joule-heating"
       ]
     },
     {
       "id": "jelet-2023-q069",
       "qNumber": 69,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "A solid non-conducting sphere of radius $R$ carries a non-uniform charge distribution with charge density $\\rho = \\rho_0 r$ ($\\rho_0 = $ constant) and $r$ is the distance from the centre of the sphere. Then which of the following statement(s) is/are true?",
+      "stemLatex": "A solid non-conducting sphere of radius $R$ carries a non-uniform charge distribution with charge density $\\rho = \\rho_{0}\\dfrac{r}{R}$ ($\\rho_{0}$ = constant) and $r$ is the distance from the centre of the sphere. Then which of the following statement(s) is/are true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "The total charge $Q$ on the sphere is $\\dfrac{\\pi \\rho_0 R^{3}}{4}$.",
+          "latex": "The total charge $Q$ on the sphere is $\\pi\\rho_{0}R^{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "The total charge $Q$ on the sphere is $\\dfrac{3\\pi \\rho_0 R^{3}}{4}$.",
+          "latex": "The total charge $Q$ on the sphere is $\\dfrac{4}{3}\\pi\\rho_{0}R^{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{4}} r$.",
+          "latex": "The electric field inside the sphere is $\\dfrac{1}{4\\pi\\varepsilon_{0}}\\dfrac{Q}{R^{4}}r^{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{3}} r$.",
+          "latex": "The electric field inside the sphere is $\\dfrac{1}{4\\pi\\varepsilon_{0}}\\dfrac{Q}{R^{3}}r^{2}$",
           "figure": null
         }
       ],
@@ -3415,28 +3413,28 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q69)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "electrostatics",
         "gauss-law",
-        "charge-density"
+        "non-uniform-charge",
+        "electric-field"
       ]
     },
     {
       "id": "jelet-2023-q070",
       "qNumber": 70,
       "subjectId": "PHYS",
-      "unitId": "P12",
+      "unitId": "P13",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "White light is used to illuminate the two slits in a Young's double slit experiment. The separation between the slits is $b$ and the screen is at a distance $d$ ($d \\gg b$) from the slits. $P$ is a point on the screen directly in front of $S_1$. Then which of the following statement(s) is/are true?",
+      "stemLatex": "White light is used to illuminate the two slits in a Young’s double slit experiment. The separation between the slits is $b$ and the screen is at a distance $d$ $(d >> b)$ from the slits. $P$ is a point on the screen directly in front of $S_{1}$. Then which of the following statement(s) is/are true ?",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q70.svg",
-        "alt": "Figure for JELET 2023 Q70",
-        "width": 420,
-        "height": 220,
+        "alt": "Young's double slit: a vertical barrier with slits S1 (upper) and S2 (lower) separated by b; a vertical screen at distance d; a dashed horizontal line from S1 to the point P on the screen, and a dashed slanted line from S2 to P",
+        "width": 290,
+        "height": 172,
         "themeAdaptive": true
       },
       "options": [
@@ -3447,17 +3445,17 @@
         },
         {
           "id": "B",
-          "latex": "The path difference at point $P$ is $\\dfrac{b^{2}}{2d}$.",
+          "latex": "The path difference at point $P$ is $\\left(d + \\dfrac{b^{2}}{d}\\right)$.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "For destructive interference at point $P$, the condition will be $\\dfrac{b^{2}}{2d} = (n+\\frac{1}{2})\\lambda$ ($n = 1,2,\\ldots$).",
+          "latex": "For destructive interference at point $P$, the condition will be $\\left(n - \\dfrac{1}{2}\\right)\\lambda = \\dfrac{b^{2}}{2d}$, $(n = 1, 2, \\ldots)$.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "For constructive interference at point $P$, the condition will be $\\dfrac{b^{2}}{2d} = n\\lambda$.",
+          "latex": "The $2^{\\text{nd}}$ missing wavelength is $\\dfrac{b^{2}}{3d}$",
           "figure": null
         }
       ],
@@ -3471,11 +3469,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q70)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "wave-optics",
-        "young-double-slit",
-        "interference"
+        "youngs-double-slit",
+        "white-light",
+        "missing-wavelengths"
       ]
     },
     {
@@ -3487,27 +3485,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 18,
-      "stemLatex": "If the ground state energy of H-atom is $-13.6\\,\\text{eV}$, the energy of second excited state of $\\text{Li}^{2+}$ ion will be",
+      "stemLatex": "If the ground state energy of H-atom is $-13.6$ eV, the energy of second excited state of $\\text{Li}^{2+}$ ion will be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$-13.6\\,\\text{eV}$",
+          "latex": "$-13.6$ eV",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$-30.6\\,\\text{eV}$",
+          "latex": "$-30.6$ eV",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$-6.04\\,\\text{eV}$",
+          "latex": "$-6.04$ eV",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$+13.6\\,\\text{eV}$",
+          "latex": "$+13.6$ eV",
           "figure": null
         }
       ],
@@ -3519,10 +3517,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q71)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "atomic-structure",
         "bohr-model",
+        "hydrogen-like-ion",
         "energy-levels"
       ]
     },
@@ -3535,27 +3533,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 18,
-      "stemLatex": "If the radius of second Bohr orbit of H atom is $r_2$, the radius of third Bohr orbit will be",
+      "stemLatex": "If the radius of second Bohr orbit of H atom is ‘$r_{2}$’, the radius of third Bohr orbit will be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{4}{9}r_2$",
+          "latex": "$\\dfrac{4}{9}r_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{9}{4}r_2$",
+          "latex": "$4r_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{9}{2}r_2$",
+          "latex": "$\\dfrac{9}{4}r_{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$9r_2$",
+          "latex": "$9r_{2}$",
           "figure": null
         }
       ],
@@ -3567,11 +3565,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q72)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "bohr-model",
-        "radius"
+        "orbit-radius"
       ]
     },
     {
@@ -3583,27 +3580,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 18,
-      "stemLatex": "In the ground state of $\text{Cu}^{+}$, the number of shells occupied, subshells, filled orbitals and unpaired electrons are respectively",
+      "stemLatex": "In the ground state of $\\text{Cu}^{+}$, the number of shells occupied, subshells, filled orbitals and unpaired electrons are respectively",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$4, 8, 15, 0$",
+          "latex": "4, 8, 15, 0",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$3, 6, 14, 0$",
+          "latex": "3, 6, 14, 0",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3, 6, 15, 1$",
+          "latex": "3, 6, 15, 1",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$4, 7, 14, 2$",
+          "latex": "4, 7, 14, 2",
           "figure": null
         }
       ],
@@ -3617,9 +3614,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "atomic-structure",
         "electronic-configuration",
-        "cu+"
+        "cu+",
+        "orbitals"
       ]
     },
     {
@@ -3631,27 +3628,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 18,
-      "stemLatex": "How many electrons would be required to deposit $6.35\\,\\text{gm}$ of copper at the cathode during the electrolysis of an aqueous solution of copper sulphate? (Atomic mass of Cu $= 63.5$, $N_A = $ Avogadro's number)",
+      "stemLatex": "How many electrons would be required to deposit 6.35 gm of copper at the cathode during the electrolysis of an aqueous solution of copper sulphate. Atomic mass of Cu = 63.5, $N_{A}$ = Avogadro’s no",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{N_A}{20}$",
+          "latex": "$\\dfrac{N_{A}}{20}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{N_A}{10}$",
+          "latex": "$\\dfrac{N_{A}}{10}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{2N_A}{5}$",
+          "latex": "$\\dfrac{N_{A}}{5}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{N_A}{5}$",
+          "latex": "$\\dfrac{N_{A}}{2}$",
           "figure": null
         }
       ],
@@ -3663,11 +3660,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q74)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "electrochemistry",
         "electrolysis",
-        "faraday"
+        "faraday-laws",
+        "mole-concept"
       ]
     },
     {
@@ -3679,27 +3676,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "The probability of finding electrons in $d_{z^{2}}$ orbital is",
+      "stemLatex": "The probability of finding electrons in $d_{yz}$ orbital is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "along $X$ and $Z$ axis",
+          "latex": "along X and Z axis",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "along $X$ and $Y$ axis",
+          "latex": "along X and Y axis",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "along $Y$ and $Z$ axis",
+          "latex": "along Y and Z axis",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "at an angle $45^{\\circ}$ with $Z$ axis",
+          "latex": "at an angle $45^{\\circ}$ with Z axis",
           "figure": null
         }
       ],
@@ -3711,11 +3708,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q75)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "atomic-structure",
-        "orbitals",
-        "d-orbital"
+        "d-orbitals",
+        "orbital-shape",
+        "angular-node"
       ]
     },
     {
@@ -3727,27 +3724,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "What is the correct order of bond dissociation energy among $\\text{N}_2$, $\\text{O}_2$ and $\\text{O}_2^{-}$?",
+      "stemLatex": "What is the correct order of bond dissociation energy among $\\text{N}_{2}$, $\\text{O}_{2}$ and $\\text{O}_{2}^{-}$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{N}_2 > \\text{O}_2 > \\text{O}_2^{-}$",
+          "latex": "$\\text{N}_{2} > \\text{O}_{2}^{-} > \\text{O}_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{O}_2 > \\text{O}_2^{-} > \\text{N}_2$",
+          "latex": "$\\text{O}_{2}^{-} > \\text{O}_{2} > \\text{N}_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{N}_2 > \\text{O}_2 > \\text{O}_2^{-}$",
+          "latex": "$\\text{N}_{2} > \\text{O}_{2} > \\text{O}_{2}^{-}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{O}_2^{-} > \\text{O}_2 > \\text{N}_2$",
+          "latex": "$\\text{O}_{2} > \\text{O}_{2}^{-} > \\text{N}_{2}$",
           "figure": null
         }
       ],
@@ -3759,11 +3756,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q76)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
-        "bond-energy",
-        "molecular-orbital"
+        "molecular-orbital-theory",
+        "bond-order",
+        "bond-energy"
       ]
     },
     {
@@ -3780,22 +3777,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{HCO}_3^{-}$",
+          "latex": "$\\text{HCO}_{3}^{-}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{CH}_2(\\text{CN})_2$",
+          "latex": "$\\text{CH}_{2}(\\text{CN})_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(\\text{CN})_2$",
+          "latex": "$(\\text{CN})_{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{XeO}_4$",
+          "latex": "$\\text{XeO}_{4}$",
           "figure": null
         }
       ],
@@ -3807,11 +3804,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q77)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "chemical-bonding",
         "sigma-pi-bonds",
-        "structure"
+        "lewis-structure",
+        "xenon-compounds"
       ]
     },
     {
@@ -3823,27 +3820,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "How many litre(s) of water is to be added to $1\\,\\text{L}$ of an aqueous solution of HCl with a $1\\,\\text{N}$ concentration so that the resulting solution becomes $0.1\\,\\text{N}$?",
+      "stemLatex": "How many litre(s) of water is to be added to 1 L of an aqueous solution of HCl with a pH 1 to produce an aqueous solution of pH 2 ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$10\\,\\text{L}$",
+          "latex": "10 L",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$1\\,\\text{L}$",
+          "latex": "1 L",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$9\\,\\text{L}$",
+          "latex": "9 L",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$20\\,\\text{L}$",
+          "latex": "20 L",
           "figure": null
         }
       ],
@@ -3855,11 +3852,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q78)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "solutions",
-        "normality",
-        "dilution"
+        "ph",
+        "dilution",
+        "strong-acid"
       ]
     },
     {
@@ -3871,27 +3868,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "$6.02 \\times 10^{20}$ molecules of glucose are present in $100\\,\\text{ml}$ of its solution. The concentration of the glucose solution will be",
+      "stemLatex": "$6.02 \\times 10^{20}$ molecules of glucose are present in 100 ml of its solution. The concentration of the glucose solution will be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$0.01\\,\\text{M}$",
+          "latex": "0.01 (M)",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0.001\\,\\text{M}$",
+          "latex": "0.001 (M)",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0.1\\,\\text{M}$",
+          "latex": "0.1 (M)",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0.2\\,\\text{M}$",
+          "latex": "0.2 (M)",
           "figure": null
         }
       ],
@@ -3903,11 +3900,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q79)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "stoichiometry",
+        "mole-concept",
         "molarity",
-        "concentration"
+        "avogadro-number"
       ]
     },
     {
@@ -3919,7 +3916,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "A given weak acid has its dissociation constant $k_a = 1.0 \\times 10^{-5}$. Calculate the equilibrium constant when it reacts with a strong base.",
+      "stemLatex": "A given weak acid has its dissociation constant $k_{a} = 1.0 \\times 10^{-5}$. Calculate the equilibrium constant when it reacts with a strong base.",
       "stemFigure": null,
       "options": [
         {
@@ -3951,11 +3948,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q80)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "equilibrium",
-        "dissociation",
-        "acid-base"
+        "acid-base-equilibrium",
+        "ionic-product",
+        "neutralisation"
       ]
     },
     {
@@ -3967,27 +3964,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The correct order of covalent character is:",
+      "stemLatex": "The correct order of covalent character is :",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$",
+          "latex": "$\\text{LiCl} < \\text{BeCl}_{2} < \\text{BCl}_{3} > \\text{CCl}_{4}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{LiCl} > \\text{BeCl}_2 > \\text{BCl}_3 > \\text{CCl}_4$",
+          "latex": "$\\text{LiCl} > \\text{BeCl}_{2} > \\text{BCl}_{3} > \\text{CCl}_{4}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$",
+          "latex": "$\\text{LiCl} < \\text{BeCl}_{2} < \\text{BCl}_{3} < \\text{CCl}_{4}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{LiCl} > \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$",
+          "latex": "$\\text{LiCl} > \\text{BeCl}_{2} < \\text{BCl}_{3} < \\text{CCl}_{4}$",
           "figure": null
         }
       ],
@@ -3999,10 +3996,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q81)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
-        "fajans-rule",
+        "fajans-rules",
+        "polarising-power",
         "covalent-character"
       ]
     },
@@ -4015,17 +4012,17 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The ratio of $K_p$ to $K_c$ for the reaction, $\text{CO}(g) + \\dfrac{1}{2}\\text{O}_2(g) \\rightleftharpoons \\text{CO}_2(g)$ is",
+      "stemLatex": "The ratio of $\\dfrac{K_{p}}{K_{c}}$ for the reaction, $\\text{CO(g)} + \\dfrac{1}{2}\\text{O}_{2}\\text{(g)} \\rightleftharpoons \\text{CO}_{2}\\text{(g)}$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$(RT)^{1/2}$",
+          "latex": "$\\dfrac{1}{\\sqrt{RT}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$(RT)^{-1/2}$",
+          "latex": "$(RT)^{1/2}$",
           "figure": null
         },
         {
@@ -4047,11 +4044,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q82)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "equilibrium",
         "kp-kc",
-        "thermodynamics"
+        "gaseous-equilibrium",
+        "delta-n"
       ]
     },
     {
@@ -4068,22 +4065,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{BF}_3, \\text{PF}_3$",
+          "latex": "$\\text{BF}_{3}$, $\\text{PF}_{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{CF}_4, \\text{SF}_4$",
+          "latex": "$\\text{CF}_{4}$, $\\text{SF}_{4}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{XeF}_2, \\text{CO}_2$",
+          "latex": "$\\text{XeF}_{2}$, $\\text{CO}_{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{PF}_5, \\text{BrF}_5$",
+          "latex": "$\\text{PF}_{5}$, $\\text{BrF}_{5}$",
           "figure": null
         }
       ],
@@ -4095,11 +4092,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q83)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
         "vsepr",
-        "molecular-shape"
+        "molecular-shape",
+        "lone-pairs"
       ]
     },
     {
@@ -4111,22 +4108,28 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "How many tertiary carbon atom(s) is/are present in the given compound? $\text{CH}_3$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}_3$",
-      "stemFigure": null,
+      "stemLatex": "How many tertiary carbon atom(s) is/are present in the given compound ?",
+      "stemFigure": {
+        "src": "./_data/figures/2023/fig-2023-q84.svg",
+        "alt": "Condensed structural formula drawn on one line: H3C–C–CH2–CH–CH3, with two CH3 groups on the second carbon (one drawn above, one below) and one CH3 group drawn above the fourth carbon (CH)",
+        "width": 352,
+        "height": 146,
+        "themeAdaptive": true
+      },
       "options": [
         {
           "id": "A",
-          "latex": "$1$",
+          "latex": "1",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2$",
+          "latex": "2",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3$",
+          "latex": "3",
           "figure": null
         },
         {
@@ -4143,10 +4146,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q84)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "organic",
-        "carbon-types",
+        "carbon-classification",
+        "tertiary-carbon",
         "structural-formula"
       ]
     },
@@ -4159,7 +4162,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Among the following alcohols, which would react faster with conc. HCl and $\\text{ZnCl}_2$?",
+      "stemLatex": "Among the following alcohols, which would react faster with conc. HCl and $\\text{ZnCl}_{2}$ ?",
       "stemFigure": null,
       "options": [
         {
@@ -4169,17 +4172,17 @@
         },
         {
           "id": "B",
-          "latex": "$2$-methylbutanol",
+          "latex": "2 – methylbutanol",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$2$-pentanol",
+          "latex": "2 – pentanol",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$2$-methylbutan-$2$-ol",
+          "latex": "2 – methylbutan-2 – ol",
           "figure": null
         }
       ],
@@ -4191,11 +4194,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q85)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "organic",
+        "lucas-test",
         "alcohols",
-        "reactivity"
+        "carbocation-stability"
       ]
     },
     {
@@ -4207,27 +4210,27 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "The Lyman Series for H atom corresponds to the transition, $n_2 \\to n_1$, when",
+      "stemLatex": "The Lyman Series for H atom corresponds to the transition, $n_{2} \\rightarrow n_{1}$ when",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$n_2 = 2, n_1 = 1$",
+          "latex": "$n_{2} = 2$, $n_{1} = 1$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$n_2 = 3, n_1 = 2$",
+          "latex": "$n_{2} = 3$, $n_{1} = 2$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$n_2 = 4, n_1 = 1$",
+          "latex": "$n_{2} = 4$, $n_{1} = 1$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$n_2 = 4, n_1 = 3$",
+          "latex": "$n_{2} = 4$, $n_{1} = 3$",
           "figure": null
         }
       ],
@@ -4240,11 +4243,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q86)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
-        "lyman-series",
-        "hydrogen-spectrum"
+        "hydrogen-spectrum",
+        "lyman-series"
       ]
     },
     {
@@ -4256,27 +4258,27 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "The set of four quantum numbers of a single $p$ electron having $n + l \\leq 4$ may be",
+      "stemLatex": "The set of four quantum numbers of a single p electron having $n + 1 \\leq 4$ may be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$3, 1, +\\frac{1}{2}, -\\frac{1}{2}$",
+          "latex": "$\\left(3, 1, +2, -\\dfrac{1}{2}\\right)$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2, 1, -1, +\\frac{1}{2}$",
+          "latex": "$\\left(2, 1, -1, +\\dfrac{1}{2}\\right)$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3, 1, 0, -\\frac{1}{2}$",
+          "latex": "$\\left(3, 1, 0, -\\dfrac{1}{2}\\right)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$2, 1, -2, +\\frac{1}{2}$",
+          "latex": "$\\left(2, 1, -2, +\\dfrac{1}{2}\\right)$",
           "figure": null
         }
       ],
@@ -4289,11 +4291,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q87)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "atomic-structure",
         "quantum-numbers",
-        "p-electron"
+        "p-electron",
+        "n-plus-l-rule"
       ]
     },
     {
@@ -4305,7 +4307,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "For the equilibrium $\text{H}_2\\text{O}(\\text{solid}) \\rightleftharpoons \\text{H}_2\\text{O}(\\text{liq.})$ the correct statement is",
+      "stemLatex": "For the equilibrium $\\text{H}_{2}\\text{O (solid)} \\rightleftharpoons \\text{H}_{2}\\text{O(liq.)}$ the correct statement is",
       "stemFigure": null,
       "options": [
         {
@@ -4337,11 +4339,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q88)"
       },
-      "difficulty": "voided",
+      "difficulty": "medium",
       "tags": [
-        "equilibrium",
+        "le-chatelier",
         "phase-equilibrium",
-        "le-chatelier"
+        "ice-water"
       ]
     },
     {
@@ -4353,7 +4355,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Choose the correct reaction:",
+      "stemLatex": "Choose the correct reaction :",
       "stemFigure": null,
       "options": [
         {
@@ -4368,7 +4370,7 @@
         },
         {
           "id": "C",
-          "latex": "$\\text{SiO}_2 + \\text{CaO} = \\text{CaSiO}_3$",
+          "latex": "$\\text{SiO}_{2} + \\text{CaO} = \\text{CaSiO}_{3}$",
           "figure": null
         },
         {
@@ -4386,11 +4388,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q89)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "metallurgy",
-        "flux-slag",
-        "gangue"
+        "flux",
+        "slag"
       ]
     },
     {
@@ -4436,11 +4438,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q90)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "acids-bases",
+        "acid-base-concepts",
         "edta",
-        "lewis-arrhenius"
+        "lewis-base"
       ]
     },
     {
@@ -4452,33 +4454,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "A current source $i(t)$ is applied to a series RLC circuit as shown in the figure. The maximum potential difference across the resistor is",
+      "stemLatex": "A current source $i(t)$ is applied to a series RLC circuit as shown in the figure. The maximum potential difference across the resistor is,",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q91.svg",
-        "alt": "Figure for JELET 2023 Q91",
-        "width": 420,
-        "height": 220,
+        "alt": "Left: circuit in which a current source i(t), arrow pointing up, feeds a series loop through a 3 Ω resistor and a 2 mH inductor on the top wire and a 500 μF capacitor on the right side. Right: graph of i(t) against t (ms) with dashed levels at 5A and – 5A; i rises linearly from 0 at t = 0 to 5A at t = 1, stays at 5A until t = 2, falls linearly through 0 at t = 3 to – 5A at t = 4, stays at – 5A until t = 5 and rises back to 0 at t = 6; dashed verticals at t = 1, 2, 4 and 5",
+        "width": 620,
+        "height": 196,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$10\\,\\text{V}$",
+          "latex": "10 V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$15\\,\\text{V}$",
+          "latex": "15 V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$5\\,\\text{V}$",
+          "latex": "5 V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$20\\,\\text{V}$",
+          "latex": "20 V",
           "figure": null
         }
       ],
@@ -4490,43 +4492,49 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q91)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
         "rlc-circuit",
-        "impedance"
+        "current-source",
+        "ohms-law"
       ]
     },
     {
       "id": "jelet-2023-q092",
       "qNumber": 92,
       "subjectId": "FEEE",
-      "unitId": "E05",
+      "unitId": "E04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "If $V_1$ and $V_2$ are the potential drops across the capacitors $C_1$ and $C_2$ respectively, then the correct values of $V_1$ and $V_2$ are, $\\text{(Given: } C_1 = 5\\,\\mu\\text{F}, C_2 = 10\\,\\mu\\text{F})$",
-      "stemFigure": null,
+      "stemLatex": "If $V_{1}$ and $V_{2}$ are the potential drops across the capacitors $C_{1}$ and $C_{2}$ respectively, then the correct values of $V_{1}$ and $V_{2}$ are,",
+      "stemFigure": {
+        "src": "./_data/figures/2023/fig-2023-q92.svg",
+        "alt": "Circuit loop: a 5 V source (+ on top) on the left side; capacitor C1 = 5 μF on the top wire; capacitor C2 = 10 μF on the right side; plain bottom wire",
+        "width": 370,
+        "height": 156,
+        "themeAdaptive": true
+      },
       "options": [
         {
           "id": "A",
-          "latex": "$V_1 = \\dfrac{10}{3},\\; V_2 = 10$",
+          "latex": "$V_{1} = \\dfrac{5}{3}$ V, $V_{2} = \\dfrac{10}{3}$ V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$V_1 = 10,\\; V_2 = \\dfrac{10}{3}$",
+          "latex": "$V_{1} = \\dfrac{10}{3}$ V, $V_{2} = \\dfrac{5}{3}$ V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$V_1 = \\dfrac{10}{3},\\; V_2 = \\dfrac{10}{3}$",
+          "latex": "$V_{1} = \\dfrac{5}{2}$ V, $V_{2} = \\dfrac{5}{2}$ V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$V_1 = 10,\\; V_2 = 10$",
+          "latex": "$V_{1} = \\dfrac{3}{5}$ V, $V_{2} = \\dfrac{10}{3}$ V",
           "figure": null
         }
       ],
@@ -4538,11 +4546,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q92)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
-        "capacitor-divider",
-        "voltage"
+        "series-capacitors",
+        "charge-sharing",
+        "dc-circuits"
       ]
     },
     {
@@ -4554,27 +4562,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "Find the r.m.s. value of $10 + 10\\sin 100\\pi t\\,\\text{V}$.",
+      "stemLatex": "Find the r.m.s. value of $10 + 10\\sin 100\\pi t$ V.",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$12.25\\,\\text{V}$",
+          "latex": "12.25 V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$7.07\\,\\text{V}$",
+          "latex": "7.07 V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$22.75\\,\\text{V}$",
+          "latex": "22.75 V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$70.71\\,\\text{V}$",
+          "latex": "70.71 V",
           "figure": null
         }
       ],
@@ -4586,11 +4594,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q93)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
         "rms-value",
-        "form-factor"
+        "dc-offset",
+        "sinusoid"
       ]
     },
     {
@@ -4602,33 +4610,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "In the circuit given, the voltage $V_{AB}$ is (with $50\\,\\text{V}$, $5\\,\\Omega$; $40\\,\\text{V}$, $4\\,\\Omega$; $30\\,\\text{V}$, $3\\,\\Omega$; $2\\,\\Omega$)",
+      "stemLatex": "In the circuit given, the voltage AB is",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q94.svg",
-        "alt": "Figure for JELET 2023 Q94",
-        "width": 420,
-        "height": 220,
+        "alt": "Circuit between terminals A and B: three branches, each a cell in series with a resistor (50 V with 5 Ω, 40 V with 4 Ω, 30 V with 3 Ω, long cell plate towards the A side), stacked between a left and a right vertical wire; the A terminal wire runs into the middle (40 V) branch and the middle branch continues to B; a 2 Ω resistor on a bottom wire joins A directly to B",
+        "width": 340,
+        "height": 206,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$35\\,\\text{V}$",
+          "latex": "35 V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$28.2\\,\\text{V}$",
+          "latex": "28.2 V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$38.3\\,\\text{V}$",
+          "latex": "38.3 V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$42.6\\,\\text{V}$",
+          "latex": "42.6 V",
           "figure": null
         }
       ],
@@ -4640,11 +4648,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q94)"
       },
-      "difficulty": "voided",
+      "difficulty": "medium",
       "tags": [
-        "dc-circuits",
-        "thevenin",
-        "voltage"
+        "millman-theorem",
+        "parallel-sources",
+        "dc-circuits"
       ]
     },
     {
@@ -4659,30 +4667,30 @@
       "stemLatex": "Find the equivalent capacitance of the combination shown in the figure across X-Y.",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q95.svg",
-        "alt": "Figure for JELET 2023 Q95",
-        "width": 420,
-        "height": 220,
+        "alt": "Capacitor network from X to Y: a 2 μF capacitor on the upper path in parallel with two 2 μF capacitors in series on the lower path; this combination is followed by a 1 μF capacitor in series to Y",
+        "width": 350,
+        "height": 126,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$4\\,\\mu\\text{F}$",
+          "latex": "$\\dfrac{3}{4}\\ \\mu\\text{F}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$7\\,\\mu\\text{F}$",
+          "latex": "$7\\ \\mu\\text{F}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{4}{3}\\,\\mu\\text{F}$",
+          "latex": "$4\\ \\mu\\text{F}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$3\\,\\mu\\text{F}$",
+          "latex": "$\\dfrac{4}{3}\\ \\mu\\text{F}$",
           "figure": null
         }
       ],
@@ -4694,10 +4702,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q95)"
       },
-      "difficulty": "voided",
+      "difficulty": "easy",
       "tags": [
-        "dc-circuits",
-        "capacitor-combination",
+        "capacitor-network",
+        "series-parallel",
         "equivalent-capacitance"
       ]
     },
@@ -4742,11 +4750,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q96)"
       },
-      "difficulty": "easy",
+      "difficulty": "medium",
       "tags": [
-        "transformers",
-        "frequency",
-        "emf-equation"
+        "transformer",
+        "emf-equation",
+        "frequency"
       ]
     },
     {
@@ -4792,9 +4800,9 @@
       },
       "difficulty": "easy",
       "tags": [
-        "transformers",
+        "transformer",
         "dc-supply",
-        "core-saturation"
+        "winding-resistance"
       ]
     },
     {
@@ -4806,27 +4814,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "A dc motor develops a torque of $120\\,\\text{Nm}$ at $20\\,\\text{rps}$. At $30\\,\\text{rps}$, it will develop a torque of",
+      "stemLatex": "A dc motor develops a torque of 120 Nm at 20 rps. At 30 rps, it will develop a torque of,",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$160\\,\\text{Nm}$",
+          "latex": "160 Nm",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$120\\,\\text{Nm}$",
+          "latex": "120 Nm",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$80\\,\\text{Nm}$",
+          "latex": "80 Nm",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$40\\,\\text{Nm}$",
+          "latex": "40 Nm",
           "figure": null
         }
       ],
@@ -4838,11 +4846,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q98)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "electrical-machines",
         "dc-motor",
-        "torque"
+        "torque-speed",
+        "constant-power"
       ]
     },
     {
@@ -4886,11 +4894,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q99)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "electrical-machines",
         "dc-shunt-motor",
-        "excitation"
+        "field-control",
+        "constant-power"
       ]
     },
     {
@@ -4902,27 +4910,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "The average power delivered to an impedance $(4 - j3)\\,\\Omega$ by a current $5\\cos(100\\pi t + 100^{\\circ})\\,\\text{A}$ is",
+      "stemLatex": "The average power delivered to an impedance $(4 - j3)\\ \\Omega$ by a current $5\\cos(100\\pi + 100^{\\circ})$ A is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$4\\sqrt{2}\\,\\text{W}$",
+          "latex": "442 W",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$50\\,\\text{W}$",
+          "latex": "50 W",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$62.5\\,\\text{W}$",
+          "latex": "62.5 W",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$125\\,\\text{W}$",
+          "latex": "125 W",
           "figure": null
         }
       ],
@@ -4934,11 +4942,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q100)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
-        "power",
-        "impedance"
+        "ac-power",
+        "complex-impedance",
+        "average-power"
       ]
     }
   ]

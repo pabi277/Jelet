@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 112" width="200" height="112" role="img" aria-label="Graph (C): V falls very steeply from V_o and then flattens along the x-axis">
+  <rect x="0" y="0" width="200" height="112" fill="transparent"/>
+  <line x1="34" y1="86" x2="180" y2="86" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <line x1="34" y1="86" x2="34" y2="8" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <text x="28" y="14" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">V</text>
+  <text x="12" y="30" font-family="Times New Roman, serif" font-size="11" fill="var(--fig-text)" text-anchor="start">V<tspan dy="3" font-size="7">o</tspan></text>
+  <text x="154" y="102" font-family="Times New Roman, serif" font-size="12" font-style="italic" fill="var(--fig-text)" text-anchor="middle">x</text>
+  <polyline data-role="V-x" points="34.0,26.0 36.3,33.3 38.7,39.7 41.0,45.3 43.3,50.3 45.7,54.6 48.0,58.4 50.3,61.8 52.7,64.7 55.0,67.3 57.3,69.6 59.7,71.6 62.0,73.3 64.3,74.9 66.7,76.2 69.0,77.4 71.3,78.5 73.7,79.4 76.0,80.2 78.3,80.9 80.7,81.5 83.0,82.1 85.3,82.5 87.7,83.0 90.0,83.3 92.3,83.7 94.7,83.9 97.0,84.2 99.3,84.4 101.7,84.6 104.0,84.8 106.3,84.9 108.7,85.1 111.0,85.2 113.3,85.3 115.7,85.4 118.0,85.4 120.3,85.5 122.7,85.6 125.0,85.6 127.3,85.7 129.7,85.7 132.0,85.7 134.3,85.8 136.7,85.8 139.0,85.8 141.3,85.8 143.7,85.9 146.0,85.9 148.3,85.9 150.7,85.9 153.0,85.9 155.3,85.9 157.7,85.9 160.0,85.9 162.3,86.0 164.7,86.0 167.0,86.0 169.3,86.0 171.7,86.0 174.0,86.0" stroke="var(--fig-primary)" stroke-width="1.5" fill="none"/>
+</svg>

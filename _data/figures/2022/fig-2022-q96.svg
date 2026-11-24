@@ -1,14 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" role="img" aria-label="2022 Q96: Circuit diagram">
-  <rect x="0" y="0" width="240" height="180" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2022 Q96: Circuit diagram</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Circuit diagram</text>
-  <circle cx="80" cy="100" r="25" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <text x="80" y="100" font-family="monospace" font-size="7" fill="#cbd5e1" text-anchor="middle">Vm sin ωt</text>
-  <line x1="80" y1="75" x2="80" y2="50" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="80" y1="50" x2="160" y2="50" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="160" y1="50" x2="160" y2="75" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="160" y1="75" x2="160" y2="125" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="160" y1="125" x2="80" y2="125" stroke="#60a5fa" stroke-width="1.5"/>
-  <line x1="80" y1="125" x2="80" y2="100" stroke="#60a5fa" stroke-width="1.5"/>
-  <text x="160" y="40" font-family="monospace" font-size="9" fill="#f87171" text-anchor="middle">v₀(t)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 318 170" width="318" height="170" role="img" aria-label="2022 Q96: an AC source Vm sin ωt; a diode in the top wire with its cathode towards the source; a resistor across the output terminals + (top) and − (bottom) giving V0(t)">
+  <rect x="0" y="0" width="318" height="170" fill="transparent"/>
+  <line x1="46" y1="34" x2="46" y2="78" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="VS" data-pins="46,78 46,106">
+  <circle cx="46" cy="92" r="14" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <path d="M 38,93 C 41,86 45,86 46,92 S 51,98 54,91" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="46" y1="106" x2="46" y2="150" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="46" y1="34" x2="118" y2="34" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="D" data-pins="142,34 118,34">
+  <polygon points="137.0,26 137.0,42 123.0,34" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <path d="M 123.0,26 L 123.0,42" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  </g>
+  <line x1="142" y1="34" x2="292" y2="34" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="228" y1="34" x2="228" y2="66" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="R" data-pins="228,66 228,118">
+  <polyline points="228,66 233,69.25 223,75.75 233,82.25 223,88.75 233,95.25 223,101.75 233,108.25 223,114.75 228,118" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="228" y1="118" x2="228" y2="150" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="46" y1="150" x2="292" y2="150" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <circle data-role="out+" cx="292" cy="34" r="3.4" fill="var(--fig-node)" stroke="var(--fig-node)" stroke-width="1.2"/>
+  <circle data-role="out-" cx="292" cy="150" r="3.4" fill="var(--fig-node)" stroke="var(--fig-node)" stroke-width="1.2"/>
+  <text x="302" y="39" font-family="Times New Roman, serif" font-size="14" fill="var(--fig-text)" text-anchor="start">+</text>
+  <text x="302" y="155" font-family="Times New Roman, serif" font-size="14" fill="var(--fig-text)" text-anchor="start">−</text>
+  <text x="66" y="96" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)">V<tspan dy="3" font-size="9">m</tspan><tspan dy="-3"> sin ωt</tspan></text>
+  <text x="262" y="96" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)">V<tspan dy="3" font-size="9">0</tspan><tspan dy="-3">(t)</tspan></text>
 </svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" width="220" height="125" role="img" aria-label="Graph (B): v versus t; v starts at a large value on the v-axis and decreases, levelling off to a constant value">
+  <rect x="0" y="0" width="220" height="125" fill="transparent"/>
+  <line x1="40" y1="105" x2="200" y2="105" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="200,105 193.1,109.0 193.1,101.0" fill="var(--fig-axis)"/>
+  <line x1="40" y1="105" x2="40" y2="12" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="40,12 44.0,18.9 36.0,18.9" fill="var(--fig-axis)"/>
+  <text x="26" y="30" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">v</text>
+  <text x="30" y="121" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">0</text>
+  <text x="192" y="121" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">t</text>
+  <polyline points="41.0,16.0 42.4,19.8 43.9,23.5 45.4,27.1 46.9,30.5 48.5,33.8 50.2,36.9 51.9,39.9 53.7,42.8 55.5,45.6 57.3,48.2 59.3,50.7 61.3,53.1 63.3,55.4 65.4,57.5 67.6,59.5 69.9,61.4 72.2,63.2 74.6,64.8 77.1,66.4 79.7,67.8 82.3,69.1 85.0,70.3 87.8,71.4 90.7,72.4 93.7,73.2 96.8,74.0 99.9,74.6 103.2,75.2 106.5,75.6 110.0,76.0 190.0,76.0" stroke="var(--fig-primary)" stroke-width="1.6" fill="none"/>
+</svg>

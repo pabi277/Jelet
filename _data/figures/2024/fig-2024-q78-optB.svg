@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 132" width="140" height="132" role="img" aria-label="Option (B): picric acid, 2,4,6-trinitrophenol">
+  <rect x="0" y="0" width="140" height="132" fill="transparent"/>
+  <g data-struct="B">
+  <line x1="70.0" y1="50.0" x2="89.05" y2="61.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="71.45" y1="54.53" x2="84.4" y2="62.01" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="89.05" y1="61.0" x2="89.05" y2="83.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="89.05" y1="83.0" x2="70.0" y2="94.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="84.4" y1="81.99" x2="71.45" y2="89.47" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="70.0" y1="94.0" x2="50.95" y2="83.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="50.95" y1="83.0" x2="50.95" y2="61.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="54.15" y1="79.48" x2="54.15" y2="64.52" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="50.95" y1="61.0" x2="70.0" y2="50.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="70.0" y1="50.0" x2="70.0" y2="32.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="50.95" y1="61.0" x2="35.36" y2="52.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="89.05" y1="61.0" x2="104.64" y2="52.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="70.0" y1="94.0" x2="70.0" y2="112.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <text x="60.61" y="28.5" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">OH</text>
+  <text x="11.75" y="56.3" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">O<tspan dy="3.9" font-size="9.4">2</tspan><tspan dy="-3.9">N</tspan></text>
+  <text x="107.14" y="56.3" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">NO<tspan dy="3.9" font-size="9.4">2</tspan></text>
+  <text x="59.44" y="125.5" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">NO<tspan dy="3.9" font-size="9.4">2</tspan></text>
+  </g>
+</svg>

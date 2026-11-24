@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 62" width="160" height="62" role="img" aria-label="Option (B): H3C–C≡C–CH2–CH3 (pent-2-yne), skeletal">
+  <rect x="0" y="0" width="160" height="62" fill="transparent"/>
+  <g data-struct="B">
+  <text x="6" y="26" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">H<tspan dy="3.9" font-size="9.4">3</tspan><tspan dy="-3.9">C</tspan></text>
+  <line x1="31.5" y1="21.7" x2="58" y2="21.7" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="58.0" y1="18.9" x2="98.0" y2="18.9" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="58.0" y1="21.7" x2="98.0" y2="21.7" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="58.0" y1="24.5" x2="98.0" y2="24.5" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="98" y1="21.7" x2="124" y2="21.7" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="124" y1="21.7" x2="135.0" y2="40.75" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <text x="132.0" y="54.25" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">CH<tspan dy="3.9" font-size="9.4">3</tspan></text>
+  </g>
+</svg>

@@ -6,9 +6,8 @@
   "estimatedMinutes": 30,
   "examFrequency": "high",
   "pyqIds": [
-    "jelet-2022-q097",
+    "jelet-2022-q094",
     "jelet-2023-q091",
-    "jelet-2023-q092",
     "jelet-2023-q093",
     "jelet-2023-q100",
     "jelet-2024-q095",
@@ -19,7 +18,7 @@
     {
       "anchor": "values",
       "heading": "1. Peak, Average & RMS Values",
-      "proseLatex": "RMS $= V_m/\\sqrt{2}$ for sine. Form factor $= \\text{RMS}/\text{average}$. Peak factor $= V_m/V_{rms}$.",
+      "proseLatex": "RMS $= V_m/\\sqrt{2}$ for sine. Form factor $= \\text{RMS}/\\text{average}$. Peak factor $= V_m/V_{rms}$.",
       "keyFormulas": [
         {
           "formulaId": "E05-F01",

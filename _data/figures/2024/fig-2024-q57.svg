@@ -1,17 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" role="img" aria-label="2024 Q57: P-V diagram">
-  <rect x="0" y="0" width="240" height="180" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2024 Q57: P-V diagram</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">P-V diagram</text>
-  <line x1="40" y1="160" x2="200" y2="160" stroke="#94a3b8" stroke-width="1.5"/>
-  <line x1="40" y1="160" x2="40" y2="40" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="25" y="165" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">V</text>
-  <text x="30" y="35" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">P</text>
-  <path d="M 50,140 Q 120,140 150,90" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <line x1="150" y1="90" x2="180" y2="90" stroke="#f87171" stroke-width="2" stroke-dasharray="5,3"/>
-  <circle cx="50" cy="140" r="3" fill="#f8fafc"/>
-  <circle cx="150" cy="90" r="3" fill="#f8fafc"/>
-  <circle cx="180" cy="90" r="3" fill="#f8fafc"/>
-  <text x="55" y="155" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">A</text>
-  <text x="145" y="85" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">B</text>
-  <text x="175" y="85" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="start">final</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 305 145" width="305" height="145" role="img" aria-label="2024 Q57: potential energy V(x) versus x; the curve rises to a high maximum, falls to a minimum, rises to a lower maximum and falls again">
+  <rect x="0" y="0" width="305" height="145" fill="transparent"/>
+  <line x1="40" y1="132" x2="290" y2="132" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="290,132 283.1,136.0 283.1,128.0" fill="var(--fig-axis)"/>
+  <line x1="40" y1="132" x2="40" y2="10" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="40,10 44.0,16.9 36.0,16.9" fill="var(--fig-axis)"/>
+  <text x="8" y="18" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">V(<tspan font-style="italic">x</tspan>)</text>
+  <text x="296" y="136" font-family="Times New Roman, serif" font-size="13" font-style="italic" fill="var(--fig-text)" text-anchor="middle">x</text>
+  <polyline data-role="V-x" points="64.0,96.0 64.9,93.9 65.7,91.6 66.6,89.3 67.5,86.9 68.3,84.5 69.2,82.0 70.1,79.4 70.9,76.9 71.8,74.3 72.7,71.7 73.5,69.1 74.4,66.6 75.3,64.1 76.1,61.6 77.0,59.2 77.9,56.9 78.7,54.6 79.6,52.4 80.5,50.4 81.3,48.4 82.2,46.6 83.1,44.9 83.9,43.4 84.8,42.0 85.7,40.9 86.5,39.9 87.4,39.1 88.3,38.5 89.1,38.1 90.0,38.0 91.5,38.2 92.9,39.0 94.4,40.1 95.9,41.7 97.3,43.6 98.8,45.9 100.3,48.5 101.7,51.3 103.2,54.4 104.7,57.7 106.1,61.2 107.6,64.8 109.1,68.4 110.5,72.2 112.0,76.0 113.5,79.8 114.9,83.6 116.4,87.2 117.9,90.8 119.3,94.3 120.8,97.6 122.3,100.7 123.7,103.5 125.2,106.1 126.7,108.4 128.1,110.3 129.6,111.9 131.1,113.0 132.5,113.8 134.0,114.0 135.1,113.9 136.1,113.4 137.2,112.8 138.3,111.9 139.3,110.7 140.4,109.4 141.5,107.9 142.5,106.3 143.6,104.5 144.7,102.6 145.7,100.6 146.8,98.5 147.9,96.4 148.9,94.2 150.0,92.0 151.1,89.8 152.1,87.6 153.2,85.5 154.3,83.4 155.3,81.4 156.4,79.5 157.5,77.7 158.5,76.1 159.6,74.6 160.7,73.3 161.7,72.1 162.8,71.2 163.9,70.6 164.9,70.1 166.0,70.0 166.5,70.1 167.1,70.3 167.6,70.7 168.1,71.3 168.7,72.0 169.2,72.8 169.7,73.8 170.3,74.8 170.8,76.0 171.3,77.2 171.9,78.5 172.4,79.9 172.9,81.4 173.5,82.9 174.0,84.4 174.5,86.0 175.1,87.6 175.6,89.2 176.1,90.8 176.7,92.4 177.2,94.0 177.7,95.6 178.3,97.1 178.8,98.6 179.3,100.0 179.9,101.4 180.4,102.7 180.9,103.9 181.5,105.0 182.0,106.0" stroke="var(--fig-primary)" stroke-width="1.6" fill="none"/>
 </svg>

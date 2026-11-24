@@ -1,14 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 175" width="240" height="175" role="img" aria-label="2025 Q54: Disc on incline">
-  <rect x="0" y="0" width="240" height="175" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2025 Q54: Disc on incline</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Disc on incline</text>
-  <line x1="30" y1="140" x2="120" y2="140" stroke="#94a3b8" stroke-width="2"/>
-  <line x1="120" y1="140" x2="210" y2="70" stroke="#94a3b8" stroke-width="2"/>
-  <line x1="120" y1="140" x2="120" y2="165" stroke="#94a3b8" stroke-width="1"/>
-  <line x1="210" y1="70" x2="210" y2="165" stroke="#94a3b8" stroke-width="1"/>
-  <circle cx="165" cy="105" r="12" stroke="#60a5fa" stroke-width="2" fill="#1e293b"/>
-  <line x1="180" y1="105" x2="195" y2="105" stroke="#f87171" stroke-width="1.5"/>
-  <polygon points="195,105 188.1,109.0 188.1,101.0" fill="#f87171"/>
-  <text x="197" y="100" font-family="monospace" font-size="12" fill="#cbd5e1">v</text>
-  <text x="165" y="130" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">incline</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 150" width="270" height="150" role="img" aria-label="2025 Q54: a disc on a horizontal surface moving with velocity V towards a concave-up curved incline; the disc rises to a height h shown by a dashed vertical line">
+  <rect x="0" y="0" width="270" height="150" fill="transparent"/>
+  <line x1="20" y1="140" x2="260" y2="140" stroke="var(--fig-axis)" stroke-width="1.4"/>
+  <polyline points="40.0,140.0 43.6,140.0 47.2,139.9 50.8,139.8 54.4,139.6 58.0,139.3 61.6,139.0 65.2,138.5 68.8,138.0 72.4,137.4 76.1,136.7 79.7,135.9 83.3,135.0 86.9,134.0 90.5,132.8 94.1,131.6 97.7,130.3 101.3,128.8 104.9,127.2 108.5,125.5 112.1,123.7 115.7,121.8 119.3,119.8 122.9,117.6 126.5,115.3 130.1,112.8 133.7,110.3 137.3,107.6 140.9,104.7 144.5,101.8 148.2,98.7 151.8,95.4 155.4,92.1 159.0,88.5 162.6,84.9 166.2,81.1 169.8,77.2 173.4,73.1 177.0,68.8 180.6,64.4 184.2,59.9 187.8,55.2 191.4,50.4 195.0,45.4 198.6,40.3 202.2,35.0 205.8,29.6 209.4,24.0 213.0,18.2 216.6,12.3 220.2,6.2" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <path d="M 64,140 A 24,24 0 0 0 62,133" stroke="var(--fig-line)" stroke-width="1" fill="none"/>
+  <circle cx="31" cy="134" r="6" stroke="var(--fig-primary)" stroke-width="1.3" fill="none"/>
+  <circle cx="31" cy="134" r="1.2" fill="var(--fig-primary)"/>
+  <line x1="33" y1="134" x2="44" y2="134" stroke="var(--fig-primary)" stroke-width="1"/>
+  <polygon points="44,134 37.1,138.0 37.1,130.0" fill="var(--fig-primary)"/>
+  <text x="52" y="130" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">V</text>
+  <circle cx="211" cy="22" r="6" stroke="var(--fig-primary)" stroke-width="1.3" fill="none"/>
+  <circle cx="211" cy="22" r="1.2" fill="var(--fig-primary)"/>
+  <line x1="214" y1="30" x2="214" y2="140" stroke="var(--fig-line)" stroke-width="1.4" stroke-dasharray="5,4"/>
+  <text x="224" y="88" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">h</text>
 </svg>
