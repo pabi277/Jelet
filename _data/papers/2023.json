@@ -1991,12 +1991,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "The displacement of a particle executing SHM is given by $x = A\\sin(\\omega t + \\phi)$ where $A$ is amplitude. $\\dfrac{A}{\\omega}$ has the dimension of",
+      "stemLatex": "The displacement of a particle executing SHM is given by $x = A\\sin(\\omega t + \\phi)$ where $A$ is the amplitude, $\\omega$ denotes the angular frequency and $\\phi$ denotes the phase. $\\dfrac{A}{\\phi}$ has the dimension of",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$LT^{-1}$",
+          "latex": "$L$",
           "figure": null
         },
         {
@@ -2023,49 +2023,49 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q41)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
         "dimensions",
         "shm",
-        "dimensional-analysis"
+        "phase"
       ]
     },
     {
       "id": "jelet-2023-q042",
       "qNumber": 42,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "Figure shows $(x,t)$, $(y,t)$ diagram of a particle moving in 2 dimensions. If the particle has a mass of $500$ gm, the force acting on the particle is",
+      "stemLatex": "Figure shows $(x, t)$, $(y, t)$ diagram of a particle moving in 2 dimensions. If the particle has a mass of 500 gm, the force acting on the particle is",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q42.svg",
-        "alt": "Figure for JELET 2023 Q42",
-        "width": 420,
-        "height": 220,
+        "alt": "Two graphs side by side. Left: x in m versus t in s, a straight line from the origin, ticks 1, 2 on the x axis and 1, 2, 3 on the t axis, with dashed guides from the point (2, 2). Right: y in m versus t in s, a curve rising from the origin, ticks 1, 4 on the y axis and 1, 2, 3 on the t axis, with dashed guides from the points (1, 1) and (2, 4)",
+        "width": 430,
+        "height": 172,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$1\\,\\text{N}$ along $x$-axis",
+          "latex": "$1$ N along $x$-axis",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0.5\\,\\text{N}$ along $y$-axis",
+          "latex": "$0.5$ N along $y$-axis",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0.5\\,\\text{N}$ along $x$-axis",
+          "latex": "$0.5$ N along $x$-axis",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1\\,\\text{N}$ along $y$-axis",
+          "latex": "$1$ N along $y$-axis",
           "figure": null
         }
       ],
@@ -2079,9 +2079,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "kinematics",
-        "graph",
-        "force"
+        "newtons-second-law",
+        "position-time-graph",
+        "two-dimensional-motion"
       ]
     },
     {
@@ -2093,27 +2093,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "Two trains of length $L_1$ and $L_2$ are moving with speeds $v_1$ and $v_2$ in opposite directions on parallel tracks. The time taken by each train till they cross each other is",
+      "stemLatex": "Two trains of length $L_{1}$ and $L_{2}$ are moving with speeds $V_{1}$ and $V_{2}$ in opposite directions on parallel tracks. The time taken by each train till they cross each other is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{L_1 + L_2}{v_1 + v_2}$",
+          "latex": "$\\dfrac{L_{1} + L_{2}}{V_{1} - V_{2}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{L_1 + L_2}{v_1 - v_2}$",
+          "latex": "$\\dfrac{L_{1} + L_{2}}{V_{1} + V_{2}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{L_1}{v_1 + v_2}$",
+          "latex": "$\\dfrac{L_{1} - L_{2}}{V_{1} + V_{2}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{L_1}{v_1 - v_2}$",
+          "latex": "$\\dfrac{L_{1} - L_{2}}{V_{1} - V_{2}}$",
           "figure": null
         }
       ],
@@ -2125,22 +2125,21 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q43)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "kinematics",
         "relative-velocity",
-        "trains"
+        "crossing-trains"
       ]
     },
     {
       "id": "jelet-2023-q044",
       "qNumber": 44,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 11,
+      "pdfPage": 10,
       "stemLatex": "A constant power is supplied to a rotating disc. Angular velocity $(\\omega)$ of disc varies with angle of rotations $(\\theta)$ made by the disc as",
       "stemFigure": null,
       "options": [
@@ -2151,17 +2150,17 @@
         },
         {
           "id": "B",
-          "latex": "$\\omega \\propto \\theta^{1/3}$",
+          "latex": "$\\omega \\propto \\theta^{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\omega \\propto \\theta^{2/3}$",
+          "latex": "$\\omega \\propto \\theta^{1/3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\omega \\propto \\theta^{2}$",
+          "latex": "$\\omega \\propto \\theta^{2/3}$",
           "figure": null
         }
       ],
@@ -2173,11 +2172,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q44)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "rotation",
         "power",
-        "angular-velocity"
+        "rotational-kinetic-energy",
+        "work-energy"
       ]
     },
     {
@@ -2188,28 +2187,28 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 11,
-      "stemLatex": "A massless string can carry a maximum mass $3\\,\\text{kg}$. If the string is pulled upward with an acceleration $2\\,\\text{m/s}^{2}$ then the maximum mass this string can carry is ($g = 10\\,\\text{m/s}^{2}$)",
+      "pdfPage": 10,
+      "stemLatex": "A massless string can carry a maximum mass 3 kg. If the string is pulled upward with an acceleration $2\\ \\text{m/s}^{2}$ then the maximum mass this string can carry is $[g = 10\\ \\text{m/s}^{2}]$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{15}{4}\\,\\text{kg}$",
+          "latex": "$\\dfrac{15}{4}\\,\\text{Kg}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{5}{2}\\,\\text{kg}$",
+          "latex": "$\\dfrac{5}{2}\\,\\text{Kg}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3\\,\\text{kg}$",
+          "latex": "$3\\,\\text{Kg}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$12\\,\\text{kg}$",
+          "latex": "$1\\dfrac{1}{2}\\,\\text{Kg}$",
           "figure": null
         }
       ],
@@ -2221,11 +2220,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q45)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "newton-laws",
         "tension",
-        "acceleration"
+        "accelerating-frame",
+        "breaking-strength"
       ]
     },
     {
@@ -2237,27 +2236,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "Two particles having masses $6\\,\\text{kg}$ and $4\\,\\text{kg}$ are moving with velocities $(5\\hat{i} - 2\\hat{j} + 10\\hat{k})$ and $(10\\hat{i} + 2\\hat{j} + 5\\hat{k})$ respectively. What is the velocity of their centre of mass?",
+      "stemLatex": "Two particles having masses 6 Kg and 4 Kg are moving with velocities $5\\hat{i} - 2\\hat{j} + 10\\hat{k}$ and $10\\hat{i} + 2\\hat{j} + 5\\hat{k}$ respectively. What is the velocity of their centre of mass ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$(5\\hat{i} + 2\\hat{j} - 8\\hat{k})$",
+          "latex": "$5\\hat{i} + 2\\hat{j} - 8\\hat{k}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$(7\\hat{i} - 2\\hat{j} + 8\\hat{k})$",
+          "latex": "$7\\hat{i} - 2\\hat{j} + 8\\hat{k}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(7\\hat{i} + 2\\hat{j} - 8\\hat{k})$",
+          "latex": "$7\\hat{i} + 2\\hat{j} - 8\\hat{k}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$(5\\hat{i} - 2\\hat{j} + 8\\hat{k})$",
+          "latex": "$5\\hat{i} - 2\\hat{j} + 8\\hat{k}$",
           "figure": null
         }
       ],
@@ -2269,11 +2268,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q46)"
       },
-      "difficulty": "voided",
+      "difficulty": "easy",
       "tags": [
         "centre-of-mass",
-        "momentum",
-        "vectors"
+        "velocity-vector",
+        "withdrawn"
       ]
     },
     {
@@ -2284,8 +2283,8 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 12,
-      "stemLatex": "In an ideal gas, root mean square speed of the gas molecules is $C$. If pressure of the gas is increased to three times its initial value, temperature remaining constant, what would be the r.m.s. speed?",
+      "pdfPage": 11,
+      "stemLatex": "In an ideal gas root mean square speed of the gas molecules is C. If pressure of the gas is increased to three times its initial value, temperature remaining constant, what would be the r. m. s. speed ?",
       "stemFigure": null,
       "options": [
         {
@@ -2305,7 +2304,7 @@
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{3}C$",
+          "latex": "$3/C$",
           "figure": null
         }
       ],
@@ -2317,11 +2316,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q47)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "kinetic-theory",
         "rms-speed",
-        "pressure"
+        "isothermal"
       ]
     },
     {
@@ -2332,24 +2331,24 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 12,
-      "stemLatex": "In the figure, three processes of an ideal gas are shown. $CA$ denotes the adiabatic process, $BA$ denotes the isothermal process. Then $\\gamma$ for this gas is",
+      "pdfPage": 11,
+      "stemLatex": "In the figure, three processes of an ideal gas are shown. CA denotes the adiabatic process, BA denotes the isothermal process. Then $\\gamma$ for this gas is",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q48.svg",
-        "alt": "Figure for JELET 2023 Q48",
-        "width": 420,
-        "height": 220,
+        "alt": "P–V diagram with pressure levels 3P, 2P and P marked by dashed lines. Point A at 3P; B at 2P and C at P lie on the same vertical line to the right. An arrow runs up from C to B, a curve from B to A with its arrow pointing towards A, and a steeper curve from C to A with its arrow pointing towards A",
+        "width": 250,
+        "height": 205,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{\\ln 2}$",
+          "latex": "$\\dfrac{1}{1 - \\ln 2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\ln 2$",
+          "latex": "$\\dfrac{1}{1 - \\dfrac{\\ln 2}{\\ln 3}}$",
           "figure": null
         },
         {
@@ -2359,7 +2358,7 @@
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{\\ln 2}{\\ln 3}$",
+          "latex": "$\\dfrac{1}{1 - \\dfrac{\\ln 3}{\\ln 2}}$",
           "figure": null
         }
       ],
@@ -2371,43 +2370,44 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q48)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "thermodynamics",
         "adiabatic",
-        "pv-diagram"
+        "isothermal",
+        "pv-diagram",
+        "gamma"
       ]
     },
     {
       "id": "jelet-2023-q049",
       "qNumber": 49,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 12,
+      "pdfPage": 11,
       "stemLatex": "A charge $q$ is situated at the centre of the circular base of a right circular cone of height $H$ and radius of the base is $r$. Electrostatic flux through the curved surface of the cone is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{q}{2\\varepsilon_0}$",
+          "latex": "$\\dfrac{q}{\\varepsilon_{0}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{q}{3\\varepsilon_0}$",
+          "latex": "$\\dfrac{q}{2\\varepsilon_{0}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{qH}{4\\varepsilon_0 r}$",
+          "latex": "$\\dfrac{q}{4\\varepsilon_{0}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{q}{4\\varepsilon_0 r}$",
+          "latex": "$\\dfrac{qH}{4\\varepsilon_{0}r}$",
           "figure": null
         }
       ],
@@ -2419,43 +2419,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q49)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "electrostatics",
-        "flux",
-        "gauss-law"
+        "gauss-law",
+        "electric-flux",
+        "symmetry"
       ]
     },
     {
       "id": "jelet-2023-q050",
       "qNumber": 50,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "Consider two point charges $q_1$ and $q_2$ having masses $m_1$ and $m_2$ respectively. They are released from an initial separation $r_0$. The relative velocity when the separation becomes large is given by (where $M = m_1 + m_2$)",
+      "stemLatex": "Consider two point charges $q_{1}$ and $q_{2}$ having masses $m_{1}$ and $m_{2}$ respectively. They are released from an initial separation $r_{0}$. The relative velocity when the separation becomes large is given by $\\left(K = \\dfrac{1}{4\\pi\\varepsilon_{0}};\\ \\dfrac{1}{\\mu} = \\dfrac{1}{m_{1}} + \\dfrac{1}{m_{2}};\\ M = m_{1} + m_{2}\\right)$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\sqrt{\\dfrac{2Kq_1q_2}{Mr_0}}$",
+          "latex": "$\\sqrt{\\dfrac{2}{\\mu}\\dfrac{Kq_{1}q_{2}}{r_{0}}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\sqrt{\\dfrac{2Kq_1q_2\\mu}{r_0}}$",
+          "latex": "$\\sqrt{\\dfrac{2Kq_{1}q_{2}\\mu}{r_{0}}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\sqrt{\\dfrac{Kq_1q_2}{Mr_0}}$",
+          "latex": "$\\sqrt{\\dfrac{Kq_{1}q_{2}}{Mr_{0}}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{\\dfrac{Kq_1q_2}{r_0}}$",
+          "latex": "$\\dfrac{Kq_{1}q_{2}}{r_{0}}$",
           "figure": null
         }
       ],
@@ -2467,11 +2467,12 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q50)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "electrostatics",
         "energy-conservation",
-        "relative-velocity"
+        "momentum-conservation",
+        "reduced-mass",
+        "coulomb"
       ]
     },
     {
@@ -2483,7 +2484,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A glass slab of thickness $8\\,\\text{cm}$ contains the same number of waves as $10\\,\\text{cm}$ of water, when both are traversed by the same monochromatic light. If the refractive index of water is $\\dfrac{4}{3}$, the refractive index of glass is",
+      "stemLatex": "A glass slab of thickness 8 cm contains the same number of waves as 10 cm of water, when both are traversed by the same monochromatic light. If the refractive index of water is $\\dfrac{4}{3}$, the refractive index of glass is",
       "stemFigure": null,
       "options": [
         {
@@ -2515,11 +2516,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q51)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "refraction",
+        "refractive-index",
         "optical-path",
-        "refractive-index"
+        "wavelength-in-medium"
       ]
     },
     {
@@ -2531,27 +2532,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A collimated beam of light of diameter $1\\,\\text{mm}$ is propagating along $x$-axis. The beam is to be expanded to a collimated beam of diameter $10\\,\\text{mm}$ using a combination of two convex lenses. A lens of focal length $50\\,\\text{mm}$ and another lens with focal length $F$ are to be kept at a distance $d$ between them. The values of $F$ and $d$, respectively are",
+      "stemLatex": "A collimated beam of light of diameter 1 mm is propagating along x-axis. The beam is to be expanded to a collimated beam of diameter 10 mm using a combination of two convex lenses. A lens of focal length of 50 mm and another lens with focal length ‘F’ are to be kept at a distance ‘d’ between them. The values of F and d, respectively are",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$450\\,\\text{mm}$ and $10\\,\\text{mm}$",
+          "latex": "$450$ mm and $10$ mm",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$400\\,\\text{mm}$ and $500\\,\\text{mm}$",
+          "latex": "$400$ mm and $500$ mm",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$550\\,\\text{mm}$ and $600\\,\\text{mm}$",
+          "latex": "$550$ mm and $600$ mm",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$500\\,\\text{mm}$ and $550\\,\\text{mm}$",
+          "latex": "$500$ mm and $550$ mm",
           "figure": null
         }
       ],
@@ -2563,11 +2564,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q52)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "lens",
-        "beam-expansion",
-        "focal-length"
+        "lens-combination",
+        "beam-expander",
+        "afocal-system"
       ]
     },
     {
@@ -2579,27 +2580,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "When a light of particular wavelength falls on a plane surface at an angle of incidence $60^{\\circ}$ then the reflected light becomes completely plane polarized. Now the refractive index $(\\mu)$ of the material of the surface and the angle of refraction $(\\theta)$ passing through the plane surface are",
+      "stemLatex": "When a light of particular wavelength falls on a plane surface at an angle of incidence $60^{\\circ}$ then the reflected light becomes completely plane polarized. Now the refractive index $(\\mu)$ of the material of the surface and the angle of the refraction $(\\theta_{r})$ passing through the plane surface are",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\mu = \\sqrt{2},\\; \\theta = 30^{\\circ}$",
+          "latex": "$\\mu = \\sqrt{2},\\ \\theta_{r} = 30^{\\circ}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\mu = \\sqrt{3},\\; \\theta = 30^{\\circ}$",
+          "latex": "$\\mu = \\sqrt{3},\\ \\theta_{r} = 30^{\\circ}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\mu = \\sqrt{3},\\; \\theta = 45^{\\circ}$",
+          "latex": "$\\mu = \\sqrt{3},\\ \\theta_{r} = 45^{\\circ}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\mu = 1/\\sqrt{3},\\; \\theta = 30^{\\circ}$",
+          "latex": "$\\mu = \\dfrac{1}{2},\\ \\theta_{r} = 30^{\\circ}$",
           "figure": null
         }
       ],
@@ -2611,18 +2612,18 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q53)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "refraction",
+        "brewster-angle",
         "polarization",
-        "brewster-angle"
+        "snells-law"
       ]
     },
     {
       "id": "jelet-2023-q054",
       "qNumber": 54,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -2642,7 +2643,7 @@
         },
         {
           "id": "C",
-          "latex": "$60^{\\circ}$",
+          "latex": "$90^{\\circ}$",
           "figure": null
         },
         {
@@ -2659,11 +2660,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q54)"
       },
-      "difficulty": "medium",
+      "difficulty": "hard",
       "tags": [
         "shm",
         "phase-difference",
-        "amplitude"
+        "key-dispute"
       ]
     },
     {
@@ -2675,27 +2676,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "Two solid cubes of the same weight are taken. One is made of Iron (density $8\\,\\text{gm/cc}$) and the other is made of aluminium (density $2.7\\,\\text{gm/cc}$). They are now weighed when fully immersed in water. Then inside water,",
+      "stemLatex": "Two solid cubes of the same weight are taken. One is made of Iron (density 8 gm/cc) and the other is made of aluminium (density 2.7 gm/cc). They are now weighed when fully immersed in water. Then inside water,",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "both will suffer same loss of weight",
+          "latex": "both will suffer same loss of weight.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "the Iron cube will weigh more than the aluminium cube",
+          "latex": "the Iron cube will weigh more than the aluminium cube.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "both will have the same weight as before",
+          "latex": "both will have the same weight as before.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "the aluminium cube will weigh more than the Iron cube",
+          "latex": "the aluminium cube will weigh more than the Iron cube.",
           "figure": null
         }
       ],
@@ -2707,43 +2708,49 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q55)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "fluid",
         "buoyancy",
-        "density"
+        "archimedes-principle",
+        "apparent-weight"
       ]
     },
     {
       "id": "jelet-2023-q056",
       "qNumber": 56,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "Steady current flows through a constricted conductor. The left of the constriction has diameter $D_1$, and current density $j_1$. If the current density is doubled as it emerges from the right side of the constriction, then $D_2$ is",
-      "stemFigure": null,
+      "stemLatex": "Steady current flows through a constricted conductor. The left of the constriction has diameter $D_{1}$ and current density $j_{1}$. If the current density is doubled as it emerges from the right side of the constriction, then $D_{2}$ is",
+      "stemFigure": {
+        "src": "./_data/figures/2023/fig-2023-q56.svg",
+        "alt": "A cylindrical conductor narrowing from a wide left section of diameter D1 carrying current I1 to a narrow right section of diameter D2 carrying current I2; current arrows point to the right",
+        "width": 350,
+        "height": 124,
+        "themeAdaptive": true
+      },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{D_1}{\\sqrt{2}}$",
+          "latex": "$\\dfrac{1}{2}D_{1}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{D_1}{2}$",
+          "latex": "$D_{1}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\sqrt{2}D_1$",
+          "latex": "$\\dfrac{D_{1}}{\\sqrt{2}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{2}D_1$",
+          "latex": "$\\sqrt{2}D_{1}$",
           "figure": null
         }
       ],
@@ -2755,43 +2762,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q56)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "current-density",
         "continuity",
-        "conductor"
+        "steady-current"
       ]
     },
     {
       "id": "jelet-2023-q057",
       "qNumber": 57,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "Two concentric coplanar circular coils of radii $R$ and $R'$ carry steady currents $I$ and $I'$ in opposite directions (one clockwise other anticlockwise). The magnetic field at the centre is half that due to $I'$ alone. If $R = 2R'$, then $I/I'$ is",
+      "stemLatex": "Two concentric coplanar circular coils of radii $R$ and $R'$ carry steady currents $I$ and $I'$ in opposite directions (one clockwise other anticlockwise). The magnetic field at the centre is half that due to $I'$ alone. If $R = 2R'$, then $\\dfrac{I}{I'}$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$1:3$",
+          "latex": "$1 : 3$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$1:2$",
+          "latex": "$1 : 2$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$1:4$",
+          "latex": "$1 : 4$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1:1$",
+          "latex": "$1 : 1$",
           "figure": null
         }
       ],
@@ -2803,23 +2810,22 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q57)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "magnetic-field",
-        "coils",
-        "biot-savart"
+        "magnetic-field-circular-loop",
+        "superposition"
       ]
     },
     {
       "id": "jelet-2023-q058",
       "qNumber": 58,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "Two magnetic fields, inclined to each other at an angle $75^{\\circ}$, act on a bar magnet suspending on the plane of the magnetic fields. The magnitude of one magnetic field is $3\\sqrt{2} \\times 10^{-3}\\,\\text{T}$ and the bar magnet attains stable equilibrium at an angle $45^{\\circ}$ with the other magnetic field. The magnitude of the other magnetic field is",
+      "stemLatex": "Two magnetic fields, inclined to each other at an angle $75^{\\circ}$, act on a bar magnet suspending on the plane of the magnetic fields. The magnitude of one magnetic field is $3\\sqrt{2} \\times 10^{-3}$ T and the bar magnet attains stable equilibrium at an angle $45^{\\circ}$ with the other magnetic field. The magnitude of the other magnetic field is",
       "stemFigure": null,
       "options": [
         {
@@ -2829,7 +2835,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\sqrt{2}\\times 10^{-4}\\,\\text{T}$",
+          "latex": "$\\sqrt{2} \\times 10^{-4}\\,\\text{T}$",
           "figure": null
         },
         {
@@ -2851,43 +2857,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q58)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "magnetic-field",
-        "equilibrium",
-        "torque"
+        "bar-magnet",
+        "torque-equilibrium",
+        "magnetic-fields"
       ]
     },
     {
       "id": "jelet-2023-q059",
       "qNumber": 59,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "An electron of charge $e$ revolves in a circular path of radius $r$ around nucleus. The magnetic field due to its orbital motion at the centre of nucleus is $B$. The frequency of rotation of electron is",
+      "stemLatex": "An electron of charge $e$ revolves in a circular path of radius $r$ around nucleus. The magnetic field due to its orbital motion at the side of nucleus is $B$. The frequency of rotation of electron is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{Br}{2\\mu_0 e}$",
+          "latex": "$\\dfrac{Br}{\\mu_{0}e}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{2Br}{\\mu_0 e}$",
+          "latex": "$\\dfrac{2Br}{\\mu_{0}e}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{Br}{2\\mu_0 e}$",
+          "latex": "$\\dfrac{Br}{2\\mu_{0}e}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{Br}{4\\mu_0 e}$",
+          "latex": "$\\dfrac{Br}{4\\mu_{0}e}$",
           "figure": null
         }
       ],
@@ -2899,49 +2905,48 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q59)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "magnetic-field",
-        "electron-orbit",
-        "frequency"
+        "magnetic-field-circular-loop",
+        "orbital-current"
       ]
     },
     {
       "id": "jelet-2023-q060",
       "qNumber": 60,
       "subjectId": "PHYS",
-      "unitId": "E04",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "In the circuit, the galvanometer $G$ shows zero deflection. If the batteries have negligible internal resistance, the value of the resistor $R$ will be",
+      "stemLatex": "In the circuit, the galvanometer G shows zero deflection. If the batteries have negligible internal resistance, the value of the resistor R will be",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q60.svg",
-        "alt": "Figure for JELET 2023 Q60",
-        "width": 420,
-        "height": 220,
+        "alt": "Circuit: a 12 V cell on the left branch; the top wire runs through a 500 Ω resistor to a junction; resistor R goes from the junction down to the bottom wire; from the junction the top wire continues through galvanometer G to a 2 V cell on the right branch, which returns to the bottom wire",
+        "width": 400,
+        "height": 200,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$100\\,\\Omega$",
+          "latex": "$100\\ \\Omega$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$200\\,\\Omega$",
+          "latex": "$200\\ \\Omega$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$500\\,\\Omega$",
+          "latex": "$500\\ \\Omega$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1000\\,\\Omega$",
+          "latex": "$1000\\ \\Omega$",
           "figure": null
         }
       ],
@@ -2953,11 +2958,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q60)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "circuits",
-        "wheatstone-bridge",
-        "galvanometer"
+        "galvanometer-null",
+        "potential-divider",
+        "kirchhoff"
       ]
     },
     {
@@ -2969,12 +2974,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A cell of emf $E$ and internal resistance $r$ is connected across a load resistance $R$. The variation of power consumed in $R$ with load $R$ is shown in the figure. The co-ordinate of the point $M$ is",
+      "stemLatex": "A cell of emf $E$ and internal resistance $r$ is connected across a load resistance $R$. The variation of power consumed in $R$ with load $(R)$ is shown in the figure. The co-ordinate of the point M is",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q61.svg",
-        "alt": "Figure for JELET 2023 Q61",
-        "width": 420,
-        "height": 220,
+        "alt": "Graph of Pr/E² (vertical axis) versus R/r (horizontal axis) from the origin O: the curve rises to a maximum at point M, marked by a dashed vertical line down to the R/r axis, then falls and levels off",
+        "width": 320,
+        "height": 170,
         "themeAdaptive": true
       },
       "options": [
@@ -2985,17 +2990,17 @@
         },
         {
           "id": "B",
-          "latex": "$(\\dfrac{R}{r}, \\dfrac{E^{2}}{4r})$",
+          "latex": "$\\left(\\dfrac{1}{4}, 1\\right)$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(\\dfrac{E^{2}}{4R}, 1)$",
+          "latex": "$\\left(1, \\dfrac{1}{2}\\right)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$(\\dfrac{r}{R}, \\dfrac{E^{2}}{4R})$",
+          "latex": "$\\left(1, \\dfrac{1}{4}\\right)$",
           "figure": null
         }
       ],
@@ -3007,11 +3012,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q61)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "circuits",
-        "power-max",
-        "load-resistance"
+        "maximum-power-transfer",
+        "internal-resistance"
       ]
     },
     {
@@ -3033,7 +3037,7 @@
         },
         {
           "id": "B",
-          "latex": "$bR^{2}$",
+          "latex": "$R^{2}$",
           "figure": null
         },
         {
@@ -3055,43 +3059,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q62)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "photoelectric",
-        "magnetic-field",
-        "work-function"
+        "photoelectric-effect",
+        "work-function",
+        "magnetic-force-circular-path"
       ]
     },
     {
       "id": "jelet-2023-q063",
       "qNumber": 63,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P15",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A radioactive isotope has a decay constant $\\lambda$ and a molar mass $M$. Taking the Avogadro constant to be $L$, what is the activity of a sample of mass $m$ of this isotope?",
+      "stemLatex": "A radioactive isotope has a decay constant $\\lambda$ and a molar mass $M$. Taking the Avogadro constant to be $L$, what is the activity of a sample of mass $m$ of this isotope ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{\\lambda m L}{M}$",
+          "latex": "$\\dfrac{\\lambda mL}{M}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{m\\lambda}{M}$",
+          "latex": "$\\dfrac{m\\lambda}{ML}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{\\lambda m}{M L}$",
+          "latex": "$\\lambda mML$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{\\lambda}{M}$",
+          "latex": "$\\dfrac{mL}{\\lambda M}$",
           "figure": null
         }
       ],
@@ -3103,11 +3107,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q63)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "radioactivity",
-        "decay-constant",
-        "activity"
+        "activity",
+        "avogadro"
       ]
     },
     {
@@ -3119,7 +3123,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "The energy levels of a certain atom for 1st, 2nd and 3rd levels are $E_1$, $4E$, and $9E$ respectively. A photon of wavelength $\\lambda$ is emitted for a transition $3 \\to 1$. The wavelength of emission for transition $2 \\to 1$ will be",
+      "stemLatex": "The energy levels of a certain atom for $1^{\\text{st}}$, $2^{\\text{nd}}$ and $3^{\\text{rd}}$ levels are $E$, $\\dfrac{4E}{3}$ and $2E$ respectively. A photon of wavelength $\\lambda$ is emitted for a transition $3 \\rightarrow 1$. The wavelength of emission for transition $2 \\rightarrow 1$ will be",
       "stemFigure": null,
       "options": [
         {
@@ -3151,43 +3155,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q64)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "energy-levels",
-        "photon"
+        "photon-emission",
+        "wavelength"
       ]
     },
     {
       "id": "jelet-2023-q065",
       "qNumber": 65,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P15",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A radioactive nucleus ${}^{A}_{Z}X$ emits three $\\alpha$ particles and five $\\beta$ particles. The ratio of the number of neutrons to that of protons in the final product nucleus is",
+      "stemLatex": "A radioactive nucleus ${}_{Z}^{A}X$ emits three $\\alpha$ particles and five $\\beta$ particles. The ratio of the number of neutrons to that of protons in the final product nucleus is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{A-Z-11}{Z-1}$",
+          "latex": "$\\dfrac{A - Z - 11}{Z - 1}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{A-Z}{Z-1}$",
+          "latex": "$\\dfrac{A - Z}{Z - 1}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{A-Z-11}{Z-6}$",
+          "latex": "$\\dfrac{A - Z - 11}{Z - 6}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{A-Z-12}{Z-6}$",
+          "latex": "$\\dfrac{A - Z - 12}{Z - 6}$",
           "figure": null
         }
       ],
@@ -3199,28 +3203,28 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q65)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "radioactivity",
-        "nuclear-decay",
-        "neutrons-protons"
+        "radioactive-decay",
+        "alpha-beta",
+        "nucleon-count"
       ]
     },
     {
       "id": "jelet-2023-q066",
       "qNumber": 66,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 16,
-      "stemLatex": "The spring of spring constant $k$ is attached to a block of mass $4\\,\\text{kg}$. Initially the block is at rest and the spring is unstretched. The horizontal surface is frictionless. A constant horizontal force $F$ is applied on the block, and it moves through a distance $x$. Then which of the following statement(s) is/are true?",
+      "stemLatex": "The spring of spring constant $k$ is attached to a block mass of 4 Kg. Initially the block is at rest and the spring is unstretched. The horizontal surface is frictionless. A constant horizontal force $F$ is applied on the block, and it moves through a distance $x$. Then which of the following statement(s) is/are true ?",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q66.svg",
-        "alt": "Figure for JELET 2023 Q66",
-        "width": 420,
-        "height": 220,
+        "alt": "A block labelled 4 Kg on a horizontal floor, attached by a coiled spring to a vertical wall on the left; an arrow F pulls the block to the right",
+        "width": 330,
+        "height": 132,
         "themeAdaptive": true
       },
       "options": [
@@ -3236,12 +3240,12 @@
         },
         {
           "id": "C",
-          "latex": "If $x = 0.5\\,\\text{m}$, $k = 24\\,\\text{N/m}$, $F = 10\\,\\text{N}$, then speed of the block is $1\\,\\text{m/s}$.",
+          "latex": "If $x = 0.5$ m, $k = 24$ N/m, $F = 10$ N, then speed of the block is 1 m/s.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "At $x = F/k$, acceleration of the block will be zero.",
+          "latex": "At $x = \\dfrac{F}{k}$, acceleration of the block will be zero.",
           "figure": null
         }
       ],
@@ -3255,11 +3259,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q66)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "spring",
-        "work-energy",
-        "force"
+        "work-energy-theorem",
+        "spring-force",
+        "energy-conservation"
       ]
     },
     {
@@ -3304,11 +3308,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q67)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "work-energy",
         "potential-energy",
-        "force"
+        "conservative-force",
+        "unstable-equilibrium"
       ]
     },
     {
@@ -3320,12 +3324,12 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 16,
-      "stemLatex": "In the circuit shown, the capacitor is initially charged by a supply of emf $E$. The switch is closed at time $t = t_0$. Then which statement(s) is/are true?",
+      "stemLatex": "In the circuit shown, the capacitor is initially charged by a supply of emf $E$. The switch is closed at time $t = t_{0}$. Then which statement(s) is/are true ?",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q68.svg",
-        "alt": "Figure for JELET 2023 Q68",
-        "width": 420,
-        "height": 220,
+        "alt": "Circuit loop: capacitor C on the left side, resistor R on the top wire, the right side a plain wire, and an open switch S on the bottom wire",
+        "width": 270,
+        "height": 142,
         "themeAdaptive": true
       },
       "options": [
@@ -3336,7 +3340,7 @@
         },
         {
           "id": "B",
-          "latex": "The charge on the capacitor decreases exponentially to zero.",
+          "latex": "The current is maximum at time $t = \\dfrac{1}{CR}$.",
           "figure": null
         },
         {
@@ -3346,7 +3350,7 @@
         },
         {
           "id": "D",
-          "latex": "The voltage across the capacitor remains constant.",
+          "latex": "The total heat energy dissipated across $R$ will be $\\dfrac{1}{2}CE^{2}$.",
           "figure": null
         }
       ],
@@ -3360,43 +3364,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q68)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "circuits",
-        "rc-circuit",
-        "transient"
+        "rc-discharge",
+        "transient",
+        "joule-heating"
       ]
     },
     {
       "id": "jelet-2023-q069",
       "qNumber": 69,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "E04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "A solid non-conducting sphere of radius $R$ carries a non-uniform charge distribution with charge density $\\rho = \\rho_0 r$ ($\\rho_0 = $ constant) and $r$ is the distance from the centre of the sphere. Then which of the following statement(s) is/are true?",
+      "stemLatex": "A solid non-conducting sphere of radius $R$ carries a non-uniform charge distribution with charge density $\\rho = \\rho_{0}\\dfrac{r}{R}$ ($\\rho_{0}$ = constant) and $r$ is the distance from the centre of the sphere. Then which of the following statement(s) is/are true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "The total charge $Q$ on the sphere is $\\dfrac{\\pi \\rho_0 R^{3}}{4}$.",
+          "latex": "The total charge $Q$ on the sphere is $\\pi\\rho_{0}R^{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "The total charge $Q$ on the sphere is $\\dfrac{3\\pi \\rho_0 R^{3}}{4}$.",
+          "latex": "The total charge $Q$ on the sphere is $\\dfrac{4}{3}\\pi\\rho_{0}R^{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{4}} r$.",
+          "latex": "The electric field inside the sphere is $\\dfrac{1}{4\\pi\\varepsilon_{0}}\\dfrac{Q}{R^{4}}r^{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{3}} r$.",
+          "latex": "The electric field inside the sphere is $\\dfrac{1}{4\\pi\\varepsilon_{0}}\\dfrac{Q}{R^{3}}r^{2}$",
           "figure": null
         }
       ],
@@ -3409,28 +3413,28 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q69)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "electrostatics",
         "gauss-law",
-        "charge-density"
+        "non-uniform-charge",
+        "electric-field"
       ]
     },
     {
       "id": "jelet-2023-q070",
       "qNumber": 70,
       "subjectId": "PHYS",
-      "unitId": "P12",
+      "unitId": "P13",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "White light is used to illuminate the two slits in a Young's double slit experiment. The separation between the slits is $b$ and the screen is at a distance $d$ ($d \\gg b$) from the slits. $P$ is a point on the screen directly in front of $S_1$. Then which of the following statement(s) is/are true?",
+      "stemLatex": "White light is used to illuminate the two slits in a Young’s double slit experiment. The separation between the slits is $b$ and the screen is at a distance $d$ $(d >> b)$ from the slits. $P$ is a point on the screen directly in front of $S_{1}$. Then which of the following statement(s) is/are true ?",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q70.svg",
-        "alt": "Figure for JELET 2023 Q70",
-        "width": 420,
-        "height": 220,
+        "alt": "Young's double slit: a vertical barrier with slits S1 (upper) and S2 (lower) separated by b; a vertical screen at distance d; a dashed horizontal line from S1 to the point P on the screen, and a dashed slanted line from S2 to P",
+        "width": 290,
+        "height": 172,
         "themeAdaptive": true
       },
       "options": [
@@ -3441,17 +3445,17 @@
         },
         {
           "id": "B",
-          "latex": "The path difference at point $P$ is $\\dfrac{b^{2}}{2d}$.",
+          "latex": "The path difference at point $P$ is $\\left(d + \\dfrac{b^{2}}{d}\\right)$.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "For destructive interference at point $P$, the condition will be $\\dfrac{b^{2}}{2d} = (n+\\frac{1}{2})\\lambda$ ($n = 1,2,\\ldots$).",
+          "latex": "For destructive interference at point $P$, the condition will be $\\left(n - \\dfrac{1}{2}\\right)\\lambda = \\dfrac{b^{2}}{2d}$, $(n = 1, 2, \\ldots)$.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "For constructive interference at point $P$, the condition will be $\\dfrac{b^{2}}{2d} = n\\lambda$.",
+          "latex": "The $2^{\\text{nd}}$ missing wavelength is $\\dfrac{b^{2}}{3d}$",
           "figure": null
         }
       ],
@@ -3465,11 +3469,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q70)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "wave-optics",
-        "young-double-slit",
-        "interference"
+        "youngs-double-slit",
+        "white-light",
+        "missing-wavelengths"
       ]
     },
     {

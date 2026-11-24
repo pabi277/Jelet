@@ -1545,152 +1545,175 @@ def rect_(x, y, w, h, color="var(--fig-primary)"):
     return f'  <rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="{color}" stroke-width="1.5"/>\n'
 
 # ---- 2023 figures ----
+# ---------------------------------------------------------------------------
+# JELET 2023 Batch B (Physics Q41–Q70): faithful redraws of the Set-A booklet figures
+# (PDF pages 10–17 read at 180 DPI, figures cropped at 300 DPI).  No captions (the booklet
+# prints none); key elements carry data-role / data-comp attributes so that
+# scripts/verify_solutions_sympy.py can read the geometry and circuit netlists back.
+# Colours: var(--fig-*) tokens only.
+# ---------------------------------------------------------------------------
+_P23_Q42 = dict(ox=(40, 238), oy=150, ts=30, xs=30, ys=21)   # two panels: x(m)-t(s) and y(m)-t(s)
+
+def _p23_dash(x1, y1, x2, y2, role):
+    return _p24_role(line(round(x1, 1), round(y1, 1), round(x2, 1), round(y2, 1), stroke="var(--fig-axis)", sw=0.9, dash="3,2.5"), role)
+
+def _p23_q42_panel(k, ox, vs, fn, tmax, guides, vticks, vname):
+    g = _P23_Q42; oy, ts = g["oy"], g["ts"]
+    P = lambda t, v: (ox + t*ts, oy - v*vs)
+    body = _p24_role(arrow(ox, oy, ox + 150, oy, stroke="var(--fig-axis)", sw=1.2), f"{k}-axis-t")
+    body += _p24_role(arrow(ox, oy, ox, 22, stroke="var(--fig-axis)", sw=1.2), f"{k}-axis-v")
+    body += _p24_poly([P(t, fn(t)) for t in [tmax*j/60 for j in range(61)]], f"{k}-t", sw=1.6)
+    for t in guides:
+        x, y = P(t, fn(t))
+        body += _p23_dash(ox, y, x, y, f"guide-{k}-v{fn(t):g}") + _p23_dash(x, y, x, oy, f"guide-{k}-t{t:g}")
+    body += line(ox + 3*ts, oy - 5, ox + 3*ts, oy, stroke="var(--fig-axis)", sw=1.0)
+    for v in vticks:
+        body += mlabel(ox - 9, round(oy - v*vs + 4, 1), f"{v:g}", 12)
+    for t in (1, 2, 3):
+        body += mlabel(ox + t*ts, oy + 15, str(t), 12)
+    body += mlabel(ox - 10, oy + 6, "0", 12)
+    body += mlabel(ox + 156, oy + 5, "t(s)", 13, anchor="start")
+    body += mlabel(ox, 14, vname, 13) if vname else ""
+    return body
 
 def fig_2023_q42():
-    """x-t and y-t graphs of a particle in 2D."""
-    body = ""
-    body += label(40, 20, "(x,t) and (y,t) diagrams", 10)
-    # x-t graph (top)
-    body += label(40, 38, "x-t", 9, "var(--fig-axis)")
-    body += line(40, 60, 200, 60, stroke="var(--fig-line)", sw=1)
-    body += line(40, 30, 40, 90, stroke="var(--fig-line)", sw=1)
-    body += polyline("40,70 80,55 120,50 160,45 200,40", stroke="var(--fig-primary)", sw=2)
-    # y-t graph (bottom)
-    body += label(40, 115, "y-t", 9, "var(--fig-axis)")
-    body += line(40, 140, 200, 140, stroke="var(--fig-line)", sw=1)
-    body += line(40, 110, 40, 170, stroke="var(--fig-line)", sw=1)
-    body += polyline("40,150 80,155 120,145 160,135 200,125", stroke="var(--fig-secondary)", sw=2)
-    return svg_wrap(240, 200, body, "2023 Q42: x-t and y-t graphs")
+    """Q42 as printed: x = t (straight line through the origin) and y = t² (parabola) with dashed guides."""
+    g = _P23_Q42
+    body = _p23_q42_panel("x", g["ox"][0], g["xs"], lambda t: t, 3.8, [1, 2], [1, 2], "")
+    body += mlabel(g["ox"][0] - 8, 14, "x", 13, italic=True, anchor="end") + mlabel(g["ox"][0] - 8, 14, "(m)", 13, anchor="start")
+    body += _p23_q42_panel("y", g["ox"][1], g["ys"], lambda t: t*t, 2.4, [1, 2], [1, 4], "y(m)")
+    return svg_plain(430, 172, body, "2023 Q42: " + "two graphs; left x in m versus t in s, a straight line from the origin through (1, 1) and (2, 2); right y in m versus t in s, a curve from the origin through (1, 1) and (2, 4); dashed guides at those points")
+
+_P23_Q48 = dict(ox=50, oy=176, va=104, vb=156, pu=40)          # V_A, V_B (px from O); 1 P = 40 px
 
 def fig_2023_q48():
-    """PV diagram with adiabatic CA and isothermal BA processes."""
-    body = ""
-    body += label(40, 25, "P-V diagram", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-line)", sw=1.5)
-    body += line(40, 40, 40, 160, stroke="var(--fig-line)", sw=1.5)
-    # isothermal BA: curve from B to A
-    body += path("M 60 50 Q 100 70, 180 120", stroke="var(--fig-secondary)", sw=2)
-    # adiabatic CA: steeper curve from C to A
-    body += path("M 180 150 Q 130 100, 60 50", stroke="var(--fig-danger)", sw=2)
-    body += dot(60, 50, 4, fill="var(--fig-danger)")
-    body += label(45, 42, "A", 10, "var(--fig-danger-soft)")
-    body += dot(180, 120, 4, fill="var(--fig-secondary)")
-    body += label(185, 115, "B", 10, "var(--fig-secondary-soft)")
-    body += dot(180, 150, 4, fill="var(--fig-accent)")
-    body += label(185, 165, "C", 10, "var(--fig-accent-tint)")
-    body += label(30, 165, "V", 10, "var(--fig-axis)")
-    body += label(20, 50, "P", 10, "var(--fig-axis)")
-    body += label(120, 180, "BA: isothermal, CA: adiabatic", 8, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 220, body, "2023 Q48: PV diagram")
+    """Q48 as printed: A (3P) joined to B (2P) by the isotherm and to C (P) by the steeper adiabat;
+    C→B vertical.  Drawn exactly: P·V constant on BA (V_B/V_A = 3/2) and P·V^γ constant on CA."""
+    g = _P23_Q48; ox, oy, va, vb, pu = g["ox"], g["oy"], g["va"], g["vb"], g["pu"]
+    gam = _m.log(3)/_m.log(vb/va)
+    X = lambda v: ox + v; Y = lambda p: oy - p*pu
+    body = _p24_role(arrow(ox, oy, ox, 18, stroke="var(--fig-axis)", sw=1.2), "p-axis")
+    body += _p24_role(arrow(ox, oy, 240, oy, stroke="var(--fig-axis)", sw=1.2), "v-axis")
+    body += path(f"M {ox + 165},{oy + 16} L {ox + 182},{oy + 16}", stroke="var(--fig-text)", sw=0.9) + _arrowhead(ox + 184, oy + 16, 0, 5, "var(--fig-text)")
+    iso = [(X(v), Y(3*va/v)) for v in [vb - (vb - va)*j/50 for j in range(51)]]                  # B -> A
+    adi = [(X(v), Y(3*(va/v)**gam)) for v in [vb - (vb - va)*j/50 for j in range(51)]]          # C -> A
+    body += _p24_poly(iso, "isothermal", stroke="var(--fig-primary)", sw=1.5) + _arrow_on(iso, 0.86, 7, "var(--fig-primary)")
+    body += _p24_poly(adi, "adiabatic", stroke="var(--fig-primary)", sw=1.5) + _arrow_on(adi, 0.62, 7, "var(--fig-primary)")
+    body += _p24_role(line(X(vb), Y(1), X(vb), Y(2), stroke="var(--fig-primary)", sw=1.5), "CB") + _arrowhead(X(vb), Y(1.55), -90, 7, "var(--fig-primary)")
+    for p, x, lab in ((3, X(va), "3P"), (2, X(vb), "2P"), (1, X(vb), "P")):
+        body += _p23_dash(ox, Y(p), x, Y(p), f"level-{lab}") + mlabel(ox - 6, Y(p) + 5, lab, 13, anchor="end")
+    body += mlabel(X(va), Y(3) - 8, "A", 13) + mlabel(X(vb) + 5, Y(2) + 2, "B", 13, anchor="start") + mlabel(X(vb) + 5, Y(1) + 8, "C", 13, anchor="start")
+    body += mlabel(ox - 6, 22, "P", 13, anchor="end") + mlabel(ox - 10, oy + 16, "O", 13) + mlabel(ox + 190, oy + 21, "V", 13, anchor="start")
+    return svg_plain(250, 205, body, "2023 Q48: " + "P–V diagram; dashed levels 3P, 2P and P; A at 3P joined by one curve to B at 2P and by a steeper curve to C at P; B directly above C with an arrow from C up to B; both curves carry arrows towards A")
+
+def fig_2023_q56():
+    """Q56 as printed: wide cylinder (diameter D1, current I1) tapering to a narrow one (D2, I2).
+    Proportions follow the booklet drawing (not to scale)."""
+    cy, R1, R2 = 62, 36, 16
+    xl, xs0, xs1, xr = 36, 196, 222, 330
+    body = f'  <ellipse cx="{xl}" cy="{cy}" rx="11" ry="{R1}" stroke="var(--fig-line)" stroke-width="1.4" fill="none" data-role="end-1"/>\n'
+    body += line(xl, cy - R1, xs0, cy - R1, stroke="var(--fig-line)", sw=1.4) + line(xl, cy + R1, xs0, cy + R1, stroke="var(--fig-line)", sw=1.4)
+    body += path(f"M {xs0},{cy - R1} C {xs0 + 14},{cy - R1} {xs1 - 12},{cy - R2} {xs1},{cy - R2}", stroke="var(--fig-line)", sw=1.4)
+    body += path(f"M {xs0},{cy + R1} C {xs0 + 14},{cy + R1} {xs1 - 12},{cy + R2} {xs1},{cy + R2}", stroke="var(--fig-line)", sw=1.4)
+    body += line(xs1, cy - R2, xr, cy - R2, stroke="var(--fig-line)", sw=1.4) + line(xs1, cy + R2, xr, cy + R2, stroke="var(--fig-line)", sw=1.4)
+    body += f'  <ellipse cx="{xr}" cy="{cy}" rx="6" ry="{R2}" stroke="var(--fig-line)" stroke-width="1.4" fill="none" data-role="end-2"/>\n'
+    body += f'  <ellipse cx="262" cy="{cy}" rx="5" ry="{R2}" stroke="var(--fig-line)" stroke-width="1.1" fill="none" stroke-dasharray="1.5,2"/>\n'
+    body += _p24_role(line(54, cy - R1 + 1, 54, cy + R1 - 1, stroke="var(--fig-line)", sw=1.0), "D1") + _arrowhead(54, cy - R1 + 1, -90, 6) + _arrowhead(54, cy + R1 - 1, 90, 6)
+    body += _p24_role(line(250, cy - R2 + 1, 250, cy + R2 - 1, stroke="var(--fig-line)", sw=1.0), "D2") + _arrowhead(250, cy - R2 + 1, -90, 5) + _arrowhead(250, cy + R2 - 1, 90, 5)
+    body += _p24_role(arrow(120, cy - 4, 146, cy - 4, stroke="var(--fig-line)", sw=1.2), "I1") + _p24_role(arrow(272, cy, 300, cy, stroke="var(--fig-line)", sw=1.2), "I2")
+    body += _p24_sub(58, cy + 8, "D", "1", 13, italic=False) + _p24_sub(126, cy - 12, "I", "1", 13, italic=False)
+    body += _p24_sub(228, cy + 4, "D", "2", 13, italic=False) + _p24_sub(274, cy - 6, "I", "2", 13, italic=False)
+    return svg_plain(350, 124, body, "2023 Q56: " + "a cylindrical conductor narrowing from a wide left part of diameter D1 carrying current I1 to a narrow right part of diameter D2 carrying current I2; current arrows to the right")
+
+def _p23_galvanometer(c, r=14):
+    """Galvanometer G: circle with a diagonal pointer arrow (paths only, so it never joins wire nets)."""
+    x, y = c
+    g = f'  <g data-comp="G" data-pins="{x - r},{y} {x + r},{y}">\n'
+    g += f'  <circle cx="{x}" cy="{y}" r="{r}" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n'
+    g += f'  <path d="M {x - 7},{y + 7} L {x + 6},{y - 6}" stroke="var(--fig-line)" stroke-width="1.2" fill="none"/>\n'
+    g += _arrowhead(x + 8, y - 8, -45, 6) + '  </g>\n'
+    return g
 
 def fig_2023_q60():
-    """Wheatstone bridge circuit with galvanometer."""
-    body = ""
-    body += label(40, 25, "Wheatstone bridge", 10)
-    # diamond bridge
-    body += line(120, 50, 120, 100, stroke="var(--fig-primary)", sw=2)
-    body += line(120, 100, 80, 150, stroke="var(--fig-primary)", sw=2)
-    body += line(120, 100, 160, 150, stroke="var(--fig-primary)", sw=2)
-    body += line(80, 150, 160, 150, stroke="var(--fig-primary)", sw=2)
-    # top cross
-    body += line(80, 100, 160, 100, stroke="var(--fig-primary)", sw=2)
-    body += line(80, 50, 160, 50, stroke="var(--fig-primary)", sw=2)
-    body += line(80, 50, 80, 100, stroke="var(--fig-primary)", sw=1.5)
-    body += line(160, 50, 160, 100, stroke="var(--fig-primary)", sw=1.5)
-    # resistors
-    body += label(70, 75, "R₁", 8, "var(--fig-axis)")
-    body += label(150, 75, "R₂", 8, "var(--fig-axis)")
-    body += label(65, 130, "R₃", 8, "var(--fig-axis)")
-    body += label(175, 130, "R₄", 8, "var(--fig-axis)")
-    # galvanometer in middle
-    body += circle(120, 100, 10, stroke="var(--fig-danger)", sw=2)
-    body += label(120, 103, "G", 8, "var(--fig-danger-soft)", "middle")
-    # battery
-    body += line(120, 150, 120, 175, stroke="var(--fig-primary)", sw=1.5)
-    body += label(125, 170, "Battery", 8, "var(--fig-axis)")
-    return svg_wrap(240, 200, body, "2023 Q60: Wheatstone bridge")
+    """Q60 as printed: 12 V cell (+ up) on the left, 500 Ω on the top wire to junction X, R from X to the
+    bottom rail, X → G → right wire → 2 V cell (+ up) → bottom rail."""
+    xl, xX, xr, yt, yb = 50, 200, 340, 50, 186
+    W = _c24_w
+    b = _c24_cell((xl, yb), (xl, yt), "q")
+    b += W((xl, yt), (96, yt)) + _c24_res((96, yt), (150, yt)) + W((150, yt), (xX, yt))
+    b += W((xX, yt), (xX, 92)) + _c24_res((xX, 92), (xX, 146)) + W((xX, 146), (xX, yb))
+    b += W((xX, yt), (252, yt)) + _p23_galvanometer((266, yt)) + W((280, yt), (xr, yt))
+    b += _c24_cell((xr, yb), (xr, yt), "q")
+    b += W((xl, yb), (xr, yb))
+    b += mlabel(123, 34, "500Ω", 14) + mlabel(266, 26, "G", 14) + mlabel(214, 124, "R", 14, anchor="start")
+    b += mlabel(32, 123, "12V", 14, anchor="end") + mlabel(358, 123, "2V", 14, anchor="start")
+    return svg_plain(400, 200, b, "2023 Q60: " + "12 V cell on the left; 500 Ω on the top wire to a junction; R from the junction to the bottom wire; galvanometer G from the junction to a 2 V cell on the right branch")
+
+_P23_Q61 = dict(ox=44, oy=150, xs=56, ys=480, xmax=3.6)
 
 def fig_2023_q61():
-    """Power vs load resistance graph with maximum point M."""
-    body = ""
-    body += label(40, 25, "P vs R graph", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-line)", sw=1.5)
-    body += line(40, 40, 40, 160, stroke="var(--fig-line)", sw=1.5)
-    # bell curve
-    body += path("M 40 150 C 60 150, 80 60, 120 45 C 160 60, 180 150, 200 150", stroke="var(--fig-primary)", sw=2)
-    # max point M
-    body += dot(120, 45, 5, fill="var(--fig-danger)")
-    body += label(125, 38, "M", 10, "var(--fig-danger-soft)")
-    body += label(30, 165, "R", 10, "var(--fig-axis)")
-    body += label(20, 55, "P", 10, "var(--fig-axis)")
-    return svg_wrap(240, 200, body, "2023 Q61: P vs R graph")
+    """Q61 as printed: Pr/E² versus R/r from O — rises to the maximum M (dashed drop line), then falls and levels off.
+    The curve is the load-power function (R/r)/(1 + R/r)² sampled densely (no tick values are printed)."""
+    g = _P23_Q61; ox, oy, xs, ys = g["ox"], g["oy"], g["xs"], g["ys"]
+    f = lambda u: u/(1 + u)**2
+    body = _p24_role(arrow(ox, oy, ox, 16, stroke="var(--fig-axis)", sw=1.2), "axis-v")
+    body += _p24_role(arrow(ox, oy, ox + 250, oy, stroke="var(--fig-axis)", sw=1.2), "axis-h")
+    pts = [(ox + u*xs, oy - f(u)*ys) for u in [g["xmax"]*j/90 for j in range(91)]]
+    body += _p24_poly(pts, "power-curve", sw=1.6)
+    mx, my = ox + 1*xs, oy - f(1)*ys
+    body += _p23_dash(mx, my, mx, oy, "M-drop")
+    body += mlabel(mx, my - 7, "M", 13) + mlabel(ox - 2, oy + 18, "O", 13)
+    body += mlabel(ox - 16, 22, "Pr", 12) + line(ox - 26, 26, ox - 6, 26, stroke="var(--fig-text)", sw=0.8) + mlabel(ox - 16, 40, "E²", 12)
+    body += mlabel(ox + 246, oy - 8, "R / r", 13, anchor="start")
+    return svg_plain(320, 170, body, "2023 Q61: " + "graph of Pr/E² versus R/r from the origin O; the curve rises to a maximum at M, marked by a dashed line down to the R/r axis, then falls and levels off")
+
+def _p23_spring(x1, x2, y, loops=4, r=5):
+    """Booklet spring: a row of small loops between straight leads (prolate cycloid)."""
+    pitch = (x2 - x1)/loops; pts = []
+    for j in range(loops*24 + 1):
+        s = j/24*2*_m.pi
+        pts.append((x1 + pitch*s/(2*_m.pi) - 0.55*r*_m.sin(s), y - r*(1 - _m.cos(s))*0.9))
+    return _p24_poly(pts, "spring", stroke="var(--fig-line)", sw=1.2)
 
 def fig_2023_q66():
-    """Spring-mass on frictionless surface with force F."""
-    body = ""
-    body += label(40, 25, "Spring-mass system", 10)
-    # surface
-    body += line(30, 130, 210, 130, stroke="var(--fig-line)", sw=2)
-    # spring
-    body += line(30, 130, 30, 100, stroke="var(--fig-primary)", sw=2)
-    body += polyline("30,100 30,95 35,95 30,90 35,90 30,85 35,85 30,80 35,80 30,75 35,75 30,70", stroke="var(--fig-primary)", sw=1.5)
-    body += line(35, 70, 90, 70, stroke="var(--fig-primary)", sw=1.5)
-    # mass
-    body += rect_(90, 55, 50, 35, "var(--fig-primary)")
-    body += label(115, 75, "m", 11, "var(--fig-text)", "middle")
-    # force
-    body += arrow(150, 75, 210, 75, stroke="var(--fig-danger)", label="F", label_pos=(215, 70))
-    body += label(115, 155, "Frictionless surface, spring constant k", 8, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 180, body, "2023 Q66: Spring-mass with force")
+    """Q66 as printed: wall on the left, horizontal floor, spring (loops) to the 4 Kg block, force F to the right."""
+    yf, xw = 120, 30
+    body = _p24_role(line(xw, 18, xw, yf, stroke="var(--fig-line)", sw=1.5), "wall")
+    body += _p24_role(line(xw, yf, 320, yf, stroke="var(--fig-line)", sw=1.5), "floor")
+    body += line(xw, 104, 76, 104, stroke="var(--fig-line)", sw=1.2) + _p23_spring(76, 120, 108)
+    body += line(120, 104, 186, 104, stroke="var(--fig-line)", sw=1.2)
+    body += _p24_role(f'  <rect x="186" y="84" width="56" height="36" fill="none" stroke="var(--fig-line)" stroke-width="1.4"/>\n', "block")
+    body += mlabel(214, 76, "4 Kg", 14)
+    body += _p24_role(arrow(242, 104, 286, 104, stroke="var(--fig-line)", sw=1.3), "F") + mlabel(292, 109, "F", 14, anchor="start")
+    return svg_plain(330, 132, body, "2023 Q66: " + "a 4 Kg block on a horizontal floor joined by a spring to a vertical wall on the left; a force F pulls the block to the right")
 
 def fig_2023_q68():
-    """RC circuit with capacitor, resistor, and switch."""
-    body = ""
-    body += label(40, 25, "RC circuit", 10)
-    # loop
-    body += line(60, 50, 180, 50, stroke="var(--fig-primary)", sw=2)
-    body += line(180, 50, 180, 150, stroke="var(--fig-primary)", sw=2)
-    body += line(180, 150, 60, 150, stroke="var(--fig-primary)", sw=2)
-    body += line(60, 150, 60, 50, stroke="var(--fig-primary)", sw=2)
-    # capacitor (left side)
-    body += line(60, 80, 60, 90, stroke="var(--fig-primary)", sw=3)
-    body += line(60, 110, 60, 120, stroke="var(--fig-primary)", sw=3)
-    body += label(45, 100, "C", 10, "var(--fig-secondary)")
-    # resistor (top)
-    body += rect_(100, 42, 30, 16, "var(--fig-accent)")
-    body += label(115, 35, "R", 10, "var(--fig-accent-tint)", "middle")
-    # switch (right side)
-    body += line(180, 90, 180, 100, stroke="var(--fig-primary)", sw=2)
-    body += line(180, 100, 175, 108, stroke="var(--fig-primary)", sw=2)
-    body += label(190, 100, "S", 10, "var(--fig-text)")
-    # EMF source (bottom)
-    body += circle(120, 150, 10, stroke="var(--fig-primary)", sw=2)
-    body += label(120, 153, "E", 9, "var(--fig-text)", "middle")
-    return svg_wrap(240, 200, body, "2023 Q68: RC circuit")
+    """Q68 as printed: a single loop with capacitor C (left), resistor R (top) and an open switch S (bottom); no source."""
+    xl, xr, yt, yb = 60, 240, 34, 116
+    W = _c24_w
+    b = W((xl, yt), (xl, 70)) + W((xl, 78), (xl, yb))
+    b += (f'  <g data-comp="C" data-pins="{xl},70 {xl},78">\n'
+          + _c24_plate((xl, 70), (0, 1), 11) + _c24_plate((xl, 78), (0, 1), 11) + '  </g>\n')
+    b += W((xl, yt), (124, yt)) + _c24_res((124, yt), (176, yt)) + W((176, yt), (xr, yt))
+    b += W((xr, yt), (xr, yb)) + W((xr, yb), (166, yb))
+    b += W((xl, yb), (130, yb))
+    b += (f'  <g data-comp="S" data-pins="130,{yb} 166,{yb}" data-state="open">\n'
+          f'  <path d="M 130,{yb} L 150,{yb - 16}" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n  </g>\n')
+    b += mlabel(150, 20, "R", 14) + mlabel(36, 80, "C", 14) + mlabel(154, 134, "S", 14)
+    return svg_plain(270, 142, b, "2023 Q68: " + "single loop: capacitor C on the left side, resistor R on the top wire, an open switch S on the bottom wire")
 
 def fig_2023_q70():
-    """Young's double slit with screen and point P."""
-    body = ""
-    body += label(40, 25, "Young's double slit", 10)
-    # source
-    body += dot(30, 100, 4, fill="var(--fig-primary)")
-    body += label(25, 90, "S", 9, "var(--fig-text)")
-    # slits
-    body += line(80, 70, 80, 80, stroke="var(--fig-primary)", sw=3)
-    body += line(80, 120, 80, 130, stroke="var(--fig-primary)", sw=3)
-    body += label(75, 65, "S₁", 8, "var(--fig-primary)")
-    body += label(75, 140, "S₂", 8, "var(--fig-primary)")
-    # rays to P
-    body += line(80, 75, 180, 100, stroke="var(--fig-primary)", sw=1, dash="2,2")
-    body += line(80, 125, 180, 100, stroke="var(--fig-primary)", sw=1, dash="2,2")
-    # screen
-    body += line(180, 50, 180, 150, stroke="var(--fig-line)", sw=2)
-    body += label(185, 55, "Screen", 8, "var(--fig-axis)")
-    # point P
-    body += dot(180, 100, 5, fill="var(--fig-danger)")
-    body += label(185, 103, "P", 9, "var(--fig-danger-soft)")
-    body += label(120, 170, "b = slit separation, d = screen distance", 8, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 200, body, "2023 Q70: Young's double slit")
+    """Q70 as printed: slit barrier with S1 above S2 (separation b), screen at distance d; P on the screen
+    level with S1; dashed rays S1→P (horizontal, labelled d) and S2→P."""
+    xb, xs, y1, y2 = 70, 236, 76, 104
+    body = _p24_role(line(xb, 18, xb, y1 - 4, stroke="var(--fig-line)", sw=1.5), "barrier")
+    body += line(xb, y1 + 4, xb, y2 - 4, stroke="var(--fig-line)", sw=1.5) + line(xb, y2 + 4, xb, 160, stroke="var(--fig-line)", sw=1.5)
+    body += _p24_role(line(xs, 22, xs, 158, stroke="var(--fig-line)", sw=1.5), "screen")
+    body += _p23_dash(xb, y1, xs, y1, "S1P") + _p23_dash(xb, y2, xs, y1, "S2P")
+    body += _p24_role(line(44, y1 + 2, 44, y2 - 2, stroke="var(--fig-line)", sw=1.0), "b") + _arrowhead(44, y1 + 1, -90, 5) + _arrowhead(44, y2 - 1, 90, 5)
+    body += mlabel(36, 95, "b", 13) + _p24_sub(50, y1 + 2, "S", "1", 12, italic=False) + _p24_sub(50, y2 + 8, "S", "2", 12, italic=False)
+    body += mlabel(152, y1 - 6, "d", 13) + mlabel(244, y1 + 5, "P", 13, anchor="start") + mlabel(234, 16, "screen", 13, anchor="start")
+    return svg_plain(290, 172, body, "2023 Q70: " + "Young's double slit; slits S1 above S2 separated by b in a vertical barrier; a screen at distance d; point P on the screen level with S1; dashed lines S1P and S2P")
 
 def fig_2023_q91():
     """RLC series circuit with current source."""
@@ -1788,6 +1811,7 @@ def main():
         "2023": {
             "fig-2023-q42": fig_2023_q42,
             "fig-2023-q48": fig_2023_q48,
+            "fig-2023-q56": fig_2023_q56,
             "fig-2023-q60": fig_2023_q60,
             "fig-2023-q61": fig_2023_q61,
             "fig-2023-q66": fig_2023_q66,

@@ -1064,753 +1064,768 @@
       }
     },
     "jelet-2023-q041": {
-      "conceptSummary": "Solve using dimensions for JELET 2023 Q41.",
+      "conceptSummary": "The phase of a sine is an angle, which is a pure number, so $A/\\phi$ has the dimension of $A$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves dimensions."
+          "title": "Dimension of the argument",
+          "bodyLatex": "The argument of $\\sin(\\omega t + \\phi)$ must be dimensionless, so $[\\omega t] = [\\phi] = 1$ (radians are a pure number)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Dimension of the amplitude",
+          "bodyLatex": "$x = A\\sin(\\dots)$ and $\\sin$ is dimensionless, so $[A] = [x] = L$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $LT^{-1}$."
+          "title": "Form the ratio",
+          "bodyLatex": "$\\left[\\dfrac{A}{\\phi}\\right] = \\dfrac{L}{1} = L$. (The OCR text had $A/\\omega$, which would give $LT$. The booklet prints $A/\\phi$.) Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy dimension vectors (L, T): [A] = (1, 0), [phi] = (0, 0) -> A/phi = (1, 0) = L; options L, LT^-1, LT, 1 compared."
       }
     },
     "jelet-2023-q042": {
-      "conceptSummary": "Solve using kinematics for JELET 2023 Q42.",
+      "conceptSummary": "Read $x(t)$ and $y(t)$ from the graphs, differentiate twice, and use $\\vec F = m\\vec a$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves kinematics."
+          "title": "Read the graphs",
+          "bodyLatex": "The $x$–$t$ graph is a straight line through $(1, 1)$ and $(2, 2)$, so $x = t$. The $y$–$t$ curve passes through $(0, 0)$, $(1, 1)$ and $(2, 4)$, so $y = t^{2}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Accelerations",
+          "bodyLatex": "$a_{x} = \\dfrac{d^{2}x}{dt^{2}} = 0$ and $a_{y} = \\dfrac{d^{2}y}{dt^{2}} = 2\\ \\text{m/s}^{2}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $1\\,\\text{N}$ along $y$-axis."
+          "title": "Force",
+          "bodyLatex": "$m = 500\\ \\text{gm} = 0.5\\ \\text{kg}$, so $F_{x} = 0$ and $F_{y} = 0.5 \\times 2 = 1\\ \\text{N}$: $1$ N along the $y$-axis. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: points read back from the SVG polylines fit x = t and y = t^2; a = (0, 2); F = 0.5 a = (0, 1) N -> option D."
       }
     },
     "jelet-2023-q043": {
-      "conceptSummary": "Solve using kinematics for JELET 2023 Q43.",
+      "conceptSummary": "For trains moving in opposite directions the relative speed is $V_{1} + V_{2}$, and the relative distance to cover is $L_{1} + L_{2}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves kinematics."
+          "title": "Relative speed",
+          "bodyLatex": "In the frame of train 2, train 1 moves at $V_{1} + V_{2}$ (opposite directions add)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Distance to cross",
+          "bodyLatex": "Crossing starts when the fronts meet and ends when the rear ends separate. The relative displacement is $L_{1} + L_{2}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{L_1 + L_2}{v_1 - v_2}$."
+          "title": "Time",
+          "bodyLatex": "$t = \\dfrac{L_{1} + L_{2}}{V_{1} + V_{2}}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: solve(L1 + L2 = (V1 + V2) t) -> t = (L1 + L2)/(V1 + V2); options A, C, D differ symbolically."
       }
     },
     "jelet-2023-q044": {
-      "conceptSummary": "Solve using rotation for JELET 2023 Q44.",
+      "conceptSummary": "Constant power: $P = \\dfrac{d}{dt}\\left(\\tfrac12 I\\omega^{2}\\right) = I\\omega\\,\\dfrac{d\\omega}{dt}$. Change the variable to $\\theta$ using $\\dfrac{d\\omega}{dt} = \\omega\\dfrac{d\\omega}{d\\theta}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves rotation."
+          "title": "Power equation",
+          "bodyLatex": "$P = \\dfrac{dK}{dt} = I\\omega\\dfrac{d\\omega}{dt}$ with $P$ constant."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Change variable to $\\theta$",
+          "bodyLatex": "$\\dfrac{d\\omega}{dt} = \\dfrac{d\\omega}{d\\theta}\\dfrac{d\\theta}{dt} = \\omega\\dfrac{d\\omega}{d\\theta}$, so $I\\omega^{2}\\,d\\omega = P\\,d\\theta$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\omega \\propto \\theta^{2/3}$."
+          "title": "Integrate from rest",
+          "bodyLatex": "$\\dfrac{I\\omega^{3}}{3} = P\\theta \\Rightarrow \\omega = \\left(\\dfrac{3P\\theta}{I}\\right)^{1/3} \\propto \\theta^{1/3}$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy dsolve(I w^2 w' = P, w(0) = 0) -> w = (3 P theta / I)^(1/3); exponent 1/3 matches option C only."
       }
     },
     "jelet-2023-q045": {
-      "conceptSummary": "Solve using newton-laws for JELET 2023 Q45.",
+      "conceptSummary": "The string's breaking tension is fixed at $T_{\\max} = 3g = 30$ N. When it is pulled upward with acceleration $a$, the tension needed is $m(g + a)$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves newton-laws."
+          "title": "Breaking tension",
+          "bodyLatex": "Hanging at rest, the string holds at most $3$ kg, so $T_{\\max} = 3 \\times 10 = 30\\ \\text{N}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Accelerating upward",
+          "bodyLatex": "Newton's second law for the load: $T - mg = ma \\Rightarrow T = m(g + a) = 12m$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{5}{2}\\,\\text{kg}$."
+          "title": "Maximum mass",
+          "bodyLatex": "$12m = 30 \\Rightarrow m = \\dfrac{30}{12} = \\dfrac{5}{2}$ Kg. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: solve(m (10 + 2) = 3*10) -> m = 5/2; options 15/4, 5/2, 3, 3/2."
       }
     },
     "jelet-2023-q046": {
-      "conceptSummary": "Solve using centre-of-mass for JELET 2023 Q46.",
+      "conceptSummary": "$\\vec v_{cm} = \\dfrac{m_{1}\\vec v_{1} + m_{2}\\vec v_{2}}{m_{1} + m_{2}}$. The correct result matches none of the four options, so WBJEEB withdrew the item.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves centre-of-mass."
+          "title": "Centre-of-mass velocity",
+          "bodyLatex": "$\\vec v_{cm} = \\dfrac{6(5\\hat{i} - 2\\hat{j} + 10\\hat{k}) + 4(10\\hat{i} + 2\\hat{j} + 5\\hat{k})}{10} = \\dfrac{70\\hat{i} - 4\\hat{j} + 80\\hat{k}}{10} = 7\\hat{i} - 0.4\\hat{j} + 8\\hat{k}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Compare with the options",
+          "bodyLatex": "(B) $7\\hat{i} - 2\\hat{j} + 8\\hat{k}$ has the right $x$ and $z$ components but $-2$ instead of $-0.4$ for $\\hat{j}$. (A), (C) and (D) are wrong in two or three components. No option equals $7\\hat{i} - 0.4\\hat{j} + 8\\hat{k}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is question is voided."
+          "title": "Why the item was withdrawn",
+          "bodyLatex": "The single-correct question has no valid answer, so the WBJEEB final key JEEB/Reg-267/23 marks Q46 W (withdrawn)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Marking",
+          "bodyLatex": "Q46 is a Category-I item marked W (withdrawn). It awards the full $+1$ mark ($+12$ twelfths) to every candidate, whatever they marked."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: W."
+        "note": "SymPy: v_cm = (7, -2/5, 8); no option vector equal -> W, +1 mark (+12 twelfths) to all."
       }
     },
     "jelet-2023-q047": {
-      "conceptSummary": "Solve using kinetic-theory for JELET 2023 Q47.",
+      "conceptSummary": "$C_{rms} = \\sqrt{3RT/M}$ depends only on temperature (for a given gas). Raising the pressure at constant $T$ does not change it.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves kinetic-theory."
+          "title": "rms speed formula",
+          "bodyLatex": "$C = \\sqrt{\\dfrac{3P}{\\rho}} = \\sqrt{\\dfrac{3RT}{M}}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Isothermal compression",
+          "bodyLatex": "At constant $T$, Boyle's law gives $P \\propto \\rho$. Tripling $P$ triples $\\rho$, so $P/\\rho$ is unchanged."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $C$."
+          "title": "Result",
+          "bodyLatex": "$C' = \\sqrt{3(3P)/(3\\rho)} = C$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: sqrt(3*(3P)/(3 rho)) / sqrt(3P/rho) = 1 -> C' = C."
       }
     },
     "jelet-2023-q048": {
-      "conceptSummary": "Solve using thermodynamics for JELET 2023 Q48.",
+      "conceptSummary": "The isotherm BA fixes $V_{B}/V_{A}$. The adiabat CA, with $V_{C} = V_{B}$ (C lies directly below B), then fixes $\\gamma$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves thermodynamics."
+          "title": "Isothermal BA",
+          "bodyLatex": "$P_{A}V_{A} = P_{B}V_{B}$: $3P\\,V_{A} = 2P\\,V_{B} \\Rightarrow \\dfrac{V_{B}}{V_{A}} = \\dfrac{3}{2}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Adiabatic CA",
+          "bodyLatex": "C is at pressure $P$ with $V_{C} = V_{B}$ (the vertical step C→B). $P_{A}V_{A}^{\\gamma} = P_{C}V_{C}^{\\gamma}$ gives $3 = \\left(\\dfrac{V_{C}}{V_{A}}\\right)^{\\gamma} = \\left(\\dfrac{3}{2}\\right)^{\\gamma}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\ln 2$."
+          "title": "Solve for $\\gamma$",
+          "bodyLatex": "$\\gamma = \\dfrac{\\ln 3}{\\ln 3 - \\ln 2} = \\dfrac{1}{1 - \\dfrac{\\ln 2}{\\ln 3}} \\approx 2.71$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: V_B/V_A = 3/2 from PV = const; solve(3 = (3/2)^g) -> g = log3/(log3 - log2) = option B (A, C, D differ numerically). SVG: B, C share V; curves satisfy PV and PV^g = const."
       }
     },
     "jelet-2023-q049": {
-      "conceptSummary": "Solve using electrostatics for JELET 2023 Q49.",
+      "conceptSummary": "The charge lies on the plane of the base. Half of its flux goes into the half-space containing the cone, and none crosses the flat base.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electrostatics."
+          "title": "Flux through the base",
+          "bodyLatex": "The base is a plane through $q$. On it, $\\vec E$ is radial and lies in the plane, so $\\vec E \\cdot d\\vec A = 0$ and $\\Phi_{\\text{base}} = 0$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Half-space argument",
+          "bodyLatex": "By symmetry, the total flux $q/\\varepsilon_{0}$ divides equally between the two half-spaces on either side of the base plane. Every field line entering the cone's half-space leaves through the curved surface."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{q}{3\\varepsilon_0}$."
+          "title": "Result",
+          "bodyLatex": "$\\Phi_{\\text{curved}} = \\dfrac{q}{2\\varepsilon_{0}}$, independent of $H$ and $r$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: solid angle of a hemisphere 2 pi -> flux q/eps0 * 2pi/4pi = q/(2 eps0); direct integral of E.dA over the cone surface equals the same value for H/r = 1, 2."
       }
     },
     "jelet-2023-q050": {
-      "conceptSummary": "Solve using electrostatics for JELET 2023 Q50.",
+      "conceptSummary": "Momentum is conserved (initially zero). Energy conservation in the CM frame gives $\\tfrac12\\mu v_{rel}^{2} = Kq_{1}q_{2}/r_{0}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electrostatics."
+          "title": "Conservation laws",
+          "bodyLatex": "$m_{1}v_{1} = m_{2}v_{2}$ (released from rest) and $\\tfrac12 m_{1}v_{1}^{2} + \\tfrac12 m_{2}v_{2}^{2} = \\dfrac{Kq_{1}q_{2}}{r_{0}}$ (potential energy at infinite separation is zero)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Reduced mass",
+          "bodyLatex": "With $v_{rel} = v_{1} + v_{2}$, the kinetic energy is $\\tfrac12\\mu v_{rel}^{2}$, where $\\mu = \\dfrac{m_{1}m_{2}}{m_{1} + m_{2}}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\sqrt{\\dfrac{2Kq_1q_2}{Mr_0}}$."
+          "title": "Relative velocity",
+          "bodyLatex": "$v_{rel} = \\sqrt{\\dfrac{2}{\\mu}\\dfrac{Kq_{1}q_{2}}{r_{0}}}$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: solve momentum + energy for v1, v2; (v1 + v2)^2 - 2Kq1q2/(mu r0) simplifies to 0; options B, C, D differ."
       }
     },
     "jelet-2023-q051": {
-      "conceptSummary": "Solve using refraction for JELET 2023 Q51.",
+      "conceptSummary": "The number of waves in thickness $t$ is $t/\\lambda_{\\text{medium}} = \\mu t/\\lambda_{0}$, so equal wave counts mean equal optical paths: $\\mu_{g}t_{g} = \\mu_{w}t_{w}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves refraction."
+          "title": "Wave count",
+          "bodyLatex": "$N = \\dfrac{t}{\\lambda/\\mu} = \\dfrac{\\mu t}{\\lambda}$ for the same vacuum wavelength $\\lambda$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Equate",
+          "bodyLatex": "$\\mu_{g} \\times 8 = \\dfrac{4}{3} \\times 10$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{5}{3}$."
+          "title": "Solve",
+          "bodyLatex": "$\\mu_{g} = \\dfrac{40}{24} = \\dfrac{5}{3}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: solve(8 mu = 4/3 * 10) -> mu = 5/3."
       }
     },
     "jelet-2023-q052": {
-      "conceptSummary": "Solve using lens for JELET 2023 Q52.",
+      "conceptSummary": "Two convex lenses in a Keplerian (afocal) arrangement: magnification $= F/f$ and separation $d = f + F$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves lens."
+          "title": "Magnification",
+          "bodyLatex": "A collimated beam stays collimated when the focal points coincide. The beam diameter then scales by $F/f$: $\\dfrac{10}{1} = \\dfrac{F}{50} \\Rightarrow F = 500$ mm."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Separation",
+          "bodyLatex": "The common focal point needs $d = f + F = 50 + 500 = 550$ mm."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $500\\,\\text{mm}$ and $550\\,\\text{mm}$."
+          "title": "Check the options",
+          "bodyLatex": "Only (D) $500$ mm and $550$ mm satisfies both conditions. In (A), (B), (C), $d \\neq 50 + F$ or $F/50 \\neq 10$. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: ray-transfer matrix M = Lens(F) Gap(d) Lens(50); afocal (M[1,0] = 0) needs d = 50 + F; beam-diameter ratio |M[0,0]| = F/50 = 10 -> only option D (500, 550) passes both."
       }
     },
     "jelet-2023-q053": {
-      "conceptSummary": "Solve using refraction for JELET 2023 Q53.",
+      "conceptSummary": "Complete polarisation of the reflected light occurs at Brewster's angle: $\\tan i_{B} = \\mu$. The refracted ray is then perpendicular to the reflected ray.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves refraction."
+          "title": "Brewster's law",
+          "bodyLatex": "$\\mu = \\tan 60^{\\circ} = \\sqrt{3}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Refraction angle",
+          "bodyLatex": "At Brewster incidence $i_{B} + \\theta_{r} = 90^{\\circ}$, so $\\theta_{r} = 30^{\\circ}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\mu = \\sqrt{3},\\; \\theta = 30^{\\circ}$."
+          "title": "Check with Snell's law",
+          "bodyLatex": "$\\sin 60^{\\circ} = \\sqrt{3}\\sin\\theta_{r} \\Rightarrow \\sin\\theta_{r} = \\dfrac{1}{2}$, $\\theta_{r} = 30^{\\circ}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: mu = tan(pi/3) = sqrt(3); asin(sin(pi/3)/sqrt(3)) = pi/6; only option B has (sqrt3, 30 deg)."
       }
     },
     "jelet-2023-q054": {
-      "conceptSummary": "Solve using shm for JELET 2023 Q54.",
+      "conceptSummary": "Write $x_{1} = A\\sin\\theta_{1}$ and $x_{2} = A\\sin\\theta_{2}$. They meet at $x = A/2$ moving in opposite directions, so $\\theta_{1} = 30^{\\circ}$ and $\\theta_{2} = 150^{\\circ}$. The phase difference is $120^{\\circ}$, which is not among the options. The official key is D ($180^{\\circ}$).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves shm."
+          "title": "Meeting condition",
+          "bodyLatex": "At the crossing $x_{1} = x_{2} = \\dfrac{A}{2}$, so $\\sin\\theta_{1} = \\sin\\theta_{2} = \\dfrac{1}{2}$, i.e. $\\theta \\in \\{30^{\\circ}, 150^{\\circ}\\}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Opposite directions",
+          "bodyLatex": "The velocity is $v = A\\omega\\cos\\theta$. Opposite directions need opposite signs of $\\cos\\theta$: $\\cos 30^{\\circ} > 0$ and $\\cos 150^{\\circ} < 0$. So $\\theta_{2} - \\theta_{1} = 120^{\\circ}$ (equivalently $240^{\\circ}$). With this constant phase difference the particles meet only at $x = \\pm A/2$, as the stem says."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $180^{\\circ}$."
+          "title": "Compare with the options",
+          "bodyLatex": "None of $210^{\\circ}$, $30^{\\circ}$, $90^{\\circ}$, $180^{\\circ}$ equals $120^{\\circ}$. With a $180^{\\circ}$ difference, $x_{2} = -x_{1}$ and the particles would cross only at $x = 0$, not at half the amplitude."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Official key (documented dispute)",
+          "bodyLatex": "The WBJEEB final key JEEB/Reg-267/23 lists (D) $180^{\\circ}$ for Q54, and that key is kept unchanged here. Our analysis gives $120^{\\circ}$ (not offered). The dispute is recorded in the verification log. Answer per official key: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: solve(sin t1 = sin t2 = 1/2, cos t1 * cos t2 < 0) -> |t2 - t1| = 2pi/3 (or 4pi/3); no option equals 120 deg; key D (180 deg) kept as a documented dispute."
       }
     },
     "jelet-2023-q055": {
-      "conceptSummary": "Solve using fluid for JELET 2023 Q55.",
+      "conceptSummary": "Equal weights means $V \\propto 1/\\rho$. The loss of weight in water is the buoyant force $\\rho_{w}Vg$, so the denser iron cube loses less.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves fluid."
+          "title": "Volumes",
+          "bodyLatex": "$W = \\rho V g$ is the same for both, so $V_{Fe} = \\dfrac{W}{8g}$ and $V_{Al} = \\dfrac{W}{2.7g}$, giving $V_{Fe} < V_{Al}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Apparent weights",
+          "bodyLatex": "$W' = W\\left(1 - \\dfrac{\\rho_{w}}{\\rho}\\right)$: $W'_{Fe} = W(1 - 1/8) = 0.875W$ and $W'_{Al} = W(1 - 1/2.7) \\approx 0.630W$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) the Iron cube will weigh more than the aluminium cube."
+          "title": "Compare",
+          "bodyLatex": "The losses differ (rules out A), both cubes lose weight (rules out C), and $W'_{Fe} > W'_{Al}$ (rules out D). Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: W' = W (1 - 1/rho): Fe 7/8 W, Al 17/27 W; Fe > Al."
       }
     },
     "jelet-2023-q056": {
-      "conceptSummary": "Solve using current-density for JELET 2023 Q56.",
+      "conceptSummary": "In steady flow the same current $I$ passes through every cross-section, so $j\\,A$ is constant and $A \\propto 1/j$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves current-density."
+          "title": "Continuity of current",
+          "bodyLatex": "$I = j_{1}\\dfrac{\\pi D_{1}^{2}}{4} = j_{2}\\dfrac{\\pi D_{2}^{2}}{4}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Insert $j_{2} = 2j_{1}$",
+          "bodyLatex": "$D_{1}^{2} = 2D_{2}^{2}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\sqrt{2}D_1$."
+          "title": "Solve",
+          "bodyLatex": "$D_{2} = \\dfrac{D_{1}}{\\sqrt{2}}$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: solve(j1 D1^2 = 2 j1 D2^2, D2 > 0) -> D1/sqrt(2); figure labels D1, D2, I1, I2 and the constriction (narrow < wide) read back from the SVG."
       }
     },
     "jelet-2023-q057": {
-      "conceptSummary": "Solve using magnetic-field for JELET 2023 Q57.",
+      "conceptSummary": "The field at the centre of a loop is $\\mu_{0}I/2R$. Opposite currents subtract, and the net field equals half of $I'$'s field.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves magnetic-field."
+          "title": "Individual fields",
+          "bodyLatex": "$B = \\dfrac{\\mu_{0}I}{2R} = \\dfrac{\\mu_{0}I}{4R'}$ (since $R = 2R'$) and $B' = \\dfrac{\\mu_{0}I'}{2R'}$, in opposite directions."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Condition",
+          "bodyLatex": "$B' - B = \\dfrac{1}{2}B'$, so $B = \\dfrac{1}{2}B'$: $\\dfrac{\\mu_{0}I}{4R'} = \\dfrac{\\mu_{0}I'}{4R'}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $1:1$."
+          "title": "Ratio",
+          "bodyLatex": "$\\dfrac{I}{I'} = 1$, i.e. $1 : 1$. (If the net field pointed along $I$'s field instead, $B - B' = B'/2$ would give $I/I' = 3$, i.e. $3 : 1$. That is not offered.) Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: solve(I'/(2R') - I/(2*2R') = I'/(4R')) -> I/I' = 1; the reversed-net case gives 3 (3:1, not an option; option A is 1:3)."
       }
     },
     "jelet-2023-q058": {
-      "conceptSummary": "Solve using magnetic-field for JELET 2023 Q58.",
+      "conceptSummary": "A freely suspended magnet settles along the resultant field. Equivalently, the torques $mB_{1}\\sin\\alpha_{1}$ and $mB_{2}\\sin\\alpha_{2}$ balance.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves magnetic-field."
+          "title": "Angles",
+          "bodyLatex": "The fields are $75^{\\circ}$ apart and the magnet is at $45^{\\circ}$ to the unknown field $B_{2}$, so it is at $75^{\\circ} - 45^{\\circ} = 30^{\\circ}$ to $B_{1} = 3\\sqrt{2} \\times 10^{-3}$ T."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Torque balance",
+          "bodyLatex": "$mB_{1}\\sin 30^{\\circ} = mB_{2}\\sin 45^{\\circ}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $3 \\times 10^{-3}\\,\\text{T}$."
+          "title": "Solve",
+          "bodyLatex": "$B_{2} = \\dfrac{3\\sqrt{2} \\times 10^{-3} \\times \\tfrac12}{\\tfrac{1}{\\sqrt2}} = 3 \\times 10^{-3}$ T. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: solve(3 sqrt2e-3 sin30 = B2 sin45) -> B2 = 3e-3 T; resultant direction check atan2 gives 30 deg from B1."
       }
     },
     "jelet-2023-q059": {
-      "conceptSummary": "Solve using magnetic-field for JELET 2023 Q59.",
+      "conceptSummary": "The orbiting electron is a current loop with $I = ef$. The field at its centre (at the nucleus) is $B = \\mu_{0}I/2r$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves magnetic-field."
+          "title": "Equivalent current",
+          "bodyLatex": "Charge $e$ passes any point $f$ times per second, so $I = ef$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Field at the centre",
+          "bodyLatex": "$B = \\dfrac{\\mu_{0}I}{2r} = \\dfrac{\\mu_{0}ef}{2r}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{2Br}{\\mu_0 e}$."
+          "title": "Frequency",
+          "bodyLatex": "$f = \\dfrac{2Br}{\\mu_{0}e}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: solve(B = mu0 e f / (2 r), f) -> 2 B r/(mu0 e)."
       }
     },
     "jelet-2023-q060": {
-      "conceptSummary": "Solve using circuits for JELET 2023 Q60.",
+      "conceptSummary": "Zero deflection means no current through G. The 12 V cell drives current through 500 Ω and R in series, and the voltage across R must equal the 2 V cell.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves circuits."
+          "title": "No galvanometer current",
+          "bodyLatex": "With $I_{G} = 0$, the 2 V branch carries no current. The 12 V cell, 500 Ω and $R$ form a single series loop: $I = \\dfrac{12}{500 + R}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Balance condition",
+          "bodyLatex": "The junction above $R$ must be at the potential of the 2 V cell's positive terminal (both cells have + upward): $IR = \\dfrac{12R}{500 + R} = 2$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $100\\,\\Omega$."
+          "title": "Solve",
+          "bodyLatex": "$12R = 1000 + 2R \\Rightarrow R = 100\\ \\Omega$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: modified nodal analysis on the netlist read back from fig-2023-q60.svg (cells, 500 ohm, R, G pins) with G open -> V(X) - V(G right) = 0 gives R = 100 ohm."
       }
     },
     "jelet-2023-q061": {
-      "conceptSummary": "Solve using circuits for JELET 2023 Q61.",
+      "conceptSummary": "$P = \\dfrac{E^{2}R}{(R + r)^{2}}$, so $\\dfrac{Pr}{E^{2}} = \\dfrac{x}{(1 + x)^{2}}$ with $x = R/r$. Its maximum is at $x = 1$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves circuits."
+          "title": "Dimensionless power",
+          "bodyLatex": "$I = \\dfrac{E}{R + r}$ and $P = I^{2}R = \\dfrac{E^{2}R}{(R + r)^{2}}$. Multiplying by $r/E^{2}$ gives $y = \\dfrac{Pr}{E^{2}} = \\dfrac{x}{(1 + x)^{2}}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Maximise",
+          "bodyLatex": "$\\dfrac{dy}{dx} = \\dfrac{1 - x}{(1 + x)^{3}} = 0 \\Rightarrow x = 1$ (maximum power transfer $R = r$)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $(\\dfrac{r}{R}, \\dfrac{E^{2}}{4R})$."
+          "title": "Coordinates of M",
+          "bodyLatex": "$y(1) = \\dfrac{1}{4}$, so $M = \\left(1, \\dfrac{1}{4}\\right)$. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: diff(x/(1+x)^2) = 0 -> x = 1, y = 1/4; SVG: M-drop line lies at the maximum of the drawn curve."
       }
     },
     "jelet-2023-q062": {
-      "conceptSummary": "Solve using photoelectric for JELET 2023 Q62.",
+      "conceptSummary": "Einstein's equation $\\tfrac12 mv_{\\max}^{2} = \\dfrac{hc}{\\lambda} - \\phi$, together with the cyclotron radius $R = \\dfrac{mv_{\\max}}{eB}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves photoelectric."
+          "title": "Radius of the fastest electrons",
+          "bodyLatex": "All photoelectrons stay within radius $R$, so the fastest ones have $R = \\dfrac{mv_{\\max}}{eB}$, i.e. $v_{\\max} = \\dfrac{eBR}{m}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Kinetic energy",
+          "bodyLatex": "$K_{\\max} = \\dfrac{1}{2}mv_{\\max}^{2} = \\dfrac{e^{2}B^{2}R^{2}}{2m}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $a - bR^{2}$."
+          "title": "Work function",
+          "bodyLatex": "$\\phi = \\dfrac{hc}{\\lambda} - \\dfrac{e^{2}B^{2}}{2m}R^{2} = a - bR^{2}$ with $a = hc/\\lambda$ and $b = e^{2}B^{2}/2m$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: phi = hc/lambda - (eBR)^2/(2m); d phi/d(R^2) = -e^2 B^2/(2m) < 0, constant -> a - bR^2."
       }
     },
     "jelet-2023-q063": {
-      "conceptSummary": "Solve using radioactivity for JELET 2023 Q63.",
+      "conceptSummary": "Activity $= \\lambda N$, with $N = \\dfrac{m}{M}L$ atoms.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves radioactivity."
+          "title": "Number of nuclei",
+          "bodyLatex": "Moles $= m/M$, so $N = \\dfrac{mL}{M}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Decay law",
+          "bodyLatex": "$A = -\\dfrac{dN}{dt} = \\lambda N$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{\\lambda m L}{M}$."
+          "title": "Activity",
+          "bodyLatex": "$A = \\dfrac{\\lambda mL}{M}$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: lambda*(m/M)*L equals option A; B, C, D differ symbolically."
       }
     },
     "jelet-2023-q064": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q64.",
+      "conceptSummary": "$\\dfrac{hc}{\\lambda} = \\Delta E$. Compare the two energy gaps.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "Energy gaps",
+          "bodyLatex": "$E_{3} - E_{1} = 2E - E = E$ and $E_{2} - E_{1} = \\dfrac{4E}{3} - E = \\dfrac{E}{3}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Wavelength ratio",
+          "bodyLatex": "$\\lambda \\propto \\dfrac{1}{\\Delta E}$, so $\\dfrac{\\lambda_{21}}{\\lambda} = \\dfrac{E}{E/3} = 3$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $3\\lambda$."
+          "title": "Result",
+          "bodyLatex": "$\\lambda_{21} = 3\\lambda$. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: (E/(4E/3 - E)) * lambda = 3 lambda."
       }
     },
     "jelet-2023-q065": {
-      "conceptSummary": "Solve using radioactivity for JELET 2023 Q65.",
+      "conceptSummary": "Each $\\alpha$ removes 2 protons and 2 neutrons. Each $\\beta^{-}$ converts a neutron into a proton.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves radioactivity."
+          "title": "After three $\\alpha$",
+          "bodyLatex": "$A \\to A - 12$ and $Z \\to Z - 6$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "After five $\\beta$",
+          "bodyLatex": "$Z - 6 \\to Z - 6 + 5 = Z - 1$; $A - 12$ is unchanged."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{A-Z-11}{Z-1}$."
+          "title": "Neutron/proton ratio",
+          "bodyLatex": "$N = (A - 12) - (Z - 1) = A - Z - 11$ and protons $= Z - 1$, so the ratio is $\\dfrac{A - Z - 11}{Z - 1}$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: (A - 12 - (Z - 6 + 5)) / (Z - 6 + 5) = (A - Z - 11)/(Z - 1) = option A."
       }
     },
     "jelet-2023-q066": {
-      "conceptSummary": "Solve using spring for JELET 2023 Q66.",
+      "conceptSummary": "Work-energy: $Fx = \\tfrac12 kx^{2} + \\tfrac12 mv^{2}$ (frictionless). Check each statement against $v(x)$ and $a(x)$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves spring."
+          "title": "Energy balance",
+          "bodyLatex": "The work done by $F$ goes into spring energy plus kinetic energy, with no dissipation. (A) is true: energy is conserved."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Velocity",
+          "bodyLatex": "$v^{2} = \\dfrac{2Fx - kx^{2}}{m}$, so $v = \\sqrt{(2Fx - kx^{2})/m}$ is not linear in $x$. (B) is false."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) The energy is conserved in this process., (C) If $x = 0.5\\,\\text{m}$, $k = 24\\,\\text{N/m}$, $F = 10\\,\\text{N}$, then speed of the block is $1\\,\\text{m/s}$., (D) At $x = F/k$, acceleration of the block will be zero.."
+          "title": "Numbers",
+          "bodyLatex": "$x = 0.5$, $k = 24$, $F = 10$, $m = 4$: $v^{2} = \\dfrac{2(10)(0.5) - 24(0.25)}{4} = \\dfrac{10 - 6}{4} = 1$, so $v = 1$ m/s. (C) is true."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Acceleration",
+          "bodyLatex": "$a = \\dfrac{F - kx}{m} = 0$ at $x = F/k$. (D) is true. Answer: (A), (C), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: ACD."
+        "note": "SymPy: v^2 = (2Fx - kx^2)/m; v(0.5) = 1 for (F, k, m) = (10, 24, 4); d2v/dx2 != 0; a(F/k) = 0 -> {A, C, D}."
       }
     },
     "jelet-2023-q067": {
-      "conceptSummary": "Solve using work-energy for JELET 2023 Q67.",
+      "conceptSummary": "$F = -\\dfrac{dU}{dx}$ with $U = A - Bx^{2}$ gives $F = 2Bx$, which points away from $x = 0$ (unstable equilibrium).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves work-energy."
+          "title": "Force",
+          "bodyLatex": "$F = -\\dfrac{d}{dx}(A - Bx^{2}) = 2Bx$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Dependence on $x$",
+          "bodyLatex": "$F \\propto x$, so (B) is true. It is neither $\\propto x^{2}$ (A) nor independent of $x$ (C)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) proportional to $x$., (D) directed away from equilibrium position.."
+          "title": "Direction",
+          "bodyLatex": "For $B > 0$, $F$ has the same sign as $x$ and pushes the particle away from $x = 0$. $U$ has a maximum there (unstable equilibrium), so (D) is true. Answer: (B), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: BD."
+        "note": "SymPy: F = -dU/dx = 2Bx; F/x = 2B constant; sign(F) = sign(x) for B > 0 -> {B, D}."
       }
     },
     "jelet-2023-q068": {
-      "conceptSummary": "Solve using circuits for JELET 2023 Q68.",
+      "conceptSummary": "Discharge of a charged capacitor through $R$: $i(t) = \\dfrac{E}{R}e^{-(t - t_{0})/RC}$ for $t \\ge t_{0}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves circuits."
+          "title": "Circuit equation",
+          "bodyLatex": "After closing S the loop contains only C and R (no source): $\\dfrac{q}{C} + R\\dfrac{dq}{dt} = 0$ with $q(t_{0}) = CE$. So $q = CEe^{-(t - t_{0})/RC}$ and $i = \\dfrac{E}{R}e^{-(t - t_{0})/RC}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "(A), (B), (C)",
+          "bodyLatex": "At $t = t_{0}^{+}$, $i = E/R$, so (A) is true. The current is largest at $t = t_{0}$ and decreases from then on. $t = 1/CR$ is not even a time (it has units of $\\text{s}^{-1}$), so (B) is false. The current decays exponentially to zero, so (C) is true."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) Immediately after switch on, the current in the circuit is $E/R$., (C) The current through the resistor decreases exponentially to zero., (D) The voltage across the capacitor remains constant.."
+          "title": "(D) Heat",
+          "bodyLatex": "$H = \\displaystyle\\int_{t_{0}}^{\\infty} i^{2}R\\,dt = \\dfrac{E^{2}}{R}\\cdot\\dfrac{RC}{2} = \\dfrac{1}{2}CE^{2}$, all of the stored energy. (D) is true. Answer: (A), (C), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: ACD."
+        "note": "SymPy: dsolve(q/C + R q' = 0, q(t0) = CE); i(t0) = E/R; i' < 0 for t > t0; integral i^2 R dt = C E^2/2. Netlist from SVG: series loop C-R-S, no source."
       }
     },
     "jelet-2023-q069": {
-      "conceptSummary": "Solve using electrostatics for JELET 2023 Q69.",
+      "conceptSummary": "Integrate $\\rho = \\rho_{0}r/R$ over spherical shells for $Q$, then apply Gauss's law inside.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electrostatics."
+          "title": "Total charge",
+          "bodyLatex": "$Q = \\displaystyle\\int_{0}^{R}\\rho_{0}\\dfrac{r}{R}\\,4\\pi r^{2}\\,dr = \\dfrac{4\\pi\\rho_{0}}{R}\\cdot\\dfrac{R^{4}}{4} = \\pi\\rho_{0}R^{3}$. (A) is true and (B) is false."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Enclosed charge",
+          "bodyLatex": "$q(r) = \\dfrac{\\pi\\rho_{0}r^{4}}{R} = Q\\dfrac{r^{4}}{R^{4}}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) The total charge $Q$ on the sphere is $\\dfrac{\\pi \\rho_0 R^{3}}{4}$., (C) The electric field inside the sphere is $\\dfrac{Q}{4\\pi\\varepsilon_0 R^{4}} r$.."
+          "title": "Field inside",
+          "bodyLatex": "$E\\,4\\pi r^{2} = \\dfrac{q(r)}{\\varepsilon_{0}} \\Rightarrow E = \\dfrac{1}{4\\pi\\varepsilon_{0}}\\dfrac{Q}{R^{4}}r^{2}$. (C) is true; (D) has the wrong power of $R$ and is false. Answer: (A), (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: AC."
+        "note": "SymPy: integrate(rho0 r/R 4 pi r^2, (r, 0, R)) = pi rho0 R^3; E = q(r)/(4 pi eps0 r^2) = Q r^2/(4 pi eps0 R^4) -> {A, C}."
       }
     },
     "jelet-2023-q070": {
-      "conceptSummary": "Solve using wave-optics for JELET 2023 Q70.",
+      "conceptSummary": "P is level with $S_{1}$, so its distance from the central axis is $b/2$. The path difference at P is $\\Delta = \\sqrt{d^{2} + b^{2}} - d \\approx \\dfrac{b^{2}}{2d}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves wave-optics."
+          "title": "Path difference at P",
+          "bodyLatex": "$S_{1}P = d$ and $S_{2}P = \\sqrt{d^{2} + b^{2}}$, so $\\Delta = \\sqrt{d^{2} + b^{2}} - d \\approx \\dfrac{b^{2}}{2d}$ for $d \\gg b$. (B) $d + b^{2}/d$ is false."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Destructive condition and missing wavelengths",
+          "bodyLatex": "Darkness at P for wavelength $\\lambda$ requires $\\Delta = \\left(n - \\tfrac12\\right)\\lambda$, i.e. $\\left(n - \\tfrac12\\right)\\lambda = \\dfrac{b^{2}}{2d}$ — (C) is true. Hence $\\lambda_{n} = \\dfrac{b^{2}}{(2n - 1)d}$: $n = 1$ gives $\\dfrac{b^{2}}{d}$ and $n = 2$ gives $\\dfrac{b^{2}}{3d}$. (D) is true."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) On the screen, there will be coloured fringes except central fringe., (C) For destructive interference at point $P$, the condition will be $\\dfrac{b^{2}}{2d} = (n+\\frac{1}{2})\\lambda$ ($n = 1,2,\\ldots$)., (D) For constructive interference at point $P$, the condition will be $\\dfrac{b^{2}}{2d} = n\\lambda$.."
+          "title": "White-light fringes",
+          "bodyLatex": "At the centre $\\Delta = 0$ for every wavelength, so the central fringe is white. Elsewhere the fringe positions depend on $\\lambda$, so the fringes are coloured. (A) is true. Answer: (A), (C), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: ACD."
+        "note": "SymPy: series(sqrt(d^2 + b^2) - d, b) = b^2/(2d) + O(b^4); missing lambda_n = b^2/((2n-1)d), n = 2 -> b^2/(3d); SVG: P level with S1, S1P perpendicular to screen -> {A, C, D}."
       }
     },
     "jelet-2023-q071": {

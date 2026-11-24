@@ -4,13 +4,13 @@ Validates every question against the official WBJEEB Final Answer Key."""
 import json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from q2022 import Q2022
-from q2023 import Q2023
+from q2023 import Q2023, STEM_FIGURE_ALT_2023
 from q2024 import Q2024, OPTION_FIGURES_2024, STEM_FIGURE_ALT_2024
 from q2025 import Q2025, OPTION_FIGURES_2025, STEM_FIGURE_ALT_2025
 import re
 
 OPTION_FIGURES = {"2024": OPTION_FIGURES_2024, "2025": OPTION_FIGURES_2025}
-STEM_FIGURE_ALT = {"2024": STEM_FIGURE_ALT_2024, "2025": STEM_FIGURE_ALT_2025}
+STEM_FIGURE_ALT = {"2023": STEM_FIGURE_ALT_2023, "2024": STEM_FIGURE_ALT_2024, "2025": STEM_FIGURE_ALT_2025}
 
 def _svg_size(year, key, default=(420, 220)):
     """Read the intrinsic width/height of a generated SVG (falls back to the legacy default)."""

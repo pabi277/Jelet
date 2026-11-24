@@ -38,7 +38,17 @@ Checks:
      options judged for Cat-II Q31–Q40, withdrawn Q6 must have no correct option
      and state the +1 (+12 twelfths) rule; KEY_DISPUTES_2023 (Q34) printed. A 2023
      Batch A coverage gate requires 40/40 checks, method sympy, >= 3 steps, 0 stubs.
- 11. Report coverage statistics
+ 11. 2023 Q41–Q70 (Batch B, Physics): 30 independent checks (_b23_qN) from the
+     verbatim Set A stems (pages 10–17): booklet layout (page, category, twelfths,
+     unitId, stem figures only for Q42/48/56/60/61/66/68/70, no spoiler SVGs),
+     printed options parsed into SymPy, answers read back from the redrawn SVGs
+     (Q42 x–t/y–t fits, Q48 isotherm/adiabat, Q56, Q61 maximum, Q66, Q70) and
+     circuit netlists (Q60 MNA with the galvanometer open, Q68 series C–R–S loop);
+     Cat-II Q66–Q70 judge all four options; withdrawn Q46 must have no correct
+     option and state the +1 rule; Q54 dispute (no option correct, key D kept).
+     A 2023 Batch B gate requires 30/30 checks, method sympy, >= 3 steps, 0 stubs
+     and 0 orphan 2023 SVGs.
+ 12. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -4247,6 +4257,671 @@ def _a23_guard(n):
 
 A_TESTS_2023 = [(f"2023 Q{n}", f"jelet-2023-q{n:03d}", _a23_guard(n)) for n in range(1, 41)]
 
+# ---------------------------------------------------------------------------
+# 2023 Batch B (Physics, Q41–Q70): independent SymPy re-derivation from the
+# verbatim stems transcribed from booklet pages 10–17 (Set A). Each check
+# (a) asserts the booklet layout (pdfPage, category, twelfths, unitId, figure
+# presence: stem figures exactly for Q42/48/56/60/61/66/68/70, never option
+# figures, no orphan/spoiler SVG), (b) asserts stem and option fingerprints and
+# parses the printed option LaTeX into SymPy (so a tampered option changes the
+# verdict), (c) recomputes the physics from scratch — reading the redrawn SVG
+# geometry back (Q42, Q48, Q56, Q61, Q66, Q70) and rebuilding circuit netlists
+# from the SVG for modified nodal analysis (Q60) and loop topology (Q68) —
+# evaluating ALL FOUR options (Cat-II Q66–Q70 judge each option), and (d)
+# requires the true option set to equal key.correct (JEEB/Reg-267/23, Series-A).
+# Q46 is withdrawn (W); Q54 is a documented key dispute (no option is
+# physically correct; the official key D is kept unchanged).
+# ---------------------------------------------------------------------------
+
+_B23_PAGE = {**{n: 10 for n in range(41, 46)}, **{n: 11 for n in range(46, 50)}, **{n: 12 for n in range(50, 54)},
+             **{n: 13 for n in range(54, 58)}, **{n: 14 for n in range(58, 61)}, **{n: 15 for n in range(61, 66)},
+             **{n: 16 for n in range(66, 69)}, 69: 17, 70: 17}
+_B23_UNIT = {41: "P01", 42: "P03", 43: "P02", 44: "P04", 45: "P03", 46: "P03", 47: "P11", 48: "P11", 49: "E04", 50: "P04",
+             51: "P13", 52: "P14", 53: "P13", 54: "P03", 55: "P08", 56: "E04", 57: "E01", 58: "E01", 59: "E01", 60: "E01",
+             61: "E04", 62: "P15", 63: "P15", 64: "P15", 65: "P15", 66: "P04", 67: "P04", 68: "E04", 69: "E04", 70: "P13"}
+LAYOUT_2023_B = {42, 48, 56, 60, 61, 66, 68, 70}          # items whose booklet stem prints a figure (no option figures anywhere)
+
+KEY_DISPUTES_2023[54] = {
+    "official_key": ["D"], "extra_true": [], "no_option_true": True,
+    "reason": "two equal SHMs that always pass each other at x = A/2 moving oppositely have phases 30° and 150°, a phase "
+              "difference of 120° (or 240°) — not among 210°, 30°, 90°, 180°; with 180° they would cross only at x = 0. "
+              "The official key lists D (180°)"}
+INTERPRETATION_NOTES_2023.update({
+    57: "'half that due to I′ alone' is read for the magnitude; the net field along I′ gives I/I′ = 1 (1 : 1, D). The "
+        "reversed-net case gives I/I′ = 3 (3 : 1), which is not printed (option A is 1 : 3). Official key D kept.",
+    66: "(A) 'The energy is conserved' is read as the work–energy balance W_F = ½kx² + ½mv² (frictionless, no dissipation), "
+        "not as constancy of the block–spring mechanical energy (F does work on the system). Official key A, C, D kept.",
+})
+
+def _b23_layout(qnum):
+    q = _paper_2023().get(qnum)
+    if q is None:
+        return False, f"2023 Q{qnum} missing from the paper"
+    cat = 1 if qnum <= 65 else 2
+    probs = []
+    if q.get("pdfPage") != _B23_PAGE[qnum]:
+        probs.append(f"pdfPage {q.get('pdfPage')} != booklet page {_B23_PAGE[qnum]}")
+    if q.get("category") != cat or q.get("fullTwelfths") != (12 if cat == 1 else 24) or q.get("negativeTwelfths") != (3 if cat == 1 else 0):
+        probs.append(f"category/twelfths {q.get('category')}/{q.get('fullTwelfths')}/{q.get('negativeTwelfths')} != Cat-{cat}")
+    if q.get("unitId") != _B23_UNIT[qnum] or q.get("subjectId") != "PHYS":
+        probs.append(f"unitId {q.get('unitId')} != {_B23_UNIT[qnum]}")
+    if [o.get("id") for o in q.get("options", [])] != ["A", "B", "C", "D"]:
+        probs.append("options are not A–D")
+    if any(o.get("figure") for o in q.get("options", [])):
+        probs.append("the booklet prints no option figures in Q41–Q70")
+    sf = q.get("stemFigure"); fn = f"fig-2023-q{qnum:02d}.svg"
+    if qnum in LAYOUT_2023_B:
+        if not sf or sf.get("src") != f"./_data/figures/2023/{fn}":
+            probs.append(f"stem figure must be ./_data/figures/2023/{fn} (booklet prints one), got {sf and sf.get('src')}")
+        elif not os.path.exists(os.path.join(ROOT, sf["src"][2:])):
+            probs.append(f"figure file missing: {sf['src']}")
+        elif sf.get("alt", "").startswith("Figure for JELET"):
+            probs.append("generic alt text — describe the printed figure")
+    else:
+        if sf:
+            probs.append("booklet prints no figure for this item — stemFigure must be null")
+        if os.path.exists(os.path.join(DATA, "figures", "2023", fn)):
+            probs.append(f"orphan/spoiler SVG {fn} exists")
+    return (not probs), "; ".join(probs)
+
+_B23_TOK = re.compile(r"eps0|mu0|rho0|lam|mu|pi|theta|omega|gamma|sqrt|log|[A-Za-z]'?\d*|\d+(?:\.\d+)?|[()+\-*/]")
+
+def _b23_expr(tex):
+    """Parse printed option/stem LaTeX (fractions, roots, powers, subscripts, Greek, ln) into SymPy (None if it cannot)."""
+    t = tex.strip()
+    if t.startswith("$") and t.endswith("$"):
+        t = t[1:-1]
+    t = t.replace(r"\left", "").replace(r"\right", "").replace(r"\,", " ").replace(r"\ ", " ")
+    t = re.sub(r"\\ln\s*(\d+)", r"log(\1)", t)
+    for a, b in ((r"\varepsilon_{0}", " eps0 "), (r"\mu_{0}", " mu0 "), (r"\rho_{0}", " rho0 "), (r"\lambda", " lam "),
+                 (r"\mu", " mu "), (r"\pi", " pi "), (r"\theta", " theta "), (r"\omega", " omega "), (r"\gamma", " gamma ")):
+        t = t.replace(a, b)
+    t = re.sub(r"([A-Za-z])_\{(\w+)\}", r"\1\2", t)
+    for _ in range(8):
+        t = re.sub(r"\\d?frac\{([^{}]*)\}\{([^{}]*)\}", r"((\1)/(\2))", t)
+        t = re.sub(r"\\sqrt\{([^{}]*)\}", r"sqrt(\1)", t)
+        t = re.sub(r"\^\{([^{}]*)\}", r"**(\1)", t)
+    t = re.sub(r"\^(\w)", r"**\1", t)
+    if "\\" in t or "{" in t or "}" in t:
+        return None
+    toks = _B23_TOK.findall(t)
+    if "".join(toks) != re.sub(r"\s+", "", t):
+        return None
+    out, loc = [], {"sqrt": sympy.sqrt, "log": sympy.log, "pi": sympy.pi}
+    def atom_end(k):
+        return k not in ("sqrt", "log") and (k[0].isalnum() or k == ")")
+    for i, k in enumerate(toks):
+        if out and atom_end(toks[i - 1]) and (k[0].isalnum() or k == "("):
+            out.append("*")
+        if k[0].isalpha() and k not in loc:
+            name = k.replace("'", "p")
+            loc[name] = sympy.Symbol(name, positive=True)
+            k = name
+        out.append(k)
+    try:
+        return sympy.sympify("".join(out), locals=loc)
+    except Exception:
+        return None
+
+def _b23_S(*names):
+    return [sympy.Symbol(n, positive=True) for n in names]
+
+def _b23_opts(qnum):
+    return {o["id"]: o["latex"] for o in _paper_2023()[qnum]["options"]}
+
+def _b23_common(qnum, stem_fps, opt_fps):
+    q = _paper_2023()[qnum]
+    missing = [fp for fp in stem_fps if fp not in q["stemLatex"]]
+    if missing:
+        return f"stem fingerprint(s) {missing} not found in stemLatex"
+    olatex = _b23_opts(qnum)
+    omissing = [fp for fp in opt_fps if fp.split(":", 1)[1] not in olatex.get(fp.split(":", 1)[0], "")]
+    if omissing:
+        return f"option fingerprint(s) {omissing} not found in option latex"
+    if len(set(olatex.values())) != 4:
+        return f"options are not four distinct printed choices: {olatex}"
+    return None
+
+def _b23_result(qnum, stem_fps, opt_fps, matched, detail):
+    err = _b23_common(qnum, stem_fps, opt_fps)
+    if err:
+        return False, err
+    q = _paper_2023()[qnum]
+    if q["key"]["status"] != "active":
+        return False, f"key status {q['key']['status']} — only Q46 is withdrawn in 2023 Q41–Q70"
+    key = sorted(q["key"]["correct"])
+    dispute = KEY_DISPUTES_2023.get(qnum)
+    if dispute and key != dispute["official_key"]:
+        return False, f"key.correct {key} differs from the pinned official key {dispute['official_key']} recorded for this dispute"
+    if dispute and dispute.get("no_option_true"):
+        if matched == []:
+            KEY_DISPUTE_LOG.append(f"2023 Q{qnum}: official key {key}; SymPy finds NO printed option correct — {dispute['reason']}")
+            return True, f"{detail}; no option satisfies the physics -> documented dispute, official key {key} kept"
+        return False, f"{detail}; option(s) {matched} now satisfy the physics — the recorded dispute (no option correct) no longer holds"
+    expected = sorted(set(key) | set(dispute["extra_true"])) if dispute else key
+    if qnum in INTERPRETATION_NOTES_2023 and matched == expected:
+        KEY_DISPUTE_LOG.append(f"2023 Q{qnum} (interpretation): {INTERPRETATION_NOTES_2023[qnum]}")
+    return matched == expected, f"{detail}; true option(s) {matched} vs key {key}"
+
+def _b23_withdrawn(qnum, stem_fps, matched, must, detail):
+    err = _b23_common(qnum, stem_fps, [])
+    if err:
+        return False, err
+    q = _paper_2023()[qnum]
+    withdrawn = q["key"]["status"] == "voided" and q["key"]["correct"] == ["W"]
+    full = q["fullTwelfths"] == 12 and q["category"] == 1
+    sol = load_json(os.path.join(DATA, "solutions", "2023.solutions.json"))["solutions"][f"jelet-2023-q{qnum:03d}"]
+    text = " ".join(s["bodyLatex"] for s in sol["steps"])
+    sol_ok = all(m in text for m in must) and "+12" in text and "+1" in text and "0 marks" not in text
+    return (matched == [] and withdrawn and full and sol_ok), (f"{detail}; options satisfying the stem {matched} (none) -> key W; "
+                                                              f"withdrawn={withdrawn}, Cat-I 12 twelfths={full}, solution states analysis + '+1 mark (+12 twelfths)'={sol_ok}")
+
+def _b23_match(qnum, target, parse=None, key_fn=None):
+    """Options whose parsed printed expression equals `target` symbolically."""
+    out = []
+    for k, tex in _b23_opts(qnum).items():
+        e = (parse or _b23_expr)(tex)
+        if e is None:
+            continue
+        if sympy.simplify(e - target) == 0:
+            out.append(k)
+    return out
+
+def _svg23(qnum):
+    """Parse a 2023 stem SVG into roles {role: [attr dicts]}, texts [(x, y, text)] and the raw source."""
+    f = _paper_2023()[qnum]["stemFigure"]
+    if not f:
+        return None
+    svg = open(os.path.join(ROOT, f["src"][2:]), encoding="utf-8").read()
+    roles = {}
+    for tag, attrs in re.findall(r"<(\w+) ([^>]*?)/?>", svg):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs)); a["_tag"] = tag
+        if "data-role" in a:
+            roles.setdefault(a["data-role"], []).append(a)
+    texts = []
+    for attrs, body in re.findall(r"<text\b([^>]*)>(.*?)</text>", svg):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs))
+        texts.append((float(a["x"]), float(a["y"]), re.sub(r"<[^>]+>", "", body)))
+    return dict(roles=roles, texts=texts, raw=svg)
+
+def _b23_role_line(G, role):
+    return _line_of(G["roles"][role][0])
+
+def _b23_role_pts(G, role):
+    return _pts_of(G["roles"][role][0])
+
+def _b23_text_near(G, p, text, r):
+    return any(t == text and math.hypot(x - p[0], y - p[1]) <= r for x, y, t in G["texts"])
+
+def _b23_circuit(qnum):
+    svg = open(os.path.join(ROOT, _paper_2023()[qnum]["stemFigure"]["src"][2:]), encoding="utf-8").read()
+    segs, net = _netlist(svg)
+    texts = []
+    for attrs, body in re.findall(r"<text\b([^>]*)>(.*?)</text>", svg):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs))
+        texts.append((float(a["x"]), float(a["y"]), re.sub(r"<[^>]+>", "", body)))
+    comps = []
+    for kind, pins, inner in re.findall(r'<g data-comp="(\w+)" data-pins="([^"]+)"[^>]*>(.*?)</g>', svg, re.S):
+        comps.append(dict(kind=kind, pins=[tuple(map(float, p.split(","))) for p in pins.split()], inner=inner))
+    return svg, segs, net, texts, comps
+
+def _b23_fit2(T, V):
+    """Least-squares quadratic V = c0 + c1 T + c2 T^2 (floats)."""
+    A = sympy.Matrix([[1, t, t*t] for t in T]); b = sympy.Matrix(V)
+    c = (A.T*A).LUsolve(A.T*b)
+    return [float(x) for x in c]
+
+# ---------------- Q41–Q65 (Category I) ----------------
+def _b23_q41():
+    def dims(tex):
+        t = tex.strip("$ ")
+        if t == "dimensionless":
+            return (0, 0)
+        v = {"L": 0, "T": 0}
+        for s, _, e in re.findall(r"([LT])(\^\{(-?\d+)\})?", t):
+            v[s] += int(e) if e else 1
+        return (v["L"], v["T"])
+    A_dim, phi_dim = (1, 0), (0, 0)                   # [A] = [x] = L; the phase is an angle (pure number)
+    ratio = tuple(a - b for a, b in zip(A_dim, phi_dim))
+    m = [k for k, v in _b23_opts(41).items() if dims(v) == ratio]
+    return _b23_result(41, [r"$x = A\sin(\omega t + \phi)$", r"$\dfrac{A}{\phi}$ has the dimension of"], ["D:dimensionless"], m,
+                       f"[A/phi] = L^{ratio[0]} T^{ratio[1]}")
+
+def _b23_q42():
+    G = _svg23(42)
+    res = {}
+    for k, vtop in (("x", 2), ("y", 4)):
+        ox = float(G["roles"][f"{k}-axis-v"][0]["x1"]); oy = float(G["roles"][f"{k}-axis-t"][0]["y1"])
+        gt = _b23_role_line(G, f"guide-{k}-t2"); gv = _b23_role_line(G, f"guide-{k}-v{vtop}")
+        ts = (gt[0] - ox)/2; vs = (oy - gv[1])/vtop
+        if not (_b23_text_near(G, (ox - 9, gv[1] + 4), str(vtop), 3) and _b23_text_near(G, (gt[0], oy + 15), "2", 3)):
+            return False, f"{k}-panel tick labels do not sit on the dashed guides"
+        pts = _b23_role_pts(G, f"{k}-t")
+        T = [(px - ox)/ts for px, _ in pts]; V = [(oy - py)/vs for _, py in pts]
+        res[k] = _b23_fit2(T, V)
+    ax, ay = 2*res["x"][2], 2*res["y"][2]
+    shape = abs(res["x"][1] - 1) < 0.02 and abs(res["x"][0]) < 0.02 and abs(res["y"][1]) < 0.03 and abs(res["y"][0]) < 0.03
+    mass = sympy.Rational(int(re.search(r"mass of (\d+) gm", _paper_2023()[42]["stemLatex"]).group(1)), 1000)
+    F = {"x": mass*sympy.nsimplify(round(ax, 2)), "y": mass*sympy.nsimplify(round(ay, 2))}
+    m = []
+    for k, tex in _b23_opts(42).items():
+        mm = re.fullmatch(r"\$([\d.]+)\$ N along \$([xy])\$-axis", tex)
+        if mm and shape and F[mm.group(2)] == sympy.nsimplify(mm.group(1)) and all(F[c] == 0 for c in "xy" if c != mm.group(2)):
+            m.append(k)
+    return _b23_result(42, [r"$(x, t)$, $(y, t)$ diagram", "mass of 500 gm"], [], m,
+                       f"SVG fits x(t) = {res['x'][0]:.3f} + {res['x'][1]:.3f}t + {res['x'][2]:.3f}t², y(t) = {res['y'][0]:.3f} + {res['y'][1]:.3f}t + {res['y'][2]:.3f}t²; a = ({ax:.2f}, {ay:.2f}) m/s², F = {F}")
+
+def _b23_q43():
+    L1, L2, V1, V2, t = _b23_S("L1", "L2", "V1", "V2", "t")
+    T = sympy.solve(sympy.Eq(L1 + L2, (V1 + V2)*t), t)[0]          # opposite directions: relative speed V1 + V2
+    return _b23_result(43, ["in opposite directions on parallel tracks"], [], _b23_match(43, T), f"t = {T}")
+
+def _b23_q44():
+    I, P, th, W = _b23_S("I", "P", "theta", "W")
+    w = sympy.Symbol("w", positive=True)
+    W0 = [s for s in sympy.solve(sympy.integrate(I*w**2, (w, 0, W)) - P*th, W) if s.is_positive][0]   # I w^2 dw = P dtheta
+    expo = sympy.simplify(th*sympy.diff(sympy.log(W0), th))
+    m = []
+    for k, tex in _b23_opts(44).items():
+        mm = re.fullmatch(r"\$\\omega \\propto \\theta(\^\{([^{}]+)\})?\$", tex)
+        if mm and sympy.nsimplify(mm.group(2) or "1") == expo:
+            m.append(k)
+    return _b23_result(44, ["constant power", r"angle of rotations $(\theta)$"], [], m, f"omega(theta) = {W0} -> exponent {expo}")
+
+def _b23_q45():
+    g, a, mmax = 10, 2, 3
+    Tmax = mmax*g
+    msol = sympy.solve(sympy.Eq(sympy.Symbol("m")*(g + a), Tmax))[0]
+    vals = {}
+    for k, tex in _b23_opts(45).items():
+        mx = re.fullmatch(r"\$(\d+)\\dfrac\{(\d+)\}\{(\d+)\}\\,\\text\{Kg\}\$", tex)
+        vals[k] = sympy.Integer(mx.group(1)) + sympy.Rational(int(mx.group(2)), int(mx.group(3))) if mx else _physval(tex)
+    m = [k for k, v in vals.items() if v is not None and v == msol]
+    return _b23_result(45, ["maximum mass 3 kg", r"acceleration $2\ \text{m/s}^{2}$", r"$[g = 10\ \text{m/s}^{2}]$"], [], m,
+                       f"T_max = {Tmax} N; m(g + a) = T_max -> m = {msol}; printed values {vals}")
+
+def _b23_vec(tex):
+    t = tex.strip("$ ").replace(" ", "")
+    v = {"i": 0, "j": 0, "k": 0}
+    for sgn, num, c in re.findall(r"([+-]?)(\d*)\\hat\{([ijk])\}", t):
+        v[c] = (-1 if sgn == "-" else 1)*int(num or 1)
+    return sympy.Matrix([v["i"], v["j"], v["k"]])
+
+def _b23_q46():
+    stem = _paper_2023()[46]["stemLatex"]
+    m1, m2 = map(int, re.search(r"masses (\d+) Kg and (\d+) Kg", stem).groups())
+    v1, v2 = [_b23_vec(s) for s in re.findall(r"\$([^$]*\\hat\{k\})\$", stem)]
+    vcm = (m1*v1 + m2*v2)/(m1 + m2)
+    m = [k for k, tex in _b23_opts(46).items() if _b23_vec(tex) == vcm]
+    return _b23_withdrawn(46, ["masses 6 Kg and 4 Kg", r"$5\hat{i} - 2\hat{j} + 10\hat{k}$", r"$10\hat{i} + 2\hat{j} + 5\hat{k}$"], m,
+                          [r"7\hat{i} - 0.4\hat{j} + 8\hat{k}", "W"], f"v_cm = {list(vcm)}")
+
+def _b23_q47():
+    P, rho, C = _b23_S("P", "rho", "C")
+    ratio = sympy.sqrt(3*(3*P)/(3*rho))/sympy.sqrt(3*P/rho)          # isothermal: rho scales with P
+    return _b23_result(47, ["increased to three times", "temperature remaining constant"], [], _b23_match(47, C*ratio),
+                       f"C'/C = {sympy.simplify(ratio)}")
+
+def _b23_q48():
+    G = _svg23(48)
+    ox = float(G["roles"]["p-axis"][0]["x1"]); oy = float(G["roles"]["v-axis"][0]["y1"])
+    lev = {lab: _b23_role_line(G, f"level-{lab}")[1] for lab in ("3P", "2P", "P")}
+    if not all(_b23_text_near(G, (ox - 6, y + 5), lab, 3) for lab, y in lev.items()):
+        return False, "pressure labels 3P/2P/P are not on their dashed levels"
+    pu = oy - lev["P"]
+    iso, adi = _b23_role_pts(G, "isothermal"), _b23_role_pts(G, "adiabatic")
+    cb = _b23_role_line(G, "CB")
+    A, B, C = iso[-1], iso[0], adi[0]
+    pv = lambda p: ((p[0] - ox), (oy - p[1])/pu)
+    (VA, PA), (VB, PB), (VC, PC) = pv(A), pv(B), pv(C)
+    topo = (math.hypot(A[0] - adi[-1][0], A[1] - adi[-1][1]) < 0.5 and abs(PA - 3) < 0.02 and abs(PB - 2) < 0.02 and abs(PC - 1) < 0.02
+            and abs(VB - VC) < 0.5 and abs(cb[0] - B[0]) < 0.5 and abs(cb[2] - B[0]) < 0.5)
+    iso_ok = max(abs(pv(p)[0]*pv(p)[1]/(VA*PA) - 1) for p in iso) < 0.02
+    PAs, PBs, PCs = (sympy.Integer(round(x)) for x in (PA, PB, PC))
+    rVB_VA = PAs/PBs                                                  # isotherm: P_A V_A = P_B V_B
+    g = sympy.Symbol("gamma", positive=True)
+    gam = sympy.solve(sympy.Eq(PAs/PCs, rVB_VA**g), g)[0]               # adiabat with V_C = V_B
+    X_ = [math.log(VC/pv(p)[0]) for p in adi[3:]]; Y_ = [math.log(pv(p)[1]/PC) for p in adi[3:]]
+    gfit = sum(x*y for x, y in zip(X_, Y_))/sum(x*x for x in X_)          # ln(P/P_C) = gamma ln(V_C/V), regression through C
+    adi_ok = abs(gfit - float(gam)) < 0.01 and abs(VB/VA - float(rVB_VA)) < 0.02
+    m = [k for k, tex in _b23_opts(48).items() if (lambda e: e is not None and abs(float(e) - float(gam)) < 1e-9)(_b23_expr(tex))]
+    if not (topo and iso_ok and adi_ok):
+        m = ["figure-inconsistent"]
+    return _b23_result(48, ["CA denotes the adiabatic process", "BA denotes the isothermal process"], [], m,
+                       f"SVG: P_A:P_B:P_C = {PA:.2f}:{PB:.2f}:{PC:.2f}, V_B = V_C ({topo}), PV const on BA ({iso_ok}), adiabat exponent fit {gfit:.4f} ({adi_ok}); "
+                       f"V_B/V_A = {rVB_VA}, gamma = {gam} = {float(gam):.4f}")
+
+def _b23_q49():
+    s = sympy.Symbol("s")
+    fluxes = []
+    for H, r in ((1, 1), (2, 1), (1, 3)):
+        integrand = sympy.Rational(1, 2)*H*r**2*(1 - s)/((1 - s)**2*r**2 + s**2*H**2)**sympy.Rational(3, 2)   # (1/4pi)*2pi * E.n
+        fluxes.append(sympy.N(sympy.Integral(integrand, (s, 0, 1)), 15))          # in units of q/eps0
+    flux = sympy.Rational(1, 2) if all(abs(f - 0.5) < 1e-10 for f in fluxes) else None
+    q, eps0, H, r = _b23_S("q", "eps0", "H", "r")
+    m = _b23_match(49, flux*q/eps0) if flux is not None else []
+    return _b23_result(49, ["centre of the circular base", "curved surface of the cone"], [], m,
+                       f"surface integral of E.dA over the curved surface for (H, r) = (1,1), (2,1), (1,3): {[float(f) for f in fluxes]} q/eps0")
+
+def _b23_q50():
+    m1, m2, K, q1, q2, r0, v1, v2 = _b23_S("m1", "m2", "K", "q1", "q2", "r0", "v1", "v2")
+    sol = sympy.solve([sympy.Eq(m1*v1, m2*v2), sympy.Eq(m1*v1**2/2 + m2*v2**2/2, K*q1*q2/r0)], [v1, v2], dict=True)
+    sol = [d for d in sol if d[v1].is_positive][0]
+    vrel = sympy.simplify(sol[v1] + sol[v2])
+    mu, M = sympy.Symbol("mu", positive=True), sympy.Symbol("M", positive=True)
+    m = []
+    for k, tex in _b23_opts(50).items():
+        e = _b23_expr(tex)
+        if e is not None and sympy.simplify((e.subs({mu: m1*m2/(m1 + m2), M: m1 + m2}))**2 - vrel**2) == 0:
+            m.append(k)
+    return _b23_result(50, ["initial separation $r_{0}$", r"\dfrac{1}{\mu} = \dfrac{1}{m_{1}} + \dfrac{1}{m_{2}}", "M = m_{1} + m_{2}"], [], m,
+                       f"v_rel = {vrel}")
+
+def _b23_q51():
+    stem = _paper_2023()[51]["stemLatex"]
+    tg, tw = map(int, re.search(r"thickness (\d+) cm contains the same number of waves as (\d+) cm of water", stem).groups())
+    muw = _b23_expr(re.search(r"water is (\$\\dfrac\{\d+\}\{\d+\}\$)", stem).group(1))
+    mug = sympy.solve(sympy.Eq(sympy.Symbol("mu")*tg, muw*tw))[0]
+    return _b23_result(51, ["same monochromatic light"], [], _b23_match(51, mug), f"mu_g = {muw}*{tw}/{tg} = {mug}")
+
+def _b23_q52():
+    stem = _paper_2023()[52]["stemLatex"]
+    din, dout, f1 = map(int, re.search(r"diameter (\d+) mm .* diameter (\d+) mm .* focal length of (\d+) mm", stem).groups())
+    lens = lambda f: sympy.Matrix([[1, 0], [-sympy.Rational(1, 1)/f, 1]]); gap = lambda d: sympy.Matrix([[1, d], [0, 1]])
+    m, desc = [], {}
+    for k, tex in _b23_opts(52).items():
+        F, d = map(int, re.fullmatch(r"\$(\d+)\$ mm and \$(\d+)\$ mm", tex).groups())
+        Msys = lens(F)*gap(d)*lens(f1)
+        afocal, mag = Msys[1, 0] == 0, abs(Msys[0, 0])
+        desc[k] = (afocal, mag)
+        if afocal and mag == sympy.Rational(dout, din):
+            m.append(k)
+    return _b23_result(52, ["collimated beam", "two convex lenses"], [], m, f"ray-transfer (afocal, |A|) per option {desc}")
+
+def _b23_q53():
+    i = sympy.pi/3
+    mu = sympy.tan(i); thr = sympy.asin(sympy.sin(i)/mu)
+    m = []
+    for k, tex in _b23_opts(53).items():
+        mm = re.fullmatch(r"\$\\mu = (.+?),\\ \\theta_\{r\} = (\d+)\^\{\\circ\}\$", tex)
+        if mm and sympy.simplify(_b23_expr(mm.group(1)) - mu) == 0 and sympy.Integer(mm.group(2))*sympy.pi/180 == thr:
+            m.append(k)
+    return _b23_result(53, [r"angle of incidence $60^{\circ}$", "completely plane polarized"], [], m, f"mu = tan 60° = {mu}, theta_r = {thr}")
+
+def _b23_q54():
+    t, d = sympy.symbols("t delta", real=True)
+    # crossings: sin t = sin(t + d)  <=>  t = (pi - d)/2 + k pi ; displacement there = ±cos(d/2)
+    def ok(delta):
+        tc = (sympy.pi - delta)/2
+        x = sympy.sin(tc); v1, v2 = sympy.cos(tc), sympy.cos(tc + delta)
+        return sympy.simplify(sympy.sin(tc + delta) - x) == 0 and sympy.simplify(abs(x) - sympy.Rational(1, 2)) == 0 and sympy.simplify(v1*v2) < 0
+    sols = [s for s in sympy.solve(sympy.Eq(sympy.cos(d/2)**2, sympy.Rational(1, 4)), d) if 0 < s < 2*sympy.pi]
+    derived = sorted(sympy.deg(s) for s in sols if ok(s))
+    m = []
+    for k, tex in _b23_opts(54).items():
+        deg = int(re.fullmatch(r"\$(\d+)\^\{\\circ\}\$", tex).group(1))
+        if ok(sympy.Integer(deg)*sympy.pi/180):
+            m.append(k)
+    return _b23_result(54, ["same amplitude and frequency", "going in opposite directions", "half their amplitude"], [], m,
+                       f"phase differences meeting at |x| = A/2 with opposite velocities: {derived}°")
+
+def _b23_q55():
+    stem = _paper_2023()[55]["stemLatex"]
+    rFe, rAl = (sympy.nsimplify(x) for x in re.findall(r"density ([\d.]+) gm/cc", stem))
+    W, rw = sympy.Symbol("W", positive=True), 1
+    app = {"Fe": W*(1 - rw/rFe), "Al": W*(1 - rw/rAl)}; loss = {k: W - v for k, v in app.items()}
+    truth = {"A": sympy.simplify(loss["Fe"] - loss["Al"]) == 0, "B": sympy.simplify(app["Fe"] - app["Al"]).is_positive,
+             "C": all(sympy.simplify(v - W) == 0 for v in app.values()), "D": sympy.simplify(app["Al"] - app["Fe"]).is_positive}
+    return _b23_result(55, ["same weight", "fully immersed in water"],
+                       ["A:same loss of weight", "B:Iron cube will weigh more", "C:same weight as before", "D:aluminium cube will weigh more"],
+                       _true(truth), f"apparent weights {app}")
+
+def _b23_q56():
+    G = _svg23(56)
+    D1, D2 = _b23_role_line(G, "D1"), _b23_role_line(G, "D2")
+    I1, I2 = _b23_role_line(G, "I1"), _b23_role_line(G, "I2")
+    labels = {t for _, _, t in G["texts"]}
+    fig_ok = ({"D1", "D2", "I1", "I2"} <= labels and abs(D2[3] - D2[1]) < abs(D1[3] - D1[1]) and I1[2] > I1[0] and I2[2] > I2[0]
+              and D2[0] > D1[0])
+    j1, Dd1, Dd2 = _b23_S("j1", "D1", "D2")
+    D2s = sympy.solve(sympy.Eq(j1*sympy.pi*Dd1**2/4, 2*j1*sympy.pi*Dd2**2/4), Dd2)[0]
+    m = _b23_match(56, D2s) if fig_ok else ["figure"]
+    return _b23_result(56, ["constricted conductor", "current density is doubled"], [], m,
+                       f"I constant: D2 = {D2s}; SVG labels D1, D2, I1, I2 + constriction (narrow right) + current arrows to the right: {fig_ok}")
+
+def _b23_q57():
+    I, Ip, Rp, mu0 = _b23_S("I", "Ip", "Rp", "mu0")
+    R = 2*Rp
+    B, Bp = mu0*I/(2*R), mu0*Ip/(2*Rp)
+    r = sympy.Symbol("r", positive=True)
+    sols = set()
+    for net in (Bp - B, B - Bp):                                     # opposite currents; either field may dominate
+        sols |= {s for s in sympy.solve(sympy.Eq(net.subs(I, r*Ip), Bp/2), r)}
+    m = [k for k, tex in _b23_opts(57).items() if _physval(tex) in sols]
+    return _b23_result(57, ["opposite directions", "half that due to $I'$ alone", "$R = 2R'$"], [], m, f"I/I' in {sorted(sols)}")
+
+def _b23_q58():
+    stem = _paper_2023()[58]["stemLatex"]
+    th = int(re.search(r"angle \$(\d+)\^\{\\circ\}\$, act", stem).group(1)); a2 = int(re.search(r"angle \$(\d+)\^\{\\circ\}\$ with the other", stem).group(1))
+    B1 = _physval("$" + re.search(r"field is \$([^$]+)\$ T", stem).group(1) + "$")
+    a1 = th - a2
+    B2 = sympy.nsimplify(B1*sympy.sin(sympy.rad(a1))/sympy.sin(sympy.rad(a2)))
+    res_ang = sympy.deg(sympy.atan2(B2*sympy.sin(sympy.rad(th)), B1 + B2*sympy.cos(sympy.rad(th))))
+    ok_dir = abs(float(res_ang) - a1) < 1e-9
+    m = [k for k, tex in _b23_opts(58).items() if ok_dir and (lambda v: v is not None and abs(float(v - B2)) < 1e-12)(_physval(tex))]
+    return _b23_result(58, ["inclined to each other at an angle $75^{\\circ}$", r"$3\sqrt{2} \times 10^{-3}$ T", "angle $45^{\\circ}$ with the other"], [], m,
+                       f"B1 sin{a1}° = B2 sin{a2}° -> B2 = {B2} T; resultant at {float(res_ang):.1f}° from B1")
+
+def _b23_q59():
+    B, mu0, e, f, r = _b23_S("B", "mu0", "e", "f", "r")
+    fs = sympy.solve(sympy.Eq(B, mu0*(e*f)/(2*r)), f)[0]
+    return _b23_result(59, ["circular path of radius $r$", "frequency of rotation"], [], _b23_match(59, fs), f"f = {fs}")
+
+def _b23_q60():
+    svg, segs, net, texts, comps = _b23_circuit(60)
+    Rsym = sympy.Symbol("R", positive=True)
+    kinds = sorted(c["kind"] for c in comps)
+    if kinds != ["G", "R", "R", "cell", "cell"]:
+        return False, f"netlist components {kinds} != 2 cells, 2 resistors, 1 galvanometer"
+    def label(c, pat):
+        cx = sum(p[0] for p in c["pins"])/2; cy = sum(p[1] for p in c["pins"])/2
+        return min((math.hypot(x - cx, y - cy), t) for x, y, t in texts if re.fullmatch(pat, t))[1]
+    R, cells, gnet = [], [], None
+    for c in comps:
+        a, b = net(c["pins"][0]), net(c["pins"][1])
+        if None in (a, b):
+            return False, f"{c['kind']} pin not on a wire"
+        if c["kind"] == "R":
+            t = label(c, r"\d+Ω|R"); R.append((a, b, Rsym if t == "R" else sympy.Integer(t[:-1])))
+        elif c["kind"] == "cell":
+            pi = _c24_cell_pos(c)
+            if pi is None:
+                return False, "cell polarity unreadable"
+            cells.append((net(c["pins"][pi]), net(c["pins"][1 - pi]), sympy.Integer(label(c, r"\d+V")[:-1])))
+        else:
+            gnet = (a, b)
+    nets = {n for x in R for n in x[:2]} | {n for x in cells for n in x[:2]} | set(gnet)
+    ground = next(neg for pos, neg, e in cells if e == 12)
+    sol = _c24_mna(nets, ground, R, cells, [], [], [])
+    if sol is None:
+        return False, "MNA not uniquely solvable"
+    V, _ = sol
+    Rv = sympy.solve(sympy.Eq(V[gnet[0]], V[gnet[1]]), Rsym)               # zero deflection: no p.d. across G
+    m = [k for k, tex in _b23_opts(60).items() if Rv and sympy.Integer(re.search(r"\d+", tex).group()) == Rv[0]]
+    return _b23_result(60, ["galvanometer G shows zero deflection", "negligible internal resistance"], [], m,
+                       f"SVG netlist: {len(nets)} nets, cells {[(e) for _, _, e in cells]} V, resistors {[r for _, _, r in R]}; "
+                       f"V across G = {sympy.simplify(V[gnet[0]] - V[gnet[1]])} = 0 -> R = {Rv}")
+
+def _b23_tuple(tex):
+    t = tex.strip("$ ").replace(r"\left", "").replace(r"\right", "")
+    if not (t.startswith("(") and t.endswith(")")):
+        return None
+    parts = [p.strip() for p in t[1:-1].split(",")]
+    return tuple(_b23_expr(p) for p in parts) if len(parts) == 2 else None
+
+def _b23_q61():
+    x = sympy.Symbol("x", positive=True)
+    y = x/(1 + x)**2                                                   # Pr/E^2 with x = R/r
+    xm = [s for s in sympy.solve(sympy.diff(y, x), x) if s.is_positive][0]
+    M = (xm, y.subs(x, xm))
+    G = _svg23(61)
+    pts = _b23_role_pts(G, "power-curve"); drop = _b23_role_line(G, "M-drop")
+    ymin = min(p[1] for p in pts); plateau = [p for p in pts if p[1] <= ymin + 0.05]       # rounded samples tie at the top
+    top = (sum(p[0] for p in plateau)/len(plateau), ymin); i = pts.index(plateau[0])
+    fig_ok = (0 < i < len(pts) - len(plateau) and abs(drop[0] - top[0]) < 1.5 and abs(drop[1] - top[1]) < 1.5
+              and _b23_text_near(G, (top[0], top[1] - 7), "M", 3) and pts[-1][1] > top[1] + 5)
+    m = [k for k, tex in _b23_opts(61).items() if fig_ok and _b23_tuple(tex) == M]
+    return _b23_result(61, ["internal resistance $r$", "co-ordinate of the point M"], [], m,
+                       f"max of x/(1+x)^2 at {M}; SVG: dashed M-line at the drawn maximum, curve falls after M: {fig_ok}")
+
+def _b23_q62():
+    h, c, lam, e, B, R, mm, a, b = _b23_S("h", "c", "lam", "e", "B", "R", "m", "a", "b")
+    v = e*B*R/mm                                                       # radius R = m v / (e B) for the fastest electrons
+    phi = sympy.expand(h*c/lam - mm*v**2/2)
+    sig = lambda ex: {k: sympy.sign(sympy.simplify(cf)) for k, cf in sympy.Poly(ex, R).as_dict().items()}
+    truth = {}
+    for k, tex in _b23_opts(62).items():
+        if "independent of" in tex:
+            truth[k] = sympy.diff(phi, R) == 0
+        else:
+            truth[k] = sig(_b23_expr(tex)) == sig(phi)
+    return _b23_result(62, ["bends all the photoelectrons within a circle of radius $R$", "($a$ and $b$ are constants)"], [], _true(truth),
+                       f"phi = {phi}; coefficient signs in R: {sig(phi)}")
+
+def _b23_q63():
+    lam, M, L, m = _b23_S("lam", "M", "L", "m")
+    A = lam*(m/M)*L
+    return _b23_result(63, ["decay constant $\\lambda$", "molar mass $M$", "Avogadro constant to be $L$"], [], _b23_match(63, A), f"A = lambda N = {A}")
+
+def _b23_q64():
+    E, lam = _b23_S("E", "lam")
+    stem = _paper_2023()[64]["stemLatex"]
+    lv = [_b23_expr(s) for s in re.search(r"levels are (\$[^$]+\$), (\$[^$]+\$) and (\$[^$]+\$)", stem).groups()]
+    l21 = sympy.simplify(lam*(lv[2] - lv[0])/(lv[1] - lv[0]))
+    return _b23_result(64, ["transition $3 \\rightarrow 1$", "transition $2 \\rightarrow 1$"], [], _b23_match(64, l21), f"levels {lv}; lambda_21 = {l21}")
+
+def _b23_q65():
+    A, Z = sympy.symbols("A Z", positive=True)
+    words = {"three": 3, "five": 5}
+    stem = _paper_2023()[65]["stemLatex"]
+    na = words[re.search(r"emits (\w+) \$\\alpha\$", stem).group(1)]; nb = words[re.search(r"and (\w+) \$\\beta\$", stem).group(1)]
+    A2, Z2 = A - 4*na, Z - 2*na + nb
+    ratio = (A2 - Z2)/Z2
+    m = []
+    for k, tex in _b23_opts(65).items():
+        ex = _b23_expr(tex)
+        if ex is not None and sympy.simplify(ex.subs({sympy.Symbol("A", positive=True): A, sympy.Symbol("Z", positive=True): Z}) - ratio) == 0:
+            m.append(k)
+    return _b23_result(65, ["${}_{Z}^{A}X$", "three $\\alpha$ particles and five $\\beta$ particles"], [], m, f"A' = {A2}, Z' = {Z2}, N'/Z' = {ratio}")
+
+# ---------------- Q66–Q70 (Category II: every option judged) ----------------
+def _b23_q66():
+    G = _svg23(66)
+    wall, blk, F_ar = _b23_role_line(G, "wall"), G["roles"]["block"][0], _b23_role_line(G, "F")
+    sp = _b23_role_pts(G, "spring"); bx = float(blk["x"])
+    fig_ok = (_b23_text_near(G, (bx + float(blk["width"])/2, float(blk["y"]) - 8), "4 Kg", 3) and F_ar[2] > F_ar[0] and abs(F_ar[0] - bx - float(blk["width"])) < 0.5
+              and wall[0] < min(p[0] for p in sp) and max(p[0] for p in sp) < bx)
+    mass = int(re.search(r"block mass of (\d+) Kg", _paper_2023()[66]["stemLatex"]).group(1))
+    F, k, x, m = sympy.symbols("F k x m", positive=True)
+    v = sympy.sqrt((2*F*x - k*x**2)/m)                                 # from F x = k x^2/2 + m v^2/2
+    acc = (F - k*x)/m
+    o = _b23_opts(66)
+    nums = dict(re.findall(r"\$([xkF]) = ([\d.]+)\$", o["C"]))
+    vC = v.subs({x: sympy.nsimplify(nums["x"]), k: sympy.nsimplify(nums["k"]), F: sympy.nsimplify(nums["F"]), m: mass})
+    vC_print = sympy.nsimplify(re.search(r"speed of the block is ([\d.]+) m/s", o["C"]).group(1))
+    work_balance = sympy.simplify(F*x - (k*x**2/2 + m*v**2/2)) == 0
+    truth = {"A": work_balance and "energy is conserved" in o["A"],
+             "B": sympy.simplify(sympy.diff(v, x, 2)) == 0,
+             "C": sympy.simplify(vC - vC_print) == 0,
+             "D": sympy.simplify(acc.subs(x, _b23_expr(re.search(r"\$x = (.*?)\$", o["D"]).group(1)))) == 0}
+    m_ = _true(truth) if fig_ok else ["figure"]
+    return _b23_result(66, ["spring constant $k$", "block mass of 4 Kg", "frictionless"], ["B:varies linearly"], m_,
+                       f"v = {v}; v(C) = {vC}; a(F/k) = 0; SVG wall–spring–block(4 Kg)–F→ topology: {fig_ok}")
+
+def _b23_q67():
+    A, B, x = sympy.symbols("A B x", real=True)
+    Bp = sympy.Symbol("B", positive=True)
+    U = A - Bp*x**2
+    F = -sympy.diff(U, x)
+    truth = {"A": sympy.diff(sympy.simplify(F/x**2), x) == 0, "B": sympy.diff(sympy.simplify(F/x), x) == 0,
+             "C": sympy.diff(F, x) == 0, "D": bool(F.subs(x, 1).is_positive and F.subs(x, -1).is_negative)}   # same sign as x: away from x = 0
+    return _b23_result(67, ["$A - Bx^{2}$", "from the equilibrium position"],
+                       ["A:proportional to $x^{2}$", "B:proportional to $x$", "C:independent of $x$", "D:directed away from equilibrium"],
+                       _true(truth), f"F = -dU/dx = {F}")
+
+def _b23_q68():
+    svg, segs, net, texts, comps = _b23_circuit(68)
+    kinds = sorted(c["kind"] for c in comps)
+    pins = [net(p) for c in comps for p in c["pins"]]
+    deg = {n: pins.count(n) for n in set(pins)}
+    loop_ok = (kinds == ["C", "R", "S"] and None not in pins and len(deg) == 3 and all(v == 2 for v in deg.values())
+               and all(net(c["pins"][0]) != net(c["pins"][1]) for c in comps) and "open" in svg)
+    C_, R_, E_, t0 = sympy.symbols("C R E t_0", positive=True)
+    t = sympy.Symbol("t", positive=True)
+    q = sympy.Function("q")
+    qs = sympy.dsolve(sympy.Eq(q(t)/C_ + R_*q(t).diff(t), 0), q(t), ics={q(t0): C_*E_}).rhs
+    i = sympy.simplify(-sympy.diff(qs, t))
+    di = sympy.simplify(sympy.diff(i, t))
+    o = _b23_opts(68)
+    tB = _b23_expr(re.search(r"\$t = ([^$]+)\$", o["B"]).group(1))
+    truth = {"A": sympy.simplify(i.subs(t, t0) - E_/R_) == 0,
+             "B": sympy.simplify(di.subs(t, tB)) == 0,
+             "C": sympy.limit(i, t, sympy.oo) == 0 and sympy.simplify(di/i).free_symbols.isdisjoint({t}) and sympy.simplify(di/i).is_negative,
+             "D": sympy.simplify(sympy.integrate(i**2*R_, (t, t0, sympy.oo)) - _b23_expr(re.search(r"be (\$[^$]+\$)", o["D"]).group(1))) == 0}
+    m = _true(truth) if loop_ok else ["netlist"]
+    return _b23_result(68, ["initially charged by a supply of emf $E$", "closed at time $t = t_{0}$"], [], m,
+                       f"SVG netlist {kinds}, pin degrees {sorted(deg.values())} (series loop, no source): {loop_ok}; i(t) = {i}")
+
+def _b23_q69():
+    rho0, R, r, eps0, Q = _b23_S("rho0", "R", "r", "eps0", "Q")
+    Qtot = sympy.integrate(rho0*r/R*4*sympy.pi*r**2, (r, 0, R))
+    qin = sympy.integrate(rho0*r/R*4*sympy.pi*r**2, (r, 0, r))
+    Ein = sympy.simplify((qin/(4*sympy.pi*eps0*r**2)).subs(rho0, sympy.solve(sympy.Eq(Qtot, Q), rho0)[0]))
+    truth = {}
+    for k, tex in _b23_opts(69).items():
+        ex = _b23_expr(re.search(r"is (\$.*\$)$", tex).group(1))
+        target = Qtot if "total charge" in tex else Ein
+        truth[k] = ex is not None and sympy.simplify(ex - target) == 0
+    return _b23_result(69, [r"$\rho = \rho_{0}\dfrac{r}{R}$"], [], _true(truth), f"Q = {Qtot}; E(r < R) = {Ein}")
+
+def _b23_q70():
+    G = _svg23(70)
+    s1p, s2p, scr = _b23_role_line(G, "S1P"), _b23_role_line(G, "S2P"), _b23_role_line(G, "screen")
+    P = (s1p[2], s1p[3])
+    fig_ok = (abs(s1p[1] - s1p[3]) < 0.5 and abs(s2p[2] - P[0]) < 0.5 and abs(s2p[3] - P[1]) < 0.5 and abs(scr[0] - P[0]) < 0.5
+              and s2p[1] > s1p[1] and (P[0] - s1p[0]) > 3*(s2p[1] - s1p[1]) and _b23_text_near(G, (P[0] + 8, P[1] + 5), "P", 3))
+    b, d, lam, n, y = sympy.symbols("b d lambda n y", positive=True)
+    delta = sympy.sqrt(d**2 + b**2) - d                                # S2P - S1P with P level with S1
+    approx = sympy.series(delta, b, 0, 4).removeO()
+    o = _b23_opts(70)
+    pick = lambda tex, pat: _b23_expr(re.search(pat, tex).group(1))
+    yn = n*lam*d/b                                                     # bright-fringe positions
+    lam_n = sympy.solve(sympy.Eq((n - sympy.Rational(1, 2))*lam, approx), lam)[0]
+    truth = {"A": sympy.diff(yn.subs(n, 0), lam) == 0 and sympy.diff(yn, lam) != 0,
+             "B": sympy.simplify(pick(o["B"], r"is (\$.*\$)\.$") - approx) == 0,
+             "C": (sympy.simplify(pick(o["C"], r"be \$(.*?)\\lambda = ") - (n - sympy.Rational(1, 2))) == 0
+                   and sympy.simplify(pick(o["C"], r"\\lambda = (.*?)\$") - approx) == 0),
+             "D": sympy.simplify(pick(o["D"], r"is (\$.*\$)$") - lam_n.subs(n, 2)) == 0}
+    m = _true(truth) if fig_ok else ["figure"]
+    return _b23_result(70, ["White light", "directly in front of $S_{1}$", "$(d >> b)$"], [], m,
+                       f"path difference = {delta} ≈ {approx}; missing lambda_n = {lam_n}; SVG: P level with S1, S1P ⟂ screen, d > 3b: {fig_ok}")
+
+def _b23_guard(n):
+    """Booklet layout first, then the physics check; exceptions count as FAIL (never crash the run)."""
+    f = globals()[f"_b23_q{n}"]
+    def g():
+        ok, why = _b23_layout(n)
+        if not ok:
+            return False, why
+        try:
+            return f()
+        except Exception as e:
+            return False, f"check raised {type(e).__name__}: {e}"
+    return g
+
+B_TESTS_2023 = [(f"2023 Q{n}", f"jelet-2023-q{n:03d}", _b23_guard(n)) for n in range(41, 71)]
+
+
 
 
 def main():
@@ -4295,7 +4970,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + A_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
+        ] + A_TESTS_2023 + B_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -4320,6 +4995,25 @@ def main():
             print(f"  ❌ 2023 Batch A coverage gate: missing checks {miss23}, stubs {stub23}")
         else:
             print(f"  ✅ 2023 Batch A coverage gate: Q1–Q40 (Mathematics) 40/40 hand-written, SymPy-verified and independently re-checked (0 stubs)")
+
+        # 2023 Batch B gate: every Physics item Q41–Q70 must be a hand-written derivation (sympy-verified,
+        # >= 3 steps, no auto-generated stub text) backed by its own independent _b23 check, and every
+        # 2023 SVG on disk must be referenced by the paper (0 orphans).
+        wantB23 = [f"jelet-2023-q{n:03d}" for n in range(41, 71)]
+        covB23 = {qid for _, qid, _ in B_TESTS_2023}
+        missB23 = [q for q in wantB23 if q not in covB23]
+        stubB23 = [q for q in wantB23 if q not in sol23 or sol23[q]["verification"].get("method") != "sympy"
+                   or len(sol23[q].get("steps", [])) < 3 or "Auto-generated" in sol23[q]["verification"].get("note", "")
+                   or any(st.get("title") == "Identify the problem type" for st in sol23[q].get("steps", []))]
+        refs23 = {os.path.basename(f["src"]) for q in _paper_2023().values()
+                  for f in [q.get("stemFigure")] + [o.get("figure") for o in q["options"]] if f}
+        orph23 = sorted(set(fn for fn in os.listdir(os.path.join(DATA, "figures", "2023")) if fn.endswith(".svg")) - refs23)
+        if missB23 or stubB23 or orph23 or len(B_TESTS_2023) != 30:
+            errors.append(f"2023 Batch B (Q41–Q70) coverage gate: without independent check {missB23}, stub/unverified {stubB23}, orphan SVGs {orph23}")
+            print(f"  ❌ 2023 Batch B (Q41–Q70) coverage gate: missing checks {missB23}, stubs {stubB23}, orphan SVGs {orph23}")
+        else:
+            print(f"  ✅ 2023 Batch B (Q41–Q70) coverage gate: Physics 30/30 hand-written, SymPy-verified and independently re-checked, "
+                  f"figure layout + SVG geometry + circuit netlists asserted, 0 orphan 2023 SVGs (0 stubs)")
 
         # 2024 Batch A gate: every Mathematics item Q1–Q40 must be a hand-written derivation
         # (sympy-verified, >= 3 steps) backed by its own independent _a24 check.

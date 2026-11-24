@@ -15,6 +15,7 @@ from s2024_batchA import S2024_A
 from s2024_batchB import S2024_B
 from s2024_batchC import S2024_C
 from s2023_batchA import S2023_A
+from s2023_batchB import S2023_B
 
 # Solution data: {qNumber: (conceptSummary, steps[list of (title, bodyLatex)], verified, note)}
 S2024 = {
@@ -28,11 +29,12 @@ S2024.update(S2024_B)
 S2024.update(S2024_C)
 
 S2023 = {
-# Q1–Q40 (Mathematics): s2023_batchA.py — hand-written and SymPy-verified (merged below).
-# The legacy auto-generated 2023 Mathematics entries are replaced; Q41–Q100 await Batches B and C.
+# Q1–Q40 (Mathematics): s2023_batchA.py; Q41–Q70 (Physics): s2023_batchB.py — hand-written and
+# SymPy-verified (merged below). The legacy auto-generated entries are replaced; Q71–Q100 await Batch C.
 }
 
 S2023.update(S2023_A)
+S2023.update(S2023_B)
 
 S2025 = {
 # Q1–Q25: hand-written, SymPy-verified derivations live in s2025_batch1.py (merged below).
