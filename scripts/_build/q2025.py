@@ -1,6 +1,5 @@
 # JELET 2025 Paper-I Set A — question data, validated against WBJEEB Final Answer Key JEEB/Reg-171/25.
-# Q1–Q75: verbatim visual transcription from 180-DPI renders of the official Set A booklet (PDF pages 2–19).
-# Q76–Q100: pending visual re-verification in later batches.
+# Q1–Q100: verbatim visual transcription from 180-DPI renders of the official Set A booklet (PDF pages 2–25).
 # Each entry: (qNumber, subjectId, unitId, category, pdfPage, stemLatex, {A,B,C,D: latex}, correct(list), difficulty, tags, figureKeyOrNone)
 
 Q2025 = [
@@ -381,135 +380,135 @@ Q2025 = [
 
 (75,"CHEM","C03",1,19,
  "Suppose solution X has a pH of 6.0 and solution Y has a pH of 7.0. Which of the following statements about two solutions is correct?",
- {"A":"Both X and Y are acidic.","B":"Solution X is 10 times more acidic than solution Y.","C":"$\\left[\\text{OH}^{-}\\right] \\rangle \\left[\\text{H}^{+}\\right]$ in solution Y.","D":"None of the above"},
+ {"A":"Both X and Y are acidic.","B":"Solution X is 10 times more acidic than solution Y.","C":"$\\left[\\text{OH}^{-}\\right] > \\left[\\text{H}^{+}\\right]$ in solution Y.","D":"None of the above"},
  ["B"],"easy",["ph-scale", "hydrogen-ion-concentration", "neutral-solution"],None),
 
-(76,"CHEM","C04",1,20,
- "The standard EMF for the cell reaction $Zn + Cu^{2+} \\to Cu + Zn^{2+}$ is $1.10\\,\\text{V}$ at $25^{\\circ}\\text{C}$. The EMF for the cell reaction, when $0.1\\,\\text{M}\\,Cu^{2+}$ and $0.1\\,\\text{M}\\,Zn^{2+}$ solutions are used, at $25^{\\circ}\\text{C}$ is",
- {"A":"$1.10\\,\\text{V}$","B":"$0.110\\,\\text{V}$","C":"$-1.10\\,\\text{V}$","D":"$-0.110\\,\\text{V}$"},
- ["A"],"medium",["electrochemistry","emf","nernst"],None),
+(76,"CHEM","C04",1,19,
+ "The standard EMF for the cell reaction Zn + Cu$^{2+}$ $\\rightleftharpoons$ Cu + Zn$^{2+}$ is 1.10V at 25°C. The EMF for the cell reaction, when 0.1M Cu$^{2+}$ and 0.1 M Zn$^{2+}$ solutions are used, at 25°C is",
+ {"A":"1.10 V","B":"0.110 V","C":"–1.10 V","D":"–0.110 V"},
+ ["A"],"medium",["electrochemistry","emf","nernst-equation"],None),
 
 (77,"CHEM","C05",1,20,
- "In which of the following equilibria would a decrease in volume promote the formation of more products ?",
- {"A":"$\\text{N}_{2}(g) + \\text{O}_{2}(g) \\rightleftharpoons 2\\text{NO}(g)$","B":"$\\text{N}_{2}\\text{O}_{4}(g) \\rightleftharpoons 2\\text{NO}_{2}(g)$","C":"$\\text{H}_{2}\\text{O}(l) + \\text{CO}_{2}(g) \\rightleftharpoons \\text{H}_{2}\\text{CO}_{3}(aq)$","D":"$\\text{CaCO}_{3}(s) \\rightleftharpoons \\text{CaO}(s) + \\text{CO}_{2}(g)$"},
- ["C"],"medium",["equilibrium","le-chatelier","volume"],None),
+ "In which of the following equilibria would a decrease in volume promote the formation of more products?",
+ {"A":"N$_{2}$(g) + O$_{2}$(g) $\\rightleftharpoons$ 2NO(g)","B":"N$_{2}$O$_{4}$(g) $\\rightleftharpoons$ 2NO$_{2}$(g)","C":"H$_{2}$O($l$) + CO$_{2}$(g) $\\rightleftharpoons$ H$_{2}$CO$_{3}$(aq.)","D":"CaCO$_{3}$(s) $\\rightleftharpoons$ CaO(s) + CO$_{2}$(g)"},
+ ["C"],"medium",["equilibrium","le-chatelier","pressure-volume"],None),
 
 (78,"CHEM","C03",1,20,
- "Which of the following salts will give highest pH in water ?",
- {"A":"$\\text{KCl}$","B":"$\\text{NaCl}$","C":"$\\text{Na}_{2}\\text{CO}_{3}$","D":"$\\text{CuSO}_{4}$"},
- ["C"],"easy",["salts","ph","hydrolysis"],None),
+ "Which of the following salts will give highest pH in water?",
+ {"A":"KCl","B":"NaCl","C":"Na$_{2}$CO$_{3}$","D":"CuSO$_{4}$"},
+ ["C"],"easy",["salt-hydrolysis","ph","basic-salt"],None),
 
 (79,"CHEM","C04",1,20,
- "Which of the following metals can be obtained by the electrolysis of an aqueous solution of their salts ?",
- {"A":"$\\text{Na}$","B":"$\\text{Mg}$","C":"$\\text{Ca}$","D":"$\\text{Al}$"},
- ["W"],"voided",["electrolysis","metals","aqueous"],None),
+ "Which of the following metals can be obtained by the electrolysis of an aqueous solution of their salts?",
+ {"A":"Na","B":"Mg","C":"Ca","D":"Al"},
+ ["W"],"voided",["electrolysis","aqueous-electrolysis","reduction-potential"],None),
 
 (80,"CHEM","C04",1,20,
- "In the following conversion, how many electrons are involved? $\\text{N}_{2} \\to \\text{NH}_{3}$",
- {"A":"$2$","B":"$3$","C":"$4$","D":"$6$"},
- ["D"],"medium",["redox","electrons","n2-nh3"],None),
+ "In the following conversion, how many electrons are involved? $N_{2} \\longrightarrow NH_{3}$",
+ {"A":"2","B":"3","C":"4","D":"6"},
+ ["D"],"medium",["redox","oxidation-number","electron-count"],None),
 
 (81,"CHEM","C08",1,20,
  "IUPAC name of the following compound is",
  {"A":"3-(2-Methylpropyl) hept-1-en-4-yne","B":"2-Methyl-4-ethenyl-oct-5-yne","C":"7-Methyl-5-ethenyl-oct-3-yne","D":"None of the above"},
- ["A"],"hard",["organic","iupac","nomenclature"],"fig-2025-q81"),
+ ["A"],"hard",["organic","iupac-nomenclature","enyne"],"fig-2025-q81"),
 
 (82,"CHEM","C08",1,20,
- "Which structural isomerism is exhibited by the following pairs ?",
+ "Which structural isomerism is exhibited by the following pairs?",
  {"A":"Positional Isomerism","B":"Chain Isomerism","C":"Functional Isomerism","D":"Geometrical Isomerism"},
- ["C"],"medium",["organic","isomerism","structural"],"fig-2025-q82"),
+ ["C"],"easy",["organic","structural-isomerism","functional-isomers"],"fig-2025-q82"),
 
 (83,"CHEM","C08",1,21,
- "The major product in the following reaction is $\\text{CH}_{3}\\text{Cl} \\xrightarrow[(i)\\,\\text{Mg/Ether}]{\\ (ii)\\,\\text{CH}_{3}\\text{COOH}}$",
- {"A":"$\\text{CH}_{4}$","B":"$\\text{C}_{2}\\text{H}_{6}$","C":"$\\text{CH}_{3}\\text{COOCH}_{3}$","D":"None of these"},
- ["A"],"medium",["organic","grignard","ester"],"fig-2025-q83"),
+ "The major product in the following reaction is",
+ {"A":"CH$_{4}$","B":"C$_{2}$H$_{6}$","C":"CH$_{3}$COOCH$_{3}$","D":"None of these"},
+ ["A"],"medium",["organic","grignard-reagent","acidic-hydrogen"],"fig-2025-q83"),
 
-(84,"CHEM","C01",1,21,
+(84,"CHEM","C08",1,21,
  "The hybridization state of a carbanion is",
  {"A":"$sp$","B":"$sp^{2}$","C":"$sp^{3}$","D":"$sp^{4}$"},
- ["W"],"voided",["hybridization","carbanion"],None),
+ ["W"],"voided",["organic","reactive-intermediates","hybridization"],None),
 
 (85,"CHEM","C08",1,21,
- "The major product in the following reaction is $\\text{HC} \\equiv \\text{CH} \\xrightarrow[\\text{(ii) Ethylbromide (excess)}]{\\ (i)\\,\\text{NaNH}_{2}/\\text{liq. NH}_{3}}$",
- {"A":"$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$","B":"$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$","C":"$\\text{CH}_{3}\\text{CH}_{2}-\\text{Br}$","D":"$\\text{NH}_{2}$"},
- ["B"],"medium",["organic","acetylene","alkylation"],"fig-2025-q85"),
+ "The major product in the following reaction is",
+ {"A":"Structure (A)","B":"CH$_{3}$CH$_{2}$—C$\\equiv$C—CH$_{2}$CH$_{3}$","C":"Structure (C)","D":"Structure (D)"},
+ ["B"],"medium",["organic","alkyne-alkylation","acetylide"],"fig-2025-q85"),
 
 # ---------------- CHEMISTRY Cat-II (Q86-90) ----------------
 (86,"CHEM","C01",2,22,
  "In Rutherford's gold leaf experiment, the scattering of $\\alpha$-particles takes place. In this process (I) coulombic force is involved (II) nuclear force is involved (III) path of $\\alpha$-particle is parabolic (IV) path of $\\alpha$-particle is hyperbolic",
  {"A":"I","B":"II","C":"III","D":"IV"},
- ["A","D"],"medium",["atomic-structure","rutherford","scattering"],None),
+ ["A","D"],"medium",["atomic-structure","rutherford-scattering","coulomb-force"],None),
 
 (87,"CHEM","C03",2,22,
  "By adding water to the solution of ionic compound, its (I) concentration remains same. (II) concentration increases. (III) ionization may increase. (IV) concentration decreases.",
  {"A":"I","B":"II","C":"III","D":"IV"},
- ["C","D"],"medium",["solutions","ionization","concentration"],None),
+ ["C","D"],"medium",["dilution","degree-of-ionization","ostwald-dilution-law"],None),
 
 (88,"CHEM","C08",2,22,
- "The product(s) in the following reaction is/are $\\text{CH}_{3}\\text{CH}=\\text{CH}_{2} + \\text{HBr} \\to$",
- {"A":"(I) $\\text{CH}_{3}\\text{CHBrCH}_{3}$","B":"(II) $\\text{CH}_{3}\\text{CH}_{2}\\text{CH}_{2}\\text{Br}$","C":"I and II","D":"III and IV"},
- ["A","B","C"],"hard",["organic","hbr","markovnikov"],"fig-2025-q88"),
+ "The product(s) in the following reaction is/are",
+ {"A":"I","B":"II","C":"I and II","D":"III and IV"},
+ ["A","B","C"],"hard",["organic","hbr-addition","carbocation-rearrangement"],"fig-2025-q88"),
 
 (89,"CHEM","C05",2,23,
- "For which of the following reactions, $k_{f}$ is less than $k_{e}$ ? (I) $\\text{N}_{2}\\text{O}_{4} \\rightleftharpoons 2\\text{NO}_{2}$ (II) $\\text{N}_{2} + 3\\text{H}_{2} \\rightleftharpoons 2\\text{NH}_{3}$ (III) $\\text{H}_{2} + \\text{I}_{2} \\rightleftharpoons 2\\text{HI}$ (IV) $\\text{CO} + \\text{H}_{2}\\text{O} \\rightleftharpoons \\text{CO}_{2} + \\text{H}_{2}$",
+ "For which of the following reactions, k$_{\\text{p}}$ is less than k$_{\\text{c}}$? (I) N$_{2}$O$_{4}$ $\\rightleftharpoons$ 2NO$_{2}$ (II) N$_{2}$ + 3H$_{2}$ $\\rightleftharpoons$ 2NH$_{3}$ (III) H$_{2}$ + I$_{2}$ $\\rightleftharpoons$ 2HI (IV) CO + H$_{2}$O $\\rightleftharpoons$ CO$_{2}$ + H$_{2}$",
  {"A":"I","B":"II","C":"III","D":"IV"},
- ["B"],"medium",["equilibrium","rate-constant","forward-reverse"],None),
+ ["B"],"medium",["equilibrium","kp-kc","delta-n-gas"],None),
 
 (90,"CHEM","C03",2,23,
- "Which of the following statement about $HNO_{3}$ is/are correct ?",
+ "Which of the following statement about HNO$_{3}$ is/are correct?",
  {"A":"It is a solid.","B":"It is an oxoacid of nitrogen.","C":"It is a reducing agent.","D":"It is an oxidizing agent."},
- ["B","D"],"medium",["acids-bases","hno3","oxoacid"],None),
+ ["B","D"],"easy",["nitric-acid","oxoacids","oxidizing-agent"],None),
 
 # ---------------- FEEE Cat-I (Q91-100) ----------------
 (91,"FEEE","E01",1,24,
- "A PMMC ammeter measures current $i(t) = (5 + 5\\sin 100\\pi t)\\,\\text{A}$. The reading of the meter will be",
- {"A":"$5\\,\\text{A}$","B":"$10\\,\\text{A}$","C":"$0\\,\\text{A}$","D":"None of these"},
- ["A"],"medium",["pmmc","ammeter","rms-average"],None),
+ "A PMMC ammeter measures current $i(t) = (5 + 5\\sin 100\\pi t)\\,A$. The reading of the meter will be",
+ {"A":"5 A","B":"$\\left(5 + \\dfrac{5}{\\sqrt{2}}\\right)A$","C":"0 A","D":"None of these"},
+ ["A"],"medium",["pmmc","average-value","measuring-instruments"],None),
 
 (92,"FEEE","E02",1,24,
- "An ideal single phase transformer with $200\\,\\text{V}$, $50\\,\\text{Hz}$ supply at its primary side is delivering to $100\\,\\text{watt}$ resistive load at $10\\,\\text{V}$ connected to its secondary side. The current drawn by the transformer from the supply is",
- {"A":"$0\\,\\text{A}$","B":"$0.5\\,\\text{A}$","C":"$1.0\\,\\text{A}$","D":"$10\\,\\text{A}$"},
- ["B"],"medium",["transformer","ideal","current"],None),
+ "An ideal single phase transformer with 200V, 50Hz supply at its primary side is delivering to 100 watt resistive load at 10V connected to its secondary side. The current drawn by the transformer from the supply is",
+ {"A":"0A","B":"0$\\cdot$5A","C":"1$\\cdot$0A","D":"10A"},
+ ["B"],"easy",["ideal-transformer","power-balance","primary-current"],None),
 
 (93,"FEEE","E03",1,24,
- "Which of the following electrical machines has the highest efficiency ?",
+ "Which of the following electrical machines has the highest efficiency?",
  {"A":"DC shunt motor","B":"DC series motor","C":"Single phase induction motor","D":"Transformer"},
  ["D"],"easy",["electrical-machines","efficiency","transformer"],None),
 
-(94,"FEEE","E02",1,24,
- "A power supply has a full load voltage of $10\\,\\text{V}$. Its no load voltage for $0\\%$ regulation is",
- {"A":"$10\\,\\text{V}$","B":"$0\\,\\text{V}$","C":"less than $10\\,\\text{V}$","D":"greater than $10\\,\\text{V}$"},
- ["A"],"easy",["regulation","voltage","power-supply"],None),
+(94,"FEEE","E04",1,24,
+ "A power supply has a full load voltage of 10V. Its no load voltage for 0% regulation is",
+ {"A":"10V","B":"0V","C":"less than 10V","D":"greater than 10V"},
+ ["A"],"easy",["voltage-regulation","power-supply","dc-sources"],None),
 
 (95,"FEEE","E05",1,24,
- "The following circuit carries alternating currents $I_{1}$, $I_{2}$ and $I$. Under which condition $I_{1}$, $I_{2}$ and $I$ will be in the same phase? (The frequency of the alternating current is $50\\,\\text{Hz}$)",
+ "The following circuit carries alternating currents I, I$_{1}$ and I$_{2}$. Under which condition I$_{1}$, I$_{2}$ and I will be in the same phase? (The frequency of the alternating current is 50Hz)",
  {"A":"$R_{1}R_{2} = L_{1}L_{2}$","B":"$\\dfrac{R_{1}}{R_{2}} = \\dfrac{L_{1}}{L_{2}}$","C":"$R_{1}L_{1} = R_{2}L_{2}$","D":"None of these"},
- ["B"],"hard",["ac-circuit","phase","rl-circuit"],"fig-2025-q95"),
+ ["B"],"medium",["ac-circuit","parallel-rl","phase-angle"],"fig-2025-q95"),
 
 (96,"FEEE","E06",1,25,
- "In a PNP transistor, the emitter current ($I_{e}$) is $10\\,\\text{mA}$ and the base current ($I_{b}$) is $0.1\\,\\text{mA}$. Its collector current ($I_{c}$) would be",
- {"A":"$9.9\\,\\text{mA}$","B":"$10.1\\,\\text{mA}$","C":"$100\\,\\text{mA}$","D":"$0.9\\,\\text{mA}$"},
- ["A"],"easy",["transistor","pnp","currents"],None),
+ "In a PNP transistor, the emitter current $(I_{E})$ is 10mA and the base current $(I_{B})$ is 0$\\cdot$1mA. Its collector current $(I_{C})$ would be",
+ {"A":"9$\\cdot$9 mA","B":"10$\\cdot$1 mA","C":"100 mA","D":"0$\\cdot$9 mA"},
+ ["A"],"easy",["bjt","pnp-transistor","kcl"],None),
 
 (97,"FEEE","E06",1,25,
- "Which statement is valid for CMOS technology ?",
+ "Which statement is valid for CMOS technology?",
  {"A":"Employs only N-type MOSFETs","B":"Employs only P-type MOSFETs","C":"Consumes high static power","D":"Employs both N-type and P-type MOSFETs"},
- ["D"],"easy",["cmos","mosfet","technology"],None),
+ ["D"],"easy",["cmos","mosfet","digital-ic-technology"],None),
 
 (98,"FEEE","E07",1,25,
- "Which of the OPAMP based configurations provides no phase difference between input and output ?",
+ "Which of the OPAMP based configurations provides no phase difference between input and output?",
  {"A":"Inverting amplifier","B":"Non-inverting amplifier","C":"Integrator","D":"Differentiator"},
- ["B"],"easy",["opamp","phase","configuration"],None),
+ ["B"],"easy",["op-amp","non-inverting-amplifier","phase-shift"],None),
 
 (99,"FEEE","E08",1,25,
- "Simplify the Boolean Expression: $(A + B)\\cdot(A + B') + A'$",
- {"A":"$A + B$","B":"$1$","C":"$B$","D":"$A'$"},
- ["B"],"medium",["boolean","simplification","algebra"],None),
+ "Simplify the Boolean Expression: $(A + B).(A + B') + A'$",
+ {"A":"A+B","B":"1","C":"B","D":"$A'$"},
+ ["B"],"easy",["boolean-algebra","simplification","complement-law"],None),
 
 (100,"FEEE","E08",1,25,
  "The combination of Logic Gates in the following circuit is equivalent to",
  {"A":"XOR Gate","B":"AND Gate","C":"XNOR Gate","D":"NAND Gate"},
- ["B"],"medium",["digital","logic-gate","combination"],"fig-2025-q100"),
+ ["B"],"medium",["logic-gates","nand-universal","truth-table"],"fig-2025-q100"),
 ]
 
 
@@ -540,6 +539,11 @@ OPTION_FIGURES_2025 = {
         "C": ("fig-2025-q66-optC", "Graph (C): x versus t; x rises along a concave-up curve until t = 4, then stays constant"),
         "D": ("fig-2025-q66-optD", "Graph (D): x versus t; x rises along a concave-up curve from the origin until t = 4, then continues as a straight line tangent to the curve"),
     },
+    85: {
+        "A": ("fig-2025-q85-optA", "Structure (A): CH3CH2 at the left joined to a trans C=C drawn skeletally, ending in CH2CH3 at the lower right (CH3CH2–CH=CH–CH2CH3)"),
+        "C": ("fig-2025-q85-optC", "Structure (C): CH3CH2 at the left joined to a trans C=C drawn skeletally, ending in NH2 at the lower right (CH3CH2–CH=CH–NH2)"),
+        "D": ("fig-2025-q85-optD", "Structure (D): Br at the upper left joined to a trans C=C drawn skeletally, ending in NH2 at the lower right (Br–CH=CH–NH2)"),
+    },
 }
 STEM_FIGURE_ALT_2025 = {
     44: "Acceleration a (m/s²) versus time t (s): a straight line starting at a = −2 when t = 0, crossing a = 0 at t = 1 and continuing upward",
@@ -549,5 +553,12 @@ STEM_FIGURE_ALT_2025 = {
     57: "P–V diagram: rectangle with a at bottom-left, c top-left, b top-right, d bottom-right; arrows a→c→b and a→d→b, plus a curved path from b back to a",
     61: "Liquids A, B, C of equal mass m at 10ºC, 15ºC and 20ºC; an arc joining A and B is labelled 13ºC and an arc joining B and C is labelled 16ºC",
     62: "Temperature versus heat input: rising from the origin to A, flat from A to B, rising from B to C, flat from C to D, rising again from D to E",
+    81: "Condensed structure: CH3–CH2–C≡C–CH, where the CH carries an upper branch CH2–CH(CH3)2 and a lower branch CH=CH2",
+    82: "Two skeletal structures side by side: left, a three-carbon chain ending in C(=O)OH; right, H–C(=O)–O–CH2–CH3",
+    83: "Reaction scheme: CH3Cl, arrow labelled (i) Mg/Ether above and (ii) CH3COOH below",
+    85: "Reaction scheme: HC≡CH, arrow labelled (i) NaNH2/liq. NH3 above and (ii) Ethylbromide (excess) below",
+    88: "Reaction: CH3–C(CH3)2–CH=CH2 with HBr over the arrow. Structures: (I) CH3–C(CH3)2–CH(Br)–CH3; (II) CH3–C(CH3)(Br)–CH(CH3)–CH3; (III) CH3–C(CH3)2–CH2–CH2Br; (IV) BrCH2–C(CH3)(H)–CH(CH3)–CH3",
+    95: "Circuit: current I enters a node and splits into I1 through R1 in series with L1 (upper branch) and I2 through R2 in series with L2 (lower branch); the branches rejoin at the right",
+    100: "Logic circuit: inputs A and B both feed each of two NAND gates; the two NAND outputs feed the two inputs of a third NAND gate whose output is Y",
     67: "A fixed smooth pulley hanging from a ceiling; a 2 kg block hangs on the left of the string and the right end is pulled down by F = 40 N",
 }

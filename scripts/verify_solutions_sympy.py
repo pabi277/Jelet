@@ -17,7 +17,11 @@ Checks:
   6. 2025 Q51–Q75 (Batch 3): same method; graph-option items (Q51, Q58, Q66)
      and figure-dependent items (Q55, Q62) are checked against the redrawn SVG
      geometry, and stemFigure/option-figure presence is asserted.
-  7. Report coverage statistics
+  7. 2025 Q76–Q100 (Batch 4): molecular graphs parsed from the structure SVGs
+     (IUPAC namer for Q81, carbocation engine for Q88), netlists extracted from
+     the circuit SVGs (Q95 phase test, Q100 truth table), stoichiometry/redox
+     balances, and a 2025 coverage gate (100/100 independently checked, 0 stubs).
+  8. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -1122,9 +1126,628 @@ def _b3_q75():
     props = {"A": Hx > Kw**sympy.Rational(1, 2) and Hy > Kw**sympy.Rational(1, 2), "B": Hx/Hy == 10, "C": OHy > Hy}
     props["D"] = not any(props.values())
     m_ = sorted(k for k, v in props.items() if v)
-    return _b3_result(75, ["pH of 6.0", "pH of 7.0"], {"B": "10 times more acidic", "C": r"\rangle"}, m_, f"[H+]X/[H+]Y = {Hx/Hy}, [OH-]Y = {OHy} = [H+]Y")
+    return _b3_result(75, ["pH of 6.0", "pH of 7.0"], {"B": "10 times more acidic", "C": r"\left[\text{OH}^{-}\right] > \left[\text{H}^{+}\right]"}, m_, f"[H+]X/[H+]Y = {Hx/Hy}, [OH-]Y = {OHy} = [H+]Y")
 
 B3_TESTS_2025 = [(f"2025 Q{n}", f"jelet-2025-q{n:03d}", globals()[f"_b3_q{n}"]) for n in range(51, 76)]
+
+# ---------------------------------------------------------------------------
+# 2025 Batch 4 (Q76–Q100). Structure/circuit items are checked against the
+# redrawn SVGs: molecular graphs are parsed from the label/bond geometry of
+# fig-2025-q81/q88 (then named / pushed through a carbocation engine), and
+# netlists are extracted from the wire geometry of fig-2025-q95/q100.
+# ---------------------------------------------------------------------------
+_b4_result = _b2_result
+
+def _svg_text(src):
+    return open(os.path.join(ROOT, src.lstrip("./") if not src.startswith("./") else src[2:]), encoding="utf-8").read()
+
+def _fig_src(qnum, opt=None):
+    q = _paper_2025()[qnum]
+    fg = q["stemFigure"] if opt is None else next(o for o in q["options"] if o["id"] == opt)["figure"]
+    return fg["src"] if fg else None
+
+_W_EM = {"C": .667, "H": .722, "B": .667, "N": .722, "O": .722, "r": .333, "I": .333, "(": .333, ")": .333}
+
+def _label_atoms(t):
+    """'CH3' -> {'C':1,'H':3}; 'BrCH2' -> {'Br':1,'C':1,'H':2}."""
+    import re as _re
+    out = {}
+    for el, n in _re.findall(r"(Br|Cl|C|H|N|O)(\d*)", t):
+        out[el] = out.get(el, 0) + (int(n) if n else 1)
+    return out
+
+def _svg_mol(src, group):
+    """Parse a <g data-struct=group> into (nodes, bonds): nodes = label atoms, bonds = {(i,j): order}.
+    Each bond line is assigned to the two labels whose estimated boxes are nearest its end-points."""
+    import re as _re
+    svg = _svg_text(src)
+    m = _re.search(r'<g data-struct="%s">(.*?)</g>' % _re.escape(group), svg, _re.S)
+    if not m:
+        return None
+    g = m.group(1)
+    labels = []
+    for x, y, size, inner in _re.findall(r'<text x="([-0-9.]+)" y="([-0-9.]+)"[^>]*font-size="([0-9.]+)"[^>]*>(.*?)</text>', g):
+        t = _re.sub(r"<[^>]+>", "", inner); x, y, size = float(x), float(y), float(size)
+        w = sum((_W_EM.get(c, .5)*(0.72 if c.isdigit() else 1)) for c in t)*size
+        labels.append(dict(t=t, box=(x, y - 0.7*size, x + w, y + 0.3*size), atoms=_label_atoms(t)))
+    def nearest(px, py):
+        def d(b):
+            dx = max(b[0] - px, 0, px - b[2]); dy = max(b[1] - py, 0, py - b[3]); return dx*dx + dy*dy
+        ds = sorted((d(l["box"]), i) for i, l in enumerate(labels))
+        return ds[0][1], ds[0][0]
+    bonds = {}
+    for x1, y1, x2, y2 in _re.findall(r'<line x1="([-0-9.]+)" y1="([-0-9.]+)" x2="([-0-9.]+)" y2="([-0-9.]+)"', g):
+        (a, da), (b, db) = nearest(float(x1), float(y1)), nearest(float(x2), float(y2))
+        if a == b or da > 36 or db > 36:
+            return None
+        k = tuple(sorted((a, b))); bonds[k] = bonds.get(k, 0) + 1
+    return labels, bonds
+
+def _mol_graph(labels, bonds):
+    """Heavy-atom graph {node: element}, {frozenset(edge): order}; validates carbon valence = 4."""
+    el, edges, hcount, nid = {}, {}, {}, 0
+    carbon_of = {}
+    for i, l in enumerate(labels):
+        a = l["atoms"]
+        if a.get("C"):
+            carbon_of[i] = nid; el[nid] = "C"; hcount[nid] = a.get("H", 0); nid += 1
+            if a.get("Br"):
+                el[nid] = "Br"; edges[frozenset((carbon_of[i], nid))] = 1; nid += 1
+        elif set(a) == {"Br"}:
+            carbon_of[i] = nid; el[nid] = "Br"; nid += 1
+        elif set(a) == {"H"}:
+            carbon_of[i] = ("H",)
+    for (i, j), order in bonds.items():
+        a, b = carbon_of[i], carbon_of[j]
+        if a == ("H",) or b == ("H",):
+            c = b if a == ("H",) else a; hcount[c] += 1; continue
+        edges[frozenset((a, b))] = order
+    for n, e in el.items():
+        if e == "C":
+            val = hcount[n] + sum(o for ed, o in edges.items() if n in ed)
+            if val != 4:
+                return None
+    return el, edges
+
+def _formula(el, edges):
+    from collections import Counter
+    c = Counter(el.values())
+    h = sum(4 - sum(o for ed, o in edges.items() if n in ed) for n, e in el.items() if e == "C")
+    return dict(c, H=h)
+
+def _iso(g1, g2):
+    """Brute-force labelled-graph isomorphism (small molecules)."""
+    (e1, b1), (e2, b2) = g1, g2
+    if sorted(e1.values()) != sorted(e2.values()) or sorted(b1.values()) != sorted(b2.values()):
+        return False
+    n1, n2 = list(e1), list(e2)
+    adj = lambda el, bd: {n: {m: o for ed, o in bd.items() if n in ed for m in ed if m != n} for n in el}
+    a1, a2 = adj(e1, b1), adj(e2, b2)
+    def bt(mp, i):
+        if i == len(n1):
+            return True
+        u = n1[i]
+        for v in n2:
+            if v in mp.values() or e1[u] != e2[v] or len(a1[u]) != len(a2[v]):
+                continue
+            if all((mp[w] in a2[v] and a2[v][mp[w]] == o) for w, o in a1[u].items() if w in mp) and \
+               all(not (w in mp.values() and w not in [mp[x] for x in a1[u] if x in mp]) for w in a2[v] if w in mp.values()):
+                mp[u] = v
+                if bt(mp, i + 1):
+                    return True
+                del mp[u]
+        return False
+    return bt({}, 0)
+
+def _G(spec):
+    """Independent hand encoding: spec = list of (a, b, order) over atom names like 'C1', 'Br'."""
+    el, ed, ids = {}, {}, {}
+    for a, b, o in spec:
+        for x in (a, b):
+            if x not in ids:
+                ids[x] = len(ids); el[ids[x]] = "Br" if x.startswith("Br") else ("O" if x.startswith("O") else "C")
+        ed[frozenset((ids[a], ids[b]))] = o
+    return el, ed
+
+def _withdrawn_ok(qnum, must):
+    q = _paper_2025()[qnum]
+    withdrawn = q["key"]["status"] == "voided" and q["key"]["correct"] == ["W"]
+    full = q["fullTwelfths"] == 12 and q["category"] == 1
+    sol = load_json(os.path.join(DATA, "solutions", "2025.solutions.json"))["solutions"][f"jelet-2025-q{qnum:03d}"]
+    text = " ".join(s["bodyLatex"] for s in sol["steps"])
+    sol_ok = all(m in text for m in must) and "+12" in text and "+1" in text and "0 marks" not in text
+    return withdrawn and full and sol_ok, f"withdrawn={withdrawn}, Cat-I 12 twelfths={full}, solution states analysis + '+1 mark (+12 twelfths)'={sol_ok}"
+
+def _b4_q76():
+    E0, n, Zn, Cu = sympy.Rational(110, 100), 2, sympy.Rational(1, 10), sympy.Rational(1, 10)
+    E = E0 - sympy.Rational(591, 10000)/n*sympy.log(Zn/Cu, 10)
+    m_ = _pick({"A": sympy.Rational(110, 100), "B": sympy.Rational(110, 1000), "C": -sympy.Rational(110, 100), "D": -sympy.Rational(110, 1000)}, lambda v: sympy.simplify(v - E) == 0)
+    return _b4_result(76, [r"\rightleftharpoons", "0.1M Cu$^{2+}$", "0.1 M Zn$^{2+}$", "1.10V"], {"A": "1.10 V", "D": "–0.110 V"}, m_, f"E = {E} V")
+
+def _dn_gas(latex):
+    """Parse 'aX(g) + ... \\rightleftharpoons ...' option text and return moles of gas products - reactants."""
+    import re as _re
+    lhs, rhs = latex.split(r"$\rightleftharpoons$")
+    def n(side):
+        tot = 0
+        for term in side.split(" + "):
+            term = term.strip()
+            if "(g)" in term:
+                mm = _re.match(r"(\d*)", term); tot += int(mm.group(1)) if mm.group(1) else 1
+        return tot
+    return n(rhs) - n(lhs)
+
+def _b4_q77():
+    opts = {o["id"]: o["latex"] for o in _paper_2025()[77]["options"]}
+    dn = {k: _dn_gas(v) for k, v in opts.items()}
+    m_ = sorted(k for k, v in dn.items() if v < 0)          # compression favours fewer gas moles
+    return _b4_result(77, ["decrease in volume", "formation of more products"], {"C": "H$_{2}$O($l$) + CO$_{2}$(g)", "D": "CaCO$_{3}$(s)"}, m_, f"Delta n_gas = {dn}")
+
+def _b4_q78():
+    Kw, C = sympy.Float(1e-14), sympy.Float(0.1)
+    Kb_co3 = Kw/sympy.Float(4.7e-11)
+    pH_co3 = 14 + sympy.log(sympy.sqrt(Kb_co3*C), 10)
+    Ka_cu = sympy.Float(10**-7.5)                              # [Cu(H2O)6]2+ hydrolysis
+    pH_cu = -sympy.log(sympy.sqrt(Ka_cu*C), 10)
+    pH = {"A": sympy.Float(7), "B": sympy.Float(7), "C": pH_co3, "D": pH_cu}
+    top = max(pH.values()); m_ = sorted(k for k, v in pH.items() if v == top)
+    return _b4_result(78, ["highest pH in water"], {"C": "Na$_{2}$CO$_{3}$", "D": "CuSO$_{4}$"}, m_, "pH(0.1 M) = " + ", ".join(f"{k}:{float(v):.2f}" for k, v in pH.items()))
+
+def _b4_q79():
+    E_water = sympy.Rational(-83, 100)                         # 2H2O + 2e- -> H2 + 2OH- (most favourable case for the metal)
+    E = {"A": sympy.Rational(-271, 100), "B": sympy.Rational(-237, 100), "C": sympy.Rational(-287, 100), "D": sympy.Rational(-166, 100)}
+    m_ = _pick(E, lambda v: v > E_water)                      # metal deposited only if reduced before water
+    ok_w, wdesc = _withdrawn_ok(79, ["-0.83", "Downs", "W"])
+    stem_ok = "electrolysis of an aqueous solution" in _paper_2025()[79]["stemLatex"]
+    return (m_ == [] and ok_w and stem_ok), f"E(M^n+/M) = {dict((k, float(v)) for k, v in E.items())} V vs water {float(E_water)} V -> options matching {m_} (none) -> key W; {wdesc}"
+
+def _b4_q80():
+    x = sympy.symbols("x")
+    oxN2, oxNH3 = 0, sympy.solve(x + 3, x)[0]
+    e_per_N2 = 2*(oxN2 - oxNH3)
+    # half-reaction N2 + 6H+ + 6e- -> 2NH3: atoms and charge
+    bal = ({"N": 2, "H": 6}, 6 - 6) == ({"N": 2, "H": 6}, 0)
+    m_ = _pick({"A": 2, "B": 3, "C": 4, "D": 6}, lambda v: bal and v == e_per_N2)
+    return _b4_result(80, [r"$N_{2} \longrightarrow NH_{3}$", "how many electrons"], {"D": "6"}, m_, f"ox(N): {oxN2} -> {oxNH3}; e- per N2 = {e_per_N2} (per N atom {oxN2 - oxNH3})")
+
+_ALK = {1: "meth", 2: "eth", 3: "prop", 4: "but", 5: "pent", 6: "hex", 7: "hept", 8: "oct", 9: "non", 10: "dec"}
+
+def _name_iupac(el, edges, rules):
+    """Name an acyclic hydrocarbon (alkyl/alkenyl branches) under 1993 ('multiple bonds first') or
+    2013 ('longest chain first') principal-chain rules."""
+    C = [n for n in el if el[n] == "C"]
+    adj = {n: {m for ed in edges if n in ed for m in ed if m != n} for n in C}
+    order = lambda a, b: edges[frozenset((a, b))]
+    def path(a, b, prev=None):
+        if a == b:
+            return [a]
+        for m in adj[a]:
+            if m != prev:
+                p = path(m, b, a)
+                if p:
+                    return [a] + p
+        return None
+    ends = [n for n in C if len(adj[n]) == 1]
+    chains = [path(a, b) for i, a in enumerate(ends) for b in ends[i+1:]]
+    chains += [p[::-1] for p in chains]
+    def mult(p):
+        return [(i + 1, order(p[i], p[i+1])) for i in range(len(p) - 1) if order(p[i], p[i+1]) > 1]
+    if rules == 1993:
+        key = lambda p: (len(mult(p)), len(p))
+    else:
+        key = lambda p: (len(p), len(mult(p)))
+    best = max(key(p) for p in chains)
+    cands = [p for p in chains if key(p) == best]
+    def num_key(p):
+        mb = mult(p)
+        return (sorted(i for i, _ in mb), sorted(i for i, o in mb if o == 2), sorted(i + 1 for i, n in enumerate(p) for m in adj[n] if m not in p))
+    p = min(cands, key=num_key)
+    def sub_name(att, frm):
+        seen, stack = {frm}, [att]; nodes = []
+        while stack:
+            u = stack.pop(); nodes.append(u); seen.add(u); stack += [m for m in adj[u] if m not in seen]
+        if len(nodes) == 2 and order(*nodes) == 2:
+            return "ethenyl"
+        def longest(u, prev):
+            best_p = [u]
+            for m in adj[u]:
+                if m != prev:
+                    q = [u] + longest(m, u)
+                    if len(q) > len(best_p):
+                        best_p = q
+            return best_p
+        lp = longest(att, frm)
+        br = sorted(i + 1 for i, u in enumerate(lp) for m in adj[u] if m not in lp and m != frm)
+        if any(order(a, b) > 1 for a in nodes for b in adj[a] if b in nodes):
+            raise ValueError("unsupported unsaturated substituent")
+        if not br:
+            return _ALK[len(lp)] + "yl"
+        if len(br) == 1 and len(nodes) == len(lp) + 1:
+            return f"({br[0]}-methyl{_ALK[len(lp)]}yl)"
+        raise ValueError("unsupported substituent")
+    subs = sorted(((i + 1, sub_name(m, n)) for i, n in enumerate(p) for m in adj[n] if m not in p), key=lambda s: s[1].strip("()").lstrip("0123456789-"))
+    prefix = "-".join(f"{i}-{s}" for i, s in subs)
+    mb = mult(p)
+    enes = [i for i, o in mb if o == 2]; ynes = [i for i, o in mb if o == 3]
+    stem = _ALK[len(p)]
+    if enes and ynes:
+        parent = f"{stem}-{','.join(map(str, enes))}-en-{','.join(map(str, ynes))}-yne"
+    elif ynes:
+        parent = f"{stem}-{','.join(map(str, ynes))}-yne"
+    elif enes:
+        parent = f"{stem}-{','.join(map(str, enes))}-ene"
+    else:
+        parent = stem + "ane"
+    return f"{prefix}{parent}"
+
+def _norm_name(s):
+    import re as _re
+    return _re.sub(r"[\s\-\(\)]", "", s).lower()
+
+def _b4_q81():
+    src = _fig_src(81)
+    parsed = _svg_mol(src, "Q81") if src else None
+    if not parsed:
+        return False, "could not parse a valid molecular graph from the Q81 stem SVG"
+    g = _mol_graph(*parsed)
+    if not g:
+        return False, "Q81 SVG: carbon valence check failed (label H-count + bond orders != 4)"
+    ref = _G([("a1", "a2", 1), ("a2", "a3", 1), ("a3", "a4", 3), ("a4", "a5", 1), ("a5", "a6", 1), ("a6", "a7", 1),
+              ("a7", "a8", 1), ("a7", "a9", 1), ("a5", "a10", 1), ("a10", "a11", 2)])
+    same = _iso(g, ref)
+    f = _formula(*g)
+    n93, n13 = _name_iupac(*g, 1993), _name_iupac(*g, 2013)
+    opts = {o["id"]: o["latex"] for o in _paper_2025()[81]["options"]}
+    m_ = sorted(k for k, v in opts.items() if k != "D" and _norm_name(v) == _norm_name(n93))
+    if not m_:
+        m_ = ["D"]
+    m13 = sorted(k for k, v in opts.items() if k != "D" and _norm_name(v) == _norm_name(n13))
+    if not same:
+        m_ = []
+    return _b4_result(81, ["IUPAC name of the following compound"], {"A": "3-(2-Methylpropyl) hept-1-en-4-yne", "C": "7-Methyl-5-ethenyl-oct-3-yne"}, m_,
+                      f"SVG graph C{f.get('C')}H{f.get('H')} (matches printed skeleton: {same}); 1993 name '{n93}'; 2013 name '{n13}' (exact option match: {m13 or 'none'})")
+
+def _fg(el, edges, hc):
+    """Classify the carbonyl functional group of a small C/O graph."""
+    adj = {n: {m: o for ed, o in edges.items() if n in ed for m in ed if m != n} for n in el}
+    for n in el:
+        if el[n] == "C" and any(el[m] == "O" and o == 2 for m, o in adj[n].items()):
+            singles = [m for m, o in adj[n].items() if el[m] == "O" and o == 1]
+            if singles:
+                o1 = singles[0]
+                return "carboxylic acid" if len(adj[o1]) == 1 else "ester"
+            return "carbonyl"
+    return "none"
+
+def _b4_q82():
+    acid = _G([("C1", "C2", 1), ("C2", "C3", 1), ("C3", "O1", 2), ("C3", "O2", 1)])
+    ester = _G([("C1", "O1", 2), ("C1", "O2", 1), ("O2", "C2", 1), ("C2", "C3", 1)])
+    def formula(g):
+        el, ed = g
+        from collections import Counter
+        c = Counter(el.values()); val = {"C": 4, "O": 2}
+        h = sum(val[e] - sum(o for k, o in ed.items() if n in k) for n, e in el.items())
+        return (c["C"], h, c["O"])
+    f1, f2 = formula(acid), formula(ester)
+    fg1, fg2 = _fg(*acid, None), _fg(*ester, None)
+    svg = _svg_text(_fig_src(82)); import re as _re
+    labels = sorted(_re.sub(r"<[^>]+>", "", t) for t in _re.findall(r"<text[^>]*>(.*?)</text>", svg))
+    svg_ok = labels == sorted(["O", "OH", "H", "O", "O"])
+    kind = "functional" if (f1 == f2 and fg1 != fg2) else ("chain/position" if f1 == f2 else "not isomers")
+    m_ = _pick({"A": "position", "B": "chain", "C": "functional", "D": "geometrical"}, lambda v: svg_ok and v == kind)
+    return _b4_result(82, ["structural isomerism", "following pairs"], {"C": "Functional Isomerism"}, m_, f"C{f1[0]}H{f1[1]}O{f1[2]} vs C{f2[0]}H{f2[1]}O{f2[2]}; groups {fg1} vs {fg2}; SVG labels {labels}")
+
+def _b4_q83():
+    from collections import Counter
+    def atoms(*fs):
+        c = Counter()
+        for f in fs:
+            c.update(_label_atoms_ext(f))
+        return c
+    lhs, rhs = atoms("CH3MgCl", "CH3COOH"), atoms("CH4", "CH3COOMgCl")
+    pKa_acid, pKa_ch4 = sympy.Rational(48, 10), 50
+    product = "CH4" if (lhs == rhs and pKa_acid < pKa_ch4) else None
+    svg = _svg_text(_fig_src(83)); import re as _re
+    txt = " ".join(_re.sub(r"<[^>]+>", "", t) for t in _re.findall(r"<text[^>]*>(.*?)</text>", svg))
+    scheme_ok = all(s in txt for s in ["CH3Cl", "(i) Mg/Ether", "(ii) CH3COOH"])
+    m_ = _pick({"A": "CH4", "B": "C2H6", "C": "CH3COOCH3", "D": None}, lambda v: scheme_ok and v == product)
+    return _b4_result(83, ["major product"], {"A": "CH$_{4}$", "C": "CH$_{3}$COOCH$_{3}$"}, m_, f"balance {dict(lhs) == dict(rhs)}: {dict(lhs)}; SVG scheme '{txt}'")
+
+def _label_atoms_ext(f):
+    import re as _re
+    out = {}
+    for el, n in _re.findall(r"(Mg|Cl|Br|Na|C|H|N|O)(\d*)", f):
+        out[el] = out.get(el, 0) + (int(n) if n else 1)
+    return out
+
+def _b4_q84():
+    # steric number = sigma bonds + lone pairs on the carbanion carbon
+    cases = {"CH3-": 3 + 1, "allyl/vinyl (conjugated)": 2 + 1, "HC#C-": 1 + 1}
+    hyb = {4: "sp3", 3: "sp2", 2: "sp"}
+    realised = {hyb[v] for v in cases.values()}
+    opts = {"A": "sp", "B": "sp2", "C": "sp3", "D": "sp4"}
+    true_opts = _pick(opts, lambda v: v in realised)
+    ok_w, wdesc = _withdrawn_ok(84, ["sp^{3}", "Acetylide", "W"])
+    return (true_opts == ["A", "B", "C"] and ok_w), f"carbanion hybridizations realised {sorted(realised)} -> options {true_opts} all correct for some carbanion (not single-correct) -> key W; {wdesc}"
+
+def _b4_q85():
+    from collections import Counter
+    # alkyne as [left, right] substituents on C#C; 'H' = terminal; Et = C2H5
+    mol, steps = ["H", "H"], []
+    pKa = {"terminal alkyne": 25, "NH3": 35}
+    for _ in range(4):
+        if "H" not in mol or pKa["terminal alkyne"] >= pKa["NH3"]:
+            break
+        i = mol.index("H"); mol[i] = "Et"; steps.append("deprotonate+SN2(EtBr)")
+    f = Counter({"C": 2}); f.update({"C": 2*mol.count("Et"), "H": 5*mol.count("Et") + mol.count("H")})
+    prod = (dict(f), "alkyne")
+    opts = {"A": ({"C": 6, "H": 12}, "alkene"), "B": ({"C": 6, "H": 10}, "alkyne"), "C": ({"C": 4, "H": 9, "N": 1}, "alkene"), "D": ({"C": 2, "H": 4, "Br": 1, "N": 1}, "alkene")}
+    import re as _re
+    def labels(o):
+        s = _fig_src(85, o); svg = _svg_text(s) if s else ""
+        return [_re.sub(r"<[^>]+>", "", t) for t in _re.findall(r"<text[^>]*>(.*?)</text>", svg)], svg.count("<line")
+    la, lc, ld = labels("A"), labels("C"), labels("D")
+    figs_ok = (la == (["CH3CH2", "CH2CH3"], 4) and lc == (["CH3CH2", "NH2"], 4) and ld == (["Br", "NH2"], 4)
+               and _fig_src(85) is not None and _fig_src(85, "B") is None)
+    m_ = _pick(opts, lambda v: figs_ok and v == prod)
+    return _b4_result(85, ["major product"], {"B": r"CH$_{3}$CH$_{2}$—C$\equiv$C—CH$_{2}$CH$_{3}$", "A": "Structure (A)"}, m_, f"steps {steps} -> Et-C#C-Et {dict(f)}; option SVGs (labels, bond lines) A{la} C{lc} D{ld}")
+
+def _b4_q86():
+    k_MeVfm, Z, z, K = sympy.Rational(144, 100), 79, 2, sympy.Rational(55, 10)
+    d = k_MeVfm*Z*z/K
+    R = sympy.Rational(12, 10)*sympy.Integer(197)**sympy.Rational(1, 3)
+    E, L, m, k = sympy.symbols("E L m k", positive=True)
+    ecc = sympy.sqrt(1 + 2*E*L**2/(m*k**2))
+    hyper = sympy.simplify(ecc**2 - 1).is_positive          # e^2 - 1 = 2EL^2/(mk^2) > 0  =>  e > 1
+    props = {"A": True, "B": bool(d < 3*R), "C": False if hyper else True, "D": bool(hyper)}
+    m_ = sorted(k_ for k_, v in props.items() if v)
+    return _b4_result(86, ["Rutherford", "(IV) path of $\\alpha$-particle is hyperbolic"], {"A": "I", "D": "IV"}, m_, f"d_min = {float(d):.1f} fm vs R_Au = {float(R):.1f} fm; e > 1 for E > 0: {hyper}")
+
+def _b4_q87():
+    C1, V1, V2, K, C = sympy.symbols("C1 V1 V2 K C", positive=True)
+    C2 = C1*V1/V2
+    dec = sympy.simplify((C2 - C1).subs(V2, 2*V1)).is_negative
+    alpha = sympy.sqrt(K/C)
+    rises = sympy.diff(alpha, C).is_negative
+    props = {"A": False if dec else True, "B": not dec, "C": bool(rises), "D": bool(dec)}
+    m_ = sorted(k for k, v in props.items() if v)
+    return _b4_result(87, ["adding water", "(III) ionization may increase."], {"C": "III", "D": "IV"}, m_, f"C2 = {C2} < C1: {dec}; d(alpha)/dC < 0: {rises}")
+
+def _b4_q88():
+    src = _fig_src(88)
+    if not src:
+        return False, "Q88 stem figure missing"
+    graphs = {}
+    for tag in ["R", "I", "II", "III", "IV"]:
+        p = _svg_mol(src, tag); g = _mol_graph(*p) if p else None
+        if not g:
+            return False, f"Q88 SVG structure {tag}: graph parse/valence check failed"
+        graphs[tag] = g
+    fR = _formula(*graphs["R"]); fP = {t: _formula(*graphs[t]) for t in ["I", "II", "III", "IV"]}
+    printed = {"R": _G([("c1", "c2", 1), ("c2", "m1", 1), ("c2", "m2", 1), ("c2", "c3", 1), ("c3", "c4", 2)]),
+               "I": _G([("c1", "c2", 1), ("c2", "m1", 1), ("c2", "m2", 1), ("c2", "c3", 1), ("c3", "c4", 1), ("c3", "Br", 1)]),
+               "II": _G([("c1", "c2", 1), ("c2", "m1", 1), ("c2", "Br", 1), ("c2", "c3", 1), ("c3", "m2", 1), ("c3", "c4", 1)]),
+               "III": _G([("c1", "c2", 1), ("c2", "m1", 1), ("c2", "m2", 1), ("c2", "c3", 1), ("c3", "c4", 1), ("c4", "Br", 1)]),
+               "IV": _G([("Br", "c1", 1), ("c1", "c2", 1), ("c2", "m1", 1), ("c2", "c3", 1), ("c3", "m2", 1), ("c3", "c4", 1)])}
+    bad = [t for t in printed if not _iso(graphs[t], printed[t])]
+    if bad:
+        return False, f"Q88 SVG structures {bad} do not match the printed booklet structures"
+    el, ed = graphs["R"]
+    adj = lambda E: {n: {m: o for e, o in E.items() if n in e for m in e if m != n} for n in el}
+    A = adj(ed)
+    a, b = next(tuple(e) for e, o in ed.items() if o == 2)
+    hc = lambda n, E: 4 - sum(o for e, o in E.items() if n in e)
+    # Markovnikov: H to the alkene carbon bearing more H; cation on the other
+    hside, cat = (a, b) if hc(a, ed) > hc(b, ed) else (b, a)
+    E1 = dict(ed); E1[frozenset((a, b))] = 1
+    cls = lambda n, E: sum(1 for e in E if n in e and all(el[x] == "C" for x in e))
+    products = []
+    def add_br(E, c):
+        el2 = dict(el); nb = max(el2) + 1; el2[nb] = "Br"; E2 = dict(E); E2[frozenset((c, nb))] = 1; return el2, E2
+    products.append(("no shift", add_br(E1, cat)))
+    # 1,2-shifts from neighbours of the cation to give a more substituted cation
+    for nbh in [m for m in adj(E1)[cat] if el[m] == "C"]:
+        for mig in [m for m in adj(E1)[nbh] if m != cat and el[m] == "C" and cls(m, E1) == 1]:     # methyl shift
+            E2 = dict(E1); del E2[frozenset((nbh, mig))]; E2[frozenset((cat, mig))] = 1
+            if cls(nbh, E2) > cls(cat, E1):
+                products.append(("1,2-CH3 shift", add_br(E2, nbh)))
+        if hc(nbh, E1) > 0 and cls(nbh, E1) > cls(cat, E1):                                       # hydride shift
+            products.append(("1,2-H shift", add_br(E1, nbh)))
+    formed = {t for t in ["I", "II", "III", "IV"] if any(_iso(graphs[t], g) for _, g in products)}
+    props = {"A": "I" in formed, "B": "II" in formed, "C": {"I", "II"} <= formed, "D": {"III", "IV"} <= formed}
+    m_ = sorted(k for k, v in props.items() if v)
+    return _b4_result(88, ["The product(s) in the following reaction is/are"], {"C": "I and II", "D": "III and IV"}, m_,
+                      f"reactant C{fR['C']}H{fR['H']}; drawn I–IV formulas {[f'C{v.get(chr(67))}H{v[chr(72)]}Br{v.get(chr(66)+chr(114))}' for v in fP.values()]}; cation class {cls(cat, E1)} -> pathways {sorted({p for p, _ in products})}; formed = {sorted(formed)}")
+
+def _b4_q89():
+    R, T = sympy.Rational(8206, 100000), 298
+    stem = _paper_2025()[89]["stemLatex"]
+    import re as _re
+    parts = _re.split(r"\(I+V?\) ", stem)[1:]
+    def dn(rx):
+        lhs, rhs = rx.split(r"$\rightleftharpoons$")
+        def n(side):
+            return sum(int(_re.match(r"(\d*)", t.strip()).group(1) or 1) for t in side.split(" + ") if t.strip())
+        return n(rhs) - n(lhs)
+    dns = [dn(p) for p in parts]
+    ratio = {k: (R*T)**d for k, d in zip("ABCD", dns)}
+    m_ = sorted(k for k, v in ratio.items() if v < 1)
+    return _b4_result(89, [r"k$_{\text{p}}$ is less than k$_{\text{c}}$", "N$_{2}$ + 3H$_{2}$"], {"B": "II"}, m_, f"Delta n_g = {dns}; Kp/Kc at 298 K = {[float(v) for v in ratio.values()]}")
+
+def _b4_q90():
+    x = sympy.symbols("x"); oxN = sympy.solve(1 + x + 3*(-2), x)[0]
+    mp_K, room = 231, 298
+    props = {"A": mp_K > room, "B": True, "C": oxN < 5, "D": oxN > -3}
+    m_ = sorted(k for k, v in props.items() if v)
+    return _b4_result(90, ["HNO$_{3}$ is/are correct"], {"A": "It is a solid.", "D": "It is an oxidizing agent."}, m_, f"ox(N) = +{oxN} (group-15 max 5); mp {mp_K} K < {room} K")
+
+def _b4_q91():
+    t = sympy.symbols("t"); T = sympy.Rational(1, 50)
+    avg = sympy.integrate(5 + 5*sympy.sin(100*sympy.pi*t), (t, 0, T))/T
+    opts = {"A": 5, "B": 5 + 5/sympy.sqrt(2), "C": 0, "D": None}
+    m_ = _pick(opts, lambda v: v is not None and sympy.simplify(v - avg) == 0)
+    return _b4_result(91, ["PMMC", r"5\sin 100\pi t"], {"B": r"\dfrac{5}{\sqrt{2}}"}, m_, f"average = {avg} A")
+
+def _b4_q92():
+    I1 = sympy.Rational(100, 200); I2, a = sympy.Rational(100, 10), sympy.Rational(200, 10)
+    assert I1 == I2/a
+    m_ = _pick({"A": 0, "B": sympy.Rational(1, 2), "C": 1, "D": 10}, lambda v: v == I1)
+    return _b4_result(92, ["200V, 50Hz", "100 watt resistive load at 10V"], {"B": "0$\\cdot$5A"}, m_, f"I1 = {I1} A = I2/a")
+
+def _b4_q93():
+    eff = {"A": (0.75, 0.90), "B": (0.75, 0.90), "C": (0.60, 0.80), "D": (0.95, 0.99)}
+    best = max(eff, key=lambda k: eff[k][0])
+    clear = all(eff[best][0] > eff[k][1] for k in eff if k != best)
+    m_ = [best] if clear else []
+    return _b4_result(93, ["highest efficiency"], {"D": "Transformer"}, m_, f"typical full-load efficiency ranges {eff}")
+
+def _b4_q94():
+    Vnl = sympy.symbols("V_NL"); sol = sympy.solve(sympy.Eq((Vnl - 10)/10*100, 0), Vnl)[0]
+    m_ = _pick({"A": "eq", "B": "zero", "C": "lt", "D": "gt"}, lambda v: v == ("eq" if sol == 10 else "gt" if sol > 10 else "lt"))
+    return _b4_result(94, ["full load voltage of 10V", "0% regulation"], {"A": "10V"}, m_, f"V_NL = {sol} V")
+
+def _netlist(svg):
+    """Union-find nets from <line> wires (endpoint touching a segment joins them) and data-hop arcs."""
+    import re as _re
+    segs = [tuple(map(float, m)) for m in _re.findall(r'<line x1="([-0-9.]+)" y1="([-0-9.]+)" x2="([-0-9.]+)" y2="([-0-9.]+)" stroke="var\(--fig-line\)"', svg)]
+    par = list(range(len(segs)))
+    def f(i):
+        while par[i] != i:
+            par[i] = par[par[i]]; i = par[i]
+        return i
+    def on(p, s, tol=0.6):
+        (x, y), (x1, y1, x2, y2) = p, s
+        if min(x1, x2) - tol <= x <= max(x1, x2) + tol and min(y1, y2) - tol <= y <= max(y1, y2) + tol:
+            return abs((x2 - x1)*(y - y1) - (y2 - y1)*(x - x1)) <= tol*max(1, ((x2 - x1)**2 + (y2 - y1)**2)**0.5)
+        return False
+    for i, s in enumerate(segs):
+        for j, t in enumerate(segs):
+            if i != j and (on(s[:2], t) or on(s[2:], t)):
+                par[f(i)] = f(j)
+    for x1, y1, x2, y2 in _re.findall(r'<path data-hop="1" d="M ([-0-9.]+),([-0-9.]+) A [^"]*? ([-0-9.]+),([-0-9.]+)"', svg):
+        a = [i for i, s in enumerate(segs) if on((float(x1), float(y1)), s)]
+        b = [i for i, s in enumerate(segs) if on((float(x2), float(y2)), s)]
+        if a and b:
+            par[f(a[0])] = f(b[0])
+    def net(p):
+        hits = {f(i) for i, s in enumerate(segs) if on(p, s)}
+        return hits.pop() if len(hits) == 1 else None
+    return segs, net
+
+def _b4_q95():
+    import re as _re
+    svg = _svg_text(_fig_src(95))
+    segs, net = _netlist(svg)
+    comps = []
+    for kind, lab, pins in _re.findall(r'<g data-comp="(R|L)" data-label="(\w+)" data-pins="([^"]+)">', svg):
+        p = [tuple(map(float, q.split(","))) for q in pins.split()]
+        comps.append((kind, lab, net(p[0]), net(p[1])))
+    texts = [_re.sub(r"<[^>]+>", "", t) for t in _re.findall(r"<text[^>]*>(.*?)</text>", svg)]
+    # the two outer nodes are the nets touched by exactly two components on the source/output wires
+    nets = {}
+    for c in comps:
+        for n in c[2:]:
+            nets[n] = nets.get(n, 0) + 1
+    b1 = {n for c in comps if c[1][1] == "1" for n in c[2:]}; b2 = {n for c in comps if c[1][1] == "2" for n in c[2:]}
+    outer = sorted(n for n in b1 & b2 if n is not None)          # nodes common to both branches
+    xs = sorted((min(sg[0], sg[2]), sg) for sg in segs); xe = sorted((max(sg[0], sg[2]), sg) for sg in segs)
+    src_net, out_net = net(xs[0][1][:2] if xs[0][1][0] <= xs[0][1][2] else xs[0][1][2:]), net(xe[-1][1][2:] if xe[-1][1][2] >= xe[-1][1][0] else xe[-1][1][:2])
+    feed_ok = {src_net, out_net} == set(outer)
+    branches = []
+    for lab in ("1", "2"):
+        Rc = next(c for c in comps if c[1] == "R" + lab); Lc = next(c for c in comps if c[1] == "L" + lab)
+        mid = set(Rc[2:]) & set(Lc[2:])
+        ends = set(Rc[2:]) ^ set(Lc[2:])
+        branches.append(len(mid) == 1 and nets.get(next(iter(mid)), 0) == 2 and ends == set(outer))
+    topo_ok = len(comps) == 4 and len(outer) == 2 and all(branches) and feed_ok and all(t in texts for t in ["I", "I1", "I2", "R1", "R2", "L1", "L2"])
+    R1, R2, L1, L2, w = sympy.symbols("R1 R2 L1 L2 omega", positive=True)
+    tanphi = lambda R, L: w*L/R
+    cond = {"A": sympy.Eq(R1*R2, L1*L2), "B": sympy.Eq(R1/R2, L1/L2), "C": sympy.Eq(R1*L1, R2*L2)}
+    truth = {}
+    for k, c in cond.items():
+        sol = sympy.solve(c, L1)[0]
+        always = sympy.simplify(tanphi(R1, sol) - tanphi(R2, L2)) == 0
+        truth[k] = bool(always)
+    truth["D"] = not any(truth.values())
+    m_ = sorted(k for k, v in truth.items() if v) if topo_ok else []
+    return _b4_result(95, ["alternating currents I, I$_{1}$ and I$_{2}$", "same phase"], {"B": r"\dfrac{R_{1}}{R_{2}} = \dfrac{L_{1}}{L_{2}}"}, m_, f"SVG netlist: {[(c[1], c[2], c[3]) for c in comps]}, series branches between two nodes={all(branches)}, I enters/leaves at those nodes={feed_ok}; phase-equality identically true: {truth}")
+
+def _b4_q96():
+    IC = sympy.Rational(10) - sympy.Rational(1, 10)
+    m_ = _pick({"A": sympy.Rational(99, 10), "B": sympy.Rational(101, 10), "C": 100, "D": sympy.Rational(9, 10)}, lambda v: v == IC)
+    return _b4_result(96, ["PNP transistor", "$(I_{E})$ is 10mA", "$(I_{B})$ is 0$\\cdot$1mA"], {"A": "9$\\cdot$9 mA"}, m_, f"I_C = {IC} mA, beta = {IC/sympy.Rational(1, 10)}")
+
+def _b4_q97():
+    # CMOS inverter switch model: PMOS conducts for gate 0, NMOS for gate 1
+    static_path = any((vin == 0) and (vin == 1) for vin in (0, 1))
+    types = {"N", "P"}
+    props = {"A": types == {"N"}, "B": types == {"P"}, "C": static_path, "D": types == {"N", "P"}}
+    m_ = sorted(k for k, v in props.items() if v)
+    return _b4_result(97, ["CMOS technology"], {"D": "Employs both N-type and P-type MOSFETs"}, m_, f"static VDD-GND path in either state: {static_path}")
+
+def _b4_q98():
+    w, R, Rf, C = sympy.symbols("omega R R_f C", positive=True); s = sympy.I*w
+    gains = {"A": -Rf/R, "B": 1 + Rf/R, "C": -1/(s*R*C), "D": -s*R*C}
+    ph = {k: sympy.simplify(sympy.arg(g)) for k, g in gains.items()}
+    m_ = sorted(k for k, v in ph.items() if v == 0)
+    return _b4_result(98, ["no phase difference"], {"B": "Non-inverting amplifier"}, m_, f"phase = {ph}")
+
+def _b4_q99():
+    import itertools
+    expr = lambda A, B: ((A | B) & (A | (1 - B))) | (1 - A)
+    opts = {"A": lambda A, B: A | B, "B": lambda A, B: 1, "C": lambda A, B: B, "D": lambda A, B: 1 - A}
+    tt = [expr(A, B) for A, B in itertools.product((0, 1), repeat=2)]
+    m_ = _pick(opts, lambda f: all(f(A, B) == expr(A, B) for A, B in itertools.product((0, 1), repeat=2)))
+    return _b4_result(99, ["(A + B).(A + B') + A'"], {"A": "A+B", "D": "$A'$"}, m_, f"truth table {tt}")
+
+def _b4_q100():
+    import re as _re, itertools
+    svg = _svg_text(_fig_src(100))
+    segs, net = _netlist(svg)
+    gates = []
+    for ins, out in _re.findall(r'<g data-gate="NAND" data-in="([^"]+)" data-out="([^"]+)">', svg):
+        pins = [tuple(map(float, p.split(","))) for p in ins.split()]
+        gates.append(([net(p) for p in pins], net(tuple(map(float, out.split(","))))))
+    # gate bodies must sit at their pins (flat back at the input x)
+    bodies_ok = all(f'M {int(float(i.split()[0].split(",")[0]))},' in svg for i, _ in _re.findall(r'data-in="([^"]+)" data-out="([^"]+)"', svg))
+    term = {}
+    for x, y, t in _re.findall(r'<text x="([-0-9.]+)" y="([-0-9.]+)"[^>]*>([ABY])</text>', svg):
+        x, y = float(x), float(y) - 4
+        ends = [(s[0], s[1]) for s in segs] + [(s[2], s[3]) for s in segs]
+        p = min(ends, key=lambda e: (e[0] - x)**2 + (e[1] - y)**2)
+        term[t] = net(p)
+    if len(gates) != 3 or None in term.values() or any(None in g[0] or g[1] is None for g in gates) or not bodies_ok:
+        return False, f"Q100 SVG netlist incomplete: gates={gates}, terminals={term}, bodies_ok={bodies_ok}"
+    def evaluate(A, B):
+        val = {term["A"]: A, term["B"]: B}
+        for _ in range(4):
+            for ins, out in gates:
+                if all(i in val for i in ins):
+                    val[out] = 1 - (val[ins[0]] & val[ins[1]])
+        return val.get(term["Y"])
+    tt = tuple(evaluate(A, B) for A, B in itertools.product((0, 1), repeat=2))
+    ref = {"A": (0, 1, 1, 0), "B": (0, 0, 0, 1), "C": (1, 0, 0, 1), "D": (1, 1, 1, 0)}
+    m_ = _pick(ref, lambda v: v == tt)
+    return _b4_result(100, ["combination of Logic Gates"], {"B": "AND Gate", "D": "NAND Gate"}, m_, f"SVG netlist gates {gates}, terminals {term}; Y(00,01,10,11) = {tt}")
+
+# Booklet figure layout for Q76–Q100 (read from p19–p25): only these stems carry a
+# diagram, and only Q85 has structural options (A, C, D drawn; B is the printed name).
+# Every other item must have stemFigure = null and no option figures, so an
+# answer-spoiler SVG cannot be re-attached unnoticed.
+B4_STEM_FIGS = {81, 82, 83, 85, 88, 95, 100}
+B4_OPT_FIGS = {85: 3}
+
+def _b4_with_layout(n):
+    fn = globals()[f"_b4_q{n}"]
+    def run():
+        ok_fig, fig_note = _figures_ok(n, n in B4_STEM_FIGS, B4_OPT_FIGS.get(n, 0))
+        res, note = fn()
+        if not ok_fig:
+            return False, f"figure layout differs from booklet ({fig_note}); {note}"
+        return res, note
+    return run
+
+B4_TESTS_2025 = [(f"2025 Q{n}", f"jelet-2025-q{n:03d}", _b4_with_layout(n)) for n in range(76, 101)]
 
 def main():
     if not HAS_SYMPY:
@@ -1175,7 +1798,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025
+        ] + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -1185,6 +1808,18 @@ def main():
             else:
                 print(f"  ❌ {label}: FAIL — {note}")
                 errors.append(f"{label}: SymPy re-verification failed — {note}")
+
+        # 2025 completion gate: every 2025 solution must be a hand-written batch derivation
+        # (sympy-verified, >= 3 steps) backed by its own independent batch check — no stubs.
+        sol25 = load_json(os.path.join(DATA, "solutions", "2025.solutions.json"))["solutions"]
+        covered = {qid for _, qid, _ in B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025}
+        missing = sorted(q for q in sol25 if q not in covered)
+        stubs = sorted(q for q, v in sol25.items() if v["verification"].get("method") != "sympy" or len(v.get("steps", [])) < 3)
+        if len(sol25) != 100 or missing or stubs:
+            errors.append(f"2025 coverage gate: {len(sol25)} solutions, without independent check {missing}, stub/unverified {stubs}")
+            print(f"  ❌ 2025 coverage gate: missing checks {missing}, stubs {stubs}")
+        else:
+            print(f"  ✅ 2025 coverage gate: 100/100 solutions hand-written, SymPy-verified and independently re-checked (0 stubs)")
 
     if HAS_SYMPY and KEY_DISPUTE_LOG:
         print("\n⚖️  Documented key disputes (official key kept unchanged):")

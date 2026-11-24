@@ -3803,7 +3803,7 @@
         },
         {
           "id": "C",
-          "latex": "$\\left[\\text{OH}^{-}\\right] \\rangle \\left[\\text{H}^{+}\\right]$ in solution Y.",
+          "latex": "$\\left[\\text{OH}^{-}\\right] > \\left[\\text{H}^{+}\\right]$ in solution Y.",
           "figure": null
         },
         {
@@ -3835,28 +3835,28 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 20,
-      "stemLatex": "The standard EMF for the cell reaction $Zn + Cu^{2+} \\to Cu + Zn^{2+}$ is $1.10\\,\\text{V}$ at $25^{\\circ}\\text{C}$. The EMF for the cell reaction, when $0.1\\,\\text{M}\\,Cu^{2+}$ and $0.1\\,\\text{M}\\,Zn^{2+}$ solutions are used, at $25^{\\circ}\\text{C}$ is",
+      "pdfPage": 19,
+      "stemLatex": "The standard EMF for the cell reaction Zn + Cu$^{2+}$ $\\rightleftharpoons$ Cu + Zn$^{2+}$ is 1.10V at 25°C. The EMF for the cell reaction, when 0.1M Cu$^{2+}$ and 0.1 M Zn$^{2+}$ solutions are used, at 25°C is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$1.10\\,\\text{V}$",
+          "latex": "1.10 V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0.110\\,\\text{V}$",
+          "latex": "0.110 V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$-1.10\\,\\text{V}$",
+          "latex": "–1.10 V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$-0.110\\,\\text{V}$",
+          "latex": "–0.110 V",
           "figure": null
         }
       ],
@@ -3872,7 +3872,7 @@
       "tags": [
         "electrochemistry",
         "emf",
-        "nernst"
+        "nernst-equation"
       ]
     },
     {
@@ -3884,27 +3884,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "In which of the following equilibria would a decrease in volume promote the formation of more products ?",
+      "stemLatex": "In which of the following equilibria would a decrease in volume promote the formation of more products?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{N}_{2}(g) + \\text{O}_{2}(g) \\rightleftharpoons 2\\text{NO}(g)$",
+          "latex": "N$_{2}$(g) + O$_{2}$(g) $\\rightleftharpoons$ 2NO(g)",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{N}_{2}\\text{O}_{4}(g) \\rightleftharpoons 2\\text{NO}_{2}(g)$",
+          "latex": "N$_{2}$O$_{4}$(g) $\\rightleftharpoons$ 2NO$_{2}$(g)",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{H}_{2}\\text{O}(l) + \\text{CO}_{2}(g) \\rightleftharpoons \\text{H}_{2}\\text{CO}_{3}(aq)$",
+          "latex": "H$_{2}$O($l$) + CO$_{2}$(g) $\\rightleftharpoons$ H$_{2}$CO$_{3}$(aq.)",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{CaCO}_{3}(s) \\rightleftharpoons \\text{CaO}(s) + \\text{CO}_{2}(g)$",
+          "latex": "CaCO$_{3}$(s) $\\rightleftharpoons$ CaO(s) + CO$_{2}$(g)",
           "figure": null
         }
       ],
@@ -3920,7 +3920,7 @@
       "tags": [
         "equilibrium",
         "le-chatelier",
-        "volume"
+        "pressure-volume"
       ]
     },
     {
@@ -3932,27 +3932,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Which of the following salts will give highest pH in water ?",
+      "stemLatex": "Which of the following salts will give highest pH in water?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{KCl}$",
+          "latex": "KCl",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{NaCl}$",
+          "latex": "NaCl",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{Na}_{2}\\text{CO}_{3}$",
+          "latex": "Na$_{2}$CO$_{3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{CuSO}_{4}$",
+          "latex": "CuSO$_{4}$",
           "figure": null
         }
       ],
@@ -3966,9 +3966,9 @@
       },
       "difficulty": "easy",
       "tags": [
-        "salts",
+        "salt-hydrolysis",
         "ph",
-        "hydrolysis"
+        "basic-salt"
       ]
     },
     {
@@ -3980,27 +3980,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Which of the following metals can be obtained by the electrolysis of an aqueous solution of their salts ?",
+      "stemLatex": "Which of the following metals can be obtained by the electrolysis of an aqueous solution of their salts?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{Na}$",
+          "latex": "Na",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{Mg}$",
+          "latex": "Mg",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{Ca}$",
+          "latex": "Ca",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{Al}$",
+          "latex": "Al",
           "figure": null
         }
       ],
@@ -4015,8 +4015,8 @@
       "difficulty": "voided",
       "tags": [
         "electrolysis",
-        "metals",
-        "aqueous"
+        "aqueous-electrolysis",
+        "reduction-potential"
       ]
     },
     {
@@ -4028,27 +4028,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "In the following conversion, how many electrons are involved? $\\text{N}_{2} \\to \\text{NH}_{3}$",
+      "stemLatex": "In the following conversion, how many electrons are involved? $N_{2} \\longrightarrow NH_{3}$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$2$",
+          "latex": "2",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$3$",
+          "latex": "3",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$4$",
+          "latex": "4",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$6$",
+          "latex": "6",
           "figure": null
         }
       ],
@@ -4063,8 +4063,8 @@
       "difficulty": "medium",
       "tags": [
         "redox",
-        "electrons",
-        "n2-nh3"
+        "oxidation-number",
+        "electron-count"
       ]
     },
     {
@@ -4079,9 +4079,9 @@
       "stemLatex": "IUPAC name of the following compound is",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q81.svg",
-        "alt": "Figure for JELET 2025 Q81",
-        "width": 420,
-        "height": 220,
+        "alt": "Condensed structure: CH3–CH2–C≡C–CH, where the CH carries an upper branch CH2–CH(CH3)2 and a lower branch CH=CH2",
+        "width": 390,
+        "height": 130,
         "themeAdaptive": true
       },
       "options": [
@@ -4117,8 +4117,8 @@
       "difficulty": "hard",
       "tags": [
         "organic",
-        "iupac",
-        "nomenclature"
+        "iupac-nomenclature",
+        "enyne"
       ]
     },
     {
@@ -4130,12 +4130,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Which structural isomerism is exhibited by the following pairs ?",
+      "stemLatex": "Which structural isomerism is exhibited by the following pairs?",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q82.svg",
-        "alt": "Figure for JELET 2025 Q82",
-        "width": 420,
-        "height": 220,
+        "alt": "Two skeletal structures side by side: left, a three-carbon chain ending in C(=O)OH; right, H–C(=O)–O–CH2–CH3",
+        "width": 330,
+        "height": 132,
         "themeAdaptive": true
       },
       "options": [
@@ -4168,11 +4168,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q82)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "organic",
-        "isomerism",
-        "structural"
+        "structural-isomerism",
+        "functional-isomers"
       ]
     },
     {
@@ -4184,28 +4184,28 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 21,
-      "stemLatex": "The major product in the following reaction is $\\text{CH}_{3}\\text{Cl} \\xrightarrow[(i)\\,\\text{Mg/Ether}]{\\ (ii)\\,\\text{CH}_{3}\\text{COOH}}$",
+      "stemLatex": "The major product in the following reaction is",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q83.svg",
-        "alt": "Figure for JELET 2025 Q83",
-        "width": 420,
-        "height": 220,
+        "alt": "Reaction scheme: CH3Cl, arrow labelled (i) Mg/Ether above and (ii) CH3COOH below",
+        "width": 230,
+        "height": 76,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{CH}_{4}$",
+          "latex": "CH$_{4}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{C}_{2}\\text{H}_{6}$",
+          "latex": "C$_{2}$H$_{6}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{CH}_{3}\\text{COOCH}_{3}$",
+          "latex": "CH$_{3}$COOCH$_{3}$",
           "figure": null
         },
         {
@@ -4225,15 +4225,15 @@
       "difficulty": "medium",
       "tags": [
         "organic",
-        "grignard",
-        "ester"
+        "grignard-reagent",
+        "acidic-hydrogen"
       ]
     },
     {
       "id": "jelet-2025-q084",
       "qNumber": 84,
       "subjectId": "CHEM",
-      "unitId": "C01",
+      "unitId": "C08",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -4272,8 +4272,9 @@
       },
       "difficulty": "voided",
       "tags": [
-        "hybridization",
-        "carbanion"
+        "organic",
+        "reactive-intermediates",
+        "hybridization"
       ]
     },
     {
@@ -4285,34 +4286,52 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 21,
-      "stemLatex": "The major product in the following reaction is $\\text{HC} \\equiv \\text{CH} \\xrightarrow[\\text{(ii) Ethylbromide (excess)}]{\\ (i)\\,\\text{NaNH}_{2}/\\text{liq. NH}_{3}}$",
+      "stemLatex": "The major product in the following reaction is",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q85.svg",
-        "alt": "Figure for JELET 2025 Q85",
-        "width": 420,
-        "height": 220,
+        "alt": "Reaction scheme: HC≡CH, arrow labelled (i) NaNH2/liq. NH3 above and (ii) Ethylbromide (excess) below",
+        "width": 300,
+        "height": 92,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$",
-          "figure": null
+          "latex": "Structure (A)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q85-optA.svg",
+            "alt": "Structure (A): CH3CH2 at the left joined to a trans C=C drawn skeletally, ending in CH2CH3 at the lower right (CH3CH2–CH=CH–CH2CH3)",
+            "width": 212,
+            "height": 62,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$",
+          "latex": "CH$_{3}$CH$_{2}$—C$\\equiv$C—CH$_{2}$CH$_{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{CH}_{3}\\text{CH}_{2}-\\text{Br}$",
-          "figure": null
+          "latex": "Structure (C)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q85-optC.svg",
+            "alt": "Structure (C): CH3CH2 at the left joined to a trans C=C drawn skeletally, ending in NH2 at the lower right (CH3CH2–CH=CH–NH2)",
+            "width": 194,
+            "height": 62,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "$\\text{NH}_{2}$",
-          "figure": null
+          "latex": "Structure (D)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q85-optD.svg",
+            "alt": "Structure (D): Br at the upper left joined to a trans C=C drawn skeletally, ending in NH2 at the lower right (Br–CH=CH–NH2)",
+            "width": 150,
+            "height": 62,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -4326,8 +4345,8 @@
       "difficulty": "medium",
       "tags": [
         "organic",
-        "acetylene",
-        "alkylation"
+        "alkyne-alkylation",
+        "acetylide"
       ]
     },
     {
@@ -4375,8 +4394,8 @@
       "difficulty": "medium",
       "tags": [
         "atomic-structure",
-        "rutherford",
-        "scattering"
+        "rutherford-scattering",
+        "coulomb-force"
       ]
     },
     {
@@ -4423,9 +4442,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "solutions",
-        "ionization",
-        "concentration"
+        "dilution",
+        "degree-of-ionization",
+        "ostwald-dilution-law"
       ]
     },
     {
@@ -4437,23 +4456,23 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 22,
-      "stemLatex": "The product(s) in the following reaction is/are $\\text{CH}_{3}\\text{CH}=\\text{CH}_{2} + \\text{HBr} \\to$",
+      "stemLatex": "The product(s) in the following reaction is/are",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q88.svg",
-        "alt": "Figure for JELET 2025 Q88",
-        "width": 420,
-        "height": 220,
+        "alt": "Reaction: CH3–C(CH3)2–CH=CH2 with HBr over the arrow. Structures: (I) CH3–C(CH3)2–CH(Br)–CH3; (II) CH3–C(CH3)(Br)–CH(CH3)–CH3; (III) CH3–C(CH3)2–CH2–CH2Br; (IV) BrCH2–C(CH3)(H)–CH(CH3)–CH3",
+        "width": 520,
+        "height": 310,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "(I) $\\text{CH}_{3}\\text{CHBrCH}_{3}$",
+          "latex": "I",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "(II) $\\text{CH}_{3}\\text{CH}_{2}\\text{CH}_{2}\\text{Br}$",
+          "latex": "II",
           "figure": null
         },
         {
@@ -4480,8 +4499,8 @@
       "difficulty": "hard",
       "tags": [
         "organic",
-        "hbr",
-        "markovnikov"
+        "hbr-addition",
+        "carbocation-rearrangement"
       ]
     },
     {
@@ -4493,7 +4512,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 23,
-      "stemLatex": "For which of the following reactions, $k_{f}$ is less than $k_{e}$ ? (I) $\\text{N}_{2}\\text{O}_{4} \\rightleftharpoons 2\\text{NO}_{2}$ (II) $\\text{N}_{2} + 3\\text{H}_{2} \\rightleftharpoons 2\\text{NH}_{3}$ (III) $\\text{H}_{2} + \\text{I}_{2} \\rightleftharpoons 2\\text{HI}$ (IV) $\\text{CO} + \\text{H}_{2}\\text{O} \\rightleftharpoons \\text{CO}_{2} + \\text{H}_{2}$",
+      "stemLatex": "For which of the following reactions, k$_{\\text{p}}$ is less than k$_{\\text{c}}$? (I) N$_{2}$O$_{4}$ $\\rightleftharpoons$ 2NO$_{2}$ (II) N$_{2}$ + 3H$_{2}$ $\\rightleftharpoons$ 2NH$_{3}$ (III) H$_{2}$ + I$_{2}$ $\\rightleftharpoons$ 2HI (IV) CO + H$_{2}$O $\\rightleftharpoons$ CO$_{2}$ + H$_{2}$",
       "stemFigure": null,
       "options": [
         {
@@ -4528,8 +4547,8 @@
       "difficulty": "medium",
       "tags": [
         "equilibrium",
-        "rate-constant",
-        "forward-reverse"
+        "kp-kc",
+        "delta-n-gas"
       ]
     },
     {
@@ -4541,7 +4560,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 23,
-      "stemLatex": "Which of the following statement about $HNO_{3}$ is/are correct ?",
+      "stemLatex": "Which of the following statement about HNO$_{3}$ is/are correct?",
       "stemFigure": null,
       "options": [
         {
@@ -4574,11 +4593,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q90)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "acids-bases",
-        "hno3",
-        "oxoacid"
+        "nitric-acid",
+        "oxoacids",
+        "oxidizing-agent"
       ]
     },
     {
@@ -4590,22 +4609,22 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 24,
-      "stemLatex": "A PMMC ammeter measures current $i(t) = (5 + 5\\sin 100\\pi t)\\,\\text{A}$. The reading of the meter will be",
+      "stemLatex": "A PMMC ammeter measures current $i(t) = (5 + 5\\sin 100\\pi t)\\,A$. The reading of the meter will be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$5\\,\\text{A}$",
+          "latex": "5 A",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$10\\,\\text{A}$",
+          "latex": "$\\left(5 + \\dfrac{5}{\\sqrt{2}}\\right)A$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0\\,\\text{A}$",
+          "latex": "0 A",
           "figure": null
         },
         {
@@ -4625,8 +4644,8 @@
       "difficulty": "medium",
       "tags": [
         "pmmc",
-        "ammeter",
-        "rms-average"
+        "average-value",
+        "measuring-instruments"
       ]
     },
     {
@@ -4638,27 +4657,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 24,
-      "stemLatex": "An ideal single phase transformer with $200\\,\\text{V}$, $50\\,\\text{Hz}$ supply at its primary side is delivering to $100\\,\\text{watt}$ resistive load at $10\\,\\text{V}$ connected to its secondary side. The current drawn by the transformer from the supply is",
+      "stemLatex": "An ideal single phase transformer with 200V, 50Hz supply at its primary side is delivering to 100 watt resistive load at 10V connected to its secondary side. The current drawn by the transformer from the supply is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$0\\,\\text{A}$",
+          "latex": "0A",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0.5\\,\\text{A}$",
+          "latex": "0$\\cdot$5A",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$1.0\\,\\text{A}$",
+          "latex": "1$\\cdot$0A",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$10\\,\\text{A}$",
+          "latex": "10A",
           "figure": null
         }
       ],
@@ -4670,11 +4689,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q92)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "transformer",
-        "ideal",
-        "current"
+        "ideal-transformer",
+        "power-balance",
+        "primary-current"
       ]
     },
     {
@@ -4686,7 +4705,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 24,
-      "stemLatex": "Which of the following electrical machines has the highest efficiency ?",
+      "stemLatex": "Which of the following electrical machines has the highest efficiency?",
       "stemFigure": null,
       "options": [
         {
@@ -4729,32 +4748,32 @@
       "id": "jelet-2025-q094",
       "qNumber": 94,
       "subjectId": "FEEE",
-      "unitId": "E02",
+      "unitId": "E04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 24,
-      "stemLatex": "A power supply has a full load voltage of $10\\,\\text{V}$. Its no load voltage for $0\\%$ regulation is",
+      "stemLatex": "A power supply has a full load voltage of 10V. Its no load voltage for 0% regulation is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$10\\,\\text{V}$",
+          "latex": "10V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0\\,\\text{V}$",
+          "latex": "0V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "less than $10\\,\\text{V}$",
+          "latex": "less than 10V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "greater than $10\\,\\text{V}$",
+          "latex": "greater than 10V",
           "figure": null
         }
       ],
@@ -4768,9 +4787,9 @@
       },
       "difficulty": "easy",
       "tags": [
-        "regulation",
-        "voltage",
-        "power-supply"
+        "voltage-regulation",
+        "power-supply",
+        "dc-sources"
       ]
     },
     {
@@ -4782,12 +4801,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 24,
-      "stemLatex": "The following circuit carries alternating currents $I_{1}$, $I_{2}$ and $I$. Under which condition $I_{1}$, $I_{2}$ and $I$ will be in the same phase? (The frequency of the alternating current is $50\\,\\text{Hz}$)",
+      "stemLatex": "The following circuit carries alternating currents I, I$_{1}$ and I$_{2}$. Under which condition I$_{1}$, I$_{2}$ and I will be in the same phase? (The frequency of the alternating current is 50Hz)",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q95.svg",
-        "alt": "Figure for JELET 2025 Q95",
-        "width": 420,
-        "height": 220,
+        "alt": "Circuit: current I enters a node and splits into I1 through R1 in series with L1 (upper branch) and I2 through R2 in series with L2 (lower branch); the branches rejoin at the right",
+        "width": 360,
+        "height": 170,
         "themeAdaptive": true
       },
       "options": [
@@ -4820,11 +4839,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q95)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "ac-circuit",
-        "phase",
-        "rl-circuit"
+        "parallel-rl",
+        "phase-angle"
       ]
     },
     {
@@ -4836,27 +4855,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 25,
-      "stemLatex": "In a PNP transistor, the emitter current ($I_{e}$) is $10\\,\\text{mA}$ and the base current ($I_{b}$) is $0.1\\,\\text{mA}$. Its collector current ($I_{c}$) would be",
+      "stemLatex": "In a PNP transistor, the emitter current $(I_{E})$ is 10mA and the base current $(I_{B})$ is 0$\\cdot$1mA. Its collector current $(I_{C})$ would be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$9.9\\,\\text{mA}$",
+          "latex": "9$\\cdot$9 mA",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$10.1\\,\\text{mA}$",
+          "latex": "10$\\cdot$1 mA",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$100\\,\\text{mA}$",
+          "latex": "100 mA",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0.9\\,\\text{mA}$",
+          "latex": "0$\\cdot$9 mA",
           "figure": null
         }
       ],
@@ -4870,9 +4889,9 @@
       },
       "difficulty": "easy",
       "tags": [
-        "transistor",
-        "pnp",
-        "currents"
+        "bjt",
+        "pnp-transistor",
+        "kcl"
       ]
     },
     {
@@ -4884,7 +4903,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 25,
-      "stemLatex": "Which statement is valid for CMOS technology ?",
+      "stemLatex": "Which statement is valid for CMOS technology?",
       "stemFigure": null,
       "options": [
         {
@@ -4920,7 +4939,7 @@
       "tags": [
         "cmos",
         "mosfet",
-        "technology"
+        "digital-ic-technology"
       ]
     },
     {
@@ -4932,7 +4951,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 25,
-      "stemLatex": "Which of the OPAMP based configurations provides no phase difference between input and output ?",
+      "stemLatex": "Which of the OPAMP based configurations provides no phase difference between input and output?",
       "stemFigure": null,
       "options": [
         {
@@ -4966,9 +4985,9 @@
       },
       "difficulty": "easy",
       "tags": [
-        "opamp",
-        "phase",
-        "configuration"
+        "op-amp",
+        "non-inverting-amplifier",
+        "phase-shift"
       ]
     },
     {
@@ -4980,22 +4999,22 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 25,
-      "stemLatex": "Simplify the Boolean Expression: $(A + B)\\cdot(A + B') + A'$",
+      "stemLatex": "Simplify the Boolean Expression: $(A + B).(A + B') + A'$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$A + B$",
+          "latex": "A+B",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$1$",
+          "latex": "1",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$B$",
+          "latex": "B",
           "figure": null
         },
         {
@@ -5012,11 +5031,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q99)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "boolean",
+        "boolean-algebra",
         "simplification",
-        "algebra"
+        "complement-law"
       ]
     },
     {
@@ -5031,9 +5050,9 @@
       "stemLatex": "The combination of Logic Gates in the following circuit is equivalent to",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q100.svg",
-        "alt": "Figure for JELET 2025 Q100",
-        "width": 420,
-        "height": 220,
+        "alt": "Logic circuit: inputs A and B both feed each of two NAND gates; the two NAND outputs feed the two inputs of a third NAND gate whose output is Y",
+        "width": 380,
+        "height": 180,
         "themeAdaptive": true
       },
       "options": [
@@ -5068,9 +5087,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "digital",
-        "logic-gate",
-        "combination"
+        "logic-gates",
+        "nand-universal",
+        "truth-table"
       ]
     }
   ]

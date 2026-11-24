@@ -2299,7 +2299,7 @@
         {
           "stepNumber": 2,
           "title": "Evaluate each statement",
-          "bodyLatex": "(A) Y at pH $7$ is neutral, not acidic — FALSE. (B) $\\dfrac{10^{-6}}{10^{-7}} = 10$: X is $10$ times more acidic — TRUE. (C) The symbol printed as $\\rangle$ means $>$; in Y, $[\\text{OH}^{-}] = K_{w}/[\\text{H}^{+}] = 10^{-7} = [\\text{H}^{+}]$, so $[\\text{OH}^{-}] > [\\text{H}^{+}]$ is FALSE. (D) FALSE since (B) is correct."
+          "bodyLatex": "(A) Y at pH $7$ is neutral, not acidic — FALSE. (B) $\\dfrac{10^{-6}}{10^{-7}} = 10$: X is $10$ times more acidic — TRUE. (C) In Y, $[\\text{OH}^{-}] = K_{w}/[\\text{H}^{+}] = 10^{-7} = [\\text{H}^{+}]$, so $[\\text{OH}^{-}] > [\\text{H}^{+}]$ is FALSE. (D) FALSE since (B) is correct."
         },
         {
           "stepNumber": 3,
@@ -2314,503 +2314,708 @@
       }
     },
     "jelet-2025-q076": {
-      "conceptSummary": "Nernst equation.",
+      "conceptSummary": "Nernst equation: $E = E^{\\circ} - \\dfrac{0.0591}{n}\\log Q$ with $Q = \\dfrac{[\\text{Zn}^{2+}]}{[\\text{Cu}^{2+}]}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "$Q = 1 \\Rightarrow E = 1.10$ V."
+          "title": "Reaction quotient",
+          "bodyLatex": "For Zn + Cu$^{2+}$ $\\rightleftharpoons$ Cu + Zn$^{2+}$ ($n = 2$), solids have unit activity: $Q = \\dfrac{[\\text{Zn}^{2+}]}{[\\text{Cu}^{2+}]} = \\dfrac{0.1}{0.1} = 1$."
         },
         {
           "stepNumber": 2,
+          "title": "Nernst equation at $25^{\\circ}$C",
+          "bodyLatex": "$E = 1.10 - \\dfrac{0.0591}{2}\\log 1 = 1.10 - 0 = 1.10$ V."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Interpretation",
+          "bodyLatex": "Only the ratio of the two ion concentrations matters; equal concentrations leave the EMF at its standard value. Negative values (C), (D) would mean the reaction is non-spontaneous, which is not the case."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A)."
+          "bodyLatex": "Answer: (A) 1.10 V."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Nernst."
+        "note": "SymPy: E = 1.10 - (0.0591/2) log10(0.1/0.1) = 1.10 V."
       }
     },
     "jelet-2025-q077": {
-      "conceptSummary": "Le Chatelier's principle.",
+      "conceptSummary": "Le Chatelier: decreasing the volume (raising the pressure) shifts an equilibrium towards the side with fewer moles of gas.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "Volume decrease favors fewer gas moles $\\Rightarrow$ (C)."
+          "title": "Count gaseous moles, $\\Delta n_{g} = n_{g}(\\text{products}) - n_{g}(\\text{reactants})$",
+          "bodyLatex": "(A) $2 - 2 = 0$; (B) $2 - 1 = +1$; (C) $0 - 1 = -1$ (H$_{2}$O is liquid, H$_{2}$CO$_{3}$ is aqueous); (D) $1 - 0 = +1$ (CaCO$_{3}$ and CaO are solids)."
         },
         {
           "stepNumber": 2,
+          "title": "Effect of compression",
+          "bodyLatex": "Compression favours the direction that reduces $n_{g}$. Only (C), with $\\Delta n_{g} < 0$, shifts forward. (A) is unaffected; (B) and (D) shift backwards, towards reactants."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (C)."
+          "bodyLatex": "Answer: (C) H$_{2}$O($l$) + CO$_{2}$(g) $\\rightleftharpoons$ H$_{2}$CO$_{3}$(aq.)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Le Chatelier."
+        "note": "Parsed from the option text: Delta n_gas = 0, +1, -1, +1; only C is negative."
       }
     },
     "jelet-2025-q078": {
-      "conceptSummary": "Salt hydrolysis.",
+      "conceptSummary": "A salt of a strong base and a weak acid hydrolyses to give a basic solution; salts of a strong acid with a strong base are neutral.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "$Na_2CO_3$ gives highest pH."
+          "title": "Classify the salts",
+          "bodyLatex": "KCl and NaCl come from a strong acid and a strong base, so they are neutral (pH 7). CuSO$_{4}$ comes from a weak base and a strong acid: hydrated Cu$^{2+}$ hydrolyses and the solution is acidic (pH below 7). Na$_{2}$CO$_{3}$ comes from a strong base and the weak acid H$_{2}$CO$_{3}$."
         },
         {
           "stepNumber": 2,
+          "title": "Hydrolysis of carbonate",
+          "bodyLatex": "CO$_{3}^{2-}$ + H$_{2}$O $\\rightleftharpoons$ HCO$_{3}^{-}$ + OH$^{-}$, $K_{b} = \\dfrac{K_{w}}{K_{a2}} = \\dfrac{10^{-14}}{4.7 \\times 10^{-11}} \\approx 2.1 \\times 10^{-4}$. For 0.1 M, $[\\text{OH}^{-}] \\approx \\sqrt{K_{b}C} \\approx 4.6 \\times 10^{-3}$ M, so pH $\\approx 11.7$."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (C)."
+          "bodyLatex": "Na$_{2}$CO$_{3}$ gives the highest pH. Answer: (C)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Hydrolysis."
+        "note": "Numeric: pH(0.1 M) = 7, 7, 11.66, ~4.5 for KCl, NaCl, Na2CO3, CuSO4."
       }
     },
     "jelet-2025-q079": {
-      "conceptSummary": "Voided question.",
+      "conceptSummary": "In the electrolysis of an aqueous salt, the cathode reduces whichever species has the higher reduction potential. For Na, Mg, Ca and Al this is water, so H$_{2}$ is evolved instead of the metal.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analysis",
-          "bodyLatex": "Withdrawn."
+          "title": "Competing cathode reactions",
+          "bodyLatex": "2H$_{2}$O + 2e$^{-}$ $\\rightarrow$ H$_{2}$ + 2OH$^{-}$ has $E = -0.83$ V (pH 14), or about $-0.41$ V at pH 7. The metals: $E^{\\circ}$(Na$^{+}$/Na) $= -2.71$ V, $E^{\\circ}$(Mg$^{2+}$/Mg) $= -2.37$ V, $E^{\\circ}$(Ca$^{2+}$/Ca) $= -2.87$ V, $E^{\\circ}$(Al$^{3+}$/Al) $= -1.66$ V."
         },
         {
           "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (W)."
+          "title": "Which is reduced?",
+          "bodyLatex": "Every metal ion has a potential far below that of water, so water is reduced first in each case: H$_{2}$ forms at the cathode and the metal is never deposited. Industrially all four are made by electrolysing fused salts instead: the Downs cell for NaCl, fused MgCl$_{2}$, fused CaCl$_{2}$, and Al$_{2}$O$_{3}$ in molten cryolite (Hall–Héroult)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Why the item was withdrawn",
+          "bodyLatex": "None of (A)–(D) can be obtained by electrolysing an aqueous solution of its salts, so the single-correct question has no correct option. (Metals such as Cu, Ag or Zn, with potentials above or near that of water, would have worked.) WBJEEB's final answer key marks Q79 W (withdrawn)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Marking",
+          "bodyLatex": "Q79 is a Category-I item marked W (withdrawn). It awards the full $+1$ mark ($+12$ twelfths) to every candidate, whatever they marked."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Voided."
+        "note": "Numeric: E(M^n+/M) = -2.71, -2.37, -2.87, -1.66 V, all below E(H2O/H2) = -0.83 V; no option correct -> W, +1 mark (+12 twelfths) to all."
       }
     },
     "jelet-2025-q080": {
-      "conceptSummary": "Electron count in N2 → NH3.",
+      "conceptSummary": "Track the oxidation number of nitrogen: $0$ in N$_{2}$, $-3$ in NH$_{3}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Count",
-          "bodyLatex": "N: 0 → -3. Two N atoms: 6 electrons."
+          "title": "Oxidation numbers",
+          "bodyLatex": "N$_{2}$: $0$. NH$_{3}$: $x + 3(+1) = 0 \\Rightarrow x = -3$."
         },
         {
           "stepNumber": 2,
+          "title": "Electrons per N$_{2}$",
+          "bodyLatex": "Each N gains $3$ electrons. The N$_{2}$ molecule in the conversion has two N atoms: $2 \\times 3 = 6$ electrons. Balanced half-reaction: N$_{2}$ + 6H$^{+}$ + 6e$^{-}$ $\\rightarrow$ 2NH$_{3}$ (charge: $+6 - 6 = 0$ on both sides)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Note",
+          "bodyLatex": "$3$ (option B) is the count per N atom, i.e. per NH$_{3}$. The conversion as printed starts from one N$_{2}$ molecule, so $6$ electrons are involved."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (D) $6$."
+          "bodyLatex": "Answer: (D) 6."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Redox."
+        "note": "SymPy: ox(N) 0 -> -3; 2 x 3 = 6 e- per N2; N2 + 6H+ + 6e- -> 2NH3 atom- and charge-balanced."
       }
     },
     "jelet-2025-q081": {
-      "conceptSummary": "IUPAC naming.",
+      "conceptSummary": "Traditional IUPAC rules (1979/1993, used in the WBJEE/JELET syllabus): the principal chain must contain the maximum number of multiple bonds; then number it to give the multiple bonds the lowest locants.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Naming",
-          "bodyLatex": "Longest chain with double and triple bond."
+          "title": "Choose the principal chain",
+          "bodyLatex": "The printed structure is CH$_{3}$–CH$_{2}$–C$\\equiv$C–CH(–CH=CH$_{2}$)(–CH$_{2}$–CH(CH$_{3}$)$_{2}$). The chain CH$_{2}$=CH–CH–C$\\equiv$C–CH$_{2}$–CH$_{3}$ (7 C) contains both the double and the triple bond. The longer 8-C chain through the isobutyl group contains only the triple bond, so the 7-C chain is principal: hept-en-yne."
         },
         {
           "stepNumber": 2,
+          "title": "Numbering",
+          "bodyLatex": "From the vinyl end the multiple bonds sit at $\\{1, 4\\}$ (ene 1, yne 4). From the ethyl end they sit at $\\{3, 6\\}$. The lowest set $\\{1, 4\\}$ wins: hept-1-en-4-yne."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Substituent",
+          "bodyLatex": "C-3 carries CH$_{2}$–CH(CH$_{3}$)$_{2}$. Numbered from its point of attachment, this is a propyl chain with a methyl group on its C-2: 2-methylpropyl (isobutyl)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Name and the other options",
+          "bodyLatex": "3-(2-Methylpropyl)hept-1-en-4-yne is option (A). (B) puts the triple bond at 5 instead of 3. (C) follows the 2013 recommendations, which rank chain length first (oct-3-yne with ethenyl at 5 and methyl at 7), but lists the prefixes out of alphabetical order. The correct 2013 name would be 5-ethenyl-7-methyloct-3-yne. Under the convention the paper follows, the key is (A)."
+        },
+        {
+          "stepNumber": 5,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A). Answer: (A)."
+          "bodyLatex": "Answer: (A) 3-(2-Methylpropyl) hept-1-en-4-yne."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key A."
+        "note": "Graph namer run on the structure parsed from fig-2025-q81.svg (C11H18, valences checked): 1993 rules -> 3-(2-methylpropyl)hept-1-en-4-yne = A; 2013 rules -> 5-ethenyl-7-methyloct-3-yne (matches no option exactly)."
       }
     },
     "jelet-2025-q082": {
-      "conceptSummary": "Structural isomerism.",
+      "conceptSummary": "Same molecular formula with different functional groups = functional (functional-group) isomerism.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "Identify isomerism type."
+          "title": "Identify the compounds",
+          "bodyLatex": "Left: CH$_{3}$CH$_{2}$COOH, propanoic acid (a carboxylic acid). Right: HCOOCH$_{2}$CH$_{3}$, ethyl methanoate (an ester)."
         },
         {
           "stepNumber": 2,
+          "title": "Molecular formulae",
+          "bodyLatex": "Both are C$_{3}$H$_{6}$O$_{2}$, so they are structural isomers."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Type",
+          "bodyLatex": "The functional groups differ (–COOH against –COO–). Chain and positional isomers keep the same functional group, and geometrical isomerism is a kind of stereoisomerism, not structural isomerism. So this is functional isomerism."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (C). Answer: (C)."
+          "bodyLatex": "Answer: (C) Functional Isomerism."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key C."
+        "note": "Graph check: both C3H6O2; functional groups carboxylic acid vs ester -> functional isomers."
       }
     },
     "jelet-2025-q083": {
-      "conceptSummary": "Grignard reaction.",
+      "conceptSummary": "A Grignard reagent is a very strong base: with a compound carrying an acidic O–H it is simply protonated to the alkane.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Reaction",
-          "bodyLatex": "$CH_3MgCl + CH_3COOH \\to CH_4$."
+          "title": "Step (i)",
+          "bodyLatex": "CH$_{3}$Cl + Mg $\\xrightarrow{\\text{ether}}$ CH$_{3}$MgCl (methylmagnesium chloride)."
         },
         {
           "stepNumber": 2,
+          "title": "Step (ii)",
+          "bodyLatex": "CH$_{3}$COOH has an acidic O–H ($pK_{a} \\approx 4.8$, against about $50$ for CH$_{4}$). The carbanion-like CH$_{3}^{\\delta-}$ takes the proton far faster than it could add to the C=O: CH$_{3}$MgCl + CH$_{3}$COOH $\\rightarrow$ CH$_{4}$ + CH$_{3}$COOMgCl."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Other options",
+          "bodyLatex": "C$_{2}$H$_{6}$ would need Wurtz-type coupling. CH$_{3}$COOCH$_{3}$ would need esterification, which is not what a Grignard reagent does."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A) $CH_4$."
+          "bodyLatex": "Answer: (A) CH$_{4}$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Grignard."
+        "note": "Atom balance: CH3MgCl + CH3COOH -> CH4 + CH3COOMgCl balanced (C3H7O2MgCl both sides); pKa 4.8 << 50."
       }
     },
     "jelet-2025-q084": {
-      "conceptSummary": "Voided question.",
+      "conceptSummary": "The hybridization of a carbanion carbon depends on the carbanion: steric number 4 gives $sp^{3}$, resonance or vinyl carbanions are $sp^{2}$, and acetylide is $sp$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analysis",
-          "bodyLatex": "Withdrawn."
+          "title": "Simple alkyl carbanion",
+          "bodyLatex": "CH$_{3}^{-}$: 3 bond pairs + 1 lone pair, steric number 4, so $sp^{3}$ (pyramidal, isoelectronic with NH$_{3}$). This is the usual textbook answer."
         },
         {
           "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (W)."
+          "title": "Other carbanions",
+          "bodyLatex": "Allyl and benzyl carbanions put the lone pair in a $p$ orbital conjugated with the $\\pi$ system, so the carbon is $sp^{2}$ (planar). A vinyl carbanion, CH$_{2}$=CH$^{-}$, is $sp^{2}$. Acetylide, HC$\\equiv$C$^{-}$, has steric number 2, so it is $sp$. ($sp^{4}$ is not a hybridization.)"
+        },
+        {
+          "stepNumber": 3,
+          "title": "Why the item was withdrawn",
+          "bodyLatex": "\\\"A carbanion\\\" does not name a specific species, so (A) $sp$, (B) $sp^{2}$ and (C) $sp^{3}$ are each correct for some carbanion. A single-correct Category-I question therefore has no unique answer, and WBJEEB's final answer key marks Q84 W (withdrawn). For a simple alkyl carbanion the answer would be $sp^{3}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Marking",
+          "bodyLatex": "Q84 is a Category-I item marked W (withdrawn). It awards the full $+1$ mark ($+12$ twelfths) to every candidate, whatever they marked."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Voided."
+        "note": "Steric numbers: CH3- 4 (sp3), allyl/vinyl 3 (sp2), HC#C- 2 (sp) -> options A, B, C all realisable -> not single-correct -> W, +1 mark (+12 twelfths) to all."
       }
     },
     "jelet-2025-q085": {
-      "conceptSummary": "Acetylene alkylation.",
+      "conceptSummary": "Terminal alkynes are acidic ($pK_{a} \\approx 25$). NaNH$_{2}$ ($pK_{a}$(NH$_{3}$) $\\approx 35$) forms the acetylide, which is alkylated by a primary halide in an S$_{N}$2 reaction. Both C–H bonds of ethyne are replaced in turn.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Reaction",
-          "bodyLatex": "$HC\\equiv CH \\xrightarrow{NaNH_2, EtBr(excess)} Et-C\\equiv C-Et$."
+          "title": "First alkylation",
+          "bodyLatex": "HC$\\equiv$CH + NaNH$_{2}$ $\\rightarrow$ HC$\\equiv$C$^{-}$Na$^{+}$ + NH$_{3}$. Then HC$\\equiv$C$^{-}$ + CH$_{3}$CH$_{2}$Br $\\rightarrow$ HC$\\equiv$C–CH$_{2}$CH$_{3}$ (but-1-yne) + Br$^{-}$."
         },
         {
           "stepNumber": 2,
+          "title": "Second alkylation",
+          "bodyLatex": "But-1-yne is still a terminal alkyne. NaNH$_{2}$ deprotonates it again, and the excess ethyl bromide alkylates the new acetylide: CH$_{3}$CH$_{2}$C$\\equiv$C$^{-}$ + CH$_{3}$CH$_{2}$Br $\\rightarrow$ CH$_{3}$CH$_{2}$–C$\\equiv$C–CH$_{2}$CH$_{3}$ (hex-3-yne, C$_{6}$H$_{10}$). The scheme assumes enough NaNH$_{2}$ for both deprotonations, as usual when the halide is in excess."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Reject the drawn structures",
+          "bodyLatex": "(A) is (E)-hex-3-ene, C$_{6}$H$_{12}$; reaching it would need a further reduction such as Na/liq. NH$_{3}$, which is not a step here. (C) and (D) put NH$_{2}$ (and Br) on vinylic carbons. S$_{N}$2 alkylation of an acetylide cannot do that, and amide is used only as a base."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B) $CH_3CH_2-C\\equiv C-CH_2CH_3$."
+          "bodyLatex": "Answer: (B) CH$_{3}$CH$_{2}$—C$\\equiv$C—CH$_{2}$CH$_{3}$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Alkylation."
+        "note": "Stoichiometric simulation: HC#CH -> (deprotonate, SN2 EtBr) x2 -> Et-C#C-Et, C6H10, an alkyne; option formulas C6H12 / C6H10 / C4H9N / C2H4BrN -> only B."
       }
     },
     "jelet-2025-q086": {
-      "conceptSummary": "Rutherford scattering.",
+      "conceptSummary": "An $\\alpha$-particle is repelled by the gold nucleus through the inverse-square Coulomb force. It never comes close enough for the short-range nuclear force to act. A repulsive inverse-square orbit with positive energy is a hyperbola.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Force",
-          "bodyLatex": "Coulombic. Path: hyperbolic."
+          "title": "Statement I — Coulomb force",
+          "bodyLatex": "Both $\\alpha$ ($+2e$) and the Au nucleus ($+79e$) are positive, so the scattering is caused by Coulomb repulsion $F = \\dfrac{1}{4\\pi\\varepsilon_{0}}\\dfrac{(2e)(79e)}{r^{2}}$. TRUE."
         },
         {
           "stepNumber": 2,
+          "title": "Statement II — nuclear force",
+          "bodyLatex": "Closest approach for a 5.5 MeV $\\alpha$: $d = \\dfrac{1.44\\text{ MeV fm} \\times 158}{5.5\\text{ MeV}} \\approx 41$ fm. The Au nuclear radius is $1.2 \\times 197^{1/3} \\approx 7$ fm, and the nuclear force has a range of only a few fm, so it plays no part. FALSE."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Statements III and IV — shape of the path",
+          "bodyLatex": "For a $1/r^{2}$ force the orbit is a conic with eccentricity $e = \\sqrt{1 + \\dfrac{2EL^{2}}{mk^{2}}}$. The $\\alpha$-particle is unbound ($E > 0$), so $e > 1$: the path is a hyperbola with the nucleus at the outer focus. A parabola needs $E = 0$ exactly. III FALSE, IV TRUE."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A,D)."
+          "bodyLatex": "Answer: (A) I and (D) IV."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Rutherford."
+        "note": "Numeric: d_min = 41.4 fm >> R_Au = 7.0 fm; SymPy: e = sqrt(1 + 2 E L^2/(m k^2)) > 1 for E > 0. True set {A, D}."
       }
     },
     "jelet-2025-q087": {
-      "conceptSummary": "Dilution effects.",
+      "conceptSummary": "Dilution keeps the amount of solute fixed while the volume grows. Concentration falls, and by Ostwald's dilution law the degree of ionization rises.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "Concentration decreases, ionization may increase."
+          "title": "Concentration",
+          "bodyLatex": "$C_{1}V_{1} = C_{2}V_{2}$ with $V_{2} > V_{1}$ gives $C_{2} < C_{1}$: the concentration decreases. (IV) TRUE; (I) and (II) FALSE."
         },
         {
           "stepNumber": 2,
+          "title": "Ionization",
+          "bodyLatex": "For an electrolyte AB $\\rightleftharpoons$ A$^{+}$ + B$^{-}$, Ostwald's law gives $\\alpha \\approx \\sqrt{K/C}$, so $\\dfrac{d\\alpha}{dC} < 0$: dilution increases the degree of ionization. A strong electrolyte is already almost fully ionized, hence \\\"may increase\\\". (III) TRUE."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (C,D)."
+          "bodyLatex": "Answer: (C) III and (D) IV."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Dilution."
+        "note": "SymPy: C2 = C1 V1/V2 < C1 for V2 > V1; d/dC sqrt(K/C) < 0. True set {C, D}."
       }
     },
     "jelet-2025-q088": {
-      "conceptSummary": "HBr addition to propene.",
+      "conceptSummary": "HBr adds through a carbocation (Markovnikov). The secondary cation next to a quaternary carbon undergoes a 1,2-methyl shift to a more stable tertiary cation, so a rearranged and an unrearranged bromide are both formed.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Products",
-          "bodyLatex": "Markovnikov + anti-Markovnikov."
+          "title": "Protonation",
+          "bodyLatex": "H$^{+}$ adds to the terminal CH$_{2}$ (Markovnikov), giving the secondary cation (CH$_{3}$)$_{3}$C–C$^{+}$H–CH$_{3}$. Protonating C-2 would give a primary cation, which is not formed."
         },
         {
           "stepNumber": 2,
+          "title": "Unrearranged product",
+          "bodyLatex": "Br$^{-}$ captures the secondary cation: (CH$_{3}$)$_{3}$C–CHBr–CH$_{3}$, 3-bromo-2,2-dimethylbutane = structure (I)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "1,2-methyl shift",
+          "bodyLatex": "A methyl group migrates from the quaternary carbon to C$^{+}$, giving the tertiary cation (CH$_{3}$)$_{2}$C$^{+}$–CH(CH$_{3}$)$_{2}$. Br$^{-}$ capture gives 2-bromo-2,3-dimethylbutane = structure (II), the major product."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Evaluate every option",
+          "bodyLatex": "(A) I is formed — TRUE. (B) II is formed (major) — TRUE. (C) \\\"I and II\\\" — TRUE, since both are formed. (D) III (1-bromo-3,3-dimethylbutane) would be the anti-Markovnikov (peroxide) product. IV (1-bromo-2,3-dimethylbutane) would need a rearrangement followed by anti-Markovnikov addition. Neither forms with HBr alone — FALSE."
+        },
+        {
+          "stepNumber": 5,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A,B,C)."
+          "bodyLatex": "Answer: (A), (B), (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key A,B,C."
+        "note": "Carbocation engine on the reactant graph parsed from fig-2025-q88.svg: Markovnikov 2° cation -> I; 1,2-CH3 shift to 3° -> II; III, IV not produced; graph isomorphism vs drawn I–IV. True set {A, B, C}."
       }
     },
     "jelet-2025-q089": {
-      "conceptSummary": "Rate constant comparison.",
+      "conceptSummary": "$K_{p} = K_{c}(RT)^{\\Delta n_{g}}$. With $R = 0.0821$ L atm mol$^{-1}$ K$^{-1}$, $RT > 1$ at any ordinary temperature, so $K_{p} < K_{c}$ exactly when $\\Delta n_{g} < 0$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "$k_f < k_e$ for Haber process conditions."
+          "title": "Gaseous mole change",
+          "bodyLatex": "(I) N$_{2}$O$_{4}$ $\\rightleftharpoons$ 2NO$_{2}$: $\\Delta n_{g} = +1$. (II) N$_{2}$ + 3H$_{2}$ $\\rightleftharpoons$ 2NH$_{3}$: $\\Delta n_{g} = 2 - 4 = -2$. (III) H$_{2}$ + I$_{2}$ $\\rightleftharpoons$ 2HI: $0$. (IV) CO + H$_{2}$O $\\rightleftharpoons$ CO$_{2}$ + H$_{2}$: $0$."
         },
         {
           "stepNumber": 2,
+          "title": "Compare",
+          "bodyLatex": "(I) $K_{p} = K_{c}(RT) > K_{c}$. (II) $K_{p} = K_{c}(RT)^{-2} < K_{c}$. (III) and (IV) $K_{p} = K_{c}$. At 298 K, $RT = 24.5$."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B). Answer: (B)."
+          "bodyLatex": "Only reaction II has $K_{p} < K_{c}$. Answer: (B) II."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key B."
+        "note": "Parsed Delta n_g = +1, -2, 0, 0; (RT)^Delta n at 298 K: 24.5, 1.67e-3, 1, 1 -> only II < 1. True set {B}."
       }
     },
     "jelet-2025-q090": {
-      "conceptSummary": "HNO3 properties.",
+      "conceptSummary": "HNO$_{3}$ is a liquid oxoacid in which N is in its highest oxidation state, $+5$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Properties",
-          "bodyLatex": "Oxoacid of nitrogen, oxidizing agent."
+          "title": "Physical state",
+          "bodyLatex": "Pure HNO$_{3}$ melts at $-42^{\\circ}$C and boils at $83^{\\circ}$C, so it is a (fuming) liquid at room temperature. (A) FALSE."
         },
         {
           "stepNumber": 2,
+          "title": "Oxoacid",
+          "bodyLatex": "Its structure is H–O–NO$_{2}$, with an ionisable H on oxygen bonded to N. It is an oxoacid of nitrogen. (B) TRUE."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Redox behaviour",
+          "bodyLatex": "$+1 + x + 3(-2) = 0 \\Rightarrow x = +5$, the maximum for group 15. N cannot be oxidised further, so HNO$_{3}$ is not a reducing agent (C FALSE). It is readily reduced (to NO$_{2}$, NO, NH$_{4}^{+}$, …), so it is a strong oxidizing agent (D TRUE)."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B,D)."
+          "bodyLatex": "Answer: (B), (D)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "HNO3."
+        "note": "Checks: mp 231 K < 298 K (liquid); ox(N) = +5 = group-15 maximum -> oxidant only. True set {B, D}."
       }
     },
     "jelet-2025-q091": {
-      "conceptSummary": "PMMC ammeter reading.",
+      "conceptSummary": "A PMMC instrument responds to the average (dc) value of the current, because its deflecting torque is proportional to $i$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Average",
-          "bodyLatex": "$\\langle 5+5\\sin 100\\pi t\\rangle = 5$ A."
+          "title": "Average over one period",
+          "bodyLatex": "$T = \\dfrac{2\\pi}{100\\pi} = 0.02$ s. $I_{\\text{avg}} = \\dfrac{1}{T}\\displaystyle\\int_{0}^{T}(5 + 5\\sin 100\\pi t)\\,dt = 5 + 0 = 5$ A."
         },
         {
           "stepNumber": 2,
+          "title": "Other options",
+          "bodyLatex": "$\\left(5 + \\dfrac{5}{\\sqrt{2}}\\right)$ A adds the dc value to the rms value of the ac part. That is not a meter reading: a moving-iron meter would read the rms value, $\\sqrt{25 + 12.5} \\approx 6.12$ A. 0 A would be the reading for the pure ac part alone."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A) $5$ A."
+          "bodyLatex": "Answer: (A) 5 A."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Averaging."
+        "note": "SymPy: (1/T) integrate(5 + 5 sin(100 pi t), (t, 0, 1/50)) = 5."
       }
     },
     "jelet-2025-q092": {
-      "conceptSummary": "Transformer current.",
+      "conceptSummary": "In an ideal transformer, input power equals output power. A resistive load has unity power factor.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Power",
-          "bodyLatex": "$I_{in} = 100/200 = 0.5$ A."
+          "title": "Power balance",
+          "bodyLatex": "$V_{1}I_{1} = P_{\\text{out}} = 100$ W $\\Rightarrow I_{1} = \\dfrac{100}{200} = 0.5$ A."
         },
         {
           "stepNumber": 2,
+          "title": "Cross-check with the turns ratio",
+          "bodyLatex": "$I_{2} = \\dfrac{100}{10} = 10$ A and $a = \\dfrac{200}{10} = 20$, so $I_{1} = \\dfrac{I_{2}}{a} = 0.5$ A."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B)."
+          "bodyLatex": "Answer: (B) 0$\\cdot$5A."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Transformer."
+        "note": "SymPy: I1 = 100/200 = 1/2 = I2/a with I2 = 10, a = 20."
       }
     },
     "jelet-2025-q093": {
-      "conceptSummary": "Machine efficiency.",
+      "conceptSummary": "A transformer is a static machine. With no rotating parts it has no friction or windage losses, so its efficiency is the highest of these machines.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Transformer",
-          "bodyLatex": "Highest efficiency."
+          "title": "Losses",
+          "bodyLatex": "Rotating machines (dc shunt and series motors, induction motors) have copper and iron losses plus mechanical friction and windage losses. Brush and commutator losses add to these for dc machines, and the air gap raises the magnetising current of induction motors."
         },
         {
           "stepNumber": 2,
+          "title": "Typical full-load efficiencies",
+          "bodyLatex": "Power transformers: 95–99%. DC shunt and series motors: roughly 75–90%. Single-phase induction motors: roughly 60–80%."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (D)."
+          "bodyLatex": "Answer: (D) Transformer."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Efficiency."
+        "note": "Data check: max of typical full-load efficiency ranges -> transformer (0.95-0.99)."
       }
     },
     "jelet-2025-q094": {
-      "conceptSummary": "Voltage regulation.",
+      "conceptSummary": "Voltage regulation: $\\%\\text{VR} = \\dfrac{V_{NL} - V_{FL}}{V_{FL}} \\times 100$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "0% case",
-          "bodyLatex": "$V_{nl} = 10$ V."
+          "title": "Set regulation to zero",
+          "bodyLatex": "$0 = \\dfrac{V_{NL} - 10}{10} \\times 100 \\Rightarrow V_{NL} = 10$ V."
         },
         {
           "stepNumber": 2,
+          "title": "Interpretation",
+          "bodyLatex": "0% regulation is an ideal supply: its output does not change between no load and full load. Option (D) would mean positive regulation, (C) negative regulation, and (B) is meaningless here."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A)."
+          "bodyLatex": "Answer: (A) 10V."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Regulation."
+        "note": "SymPy: solve((Vnl - 10)/10 = 0) -> Vnl = 10."
       }
     },
     "jelet-2025-q095": {
-      "conceptSummary": "AC circuit phase condition.",
+      "conceptSummary": "Each branch current lags the common voltage by $\\phi_{k} = \\tan^{-1}\\dfrac{\\omega L_{k}}{R_{k}}$. All three currents are in phase when the two branch angles are equal.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Condition",
-          "bodyLatex": "Given key (B): $R_1/R_2 = L_1/L_2$."
+          "title": "Branch currents",
+          "bodyLatex": "The two R–L branches share the same voltage $V$: $I_{1} = \\dfrac{V}{R_{1} + j\\omega L_{1}}$, $I_{2} = \\dfrac{V}{R_{2} + j\\omega L_{2}}$, lagging by $\\phi_{1} = \\tan^{-1}\\dfrac{\\omega L_{1}}{R_{1}}$ and $\\phi_{2} = \\tan^{-1}\\dfrac{\\omega L_{2}}{R_{2}}$."
         },
         {
           "stepNumber": 2,
+          "title": "Condition",
+          "bodyLatex": "$\\phi_{1} = \\phi_{2} \\iff \\dfrac{L_{1}}{R_{1}} = \\dfrac{L_{2}}{R_{2}} \\iff \\dfrac{R_{1}}{R_{2}} = \\dfrac{L_{1}}{L_{2}}$ (equal time constants). This is independent of $\\omega$, so the 50 Hz value does not matter. Then $I = I_{1} + I_{2}$ is a sum of two phasors with the same angle, so it is in phase with both."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Other options",
+          "bodyLatex": "$R_{1}R_{2} = L_{1}L_{2}$ (A) equates $\\Omega^{2}$ with H$^{2}$, so it is not even dimensionally consistent. $R_{1}L_{1} = R_{2}L_{2}$ (C) is consistent but is not the equal-time-constant condition. Counter-example for both: $R_{1} = 1$, $L_{1} = 2$, $R_{2} = 2$, $L_{2} = 1$ satisfies (A) and (C) but gives $L_{1}/R_{1} = 2 \\neq 0.5$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B)."
+          "bodyLatex": "Answer: (B) $\\dfrac{R_{1}}{R_{2}} = \\dfrac{L_{1}}{L_{2}}$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key B."
+        "note": "Netlist from fig-2025-q95.svg: two series R-L branches in parallel; SymPy phase test: B always in phase; A, C have counter-examples."
       }
     },
     "jelet-2025-q096": {
-      "conceptSummary": "BJT currents.",
+      "conceptSummary": "Kirchhoff's current law for a transistor: $I_{E} = I_{B} + I_{C}$ (true for both PNP and NPN).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "$I_c = 10 - 0.1 = 9.9$ mA."
+          "title": "Collector current",
+          "bodyLatex": "$I_{C} = I_{E} - I_{B} = 10 - 0.1 = 9.9$ mA."
         },
         {
           "stepNumber": 2,
+          "title": "Check",
+          "bodyLatex": "$\\alpha = \\dfrac{I_{C}}{I_{E}} = 0.99$ and $\\beta = \\dfrac{I_{C}}{I_{B}} = 99$, typical values. 10.1 mA (B) would wrongly add $I_{B}$ to $I_{E}$."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A)."
+          "bodyLatex": "Answer: (A) 9$\\cdot$9 mA."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Transistor."
+        "note": "SymPy: I_C = 10 - 1/10 = 99/10 mA; alpha = 0.99, beta = 99."
       }
     },
     "jelet-2025-q097": {
-      "conceptSummary": "CMOS.",
+      "conceptSummary": "CMOS (complementary MOS) pairs an n-channel pull-down network with a p-channel pull-up network.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "CMOS",
-          "bodyLatex": "NMOS + PMOS. Low static power."
+          "title": "Structure",
+          "bodyLatex": "In a CMOS inverter the PMOS (source to $V_{DD}$) conducts when the input is 0 and the NMOS (source to ground) conducts when the input is 1. Both device types are used. (A) and (B) are FALSE."
         },
         {
           "stepNumber": 2,
+          "title": "Static power",
+          "bodyLatex": "In either steady state one transistor is OFF, so there is no dc path from $V_{DD}$ to ground. Static current, and hence static power, is practically zero (only leakage). (C) FALSE."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (D)."
+          "bodyLatex": "Answer: (D) Employs both N-type and P-type MOSFETs."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "CMOS."
+        "note": "Switch model of the CMOS inverter: for input 0/1 exactly one device conducts -> no static VDD-GND path; needs both NMOS and PMOS."
       }
     },
     "jelet-2025-q098": {
-      "conceptSummary": "OP-AMP phase.",
+      "conceptSummary": "The phase of the closed-loop gain: non-inverting $1 + \\dfrac{R_{f}}{R_{1}}$ is real and positive, so it gives $0^{\\circ}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Non-inverting",
-          "bodyLatex": "0° phase shift."
+          "title": "Non-inverting gain from the virtual short",
+          "bodyLatex": "The input goes to the $+$ terminal and the feedback divider $R_{f}$, $R_{1}$ goes to the $-$ terminal. With an ideal op-amp, $v_{-} = v_{+} = v_{i}$ and no current enters the input, so $\\dfrac{v_{o} - v_{i}}{R_{f}} = \\dfrac{v_{i}}{R_{1}} \\Rightarrow \\dfrac{v_{o}}{v_{i}} = 1 + \\dfrac{R_{f}}{R_{1}}$, which is real and positive."
         },
         {
           "stepNumber": 2,
+          "title": "Gains with ideal op-amp",
+          "bodyLatex": "Inverting: $-\\dfrac{R_{f}}{R_{1}}$, a $180^{\\circ}$ shift. Non-inverting: $1 + \\dfrac{R_{f}}{R_{1}} > 0$, a $0^{\\circ}$ shift. Integrator: $-\\dfrac{1}{j\\omega RC} = \\dfrac{j}{\\omega RC}$, $+90^{\\circ}$. Differentiator: $-j\\omega RC$, $-90^{\\circ}$."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B)."
+          "bodyLatex": "Only the non-inverting amplifier has no phase difference. Answer: (B)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "OP-AMP."
+        "note": "SymPy: arg of gains at s = j w: pi, 0, pi/2, -pi/2 -> only B is 0."
       }
     },
     "jelet-2025-q099": {
-      "conceptSummary": "Boolean algebra.",
+      "conceptSummary": "Distributive law $(A + B)(A + C) = A + BC$, then the complement law $A + A' = 1$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Simplify",
-          "bodyLatex": "$(A+B)(A+B')+A' = 1$."
+          "title": "First product",
+          "bodyLatex": "$(A + B).(A + B') = A + BB' = A + 0 = A$."
         },
         {
           "stepNumber": 2,
+          "title": "Add $A'$",
+          "bodyLatex": "$A + A' = 1$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Check",
+          "bodyLatex": "The truth table of $(A + B)(A + B') + A'$ is 1 for all four input combinations."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B) $1$."
+          "bodyLatex": "Answer: (B) 1."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Boolean."
+        "note": "Truth table over (A, B) in {0,1}^2: expression = 1 1 1 1 -> only option B."
       }
     },
     "jelet-2025-q100": {
-      "conceptSummary": "Logic gate combination.",
+      "conceptSummary": "A NAND with both inputs tied together, fed with the same signal, acts as an inverter. Two NANDs of (A, B) followed by a NAND therefore give $\\overline{\\overline{AB}} = AB$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "Gate network."
+          "title": "First stage",
+          "bodyLatex": "Both input NAND gates receive A and B: $G_{1} = G_{2} = \\overline{AB}$."
         },
         {
           "stepNumber": 2,
+          "title": "Output stage",
+          "bodyLatex": "$Y = \\overline{G_{1}G_{2}} = \\overline{\\overline{AB}\\cdot\\overline{AB}} = \\overline{\\overline{AB}} = AB$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Truth table",
+          "bodyLatex": "$(A, B) = (0,0), (0,1), (1,0), (1,1)$ gives $Y = 0, 0, 0, 1$: the AND function. XOR would be $0, 1, 1, 0$; XNOR $1, 0, 0, 1$; NAND $1, 1, 1, 0$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B). Answer: (B)."
+          "bodyLatex": "Answer: (B) AND Gate."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key B."
+        "note": "Netlist extracted from fig-2025-q100.svg wire geometry (hop = no junction); truth table Y = 0001 = AND."
       }
     }
   }

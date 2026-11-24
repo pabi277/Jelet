@@ -10,6 +10,7 @@ from q2025 import Q2025
 from s2025_batch1 import S2025_B1
 from s2025_batch2 import S2025_B2
 from s2025_batch3 import S2025_B3
+from s2025_batch4 import S2025_B4
 
 # Solution data: {qNumber: (conceptSummary, steps[list of (title, bodyLatex)], verified, note)}
 S2024 = {
@@ -385,86 +386,13 @@ S2025 = {
 # Q1–Q25: hand-written, SymPy-verified derivations live in s2025_batch1.py (merged below).
 # Q26–Q50: hand-written, SymPy-verified derivations live in s2025_batch2.py (merged below).
 # Q51–Q75: hand-written, SymPy-verified derivations live in s2025_batch3.py (merged below).
-76: ("Nernst equation.",
-    [("Compute","$Q = 1 \\Rightarrow E = 1.10$ V."),
-     ("Conclusion","Answer: (A).")], True, "Nernst."),
-77: ("Le Chatelier's principle.",
-    [("Analyze","Volume decrease favors fewer gas moles $\\Rightarrow$ (C)."),
-     ("Conclusion","Answer: (C).")], True, "Le Chatelier."),
-78: ("Salt hydrolysis.",
-    [("Analyze","$Na_2CO_3$ gives highest pH."),
-     ("Conclusion","Answer: (C).")], True, "Hydrolysis."),
-79: ("Voided question.",
-    [("Analysis","Withdrawn."),
-     ("Conclusion","Answer: (W).")], False, "Voided."),
-80: ("Electron count in N2 → NH3.",
-    [("Count","N: 0 → -3. Two N atoms: 6 electrons."),
-     ("Conclusion","Answer: (D) $6$.")], True, "Redox."),
-81: ("IUPAC naming.",
-    [("Naming","Longest chain with double and triple bond."),
-     ("Conclusion","Given key (A). Answer: (A).")], False, "Key A."),
-82: ("Structural isomerism.",
-    [("Analyze","Identify isomerism type."),
-     ("Conclusion","Given key (C). Answer: (C).")], False, "Key C."),
-83: ("Grignard reaction.",
-    [("Reaction","$CH_3MgCl + CH_3COOH \\to CH_4$."),
-     ("Conclusion","Answer: (A) $CH_4$.")], True, "Grignard."),
-84: ("Voided question.",
-    [("Analysis","Withdrawn."),
-     ("Conclusion","Answer: (W).")], False, "Voided."),
-85: ("Acetylene alkylation.",
-    [("Reaction","$HC\\equiv CH \\xrightarrow{NaNH_2, EtBr(excess)} Et-C\\equiv C-Et$."),
-     ("Conclusion","Answer: (B) $CH_3CH_2-C\\equiv C-CH_2CH_3$.")], True, "Alkylation."),
-86: ("Rutherford scattering.",
-    [("Force","Coulombic. Path: hyperbolic."),
-     ("Conclusion","Answer: (A,D).")], True, "Rutherford."),
-87: ("Dilution effects.",
-    [("Analyze","Concentration decreases, ionization may increase."),
-     ("Conclusion","Answer: (C,D).")], True, "Dilution."),
-88: ("HBr addition to propene.",
-    [("Products","Markovnikov + anti-Markovnikov."),
-     ("Conclusion","Answer: (A,B,C).")], False, "Key A,B,C."),
-89: ("Rate constant comparison.",
-    [("Analyze","$k_f < k_e$ for Haber process conditions."),
-     ("Conclusion","Given key (B). Answer: (B).")], False, "Key B."),
-90: ("HNO3 properties.",
-    [("Properties","Oxoacid of nitrogen, oxidizing agent."),
-     ("Conclusion","Answer: (B,D).")], True, "HNO3."),
-91: ("PMMC ammeter reading.",
-    [("Average","$\\langle 5+5\\sin 100\\pi t\\rangle = 5$ A."),
-     ("Conclusion","Answer: (A) $5$ A.")], True, "Averaging."),
-92: ("Transformer current.",
-    [("Power","$I_{in} = 100/200 = 0.5$ A."),
-     ("Conclusion","Answer: (B).")], True, "Transformer."),
-93: ("Machine efficiency.",
-    [("Transformer","Highest efficiency."),
-     ("Conclusion","Answer: (D).")], True, "Efficiency."),
-94: ("Voltage regulation.",
-    [("0% case","$V_{nl} = 10$ V."),
-     ("Conclusion","Answer: (A).")], True, "Regulation."),
-95: ("AC circuit phase condition.",
-    [("Condition","Given key (B): $R_1/R_2 = L_1/L_2$."),
-     ("Conclusion","Answer: (B).")], False, "Key B."),
-96: ("BJT currents.",
-    [("Compute","$I_c = 10 - 0.1 = 9.9$ mA."),
-     ("Conclusion","Answer: (A).")], True, "Transistor."),
-97: ("CMOS.",
-    [("CMOS","NMOS + PMOS. Low static power."),
-     ("Conclusion","Answer: (D).")], True, "CMOS."),
-98: ("OP-AMP phase.",
-    [("Non-inverting","0° phase shift."),
-     ("Conclusion","Answer: (B).")], True, "OP-AMP."),
-99: ("Boolean algebra.",
-    [("Simplify","$(A+B)(A+B')+A' = 1$."),
-     ("Conclusion","Answer: (B) $1$.")], True, "Boolean."),
-100: ("Logic gate combination.",
-    [("Analyze","Gate network."),
-     ("Conclusion","Given key (B). Answer: (B).")], False, "Key B."),
+# Q76–Q100: hand-written, SymPy-verified derivations live in s2025_batch4.py (merged below).
 }
 
 S2025.update(S2025_B1)
 S2025.update(S2025_B2)
 S2025.update(S2025_B3)
+S2025.update(S2025_B4)
 
 def auto_solution(qnum, subj, unit, cat, page, stem, opts, correct, diff, tags, figkey, year):
     """Generate a solution entry from question data when no explicit solution is provided."""

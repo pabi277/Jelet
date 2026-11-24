@@ -274,7 +274,7 @@ S2025_B3 = {
     [(r"Hydrogen-ion concentrations",
       r"X: $[\text{H}^{+}] = 10^{-6}$ M; Y: $[\text{H}^{+}] = 10^{-7}$ M."),
      (r"Evaluate each statement",
-      r"(A) Y at pH $7$ is neutral, not acidic — FALSE. (B) $\dfrac{10^{-6}}{10^{-7}} = 10$: X is $10$ times more acidic — TRUE. (C) The symbol printed as $\rangle$ means $>$; in Y, $[\text{OH}^{-}] = K_{w}/[\text{H}^{+}] = 10^{-7} = [\text{H}^{+}]$, so $[\text{OH}^{-}] > [\text{H}^{+}]$ is FALSE. (D) FALSE since (B) is correct."),
+      r"(A) Y at pH $7$ is neutral, not acidic — FALSE. (B) $\dfrac{10^{-6}}{10^{-7}} = 10$: X is $10$ times more acidic — TRUE. (C) In Y, $[\text{OH}^{-}] = K_{w}/[\text{H}^{+}] = 10^{-7} = [\text{H}^{+}]$, so $[\text{OH}^{-}] > [\text{H}^{+}]$ is FALSE. (D) FALSE since (B) is correct."),
      (r"Conclusion",
       r"Answer: (B) Solution X is 10 times more acidic than solution Y.")],
     True, r"SymPy: 10^-6 / 10^-7 = 10; Kw/10^-7 = 10^-7 = [H+] in Y, so OH- is not greater."),

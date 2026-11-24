@@ -678,100 +678,252 @@ def fig_2025_q67():
     body += mlabel(146, 147, "F=40N", 13, anchor="start")
     return svg_plain(220, 160, body, "2025 Q67: a fixed smooth pulley hanging from a ceiling; a 2 kg block hangs from the left end of the string and the right end is pulled down by a force F = 40 N")
 
+# ---- Batch 4 (Q76–Q100): chemistry structures, reaction schemes, circuits -----
+# Times-like advance widths (em) used to lay out condensed formulae so bonds stop at label edges.
+_TNR = {"A": .722, "B": .667, "C": .667, "E": .611, "H": .722, "I": .333, "L": .611, "M": .889, "N": .722,
+        "O": .722, "R": .667, "T": .611, "Y": .722, "a": .444, "b": .5, "c": .444, "d": .5, "e": .444, "g": .5,
+        "h": .5, "i": .278, "l": .278, "m": .778, "n": .5, "o": .5, "q": .5, "r": .333, "s": .389, "t": .278,
+        "u": .5, "x": .5, "y": .5, "(": .333, ")": .333, " ": .25, "/": .278, ".": .25, "-": .333}
+
+def _chem_runs(s):
+    """Split a formula into (text, is_subscript) runs: digits directly after a letter or ')' are subscripts."""
+    runs, prev = [], ""
+    for ch in s:
+        sub = ch.isdigit() and (prev.isalpha() or prev == ")" or (prev.isdigit() and runs and runs[-1][1]))
+        if runs and runs[-1][1] == sub:
+            runs[-1] = (runs[-1][0] + ch, sub)
+        else:
+            runs.append((ch, sub))
+        prev = ch
+    return runs
+
+def chem_w(s, size=13):
+    return sum((0.5*0.72 if sub else 1)*sum(_TNR.get(c, .5) for c in t)*size for t, sub in _chem_runs(s))
+
+def chem(x, y, s, size=13, anchor="middle", italic=False, color="var(--fig-text)"):
+    """Formula text with true subscripts (tspan dy), booklet serif."""
+    d = round(0.3*size, 1)
+    parts, shifted = [], False
+    for t, sub in _chem_runs(s):
+        if sub:
+            parts.append(f'<tspan dy="{d}" font-size="{round(0.72*size, 1)}">{t}</tspan>'); shifted = True
+        else:
+            parts.append(f'<tspan dy="-{d}">{t}</tspan>' if shifted else t); shifted = False
+    style = ' font-style="italic"' if italic else ""
+    # Always emit start-anchored text at a computed x: renderers disagree on middle-anchoring
+    # text that contains baseline-shifted tspans.
+    if anchor == "middle":
+        x = round(x - chem_w(s, size)/2, 2)
+    elif anchor == "end":
+        x = round(x - chem_w(s, size), 2)
+    return (f'  <text x="{x}" y="{y}" font-family="Times New Roman, serif" font-size="{size}"{style} '
+            f'fill="{color}" text-anchor="start">{"".join(parts)}</text>\n')
+
+class _Lbl:
+    """A middle-anchored formula label with its estimated box (for bond end-points)."""
+    def __init__(self, x, y, s, size=13):
+        self.x, self.y, self.s, self.size = x, y, s, size
+        self.w = chem_w(s, size)
+        self.l, self.r = x - self.w/2, x + self.w/2
+        self.top, self.bot, self.mid = y - 0.70*size, y + 0.12*size, y - 0.33*size
+        self.c0 = self.l + _TNR.get(s[0], .5)*size/2        # centre of the first character
+    def svg(self):
+        return chem(self.x, self.y, self.s, self.size)
+
+def _bond(x1, y1, x2, y2, order=1, gap=2.6):
+    import math
+    L = math.hypot(x2 - x1, y2 - y1); nx, ny = -(y2 - y1)/L, (x2 - x1)/L
+    offs = {1: [0], 2: [-gap/2*1.15, gap/2*1.15], 3: [-gap, 0, gap]}[order]
+    return "".join(line(round(x1 + o*nx, 2), round(y1 + o*ny, 2), round(x2 + o*nx, 2), round(y2 + o*ny, 2),
+                        stroke="var(--fig-line)", sw=1.1) for o in offs)
+
+def _hb(a, b, order=1):
+    return _bond(round(a.r + 3, 2), a.mid, round(b.l - 2.5, 2), a.mid, order)
+
+def _arrow_scheme(x1, x2, y, sw=1.2):
+    """Reaction arrow with a filled barbed head (booklet style)."""
+    body = line(x1, y, x2 - 6, y, stroke="var(--fig-line)", sw=sw)
+    body += f'  <polygon points="{x2},{y} {x2 - 11},{y - 3.6} {x2 - 7},{y} {x2 - 11},{y + 3.6}" fill="var(--fig-line)"/>\n'
+    return body
+
+def _cchain(x_left, y, groups, orders, verts, size=12, blen=17):
+    """Condensed chain: groups joined by horizontal bonds; verts {i: (up, down)} hang off the first atom of group i."""
+    body, lbls, x = "", [], x_left
+    for g in groups:
+        w = chem_w(g, size); lbls.append(_Lbl(round(x + w/2, 2), y, g, size)); x += w + 5 + blen
+    for a, b, o in zip(lbls, lbls[1:], orders):
+        body += _hb(a, b, o)
+    for i, (up, down) in verts.items():
+        p = lbls[i]
+        for txt, sgn in ((up, -1), (down, 1)):
+            if not txt:
+                continue
+            w = chem_w(txt, size); c0 = _TNR.get(txt[0], .5)*size/2
+            q = _Lbl(round(p.c0 - c0 + w/2, 2), y + sgn*(31 if sgn < 0 else 33), txt, size)
+            lbls.append(q)
+            if sgn < 0:
+                body += _bond(round(p.c0, 2), round(p.top - 2, 2), round(p.c0, 2), round(q.bot + 2.5, 2))
+            else:
+                body += _bond(round(p.c0, 2), round(p.bot + 3, 2), round(p.c0, 2), round(q.top - 2, 2))
+    body += "".join(l.svg() for l in lbls)
+    return body, lbls
+
 def fig_2025_q81():
-    """organic compound structure (simplified skeletal)."""
-    body = ""
-    body += label(40, 30, "Compound structure", 10)
-    # simplified carbon chain with substituents
-    body += polyline("50,120 80,120 100,80 140,80 160,120 190,120", stroke="var(--fig-primary)", sw=2)
-    body += dot(50, 120, 3); body += dot(80, 120, 3); body += dot(100, 80, 3)
-    body += dot(140, 80, 3); body += dot(160, 120, 3); body += dot(190, 120, 3)
-    # double bond
-    body += line(100, 88, 140, 88, stroke="var(--fig-primary)", sw=1, dash="2,2")
-    # triple bond indicator
-    body += line(160, 128, 190, 128, stroke="var(--fig-primary)", sw=1, dash="2,2")
-    body += line(160, 112, 190, 112, stroke="var(--fig-primary)", sw=1, dash="2,2")
-    return svg_wrap(240, 160, body, "2025 Q81: Organic structure")
+    """Condensed structure exactly as printed: CH3–CH2–C≡C–CH(–CH2–CH(CH3)2)(–CH=CH2)."""
+    s = 13
+    n = {k: _Lbl(x, y, t, s) for k, (x, y, t) in {
+        "c1": (34, 52, "CH3"), "c2": (84, 82, "CH2"), "c3": (125, 82, "C"), "c4": (164, 82, "C"),
+        "c5": (204, 82, "CH"), "c6": (252, 48, "CH2"), "c7": (304, 48, "CH"),
+        "c8": (352, 24, "CH3"), "c9": (352, 72, "CH3"), "c10": (252, 116, "CH"), "c11": (306, 116, "CH2")}.items()}
+    b = ""
+    b += _bond(n["c1"].r + 2, n["c1"].mid + 4, n["c2"].l + 1, n["c2"].top + 1)
+    b += _hb(n["c2"], n["c3"]) + _hb(n["c3"], n["c4"], 3) + _hb(n["c4"], n["c5"])
+    b += _bond(n["c5"].r - 2, n["c5"].top, n["c6"].l + 2, n["c6"].bot + 1)
+    b += _hb(n["c6"], n["c7"])
+    b += _bond(n["c7"].r + 1, n["c7"].mid - 4, n["c8"].l - 1, n["c8"].mid + 1)
+    b += _bond(n["c7"].r + 1, n["c7"].mid + 2, n["c9"].l - 1, n["c9"].top + 2)
+    b += _bond(n["c5"].r - 2, n["c5"].bot + 1, n["c10"].l + 2, n["c10"].top)
+    b += _hb(n["c10"], n["c11"], 2)
+    b += "".join(l.svg() for l in n.values())
+    body = f'  <g data-struct="Q81">\n{b}  </g>\n'
+    return svg_plain(390, 130, body, "2025 Q81: condensed structural formula")
+
+def _skel_db(p, q, side=1, gap=3.4, trim=0.16):
+    """Skeletal double bond: main line p–q plus a shorter inner line offset to one side."""
+    import math
+    (x1, y1), (x2, y2) = p, q
+    L = math.hypot(x2 - x1, y2 - y1); nx, ny = -(y2 - y1)/L*side, (x2 - x1)/L*side
+    ax, ay = x1 + (x2 - x1)*trim + nx*gap, y1 + (y2 - y1)*trim + ny*gap
+    bx, by = x2 - (x2 - x1)*trim + nx*gap, y2 - (y2 - y1)*trim + ny*gap
+    return (line(x1, y1, x2, y2, stroke="var(--fig-line)", sw=1.1) +
+            line(round(ax, 2), round(ay, 2), round(bx, 2), round(by, 2), stroke="var(--fig-line)", sw=1.1))
+
+def _sk(p, q):
+    return line(p[0], p[1], q[0], q[1], stroke="var(--fig-line)", sw=1.1)
 
 def fig_2025_q82():
-    """isomer pairs (two structures)."""
-    body = ""
-    body += label(40, 30, "Isomer pairs", 10)
-    # pair 1
-    body += polyline("40,70 70,70 90,50 120,50", stroke="var(--fig-primary)", sw=2)
-    body += label(80, 65, "(I)", 9, "var(--fig-text)", "middle")
-    # pair 2
-    body += polyline("40,130 70,130 90,150 120,150", stroke="var(--fig-secondary)", sw=2)
-    body += label(80, 125, "(II)", 9, "var(--fig-text)", "middle")
-    return svg_wrap(240, 170, body, "2025 Q82: Isomer structures")
+    """Skeletal pair as printed: propanoic acid (left) and ethyl methanoate (right)."""
+    b = ""
+    a1, a2, a3 = (40, 92), (70, 109), (100, 92)
+    b += _sk(a1, a2) + _sk(a2, a3)
+    b += line(98, 92, 98, 58, stroke="var(--fig-line)", sw=1.1) + line(102, 92, 102, 58, stroke="var(--fig-line)", sw=1.1)
+    b += chem(100, 52, "O", 12) + _sk(a3, (127, 108)) + chem(139, 121, "OH", 12)
+    e1 = (208, 92)
+    b += chem(176, 121, "H", 12) + _sk((182, 109), e1)
+    b += line(206, 92, 206, 58, stroke="var(--fig-line)", sw=1.1) + line(210, 92, 210, 58, stroke="var(--fig-line)", sw=1.1)
+    b += chem(208, 52, "O", 12) + _sk(e1, (234, 108)) + chem(239, 121, "O", 12)
+    e3, e4 = (270, 92), (302, 110)
+    b += _sk((245, 108), e3) + _sk(e3, e4)
+    return svg_plain(330, 132, b, "2025 Q82: skeletal structures of propanoic acid and ethyl methanoate")
 
 def fig_2025_q83():
-    """reaction: CH3Cl with Mg/ether then CH3COOH."""
-    body = ""
-    body += label(40, 30, "Reaction sequence", 10)
-    body += f'  <rect x="30" y="55" width="60" height="35" fill="none" stroke="var(--fig-primary)" stroke-width="1.5"/>\n'
-    body += label(60, 78, "CH₃Cl", 10, "var(--fig-text)", "middle")
-    body += arrow(95, 72, 140, 72, stroke="var(--fig-danger)", sw=2, label="Mg/ether", label_pos=(105, 65))
-    body += f'  <rect x="145" y="55" width="60" height="35" fill="none" stroke="var(--fig-primary)" stroke-width="1.5"/>\n'
-    body += label(175, 78, "CH₃MgCl", 9, "var(--fig-text)", "middle")
-    body += arrow(210, 72, 220, 72, stroke="var(--fig-danger)", sw=1.5)
-    body += label(110, 110, "then CH₃COOH", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 130, body, "2025 Q83: Grignard reaction")
+    """Reaction scheme as printed: CH3Cl →[(i) Mg/Ether, (ii) CH3COOH]."""
+    b = chem(38, 50, "CH3Cl", 13) + _arrow_scheme(68, 212, 46)
+    b += chem(140, 36, "(i) Mg/Ether", 12) + chem(140, 64, "(ii) CH3COOH", 12)
+    return svg_plain(230, 76, b, "2025 Q83: reaction scheme")
 
 def fig_2025_q85():
-    """acetylene with NaNH2 then EtBr."""
-    body = ""
-    body += label(40, 30, "Reaction sequence", 10)
-    body += f'  <rect x="30" y="55" width="50" height="35" fill="none" stroke="var(--fig-primary)" stroke-width="1.5"/>\n'
-    body += label(55, 78, "HC≡CH", 10, "var(--fig-text)", "middle")
-    body += arrow(85, 72, 125, 72, stroke="var(--fig-danger)", sw=2, label="NaNH₂", label_pos=(95, 65))
-    body += f'  <rect x="130" y="55" width="50" height="35" fill="none" stroke="var(--fig-primary)" stroke-width="1.5"/>\n'
-    body += label(155, 78, "HC≡C⁻", 9, "var(--fig-text)", "middle")
-    body += arrow(185, 72, 220, 72, stroke="var(--fig-danger)", sw=2, label="EtBr", label_pos=(195, 65))
-    return svg_wrap(240, 130, body, "2025 Q85: Acetylene alkylation")
+    """Reaction scheme as printed: HC≡CH →[(i) NaNH2/liq. NH3, (ii) Ethylbromide (excess)]."""
+    hc, ch = _Lbl(26, 50, "HC", 13), _Lbl(76, 50, "CH", 13)
+    b = hc.svg() + ch.svg() + _hb(hc, ch, 3) + _arrow_scheme(104, 286, 46)
+    b += chem(190, 36, "(i) NaNH2/liq. NH3", 12) + chem(176, 64, "(ii) Ethylbromide", 12) + chem(210, 80, "(excess)", 12)
+    return svg_plain(300, 92, b, "2025 Q85: reaction scheme")
+
+def _q85_opt(left, right, aria):
+    """Skeletal C=C option (E geometry) with condensed end groups, as printed."""
+    v1, v2 = (96, 44), (130, 24)
+    b = chem(6, 26, left, 12, anchor="start")
+    lx = 6 + chem_w(left, 12)
+    b += _sk((round(lx + 6, 2), 25), v1) + _skel_db(v1, v2, side=-1) + _sk(v2, (163, 42))
+    b += chem(165, 53, right, 12, anchor="start")
+    return svg_plain(175 + int(chem_w(right, 12)), 62, b, aria)
+
+def fig_2025_q85_optA():
+    return _q85_opt("CH3CH2", "CH2CH3", "Option (A): CH3CH2–CH=CH–CH2CH3 drawn skeletally (trans C=C)")
+
+def fig_2025_q85_optC():
+    return _q85_opt("CH3CH2", "NH2", "Option (C): CH3CH2–CH=CH–NH2 drawn skeletally (trans C=C)")
+
+def fig_2025_q85_optD():
+    v1, v2 = (52, 44), (86, 24)
+    b = chem(14, 18, "Br", 12, anchor="start") + _sk((30, 18), v1) + _skel_db(v1, v2, side=-1) + _sk(v2, (119, 42))
+    b += chem(121, 53, "NH2", 12, anchor="start")
+    return svg_plain(150, 62, b, "Option (D): Br–CH=CH–NH2 drawn skeletally (trans C=C)")
 
 def fig_2025_q88():
-    """propene + HBr reaction."""
+    """3,3-Dimethylbut-1-ene + HBr, with candidate products (I)–(IV), as printed."""
     body = ""
-    body += label(40, 30, "Reaction", 10)
-    body += f'  <rect x="25" y="55" width="55" height="35" fill="none" stroke="var(--fig-primary)" stroke-width="1.5"/>\n'
-    body += label(52, 78, "CH₃CH=CH₂", 9, "var(--fig-text)", "middle")
-    body += arrow(85, 72, 130, 72, stroke="var(--fig-danger)", sw=2, label="HBr", label_pos=(95, 65))
-    body += f'  <rect x="135" y="45" width="50" height="25" fill="none" stroke="var(--fig-secondary)" stroke-width="1.5"/>\n'
-    body += label(160, 62, "CH₃CHBrCH₃", 8, "var(--fig-text)", "middle")
-    body += f'  <rect x="135" y="80" width="50" height="25" fill="none" stroke="var(--fig-secondary)" stroke-width="1.5"/>\n'
-    body += label(160, 97, "CH₃CH₂CH₂Br", 8, "var(--fig-text)", "middle")
-    return svg_wrap(240, 130, body, "2025 Q88: Propene + HBr")
+    r, _ = _cchain(40, 56, ["CH3", "C", "CH", "CH2"], [1, 1, 2], {1: ("CH3", "CH3")})
+    body += f'  <g data-struct="R">\n{r}  </g>\n'
+    body += _arrow_scheme(240, 330, 52) + chem(285, 44, "HBr", 12)
+    rows = [("I", 40, 158, ["CH3", "C", "CH", "CH3"], {1: ("CH3", "CH3"), 2: (None, "Br")}),
+            ("II", 330, 158, ["CH3", "C", "CH", "CH3"], {1: ("CH3", "Br"), 2: (None, "CH3")}),
+            ("III", 40, 262, ["CH3", "C", "CH2", "CH2Br"], {1: ("CH3", "CH3")}),
+            ("IV", 336, 262, ["BrCH2", "C", "CH", "CH3"], {1: ("CH3", "H"), 2: (None, "CH3")})]
+    for tag, x, y, groups, verts in rows:
+        s, _ = _cchain(x, y, groups, [1, 1, 1], verts)
+        body += mlabel(x - 6, y, f"({tag})", 13, anchor="end")
+        body += f'  <g data-struct="{tag}">\n{s}  </g>\n'
+    return svg_plain(520, 310, body, "2025 Q88: 3,3-dimethylbut-1-ene + HBr and structures I–IV")
+
+def _resistor(x1, x2, y, n=4, amp=5):
+    """Zig-zag resistor with 2n alternating vertices between leads at x1 and x2."""
+    step = (x2 - x1)/(2*n)
+    pts = [(x1, y)]
+    for k in range(2*n):
+        pts.append((round(x1 + step*(k + 0.5), 2), y - amp if k % 2 == 0 else y + amp))
+    pts.append((x2, y))
+    return polyline(" ".join(f"{a},{b}" for a, b in pts), stroke="var(--fig-line)", sw=1.3)
+
+def _coil(x1, x2, y, loops=6):
+    """Looped inductor (as printed): overlapping ellipses between two leads."""
+    rx, ry = 5.2, 8.0
+    pitch = (x2 - x1 - 2*rx)/(loops - 1)
+    b = ""
+    for k in range(loops):
+        b += f'  <ellipse cx="{round(x1 + rx + k*pitch, 2)}" cy="{y}" rx="{rx}" ry="{ry}" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n'
+    return b
 
 def fig_2025_q95():
-    """AC circuit with R, L components."""
-    body = ""
-    body += label(40, 30, "AC circuit", 10)
-    body += circle(60, 100, 12, stroke="var(--fig-primary)", sw=2)
-    body += label(60, 105, "R₁", 9, "var(--fig-text)", "middle")
-    body += circle(110, 100, 12, stroke="var(--fig-primary)", sw=2)
-    body += label(110, 105, "L₁", 9, "var(--fig-text)", "middle")
-    body += circle(160, 100, 12, stroke="var(--fig-primary)", sw=2)
-    body += label(160, 105, "R₂", 9, "var(--fig-text)", "middle")
-    body += line(40, 100, 50, 100); body += line(70, 100, 95, 100); body += line(120, 100, 145, 100); body += line(170, 100, 190, 100)
-    body += label(40, 90, "I₁", 9, "var(--fig-text)", "middle")
-    body += label(105, 90, "I₂", 9, "var(--fig-text)", "middle")
-    body += label(195, 100, "I", 10, "var(--fig-text)")
-    return svg_wrap(240, 140, body, "2025 Q95: AC circuit")
+    """Two parallel R–L branches (R1, L1 top; R2, L2 bottom) fed by I, as printed."""
+    yt, yb, xl, xr, yi = 40, 136, 88, 312, 88
+    W = lambda x1, y1, x2, y2: line(x1, y1, x2, y2, stroke="var(--fig-line)", sw=1.4)
+    b = W(30, yi, xl, yi) + _arrowhead(66, yi, 0, 7)
+    b += W(xl, yt, xl, yb) + _arrowhead(xl, 64, -90, 7) + _arrowhead(xl, 112, 90, 7)
+    b += W(xr, yt, xr, yb) + W(xr, yi, 350, yi)
+    for y, tag, ly in ((yt, "1", yt + 24), (yb, "2", yb + 24)):
+        b += W(xl, y, 132, y) + _arrowhead(114, y, 0, 7)
+        b += f'  <g data-comp="R" data-label="R{tag}" data-pins="132,{y} 176,{y}">\n{_resistor(132, 176, y)}  </g>\n'
+        b += W(176, y, 204, y)
+        b += f'  <g data-comp="L" data-label="L{tag}" data-pins="204,{y} 270,{y}">\n{_coil(204, 270, y)}  </g>\n'
+        b += W(270, y, xr, y)
+        b += chem(154, ly, f"R{tag}", 12) + chem(238, ly, f"L{tag}", 12)
+    b += chem(118, yt - 10, "I1", 12) + chem(118, yb + 24, "I2", 12) + chem(46, yi - 10, "I", 12)
+    return svg_plain(360, 170, b, "2025 Q95: parallel R1–L1 and R2–L2 branches carrying I1 and I2; total current I")
+
+def _nand(x, yc):
+    """IEEE distinctive-shape NAND: flat back at x, semicircular front, inversion bubble; pins in data-*."""
+    r = 17
+    d = f"M {x},{yc - r} H {x + r} A {r} {r} 0 0 1 {x + r},{yc + r} H {x} Z"
+    return (f'  <g data-gate="NAND" data-in="{x},{yc - 9} {x},{yc + 9}" data-out="{x + 2*r + 6},{yc}">\n'
+            f'  <path d="{d}" stroke="var(--fig-line)" stroke-width="1.6" fill="none"/>\n'
+            f'  <circle cx="{x + 2*r + 3}" cy="{yc}" r="3" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n  </g>\n')
 
 def fig_2025_q100():
-    """logic gate combination."""
-    body = ""
-    body += label(40, 30, "Logic circuit", 10)
-    body += circle(70, 90, 20, stroke="var(--fig-primary)", sw=2)
-    body += label(70, 95, "NAND", 9, "var(--fig-text)", "middle")
-    body += circle(140, 90, 20, stroke="var(--fig-primary)", sw=2)
-    body += label(140, 95, "NOT", 9, "var(--fig-text)", "middle")
-    body += line(40, 90, 50, 90); body += dot(50, 90, 3); body += line(90, 90, 120, 90); body += line(160, 90, 190, 90)
-    body += label(30, 95, "A", 10, "var(--fig-text)", "middle")
-    body += label(30, 115, "B", 10, "var(--fig-text)", "middle")
-    body += label(195, 95, "Y", 10, "var(--fig-text)")
-    return svg_wrap(240, 140, body, "2025 Q100: Logic circuit")
+    """Three NAND gates exactly as wired in the booklet: both first-stage gates take A and B;
+    their outputs feed the two inputs of the output NAND (Y). The A-tap crosses the B-tap with a hop."""
+    W = lambda x1, y1, x2, y2: line(x1, y1, x2, y2, stroke="var(--fig-line)", sw=1.4)
+    b = _nand(160, 47) + _nand(160, 153) + _nand(290, 100)
+    b += W(56, 38, 160, 38) + W(105, 38, 105, 144) + W(105, 144, 134, 144)
+    b += '  <path data-hop="1" d="M 134,144 A 6 6 0 0 1 146,144" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n'
+    b += W(146, 144, 160, 144)
+    b += W(56, 162, 160, 162) + W(140, 162, 140, 56) + W(140, 56, 160, 56)
+    b += W(200, 47, 274, 47) + W(274, 47, 274, 91) + W(274, 91, 290, 91)
+    b += W(200, 153, 274, 153) + W(274, 153, 274, 109) + W(274, 109, 290, 109)
+    b += W(330, 100, 356, 100)
+    b += mlabel(44, 42, "A", 13) + mlabel(44, 166, "B", 13) + mlabel(366, 104, "Y", 13)
+    return svg_plain(380, 180, b, "2025 Q100: three-NAND logic circuit with inputs A, B and output Y")
+
 
 # ---- 2022 figures ----
 
@@ -1341,6 +1493,9 @@ def main():
             "fig-2025-q82": fig_2025_q82,
             "fig-2025-q83": fig_2025_q83,
             "fig-2025-q85": fig_2025_q85,
+            "fig-2025-q85-optA": fig_2025_q85_optA,
+            "fig-2025-q85-optC": fig_2025_q85_optC,
+            "fig-2025-q85-optD": fig_2025_q85_optD,
             "fig-2025-q88": fig_2025_q88,
             "fig-2025-q95": fig_2025_q95,
             "fig-2025-q100": fig_2025_q100,
