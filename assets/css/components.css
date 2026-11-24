@@ -1461,6 +1461,43 @@
 .results-subj-item[data-subject="CHEM"] { border-color: var(--chem-stripe); }
 .results-subj-item[data-subject="FEEE"] { border-color: var(--feee-stripe); }
 
+/* Phase 08 · Per-mock performance analytics */
+.results-analytics { border-top: 1px solid var(--border-subtle); }
+.results-mini-tile[data-subject] {
+  border-left: 4px solid var(--brand-primary);
+}
+.results-mini-tile[data-subject="MATH"] { border-left-color: var(--math-stripe); }
+.results-mini-tile[data-subject="PHYS"] { border-left-color: var(--phys-stripe); }
+.results-mini-tile[data-subject="CHEM"] { border-left-color: var(--chem-stripe); }
+.results-mini-tile[data-subject="FEEE"] { border-left-color: var(--feee-stripe); }
+
+.analytics-time {
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-s) var(--space-m);
+}
+.analytics-time__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+.analytics-slow-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+.wrong-key-item {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-s);
+  padding: var(--space-s);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  background: var(--bg-surface);
+}
+
 .tiebreak-details {
   border-top: 1px solid var(--border-subtle);
   padding-top: var(--space-s);

@@ -10,7 +10,7 @@
  */
 
 import * as db from "../db/indexeddb.js";
-import { scoreAttempt, MAX_PAPER_TWELFTHS, isVoidedQuestion } from "./scoring.js";
+import { scoreAttempt, MAX_PAPER_TWELFTHS, isVoidedQuestion, SUBJECT_META } from "./scoring.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 export const SPACED_INTERVAL_DAYS = [0, 1, 3, 7];
@@ -433,6 +433,7 @@ export async function submitSessionToAttempt({ session, questions }) {
     submittedAt: nowIso,
     updatedAt: nowIso,
     elapsedMs,
+    durationMs: session.durationMs != null ? session.durationMs : null,
     questionIds: questions.map((q) => q.id),
     responses: session.responses || {},
     assistedQuestionIds: [...assistedSet],
@@ -450,6 +451,10 @@ export async function submitSessionToAttempt({ session, questions }) {
     tieBreakVector: scored.tieBreakVector,
     items: scored.items,
   };
+
+  // Per-mock performance analytics blob (section scores, accuracy, time, key
+  // breakdown) persisted with the attempt for trend tracking & weak-area feeding.
+  attempt.analytics = computeMockAnalytics(attempt, questions, session.questionTimes || {});
 
   await db.put("attempts", attempt);
 
@@ -474,6 +479,185 @@ export async function submitSessionToAttempt({ session, questions }) {
   await db.deleteRecord("sessions", session.sessionId);
 
   return attempt;
+}
+
+/** Questions slower than this multiple of the paper's average time-per-question are flagged. */
+export const MOCK_SLOW_QUESTION_FACTOR = 2;
+
+/**
+ * Compute a rich, fully-local performance analytics blob for a single mock attempt.
+ *
+ * Pure function: derives section scores, accuracy, the time-per-question
+ * distribution and the wrong-vs-key breakdown strictly from the frozen scoring
+ * output (`attempt.items` / `attempt.bySubject`) plus the captured
+ * `questionTimes` map. No telemetry, no fabricated scores.
+ */
+export function computeMockAnalytics(attempt, questions = [], questionTimes = {}) {
+  const items = Array.isArray(attempt?.items) ? attempt.items : [];
+  const bySubject = attempt?.bySubject || {};
+  const counts = attempt?.counts || {};
+  const totalTwelfths = Number(attempt?.totalTwelfths) || 0;
+  const maxTwelfths = Number(attempt?.maxTwelfths) || 0;
+  const elapsedMs = Number.isFinite(Number(attempt?.elapsedMs))
+    ? Number(attempt.elapsedMs)
+    : null;
+  const durationMs = Number.isFinite(Number(attempt?.durationMs))
+    ? Number(attempt.durationMs)
+    : null;
+
+  const SUBJECT_ORDER = ["MATH", "PHYS", "CHEM", "FEEE"];
+
+  // Overall accuracy (voided "W" awards marks to everyone but is not user-attempted)
+  const correct = counts.correct || 0;
+  const partial = counts.partial || 0;
+  const incorrect = counts.incorrect || 0;
+  const unattempted = counts.unattempted || 0;
+  const voided = counts.voided_awarded || 0;
+  const attempted = correct + partial + incorrect;
+  const accuracyPct = attempted > 0 ? Math.round((correct * 100) / attempted) : 0;
+  const scorePct =
+    maxTwelfths > 0 ? Math.max(0, Math.round((totalTwelfths * 100) / maxTwelfths)) : 0;
+
+  // Section-wise scores + accuracy + average time
+  const sections = [];
+  for (const sid of SUBJECT_ORDER) {
+    const sb = bySubject[sid];
+    if (!sb) continue;
+    const sCorrect = sb.correct || 0;
+    const sPartial = sb.partial || 0;
+    const sIncorrect = sb.incorrect || 0;
+    const sUnattempted = sb.unattempted || 0;
+    const sVoided = sb.voided_awarded || 0;
+    const sAttempted = sCorrect + sPartial + sIncorrect;
+
+    const sTimes = [];
+    for (const item of items) {
+      if (item.subjectId !== sid) continue;
+      const t = Number(questionTimes[item.questionId]) || 0;
+      if (t > 0) sTimes.push(t);
+    }
+    const sAvgTime = sTimes.length
+      ? Math.round(sTimes.reduce((a, b) => a + b, 0) / sTimes.length)
+      : 0;
+    const sMaxTime = sTimes.length ? Math.max(...sTimes) : 0;
+
+    sections.push({
+      subjectId: sid,
+      title: SUBJECT_META[sid]?.name || sid,
+      shortName: SUBJECT_META[sid]?.shortName || sid,
+      totalTwelfths: sb.totalTwelfths || 0,
+      maxTwelfths: sb.maxTwelfths || 0,
+      scorePct:
+        sb.maxTwelfths > 0
+          ? Math.max(0, Math.round(((sb.totalTwelfths || 0) * 100) / sb.maxTwelfths))
+          : 0,
+      correct: sCorrect,
+      partial: sPartial,
+      incorrect: sIncorrect,
+      unattempted: sUnattempted,
+      voided: sVoided,
+      attempted: sAttempted,
+      accuracyPct:
+        sAttempted > 0 ? Math.round((sCorrect * 100) / sAttempted) : 0,
+      avgTimeMs: sAvgTime,
+      maxTimeMs: sMaxTime,
+      questionCount: sb.questionCount || 0,
+    });
+  }
+
+  // Time analysis (only over questions with captured time)
+  const allTimes = [];
+  for (const item of items) {
+    const t = Number(questionTimes[item.questionId]) || 0;
+    if (t > 0) allTimes.push(t);
+  }
+  const captured = allTimes.length > 0;
+  const sortedTimes = [...allTimes].sort((a, b) => a - b);
+  const avgTimeMs = captured
+    ? Math.round(sortedTimes.reduce((a, b) => a + b, 0) / sortedTimes.length)
+    : 0;
+  const medianTimeMs = captured
+    ? sortedTimes[Math.floor(sortedTimes.length / 2)]
+    : 0;
+  const slowThresholdMs = captured
+    ? Math.max(60000, Math.round(avgTimeMs * MOCK_SLOW_QUESTION_FACTOR))
+    : 0;
+
+  const perQuestionMs = items
+    .map((item) => ({
+      questionId: item.questionId,
+      qNumber: item.qNumber,
+      subjectId: item.subjectId,
+      unitId: item.unitId,
+      timeMs: Math.max(0, Math.round(Number(questionTimes[item.questionId]) || 0)),
+    }))
+    .filter((x) => x.timeMs > 0)
+    .sort((a, b) => (a.qNumber || 0) - (b.qNumber || 0));
+
+  const slowQuestions = captured
+    ? perQuestionMs.filter((x) => x.timeMs >= slowThresholdMs)
+    : [];
+
+  const bySectionAvgMs = sections
+    .filter((s) => s.avgTimeMs > 0)
+    .map((s) => ({
+      subjectId: s.subjectId,
+      shortName: s.shortName,
+      avgTimeMs: s.avgTimeMs,
+      questionCount: s.questionCount,
+    }));
+
+  // Wrong / partial vs the official verified key (worst first)
+  const wrongKey = items
+    .filter((it) => it.outcome === "incorrect" || it.outcome === "partial")
+    .map((it) => ({
+      questionId: it.questionId,
+      qNumber: it.qNumber,
+      subjectId: it.subjectId,
+      unitId: it.unitId,
+      category: it.category,
+      outcome: it.outcome,
+      selected: [...(it.selected || [])],
+      correctOptions: [...(it.correctOptions || [])],
+      twelfths: it.twelfths,
+    }))
+    .sort((a, b) => {
+      if (a.outcome !== b.outcome) return a.outcome === "incorrect" ? -1 : 1;
+      return (a.qNumber || 0) - (b.qNumber || 0);
+    });
+
+  return {
+    paperId: attempt?.paperId || null,
+    title: attempt?.title || "",
+    submittedAt: attempt?.submittedAt || null,
+    durationMs,
+    elapsedMs,
+    elapsedMinutes: elapsedMs != null ? Math.round(elapsedMs / 60000) : null,
+    totalTwelfths,
+    maxTwelfths,
+    scorePct,
+    accuracy: {
+      total: items.length,
+      correct,
+      partial,
+      incorrect,
+      unattempted,
+      voided,
+      attempted,
+      accuracyPct,
+    },
+    sections,
+    time: {
+      captured,
+      avgTimeMs,
+      medianTimeMs,
+      slowThresholdMs,
+      perQuestionMs,
+      slowQuestions,
+      bySectionAvgMs,
+    },
+    wrongKey,
+  };
 }
 
 export async function getAttempt(attemptId) {
