@@ -34,7 +34,7 @@ import { $, el, icon, showToast } from "../core/ui.js";
  * Synthesize an immediate, 100%-corpus-grounded tutor response offline
  * when no BYOK key is configured (or when user selects Corpus Verified mode).
  */
-async function buildOfflineCorpusReply({ context, userPrompt, languageMode }) {
+export async function buildOfflineCorpusReply({ context = {}, userPrompt, languageMode } = {}) {
   const q = context.question || null;
   const sol = q ? context.solution || (await loadSolutionForQuestion(q)) : null;
   const unit =
@@ -103,7 +103,7 @@ async function buildOfflineCorpusReply({ context, userPrompt, languageMode }) {
     }
 
     if (promptLower.includes("shortcut") || promptLower.includes("intuition") || promptLower.includes("trap")) {
-      const relevantFormulas = (unit?.formulas || [])
+      const relevantFormulas = (unit?.keyFormulas || unit?.formulas || [])
         .slice(0, 2)
         .map((f) => `• **${f.label}:** ${f.latex}`)
         .join("\n");
@@ -155,7 +155,7 @@ async function buildOfflineCorpusReply({ context, userPrompt, languageMode }) {
         .join("\n\n");
     }
 
-    const topFormulas = (unit.formulas || [])
+    const topFormulas = (unit.keyFormulas || unit.formulas || [])
       .slice(0, 3)
       .map((f) => `• **${f.label}:** ${f.latex}`)
       .join("\n");
@@ -187,7 +187,7 @@ async function buildOfflineCorpusReply({ context, userPrompt, languageMode }) {
       u.unitId,
       u.title,
       u.overviewLatex,
-      ...(u.formulas || []).map((f) => `${f.label} ${f.notes}`),
+      ...(u.keyFormulas || u.formulas || []).map((f) => `${f.label} ${f.notes || ""}`),
       ...(u.wbjeebTraps || []),
     ]
       .join(" ")
@@ -204,7 +204,7 @@ async function buildOfflineCorpusReply({ context, userPrompt, languageMode }) {
   }
 
   if (bestUnit && bestScore > 0) {
-    const fList = (bestUnit.formulas || [])
+    const fList = (bestUnit.keyFormulas || bestUnit.formulas || [])
       .slice(0, 3)
       .map((f) => `• **${f.label}:** ${f.latex}`)
       .join("\n");
@@ -355,12 +355,18 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       languageMode: vault.preferredLanguage || "English",
     });
 
-    const previewReq = buildAiRequestPayload({
-      vault,
-      systemPrompt: sysPrompt,
-      history: chatHistory.map((m) => ({ role: m.role, text: m.text })),
-      userMessage: draftMessage,
-    });
+    let previewReq = null;
+    let previewError = null;
+    try {
+      previewReq = buildAiRequestPayload({
+        vault,
+        systemPrompt: sysPrompt,
+        history: chatHistory.map((m) => ({ role: m.role, text: m.text })),
+        userMessage: draftMessage,
+      });
+    } catch (err) {
+      previewError = err.message;
+    }
 
     const chips = q
       ? [
@@ -392,7 +398,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
 
         <!-- Collapsible Byte-Exact Prompt Preview (12-phone-codec-ai-tutor.png & docs/04 §4) -->
         ${
-          vault.previewPrompt
+          vault.previewPrompt && previewReq
             ? `
           <details class="tiebreak-details ai-prompt-preview">
             <summary>Check prompt before sending (${escapeHtml(pInfo.label)} · ${escapeHtml(previewReq.model)})</summary>
@@ -404,6 +410,8 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
               <pre class="ai-prompt-pre mono" id="promptJsonPre">${escapeHtml(previewReq.bodyString)}</pre>
             </div>
           </details>`
+            : vault.previewPrompt && previewError && byokActive
+            ? `<div class="exam-trap">${escapeHtml(previewError)} — Offline Corpus Tutor remains active.</div>`
             : ""
         }
 
@@ -517,13 +525,17 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     inputEl?.addEventListener("input", () => {
       const pre = $("#promptJsonPre", wrap);
       if (!pre) return;
-      const updated = buildAiRequestPayload({
-        vault: readAiVault(),
-        systemPrompt: sysPrompt,
-        history: chatHistory.map((m) => ({ role: m.role, text: m.text })),
-        userMessage: inputEl.value || draftMessage,
-      });
-      pre.textContent = updated.bodyString;
+      try {
+        const updated = buildAiRequestPayload({
+          vault: readAiVault(),
+          systemPrompt: sysPrompt,
+          history: chatHistory.map((m) => ({ role: m.role, text: m.text })),
+          userMessage: inputEl.value || draftMessage,
+        });
+        pre.textContent = updated.bodyString;
+      } catch {
+        // Offline corpus path stays unaffected if custom provider config is invalid.
+      }
     });
 
     // Language switch
@@ -610,17 +622,17 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     const priorTurns = chatHistory
       .slice(0, -1)
       .map((m) => ({ role: m.role, text: m.text }));
-    const req = buildAiRequestPayload({
-      vault,
-      systemPrompt: sysPrompt,
-      history: priorTurns,
-      userMessage: userText,
-    });
 
     activeAbortController = new AbortController();
     await renderTutorBody(userText);
 
     try {
+      const req = buildAiRequestPayload({
+        vault,
+        systemPrompt: sysPrompt,
+        history: priorTurns,
+        userMessage: userText,
+      });
       const llmReply = await sendBuiltAiRequest(req, {
         signal: activeAbortController.signal,
       });

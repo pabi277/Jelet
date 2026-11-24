@@ -14,30 +14,115 @@
     "jelet-2025-q049",
     "jelet-2025-q068"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q049",
+    "jelet-2024-q059",
+    "jelet-2024-q063",
+    "jelet-2022-q049",
+    "jelet-2022-q064",
+    "jelet-2025-q068"
+  ],
+  "notes": [
     {
-      "anchor": "law",
-      "heading": "1. Universal Law of Gravitation",
-      "proseLatex": "$F = GMm/r^2$. Variation of $g$ above, below, and at the surface of Earth.",
+      "anchor": "newton-gravity-g",
+      "heading": "1. Newton's Law of Gravitation & Variation of g (Height, Depth, Rotation)",
+      "proseLatex": "Two point masses attract with $F = \\frac{GMm}{r^2}$ where $G = 6.67\\times 10^{-11}\\text{ N\\,m}^2\\text{kg}^{-2}$, giving surface gravity $g = \\frac{GM}{R^2} = \\frac{4}{3}\\pi G\\rho R$. Above the surface at altitude $h$, exact gravity is $g_h = \\frac{g}{(1 + h/R)^2}$ ($\\approx g(1 - 2h/R)$ ONLY when $h \\ll R$!); inside a uniform Earth at depth $d$, exact gravity falls linearly to zero at the centre as $g_d = g\\left(1 - \\frac{d}{R}\\right)$. Earth's rotation reduces effective gravity at latitude $\\lambda$ via $g_{\\text{eff}} = g - \\omega^2 R\\cos^2\\lambda$ (maximum at poles, minimum at equator).",
       "keyFormulas": [
         {
           "formulaId": "P05-F01",
-          "label": "Gravitational Force",
-          "latex": "$F = GMm/r^2$",
-          "aiExplainContext": "Universal inverse-square law."
+          "label": "Altitude, Depth & Latitude Variation of g",
+          "latex": "$g_h = \\frac{g}{(1 + h/R)^2},\\qquad g_d = g\\!\\left(1 - \\frac{d}{R}\\right),\\qquad g_\\lambda = g - \\omega^2 R\\cos^2\\lambda$",
+          "aiExplainContext": "Use exact vs small-h altitude formulas and depth/latitude relations."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P05-EX01",
+          "problemLatex": "At what altitude $h$ above Earth's surface (radius $R$) does gravitational acceleration drop to $g/9$?",
+          "stepsLatex": [
+            "Since drop is large ($g/9$), MUST use exact formula $\\frac{g}{(1 + h/R)^2} = \\frac{g}{9}$.",
+            "$1 + \\frac{h}{R} = 3 \\implies h = 2R$."
+          ],
+          "answerLatex": "$h = 2R$"
         }
       ]
     },
     {
-      "anchor": "energy",
-      "heading": "2. Gravitational Potential Energy",
-      "proseLatex": "$U = -GMm/r$. For circular orbit: $E = -GMm/2r$, $U = 2E$, $K = -E$.",
+      "anchor": "potential-escape",
+      "heading": "2. Gravitational Potential, Escape Speed & Bound Satellite Energy",
+      "proseLatex": "With $U(\\infty) = 0$, gravitational potential energy is negative, $U(r) = -\\frac{GMm}{r}$. Escape velocity from Earth's surface $v_e = \\sqrt{\\frac{2GM}{R}} = \\sqrt{2gR} \\approx 11.2\\text{ km/s}$ is completely independent of projectile mass $m$ AND launch angle! For a circular orbit of radius $r = R + h$, orbital speed is $v_o = \\sqrt{\\frac{GM}{r}}$ (near surface $v_e = \\sqrt{2}\\,v_o$), and virial relations tie energies as $K = \\frac{GMm}{2r}$, $U = -2K$, and total energy $E = -K = \\frac{U}{2} = -\\frac{GMm}{2r}$.",
       "keyFormulas": [
         {
           "formulaId": "P05-F02",
-          "label": "Orbital Energy",
-          "latex": "$E = -\\frac{GMm}{2r},\\; U = -\\frac{GMm}{r},\\; K = \\frac{GMm}{2r}$",
-          "aiExplainContext": "Energy relations for circular orbits."
+          "label": "Escape Speed & Satellite Energy Chain",
+          "latex": "$v_e = \\sqrt{\\frac{2GM}{R}} = \\sqrt{2gR} = \\sqrt{2}\\,v_{o,0},\\qquad E = -\\frac{GMm}{2r} = -K = \\frac{U}{2}$",
+          "aiExplainContext": "Compare escape vs orbital speed and kinetic/potential/total satellite energies."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P05-EX02",
+          "problemLatex": "A satellite in circular orbit has kinetic energy $+4\\times 10^9\\text{ J}$. Find its gravitational potential energy $U$, total energy $E$, and binding energy.",
+          "stepsLatex": [
+            "For circular inverse-square orbits, $U = -2K = -8\\times 10^9\\text{ J}$ and $E = -K = -4\\times 10^9\\text{ J}$.",
+            "Binding energy $= -E = +4\\times 10^9\\text{ J}$."
+          ],
+          "answerLatex": "$U = -8\\times 10^9\\text{ J},\\; E = -4\\times 10^9\\text{ J},\\; \\text{BE} = +4\\times 10^9\\text{ J}$"
+        }
+      ]
+    },
+    {
+      "anchor": "kepler",
+      "heading": "3. Kepler's Three Planetary Laws & Geostationary Orbits",
+      "proseLatex": "Kepler's 1st law places the Sun at one focus of an elliptical orbit; the 2nd law ($\\frac{dA}{dt} = \\frac{L}{2m} = \\text{const}$) expresses angular-momentum conservation under a central force ($v_p r_p = v_a r_a$ at perihelion/aphelion); and the 3rd law gives $T^2 = \\frac{4\\pi^2}{GM}a^3 \\propto a^3$. A geostationary satellite orbits in the equatorial plane from West to East with $T = 24\\text{ h}$ at $h \\approx 35{,}800\\text{ km}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P05-F03",
+          "label": "Kepler's Second & Third Laws",
+          "latex": "$\\frac{dA}{dt} = \\frac{L}{2m} = \\text{const}\\;(v_p r_p = v_a r_a),\\qquad \\left(\\frac{T_1}{T_2}\\right)^2 = \\left(\\frac{a_1}{a_2}\\right)^3$",
+          "aiExplainContext": "Scale orbital periods with semi-major axis and relate areal velocity to L."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "newton-gravity-g",
+      "heading": "1. Newton's Law of Gravitation & Variation of g (Height, Depth, Rotation)",
+      "proseLatex": "Two point masses attract with $F = \\frac{GMm}{r^2}$ where $G = 6.67\\times 10^{-11}\\text{ N\\,m}^2\\text{kg}^{-2}$, giving surface gravity $g = \\frac{GM}{R^2} = \\frac{4}{3}\\pi G\\rho R$. Above the surface at altitude $h$, exact gravity is $g_h = \\frac{g}{(1 + h/R)^2}$ ($\\approx g(1 - 2h/R)$ ONLY when $h \\ll R$!); inside a uniform Earth at depth $d$, exact gravity falls linearly to zero at the centre as $g_d = g\\left(1 - \\frac{d}{R}\\right)$. Earth's rotation reduces effective gravity at latitude $\\lambda$ via $g_{\\text{eff}} = g - \\omega^2 R\\cos^2\\lambda$ (maximum at poles, minimum at equator).",
+      "keyFormulas": [
+        {
+          "formulaId": "P05-F01",
+          "label": "Altitude, Depth & Latitude Variation of g",
+          "latex": "$g_h = \\frac{g}{(1 + h/R)^2},\\qquad g_d = g\\!\\left(1 - \\frac{d}{R}\\right),\\qquad g_\\lambda = g - \\omega^2 R\\cos^2\\lambda$",
+          "aiExplainContext": "Use exact vs small-h altitude formulas and depth/latitude relations."
+        }
+      ]
+    },
+    {
+      "anchor": "potential-escape",
+      "heading": "2. Gravitational Potential, Escape Speed & Bound Satellite Energy",
+      "proseLatex": "With $U(\\infty) = 0$, gravitational potential energy is negative, $U(r) = -\\frac{GMm}{r}$. Escape velocity from Earth's surface $v_e = \\sqrt{\\frac{2GM}{R}} = \\sqrt{2gR} \\approx 11.2\\text{ km/s}$ is completely independent of projectile mass $m$ AND launch angle! For a circular orbit of radius $r = R + h$, orbital speed is $v_o = \\sqrt{\\frac{GM}{r}}$ (near surface $v_e = \\sqrt{2}\\,v_o$), and virial relations tie energies as $K = \\frac{GMm}{2r}$, $U = -2K$, and total energy $E = -K = \\frac{U}{2} = -\\frac{GMm}{2r}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P05-F02",
+          "label": "Escape Speed & Satellite Energy Chain",
+          "latex": "$v_e = \\sqrt{\\frac{2GM}{R}} = \\sqrt{2gR} = \\sqrt{2}\\,v_{o,0},\\qquad E = -\\frac{GMm}{2r} = -K = \\frac{U}{2}$",
+          "aiExplainContext": "Compare escape vs orbital speed and kinetic/potential/total satellite energies."
+        }
+      ]
+    },
+    {
+      "anchor": "kepler",
+      "heading": "3. Kepler's Three Planetary Laws & Geostationary Orbits",
+      "proseLatex": "Kepler's 1st law places the Sun at one focus of an elliptical orbit; the 2nd law ($\\frac{dA}{dt} = \\frac{L}{2m} = \\text{const}$) expresses angular-momentum conservation under a central force ($v_p r_p = v_a r_a$ at perihelion/aphelion); and the 3rd law gives $T^2 = \\frac{4\\pi^2}{GM}a^3 \\propto a^3$. A geostationary satellite orbits in the equatorial plane from West to East with $T = 24\\text{ h}$ at $h \\approx 35{,}800\\text{ km}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P05-F03",
+          "label": "Kepler's Second & Third Laws",
+          "latex": "$\\frac{dA}{dt} = \\frac{L}{2m} = \\text{const}\\;(v_p r_p = v_a r_a),\\qquad \\left(\\frac{T_1}{T_2}\\right)^2 = \\left(\\frac{a_1}{a_2}\\right)^3$",
+          "aiExplainContext": "Scale orbital periods with semi-major axis and relate areal velocity to L."
         }
       ]
     }
@@ -45,18 +130,40 @@
   "workedExamples": [
     {
       "exampleId": "P05-EX01",
-      "problemLatex": "Satellite in circular orbit has total energy $E_0$. Find potential energy.",
+      "problemLatex": "At what altitude $h$ above Earth's surface (radius $R$) does gravitational acceleration drop to $g/9$?",
       "stepsLatex": [
-        "$E = -GMm/2r$, $U = -GMm/r = 2E$.",
-        "$U = 2E_0$... but $U < 0$, so $U = -2|E_0| = -2E_0$."
+        "Since drop is large ($g/9$), MUST use exact formula $\\frac{g}{(1 + h/R)^2} = \\frac{g}{9}$.",
+        "$1 + \\frac{h}{R} = 3 \\implies h = 2R$."
       ],
-      "answerLatex": "$-2E_0$"
+      "answerLatex": "$h = 2R$"
+    },
+    {
+      "exampleId": "P05-EX02",
+      "problemLatex": "A satellite in circular orbit has kinetic energy $+4\\times 10^9\\text{ J}$. Find its gravitational potential energy $U$, total energy $E$, and binding energy.",
+      "stepsLatex": [
+        "For circular inverse-square orbits, $U = -2K = -8\\times 10^9\\text{ J}$ and $E = -K = -4\\times 10^9\\text{ J}$.",
+        "Binding energy $= -E = +4\\times 10^9\\text{ J}$."
+      ],
+      "answerLatex": "$U = -8\\times 10^9\\text{ J},\\; E = -4\\times 10^9\\text{ J},\\; \\text{BE} = +4\\times 10^9\\text{ J}$"
     }
   ],
   "wbjeebTraps": [
-    "For circular orbits: $K = |E|$, $U = 2E$.",
-    "$g$ decreases with altitude as $g(R/(R+h))^2$."
+    "Never use $g_h \\approx g(1 - 2h/R)$ when $h$ is comparable to $R$ (e.g., $h = R/2$ or $h = R$ gives nonsense $g_h \\le 0$ — use $g/(1+h/R)^2$!).",
+    "Escape velocity $v_e = \\sqrt{2GM/R}$ does NOT depend on projectile mass OR launch angle (neglecting air drag).",
+    "Inside a hollow spherical shell, gravitational field $\\vec{E}_g = \\vec{0}$, NOT potential: $V_{\\text{inside}} = V_{\\text{surface}} = -\\frac{GM}{R}$ (non-zero constant!)."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Binding Energy & Escape Velocity of Satellite | Derivation | Gravitation | Physics",
+      "url": "https://www.youtube.com/watch?v=61FH-QX0jVI",
+      "videoId": "61FH-QX0jVI",
+      "duration": "17 min",
+      "durationMinutes": 17,
+      "provider": "YouTube · LearnOpediA",
+      "channelName": "LearnOpediA",
+      "language": "en",
+      "scopeNote": "Orbital speed, escape velocity, total satellite energy and binding energy"
+    }
+  ],
   "practiceSetIds": []
 }

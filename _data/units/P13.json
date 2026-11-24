@@ -14,30 +14,116 @@
     "jelet-2023-q070",
     "jelet-2024-q043"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2024-q043",
+    "jelet-2023-q051",
+    "jelet-2023-q053",
+    "jelet-2022-q056",
+    "jelet-2022-q057",
+    "jelet-2022-q058",
+    "jelet-2023-q070"
+  ],
+  "notes": [
     {
-      "anchor": "snell-law",
-      "heading": "1. Snell's Law & Refractive Index",
-      "proseLatex": "$n = \\sin i / \\sin r$. Light speed in medium $= c/n$.",
+      "anchor": "snell-slab",
+      "heading": "1. Refractive Index, Snell's Law, Apparent Depth & Lateral Shift",
+      "proseLatex": "Absolute refractive index is $n = \\frac{c}{v} = \\frac{\\lambda_0}{\\lambda}$; when light crosses into another medium, FREQUENCY $\\nu$ stays strictly constant while speed $v$ and wavelength $\\lambda$ scale by $1/n$! Snell's law $n_1\\sin\\theta_1 = n_2\\sin\\theta_2$ bends rays toward the normal entering an optically denser medium. Viewed near-normally from air, an object at real depth $d$ appears raised to $d_{\\text{app}} = \\frac{d}{n}$ (normal shift $\\Delta d = d\\left(1 - \\frac{1}{n}\\right)$, additive across stacked slabs!).",
       "keyFormulas": [
         {
           "formulaId": "P13-F01",
-          "label": "Snell's Law",
-          "latex": "$n_1\\sin\\theta_1 = n_2\\sin\\theta_2$",
-          "aiExplainContext": "Boundary condition for refraction."
+          "label": "Snell's Law, Apparent Depth & Parallel-Slab Lateral Shift",
+          "latex": "$n_1\\sin\\theta_1 = n_2\\sin\\theta_2,\\qquad d_{\\text{app}} = \\sum_i \\frac{d_i}{n_i},\\qquad \\Delta x_{\\text{lat}} = \\frac{t\\sin(i - r)}{\\cos r}$",
+          "aiExplainContext": "Track frequency invariance and compute apparent depth or slab shift."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P13-EX01",
+          "problemLatex": "A vessel holds $12\\text{ cm}$ of oil ($n_1 = 1.5$) floating over $16\\text{ cm}$ of water ($n_2 = 4/3$). Find the apparent depth of the bottom viewed normally from air.",
+          "stepsLatex": [
+            "Apparent depths add directly across parallel layers: $d_{\\text{app}} = \\frac{d_1}{n_1} + \\frac{d_2}{n_2}$.",
+            "$d_{\\text{app}} = \\frac{12}{1.5} + \\frac{16}{4/3} = 8 + 12 = 20\\text{ cm}$."
+          ],
+          "answerLatex": "$20\\text{ cm}$"
         }
       ]
     },
     {
-      "anchor": "tir",
-      "heading": "2. Total Internal Reflection",
-      "proseLatex": "TIR occurs when going from denser to rarer medium at angle $>\\theta_c = \\sin^{-1}(n_2/n_1)$.",
+      "anchor": "tir-fibre",
+      "heading": "2. Critical Angle, Total Internal Reflection & Optical Fibres",
+      "proseLatex": "Total internal reflection (TIR) occurs ONLY when light travels from an optically DENSER medium ($n_1$) toward a RARER medium ($n_2 < n_1$) at incidence angle $i > \\theta_c$, where $\\sin\\theta_c = \\frac{n_2}{n_1}$ (into air, $\\sin\\theta_c = 1/n$). Step-index optical fibres trap light inside a core ($n_1$) surrounded by lower-index cladding ($n_2 < n_1$) with numerical aperture $\\text{NA} = \\sin\\theta_{\\text{acc}} = \\sqrt{n_1^2 - n_2^2}$, and a submerged point bulb at depth $h$ illuminates a surface disc of radius $R = \\frac{h}{\\sqrt{n^2 - 1}}$.",
       "keyFormulas": [
         {
           "formulaId": "P13-F02",
-          "label": "Critical Angle",
-          "latex": "$\\theta_c = \\sin^{-1}(n_2/n_1)$",
-          "aiExplainContext": "Threshold angle for total internal reflection."
+          "label": "Critical Angle, Fibre Numerical Aperture & Snell's Window",
+          "latex": "$\\sin\\theta_c = \\frac{n_2}{n_1}\\;(n_1 > n_2),\\qquad \\text{NA} = \\sqrt{n_1^2 - n_2^2},\\qquad R_{\\text{circle}} = h\\tan\\theta_c = \\frac{h}{\\sqrt{n^2 - 1}}$",
+          "aiExplainContext": "Verify TIR conditions, optical fibre acceptance cone, and underwater Snell window."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "prism",
+      "heading": "3. Refraction & Minimum Deviation Through a Prism",
+      "proseLatex": "For a prism of apex angle $A$, geometry gives $r_1 + r_2 = A$ and total deviation $\\delta = i + e - A$. Minimum deviation $\\delta_m$ occurs at symmetric passage ($i = e$ and $r_1 = r_2 = A/2$), yielding the exact prism index formula $n = \\frac{\\sin((A + \\delta_m)/2)}{\\sin(A/2)}$; for a thin small-angle prism ($A \\lesssim 10^\\circ$), $\\delta \\approx (n - 1)A$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P13-F03",
+          "label": "Prism Refractive Index & Thin-Prism Deviation",
+          "latex": "$r_1 + r_2 = A,\\quad \\delta = i + e - A,\\quad n = \\frac{\\sin\\!\\left(\\frac{A + \\delta_m}{2}\\right)}{\\sin\\!\\left(\\frac{A}{2}\\right)},\\quad \\delta_{\\text{thin}} \\approx (n - 1)A$",
+          "aiExplainContext": "Solve symmetric minimum-deviation and thin-prism dispersion problems."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P13-EX02",
+          "problemLatex": "An equilateral glass prism ($A = 60^\\circ$) produces a minimum deviation of $\\delta_m = 30^\\circ$. Find its refractive index $n$.",
+          "stepsLatex": [
+            "$n = \\frac{\\sin((60^\\circ + 30^\\circ)/2)}{\\sin(60^\\circ/2)} = \\frac{\\sin 45^\\circ}{\\sin 30^\\circ}$.",
+            "$n = \\frac{1/\\sqrt{2}}{1/2} = \\sqrt{2} \\approx 1.414$."
+          ],
+          "answerLatex": "$\\sqrt{2}$ ($\\approx 1.414$)"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "snell-slab",
+      "heading": "1. Refractive Index, Snell's Law, Apparent Depth & Lateral Shift",
+      "proseLatex": "Absolute refractive index is $n = \\frac{c}{v} = \\frac{\\lambda_0}{\\lambda}$; when light crosses into another medium, FREQUENCY $\\nu$ stays strictly constant while speed $v$ and wavelength $\\lambda$ scale by $1/n$! Snell's law $n_1\\sin\\theta_1 = n_2\\sin\\theta_2$ bends rays toward the normal entering an optically denser medium. Viewed near-normally from air, an object at real depth $d$ appears raised to $d_{\\text{app}} = \\frac{d}{n}$ (normal shift $\\Delta d = d\\left(1 - \\frac{1}{n}\\right)$, additive across stacked slabs!).",
+      "keyFormulas": [
+        {
+          "formulaId": "P13-F01",
+          "label": "Snell's Law, Apparent Depth & Parallel-Slab Lateral Shift",
+          "latex": "$n_1\\sin\\theta_1 = n_2\\sin\\theta_2,\\qquad d_{\\text{app}} = \\sum_i \\frac{d_i}{n_i},\\qquad \\Delta x_{\\text{lat}} = \\frac{t\\sin(i - r)}{\\cos r}$",
+          "aiExplainContext": "Track frequency invariance and compute apparent depth or slab shift."
+        }
+      ]
+    },
+    {
+      "anchor": "tir-fibre",
+      "heading": "2. Critical Angle, Total Internal Reflection & Optical Fibres",
+      "proseLatex": "Total internal reflection (TIR) occurs ONLY when light travels from an optically DENSER medium ($n_1$) toward a RARER medium ($n_2 < n_1$) at incidence angle $i > \\theta_c$, where $\\sin\\theta_c = \\frac{n_2}{n_1}$ (into air, $\\sin\\theta_c = 1/n$). Step-index optical fibres trap light inside a core ($n_1$) surrounded by lower-index cladding ($n_2 < n_1$) with numerical aperture $\\text{NA} = \\sin\\theta_{\\text{acc}} = \\sqrt{n_1^2 - n_2^2}$, and a submerged point bulb at depth $h$ illuminates a surface disc of radius $R = \\frac{h}{\\sqrt{n^2 - 1}}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P13-F02",
+          "label": "Critical Angle, Fibre Numerical Aperture & Snell's Window",
+          "latex": "$\\sin\\theta_c = \\frac{n_2}{n_1}\\;(n_1 > n_2),\\qquad \\text{NA} = \\sqrt{n_1^2 - n_2^2},\\qquad R_{\\text{circle}} = h\\tan\\theta_c = \\frac{h}{\\sqrt{n^2 - 1}}$",
+          "aiExplainContext": "Verify TIR conditions, optical fibre acceptance cone, and underwater Snell window."
+        }
+      ]
+    },
+    {
+      "anchor": "prism",
+      "heading": "3. Refraction & Minimum Deviation Through a Prism",
+      "proseLatex": "For a prism of apex angle $A$, geometry gives $r_1 + r_2 = A$ and total deviation $\\delta = i + e - A$. Minimum deviation $\\delta_m$ occurs at symmetric passage ($i = e$ and $r_1 = r_2 = A/2$), yielding the exact prism index formula $n = \\frac{\\sin((A + \\delta_m)/2)}{\\sin(A/2)}$; for a thin small-angle prism ($A \\lesssim 10^\\circ$), $\\delta \\approx (n - 1)A$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P13-F03",
+          "label": "Prism Refractive Index & Thin-Prism Deviation",
+          "latex": "$r_1 + r_2 = A,\\quad \\delta = i + e - A,\\quad n = \\frac{\\sin\\!\\left(\\frac{A + \\delta_m}{2}\\right)}{\\sin\\!\\left(\\frac{A}{2}\\right)},\\quad \\delta_{\\text{thin}} \\approx (n - 1)A$",
+          "aiExplainContext": "Solve symmetric minimum-deviation and thin-prism dispersion problems."
         }
       ]
     }
@@ -45,17 +131,40 @@
   "workedExamples": [
     {
       "exampleId": "P13-EX01",
-      "problemLatex": "Find critical angle for glass-air interface ($n = 1.5$).",
+      "problemLatex": "A vessel holds $12\\text{ cm}$ of oil ($n_1 = 1.5$) floating over $16\\text{ cm}$ of water ($n_2 = 4/3$). Find the apparent depth of the bottom viewed normally from air.",
       "stepsLatex": [
-        "$\\theta_c = \\sin^{-1}(1/1.5) = \\sin^{-1}(2/3)$."
+        "Apparent depths add directly across parallel layers: $d_{\\text{app}} = \\frac{d_1}{n_1} + \\frac{d_2}{n_2}$.",
+        "$d_{\\text{app}} = \\frac{12}{1.5} + \\frac{16}{4/3} = 8 + 12 = 20\\text{ cm}$."
       ],
-      "answerLatex": "$\\theta_c = \\sin^{-1}(2/3)$"
+      "answerLatex": "$20\\text{ cm}$"
+    },
+    {
+      "exampleId": "P13-EX02",
+      "problemLatex": "An equilateral glass prism ($A = 60^\\circ$) produces a minimum deviation of $\\delta_m = 30^\\circ$. Find its refractive index $n$.",
+      "stepsLatex": [
+        "$n = \\frac{\\sin((60^\\circ + 30^\\circ)/2)}{\\sin(60^\\circ/2)} = \\frac{\\sin 45^\\circ}{\\sin 30^\\circ}$.",
+        "$n = \\frac{1/\\sqrt{2}}{1/2} = \\sqrt{2} \\approx 1.414$."
+      ],
+      "answerLatex": "$\\sqrt{2}$ ($\\approx 1.414$)"
     }
   ],
   "wbjeebTraps": [
-    "Refractive index decreases with wavelength (dispersion).",
-    "Optical fibres use TIR for light guidance."
+    "Frequency $\\nu$ (and photon energy $h\\nu$) NEVER changes on refraction — only speed $v = c/n$ and wavelength $\\lambda = \\lambda_0/n$ change!",
+    "TIR is IMPOSSIBLE when light travels from rarer to denser medium (e.g., air into glass), regardless of angle.",
+    "Optical fibre requires $n_{\\text{core}} > n_{\\text{cladding}}$ — never reverse the inequality!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Snell's Law & Refractive Index | Refraction of Light | Physics",
+      "url": "https://www.youtube.com/watch?v=CMhrq-j8ENg",
+      "videoId": "CMhrq-j8ENg",
+      "duration": "15 min",
+      "durationMinutes": 15,
+      "provider": "YouTube · Simple Physics with Sir Ayaz",
+      "channelName": "Simple Physics with Sir Ayaz",
+      "language": "en",
+      "scopeNote": "Refractive index, Snell's law, apparent depth, prism deviation & TIR"
+    }
+  ],
   "practiceSetIds": []
 }

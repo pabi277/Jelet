@@ -12,30 +12,114 @@
     "jelet-2025-q096",
     "jelet-2025-q097"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q096",
+    "jelet-2025-q097",
+    "jelet-2024-q096",
+    "jelet-2022-q096",
+    "jelet-2022-q099"
+  ],
+  "notes": [
     {
-      "anchor": "band-diagrams",
-      "heading": "1. Energy Bands & Semiconductors",
-      "proseLatex": "Conductor, insulator, semiconductor. Intrinsic vs extrinsic ($n$-type, $p$-type).",
+      "anchor": "semiconductor-physics",
+      "heading": "1. Band Gap, Doping, Mass-Action Law & Drift Mobility",
+      "proseLatex": "Room-temperature band gaps are $E_g \\approx 0.72\\text{ eV}$ ($\\text{Ge}$) and $1.12\\text{ eV}$ ($\\text{Si}$), giving semiconductors a NEGATIVE temperature coefficient of resistance! Pentavalent Group-15 donors ($\\text{P, As, Sb}$) create $n$-type (electrons majority, immobile positive donor ions — the crystal as a whole remains ELECTRICALLY NEUTRAL!), while trivalent Group-13 acceptors ($\\text{B, Al, Ga, In}$) create $p$-type. At thermal equilibrium, mass-action law $n\\cdot p = n_i^2$ holds in BOTH intrinsic and doped semiconductors, with conductivity $\\sigma = q(n\\mu_n + p\\mu_p)$.",
       "keyFormulas": [
         {
           "formulaId": "E06-F01",
-          "label": "Doping Types",
-          "latex": "$n$-type: donor (electrons); $p$-type: acceptor (holes)",
-          "aiExplainContext": "Extrinsic semiconductor classification."
+          "label": "Mass-Action Law & Drift Conductivity",
+          "latex": "$n\\cdot p = n_i^2,\\qquad \\sigma = q(n\\mu_n + p\\mu_p),\\qquad V_T = \\frac{kT}{q} \\approx 26\\text{ mV at }300\\text{ K}$",
+          "aiExplainContext": "Compute minority carrier concentration from n_i^2 / N_D and semiconductor conductivity."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E06-EX01",
+          "problemLatex": "Silicon ($n_i = 1.5\\times 10^{10}\\text{ cm}^{-3}$) is doped with $N_D = 4.5\\times 10^{15}\\text{ cm}^{-3}$ phosphorus atoms. Find equilibrium hole concentration $p_0$.",
+          "stepsLatex": [
+            "Majority electrons $n_0 \\approx N_D = 4.5\\times 10^{15}\\text{ cm}^{-3}$.",
+            "By mass-action law, $p_0 = \\frac{n_i^2}{n_0} = \\frac{2.25\\times 10^{20}}{4.5\\times 10^{15}} = 5\\times 10^4\\text{ cm}^{-3}$."
+          ],
+          "answerLatex": "$5\\times 10^4\\text{ cm}^{-3}$"
         }
       ]
     },
     {
-      "anchor": "devices",
-      "heading": "2. Diode, BJT, MOSFET & CMOS",
-      "proseLatex": "PN junction, Zener. BJT: $I_E = I_B + I_C$, $\\alpha, \\beta$ relations. MOSFET & CMOS fundamentals.",
+      "anchor": "diodes-rectifiers",
+      "heading": "2. p-n Junction, Zener Voltage Regulator & Rectifier Parameters",
+      "proseLatex": "Cut-in barrier voltage is $\\sim 0.7\\text{ V}$ ($\\text{Si}$) and $\\sim 0.3\\text{ V}$ ($\\text{Ge}$), decreasing by $\\sim 2\\text{ mV}/^\\circ\\text{C}$ as temperature rises. Forward bias narrows the depletion layer; reverse bias widens it (varactor capacitance $C_j \\downarrow$). Heavily doped Zener diodes operate in REVERSE breakdown as shunt voltage regulators! Rectifier comparison: Half-Wave ($\\eta_{\\max} = 40.6\\%,\\; \\text{RF} = 1.21,\\; f_{\\text{ripple}} = f$); Centre-Tap Full-Wave ($\\eta_{\\max} = 81.2\\%,\\; \\text{RF} = 0.482,\\; f_{\\text{ripple}} = 2f,\\; \\text{PIV} = 2V_m$); Bridge Full-Wave ($\\eta_{\\max} = 81.2\\%,\\; \\text{PIV} = V_m$!).",
       "keyFormulas": [
         {
           "formulaId": "E06-F02",
-          "label": "BJT Current Relation",
-          "latex": "$I_E = I_B + I_C$",
-          "aiExplainContext": "Current conservation in a bipolar transistor."
+          "label": "Half-Wave vs Centre-Tap vs Bridge Rectifier Benchmarks",
+          "latex": "$\\text{HWR}: \\eta=40.6\\%,\\;\\text{PIV}=V_m;\\quad \\text{FWR(CT)}: \\eta=81.2\\%,\\;\\text{PIV}=2V_m;\\quad \\text{Bridge}: \\eta=81.2\\%,\\;\\text{PIV}=V_m$",
+          "aiExplainContext": "Recall efficiency, ripple factor, ripple frequency, and PIV of HWR/CT-FWR/Bridge."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "bjt-mosfet-cmos",
+      "heading": "3. BJT (α, β), MOSFET & CMOS Low-Power Logic",
+      "proseLatex": "A BJT is a bipolar CURRENT-controlled device ($I_E = I_B + I_C$); in the ACTIVE region (E-B forward, C-B reverse) it amplifies with $\\beta = \\frac{I_C}{I_B} = \\frac{\\alpha}{1 - \\alpha}$ ($\\alpha = \\frac{\\beta}{\\beta + 1} < 1$), whereas cutoff (both reverse) + saturation (both forward) act as digital switches. A MOSFET is a unipolar VOLTAGE-controlled majority-carrier device with practically infinite gate input impedance ($I_G \\approx 0$). Complementary MOS (CMOS) pairs a pull-up PMOS with a pull-down NMOS, giving NEAR-ZERO static power dissipation and full rail-to-rail noise margins!",
+      "keyFormulas": [
+        {
+          "formulaId": "E06-F03",
+          "label": "BJT Current Gains & Active Biasing Rule",
+          "latex": "$I_E = I_B + I_C,\\qquad \\beta = \\frac{\\alpha}{1 - \\alpha},\\qquad \\alpha = \\frac{\\beta}{\\beta + 1},\\qquad I_{CEO} = (1 + \\beta)I_{CBO}$",
+          "aiExplainContext": "Convert alpha <-> beta, check BJT region of operation, and contrast BJT vs MOSFET/CMOS."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E06-EX02",
+          "problemLatex": "A transistor has common-base current gain $\\alpha = 0.98$ and base current $I_B = 50\\,\\mu\\text{A}$. Find $\\beta$ and emitter current $I_E$.",
+          "stepsLatex": [
+            "$\\beta = \\frac{0.98}{1 - 0.98} = 49$.",
+            "$I_E = (1 + \\beta)I_B = 50 \\times 50\\,\\mu\\text{A} = 2500\\,\\mu\\text{A} = 2.5\\text{ mA}$."
+          ],
+          "answerLatex": "$\\beta = 49,\\; I_E = 2.5\\text{ mA}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "semiconductor-physics",
+      "heading": "1. Band Gap, Doping, Mass-Action Law & Drift Mobility",
+      "proseLatex": "Room-temperature band gaps are $E_g \\approx 0.72\\text{ eV}$ ($\\text{Ge}$) and $1.12\\text{ eV}$ ($\\text{Si}$), giving semiconductors a NEGATIVE temperature coefficient of resistance! Pentavalent Group-15 donors ($\\text{P, As, Sb}$) create $n$-type (electrons majority, immobile positive donor ions — the crystal as a whole remains ELECTRICALLY NEUTRAL!), while trivalent Group-13 acceptors ($\\text{B, Al, Ga, In}$) create $p$-type. At thermal equilibrium, mass-action law $n\\cdot p = n_i^2$ holds in BOTH intrinsic and doped semiconductors, with conductivity $\\sigma = q(n\\mu_n + p\\mu_p)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E06-F01",
+          "label": "Mass-Action Law & Drift Conductivity",
+          "latex": "$n\\cdot p = n_i^2,\\qquad \\sigma = q(n\\mu_n + p\\mu_p),\\qquad V_T = \\frac{kT}{q} \\approx 26\\text{ mV at }300\\text{ K}$",
+          "aiExplainContext": "Compute minority carrier concentration from n_i^2 / N_D and semiconductor conductivity."
+        }
+      ]
+    },
+    {
+      "anchor": "diodes-rectifiers",
+      "heading": "2. p-n Junction, Zener Voltage Regulator & Rectifier Parameters",
+      "proseLatex": "Cut-in barrier voltage is $\\sim 0.7\\text{ V}$ ($\\text{Si}$) and $\\sim 0.3\\text{ V}$ ($\\text{Ge}$), decreasing by $\\sim 2\\text{ mV}/^\\circ\\text{C}$ as temperature rises. Forward bias narrows the depletion layer; reverse bias widens it (varactor capacitance $C_j \\downarrow$). Heavily doped Zener diodes operate in REVERSE breakdown as shunt voltage regulators! Rectifier comparison: Half-Wave ($\\eta_{\\max} = 40.6\\%,\\; \\text{RF} = 1.21,\\; f_{\\text{ripple}} = f$); Centre-Tap Full-Wave ($\\eta_{\\max} = 81.2\\%,\\; \\text{RF} = 0.482,\\; f_{\\text{ripple}} = 2f,\\; \\text{PIV} = 2V_m$); Bridge Full-Wave ($\\eta_{\\max} = 81.2\\%,\\; \\text{PIV} = V_m$!).",
+      "keyFormulas": [
+        {
+          "formulaId": "E06-F02",
+          "label": "Half-Wave vs Centre-Tap vs Bridge Rectifier Benchmarks",
+          "latex": "$\\text{HWR}: \\eta=40.6\\%,\\;\\text{PIV}=V_m;\\quad \\text{FWR(CT)}: \\eta=81.2\\%,\\;\\text{PIV}=2V_m;\\quad \\text{Bridge}: \\eta=81.2\\%,\\;\\text{PIV}=V_m$",
+          "aiExplainContext": "Recall efficiency, ripple factor, ripple frequency, and PIV of HWR/CT-FWR/Bridge."
+        }
+      ]
+    },
+    {
+      "anchor": "bjt-mosfet-cmos",
+      "heading": "3. BJT (α, β), MOSFET & CMOS Low-Power Logic",
+      "proseLatex": "A BJT is a bipolar CURRENT-controlled device ($I_E = I_B + I_C$); in the ACTIVE region (E-B forward, C-B reverse) it amplifies with $\\beta = \\frac{I_C}{I_B} = \\frac{\\alpha}{1 - \\alpha}$ ($\\alpha = \\frac{\\beta}{\\beta + 1} < 1$), whereas cutoff (both reverse) + saturation (both forward) act as digital switches. A MOSFET is a unipolar VOLTAGE-controlled majority-carrier device with practically infinite gate input impedance ($I_G \\approx 0$). Complementary MOS (CMOS) pairs a pull-up PMOS with a pull-down NMOS, giving NEAR-ZERO static power dissipation and full rail-to-rail noise margins!",
+      "keyFormulas": [
+        {
+          "formulaId": "E06-F03",
+          "label": "BJT Current Gains & Active Biasing Rule",
+          "latex": "$I_E = I_B + I_C,\\qquad \\beta = \\frac{\\alpha}{1 - \\alpha},\\qquad \\alpha = \\frac{\\beta}{\\beta + 1},\\qquad I_{CEO} = (1 + \\beta)I_{CBO}$",
+          "aiExplainContext": "Convert alpha <-> beta, check BJT region of operation, and contrast BJT vs MOSFET/CMOS."
         }
       ]
     }
@@ -43,17 +127,40 @@
   "workedExamples": [
     {
       "exampleId": "E06-EX01",
-      "problemLatex": "PNP transistor: $I_e = 10$ mA, $I_b = 0.1$ mA. Find $I_c$.",
+      "problemLatex": "Silicon ($n_i = 1.5\\times 10^{10}\\text{ cm}^{-3}$) is doped with $N_D = 4.5\\times 10^{15}\\text{ cm}^{-3}$ phosphorus atoms. Find equilibrium hole concentration $p_0$.",
       "stepsLatex": [
-        "$I_c = I_e - I_b = 10 - 0.1 = 9.9$ mA."
+        "Majority electrons $n_0 \\approx N_D = 4.5\\times 10^{15}\\text{ cm}^{-3}$.",
+        "By mass-action law, $p_0 = \\frac{n_i^2}{n_0} = \\frac{2.25\\times 10^{20}}{4.5\\times 10^{15}} = 5\\times 10^4\\text{ cm}^{-3}$."
       ],
-      "answerLatex": "$9.9$ mA"
+      "answerLatex": "$5\\times 10^4\\text{ cm}^{-3}$"
+    },
+    {
+      "exampleId": "E06-EX02",
+      "problemLatex": "A transistor has common-base current gain $\\alpha = 0.98$ and base current $I_B = 50\\,\\mu\\text{A}$. Find $\\beta$ and emitter current $I_E$.",
+      "stepsLatex": [
+        "$\\beta = \\frac{0.98}{1 - 0.98} = 49$.",
+        "$I_E = (1 + \\beta)I_B = 50 \\times 50\\,\\mu\\text{A} = 2500\\,\\mu\\text{A} = 2.5\\text{ mA}$."
+      ],
+      "answerLatex": "$\\beta = 49,\\; I_E = 2.5\\text{ mA}$"
     }
   ],
   "wbjeebTraps": [
-    "$\\alpha = I_C/I_E$, $\\beta = I_C/I_B$, $\\beta = \\alpha/(1-\\alpha)$.",
-    "CMOS uses complementary NMOS and PMOS for low static power."
+    "An $n$-type or $p$-type semiconductor crystal is ELECTRICALLY NEUTRAL overall — 'n-type' refers to majority mobile carriers, NOT net negative charge!",
+    "PIV trap: Centre-Tapped full-wave rectifier requires diode $\\text{PIV} = 2V_m$, whereas a $4$-diode Bridge rectifier needs only $\\text{PIV} = V_m$!",
+    "Common-Emitter (CE) amplifier introduces $180^\\circ$ phase inversion between base input and collector output; Common-Collector (emitter follower) and Common-Base have $0^\\circ$ phase shift."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Semiconductor p- and n-junction diode working, experiment and its characteristics",
+      "url": "https://www.youtube.com/watch?v=J5twzFbiPYU",
+      "videoId": "J5twzFbiPYU",
+      "duration": "16 min",
+      "durationMinutes": 16,
+      "provider": "YouTube · Vyom Hans",
+      "channelName": "Vyom Hans",
+      "language": "en",
+      "scopeNote": "Intrinsic/extrinsic semiconductors, p-n depletion barrier, forward/reverse I-V & rectifiers"
+    }
+  ],
   "practiceSetIds": []
 }

@@ -23,30 +23,124 @@
     "jelet-2025-q059",
     "jelet-2025-q067"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q050",
+    "jelet-2025-q052",
+    "jelet-2025-q053",
+    "jelet-2025-q059",
+    "jelet-2024-q045",
+    "jelet-2024-q054",
+    "jelet-2024-q064",
+    "jelet-2023-q042",
+    "jelet-2023-q045",
+    "jelet-2023-q054",
+    "jelet-2022-q046",
+    "jelet-2022-q061",
+    "jelet-2025-q067",
+    "jelet-2024-q067",
+    "jelet-2022-q068"
+  ],
+  "notes": [
     {
-      "anchor": "newton-laws",
-      "heading": "1. Newton's Laws & Momentum",
-      "proseLatex": "Newton's three laws, force, momentum, impulse. Conservation of momentum in collisions.",
+      "anchor": "newton-momentum",
+      "heading": "1. Newton's Laws, Impulse & Linear Momentum Conservation",
+      "proseLatex": "Newton's second law in general form is $\\vec{F}_{\\text{ext}} = \\frac{d\\vec{p}}{dt} = m\\vec{a} + \\vec{v}_{\\text{rel}}\\frac{dm}{dt}$ where $\\vec{p} = m\\vec{v}$. Impulse $\\vec{J} = \\int \\vec{F}\\,dt = \\Delta\\vec{p}$ equals the area under the $F$-$t$ graph. When $\\vec{F}_{\\text{ext}} = \\vec{0}$ (explosions, gun recoil, collisions), total system momentum $\\sum m_i \\vec{v}_i$ stays strictly conserved regardless of internal inelastic losses. Action-reaction pairs ($\\vec{F}_{AB} = -\\vec{F}_{BA}$) ALWAYS act on two DIFFERENT bodies, so they never cancel on a single free-body diagram.",
       "keyFormulas": [
         {
           "formulaId": "P03-F01",
-          "label": "Conservation of Momentum",
-          "latex": "$m_1\\vec{v}_1 + m_2\\vec{v}_2 = m_1\\vec{v}_1' + m_2\\vec{v}_2'$",
-          "aiExplainContext": "Applies when net external force is zero."
+          "label": "Impulse-Momentum & Apparent Weight in Lift",
+          "latex": "$\\vec{J} = \\int_{t_1}^{t_2}\\vec{F}\\,dt = \\Delta\\vec{p},\\qquad N_{\\text{lift}} = m(g + a_{\\uparrow})\\;\\text{or}\\;m(g - a_{\\downarrow})$",
+          "aiExplainContext": "Compute impulse from F-t graphs and apparent normal force inside accelerating frames."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P03-EX01",
+          "problemLatex": "Two masses $m_1 = 3\\text{ kg}$ and $m_2 = 5\\text{ kg}$ hang over a light frictionless Atwood pulley ($g = 10\\text{ m/s}^2$). Find acceleration $a$ and string tension $T$.",
+          "stepsLatex": [
+            "$a = \\frac{m_2 - m_1}{m_1 + m_2}g = \\frac{5 - 3}{8}\\times 10 = 2.5\\text{ m/s}^2$.",
+            "$T = \\frac{2 m_1 m_2}{m_1 + m_2}g = \\frac{2(3)(5)}{8}\\times 10 = 37.5\\text{ N}$."
+          ],
+          "answerLatex": "$a = 2.5\\text{ m/s}^2,\\; T = 37.5\\text{ N}$"
         }
       ]
     },
     {
-      "anchor": "friction",
-      "heading": "2. Friction & Circular Motion",
-      "proseLatex": "Static/dynamic friction, angle of repose, banking of roads, centripetal force.",
+      "anchor": "friction-incline",
+      "heading": "2. Static vs Kinetic Friction, Angle of Repose & Pulling vs Pushing",
+      "proseLatex": "Static friction is SELF-ADJUSTING up to its limiting ceiling $0 \\le f_s \\le \\mu_s N$ ($f_s$ equals applied tangential load until slip begins!), whereas kinetic friction once sliding is $f_k = \\mu_k N$ ($\\mu_k < \\mu_s$). Angle of friction $\\lambda = \\arctan\\mu_s$ equals the angle of repose $\\theta_r$ on an inclined plane. Pulling a lawn-roller at angle $\\theta$ reduces $N = mg - F\\sin\\theta$ and requires less force than pushing ($N = mg + F\\sin\\theta$).",
       "keyFormulas": [
         {
           "formulaId": "P03-F02",
-          "label": "Centripetal Force",
-          "latex": "$F_c = mv^2/r$",
-          "aiExplainContext": "Net force toward center in circular motion."
+          "label": "Self-Adjusting Static Friction & Angle of Repose",
+          "latex": "$f_s = \\min(F_{\\text{drive}},\\, \\mu_s N),\\qquad \\tan\\theta_r = \\mu_s,\\qquad F_{\\text{pull, min}} = \\frac{\\mu_s mg}{\\sqrt{1 + \\mu_s^2}}$",
+          "aiExplainContext": "Avoid plugging mu_s*N blindly when block remains at rest."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P03-EX02",
+          "problemLatex": "A $10\\text{ kg}$ block rests on a horizontal floor ($\\mu_s = 0.5, \\mu_k = 0.4, g = 10\\text{ m/s}^2$). What friction force acts when a horizontal pull of $32\\text{ N}$ is applied?",
+          "stepsLatex": [
+            "Limiting static friction $f_{s,\\max} = \\mu_s mg = 0.5 \\times 100 = 50\\text{ N}$.",
+            "Since $F = 32\\text{ N} < 50\\text{ N}$, the block stays at rest and self-adjusting static friction equals $32\\text{ N}$ (NOT $50\\text{ N}$!)."
+          ],
+          "answerLatex": "$32\\text{ N}$"
+        }
+      ]
+    },
+    {
+      "anchor": "circular-banking",
+      "heading": "3. Circular Dynamics & Road Banking",
+      "proseLatex": "Centripetal force $mv^2/r$ is NOT an extra physical interaction — it is the net inward resultant of tension, normal reaction, gravity, or friction. On a flat unbanked turn, $v_{\\max} = \\sqrt{\\mu_s r g}$; on a frictionless banked curve at angle $\\theta$, optimum no-wear speed satisfies $\\tan\\theta = \\frac{v^2}{rg}$, and with banking plus friction, $v_{\\max} = \\sqrt{rg\\,\\frac{\\tan\\theta + \\mu_s}{1 - \\mu_s\\tan\\theta}}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P03-F03",
+          "label": "Unbanked & Banked Curve Safe Speeds",
+          "latex": "$v_{\\max,\\text{flat}} = \\sqrt{\\mu_s r g},\\qquad \\tan\\theta_{\\text{bank}} = \\frac{v_{\\text{opt}}^2}{rg}$",
+          "aiExplainContext": "Compute safe cornering speeds and optimum banking angles."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "newton-momentum",
+      "heading": "1. Newton's Laws, Impulse & Linear Momentum Conservation",
+      "proseLatex": "Newton's second law in general form is $\\vec{F}_{\\text{ext}} = \\frac{d\\vec{p}}{dt} = m\\vec{a} + \\vec{v}_{\\text{rel}}\\frac{dm}{dt}$ where $\\vec{p} = m\\vec{v}$. Impulse $\\vec{J} = \\int \\vec{F}\\,dt = \\Delta\\vec{p}$ equals the area under the $F$-$t$ graph. When $\\vec{F}_{\\text{ext}} = \\vec{0}$ (explosions, gun recoil, collisions), total system momentum $\\sum m_i \\vec{v}_i$ stays strictly conserved regardless of internal inelastic losses. Action-reaction pairs ($\\vec{F}_{AB} = -\\vec{F}_{BA}$) ALWAYS act on two DIFFERENT bodies, so they never cancel on a single free-body diagram.",
+      "keyFormulas": [
+        {
+          "formulaId": "P03-F01",
+          "label": "Impulse-Momentum & Apparent Weight in Lift",
+          "latex": "$\\vec{J} = \\int_{t_1}^{t_2}\\vec{F}\\,dt = \\Delta\\vec{p},\\qquad N_{\\text{lift}} = m(g + a_{\\uparrow})\\;\\text{or}\\;m(g - a_{\\downarrow})$",
+          "aiExplainContext": "Compute impulse from F-t graphs and apparent normal force inside accelerating frames."
+        }
+      ]
+    },
+    {
+      "anchor": "friction-incline",
+      "heading": "2. Static vs Kinetic Friction, Angle of Repose & Pulling vs Pushing",
+      "proseLatex": "Static friction is SELF-ADJUSTING up to its limiting ceiling $0 \\le f_s \\le \\mu_s N$ ($f_s$ equals applied tangential load until slip begins!), whereas kinetic friction once sliding is $f_k = \\mu_k N$ ($\\mu_k < \\mu_s$). Angle of friction $\\lambda = \\arctan\\mu_s$ equals the angle of repose $\\theta_r$ on an inclined plane. Pulling a lawn-roller at angle $\\theta$ reduces $N = mg - F\\sin\\theta$ and requires less force than pushing ($N = mg + F\\sin\\theta$).",
+      "keyFormulas": [
+        {
+          "formulaId": "P03-F02",
+          "label": "Self-Adjusting Static Friction & Angle of Repose",
+          "latex": "$f_s = \\min(F_{\\text{drive}},\\, \\mu_s N),\\qquad \\tan\\theta_r = \\mu_s,\\qquad F_{\\text{pull, min}} = \\frac{\\mu_s mg}{\\sqrt{1 + \\mu_s^2}}$",
+          "aiExplainContext": "Avoid plugging mu_s*N blindly when block remains at rest."
+        }
+      ]
+    },
+    {
+      "anchor": "circular-banking",
+      "heading": "3. Circular Dynamics & Road Banking",
+      "proseLatex": "Centripetal force $mv^2/r$ is NOT an extra physical interaction — it is the net inward resultant of tension, normal reaction, gravity, or friction. On a flat unbanked turn, $v_{\\max} = \\sqrt{\\mu_s r g}$; on a frictionless banked curve at angle $\\theta$, optimum no-wear speed satisfies $\\tan\\theta = \\frac{v^2}{rg}$, and with banking plus friction, $v_{\\max} = \\sqrt{rg\\,\\frac{\\tan\\theta + \\mu_s}{1 - \\mu_s\\tan\\theta}}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P03-F03",
+          "label": "Unbanked & Banked Curve Safe Speeds",
+          "latex": "$v_{\\max,\\text{flat}} = \\sqrt{\\mu_s r g},\\qquad \\tan\\theta_{\\text{bank}} = \\frac{v_{\\text{opt}}^2}{rg}$",
+          "aiExplainContext": "Compute safe cornering speeds and optimum banking angles."
         }
       ]
     }
@@ -54,18 +148,40 @@
   "workedExamples": [
     {
       "exampleId": "P03-EX01",
-      "problemLatex": "A 2 kg block hangs from a pulley. $F = 40$ N is applied. Find work by tension.",
+      "problemLatex": "Two masses $m_1 = 3\\text{ kg}$ and $m_2 = 5\\text{ kg}$ hang over a light frictionless Atwood pulley ($g = 10\\text{ m/s}^2$). Find acceleration $a$ and string tension $T$.",
       "stepsLatex": [
-        "$T = 40$ N, $a = 10$ m/s², $s = 2$ m.",
-        "Work by tension $= T \\cdot s = 80$ J."
+        "$a = \\frac{m_2 - m_1}{m_1 + m_2}g = \\frac{5 - 3}{8}\\times 10 = 2.5\\text{ m/s}^2$.",
+        "$T = \\frac{2 m_1 m_2}{m_1 + m_2}g = \\frac{2(3)(5)}{8}\\times 10 = 37.5\\text{ N}$."
       ],
-      "answerLatex": "$80$ J"
+      "answerLatex": "$a = 2.5\\text{ m/s}^2,\\; T = 37.5\\text{ N}$"
+    },
+    {
+      "exampleId": "P03-EX02",
+      "problemLatex": "A $10\\text{ kg}$ block rests on a horizontal floor ($\\mu_s = 0.5, \\mu_k = 0.4, g = 10\\text{ m/s}^2$). What friction force acts when a horizontal pull of $32\\text{ N}$ is applied?",
+      "stepsLatex": [
+        "Limiting static friction $f_{s,\\max} = \\mu_s mg = 0.5 \\times 100 = 50\\text{ N}$.",
+        "Since $F = 32\\text{ N} < 50\\text{ N}$, the block stays at rest and self-adjusting static friction equals $32\\text{ N}$ (NOT $50\\text{ N}$!)."
+      ],
+      "answerLatex": "$32\\text{ N}$"
     }
   ],
   "wbjeebTraps": [
-    "Inelastic collisions conserve momentum but not KE.",
-    "Friction always opposes relative motion."
+    "Static friction trap: if $F_{\\text{applied}} < \\mu_s N$, friction equals $F_{\\text{applied}}$, NEVER $\\mu_s N$!",
+    "Normal force $N$ does NOT equal $mg$ on inclines ($N = mg\\cos\\theta$), in accelerating lifts, or under oblique pulls ($N = mg \\mp F\\sin\\theta$).",
+    "In an inertial frame, never draw both an outward 'centrifugal force' AND set $\\sum F_{\\text{in}} = mv^2/r$ — pick EITHER inertial FBD OR rotating frame with pseudo-force, never both."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Newton's Laws of Motion - 6 (Basics of Friction) | Class 11 Physics",
+      "url": "https://www.youtube.com/watch?v=Tw4PwDrfldE",
+      "videoId": "Tw4PwDrfldE",
+      "duration": "38 min",
+      "durationMinutes": 38,
+      "provider": "YouTube · Sri Chaitanya Academy NEET",
+      "channelName": "Sri Chaitanya Academy NEET",
+      "language": "en",
+      "scopeNote": "Free-body diagrams, static vs kinetic friction, angle of repose & inclined planes"
+    }
+  ],
   "practiceSetIds": []
 }

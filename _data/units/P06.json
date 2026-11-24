@@ -10,30 +10,112 @@
     "jelet-2024-q044",
     "jelet-2025-q055"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q055",
+    "jelet-2024-q044",
+    "jelet-2022-q050"
+  ],
+  "notes": [
     {
-      "anchor": "stress-strain",
-      "heading": "1. Stress-Strain & Hooke's Law",
-      "proseLatex": "Stress $= F/A$, strain $= \\Delta L/L$. Hooke's law: stress $\\propto$ strain within elastic limit.",
+      "anchor": "stress-strain-hooke",
+      "heading": "1. Stress, Strain, Hooke's Law & Material Moduli (Y, K, η)",
+      "proseLatex": "Within the proportional limit, restoring stress $\\sigma = F/A$ ($\\text{N/m}^2$ or $\\text{Pa}$) is proportional to dimensionless strain $\\varepsilon$. Longitudinal stretch gives Young's modulus $Y = \\frac{FL}{A\\Delta L}$ (equivalent spring stiffness $k_{\\text{wire}} = \\frac{YA}{L}$), hydrostatic pressure gives Bulk modulus $K = -\\frac{\\Delta P}{\\Delta V/V}$ (compressibility $\\beta = 1/K$), and tangential shear gives rigidity modulus $\\eta = \\frac{F_t/A}{\\theta}$. Steel has a higher Young's modulus than rubber, making steel MORE elastic in physics!",
       "keyFormulas": [
         {
           "formulaId": "P06-F01",
-          "label": "Young's Modulus",
-          "latex": "$Y = \\frac{F/A}{\\Delta L/L} = \\frac{FL}{A\\Delta L}$",
-          "aiExplainContext": "Ratio of stress to longitudinal strain."
+          "label": "Young's, Bulk & Shear Moduli + Wire Stiffness",
+          "latex": "$Y = \\frac{FL}{A\\Delta L},\\quad k_{\\text{eq}} = \\frac{YA}{L},\\quad K = -V\\frac{\\Delta P}{\\Delta V},\\quad \\eta = \\frac{\\tau}{\\theta}$",
+          "aiExplainContext": "Treat stretched rods as springs of stiffness YA/L and compare elastic moduli."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P06-EX01",
+          "problemLatex": "Two wires of the SAME material have length ratio $L_1:L_2 = 1:2$ and radius ratio $r_1:r_2 = 2:1$. Under equal tension $F$, find $\\Delta L_1 : \\Delta L_2$.",
+          "stepsLatex": [
+            "Same material means $Y_1 = Y_2$; from $\\Delta L = \\frac{FL}{\\pi r^2 Y}$, $\\Delta L \\propto \\frac{L}{r^2}$.",
+            "$\\frac{\\Delta L_1}{\\Delta L_2} = \\frac{L_1}{L_2}\\left(\\frac{r_2}{r_1}\\right)^2 = \\frac{1}{2}\\left(\\frac{1}{2}\\right)^2 = \\frac{1}{8}$."
+          ],
+          "answerLatex": "$1 : 8$"
         }
       ]
     },
     {
-      "anchor": "moduli",
-      "heading": "2. Moduli & Elastic Energy",
-      "proseLatex": "Young's $Y$, Bulk $K$, Rigidity $\\eta$ moduli. Elastic potential energy $= \\frac{1}{2}F\\Delta L$.",
+      "anchor": "poisson-relations",
+      "heading": "2. Poisson's Ratio & Inter-Modulus Relations",
+      "proseLatex": "Stretching a wire longitudinally causes lateral contraction, defining Poisson's ratio $\\nu = -\\frac{\\Delta r/r}{\\Delta L/L}$ with thermodynamic bounds $-1 \\le \\nu \\le 0.5$ ($0 < \\nu < 0.5$ for engineering metals; $\\nu = 0.5$ corresponds to constant volume $\\frac{\\Delta V}{V} = (1 - 2\\nu)\\frac{\\Delta L}{L} = 0$). Isotropic elastic constants obey $Y = 3K(1 - 2\\nu) = 2\\eta(1 + \\nu)$.",
       "keyFormulas": [
         {
           "formulaId": "P06-F02",
-          "label": "Elastic Energy",
-          "latex": "$U = \\frac{1}{2}\\cdot\\text{stress}\\cdot\\text{strain}\\cdot\\text{volume}$",
-          "aiExplainContext": "Energy stored in a deformed body."
+          "label": "Poisson's Ratio & Isotropic Modulus Identities",
+          "latex": "$\\frac{\\Delta V}{V} = (1 - 2\\nu)\\frac{\\Delta L}{L},\\quad Y = 3K(1 - 2\\nu) = 2\\eta(1 + \\nu),\\quad \\frac{9}{Y} = \\frac{3}{\\eta} + \\frac{1}{K}$",
+          "aiExplainContext": "Link Y, K, eta and Poisson's ratio nu, and test constant-volume stretching."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "elastic-energy",
+      "heading": "3. Elastic Potential Energy & Thermal Clamped Stress",
+      "proseLatex": "Slowly stretching or hanging a load (at equilibrium) stores elastic energy $U = \\frac{1}{2}F\\Delta L$ (when a dead weight $mg$ drops by $\\Delta L$, gravity does work $mg\\Delta L$, storing $\\frac{1}{2}mg\\Delta L$ elastically and dissipating the other $\\frac{1}{2}mg\\Delta L$ as heat!). Elastic energy density per unit volume is $u = \\frac{U}{AL} = \\frac{1}{2}\\sigma\\varepsilon = \\frac{\\sigma^2}{2Y} = \\frac{1}{2}Y\\varepsilon^2$. A rod clamped rigidly between walls and heated by $\\Delta T$ develops compressive thermal stress $\\sigma_{\\text{th}} = Y\\alpha\\Delta T$ (independent of length $L$!).",
+      "keyFormulas": [
+        {
+          "formulaId": "P06-F03",
+          "label": "Elastic Energy Density & Thermal Stress",
+          "latex": "$u = \\frac{U}{\\text{Vol}} = \\frac{1}{2}\\sigma\\varepsilon = \\frac{\\sigma^2}{2Y},\\qquad \\sigma_{\\text{thermal}} = Y\\alpha\\Delta T,\\qquad F_{\\text{thermal}} = YA\\alpha\\Delta T$",
+          "aiExplainContext": "Compute stored energy per unit volume and clamped thermal force."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P06-EX02",
+          "problemLatex": "A steel rod ($Y = 2\\times 10^{11}\\text{ Pa},\\; \\alpha = 1.2\\times 10^{-5}\\text{ K}^{-1}$) of area $A = 5\\text{ cm}^2$ is rigidly clamped and heated by $50\\text{ K}$. Find the compressive force on the supports.",
+          "stepsLatex": [
+            "Convert $A = 5\\times 10^{-4}\\text{ m}^2$.",
+            "$F = YA\\alpha\\Delta T = (2\\times 10^{11})(5\\times 10^{-4})(1.2\\times 10^{-5})(50) = 6\\times 10^4\\text{ N} = 60\\text{ kN}$."
+          ],
+          "answerLatex": "$60\\text{ kN}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "stress-strain-hooke",
+      "heading": "1. Stress, Strain, Hooke's Law & Material Moduli (Y, K, η)",
+      "proseLatex": "Within the proportional limit, restoring stress $\\sigma = F/A$ ($\\text{N/m}^2$ or $\\text{Pa}$) is proportional to dimensionless strain $\\varepsilon$. Longitudinal stretch gives Young's modulus $Y = \\frac{FL}{A\\Delta L}$ (equivalent spring stiffness $k_{\\text{wire}} = \\frac{YA}{L}$), hydrostatic pressure gives Bulk modulus $K = -\\frac{\\Delta P}{\\Delta V/V}$ (compressibility $\\beta = 1/K$), and tangential shear gives rigidity modulus $\\eta = \\frac{F_t/A}{\\theta}$. Steel has a higher Young's modulus than rubber, making steel MORE elastic in physics!",
+      "keyFormulas": [
+        {
+          "formulaId": "P06-F01",
+          "label": "Young's, Bulk & Shear Moduli + Wire Stiffness",
+          "latex": "$Y = \\frac{FL}{A\\Delta L},\\quad k_{\\text{eq}} = \\frac{YA}{L},\\quad K = -V\\frac{\\Delta P}{\\Delta V},\\quad \\eta = \\frac{\\tau}{\\theta}$",
+          "aiExplainContext": "Treat stretched rods as springs of stiffness YA/L and compare elastic moduli."
+        }
+      ]
+    },
+    {
+      "anchor": "poisson-relations",
+      "heading": "2. Poisson's Ratio & Inter-Modulus Relations",
+      "proseLatex": "Stretching a wire longitudinally causes lateral contraction, defining Poisson's ratio $\\nu = -\\frac{\\Delta r/r}{\\Delta L/L}$ with thermodynamic bounds $-1 \\le \\nu \\le 0.5$ ($0 < \\nu < 0.5$ for engineering metals; $\\nu = 0.5$ corresponds to constant volume $\\frac{\\Delta V}{V} = (1 - 2\\nu)\\frac{\\Delta L}{L} = 0$). Isotropic elastic constants obey $Y = 3K(1 - 2\\nu) = 2\\eta(1 + \\nu)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P06-F02",
+          "label": "Poisson's Ratio & Isotropic Modulus Identities",
+          "latex": "$\\frac{\\Delta V}{V} = (1 - 2\\nu)\\frac{\\Delta L}{L},\\quad Y = 3K(1 - 2\\nu) = 2\\eta(1 + \\nu),\\quad \\frac{9}{Y} = \\frac{3}{\\eta} + \\frac{1}{K}$",
+          "aiExplainContext": "Link Y, K, eta and Poisson's ratio nu, and test constant-volume stretching."
+        }
+      ]
+    },
+    {
+      "anchor": "elastic-energy",
+      "heading": "3. Elastic Potential Energy & Thermal Clamped Stress",
+      "proseLatex": "Slowly stretching or hanging a load (at equilibrium) stores elastic energy $U = \\frac{1}{2}F\\Delta L$ (when a dead weight $mg$ drops by $\\Delta L$, gravity does work $mg\\Delta L$, storing $\\frac{1}{2}mg\\Delta L$ elastically and dissipating the other $\\frac{1}{2}mg\\Delta L$ as heat!). Elastic energy density per unit volume is $u = \\frac{U}{AL} = \\frac{1}{2}\\sigma\\varepsilon = \\frac{\\sigma^2}{2Y} = \\frac{1}{2}Y\\varepsilon^2$. A rod clamped rigidly between walls and heated by $\\Delta T$ develops compressive thermal stress $\\sigma_{\\text{th}} = Y\\alpha\\Delta T$ (independent of length $L$!).",
+      "keyFormulas": [
+        {
+          "formulaId": "P06-F03",
+          "label": "Elastic Energy Density & Thermal Stress",
+          "latex": "$u = \\frac{U}{\\text{Vol}} = \\frac{1}{2}\\sigma\\varepsilon = \\frac{\\sigma^2}{2Y},\\qquad \\sigma_{\\text{thermal}} = Y\\alpha\\Delta T,\\qquad F_{\\text{thermal}} = YA\\alpha\\Delta T$",
+          "aiExplainContext": "Compute stored energy per unit volume and clamped thermal force."
         }
       ]
     }
@@ -41,18 +123,40 @@
   "workedExamples": [
     {
       "exampleId": "P06-EX01",
-      "problemLatex": "Two wires same dimensions, different materials. Compare Young's moduli from graph.",
+      "problemLatex": "Two wires of the SAME material have length ratio $L_1:L_2 = 1:2$ and radius ratio $r_1:r_2 = 2:1$. Under equal tension $F$, find $\\Delta L_1 : \\Delta L_2$.",
       "stepsLatex": [
-        "Slope of load-extension graph $\\propto 1/Y$.",
-        "Steeper slope = higher $Y$."
+        "Same material means $Y_1 = Y_2$; from $\\Delta L = \\frac{FL}{\\pi r^2 Y}$, $\\Delta L \\propto \\frac{L}{r^2}$.",
+        "$\\frac{\\Delta L_1}{\\Delta L_2} = \\frac{L_1}{L_2}\\left(\\frac{r_2}{r_1}\\right)^2 = \\frac{1}{2}\\left(\\frac{1}{2}\\right)^2 = \\frac{1}{8}$."
       ],
-      "answerLatex": "$Y_A > Y_B$"
+      "answerLatex": "$1 : 8$"
+    },
+    {
+      "exampleId": "P06-EX02",
+      "problemLatex": "A steel rod ($Y = 2\\times 10^{11}\\text{ Pa},\\; \\alpha = 1.2\\times 10^{-5}\\text{ K}^{-1}$) of area $A = 5\\text{ cm}^2$ is rigidly clamped and heated by $50\\text{ K}$. Find the compressive force on the supports.",
+      "stepsLatex": [
+        "Convert $A = 5\\times 10^{-4}\\text{ m}^2$.",
+        "$F = YA\\alpha\\Delta T = (2\\times 10^{11})(5\\times 10^{-4})(1.2\\times 10^{-5})(50) = 6\\times 10^4\\text{ N} = 60\\text{ kN}$."
+      ],
+      "answerLatex": "$60\\text{ kN}$"
     }
   ],
   "wbjeebTraps": [
-    "Hooke's law applies only within the elastic limit.",
-    "Poisson's ratio $= \\frac{\\text{lateral strain}}{\\text{longitudinal strain}}$."
+    "Young's modulus $Y$ is an intrinsic MATERIAL property: doubling wire length or halving radius does NOT change $Y$!",
+    "Elastic energy stored is $\\frac{1}{2}F\\Delta L$, NOT $F\\Delta L$ — don't drop the $\\frac{1}{2}$ factor.",
+    "Clamped thermal force $F = YA\\alpha\\Delta T$ is completely INDEPENDENT of the rod's original length $L$."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Lecture 24: Elastic behaviour",
+      "url": "https://www.youtube.com/watch?v=BAekHPDMfGw",
+      "videoId": "BAekHPDMfGw",
+      "duration": "29 min",
+      "durationMinutes": 29,
+      "provider": "YouTube · Material Science and Engineering - IITR",
+      "channelName": "Material Science and Engineering - IITR",
+      "language": "en",
+      "scopeNote": "Stress-strain curve, Hooke's law, Young/Bulk/Shear moduli & Poisson's ratio"
+    }
+  ],
   "practiceSetIds": []
 }

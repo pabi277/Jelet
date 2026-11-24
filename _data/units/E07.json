@@ -10,30 +10,112 @@
     "jelet-2024-q097",
     "jelet-2025-q098"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q098",
+    "jelet-2024-q097",
+    "jelet-2022-q097"
+  ],
+  "notes": [
     {
-      "anchor": "opamp-ideal",
-      "heading": "1. Ideal OP-AMP Characteristics",
-      "proseLatex": "Infinite input impedance, zero output impedance, infinite gain. Virtual ground / virtual short.",
+      "anchor": "ideal-opamp",
+      "heading": "1. Ideal OP-AMP Specifications, CMRR & Slew Rate",
+      "proseLatex": "An ideal operational amplifier has open-loop differential gain $A_{\\text{OL}} = \\infty$, input impedance $R_{\\text{in}} = \\infty$ (so input terminal currents are $i_+ = i_- = 0$), output impedance $R_{\\text{out}} = 0$, bandwidth $\\text{BW} = \\infty$, $\\text{CMRR} = \\infty$, and slew rate $\\text{SR} = \\infty$ (practical IC 741: $A_{\\text{OL}}\\sim 10^5,\\; R_{\\text{in}}\\sim 2\\text{ M}\\Omega,\\; R_{\\text{out}}\\sim 75\\,\\Omega,\\; \\text{SR}\\approx 0.5\\text{ V}/\\mu\\text{s}$). Common-Mode Rejection Ratio is $\\text{CMRR} = \\left|\\frac{A_d}{A_{\\text{cm}}}\\right|$ ($20\\log_{10}|A_d/A_{\\text{cm}}|\\text{ dB}$). Slew rate $\\text{SR} = \\left|\\frac{dv_o}{dt}\\right|_{\\max}$ limits undistorted sinusoidal peak $V_m$ at frequency $f$ via $2\\pi f V_m \\le \\text{SR}$.",
       "keyFormulas": [
         {
           "formulaId": "E07-F01",
-          "label": "Virtual Ground",
-          "latex": "$V_+ = V_-$ (negative feedback)",
-          "aiExplainContext": "Key concept for OP-AMP circuit analysis."
+          "label": "CMRR (dB) & Slew-Rate Undistorted Frequency Limit",
+          "latex": "$\\text{CMRR}_{\\text{dB}} = 20\\log_{10}\\!\\left|\\frac{A_d}{A_{\\text{cm}}}\\right|,\\qquad f_{\\max} = \\frac{\\text{SR}}{2\\pi V_m}$",
+          "aiExplainContext": "Calculate CMRR in dB and maximum undistorted sine-wave frequency/amplitude."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E07-EX01",
+          "problemLatex": "An op-amp has differential gain $A_d = 10^5$ and common-mode gain $A_{\\text{cm}} = 0.1$. Find its $\\text{CMRR}$ in $\\text{dB}$.",
+          "stepsLatex": [
+            "Linear ratio $|A_d / A_{\\text{cm}}| = 10^5 / 0.1 = 10^6$.",
+            "$\\text{CMRR}_{\\text{dB}} = 20\\log_{10}(10^6) = 20 \\times 6 = 120\\text{ dB}$."
+          ],
+          "answerLatex": "$120\\text{ dB}$"
         }
       ]
     },
     {
-      "anchor": "configs",
-      "heading": "2. OP-AMP Configurations",
-      "proseLatex": "Inverting, non-inverting, voltage follower, summing adder, subtractor, integrator, differentiator.",
+      "anchor": "linear-configs",
+      "heading": "2. Virtual Short & Inverting, Non-Inverting, Buffer & Summing Gains",
+      "proseLatex": "ONLY under NEGATIVE feedback (output fed back to the $-$ input without rail saturation!), high $A_{\\text{OL}}$ forces the virtual-short condition $v_- = v_+$ together with $i_- = i_+ = 0$. Grounding $v_+ = 0$ creates a virtual ground at $v_- = 0$, giving: Inverting amplifier $v_o = -\\frac{R_f}{R_1}v_{\\text{in}}$ (input resistance $= R_1$); Summing amplifier $v_o = -R_f\\sum\\frac{v_k}{R_k}$; Non-inverting amplifier $v_o = \\left(1 + \\frac{R_f}{R_1}\\right)v_{\\text{in}}$; and Voltage Follower / Buffer ($R_f = 0, R_1 = \\infty \\implies A_v = +1$, high $Z_{\\text{in}}$ to low $Z_{\\text{out}}$ impedance matching!).",
       "keyFormulas": [
         {
           "formulaId": "E07-F02",
-          "label": "Non-inverting Gain",
-          "latex": "$A_v = 1 + R_f/R_1$",
-          "aiExplainContext": "Gain of the non-inverting amplifier."
+          "label": "Inverting, Non-Inverting, Summing & Subtractor Equations",
+          "latex": "$A_{v,\\text{inv}} = -\\frac{R_f}{R_1},\\quad A_{v,\\text{non-inv}} = 1 + \\frac{R_f}{R_1},\\quad v_{o,\\text{sum}} = -R_f\\!\\left(\\frac{v_1}{R_1}+\\frac{v_2}{R_2}\\right)$",
+          "aiExplainContext": "Solve any op-amp resistor network in 15 seconds via v- = v+ and KCL at node v-."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E07-EX02",
+          "problemLatex": "In a non-inverting op-amp circuit powered by $\\pm 15\\text{ V}$ rails, $R_1 = 2\\text{ k}\\Omega$, $R_f = 8\\text{ k}\\Omega$, and $v_{\\text{in}} = +2\\text{ V}$. Find $v_o$.",
+          "stepsLatex": [
+            "Closed-loop gain $A_v = 1 + \\frac{R_f}{R_1} = 1 + \\frac{8}{2} = +5$.",
+            "$v_o = 5 \\times 2\\text{ V} = +10\\text{ V}$ (within $\\pm 15\\text{ V}$ rails, so linear!)."
+          ],
+          "answerLatex": "$+10\\text{ V}$"
+        }
+      ]
+    },
+    {
+      "anchor": "integrator-comparator",
+      "heading": "3. Integrator, Differentiator, Comparator & Schmitt Trigger",
+      "proseLatex": "Replacing feedback $R_f$ with capacitor $C$ creates an inverting INTEGRATOR $v_o(t) = -\\frac{1}{RC}\\int v_{\\text{in}}\\,dt$ (converts a square wave into a TRIANGULAR wave, acting as a low-pass filter); swapping $R$ and $C$ creates a DIFFERENTIATOR $v_o(t) = -RC\\frac{dv_{\\text{in}}}{dt}$ (high-pass, amplifies high-frequency noise). Open-loop or POSITIVE feedback drives output to $\\pm V_{\\text{sat}}$: an open-loop comparator switches at one threshold, whereas a positive-feedback Schmitt trigger introduces HYSTERESIS ($V_{\\text{UTP}} \\neq V_{\\text{LTP}}$) for noise immunity and converts sine waves into clean square waves!",
+      "keyFormulas": [
+        {
+          "formulaId": "E07-F03",
+          "label": "Op-Amp Integrator, Differentiator & Gain-Bandwidth Product",
+          "latex": "$v_{o,\\text{int}} = -\\frac{1}{RC}\\int v_{\\text{in}}\\,dt,\\qquad v_{o,\\text{diff}} = -RC\\frac{dv_{\\text{in}}}{dt},\\qquad |A_{\\text{CL}}|\\cdot f_{\\text{CL}} = f_t = \\text{const}$",
+          "aiExplainContext": "Predict square/triangular waveform conversions and closed-loop bandwidth."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "ideal-opamp",
+      "heading": "1. Ideal OP-AMP Specifications, CMRR & Slew Rate",
+      "proseLatex": "An ideal operational amplifier has open-loop differential gain $A_{\\text{OL}} = \\infty$, input impedance $R_{\\text{in}} = \\infty$ (so input terminal currents are $i_+ = i_- = 0$), output impedance $R_{\\text{out}} = 0$, bandwidth $\\text{BW} = \\infty$, $\\text{CMRR} = \\infty$, and slew rate $\\text{SR} = \\infty$ (practical IC 741: $A_{\\text{OL}}\\sim 10^5,\\; R_{\\text{in}}\\sim 2\\text{ M}\\Omega,\\; R_{\\text{out}}\\sim 75\\,\\Omega,\\; \\text{SR}\\approx 0.5\\text{ V}/\\mu\\text{s}$). Common-Mode Rejection Ratio is $\\text{CMRR} = \\left|\\frac{A_d}{A_{\\text{cm}}}\\right|$ ($20\\log_{10}|A_d/A_{\\text{cm}}|\\text{ dB}$). Slew rate $\\text{SR} = \\left|\\frac{dv_o}{dt}\\right|_{\\max}$ limits undistorted sinusoidal peak $V_m$ at frequency $f$ via $2\\pi f V_m \\le \\text{SR}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E07-F01",
+          "label": "CMRR (dB) & Slew-Rate Undistorted Frequency Limit",
+          "latex": "$\\text{CMRR}_{\\text{dB}} = 20\\log_{10}\\!\\left|\\frac{A_d}{A_{\\text{cm}}}\\right|,\\qquad f_{\\max} = \\frac{\\text{SR}}{2\\pi V_m}$",
+          "aiExplainContext": "Calculate CMRR in dB and maximum undistorted sine-wave frequency/amplitude."
+        }
+      ]
+    },
+    {
+      "anchor": "linear-configs",
+      "heading": "2. Virtual Short & Inverting, Non-Inverting, Buffer & Summing Gains",
+      "proseLatex": "ONLY under NEGATIVE feedback (output fed back to the $-$ input without rail saturation!), high $A_{\\text{OL}}$ forces the virtual-short condition $v_- = v_+$ together with $i_- = i_+ = 0$. Grounding $v_+ = 0$ creates a virtual ground at $v_- = 0$, giving: Inverting amplifier $v_o = -\\frac{R_f}{R_1}v_{\\text{in}}$ (input resistance $= R_1$); Summing amplifier $v_o = -R_f\\sum\\frac{v_k}{R_k}$; Non-inverting amplifier $v_o = \\left(1 + \\frac{R_f}{R_1}\\right)v_{\\text{in}}$; and Voltage Follower / Buffer ($R_f = 0, R_1 = \\infty \\implies A_v = +1$, high $Z_{\\text{in}}$ to low $Z_{\\text{out}}$ impedance matching!).",
+      "keyFormulas": [
+        {
+          "formulaId": "E07-F02",
+          "label": "Inverting, Non-Inverting, Summing & Subtractor Equations",
+          "latex": "$A_{v,\\text{inv}} = -\\frac{R_f}{R_1},\\quad A_{v,\\text{non-inv}} = 1 + \\frac{R_f}{R_1},\\quad v_{o,\\text{sum}} = -R_f\\!\\left(\\frac{v_1}{R_1}+\\frac{v_2}{R_2}\\right)$",
+          "aiExplainContext": "Solve any op-amp resistor network in 15 seconds via v- = v+ and KCL at node v-."
+        }
+      ]
+    },
+    {
+      "anchor": "integrator-comparator",
+      "heading": "3. Integrator, Differentiator, Comparator & Schmitt Trigger",
+      "proseLatex": "Replacing feedback $R_f$ with capacitor $C$ creates an inverting INTEGRATOR $v_o(t) = -\\frac{1}{RC}\\int v_{\\text{in}}\\,dt$ (converts a square wave into a TRIANGULAR wave, acting as a low-pass filter); swapping $R$ and $C$ creates a DIFFERENTIATOR $v_o(t) = -RC\\frac{dv_{\\text{in}}}{dt}$ (high-pass, amplifies high-frequency noise). Open-loop or POSITIVE feedback drives output to $\\pm V_{\\text{sat}}$: an open-loop comparator switches at one threshold, whereas a positive-feedback Schmitt trigger introduces HYSTERESIS ($V_{\\text{UTP}} \\neq V_{\\text{LTP}}$) for noise immunity and converts sine waves into clean square waves!",
+      "keyFormulas": [
+        {
+          "formulaId": "E07-F03",
+          "label": "Op-Amp Integrator, Differentiator & Gain-Bandwidth Product",
+          "latex": "$v_{o,\\text{int}} = -\\frac{1}{RC}\\int v_{\\text{in}}\\,dt,\\qquad v_{o,\\text{diff}} = -RC\\frac{dv_{\\text{in}}}{dt},\\qquad |A_{\\text{CL}}|\\cdot f_{\\text{CL}} = f_t = \\text{const}$",
+          "aiExplainContext": "Predict square/triangular waveform conversions and closed-loop bandwidth."
         }
       ]
     }
@@ -41,17 +123,40 @@
   "workedExamples": [
     {
       "exampleId": "E07-EX01",
-      "problemLatex": "Which OP-AMP config has zero phase difference?",
+      "problemLatex": "An op-amp has differential gain $A_d = 10^5$ and common-mode gain $A_{\\text{cm}} = 0.1$. Find its $\\text{CMRR}$ in $\\text{dB}$.",
       "stepsLatex": [
-        "Non-inverting amplifier: output in phase with input."
+        "Linear ratio $|A_d / A_{\\text{cm}}| = 10^5 / 0.1 = 10^6$.",
+        "$\\text{CMRR}_{\\text{dB}} = 20\\log_{10}(10^6) = 20 \\times 6 = 120\\text{ dB}$."
       ],
-      "answerLatex": "Non-inverting amplifier"
+      "answerLatex": "$120\\text{ dB}$"
+    },
+    {
+      "exampleId": "E07-EX02",
+      "problemLatex": "In a non-inverting op-amp circuit powered by $\\pm 15\\text{ V}$ rails, $R_1 = 2\\text{ k}\\Omega$, $R_f = 8\\text{ k}\\Omega$, and $v_{\\text{in}} = +2\\text{ V}$. Find $v_o$.",
+      "stepsLatex": [
+        "Closed-loop gain $A_v = 1 + \\frac{R_f}{R_1} = 1 + \\frac{8}{2} = +5$.",
+        "$v_o = 5 \\times 2\\text{ V} = +10\\text{ V}$ (within $\\pm 15\\text{ V}$ rails, so linear!)."
+      ],
+      "answerLatex": "$+10\\text{ V}$"
     }
   ],
   "wbjeebTraps": [
-    "Inverting amplifier: 180° phase shift.",
-    "Integrator and differentiator have frequency-dependent gain."
+    "POSITIVE feedback vs NEGATIVE feedback trap: ALWAYS check whether $R_f$ connects to the $-$ terminal (linear virtual short!) or the $+$ terminal (Schmitt trigger saturating at $\\pm V_{\\text{sat}}$ — virtual short FAILS!).",
+    "Supply rail clipping: even in a linear amplifier with gain $+10$, if $v_{\\text{in}} = 2\\text{ V}$ and rails are $\\pm 12\\text{ V}$, output clips at $+12\\text{ V}$ (NOT $+20\\text{ V}$)!",
+    "Remember the $+1$ in non-inverting gain $1 + R_f/R_1$ (can NEVER have magnitude $< 1$, unlike inverting $-R_f/R_1$)."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Operational Amplifier: Inverting Op Amp and The Concept of Virtual Ground in Op Amp",
+      "url": "https://www.youtube.com/watch?v=AuZ00cQ0UrE",
+      "videoId": "AuZ00cQ0UrE",
+      "duration": "15 min",
+      "durationMinutes": 15,
+      "provider": "YouTube · ALL ABOUT ELECTRONICS",
+      "channelName": "ALL ABOUT ELECTRONICS",
+      "language": "en",
+      "scopeNote": "Ideal op-amp specs, virtual short/ground under negative feedback & standard amplifier gains"
+    }
+  ],
   "practiceSetIds": []
 }

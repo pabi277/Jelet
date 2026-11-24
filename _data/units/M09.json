@@ -25,30 +25,127 @@
     "jelet-2025-q033",
     "jelet-2025-q040"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q006",
+    "jelet-2025-q009",
+    "jelet-2025-q028",
+    "jelet-2024-q022",
+    "jelet-2024-q023",
+    "jelet-2024-q024",
+    "jelet-2024-q025",
+    "jelet-2023-q024",
+    "jelet-2023-q025",
+    "jelet-2023-q026",
+    "jelet-2022-q024",
+    "jelet-2022-q025",
+    "jelet-2022-q026",
+    "jelet-2025-q033",
+    "jelet-2025-q040",
+    "jelet-2024-q038",
+    "jelet-2023-q039",
+    "jelet-2022-q039"
+  ],
+  "notes": [
     {
       "anchor": "indefinite",
-      "heading": "1. Indefinite Integration",
-      "proseLatex": "Standard forms, substitution, integration by parts ($\\int u\\,dv = uv - \\int v\\,du$), partial fractions.",
+      "heading": "1. Substitution, Partial Fractions & Integration by Parts",
+      "proseLatex": "Standard substitutions collapse logarithmic forms $\\int \\frac{f'(x)}{f(x)}\\,dx = \\ln|f(x)| + C$ and quadratic denominators $\\int \\frac{dx}{x^2+a^2} = \\frac{1}{a}\\tan^{-1}\\!\\frac{x}{a} + C$. Integration by parts $\\int u\\,dv = uv - \\int v\\,du$ chooses $u$ via ILATE (Inverse-trig, Logarithmic, Algebraic, Trigonometric, Exponential), and unlocks the classic JELET cancellation $\\int e^x[f(x) + f'(x)]\\,dx = e^x f(x) + C$.",
       "keyFormulas": [
         {
           "formulaId": "M09-F01",
-          "label": "Integration by Parts",
-          "latex": "$\\int u\\,dv = uv - \\int v\\,du$",
-          "aiExplainContext": "Choose $u$ and $dv$ wisely (LIATE rule)."
+          "label": "Integration by Parts & e^x [f + f'] Shortcut",
+          "latex": "$\\int u\\,v\\,dx = u\\int v\\,dx - \\int\\!\\left(u'\\int v\\,dx\\right)dx,\\qquad \\int e^x\\bigl[f(x)+f'(x)\\bigr]dx = e^x f(x) + C$",
+          "aiExplainContext": "Spot self-cancelling e^x(f + f') integrals immediately."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M09-EX01",
+          "problemLatex": "Evaluate $\\int e^x\\left(\\frac{x - 1}{(x + 1)^3}\\right)dx$.",
+          "stepsLatex": [
+            "Split numerator $x - 1 = (x + 1) - 2$, so $\\frac{x-1}{(x+1)^3} = \\frac{1}{(x+1)^2} - \\frac{2}{(x+1)^3}$.",
+            "Identify $f(x) = \\frac{1}{(x+1)^2}$ whose derivative is $f'(x) = -\\frac{2}{(x+1)^3}$; hence integral $= \\frac{e^x}{(x+1)^2} + C$."
+          ],
+          "answerLatex": "$\\frac{e^x}{(x+1)^2} + C$"
         }
       ]
     },
     {
-      "anchor": "definite",
-      "heading": "2. Definite Integrals & Properties",
-      "proseLatex": "Evaluate $\\int_a^b f(x)\\,dx = F(b) - F(a)$. Odd functions integrate to 0 over symmetric intervals.",
+      "anchor": "definite-properties",
+      "heading": "2. Definite Integral Symmetry, King's Rule &Wallis Formula",
+      "proseLatex": "King's property $\\int_a^b f(x)\\,dx = \\int_a^b f(a+b-x)\\,dx$ pairs $I$ with its reflection so $2I = \\int_a^b [f(x)+f(a+b-x)]\\,dx$; when $f(a+b-x)=f(x)$, any ratio $\\int_a^b \\frac{f(x)}{f(x)+f(a+b-x)}\\,dx$ equals $\\frac{b-a}{2}$ immediately. On symmetric intervals $[-a,a]$, odd integrands ($f(-x)=-f(x)$) integrate to $0$, while even integrands double over $[0,a]$.",
       "keyFormulas": [
         {
           "formulaId": "M09-F02",
-          "label": "Symmetry Property",
-          "latex": "$\\int_{-a}^a f(x)\\,dx = 0$ if $f$ is odd",
-          "aiExplainContext": "Use parity to simplify definite integrals."
+          "label": "King's Property & Symmetric Interval Rules",
+          "latex": "$\\int_a^b \\frac{f(x)\\,dx}{f(x)+f(a+b-x)} = \\frac{b-a}{2},\\qquad \\int_{-a}^{a} f(x)\\,dx = \\begin{cases}0,& f\\text{ odd}\\\\ 2\\int_0^a f(x)\\,dx,& f\\text{ even}\\end{cases}$",
+          "aiExplainContext": "Evaluate definite integrals via symmetry without finding antiderivatives."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M09-EX02",
+          "problemLatex": "Evaluate $I = \\int_{0}^{\\pi/2} \\frac{\\sqrt{\\sin x}}{\\sqrt{\\sin x} + \\sqrt{\\cos x}}\\,dx$.",
+          "stepsLatex": [
+            "Apply $x \\to \\frac{\\pi}{2} - x$: $I = \\int_{0}^{\\pi/2}\\frac{\\sqrt{\\cos x}}{\\sqrt{\\cos x}+\\sqrt{\\sin x}}\\,dx$.",
+            "Add the two expressions: $2I = \\int_{0}^{\\pi/2} 1\\,dx = \\frac{\\pi}{2} \\implies I = \\frac{\\pi}{4}$."
+          ],
+          "answerLatex": "$\\frac{\\pi}{4}$"
+        }
+      ]
+    },
+    {
+      "anchor": "leibniz-area",
+      "heading": "3. Leibniz Integral Rule & Bounded Area",
+      "proseLatex": "Differentiating an integral with variable limits $F(x) = \\int_{g(x)}^{h(x)} f(t)\\,dt$ gives $F'(x) = f(h(x))h'(x) - f(g(x))g'(x)$ (fundamental tool for integral limits of $0/0$ type!). Geometrically, the geometric area enclosed between $y = f(x)$ and $y = g(x)$ on $[a,b]$ is $\\int_a^b |f(x) - g(x)|\\,dx$, splitting at every root where the curves cross.",
+      "keyFormulas": [
+        {
+          "formulaId": "M09-F03",
+          "label": "Newton-Leibniz Variable-Limit Derivative & Area",
+          "latex": "$\\frac{d}{dx}\\int_{g(x)}^{h(x)} f(t)\\,dt = f(h(x))h'(x) - f(g(x))g'(x),\\qquad A = \\int_a^b |f(x) - g(x)|\\,dx$",
+          "aiExplainContext": "Differentiate variable-limit integrals and compute positive geometric area."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "indefinite",
+      "heading": "1. Substitution, Partial Fractions & Integration by Parts",
+      "proseLatex": "Standard substitutions collapse logarithmic forms $\\int \\frac{f'(x)}{f(x)}\\,dx = \\ln|f(x)| + C$ and quadratic denominators $\\int \\frac{dx}{x^2+a^2} = \\frac{1}{a}\\tan^{-1}\\!\\frac{x}{a} + C$. Integration by parts $\\int u\\,dv = uv - \\int v\\,du$ chooses $u$ via ILATE (Inverse-trig, Logarithmic, Algebraic, Trigonometric, Exponential), and unlocks the classic JELET cancellation $\\int e^x[f(x) + f'(x)]\\,dx = e^x f(x) + C$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M09-F01",
+          "label": "Integration by Parts & e^x [f + f'] Shortcut",
+          "latex": "$\\int u\\,v\\,dx = u\\int v\\,dx - \\int\\!\\left(u'\\int v\\,dx\\right)dx,\\qquad \\int e^x\\bigl[f(x)+f'(x)\\bigr]dx = e^x f(x) + C$",
+          "aiExplainContext": "Spot self-cancelling e^x(f + f') integrals immediately."
+        }
+      ]
+    },
+    {
+      "anchor": "definite-properties",
+      "heading": "2. Definite Integral Symmetry, King's Rule &Wallis Formula",
+      "proseLatex": "King's property $\\int_a^b f(x)\\,dx = \\int_a^b f(a+b-x)\\,dx$ pairs $I$ with its reflection so $2I = \\int_a^b [f(x)+f(a+b-x)]\\,dx$; when $f(a+b-x)=f(x)$, any ratio $\\int_a^b \\frac{f(x)}{f(x)+f(a+b-x)}\\,dx$ equals $\\frac{b-a}{2}$ immediately. On symmetric intervals $[-a,a]$, odd integrands ($f(-x)=-f(x)$) integrate to $0$, while even integrands double over $[0,a]$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M09-F02",
+          "label": "King's Property & Symmetric Interval Rules",
+          "latex": "$\\int_a^b \\frac{f(x)\\,dx}{f(x)+f(a+b-x)} = \\frac{b-a}{2},\\qquad \\int_{-a}^{a} f(x)\\,dx = \\begin{cases}0,& f\\text{ odd}\\\\ 2\\int_0^a f(x)\\,dx,& f\\text{ even}\\end{cases}$",
+          "aiExplainContext": "Evaluate definite integrals via symmetry without finding antiderivatives."
+        }
+      ]
+    },
+    {
+      "anchor": "leibniz-area",
+      "heading": "3. Leibniz Integral Rule & Bounded Area",
+      "proseLatex": "Differentiating an integral with variable limits $F(x) = \\int_{g(x)}^{h(x)} f(t)\\,dt$ gives $F'(x) = f(h(x))h'(x) - f(g(x))g'(x)$ (fundamental tool for integral limits of $0/0$ type!). Geometrically, the geometric area enclosed between $y = f(x)$ and $y = g(x)$ on $[a,b]$ is $\\int_a^b |f(x) - g(x)|\\,dx$, splitting at every root where the curves cross.",
+      "keyFormulas": [
+        {
+          "formulaId": "M09-F03",
+          "label": "Newton-Leibniz Variable-Limit Derivative & Area",
+          "latex": "$\\frac{d}{dx}\\int_{g(x)}^{h(x)} f(t)\\,dt = f(h(x))h'(x) - f(g(x))g'(x),\\qquad A = \\int_a^b |f(x) - g(x)|\\,dx$",
+          "aiExplainContext": "Differentiate variable-limit integrals and compute positive geometric area."
         }
       ]
     }
@@ -56,18 +153,40 @@
   "workedExamples": [
     {
       "exampleId": "M09-EX01",
-      "problemLatex": "If $g'(x) = g(x)$, find $\\int g(x)[f(x)+f'(x)]\\,dx$.",
+      "problemLatex": "Evaluate $\\int e^x\\left(\\frac{x - 1}{(x + 1)^3}\\right)dx$.",
       "stepsLatex": [
-        "$g(x) = Ce^x$.",
-        "$\\int g(f+f')\\,dx = gf - \\int g'f\\,dx + \\int gf\\,dx = gf + c$."
+        "Split numerator $x - 1 = (x + 1) - 2$, so $\\frac{x-1}{(x+1)^3} = \\frac{1}{(x+1)^2} - \\frac{2}{(x+1)^3}$.",
+        "Identify $f(x) = \\frac{1}{(x+1)^2}$ whose derivative is $f'(x) = -\\frac{2}{(x+1)^3}$; hence integral $= \\frac{e^x}{(x+1)^2} + C$."
       ],
-      "answerLatex": "$f(x)g(x) + c$"
+      "answerLatex": "$\\frac{e^x}{(x+1)^2} + C$"
+    },
+    {
+      "exampleId": "M09-EX02",
+      "problemLatex": "Evaluate $I = \\int_{0}^{\\pi/2} \\frac{\\sqrt{\\sin x}}{\\sqrt{\\sin x} + \\sqrt{\\cos x}}\\,dx$.",
+      "stepsLatex": [
+        "Apply $x \\to \\frac{\\pi}{2} - x$: $I = \\int_{0}^{\\pi/2}\\frac{\\sqrt{\\cos x}}{\\sqrt{\\cos x}+\\sqrt{\\sin x}}\\,dx$.",
+        "Add the two expressions: $2I = \\int_{0}^{\\pi/2} 1\\,dx = \\frac{\\pi}{2} \\implies I = \\frac{\\pi}{4}$."
+      ],
+      "answerLatex": "$\\frac{\\pi}{4}$"
     }
   ],
   "wbjeebTraps": [
-    "Integration by parts: choose $u$ to simplify upon differentiation.",
-    "Odd functions over symmetric intervals vanish."
+    "When asked for 'area bounded by $y = \\sin x$ and the $x$-axis on $[0, 2\\pi]$', integrate $|\\sin x|$ to get $4$, NOT $\\int_0^{2\\pi}\\sin x\\,dx = 0$.",
+    "In variable-limit differentiation $\\frac{d}{dx}\\int_0^{x^2} \\cos t\\,dt$, remember the chain-rule factor $2x$: answer is $2x\\cos(x^2)$, NOT $\\cos(x^2)$.",
+    "Before substituting $t = \\tan x$ in a definite integral across $x = \\pi/2$, split at the discontinuity $\\pi/2$ — blind substitution produces negative answers for positive integrands!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Integration by Parts",
+      "url": "https://www.youtube.com/watch?v=SbCDZSwUtrs",
+      "videoId": "SbCDZSwUtrs",
+      "duration": "15 min",
+      "durationMinutes": 15,
+      "provider": "YouTube · Matthew Chomba",
+      "channelName": "Matthew Chomba",
+      "language": "en",
+      "scopeNote": "ILATE selection, integration by parts and exponential-product reduction"
+    }
+  ],
   "practiceSetIds": []
 }

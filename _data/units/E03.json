@@ -14,30 +14,116 @@
     "jelet-2024-q100",
     "jelet-2025-q093"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q093",
+    "jelet-2024-q093",
+    "jelet-2024-q100",
+    "jelet-2023-q098",
+    "jelet-2023-q099",
+    "jelet-2022-q093",
+    "jelet-2022-q100"
+  ],
+  "notes": [
     {
-      "anchor": "dc-motors",
-      "heading": "1. DC Motors",
-      "proseLatex": "Shunt, series, compound motors. Back-EMF, torque-speed characteristics, speed control.",
+      "anchor": "dc-machines",
+      "heading": "1. DC Motor Back-EMF, Torque & Speed Control",
+      "proseLatex": "In a DC machine with $P$ poles, $Z$ armature conductors, and $A$ parallel paths ($A = P$ for lap winding — high current/low voltage; $A = 2$ for wave winding — high voltage/low current), back-EMF is $E_b = \\frac{\\Phi Z N P}{60 A} \\propto \\Phi N$. Terminal KVL in a motor reads $V = E_b + I_a R_a$ (whereas in a generator $E_g = V + I_a R_a$!), making $E_b$ self-regulating ($I_a = \\frac{V - E_b}{R_a}$; at startup $N=0 \\implies E_b=0$, requiring a 3-point/4-point starter!). Electromagnetic torque is $T_a = \\frac{E_b I_a}{\\omega} \\propto \\Phi I_a$, and speed obeys $N \\propto \\frac{V - I_a R_a}{\\Phi}$.",
       "keyFormulas": [
         {
           "formulaId": "E03-F01",
-          "label": "Back-EMF",
-          "latex": "$E_b = V - I_a R_a$",
-          "aiExplainContext": "Generated EMF opposing the supply in a motor."
+          "label": "DC Motor Back-EMF, Armature Torque & Speed Law",
+          "latex": "$E_b = \\frac{\\Phi Z N P}{60 A},\\qquad V = E_b + I_a R_a,\\qquad T_a \\propto \\Phi I_a,\\qquad N \\propto \\frac{V - I_a R_a}{\\Phi}$",
+          "aiExplainContext": "Solve DC shunt/series motor speed, torque, and starter current questions."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E03-EX01",
+          "problemLatex": "A $220\\text{ V}$ DC shunt motor ($R_a = 0.5\\,\\Omega$) draws $I_a = 20\\text{ A}$ at $1000\\text{ rpm}$. If armature current doubles to $40\\text{ A}$ at constant flux, find the new speed.",
+          "stepsLatex": [
+            "$E_{b1} = 220 - 20(0.5) = 210\\text{ V}$ and $E_{b2} = 220 - 40(0.5) = 200\\text{ V}$.",
+            "At constant $\\Phi$, $\\frac{N_2}{N_1} = \\frac{E_{b2}}{E_{b1}} \\implies N_2 = 1000 \\times \\frac{200}{210} \\approx 952.4\\text{ rpm}$."
+          ],
+          "answerLatex": "$\\approx 952.4\\text{ rpm}$"
         }
       ]
     },
     {
-      "anchor": "induction",
-      "heading": "2. Single-Phase Induction Motors",
-      "proseLatex": "Rotating magnetic field, synchronous speed $N_s = 120f/P$. Construction and speed control.",
+      "anchor": "shunt-vs-series",
+      "heading": "2. DC Shunt vs DC Series Motor Characteristics",
+      "proseLatex": "A DC SHUNT motor has nearly constant $\\Phi$, giving linear $T_a \\propto I_a$ and flat quasi-constant speed (lathes, machine tools); weakening field flux ($\\Phi \\downarrow$) speeds it UP above base speed (flux loss causes dangerous overspeed!). A DC SERIES motor carries $I_f = I_a$, so before core saturation $\\Phi \\propto I_a \\implies T_a \\propto I_a^2$ (huge starting torque — electric traction, cranes, hoists!), and MUST NEVER be started at no-load because $I_a \\to 0 \\implies \\Phi \\to 0 \\implies N \\to \\infty$ (runaway!).",
       "keyFormulas": [
         {
           "formulaId": "E03-F02",
-          "label": "Synchronous Speed",
-          "latex": "$N_s = \\frac{120f}{P}$",
-          "aiExplainContext": "Speed of the rotating magnetic field."
+          "label": "Shunt vs Unsaturation Series Torque Scaling",
+          "latex": "$T_{\\text{shunt}} \\propto I_a;\\qquad T_{\\text{series, unsat}} \\propto I_a^2\\;\\text{(high starting torque; NEVER run no-load!)}$",
+          "aiExplainContext": "Select DC series vs shunt motors for traction vs constant-speed drives."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "induction-motors",
+      "heading": "3. Synchronous Speed, Slip, Rotor Frequency & 1-φ Capacitor Start",
+      "proseLatex": "An AC stator winding of $P$ poles excited at $f\\text{ Hz}$ sets up synchronous speed $N_s = \\frac{120 f}{P}\\text{ rpm}$. An induction motor runs asynchronously at $N < N_s$ with fractional slip $s = \\frac{N_s - N}{N_s}$ ($s=1$ at standstill, $s \\approx 0.02\\text{--}0.05$ at full load) and rotor current frequency $f_r = s f$! A pure single-phase winding creates only a pulsating (non-rotating) field ($T_{\\text{start}} = 0$ — NOT self-starting!), so ceiling fans and pumps add an auxiliary winding + phase-splitting capacitor to create two quadrature fields.",
+      "keyFormulas": [
+        {
+          "formulaId": "E03-F03",
+          "label": "Synchronous Speed, Slip & Rotor Frequency",
+          "latex": "$N_s = \\frac{120 f}{P},\\qquad s = \\frac{N_s - N}{N_s},\\qquad f_r = s\\,f,\\qquad P_{\\text{ag}}:P_{\\text{rcu}}:P_m = 1 : s : (1 - s)$",
+          "aiExplainContext": "Compute Ns, slip, rotor frequency fr = sf, and air-gap power split."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E03-EX02",
+          "problemLatex": "A $4$-pole, $50\\text{ Hz}$ induction motor runs at $1440\\text{ rpm}$. Find percentage slip $s$ and rotor current frequency $f_r$.",
+          "stepsLatex": [
+            "Synchronous speed $N_s = \\frac{120 \\times 50}{4} = 1500\\text{ rpm}$.",
+            "$s = \\frac{1500 - 1440}{1500} = 0.04 = 4\\%$, and $f_r = 0.04 \\times 50\\text{ Hz} = 2\\text{ Hz}$."
+          ],
+          "answerLatex": "$s = 4\\%,\\; f_r = 2\\text{ Hz}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "dc-machines",
+      "heading": "1. DC Motor Back-EMF, Torque & Speed Control",
+      "proseLatex": "In a DC machine with $P$ poles, $Z$ armature conductors, and $A$ parallel paths ($A = P$ for lap winding — high current/low voltage; $A = 2$ for wave winding — high voltage/low current), back-EMF is $E_b = \\frac{\\Phi Z N P}{60 A} \\propto \\Phi N$. Terminal KVL in a motor reads $V = E_b + I_a R_a$ (whereas in a generator $E_g = V + I_a R_a$!), making $E_b$ self-regulating ($I_a = \\frac{V - E_b}{R_a}$; at startup $N=0 \\implies E_b=0$, requiring a 3-point/4-point starter!). Electromagnetic torque is $T_a = \\frac{E_b I_a}{\\omega} \\propto \\Phi I_a$, and speed obeys $N \\propto \\frac{V - I_a R_a}{\\Phi}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E03-F01",
+          "label": "DC Motor Back-EMF, Armature Torque & Speed Law",
+          "latex": "$E_b = \\frac{\\Phi Z N P}{60 A},\\qquad V = E_b + I_a R_a,\\qquad T_a \\propto \\Phi I_a,\\qquad N \\propto \\frac{V - I_a R_a}{\\Phi}$",
+          "aiExplainContext": "Solve DC shunt/series motor speed, torque, and starter current questions."
+        }
+      ]
+    },
+    {
+      "anchor": "shunt-vs-series",
+      "heading": "2. DC Shunt vs DC Series Motor Characteristics",
+      "proseLatex": "A DC SHUNT motor has nearly constant $\\Phi$, giving linear $T_a \\propto I_a$ and flat quasi-constant speed (lathes, machine tools); weakening field flux ($\\Phi \\downarrow$) speeds it UP above base speed (flux loss causes dangerous overspeed!). A DC SERIES motor carries $I_f = I_a$, so before core saturation $\\Phi \\propto I_a \\implies T_a \\propto I_a^2$ (huge starting torque — electric traction, cranes, hoists!), and MUST NEVER be started at no-load because $I_a \\to 0 \\implies \\Phi \\to 0 \\implies N \\to \\infty$ (runaway!).",
+      "keyFormulas": [
+        {
+          "formulaId": "E03-F02",
+          "label": "Shunt vs Unsaturation Series Torque Scaling",
+          "latex": "$T_{\\text{shunt}} \\propto I_a;\\qquad T_{\\text{series, unsat}} \\propto I_a^2\\;\\text{(high starting torque; NEVER run no-load!)}$",
+          "aiExplainContext": "Select DC series vs shunt motors for traction vs constant-speed drives."
+        }
+      ]
+    },
+    {
+      "anchor": "induction-motors",
+      "heading": "3. Synchronous Speed, Slip, Rotor Frequency & 1-φ Capacitor Start",
+      "proseLatex": "An AC stator winding of $P$ poles excited at $f\\text{ Hz}$ sets up synchronous speed $N_s = \\frac{120 f}{P}\\text{ rpm}$. An induction motor runs asynchronously at $N < N_s$ with fractional slip $s = \\frac{N_s - N}{N_s}$ ($s=1$ at standstill, $s \\approx 0.02\\text{--}0.05$ at full load) and rotor current frequency $f_r = s f$! A pure single-phase winding creates only a pulsating (non-rotating) field ($T_{\\text{start}} = 0$ — NOT self-starting!), so ceiling fans and pumps add an auxiliary winding + phase-splitting capacitor to create two quadrature fields.",
+      "keyFormulas": [
+        {
+          "formulaId": "E03-F03",
+          "label": "Synchronous Speed, Slip & Rotor Frequency",
+          "latex": "$N_s = \\frac{120 f}{P},\\qquad s = \\frac{N_s - N}{N_s},\\qquad f_r = s\\,f,\\qquad P_{\\text{ag}}:P_{\\text{rcu}}:P_m = 1 : s : (1 - s)$",
+          "aiExplainContext": "Compute Ns, slip, rotor frequency fr = sf, and air-gap power split."
         }
       ]
     }
@@ -45,17 +131,40 @@
   "workedExamples": [
     {
       "exampleId": "E03-EX01",
-      "problemLatex": "Which machine has the highest efficiency?",
+      "problemLatex": "A $220\\text{ V}$ DC shunt motor ($R_a = 0.5\\,\\Omega$) draws $I_a = 20\\text{ A}$ at $1000\\text{ rpm}$. If armature current doubles to $40\\text{ A}$ at constant flux, find the new speed.",
       "stepsLatex": [
-        "Transformers reach 95-99% efficiency — highest among electrical machines."
+        "$E_{b1} = 220 - 20(0.5) = 210\\text{ V}$ and $E_{b2} = 220 - 40(0.5) = 200\\text{ V}$.",
+        "At constant $\\Phi$, $\\frac{N_2}{N_1} = \\frac{E_{b2}}{E_{b1}} \\implies N_2 = 1000 \\times \\frac{200}{210} \\approx 952.4\\text{ rpm}$."
       ],
-      "answerLatex": "Transformer"
+      "answerLatex": "$\\approx 952.4\\text{ rpm}$"
+    },
+    {
+      "exampleId": "E03-EX02",
+      "problemLatex": "A $4$-pole, $50\\text{ Hz}$ induction motor runs at $1440\\text{ rpm}$. Find percentage slip $s$ and rotor current frequency $f_r$.",
+      "stepsLatex": [
+        "Synchronous speed $N_s = \\frac{120 \\times 50}{4} = 1500\\text{ rpm}$.",
+        "$s = \\frac{1500 - 1440}{1500} = 0.04 = 4\\%$, and $f_r = 0.04 \\times 50\\text{ Hz} = 2\\text{ Hz}$."
+      ],
+      "answerLatex": "$s = 4\\%,\\; f_r = 2\\text{ Hz}$"
     }
   ],
   "wbjeebTraps": [
-    "DC series motor: high starting torque, variable speed.",
-    "Shunt motor: approximately constant speed."
+    "Single-phase induction motor has ZERO starting torque without an auxiliary phase-splitting winding/capacitor!",
+    "NEVER start a DC series motor without mechanical load — $\\Phi \\propto I_a \\to 0$ causes destructive runaway speed.",
+    "At standstill (blocked rotor), slip $s = 1$ so $f_r = f$; near synchronous speed, $f_r = sf$ is only $1\\text{--}3\\text{ Hz}$ (NOT $50\\text{ Hz}$!)."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Working Principle of a DC Motor - DC Machines - Basic Electrical Engineering",
+      "url": "https://www.youtube.com/watch?v=6MnmcMYbsfQ",
+      "videoId": "6MnmcMYbsfQ",
+      "duration": "10 min",
+      "durationMinutes": 10,
+      "provider": "YouTube · Ekeeda",
+      "channelName": "Ekeeda",
+      "language": "en",
+      "scopeNote": "Lorentz motor action, back-EMF self-regulation, torque-speed & induction slip"
+    }
+  ],
   "practiceSetIds": []
 }

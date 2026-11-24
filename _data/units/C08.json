@@ -25,30 +25,116 @@
     "jelet-2025-q085",
     "jelet-2025-q088"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q081",
+    "jelet-2025-q082",
+    "jelet-2025-q083",
+    "jelet-2025-q085",
+    "jelet-2024-q076",
+    "jelet-2024-q077",
+    "jelet-2024-q078",
+    "jelet-2024-q079",
+    "jelet-2024-q080",
+    "jelet-2024-q083",
+    "jelet-2023-q084",
+    "jelet-2023-q085",
+    "jelet-2022-q082",
+    "jelet-2025-q088",
+    "jelet-2024-q088",
+    "jelet-2024-q089",
+    "jelet-2024-q090"
+  ],
+  "notes": [
     {
-      "anchor": "nomenclature",
-      "heading": "1. IUPAC Nomenclature & Isomerism",
-      "proseLatex": "Classification, homologous series, functional groups. Structural, geometrical isomerism. IUPAC naming rules.",
+      "anchor": "iupac-isomerism",
+      "heading": "1. IUPAC Priority, Hybridization & Isomerism",
+      "proseLatex": "Principal functional-group priority runs $-\\text{COOH} > -\\text{SO}_3\\text{H} > -\\text{COOR} > -\\text{COCl} > -\\text{CONH}_2 > -\\text{CN} > -\\text{CHO} > >\\text{C=O} > -\\text{OH} > -\\text{NH}_2 > \\text{alkene/alkyne}$. Carbon hybridization sets $\\sigma/\\pi$ count and electronegativity: $sp\\;(50\\%\\;s,\\;\\text{terminal alkyne acidic!}) > sp^2\\;(33\\%\\;s) > sp^3\\;(25\\%\\;s)$. Degree of unsaturation $\\text{DBE} = C + 1 - \\frac{H + X - N}{2}$ counts rings + $\\pi$-bonds. Geometrical (*cis/trans*, $E/Z$) isomerism needs restricted rotation with $a\\neq b$ on each end; optical activity requires absence of plane/centre of symmetry (chiral carbon $C^*$ gives up to $2^n$ stereoisomers, fewer when meso forms exist).",
       "keyFormulas": [
         {
           "formulaId": "C08-F01",
-          "label": "IUPAC Naming",
-          "latex": "Longest chain + lowest locants + functional group suffix",
-          "aiExplainContext": "Systematic naming of organic compounds."
+          "label": "Double-Bond Equivalent (DBE) & Functional Priority",
+          "latex": "$\\text{DBE} = C + 1 - \\frac{H + X - N}{2};\\qquad -\\text{COOH} > -\\text{CN} > -\\text{CHO} > >\\text{C=O} > -\\text{OH} > -\\text{NH}_2$",
+          "aiExplainContext": "Count rings + pi bonds from molecular formulas and apply IUPAC suffix priority."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "C08-EX01",
+          "problemLatex": "Give the IUPAC name and $\\sigma,\\pi$ bond count of $\\text{CH}_2=\\text{CH}-\\text{CH}_2-\\text{C}\\equiv\\text{CH}$.",
+          "stepsLatex": [
+            "When double and triple bonds get identical locants $(1,4)$ from either end, ALKENE wins lowest locant: pent-1-en-4-yne.",
+            "Count bonds: $6\\,\\text{C--H}\\;\\sigma + 4\\,\\text{C--C}\\;\\sigma = 10\\,\\sigma$ bonds, and $1\\text{ (C=C)} + 2\\text{ (C}\\equiv\\text{C)} = 3\\,\\pi$ bonds."
+          ],
+          "answerLatex": "Pent-1-en-4-yne ($10\\,\\sigma,\\; 3\\,\\pi$)"
         }
       ]
     },
     {
-      "anchor": "compounds",
-      "heading": "2. Preparation & Properties of Key Compounds",
-      "proseLatex": "Methane, ethylene, acetylene. Methylated spirit, rectified spirit. Benzene, naphthalene, phenol.",
+      "anchor": "goc-hydrocarbons",
+      "heading": "2. Electronic Effects, Carbocation Stability, Markovnikov & Ozonolysis",
+      "proseLatex": "Inductive ($\\pm I$), resonance/mesomeric ($\\pm M$), and hyperconjugation ($\\alpha$-$\\text{C--H}$ count!) stabilize carbocations and alkenes as $3^\\circ > 2^\\circ > 1^\\circ > \\text{CH}_3^+$ (plus allylic/benzylic resonance), while carbanion stability reverses ($1^\\circ > 2^\\circ > 3^\\circ$). Unsymmetrical alkenes add $\\text{HX}$ by Markovnikov's rule (rich get richer in $\\text{H}$), whereas ONLY $\\text{HBr}$ + organic peroxide ($\\text{ROOR}$) flips to anti-Markovnikov radical addition (Kharasch effect; fails for $\\text{HCl}$ and $\\text{HI}$!). Reductive ozonolysis ($\\text{O}_3$, then $\\text{Zn}/\\text{H}_2\\text{O}$) cleaves every $\\text{C=C}$ cleanly into two $\\text{C=O}$ carbonyls.",
       "keyFormulas": [
         {
           "formulaId": "C08-F02",
-          "label": "Grignard Reagent",
-          "latex": "$RMgX + H_2O \\to RH + Mg(OH)X$",
-          "aiExplainContext": "Carbon-carbon bond forming reagent; hydrolysis gives alkane."
+          "label": "Markovnikov vs Peroxide Kharasch & Hückel Aromaticity",
+          "latex": "$\\text{R-CH=CH}_2 + \\text{HBr}\\xrightarrow{\\text{no ROOR}} 2^\\circ\\text{ bromide};\\quad \\xrightarrow{\\text{ROOR}} 1^\\circ\\text{ bromide};\\quad \\text{Aromatic}: (4n+2)\\,\\pi\\,e^-$",
+          "aiExplainContext": "Predict alkene regioselectivity, ozonolysis products, and aromaticity."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "functional-polymers",
+      "heading": "3. Diagnostic Tests (Lucas, Tollens, Iodoform) & Everyday Polymers",
+      "proseLatex": "Distinguishing tests: Lucas reagent ($\\text{conc. HCl} + \\text{anhyd. ZnCl}_2$) gives instant turbidity with $3^\\circ$ alcohols, $\\sim 5\\text{ min}$ with $2^\\circ$, and none at RT with $1^\\circ$; Tollens' ammoniacal $\\text{AgNO}_3$ silver mirror and Fehling's red $\\text{Cu}_2\\text{O}$ test aldehydes (Fehling fails for benzaldehyde!); yellow $\\text{CHI}_3$ iodoform ($\\text{I}_2/\\text{NaOH}$) identifies $\\text{CH}_3\\text{CO-}$ or $\\text{CH}_3\\text{CH(OH)}-$ (ethanol is the ONLY $1^\\circ$ alcohol giving positive iodoform!). Aldehydes lacking $\\alpha$-$\\text{H}$ ($\\text{HCHO}, \\text{PhCHO}$) undergo Cannizzaro disproportionation, while those WITH $\\alpha$-$\\text{H}$ undergo Aldol condensation. Key polymers: Nylon-6,6 (hexamethylenediamine + adipic acid), Bakelite (phenol + $\\text{HCHO}$), Teflon ($\\text{CF}_2=\\text{CF}_2$), natural rubber (*cis*-1,4-polyisoprene).",
+      "keyFormulas": [
+        {
+          "formulaId": "C08-F03",
+          "label": "Carbonyl α-H Split & Classic Monomer Pairs",
+          "latex": "$\\alpha\\text{-H present}\\to\\text{Aldol};\\quad \\text{no }\\alpha\\text{-H}\\to\\text{Cannizzaro};\\quad \\text{Bakelite}=\\text{Phenol}+\\text{HCHO};\\quad \\text{Teflon}=\\text{C}_2\\text{F}_4$",
+          "aiExplainContext": "Select diagnostic lab tests and recall polymer monomers."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "iupac-isomerism",
+      "heading": "1. IUPAC Priority, Hybridization & Isomerism",
+      "proseLatex": "Principal functional-group priority runs $-\\text{COOH} > -\\text{SO}_3\\text{H} > -\\text{COOR} > -\\text{COCl} > -\\text{CONH}_2 > -\\text{CN} > -\\text{CHO} > >\\text{C=O} > -\\text{OH} > -\\text{NH}_2 > \\text{alkene/alkyne}$. Carbon hybridization sets $\\sigma/\\pi$ count and electronegativity: $sp\\;(50\\%\\;s,\\;\\text{terminal alkyne acidic!}) > sp^2\\;(33\\%\\;s) > sp^3\\;(25\\%\\;s)$. Degree of unsaturation $\\text{DBE} = C + 1 - \\frac{H + X - N}{2}$ counts rings + $\\pi$-bonds. Geometrical (*cis/trans*, $E/Z$) isomerism needs restricted rotation with $a\\neq b$ on each end; optical activity requires absence of plane/centre of symmetry (chiral carbon $C^*$ gives up to $2^n$ stereoisomers, fewer when meso forms exist).",
+      "keyFormulas": [
+        {
+          "formulaId": "C08-F01",
+          "label": "Double-Bond Equivalent (DBE) & Functional Priority",
+          "latex": "$\\text{DBE} = C + 1 - \\frac{H + X - N}{2};\\qquad -\\text{COOH} > -\\text{CN} > -\\text{CHO} > >\\text{C=O} > -\\text{OH} > -\\text{NH}_2$",
+          "aiExplainContext": "Count rings + pi bonds from molecular formulas and apply IUPAC suffix priority."
+        }
+      ]
+    },
+    {
+      "anchor": "goc-hydrocarbons",
+      "heading": "2. Electronic Effects, Carbocation Stability, Markovnikov & Ozonolysis",
+      "proseLatex": "Inductive ($\\pm I$), resonance/mesomeric ($\\pm M$), and hyperconjugation ($\\alpha$-$\\text{C--H}$ count!) stabilize carbocations and alkenes as $3^\\circ > 2^\\circ > 1^\\circ > \\text{CH}_3^+$ (plus allylic/benzylic resonance), while carbanion stability reverses ($1^\\circ > 2^\\circ > 3^\\circ$). Unsymmetrical alkenes add $\\text{HX}$ by Markovnikov's rule (rich get richer in $\\text{H}$), whereas ONLY $\\text{HBr}$ + organic peroxide ($\\text{ROOR}$) flips to anti-Markovnikov radical addition (Kharasch effect; fails for $\\text{HCl}$ and $\\text{HI}$!). Reductive ozonolysis ($\\text{O}_3$, then $\\text{Zn}/\\text{H}_2\\text{O}$) cleaves every $\\text{C=C}$ cleanly into two $\\text{C=O}$ carbonyls.",
+      "keyFormulas": [
+        {
+          "formulaId": "C08-F02",
+          "label": "Markovnikov vs Peroxide Kharasch & Hückel Aromaticity",
+          "latex": "$\\text{R-CH=CH}_2 + \\text{HBr}\\xrightarrow{\\text{no ROOR}} 2^\\circ\\text{ bromide};\\quad \\xrightarrow{\\text{ROOR}} 1^\\circ\\text{ bromide};\\quad \\text{Aromatic}: (4n+2)\\,\\pi\\,e^-$",
+          "aiExplainContext": "Predict alkene regioselectivity, ozonolysis products, and aromaticity."
+        }
+      ]
+    },
+    {
+      "anchor": "functional-polymers",
+      "heading": "3. Diagnostic Tests (Lucas, Tollens, Iodoform) & Everyday Polymers",
+      "proseLatex": "Distinguishing tests: Lucas reagent ($\\text{conc. HCl} + \\text{anhyd. ZnCl}_2$) gives instant turbidity with $3^\\circ$ alcohols, $\\sim 5\\text{ min}$ with $2^\\circ$, and none at RT with $1^\\circ$; Tollens' ammoniacal $\\text{AgNO}_3$ silver mirror and Fehling's red $\\text{Cu}_2\\text{O}$ test aldehydes (Fehling fails for benzaldehyde!); yellow $\\text{CHI}_3$ iodoform ($\\text{I}_2/\\text{NaOH}$) identifies $\\text{CH}_3\\text{CO-}$ or $\\text{CH}_3\\text{CH(OH)}-$ (ethanol is the ONLY $1^\\circ$ alcohol giving positive iodoform!). Aldehydes lacking $\\alpha$-$\\text{H}$ ($\\text{HCHO}, \\text{PhCHO}$) undergo Cannizzaro disproportionation, while those WITH $\\alpha$-$\\text{H}$ undergo Aldol condensation. Key polymers: Nylon-6,6 (hexamethylenediamine + adipic acid), Bakelite (phenol + $\\text{HCHO}$), Teflon ($\\text{CF}_2=\\text{CF}_2$), natural rubber (*cis*-1,4-polyisoprene).",
+      "keyFormulas": [
+        {
+          "formulaId": "C08-F03",
+          "label": "Carbonyl α-H Split & Classic Monomer Pairs",
+          "latex": "$\\alpha\\text{-H present}\\to\\text{Aldol};\\quad \\text{no }\\alpha\\text{-H}\\to\\text{Cannizzaro};\\quad \\text{Bakelite}=\\text{Phenol}+\\text{HCHO};\\quad \\text{Teflon}=\\text{C}_2\\text{F}_4$",
+          "aiExplainContext": "Select diagnostic lab tests and recall polymer monomers."
         }
       ]
     }
@@ -56,18 +142,31 @@
   "workedExamples": [
     {
       "exampleId": "C08-EX01",
-      "problemLatex": "Product of $CH_3Cl \\xrightarrow{(i) Mg/ether \\; (ii) CH_3COOH}$:",
+      "problemLatex": "Give the IUPAC name and $\\sigma,\\pi$ bond count of $\\text{CH}_2=\\text{CH}-\\text{CH}_2-\\text{C}\\equiv\\text{CH}$.",
       "stepsLatex": [
-        "(i) forms Grignard: $CH_3MgCl$.",
-        "(ii) Acid-base reaction: $CH_3MgCl + CH_3COOH \\to CH_4$."
+        "When double and triple bonds get identical locants $(1,4)$ from either end, ALKENE wins lowest locant: pent-1-en-4-yne.",
+        "Count bonds: $6\\,\\text{C--H}\\;\\sigma + 4\\,\\text{C--C}\\;\\sigma = 10\\,\\sigma$ bonds, and $1\\text{ (C=C)} + 2\\text{ (C}\\equiv\\text{C)} = 3\\,\\pi$ bonds."
       ],
-      "answerLatex": "$CH_4$"
+      "answerLatex": "Pent-1-en-4-yne ($10\\,\\sigma,\\; 3\\,\\pi$)"
     }
   ],
   "wbjeebTraps": [
-    "Markovnikov's rule: H adds to the carbon with more H in alkene addition.",
-    "Acetylene is more acidic than alkenes/alkanes due to sp hybridization."
+    "Kharasch peroxide anti-Markovnikov effect works ONLY with $\\text{HBr}$ — $\\text{HCl}$ and $\\text{HI}$ STILL obey Markovnikov even in presence of peroxides!",
+    "Ethanol ($\\text{CH}_3\\text{CH}_2\\text{OH}$) gives POSITIVE iodoform test, whereas methanol ($\\text{CH}_3\\text{OH}$) is NEGATIVE!",
+    "Acidity comparison: phenol ($pK_a \\approx 10$) $>$ water ($15.7$) $>$ alcohols ($16\\text{--}18$) $>$ terminal alkynes ($25$); picric acid ($2,4,6$-trinitrophenol) even liberates $\\text{CO}_2$ from $\\text{NaHCO}_3$ despite having no $-\\text{COOH}$ group!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "IUPAC Nomenclature - Branched Chain Hydrocarbons (Class 11)",
+      "url": "https://www.youtube.com/watch?v=ejDD6j4m4kM",
+      "videoId": "ejDD6j4m4kM",
+      "duration": "21 min",
+      "durationMinutes": 21,
+      "provider": "YouTube · Chemistry Pathshala by Dr. Monica Jain",
+      "channelName": "Chemistry Pathshala by Dr. Monica Jain",
+      "language": "en",
+      "scopeNote": "IUPAC priority rules, structural/geometrical/optical isomerism & organic reactions"
+    }
+  ],
   "practiceSetIds": []
 }

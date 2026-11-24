@@ -32,30 +32,134 @@
     "jelet-2025-q032",
     "jelet-2025-q036"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q007",
+    "jelet-2025-q008",
+    "jelet-2025-q012",
+    "jelet-2025-q017",
+    "jelet-2025-q018",
+    "jelet-2025-q024",
+    "jelet-2024-q014",
+    "jelet-2024-q015",
+    "jelet-2024-q016",
+    "jelet-2024-q017",
+    "jelet-2023-q014",
+    "jelet-2023-q015",
+    "jelet-2023-q016",
+    "jelet-2023-q017",
+    "jelet-2023-q018",
+    "jelet-2022-q014",
+    "jelet-2022-q015",
+    "jelet-2022-q016",
+    "jelet-2022-q017",
+    "jelet-2022-q018",
+    "jelet-2025-q032",
+    "jelet-2025-q036",
+    "jelet-2024-q036",
+    "jelet-2023-q036",
+    "jelet-2022-q036"
+  ],
+  "notes": [
     {
       "anchor": "limits-continuity",
-      "heading": "1. Limits & Continuity",
-      "proseLatex": "Standard limits, indeterminate forms, L'Hospital's rule. A function is continuous at $a$ if $\\lim_{x\\to a}f(x) = f(a)$.",
+      "heading": "1. Standard Limits, 1^∞ Form & Continuity",
+      "proseLatex": "A limit $\\lim_{x\\to a} f(x) = L$ exists if and only if left-hand and right-hand limits exist finitely and agree ($f(a^-) = f(a^+) = L$); continuity at $x=a$ additionally requires $L = f(a)$. For $0/0$ or $\\infty/\\infty$ indeterminate forms, L'Hospital's rule $\\lim \\frac{f(x)}{g(x)} = \\lim \\frac{f'(x)}{g'(x)}$ and Maclaurin series expansions provide rapid evaluation. For the $1^\\infty$ indeterminate form $\\lim_{x\\to a}[1 + u(x)]^{v(x)}$ where $u\\to 0$ and $v\\to\\infty$, the result collapses to $\\exp\\!\\left(\\lim_{x\\to a} u(x)v(x)\\right)$.",
       "keyFormulas": [
         {
           "formulaId": "M06-F01",
-          "label": "Standard Limit",
-          "latex": "$\\lim_{x\\to 0}\\frac{\\sin x}{x} = 1$",
-          "aiExplainContext": "Fundamental limit for trigonometric functions."
+          "label": "Core Trigonometric, Exponential & 1^∞ Limits",
+          "latex": "$\\lim_{x\\to 0}\\frac{\\sin x}{x} = 1,\\quad \\lim_{x\\to 0}\\frac{e^x - 1}{x} = 1,\\quad \\lim_{x\\to a}(f(x))^{g(x)}\\;[1^\\infty] = e^{\\lim_{x\\to a}(f(x)-1)g(x)}$",
+          "aiExplainContext": "Evaluate standard limits and 1^infinity exponential limits rapidly."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M06-EX01",
+          "problemLatex": "Evaluate $\\lim_{x\\to 0}\\left(\\frac{1 + 3x}{1 - 2x}\\right)^{1/x}$.",
+          "stepsLatex": [
+            "As $x\\to 0$, base $\\to 1$ and exponent $\\to \\infty$ ($1^\\infty$ form).",
+            "Compute $\\lim_{x\\to 0} (f(x) - 1)g(x) = \\lim_{x\\to 0}\\left(\\frac{1+3x}{1-2x} - 1\\right)\\frac{1}{x} = \\lim_{x\\to 0}\\frac{5x}{x(1-2x)} = 5$, giving $e^5$."
+          ],
+          "answerLatex": "$e^5$"
         }
       ]
     },
     {
-      "anchor": "derivatives",
-      "heading": "2. Derivatives & Mean Value Theorems",
-      "proseLatex": "Product/quotient/chain rules. Rolle's and Lagrange's MVT connect derivatives to function values.",
+      "anchor": "differentiation-rules",
+      "heading": "2. Differentiability, Parametric, Implicit & Logarithmic Derivatives",
+      "proseLatex": "Differentiability at $x=a$ requires $f'(a^-) = f'(a^+)$ finitely; differentiability always implies continuity, but the converse fails at sharp corners like $|x|$ at $x=0$. For parametric curves $x = x(t),\\; y = y(t)$, $\\frac{dy}{dx} = \\frac{\\dot{y}}{\\dot{x}}$ and $\\frac{d^2y}{dx^2} = \\frac{d}{dt}\\!\\left(\\frac{dy}{dx}\\right)\\!\\cdot\\frac{1}{\\dot{x}}$ (remember the extra $1/\\dot{x}$ factor!). Variable-exponent functions $y = u(x)^{v(x)}$ are differentiated via $\\ln y = v\\ln u \\implies y' = u^v\\left(v'\\ln u + \\frac{v u'}{u}\\right)$.",
       "keyFormulas": [
         {
           "formulaId": "M06-F02",
-          "label": "L'Hospital's Rule",
-          "latex": "$\\lim f/g = \\lim f'/g'$ for 0/0 or $\\infty/\\infty$ forms",
-          "aiExplainContext": "Evaluate indeterminate limits."
+          "label": "Parametric 2nd Derivative & Variable Power Rule",
+          "latex": "$\\frac{d^2y}{dx^2} = \\frac{\\dot{x}\\ddot{y} - \\dot{y}\\ddot{x}}{\\dot{x}^3},\\qquad \\frac{d}{dx}\\bigl(u^v\\bigr) = u^v\\!\\left(v'\\ln u + v\\,\\frac{u'}{u}\\right)$",
+          "aiExplainContext": "Avoid the #1 parametric second-derivative mistake and handle x^x forms."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M06-EX02",
+          "problemLatex": "If $x = a\\cos t$ and $y = a\\sin t$, find $\\frac{d^2y}{dx^2}$ at $t = \\frac{\\pi}{4}$.",
+          "stepsLatex": [
+            "First derivative: $\\frac{dy}{dx} = \\frac{a\\cos t}{-a\\sin t} = -\\cot t$.",
+            "Second derivative: $\\frac{d^2y}{dx^2} = \\frac{d}{dt}(-\\cot t)\\cdot\\frac{1}{-a\\sin t} = \\frac{\\csc^2 t}{-a\\sin t} = -\\frac{\\csc^3 t}{a}$; at $t=\\pi/4$, $\\csc(\\pi/4)=\\sqrt{2}$, giving $-\\frac{2\\sqrt{2}}{a}$."
+          ],
+          "answerLatex": "$-\\frac{2\\sqrt{2}}{a}$"
+        }
+      ]
+    },
+    {
+      "anchor": "mvt-leibniz",
+      "heading": "3. Rolle's Theorem, Lagrange's MVT & Successive Derivatives",
+      "proseLatex": "If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, Lagrange's Mean Value Theorem guarantees $c \\in (a,b)$ with $f'(c) = \\frac{f(b)-f(a)}{b-a}$; Rolle's theorem is the special case $f(a)=f(b) \\implies f'(c)=0$. For $n$-th derivatives of products, Leibniz's rule gives $(uv)_n = \\sum_{r=0}^n \\binom{n}{r} u_{n-r} v_r$, and standard shifts include $\\frac{d^n}{dx^n}\\sin(ax+b) = a^n\\sin\\!\\left(ax+b+\\frac{n\\pi}{2}\\right)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M06-F03",
+          "label": "Lagrange MVT & Leibniz n-th Derivative",
+          "latex": "$f'(c) = \\frac{f(b)-f(a)}{b-a}\\; (c\\in(a,b)),\\qquad (uv)_n = \\sum_{r=0}^{n}\\binom{n}{r} u^{(n-r)} v^{(r)}$",
+          "aiExplainContext": "Verify hypotheses of Rolle/MVT and compute higher derivatives at x = 0."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "limits-continuity",
+      "heading": "1. Standard Limits, 1^∞ Form & Continuity",
+      "proseLatex": "A limit $\\lim_{x\\to a} f(x) = L$ exists if and only if left-hand and right-hand limits exist finitely and agree ($f(a^-) = f(a^+) = L$); continuity at $x=a$ additionally requires $L = f(a)$. For $0/0$ or $\\infty/\\infty$ indeterminate forms, L'Hospital's rule $\\lim \\frac{f(x)}{g(x)} = \\lim \\frac{f'(x)}{g'(x)}$ and Maclaurin series expansions provide rapid evaluation. For the $1^\\infty$ indeterminate form $\\lim_{x\\to a}[1 + u(x)]^{v(x)}$ where $u\\to 0$ and $v\\to\\infty$, the result collapses to $\\exp\\!\\left(\\lim_{x\\to a} u(x)v(x)\\right)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M06-F01",
+          "label": "Core Trigonometric, Exponential & 1^∞ Limits",
+          "latex": "$\\lim_{x\\to 0}\\frac{\\sin x}{x} = 1,\\quad \\lim_{x\\to 0}\\frac{e^x - 1}{x} = 1,\\quad \\lim_{x\\to a}(f(x))^{g(x)}\\;[1^\\infty] = e^{\\lim_{x\\to a}(f(x)-1)g(x)}$",
+          "aiExplainContext": "Evaluate standard limits and 1^infinity exponential limits rapidly."
+        }
+      ]
+    },
+    {
+      "anchor": "differentiation-rules",
+      "heading": "2. Differentiability, Parametric, Implicit & Logarithmic Derivatives",
+      "proseLatex": "Differentiability at $x=a$ requires $f'(a^-) = f'(a^+)$ finitely; differentiability always implies continuity, but the converse fails at sharp corners like $|x|$ at $x=0$. For parametric curves $x = x(t),\\; y = y(t)$, $\\frac{dy}{dx} = \\frac{\\dot{y}}{\\dot{x}}$ and $\\frac{d^2y}{dx^2} = \\frac{d}{dt}\\!\\left(\\frac{dy}{dx}\\right)\\!\\cdot\\frac{1}{\\dot{x}}$ (remember the extra $1/\\dot{x}$ factor!). Variable-exponent functions $y = u(x)^{v(x)}$ are differentiated via $\\ln y = v\\ln u \\implies y' = u^v\\left(v'\\ln u + \\frac{v u'}{u}\\right)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M06-F02",
+          "label": "Parametric 2nd Derivative & Variable Power Rule",
+          "latex": "$\\frac{d^2y}{dx^2} = \\frac{\\dot{x}\\ddot{y} - \\dot{y}\\ddot{x}}{\\dot{x}^3},\\qquad \\frac{d}{dx}\\bigl(u^v\\bigr) = u^v\\!\\left(v'\\ln u + v\\,\\frac{u'}{u}\\right)$",
+          "aiExplainContext": "Avoid the #1 parametric second-derivative mistake and handle x^x forms."
+        }
+      ]
+    },
+    {
+      "anchor": "mvt-leibniz",
+      "heading": "3. Rolle's Theorem, Lagrange's MVT & Successive Derivatives",
+      "proseLatex": "If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, Lagrange's Mean Value Theorem guarantees $c \\in (a,b)$ with $f'(c) = \\frac{f(b)-f(a)}{b-a}$; Rolle's theorem is the special case $f(a)=f(b) \\implies f'(c)=0$. For $n$-th derivatives of products, Leibniz's rule gives $(uv)_n = \\sum_{r=0}^n \\binom{n}{r} u_{n-r} v_r$, and standard shifts include $\\frac{d^n}{dx^n}\\sin(ax+b) = a^n\\sin\\!\\left(ax+b+\\frac{n\\pi}{2}\\right)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M06-F03",
+          "label": "Lagrange MVT & Leibniz n-th Derivative",
+          "latex": "$f'(c) = \\frac{f(b)-f(a)}{b-a}\\; (c\\in(a,b)),\\qquad (uv)_n = \\sum_{r=0}^{n}\\binom{n}{r} u^{(n-r)} v^{(r)}$",
+          "aiExplainContext": "Verify hypotheses of Rolle/MVT and compute higher derivatives at x = 0."
         }
       ]
     }
@@ -63,19 +167,40 @@
   "workedExamples": [
     {
       "exampleId": "M06-EX01",
-      "problemLatex": "If $f(x) = a|\\sin 2x| + b|e^{3x}| + c|2x - \\beta^2|$ is differentiable at $x=0$, find the condition.",
+      "problemLatex": "Evaluate $\\lim_{x\\to 0}\\left(\\frac{1 + 3x}{1 - 2x}\\right)^{1/x}$.",
       "stepsLatex": [
-        "$|\\sin 2x|$: not differentiable at 0 unless $a = 0$.",
-        "$|e^{3x}| = e^{3x}$: differentiable everywhere.",
-        "$|2x - \\beta^2|$: not differentiable at 0 unless $c = 0$."
+        "As $x\\to 0$, base $\\to 1$ and exponent $\\to \\infty$ ($1^\\infty$ form).",
+        "Compute $\\lim_{x\\to 0} (f(x) - 1)g(x) = \\lim_{x\\to 0}\\left(\\frac{1+3x}{1-2x} - 1\\right)\\frac{1}{x} = \\lim_{x\\to 0}\\frac{5x}{x(1-2x)} = 5$, giving $e^5$."
       ],
-      "answerLatex": "$2a + 3b = 0$"
+      "answerLatex": "$e^5$"
+    },
+    {
+      "exampleId": "M06-EX02",
+      "problemLatex": "If $x = a\\cos t$ and $y = a\\sin t$, find $\\frac{d^2y}{dx^2}$ at $t = \\frac{\\pi}{4}$.",
+      "stepsLatex": [
+        "First derivative: $\\frac{dy}{dx} = \\frac{a\\cos t}{-a\\sin t} = -\\cot t$.",
+        "Second derivative: $\\frac{d^2y}{dx^2} = \\frac{d}{dt}(-\\cot t)\\cdot\\frac{1}{-a\\sin t} = \\frac{\\csc^2 t}{-a\\sin t} = -\\frac{\\csc^3 t}{a}$; at $t=\\pi/4$, $\\csc(\\pi/4)=\\sqrt{2}$, giving $-\\frac{2\\sqrt{2}}{a}$."
+      ],
+      "answerLatex": "$-\\frac{2\\sqrt{2}}{a}$"
     }
   ],
   "wbjeebTraps": [
-    "Modulus functions are not differentiable at points where the argument is zero.",
-    "L'Hospital's rule applies only to 0/0 or $\\infty/\\infty$."
+    "Never apply L'Hospital's rule before verifying the ratio is actually $0/0$ or $\\infty/\\infty$.",
+    "In parametric second derivatives, $\\frac{d^2y}{dx^2} \\neq \\frac{d^2y/dt^2}{d^2x/dt^2}$ — always divide $\\frac{d}{dt}(dy/dx)$ by $\\frac{dx}{dt}$.",
+    "Rolle's theorem fails on $[-1, 1]$ for $f(x) = |x|$ or $x^{2/3}$ even though $f(-1)=f(1)$, because $f'(0)$ does not exist."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "LIMITS || ENGINEERING MATHEMATICS - 1 || DIPLOMA - 1St Year Maths",
+      "url": "https://www.youtube.com/watch?v=0f-Nc_-9nVw",
+      "videoId": "0f-Nc_-9nVw",
+      "duration": "28 min",
+      "durationMinutes": 28,
+      "provider": "YouTube · RADHA JAYAPRAKASH REDDY-SPARK INFO",
+      "channelName": "RADHA JAYAPRAKASH REDDY-SPARK INFO",
+      "language": "en",
+      "scopeNote": "Diploma-to-engineering standard limits, indeterminate forms & continuity"
+    }
+  ],
   "practiceSetIds": []
 }

@@ -128,6 +128,10 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   scroll-snap-align: start;
+  /* Phase 06: pills never wrap mid-word — chip rows are internal
+     containment scrollers, so nowrap can never widen the page. */
+  white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 .chip--active {
@@ -136,17 +140,32 @@
   border-color: var(--brand-primary);
 }
 
-/* Horizontal snap-scroll filter row */
+/* Filter & tab pill row (Phase 06 §1: wraps cleanly on <=360px phones
+   with zero horizontal scrollbars or clipped off-screen pills). */
 .chip-row {
   display: flex;
-  gap: var(--space-s);
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: var(--space-xs);
-  scrollbar-width: none;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  overflow-x: hidden;
+  padding-bottom: var(--space-2xs);
 }
-.chip-row::-webkit-scrollbar { display: none; }
+.chip-row .chip {
+  min-height: 38px;
+  padding: var(--space-2xs) var(--space-m);
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+@media (min-width: 480px) {
+  .chip-row {
+    gap: var(--space-s);
+  }
+  .chip-row .chip {
+    min-height: var(--tap-min);
+    padding: var(--space-xs) var(--space-l);
+    white-space: nowrap;
+  }
+}
 
 /* Segmented toggle (Independent vs With assistance) */
 .segmented {
@@ -287,17 +306,42 @@
 }
 
 /* ------------------------------------------------------------------ *
- * Math blocks (KaTeX containment — never page-level horizontal scroll)
+ * Math blocks (Phase 06 §1: responsive KaTeX wrapping & scaling on
+ * narrow <=360px screens — zero horizontal scrollbars anywhere)
  * ------------------------------------------------------------------ */
 .math-scroll {
-  overflow-x: auto;
+  overflow-x: hidden;
   max-width: 100%;
-  -webkit-overflow-scrolling: touch;
+  overflow-wrap: anywhere;
   background: var(--bg-surface-subtle);
   border-radius: var(--radius-m);
-  padding: var(--space-s) var(--space-m);
+  padding: var(--space-s);
 }
-.math-scroll .katex { font-size: 1.05em; }
+.math-scroll .katex {
+  font-size: 0.94em;
+  white-space: normal;
+}
+.math-scroll .katex-display {
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: var(--space-2xs) 0;
+}
+@media (min-width: 480px) {
+  .math-scroll {
+    padding: var(--space-s) var(--space-m);
+  }
+  .math-scroll .katex {
+    font-size: 1.05em;
+  }
+}
+/* Keep atomic KaTeX sub-structures intact while allowing line breaks between top-level terms */
+.katex .mfrac,
+.katex .mtable,
+.katex .msqrt,
+.katex .msupsub,
+.katex .accent {
+  white-space: nowrap;
+}
 
 /* Worked example callout */
 .worked-example {
@@ -631,6 +675,9 @@
 .input-select,
 .input-textarea {
   width: 100%;
+  min-width: 0; /* Phase 06: inputs inside flex rows may shrink below the
+                   browser's default `size`-based min-content width, so a
+                   360px row (e.g. backup Replace confirm) never overflows. */
   min-height: var(--tap-min);
   padding: var(--space-s) var(--space-m);
   border: 1px solid var(--border-strong);
@@ -676,20 +723,87 @@
 .paper-card__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-xs);
   margin-top: var(--space-m);
 }
-.paper-card__actions .btn--primary {
-  flex: 1 1 160px;
+.paper-card__actions > * {
+  flex: 1 1 auto;
+  min-width: 0;
 }
-.paper-card__actions .btn--ghost:not(.btn--icon-only) {
-  flex: 1 1 130px;
+
+/* Unified compact action bar in Paper Reader header (Phase 06 §4):
+   groups Read & Keys + Print OMR + Start 2h Mock side-by-side */
+.reader-action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+}
+.reader-action-bar__item {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 38px;
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-s);
+  font-family: inherit;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.reader-action-bar__item .icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+.reader-action-bar__item:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+.reader-action-bar__item.is-active {
+  background: var(--bg-surface);
+  color: var(--brand-primary);
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-s);
+}
+.reader-action-bar__item--primary {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+.reader-action-bar__item--primary:hover {
+  background: var(--brand-primary-hover);
+  color: var(--text-on-brand);
 }
 .question-stem {
   font-size: var(--fs-question);
   line-height: var(--lh-prose);
   color: var(--text-primary);
-  overflow-x: auto;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+}
+.question-stem .katex,
+.reader-opt__body .katex,
+.worked-example .katex {
+  white-space: normal;
+}
+.question-stem .katex-display,
+.worked-example .katex-display {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 .reader-opt {
   display: flex;
@@ -750,7 +864,16 @@
 .solution-step__body {
   font-size: var(--fs-body);
   line-height: var(--lh-prose);
-  overflow-x: auto;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+}
+.solution-step__body .katex {
+  white-space: normal;
+}
+.solution-step__body .katex-display {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 .solution-verify {
   display: flex;
@@ -845,18 +968,17 @@
   top: 52px;
   z-index: var(--z-sticky);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-xs);
   min-height: 44px;
   padding: var(--space-2xs) var(--space-m);
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border-subtle);
-  overflow-x: auto;
-  scrollbar-width: none;
+  overflow-x: hidden;
 }
-.exam-subject-strip::-webkit-scrollbar { display: none; }
 .exam-subject-strip .chip {
-  min-height: 36px;
+  min-height: 34px;
   padding: var(--space-2xs) var(--space-s);
 }
 .exam-subj-count {
@@ -1579,9 +1701,23 @@
 }
 .lesson-formula-card {
   border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--fig-secondary);
   border-radius: var(--radius-m);
   padding: var(--space-s);
   background: var(--bg-surface);
+  color: var(--fig-node);
+}
+.lesson-formula-card .katex {
+  color: var(--fig-node);
+}
+.lesson-formula-card__note {
+  margin: var(--space-2xs) 0 0;
+  font-size: var(--fs-caption);
+  color: var(--fig-text);
+}
+.unit-formula-sheet__meta {
+  font-size: var(--fs-caption);
+  color: var(--fig-axis);
 }
 .explain-step-btn {
   display: inline-flex;

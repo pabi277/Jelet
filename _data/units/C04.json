@@ -15,30 +15,116 @@
     "jelet-2025-q079",
     "jelet-2025-q080"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q074",
+    "jelet-2025-q076",
+    "jelet-2025-q080",
+    "jelet-2024-q075",
+    "jelet-2023-q074",
+    "jelet-2022-q075",
+    "jelet-2022-q087"
+  ],
+  "notes": [
     {
-      "anchor": "redox",
-      "heading": "1. Oxidation Number & Redox Titrations",
-      "proseLatex": "Oxidation number rules. Ion-electron balancing. Redox titrations use electron transfer.",
+      "anchor": "oxidation-redox",
+      "heading": "1. Oxidation Numbers, Peroxide Exceptions & Redox n-Factors",
+      "proseLatex": "Oxidation is electron loss (oxidation number increases; reducing agent) and reduction is electron gain (oxidation number decreases; oxidizing agent). Watch peroxide ($\\text{O} = -1$) traps: $\\text{CrO}_5$ ('butterfly' with two peroxo rings) has $\\text{Cr} = +6$ (NOT $+10$!), and Caro's acid $\\text{H}_2\\text{SO}_5$ has $\\text{S} = +6$ (NOT $+8$!). For $\\text{KMnO}_4$, $n$-factor is $5$ in acidic ($\\text{MnO}_4^- \\to \\text{Mn}^{2+}$), $3$ in neutral/faintly alkaline ($\\to \\text{MnO}_2$), and $1$ in strongly alkaline ($\\to \\text{MnO}_4^{2-}$).",
       "keyFormulas": [
         {
           "formulaId": "C04-F01",
-          "label": "Oxidation Number Change",
-          "latex": "$\\text{Change} = \\text{final} - \\text{initial}$",
-          "aiExplainContext": "Track electrons in redox reactions."
+          "label": "Permanganate & Dichromate Redox n-Factors",
+          "latex": "$\\text{KMnO}_4: n_f = 5\\text{ (acid)},\\; 3\\text{ (neutral)},\\; 1\\text{ (strong base)};\\qquad \\text{K}_2\\text{Cr}_2\\text{O}_7\\text{ (acid)}: n_f = 6$",
+          "aiExplainContext": "Assign exact oxidation numbers in peroxo compounds and compute redox equivalent weights."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "C04-EX01",
+          "problemLatex": "Find the equivalent weight of $\\text{KMnO}_4$ (molar mass $M$) in acidic medium.",
+          "stepsLatex": [
+            "In acid, $\\text{Mn}(+7)\\text{O}_4^- + 8\\text{H}^+ + 5e^- \\to \\text{Mn}^{2+} + 4\\text{H}_2\\text{O}$, so $n_f = 5$.",
+            "Equivalent weight $E = M / 5$ ($\\approx 158 / 5 = 31.6$)."
+          ],
+          "answerLatex": "$\\frac{M}{5}$ ($\\approx 31.6$)"
         }
       ]
     },
     {
-      "anchor": "electrochemistry",
-      "heading": "2. Electrolysis & Electrochemical Series",
-      "proseLatex": "Faraday's laws. Electrolysis of $\\text{CuSO}_4$. Electrochemical series ranks reduction potentials.",
+      "anchor": "faraday-electrolysis",
+      "heading": "2. Faraday's Laws of Electrolysis & Conductance",
+      "proseLatex": "One Faraday $F = N_A e \\approx 96{,}500\\text{ C/mol}$ deposits exactly $1$ gram-equivalent of ANY substance! Faraday's 1st law gives deposited mass $w = ZIt = \\frac{E\\,I\\,t}{96500}$, and for cells in series (equal charge $Q$), Faraday's 2nd law gives $\\frac{w_1}{w_2} = \\frac{E_1}{E_2}$. Upon dilution, specific conductivity $\\kappa$ DECREASES (fewer ions per $\\text{cm}^3$), whereas molar conductivity $\\Lambda_m = \\frac{1000\\kappa}{M}$ INCREASES (Kohlrausch's law $\\Lambda_m^\\circ = \\nu_+\\lambda_+^\\circ + \\nu_-\\lambda_-^\\circ$).",
       "keyFormulas": [
         {
           "formulaId": "C04-F02",
-          "label": "Nernst Equation",
-          "latex": "$E = E^\\circ - \\frac{0.0592}{n}\\log Q$",
-          "aiExplainContext": "Cell potential under non-standard conditions."
+          "label": "Faraday's First & Second Laws of Electrolysis",
+          "latex": "$w = \\frac{M_{\\text{mol}}\\,I\\,t}{n_f \\cdot 96500} = \\frac{E\\,I\\,t}{96500},\\qquad \\frac{w_1}{w_2} = \\frac{E_1}{E_2}\\;\\text{(series cells)}$",
+          "aiExplainContext": "Calculate mass/gas volume liberated by a given current and time."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "C04-EX02",
+          "problemLatex": "How many grams of copper (atomic mass $63.5$) are deposited from $\\text{CuSO}_4(\\text{aq})$ by $9.65\\text{ A}$ flowing for $1000\\text{ s}$?",
+          "stepsLatex": [
+            "Charge $Q = It = 9.65 \\times 1000 = 9650\\text{ C} = 0.10\\text{ F}$; for $\\text{Cu}^{2+} + 2e^- \\to \\text{Cu}$, $n_f = 2$.",
+            "$w = \\frac{63.5}{2} \\times 0.10 = 3.175\\text{ g}$."
+          ],
+          "answerLatex": "$3.175\\text{ g}$"
+        }
+      ]
+    },
+    {
+      "anchor": "galvanic-nernst",
+      "heading": "3. Galvanic Cells, Nernst Equation & Gibbs Free Energy",
+      "proseLatex": "Oxidation ALWAYS occurs at the ANODE and reduction at the CATHODE (LOAN: Left, Oxidation, Anode, Negative in galvanic cells; in electrolytic cells, anode is positive!). Standard cell EMF is $E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}}$, spontaneity requires $\\Delta G^\\circ = -nFE^\\circ_{\\text{cell}} < 0$, and at $298\\text{ K}$ the Nernst equation reads $E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\frac{0.0591}{n}\\log_{10} Q$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C04-F03",
+          "label": "Nernst Equation (298 K) & Gibbs Relation",
+          "latex": "$E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\frac{0.0591}{n}\\log_{10} Q,\\qquad \\Delta G^\\circ = -nFE^\\circ_{\\text{cell}} = -2.303\\,RT\\log_{10} K_{\\text{eq}}$",
+          "aiExplainContext": "Compute non-standard cell potentials and equilibrium constants from E deg."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "oxidation-redox",
+      "heading": "1. Oxidation Numbers, Peroxide Exceptions & Redox n-Factors",
+      "proseLatex": "Oxidation is electron loss (oxidation number increases; reducing agent) and reduction is electron gain (oxidation number decreases; oxidizing agent). Watch peroxide ($\\text{O} = -1$) traps: $\\text{CrO}_5$ ('butterfly' with two peroxo rings) has $\\text{Cr} = +6$ (NOT $+10$!), and Caro's acid $\\text{H}_2\\text{SO}_5$ has $\\text{S} = +6$ (NOT $+8$!). For $\\text{KMnO}_4$, $n$-factor is $5$ in acidic ($\\text{MnO}_4^- \\to \\text{Mn}^{2+}$), $3$ in neutral/faintly alkaline ($\\to \\text{MnO}_2$), and $1$ in strongly alkaline ($\\to \\text{MnO}_4^{2-}$).",
+      "keyFormulas": [
+        {
+          "formulaId": "C04-F01",
+          "label": "Permanganate & Dichromate Redox n-Factors",
+          "latex": "$\\text{KMnO}_4: n_f = 5\\text{ (acid)},\\; 3\\text{ (neutral)},\\; 1\\text{ (strong base)};\\qquad \\text{K}_2\\text{Cr}_2\\text{O}_7\\text{ (acid)}: n_f = 6$",
+          "aiExplainContext": "Assign exact oxidation numbers in peroxo compounds and compute redox equivalent weights."
+        }
+      ]
+    },
+    {
+      "anchor": "faraday-electrolysis",
+      "heading": "2. Faraday's Laws of Electrolysis & Conductance",
+      "proseLatex": "One Faraday $F = N_A e \\approx 96{,}500\\text{ C/mol}$ deposits exactly $1$ gram-equivalent of ANY substance! Faraday's 1st law gives deposited mass $w = ZIt = \\frac{E\\,I\\,t}{96500}$, and for cells in series (equal charge $Q$), Faraday's 2nd law gives $\\frac{w_1}{w_2} = \\frac{E_1}{E_2}$. Upon dilution, specific conductivity $\\kappa$ DECREASES (fewer ions per $\\text{cm}^3$), whereas molar conductivity $\\Lambda_m = \\frac{1000\\kappa}{M}$ INCREASES (Kohlrausch's law $\\Lambda_m^\\circ = \\nu_+\\lambda_+^\\circ + \\nu_-\\lambda_-^\\circ$).",
+      "keyFormulas": [
+        {
+          "formulaId": "C04-F02",
+          "label": "Faraday's First & Second Laws of Electrolysis",
+          "latex": "$w = \\frac{M_{\\text{mol}}\\,I\\,t}{n_f \\cdot 96500} = \\frac{E\\,I\\,t}{96500},\\qquad \\frac{w_1}{w_2} = \\frac{E_1}{E_2}\\;\\text{(series cells)}$",
+          "aiExplainContext": "Calculate mass/gas volume liberated by a given current and time."
+        }
+      ]
+    },
+    {
+      "anchor": "galvanic-nernst",
+      "heading": "3. Galvanic Cells, Nernst Equation & Gibbs Free Energy",
+      "proseLatex": "Oxidation ALWAYS occurs at the ANODE and reduction at the CATHODE (LOAN: Left, Oxidation, Anode, Negative in galvanic cells; in electrolytic cells, anode is positive!). Standard cell EMF is $E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}}$, spontaneity requires $\\Delta G^\\circ = -nFE^\\circ_{\\text{cell}} < 0$, and at $298\\text{ K}$ the Nernst equation reads $E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\frac{0.0591}{n}\\log_{10} Q$.",
+      "keyFormulas": [
+        {
+          "formulaId": "C04-F03",
+          "label": "Nernst Equation (298 K) & Gibbs Relation",
+          "latex": "$E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\frac{0.0591}{n}\\log_{10} Q,\\qquad \\Delta G^\\circ = -nFE^\\circ_{\\text{cell}} = -2.303\\,RT\\log_{10} K_{\\text{eq}}$",
+          "aiExplainContext": "Compute non-standard cell potentials and equilibrium constants from E deg."
         }
       ]
     }
@@ -46,18 +132,40 @@
   "workedExamples": [
     {
       "exampleId": "C04-EX01",
-      "problemLatex": "Cell: $Zn + Cu^{2+} \\to Cu + Zn^{2+}$. $E^\\circ = 1.10$ V. With 0.1 M both, find $E$.",
+      "problemLatex": "Find the equivalent weight of $\\text{KMnO}_4$ (molar mass $M$) in acidic medium.",
       "stepsLatex": [
-        "$Q = [Zn^{2+}]/[Cu^{2+}] = 1$.",
-        "$E = 1.10 - 0 = 1.10$ V."
+        "In acid, $\\text{Mn}(+7)\\text{O}_4^- + 8\\text{H}^+ + 5e^- \\to \\text{Mn}^{2+} + 4\\text{H}_2\\text{O}$, so $n_f = 5$.",
+        "Equivalent weight $E = M / 5$ ($\\approx 158 / 5 = 31.6$)."
       ],
-      "answerLatex": "$1.10$ V"
+      "answerLatex": "$\\frac{M}{5}$ ($\\approx 31.6$)"
+    },
+    {
+      "exampleId": "C04-EX02",
+      "problemLatex": "How many grams of copper (atomic mass $63.5$) are deposited from $\\text{CuSO}_4(\\text{aq})$ by $9.65\\text{ A}$ flowing for $1000\\text{ s}$?",
+      "stepsLatex": [
+        "Charge $Q = It = 9.65 \\times 1000 = 9650\\text{ C} = 0.10\\text{ F}$; for $\\text{Cu}^{2+} + 2e^- \\to \\text{Cu}$, $n_f = 2$.",
+        "$w = \\frac{63.5}{2} \\times 0.10 = 3.175\\text{ g}$."
+      ],
+      "answerLatex": "$3.175\\text{ g}$"
     }
   ],
   "wbjeebTraps": [
-    "Active metals (Na, Mg, Ca, Al) cannot be extracted from aqueous solutions.",
-    "Faraday's law: mass deposited $\\propto$ charge passed."
+    "$E^\\circ$ is an INTENSIVE property: multiplying a half-reaction by $2$ never multiplies $E^\\circ$ — when combining two half-reactions into a third half-reaction, add $\\Delta G^\\circ = -nFE^\\circ$ ($n_3 E_3^\\circ = n_1 E_1^\\circ + n_2 E_2^\\circ$), NEVER $E^\\circ$ directly!",
+    "Maximum oxidation number of an element never exceeds its group valence electrons ($\\text{Cr}=+6$ in $\\text{CrO}_5$, $\\text{S}=+6$ in $\\text{H}_2\\text{SO}_5$).",
+    "Specific conductivity $\\kappa$ FALLS on dilution, while molar conductivity $\\Lambda_m$ RISES on dilution!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Ch 21 - Electrochemistry Part 1 - Redox Rxns and Electrochemical cells",
+      "url": "https://www.youtube.com/watch?v=QEeyE0dMHfM",
+      "videoId": "QEeyE0dMHfM",
+      "duration": "24 min",
+      "durationMinutes": 24,
+      "provider": "YouTube · Rowdy Chemist Jr",
+      "channelName": "Rowdy Chemist Jr",
+      "language": "en",
+      "scopeNote": "Oxidation states, redox balancing, galvanic cells, standard potentials & electrolysis"
+    }
+  ],
   "practiceSetIds": []
 }

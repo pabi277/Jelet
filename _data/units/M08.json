@@ -16,30 +16,118 @@
     "jelet-2024-q021",
     "jelet-2025-q005"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q005",
+    "jelet-2024-q020",
+    "jelet-2024-q021",
+    "jelet-2023-q022",
+    "jelet-2023-q023",
+    "jelet-2022-q022",
+    "jelet-2022-q023",
+    "jelet-2023-q038",
+    "jelet-2022-q038"
+  ],
+  "notes": [
     {
-      "anchor": "definition",
-      "heading": "1. Partial Derivatives",
-      "proseLatex": "For $f(x,y)$, hold one variable constant and differentiate w.r.t. the other.",
+      "anchor": "partial-derivatives",
+      "heading": "1. First & Second-Order Partial Derivatives & Clairaut's Symmetry",
+      "proseLatex": "For $u = f(x,y)$, $u_x = \\frac{\\partial u}{\\partial x}$ differentiates with respect to $x$ holding $y$ strictly constant, and $u_y = \\frac{\\partial u}{\\partial y}$ holds $x$ constant. Second-order partials are $u_{xx} = \\frac{\\partial^2 u}{\\partial x^2}$, $u_{yy} = \\frac{\\partial^2 u}{\\partial y^2}$, and the mixed partials $u_{xy}, u_{yx}$, which satisfy $u_{xy} = u_{yx}$ whenever both mixed partials are continuous (Clairaut/Schwarz theorem). Harmonic functions satisfy Laplace's equation $u_{xx} + u_{yy} = 0$.",
       "keyFormulas": [
         {
           "formulaId": "M08-F01",
-          "label": "Partial Derivative",
-          "latex": "$\\frac{\\partial f}{\\partial x} = \\lim_{h\\to 0}\\frac{f(x+h,y)-f(x,y)}{h}$",
-          "aiExplainContext": "Definition of the partial derivative."
+          "label": "Mixed Partial Symmetry & 2D Laplace Equation",
+          "latex": "$\\frac{\\partial^2 u}{\\partial x\\partial y} = \\frac{\\partial^2 u}{\\partial y\\partial x},\\qquad \\nabla^2 u = \\frac{\\partial^2 u}{\\partial x^2} + \\frac{\\partial^2 u}{\\partial y^2} = 0 \\text{ (harmonic)}$",
+          "aiExplainContext": "Compute mixed second partials and check harmonic functions."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M08-EX01",
+          "problemLatex": "Verify $u_{xx} + u_{yy}$ for $u(x,y) = \\ln(x^2 + y^2)$ at $(x,y) \\neq (0,0)$.",
+          "stepsLatex": [
+            "$u_x = \\frac{2x}{x^2+y^2}$ and $u_{xx} = \\frac{2(x^2+y^2) - 2x(2x)}{(x^2+y^2)^2} = \\frac{2(y^2 - x^2)}{(x^2+y^2)^2}$.",
+            "By symmetry $u_{yy} = \\frac{2(x^2 - y^2)}{(x^2+y^2)^2}$, so $u_{xx} + u_{yy} = 0$."
+          ],
+          "answerLatex": "$0$ (harmonic)"
         }
       ]
     },
     {
       "anchor": "euler-theorem",
       "heading": "2. Homogeneous Functions & Euler's Theorem",
-      "proseLatex": "For a homogeneous function of degree $n$: $x\\frac{\\partial f}{\\partial x} + y\\frac{\\partial f}{\\partial y} = nf$.",
+      "proseLatex": "A function $f(x,y)$ is homogeneous of degree $n$ if $f(tx, ty) = t^n f(x,y)$ (equivalently $f(x,y) = x^n \\phi(y/x)$). Euler's theorem states $x\\frac{\\partial f}{\\partial x} + y\\frac{\\partial f}{\\partial y} = n f$ and its second-order extension gives $x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy} = n(n-1)f$. When $u = g(f(x,y))$ wraps a degree-$n$ homogeneous core $f = \\psi(u)$ (for example $u = \\tan^{-1}\\!\\frac{x^3+y^3}{x-y}$ where $\\tan u$ has degree $2$), apply Euler's theorem to $\\psi(u)$ to obtain $x u_x + y u_y = n\\,\\frac{\\psi(u)}{\\psi'(u)}$.",
       "keyFormulas": [
         {
           "formulaId": "M08-F02",
-          "label": "Euler's Theorem",
-          "latex": "$x f_x + y f_y = n f$ (degree $n$ homogeneous)",
-          "aiExplainContext": "Verify and apply to homogeneous functions."
+          "label": "Euler's Theorem (1st, 2nd Order & Wrapped Form)",
+          "latex": "$x u_x + y u_y = n u,\\quad x^2 u_{xx} + 2xy u_{xy} + y^2 u_{yy} = n(n-1)u,\\quad \\psi(u)\\text{ deg }n \\implies x u_x + y u_y = \\frac{n\\,\\psi(u)}{\\psi'(u)}$",
+          "aiExplainContext": "Solve JELET inverse-trig or logarithmic Euler-theorem problems in 10 seconds."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M08-EX02",
+          "problemLatex": "If $u = \\sin^{-1}\\!\\left(\\frac{x^2 + y^2}{x + y}\\right)$, evaluate $x\\frac{\\partial u}{\\partial x} + y\\frac{\\partial u}{\\partial y}$.",
+          "stepsLatex": [
+            "Rewrite $\\psi(u) = \\sin u = \\frac{x^2+y^2}{x+y}$, which is homogeneous of degree $n = 2 - 1 = 1$.",
+            "Apply Euler's theorem to $\\sin u$: $x\\frac{\\partial}{\\partial x}(\\sin u) + y\\frac{\\partial}{\\partial y}(\\sin u) = 1\\cdot\\sin u \\implies \\cos u\\,(x u_x + y u_y) = \\sin u$, giving $\\tan u$."
+          ],
+          "answerLatex": "$\\tan u$"
+        }
+      ]
+    },
+    {
+      "anchor": "total-derivative-implicit",
+      "heading": "3. Total Differential, Chain Rule & Implicit Slope",
+      "proseLatex": "For $z = f(x,y)$ where $x = x(t)$ and $y = y(t)$, the total derivative is $\\frac{dz}{dt} = \\frac{\\partial f}{\\partial x}\\frac{dx}{dt} + \\frac{\\partial f}{\\partial y}\\frac{dy}{dt}$, and the total differential $dz = f_x\\,dx + f_y\\,dy$ estimates small propagation errors. Along an implicit curve $F(x,y) = 0$ with $F_y \\neq 0$, setting $dF = F_x\\,dx + F_y\\,dy = 0$ immediately yields $\\frac{dy}{dx} = -\\frac{F_x}{F_y}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M08-F03",
+          "label": "Multivariable Chain Rule & Implicit Derivative",
+          "latex": "$\\frac{dz}{dt} = f_x\\frac{dx}{dt} + f_y\\frac{dy}{dt},\\qquad F(x,y) = 0 \\implies \\frac{dy}{dx} = -\\frac{F_x}{F_y}$",
+          "aiExplainContext": "Differentiate composite functions and implicit curves cleanly via partials."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "partial-derivatives",
+      "heading": "1. First & Second-Order Partial Derivatives & Clairaut's Symmetry",
+      "proseLatex": "For $u = f(x,y)$, $u_x = \\frac{\\partial u}{\\partial x}$ differentiates with respect to $x$ holding $y$ strictly constant, and $u_y = \\frac{\\partial u}{\\partial y}$ holds $x$ constant. Second-order partials are $u_{xx} = \\frac{\\partial^2 u}{\\partial x^2}$, $u_{yy} = \\frac{\\partial^2 u}{\\partial y^2}$, and the mixed partials $u_{xy}, u_{yx}$, which satisfy $u_{xy} = u_{yx}$ whenever both mixed partials are continuous (Clairaut/Schwarz theorem). Harmonic functions satisfy Laplace's equation $u_{xx} + u_{yy} = 0$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M08-F01",
+          "label": "Mixed Partial Symmetry & 2D Laplace Equation",
+          "latex": "$\\frac{\\partial^2 u}{\\partial x\\partial y} = \\frac{\\partial^2 u}{\\partial y\\partial x},\\qquad \\nabla^2 u = \\frac{\\partial^2 u}{\\partial x^2} + \\frac{\\partial^2 u}{\\partial y^2} = 0 \\text{ (harmonic)}$",
+          "aiExplainContext": "Compute mixed second partials and check harmonic functions."
+        }
+      ]
+    },
+    {
+      "anchor": "euler-theorem",
+      "heading": "2. Homogeneous Functions & Euler's Theorem",
+      "proseLatex": "A function $f(x,y)$ is homogeneous of degree $n$ if $f(tx, ty) = t^n f(x,y)$ (equivalently $f(x,y) = x^n \\phi(y/x)$). Euler's theorem states $x\\frac{\\partial f}{\\partial x} + y\\frac{\\partial f}{\\partial y} = n f$ and its second-order extension gives $x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy} = n(n-1)f$. When $u = g(f(x,y))$ wraps a degree-$n$ homogeneous core $f = \\psi(u)$ (for example $u = \\tan^{-1}\\!\\frac{x^3+y^3}{x-y}$ where $\\tan u$ has degree $2$), apply Euler's theorem to $\\psi(u)$ to obtain $x u_x + y u_y = n\\,\\frac{\\psi(u)}{\\psi'(u)}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M08-F02",
+          "label": "Euler's Theorem (1st, 2nd Order & Wrapped Form)",
+          "latex": "$x u_x + y u_y = n u,\\quad x^2 u_{xx} + 2xy u_{xy} + y^2 u_{yy} = n(n-1)u,\\quad \\psi(u)\\text{ deg }n \\implies x u_x + y u_y = \\frac{n\\,\\psi(u)}{\\psi'(u)}$",
+          "aiExplainContext": "Solve JELET inverse-trig or logarithmic Euler-theorem problems in 10 seconds."
+        }
+      ]
+    },
+    {
+      "anchor": "total-derivative-implicit",
+      "heading": "3. Total Differential, Chain Rule & Implicit Slope",
+      "proseLatex": "For $z = f(x,y)$ where $x = x(t)$ and $y = y(t)$, the total derivative is $\\frac{dz}{dt} = \\frac{\\partial f}{\\partial x}\\frac{dx}{dt} + \\frac{\\partial f}{\\partial y}\\frac{dy}{dt}$, and the total differential $dz = f_x\\,dx + f_y\\,dy$ estimates small propagation errors. Along an implicit curve $F(x,y) = 0$ with $F_y \\neq 0$, setting $dF = F_x\\,dx + F_y\\,dy = 0$ immediately yields $\\frac{dy}{dx} = -\\frac{F_x}{F_y}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M08-F03",
+          "label": "Multivariable Chain Rule & Implicit Derivative",
+          "latex": "$\\frac{dz}{dt} = f_x\\frac{dx}{dt} + f_y\\frac{dy}{dt},\\qquad F(x,y) = 0 \\implies \\frac{dy}{dx} = -\\frac{F_x}{F_y}$",
+          "aiExplainContext": "Differentiate composite functions and implicit curves cleanly via partials."
         }
       ]
     }
@@ -47,18 +135,40 @@
   "workedExamples": [
     {
       "exampleId": "M08-EX01",
-      "problemLatex": "If $u = \\tan^{-1}(x/y)$, find $\\partial u/\\partial x - \\partial u/\\partial y$.",
+      "problemLatex": "Verify $u_{xx} + u_{yy}$ for $u(x,y) = \\ln(x^2 + y^2)$ at $(x,y) \\neq (0,0)$.",
       "stepsLatex": [
-        "$\\partial u/\\partial x = y/(x^2+y^2)$, $\\partial u/\\partial y = -x/(x^2+y^2)$.",
-        "Expression $= (x+y)/(x^2+y^2)$."
+        "$u_x = \\frac{2x}{x^2+y^2}$ and $u_{xx} = \\frac{2(x^2+y^2) - 2x(2x)}{(x^2+y^2)^2} = \\frac{2(y^2 - x^2)}{(x^2+y^2)^2}$.",
+        "By symmetry $u_{yy} = \\frac{2(x^2 - y^2)}{(x^2+y^2)^2}$, so $u_{xx} + u_{yy} = 0$."
       ],
-      "answerLatex": "$(x+y)/(x^2+y^2)$"
+      "answerLatex": "$0$ (harmonic)"
+    },
+    {
+      "exampleId": "M08-EX02",
+      "problemLatex": "If $u = \\sin^{-1}\\!\\left(\\frac{x^2 + y^2}{x + y}\\right)$, evaluate $x\\frac{\\partial u}{\\partial x} + y\\frac{\\partial u}{\\partial y}$.",
+      "stepsLatex": [
+        "Rewrite $\\psi(u) = \\sin u = \\frac{x^2+y^2}{x+y}$, which is homogeneous of degree $n = 2 - 1 = 1$.",
+        "Apply Euler's theorem to $\\sin u$: $x\\frac{\\partial}{\\partial x}(\\sin u) + y\\frac{\\partial}{\\partial y}(\\sin u) = 1\\cdot\\sin u \\implies \\cos u\\,(x u_x + y u_y) = \\sin u$, giving $\\tan u$."
+      ],
+      "answerLatex": "$\\tan u$"
     }
   ],
   "wbjeebTraps": [
-    "Treat the other variable as a constant when differentiating partially.",
-    "Euler's theorem applies only to homogeneous functions."
+    "Never apply $x u_x + y u_y = n u$ directly to $u = \\ln\\!\\left(\\frac{x^3+y^3}{x+y}\\right)$: $u$ itself is NOT homogeneous — $\\psi(u) = e^u$ is homogeneous of degree $2$, so $x u_x + y u_y = 2\\frac{e^u}{e^u} = 2$ (constant!).",
+    "Minus sign in implicit differentiation: $\\frac{dy}{dx} = -\\frac{F_x}{F_y}$, NOT $+\\frac{F_x}{F_y}$.",
+    "For $f(x,y) = x^n\\phi(y/x)$ of degree $0$ ($n=0$), BOTH $x f_x + y f_y = 0$ and $x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy} = 0$."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "PARTIAL DIFFERENTIATION | PARTIAL DERIVATIVE OF FIRST ORDER | Lecture 3 | MATHEMATICS",
+      "url": "https://www.youtube.com/watch?v=FtKWs--F1pc",
+      "videoId": "FtKWs--F1pc",
+      "duration": "19 min",
+      "durationMinutes": 19,
+      "provider": "YouTube · Pradeep Giri Academy",
+      "channelName": "Pradeep Giri Academy",
+      "language": "en",
+      "scopeNote": "First and higher-order partial derivatives for Diploma & Engineering Maths"
+    }
+  ],
   "practiceSetIds": []
 }

@@ -216,15 +216,15 @@ export async function renderPapersLibrary(main, { openAiTutor } = {}) {
             }
           </div>
 
-          <div class="paper-card__actions">
-            <button type="button" class="btn btn--primary js-start-mock">
-              ${icon("icon-play")} 2h Timed Mock
-            </button>
-            <button type="button" class="btn btn--ghost js-read-paper">
+          <div class="paper-card__actions reader-action-bar" role="group" aria-label="Actions for ${escapeHtml(m.title)}">
+            <button type="button" class="reader-action-bar__item js-read-paper">
               ${icon("icon-papers")} Read &amp; Keys
             </button>
-            <button type="button" class="btn btn--ghost btn--icon-only js-print-omr" title="Printable A4 OMR Sheet" aria-label="Printable A4 OMR Sheet for ${escapeHtml(m.title)}">
-              ${icon("icon-print")}
+            <button type="button" class="reader-action-bar__item js-print-omr" aria-label="Print OMR Sheet for ${escapeHtml(m.title)}">
+              ${icon("icon-print")} Print OMR
+            </button>
+            <button type="button" class="reader-action-bar__item reader-action-bar__item--primary js-start-mock">
+              ${icon("icon-play")} Start 2h Mock
             </button>
           </div>
         </article>
@@ -469,15 +469,25 @@ export async function renderPaperReader(main, paperId, { openAiTutor } = {}) {
       <div class="card stack-s">
         <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
           <a href="#/papers" class="btn btn--ghost btn--sm">${icon("icon-back")} Papers</a>
-          <div class="cluster-xs">
-            <a href="#/omr-print/${escapeHtml(paper.paperId)}" class="btn btn--ghost btn--sm">${icon("icon-print")} Print OMR</a>
-            <button type="button" class="btn btn--primary btn--sm" id="readerStartMockBtn">${icon("icon-play")} Start 2h Mock</button>
-          </div>
+          <span class="mono pill">Set ${escapeHtml(paper.bookletSeries)} · 100 Qs · 120M</span>
         </div>
-        <h2 class="card__title" style="margin-top:var(--space-xs)">${escapeHtml(paper.meta.title)} — Complete Verified Booklet</h2>
-        <p class="card__meta">
-          Set ${escapeHtml(paper.bookletSeries)} · 100 Questions · 120 Marks · Key Ref: ${escapeHtml(paper.meta.keyDocumentRef)}
-        </p>
+        <div>
+          <h2 class="card__title" style="margin:0">${escapeHtml(paper.meta.title)} — Complete Verified Booklet</h2>
+          <p class="card__meta" style="margin-top:var(--space-3xs)">
+            Key Ref: ${escapeHtml(paper.meta.keyDocumentRef)}
+          </p>
+        </div>
+        <div class="reader-action-bar" role="group" aria-label="Paper reader actions">
+          <button type="button" class="reader-action-bar__item is-active" id="readerReadKeysBtn" aria-current="page">
+            ${icon("icon-papers")} Read &amp; Keys
+          </button>
+          <a href="#/omr-print/${escapeHtml(paper.paperId)}" class="reader-action-bar__item">
+            ${icon("icon-print")} Print OMR
+          </a>
+          <button type="button" class="reader-action-bar__item reader-action-bar__item--primary" id="readerStartMockBtn">
+            ${icon("icon-play")} Start 2h Mock
+          </button>
+        </div>
         <div class="chip-row" id="readerSubjectChips"></div>
       </div>
 
@@ -487,6 +497,11 @@ export async function renderPaperReader(main, paperId, { openAiTutor } = {}) {
 
   main.innerHTML = "";
   main.appendChild(root);
+
+  $("#readerReadKeysBtn", root).addEventListener("click", () => {
+    const qEl = $("#readerQuestionsList", root);
+    if (qEl) qEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   $("#readerStartMockBtn", root).addEventListener("click", async () => {
     const sess = await createSession({

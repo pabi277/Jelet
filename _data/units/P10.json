@@ -12,17 +12,113 @@
     "jelet-2024-q068",
     "jelet-2025-q063"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q063",
+    "jelet-2024-q051",
+    "jelet-2022-q053",
+    "jelet-2024-q068"
+  ],
+  "notes": [
     {
-      "anchor": "conduction",
-      "heading": "1. Conduction & Thermal Conductivity",
-      "proseLatex": "$Q = KAt\\Delta T/L$. $K$ is thermal conductivity with SI unit $W/(m\\cdot K)$.",
+      "anchor": "conduction-resistance",
+      "heading": "1. Steady-State Conduction, Fourier's Law & Thermal Resistance Analogy",
+      "proseLatex": "In 1D steady state (every cross-section at time-independent temperature), heat current $H = \\frac{dQ}{dt} = \\frac{KA(T_1 - T_2)}{L}$ ($\\text{W}$) mirrors Ohm's law $I = \\frac{\\Delta V}{R}$ with thermal resistance $R_{\\text{th}} = \\frac{L}{KA}$ ($\\text{K/W}$) and thermal conductivity $K$ ($\\text{W\\,m}^{-1}\\text{K}^{-1}$). Series slabs share identical heat current $H$ ($R_{\\text{eq}} = R_1 + R_2$), whereas parallel rods share identical $\\Delta T$ ($1/R_{\\text{eq}} = 1/R_1 + 1/R_2$).",
       "keyFormulas": [
         {
           "formulaId": "P10-F01",
-          "label": "Heat Conduction",
-          "latex": "$Q = \\frac{KA\\Delta T}{L}\\cdot t$",
-          "aiExplainContext": "Fourier's law of heat conduction."
+          "label": "Fourier Heat Current, Thermal Resistance & Series Conductivity",
+          "latex": "$H = \\frac{KA\\Delta T}{L} = \\frac{\\Delta T}{R_{\\text{th}}},\\quad R_{\\text{th}} = \\frac{L}{KA},\\quad K_{\\text{series, }L_1=L_2} = \\frac{2 K_1 K_2}{K_1 + K_2}$",
+          "aiExplainContext": "Solve junction temperature and equivalent conductivity of series/parallel composite slabs."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P10-EX01",
+          "problemLatex": "Two slabs of equal area and equal thickness with conductivities $K_1 = 300$ and $K_2 = 100\\text{ W\\,m}^{-1}\\text{K}^{-1}$ have outer faces at $100^\\circ\\text{C}$ and $0^\\circ\\text{C}$. Find steady interface temperature $T_j$ and $K_{\\text{eq}}$.",
+          "stepsLatex": [
+            "Equal $H$: $K_1(100 - T_j) = K_2(T_j - 0) \\implies 3(100 - T_j) = T_j \\implies T_j = 75^\\circ\\text{C}$.",
+            "Equal-thickness series $K_{\\text{eq}} = \\frac{2(300)(100)}{300+100} = 150\\text{ W\\,m}^{-1}\\text{K}^{-1}$."
+          ],
+          "answerLatex": "$T_j = 75^\\circ\\text{C},\\; K_{\\text{eq}} = 150\\text{ W\\,m}^{-1}\\text{K}^{-1}$"
+        }
+      ]
+    },
+    {
+      "anchor": "convection-newton",
+      "heading": "2. Convection & Newton's Law of Cooling",
+      "proseLatex": "Convection transports heat via bulk fluid motion (natural buoyancy-driven vs forced fan/pump-driven; natural convection vanishes in zero-gravity orbit!). For small excess temperature above ambient $T_0$, Newton's law of cooling states $-\\frac{dT}{dt} = b(T - T_0)$, whose interval-average form $\\frac{T_1 - T_2}{\\Delta t} = b\\left(\\frac{T_1 + T_2}{2} - T_0\\right)$ solves JELET cooling-time questions in two lines.",
+      "keyFormulas": [
+        {
+          "formulaId": "P10-F02",
+          "label": "Newton's Law of Cooling (Average Form)",
+          "latex": "$\\frac{T_1 - T_2}{\\Delta t} = b\\!\\left(\\frac{T_1 + T_2}{2} - T_0\\right)$",
+          "aiExplainContext": "Compare successive cooling intervals rapidly using midpoint excess temperature."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P10-EX02",
+          "problemLatex": "A body cools from $80^\\circ\\text{C}$ to $70^\\circ\\text{C}$ in $5\\text{ min}$ in a $30^\\circ\\text{C}$ room. How long does it take to cool from $70^\\circ\\text{C}$ to $60^\\circ\\text{C}$?",
+          "stepsLatex": [
+            "Interval 1: $\\frac{10}{5} = b(75 - 30) = 45b \\implies b = \\frac{2}{45}\\text{ min}^{-1}$.",
+            "Interval 2: $\\frac{10}{\\Delta t} = b(65 - 30) = 35b \\implies \\Delta t = 5\\times\\frac{45}{35} = \\frac{45}{7}\\text{ min} \\approx 6.43\\text{ min}$."
+          ],
+          "answerLatex": "$\\frac{45}{7}\\text{ min}$ ($\\approx 6.43\\text{ min}$)"
+        }
+      ]
+    },
+    {
+      "anchor": "radiation-stefan-wien",
+      "heading": "3. Thermal Radiation: Kirchhoff, Stefan-Boltzmann & Wien's Displacement Law",
+      "proseLatex": "Radiation needs no material medium and propagates at $c = 3\\times 10^8\\text{ m/s}$. Kirchhoff's law equates spectral emissivity and absorptivity ($e_\\lambda = a_\\lambda$; good absorbers are good emitters, with ideal blackbody $e = a = 1$). Stefan-Boltzmann gives radiated power $P = e\\sigma A T^4$ (net exchange with enclosure at $T_0$ is $e\\sigma A(T^4 - T_0^4)$ with $T$ in KELVIN!), and Wien's law $\\lambda_m T = b \\approx 2.898\\times 10^{-3}\\text{ m\\,K}$ shifts peak wavelength toward blue as $T$ rises.",
+      "keyFormulas": [
+        {
+          "formulaId": "P10-F03",
+          "label": "Stefan-Boltzmann T⁴ Law & Wien's Displacement Law",
+          "latex": "$P_{\\text{net}} = e\\sigma A(T^4 - T_0^4),\\qquad \\lambda_{\\max} T = b = 2.898\\times 10^{-3}\\text{ m\\,K}$",
+          "aiExplainContext": "Convert Celsius to Kelvin before raising to T^4 and apply Wien peak-wavelength scaling."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "conduction-resistance",
+      "heading": "1. Steady-State Conduction, Fourier's Law & Thermal Resistance Analogy",
+      "proseLatex": "In 1D steady state (every cross-section at time-independent temperature), heat current $H = \\frac{dQ}{dt} = \\frac{KA(T_1 - T_2)}{L}$ ($\\text{W}$) mirrors Ohm's law $I = \\frac{\\Delta V}{R}$ with thermal resistance $R_{\\text{th}} = \\frac{L}{KA}$ ($\\text{K/W}$) and thermal conductivity $K$ ($\\text{W\\,m}^{-1}\\text{K}^{-1}$). Series slabs share identical heat current $H$ ($R_{\\text{eq}} = R_1 + R_2$), whereas parallel rods share identical $\\Delta T$ ($1/R_{\\text{eq}} = 1/R_1 + 1/R_2$).",
+      "keyFormulas": [
+        {
+          "formulaId": "P10-F01",
+          "label": "Fourier Heat Current, Thermal Resistance & Series Conductivity",
+          "latex": "$H = \\frac{KA\\Delta T}{L} = \\frac{\\Delta T}{R_{\\text{th}}},\\quad R_{\\text{th}} = \\frac{L}{KA},\\quad K_{\\text{series, }L_1=L_2} = \\frac{2 K_1 K_2}{K_1 + K_2}$",
+          "aiExplainContext": "Solve junction temperature and equivalent conductivity of series/parallel composite slabs."
+        }
+      ]
+    },
+    {
+      "anchor": "convection-newton",
+      "heading": "2. Convection & Newton's Law of Cooling",
+      "proseLatex": "Convection transports heat via bulk fluid motion (natural buoyancy-driven vs forced fan/pump-driven; natural convection vanishes in zero-gravity orbit!). For small excess temperature above ambient $T_0$, Newton's law of cooling states $-\\frac{dT}{dt} = b(T - T_0)$, whose interval-average form $\\frac{T_1 - T_2}{\\Delta t} = b\\left(\\frac{T_1 + T_2}{2} - T_0\\right)$ solves JELET cooling-time questions in two lines.",
+      "keyFormulas": [
+        {
+          "formulaId": "P10-F02",
+          "label": "Newton's Law of Cooling (Average Form)",
+          "latex": "$\\frac{T_1 - T_2}{\\Delta t} = b\\!\\left(\\frac{T_1 + T_2}{2} - T_0\\right)$",
+          "aiExplainContext": "Compare successive cooling intervals rapidly using midpoint excess temperature."
+        }
+      ]
+    },
+    {
+      "anchor": "radiation-stefan-wien",
+      "heading": "3. Thermal Radiation: Kirchhoff, Stefan-Boltzmann & Wien's Displacement Law",
+      "proseLatex": "Radiation needs no material medium and propagates at $c = 3\\times 10^8\\text{ m/s}$. Kirchhoff's law equates spectral emissivity and absorptivity ($e_\\lambda = a_\\lambda$; good absorbers are good emitters, with ideal blackbody $e = a = 1$). Stefan-Boltzmann gives radiated power $P = e\\sigma A T^4$ (net exchange with enclosure at $T_0$ is $e\\sigma A(T^4 - T_0^4)$ with $T$ in KELVIN!), and Wien's law $\\lambda_m T = b \\approx 2.898\\times 10^{-3}\\text{ m\\,K}$ shifts peak wavelength toward blue as $T$ rises.",
+      "keyFormulas": [
+        {
+          "formulaId": "P10-F03",
+          "label": "Stefan-Boltzmann T⁴ Law & Wien's Displacement Law",
+          "latex": "$P_{\\text{net}} = e\\sigma A(T^4 - T_0^4),\\qquad \\lambda_{\\max} T = b = 2.898\\times 10^{-3}\\text{ m\\,K}$",
+          "aiExplainContext": "Convert Celsius to Kelvin before raising to T^4 and apply Wien peak-wavelength scaling."
         }
       ]
     }
@@ -30,18 +126,40 @@
   "workedExamples": [
     {
       "exampleId": "P10-EX01",
-      "problemLatex": "Two rods, same material. Lengths ratio 1:2, radii ratio 2:3. Same $\\Delta T$. Find heat flow ratio.",
+      "problemLatex": "Two slabs of equal area and equal thickness with conductivities $K_1 = 300$ and $K_2 = 100\\text{ W\\,m}^{-1}\\text{K}^{-1}$ have outer faces at $100^\\circ\\text{C}$ and $0^\\circ\\text{C}$. Find steady interface temperature $T_j$ and $K_{\\text{eq}}$.",
       "stepsLatex": [
-        "$Q \\propto A/L \\propto r^2/L$.",
-        "$Q_1/Q_2 = (4/9)(2/1) = 8/9$."
+        "Equal $H$: $K_1(100 - T_j) = K_2(T_j - 0) \\implies 3(100 - T_j) = T_j \\implies T_j = 75^\\circ\\text{C}$.",
+        "Equal-thickness series $K_{\\text{eq}} = \\frac{2(300)(100)}{300+100} = 150\\text{ W\\,m}^{-1}\\text{K}^{-1}$."
       ],
-      "answerLatex": "$8:9$"
+      "answerLatex": "$T_j = 75^\\circ\\text{C},\\; K_{\\text{eq}} = 150\\text{ W\\,m}^{-1}\\text{K}^{-1}$"
+    },
+    {
+      "exampleId": "P10-EX02",
+      "problemLatex": "A body cools from $80^\\circ\\text{C}$ to $70^\\circ\\text{C}$ in $5\\text{ min}$ in a $30^\\circ\\text{C}$ room. How long does it take to cool from $70^\\circ\\text{C}$ to $60^\\circ\\text{C}$?",
+      "stepsLatex": [
+        "Interval 1: $\\frac{10}{5} = b(75 - 30) = 45b \\implies b = \\frac{2}{45}\\text{ min}^{-1}$.",
+        "Interval 2: $\\frac{10}{\\Delta t} = b(65 - 30) = 35b \\implies \\Delta t = 5\\times\\frac{45}{35} = \\frac{45}{7}\\text{ min} \\approx 6.43\\text{ min}$."
+      ],
+      "answerLatex": "$\\frac{45}{7}\\text{ min}$ ($\\approx 6.43\\text{ min}$)"
     }
   ],
   "wbjeebTraps": [
-    "Conduction requires a temperature gradient.",
-    "Convection dominates in fluids; radiation needs no medium."
+    "ABSOLUTE KELVIN TRAP: in Stefan's $T^4$ and Wien's $\\lambda_m T = b$, NEVER plug $^{\\circ}\\text{C}$ directly — always convert $T(\\text{K}) = t(^\\circ\\text{C}) + 273$!",
+    "Equal-thickness series slabs give harmonic mean $K_{\\text{eq}} = \\frac{2K_1 K_2}{K_1+K_2}$, whereas equal-area PARALLEL slabs give arithmetic mean $\\frac{K_1+K_2}{2}$.",
+    "Cooling from $70^\\circ\\text{C}\\to 60^\\circ\\text{C}$ ALWAYS takes LONGER than cooling from $80^\\circ\\text{C}\\to 70^\\circ\\text{C}$ because excess temperature $(T - T_0)$ shrinks."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Heat Transfer : Modes - Thermal Expansion - Physics Class 11",
+      "url": "https://www.youtube.com/watch?v=1bRtfCoFQyI",
+      "videoId": "1bRtfCoFQyI",
+      "duration": "16 min",
+      "durationMinutes": 16,
+      "provider": "YouTube · Ekeeda",
+      "channelName": "Ekeeda",
+      "language": "en",
+      "scopeNote": "Conduction, convection, thermal radiation, Fourier's law & composite slabs"
+    }
+  ],
   "practiceSetIds": []
 }

@@ -23,30 +23,160 @@
     "jelet-2025-q003",
     "jelet-2025-q031"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q002",
+    "jelet-2025-q003",
+    "jelet-2024-q001",
+    "jelet-2024-q002",
+    "jelet-2024-q003",
+    "jelet-2023-q001",
+    "jelet-2023-q002",
+    "jelet-2023-q003",
+    "jelet-2022-q001",
+    "jelet-2022-q002",
+    "jelet-2022-q003",
+    "jelet-2022-q004",
+    "jelet-2025-q031",
+    "jelet-2024-q031",
+    "jelet-2023-q031",
+    "jelet-2022-q031"
+  ],
+  "notes": [
     {
       "anchor": "types-and-transpose",
-      "heading": "1. Symmetric, Skew-Symmetric & Orthogonal Properties",
-      "proseLatex": "For any square matrix $A$, $A = \\frac{1}{2}(A + A^T) + \\frac{1}{2}(A - A^T)$. The sum is symmetric and the difference is skew-symmetric.",
+      "heading": "1. Matrix Algebra, Transpose & Symmetry Decomposition",
+      "proseLatex": "Two matrices $A=[a_{ij}]_{m\\times n}$ and $B=[b_{ij}]_{p\\times q}$ can be multiplied as $AB$ if and only if $n=p$, yielding an $m\\times q$ matrix; matrix multiplication is associative and distributive but generally non-commutative ($AB \\neq BA$). Transposition reverses product order, $(AB)^T = B^T A^T$, and every square matrix splits uniquely into a symmetric part $\\frac{1}{2}(A+A^T)$ plus a skew-symmetric part $\\frac{1}{2}(A-A^T)$. Diagonal entries of any real skew-symmetric matrix must be zero ($a_{ii} = -a_{ii} \\implies a_{ii}=0$).",
       "keyFormulas": [
         {
           "formulaId": "M01-F01",
+          "label": "Unique Symmetric + Skew Decomposition",
+          "latex": "$A = \\frac{1}{2}(A + A^T) + \\frac{1}{2}(A - A^T),\\quad (AB)^T = B^T A^T$",
+          "aiExplainContext": "Decompose any square matrix into symmetric and skew-symmetric parts."
+        },
+        {
+          "formulaId": "M01-F02",
           "label": "Commutator of Symmetric Matrices",
-          "latex": "$A^T = A,\\; B^T = B \\implies (AB - BA)^T = -(AB - BA) \\text{ (Skew-symmetric)}",
-          "aiExplainContext": "Prove using transpose reversal law $(AB)^T = B^T A^T$."
+          "latex": "$A^T = A,\\; B^T = B \\implies (AB - BA)^T = -(AB - BA);\\quad AB\\text{ symmetric} \\iff AB = BA$",
+          "aiExplainContext": "Standard JELET Category-I and II test on symmetry of matrix products."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M01-EX01",
+          "problemLatex": "If $A = \\begin{bmatrix} 2 & 5 \\\\ -1 & 4 \\end{bmatrix}$, find the symmetric part $P = \\frac{1}{2}(A + A^T)$ and skew-symmetric part $Q = \\frac{1}{2}(A - A^T)$.",
+          "stepsLatex": [
+            "Compute $A^T = \\begin{bmatrix} 2 & -1 \\\\ 5 & 4 \\end{bmatrix}$.",
+            "$P = \\frac{1}{2}\\begin{bmatrix} 4 & 4 \\\\ 4 & 8 \\end{bmatrix} = \\begin{bmatrix} 2 & 2 \\\\ 2 & 4 \\end{bmatrix}$ and $Q = \\frac{1}{2}\\begin{bmatrix} 0 & 6 \\\\ -6 & 0 \\end{bmatrix} = \\begin{bmatrix} 0 & 3 \\\\ -3 & 0 \\end{bmatrix}$."
+          ],
+          "answerLatex": "$P = \\begin{bmatrix} 2 & 2 \\\\ 2 & 4 \\end{bmatrix},\\; Q = \\begin{bmatrix} 0 & 3 \\\\ -3 & 0 \\end{bmatrix}$"
         }
       ]
     },
     {
       "anchor": "adjoint-inverse",
-      "heading": "2. Adjoint, Inverse & Cayley-Hamilton",
-      "proseLatex": "For a non-singular $3\\times3$ matrix, $A^{-1} = \\frac{1}{|A|}\\operatorname{adj}A$. Cayley-Hamilton: $A$ satisfies its own characteristic equation.",
+      "heading": "2. Adjoint, Inverse & Orthogonal / Idempotent Matrices",
+      "proseLatex": "The adjoint $\\operatorname{adj}A$ is the transpose of the cofactor matrix $[C_{ij}]^T$ and satisfies $A(\\operatorname{adj}A) = (\\operatorname{adj}A)A = |A|I_n$ for every square matrix of order $n$. When $|A|\\neq 0$, $A$ is non-singular with unique inverse $A^{-1} = \\frac{1}{|A|}\\operatorname{adj}A$ and $(AB)^{-1} = B^{-1}A^{-1}$. Special JELET classes to recognise on sight: orthogonal ($AA^T = I \\implies A^{-1} = A^T,\\; |A| = \\pm 1$), idempotent ($A^2 = A$), involutory ($A^2 = I \\implies A^{-1} = A$), and nilpotent ($A^k = O$).",
       "keyFormulas": [
         {
+          "formulaId": "M01-F03",
+          "label": "Adjoint Identity & Determinants",
+          "latex": "$A \\cdot \\operatorname{adj}A = |A|I_n,\\quad |\\operatorname{adj}A| = |A|^{n-1},\\quad \\operatorname{adj}(kA) = k^{n-1}\\operatorname{adj}A$",
+          "aiExplainContext": "Relate adjoint determinant and scalar multiples for order-n matrices."
+        },
+        {
+          "formulaId": "M01-F04",
+          "label": "Orthogonal & Involutory Shortcuts",
+          "latex": "$AA^T = I \\implies A^{-1} = A^T,\\; |A| = \\pm 1;\\qquad A^2 = I \\implies A^{-1} = A$",
+          "aiExplainContext": "Bypass full cofactor inversion when A is orthogonal or involutory."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M01-EX02",
+          "problemLatex": "Let $A$ be a $3\\times 3$ matrix with $|A| = -4$. Evaluate $|2\\,\\operatorname{adj}A|$.",
+          "stepsLatex": [
+            "For order $n=3$, $|kM| = k^3|M|$, so $|2\\,\\operatorname{adj}A| = 2^3 |\\operatorname{adj}A| = 8|\\operatorname{adj}A|$.",
+            "Substitute $|\\operatorname{adj}A| = |A|^{3-1} = (-4)^2 = 16$ to get $8 \\times 16 = 128$."
+          ],
+          "answerLatex": "$128$"
+        }
+      ]
+    },
+    {
+      "anchor": "cayley-hamilton-rank",
+      "heading": "3. Cayley-Hamilton Theorem, Trace & Matrix Polynomials",
+      "proseLatex": "The characteristic polynomial of $A$ is $p(\\lambda) = |A - \\lambda I|$; for a $2\\times 2$ matrix, $\\lambda^2 - (\\operatorname{tr}A)\\lambda + |A| = 0$, and for a $3\\times 3$ matrix, $\\lambda^3 - (\\operatorname{tr}A)\\lambda^2 + (C_{11}+C_{22}+C_{33})\\lambda - |A| = 0$. By the Cayley-Hamilton theorem, every square matrix satisfies its own characteristic equation $p(A) = O$, which reduces high powers $A^m$ and yields $A^{-1}$ linearly in $I, A, A^2$. Rank $\\rho(A)$ equals the largest order of a non-vanishing minor and is invariant under elementary row or column operations.",
+      "keyFormulas": [
+        {
+          "formulaId": "M01-F05",
+          "label": "Cayley-Hamilton (Order 2 & Trace/Determinant)",
+          "latex": "$A^2 - (\\operatorname{tr}A)A + |A|I = O,\\quad \\operatorname{tr}A = \\sum \\lambda_i,\\quad |A| = \\prod \\lambda_i$",
+          "aiExplainContext": "Reduce high matrix powers or compute A^-1 using trace and determinant."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M01-EX03",
+          "problemLatex": "If $A = \\begin{bmatrix} 1 & 5 \\\\ 3 & 5 \\end{bmatrix}$, evaluate $|A^{2025} - 6A^{2024}|$.",
+          "stepsLatex": [
+            "Here $\\operatorname{tr}A = 1 + 5 = 6$ and $|A| = 5 - 15 = -10$. By Cayley-Hamilton, $A^2 - 6A - 10I = O \\implies A(A - 6I) = 10I$.",
+            "Factor $A^{2025} - 6A^{2024} = A^{2023}\\cdot A(A - 6I) = 10 A^{2023}$, or directly $|A^{2024}(A - 6I)| = |A|^{2024}|A - 6I|$.",
+            "Compute $|A - 6I| = \\begin{vmatrix} -5 & 5 \\\\ 3 & -1 \\end{vmatrix} = 5 - 15 = -10$, so $|A|^{2024}|A-6I| = (-10)^{2024}(-10) = -10^{2025}$."
+          ],
+          "answerLatex": "$-10^{2025}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "types-and-transpose",
+      "heading": "1. Matrix Algebra, Transpose & Symmetry Decomposition",
+      "proseLatex": "Two matrices $A=[a_{ij}]_{m\\times n}$ and $B=[b_{ij}]_{p\\times q}$ can be multiplied as $AB$ if and only if $n=p$, yielding an $m\\times q$ matrix; matrix multiplication is associative and distributive but generally non-commutative ($AB \\neq BA$). Transposition reverses product order, $(AB)^T = B^T A^T$, and every square matrix splits uniquely into a symmetric part $\\frac{1}{2}(A+A^T)$ plus a skew-symmetric part $\\frac{1}{2}(A-A^T)$. Diagonal entries of any real skew-symmetric matrix must be zero ($a_{ii} = -a_{ii} \\implies a_{ii}=0$).",
+      "keyFormulas": [
+        {
+          "formulaId": "M01-F01",
+          "label": "Unique Symmetric + Skew Decomposition",
+          "latex": "$A = \\frac{1}{2}(A + A^T) + \\frac{1}{2}(A - A^T),\\quad (AB)^T = B^T A^T$",
+          "aiExplainContext": "Decompose any square matrix into symmetric and skew-symmetric parts."
+        },
+        {
           "formulaId": "M01-F02",
-          "label": "Adjoint Product",
-          "latex": "$A \\cdot \\operatorname{adj} A = |A| I_3$",
-          "aiExplainContext": "Direct definition of the adjoint matrix."
+          "label": "Commutator of Symmetric Matrices",
+          "latex": "$A^T = A,\\; B^T = B \\implies (AB - BA)^T = -(AB - BA);\\quad AB\\text{ symmetric} \\iff AB = BA$",
+          "aiExplainContext": "Standard JELET Category-I and II test on symmetry of matrix products."
+        }
+      ]
+    },
+    {
+      "anchor": "adjoint-inverse",
+      "heading": "2. Adjoint, Inverse & Orthogonal / Idempotent Matrices",
+      "proseLatex": "The adjoint $\\operatorname{adj}A$ is the transpose of the cofactor matrix $[C_{ij}]^T$ and satisfies $A(\\operatorname{adj}A) = (\\operatorname{adj}A)A = |A|I_n$ for every square matrix of order $n$. When $|A|\\neq 0$, $A$ is non-singular with unique inverse $A^{-1} = \\frac{1}{|A|}\\operatorname{adj}A$ and $(AB)^{-1} = B^{-1}A^{-1}$. Special JELET classes to recognise on sight: orthogonal ($AA^T = I \\implies A^{-1} = A^T,\\; |A| = \\pm 1$), idempotent ($A^2 = A$), involutory ($A^2 = I \\implies A^{-1} = A$), and nilpotent ($A^k = O$).",
+      "keyFormulas": [
+        {
+          "formulaId": "M01-F03",
+          "label": "Adjoint Identity & Determinants",
+          "latex": "$A \\cdot \\operatorname{adj}A = |A|I_n,\\quad |\\operatorname{adj}A| = |A|^{n-1},\\quad \\operatorname{adj}(kA) = k^{n-1}\\operatorname{adj}A$",
+          "aiExplainContext": "Relate adjoint determinant and scalar multiples for order-n matrices."
+        },
+        {
+          "formulaId": "M01-F04",
+          "label": "Orthogonal & Involutory Shortcuts",
+          "latex": "$AA^T = I \\implies A^{-1} = A^T,\\; |A| = \\pm 1;\\qquad A^2 = I \\implies A^{-1} = A$",
+          "aiExplainContext": "Bypass full cofactor inversion when A is orthogonal or involutory."
+        }
+      ]
+    },
+    {
+      "anchor": "cayley-hamilton-rank",
+      "heading": "3. Cayley-Hamilton Theorem, Trace & Matrix Polynomials",
+      "proseLatex": "The characteristic polynomial of $A$ is $p(\\lambda) = |A - \\lambda I|$; for a $2\\times 2$ matrix, $\\lambda^2 - (\\operatorname{tr}A)\\lambda + |A| = 0$, and for a $3\\times 3$ matrix, $\\lambda^3 - (\\operatorname{tr}A)\\lambda^2 + (C_{11}+C_{22}+C_{33})\\lambda - |A| = 0$. By the Cayley-Hamilton theorem, every square matrix satisfies its own characteristic equation $p(A) = O$, which reduces high powers $A^m$ and yields $A^{-1}$ linearly in $I, A, A^2$. Rank $\\rho(A)$ equals the largest order of a non-vanishing minor and is invariant under elementary row or column operations.",
+      "keyFormulas": [
+        {
+          "formulaId": "M01-F05",
+          "label": "Cayley-Hamilton (Order 2 & Trace/Determinant)",
+          "latex": "$A^2 - (\\operatorname{tr}A)A + |A|I = O,\\quad \\operatorname{tr}A = \\sum \\lambda_i,\\quad |A| = \\prod \\lambda_i$",
+          "aiExplainContext": "Reduce high matrix powers or compute A^-1 using trace and determinant."
         }
       ]
     }
@@ -54,19 +184,50 @@
   "workedExamples": [
     {
       "exampleId": "M01-EX01",
-      "problemLatex": "If $A = \\begin{bmatrix} 1 & 5 \\\\ 3 & t \\end{bmatrix}$, evaluate $|A^{2009} - 5A^{2008}|$.",
+      "problemLatex": "If $A = \\begin{bmatrix} 2 & 5 \\\\ -1 & 4 \\end{bmatrix}$, find the symmetric part $P = \\frac{1}{2}(A + A^T)$ and skew-symmetric part $Q = \\frac{1}{2}(A - A^T)$.",
       "stepsLatex": [
-        "Factor out $A^{2008}$: $|A^{2008}(A - 5I)| = |A|^{2008} \\cdot |A - 5I|$.",
-        "Compute using Cayley-Hamilton properties.",
-        "Result: $-6$ (given $t$)."
+        "Compute $A^T = \\begin{bmatrix} 2 & -1 \\\\ 5 & 4 \\end{bmatrix}$.",
+        "$P = \\frac{1}{2}\\begin{bmatrix} 4 & 4 \\\\ 4 & 8 \\end{bmatrix} = \\begin{bmatrix} 2 & 2 \\\\ 2 & 4 \\end{bmatrix}$ and $Q = \\frac{1}{2}\\begin{bmatrix} 0 & 6 \\\\ -6 & 0 \\end{bmatrix} = \\begin{bmatrix} 0 & 3 \\\\ -3 & 0 \\end{bmatrix}$."
       ],
-      "answerLatex": "$-6$"
+      "answerLatex": "$P = \\begin{bmatrix} 2 & 2 \\\\ 2 & 4 \\end{bmatrix},\\; Q = \\begin{bmatrix} 0 & 3 \\\\ -3 & 0 \\end{bmatrix}$"
+    },
+    {
+      "exampleId": "M01-EX02",
+      "problemLatex": "Let $A$ be a $3\\times 3$ matrix with $|A| = -4$. Evaluate $|2\\,\\operatorname{adj}A|$.",
+      "stepsLatex": [
+        "For order $n=3$, $|kM| = k^3|M|$, so $|2\\,\\operatorname{adj}A| = 2^3 |\\operatorname{adj}A| = 8|\\operatorname{adj}A|$.",
+        "Substitute $|\\operatorname{adj}A| = |A|^{3-1} = (-4)^2 = 16$ to get $8 \\times 16 = 128$."
+      ],
+      "answerLatex": "$128$"
+    },
+    {
+      "exampleId": "M01-EX03",
+      "problemLatex": "If $A = \\begin{bmatrix} 1 & 5 \\\\ 3 & 5 \\end{bmatrix}$, evaluate $|A^{2025} - 6A^{2024}|$.",
+      "stepsLatex": [
+        "Here $\\operatorname{tr}A = 1 + 5 = 6$ and $|A| = 5 - 15 = -10$. By Cayley-Hamilton, $A^2 - 6A - 10I = O \\implies A(A - 6I) = 10I$.",
+        "Factor $A^{2025} - 6A^{2024} = A^{2023}\\cdot A(A - 6I) = 10 A^{2023}$, or directly $|A^{2024}(A - 6I)| = |A|^{2024}|A - 6I|$.",
+        "Compute $|A - 6I| = \\begin{vmatrix} -5 & 5 \\\\ 3 & -1 \\end{vmatrix} = 5 - 15 = -10$, so $|A|^{2024}|A-6I| = (-10)^{2024}(-10) = -10^{2025}$."
+      ],
+      "answerLatex": "$-10^{2025}$"
     }
   ],
   "wbjeebTraps": [
-    "Scalar determinant trap: $|kA| = k^n|A|$ where $n$ is matrix order.",
-    "Odd-order skew-symmetric determinant is ALWAYS 0."
+    "Scalar determinant trap: $|kA| = k^n|A|$ where $n$ is the matrix order (for $3\\times 3$, $|2A| = 8|A|$, NOT $2|A|$).",
+    "Odd-order real skew-symmetric determinant is ALWAYS $0$, whereas even-order skew-symmetric determinant is a perfect square.",
+    "In $(A+B)^2 = A^2 + AB + BA + B^2$, never collapse $AB + BA$ into $2AB$ unless $AB = BA$ is explicitly given."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "How to find Inverse, Determinant, Cofactors, Adjoint and Transpose of a Matrix ?",
+      "url": "https://www.youtube.com/watch?v=8sWzGgj-4Wc",
+      "videoId": "8sWzGgj-4Wc",
+      "duration": "18 min",
+      "durationMinutes": 18,
+      "provider": "YouTube · Profound Education",
+      "channelName": "Profound Education",
+      "language": "en",
+      "scopeNote": "Transpose, cofactors, adjoint and inverse of order-3 matrices"
+    }
+  ],
   "practiceSetIds": []
 }

@@ -13,17 +13,126 @@
     "jelet-2025-q041",
     "jelet-2025-q042"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q042",
+    "jelet-2024-q041",
+    "jelet-2023-q041",
+    "jelet-2022-q041",
+    "jelet-2022-q042"
+  ],
+  "notes": [
     {
-      "anchor": "units",
-      "heading": "1. SI Units & Dimensional Analysis",
-      "proseLatex": "CGS, MKS, SI units. Dimensions used to check equation consistency and derive relations.",
+      "anchor": "si-dimensions",
+      "heading": "1. SI Base Quantities, Dimensional Formulas & Homogeneity",
+      "proseLatex": "The seven SI base dimensions are $[M],[L],[T],[I]$ (or $[A]$), $[\\Theta]$ (or $[K]$), $[N]$ (mol), and $[J]$ (cd). By the principle of dimensional homogeneity, only terms of identical dimensions may be added, subtracted, or equated, and arguments of transcendental functions ($\\sin\\phi, e^u, \\ln w$) MUST be dimensionless ($[M^0 L^0 T^0]$). High-yield JELET dimensions: Force $[MLT^{-2}]$, Work/Torque $[ML^2 T^{-2}]$, Viscosity $\\eta$ $[ML^{-1}T^{-1}]$, Planck's constant $h$ $[ML^2 T^{-1}]$, and $RC$, $L/R$, $\\sqrt{LC}$ all have dimension $[T]$.",
       "keyFormulas": [
         {
           "formulaId": "P01-F01",
-          "label": "Dimensional Consistency",
-          "latex": "[Both sides] must match",
-          "aiExplainContext": "Verify equations dimensionally."
+          "label": "Homogeneity &Dimensionless Time Constants",
+          "latex": "$[\\sin(\\omega t - kx)] \\implies [\\omega]=[T^{-1}],\\;[k]=[L^{-1}];\\qquad [RC] = \\left[\\frac{L}{R}\\right] = [\\sqrt{LC}] = [T]$",
+          "aiExplainContext": "Extract unknown constant dimensions from trig/exp arguments and circuit combinations."
+        },
+        {
+          "formulaId": "P01-F02",
+          "label": "System-of-Units Conversion Law",
+          "latex": "$n_1 u_1 = n_2 u_2 \\implies n_2 = n_1 \\left(\\frac{M_1}{M_2}\\right)^a \\left(\\frac{L_1}{L_2}\\right)^b \\left(\\frac{T_1}{T_2}\\right)^c$",
+          "aiExplainContext": "Convert numerical values between SI, CGS, and custom unit systems."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P01-EX01",
+          "problemLatex": "In van der Waals' equation $\\left(P + \\frac{a}{V^2}\\right)(V - b) = RT$, find the dimensional formula of $a/b$.",
+          "stepsLatex": [
+            "Homogeneity requires $[a/V^2] = [P] \\implies [a] = [P][V]^2$ and $[b] = [V]$.",
+            "Hence $[a/b] = [P][V] = [ML^{-1}T^{-2}][L^3] = [ML^2 T^{-2}]$ (dimension of energy/work!)."
+          ],
+          "answerLatex": "$[M L^2 T^{-2}]$"
+        }
+      ]
+    },
+    {
+      "anchor": "error-analysis",
+      "heading": "2. Relative & Percentage Error Propagation",
+      "proseLatex": "Maximum absolute errors ALWAYS ADD in sums and differences: $\\Delta(A \\pm B) = \\Delta A + \\Delta B$. For power-law products and quotients $Z = \\frac{A^p B^q}{C^r}$, small fractional errors propagate with positive exponents as $\\frac{\\Delta Z}{Z} = |p|\\frac{\\Delta A}{A} + |q|\\frac{\\Delta B}{B} + |r|\\frac{\\Delta C}{C}$ — notice the denominator exponent $r$ contributes $+|r|$, never a minus sign!",
+      "keyFormulas": [
+        {
+          "formulaId": "P01-F03",
+          "label": "Maximum Percentage Error Law",
+          "latex": "$Z = A^p B^q C^{-r} \\implies \\left(\\frac{\\Delta Z}{Z}\\right)_{\\max}\\!\\times 100\\% = |p|\\frac{\\Delta A}{A}\\% + |q|\\frac{\\Delta B}{B}\\% + |r|\\frac{\\Delta C}{C}\\%$",
+          "aiExplainContext": "Compute worst-case percentage uncertainty in derived physical quantities."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P01-EX02",
+          "problemLatex": "If mass $m$ has $1\\%$ error and speed $v$ has $3\\%$ error, find the maximum percentage error in kinetic energy $K = \\frac{1}{2}mv^2$.",
+          "stepsLatex": [
+            "Constant $\\frac{1}{2}$ has zero uncertainty; exponents are $p = 1$ on $m$ and $q = 2$ on $v$.",
+            "$(\\Delta K/K)\\% = 1(1\\%) + 2(3\\%) = 7\\%$."
+          ],
+          "answerLatex": "$7\\%$"
+        }
+      ]
+    },
+    {
+      "anchor": "vernier-screw-sigfigs",
+      "heading": "3. Vernier Callipers, Screw Gauge & Significant Figures",
+      "proseLatex": "Vernier least count is $\\text{LC} = 1\\,\\text{MSD} - 1\\,\\text{VSD}$, and screw gauge least count is $\\text{LC} = \\frac{\\text{Pitch}}{\\text{Number of circular divisions}}$; corrected reading equals $\\text{Observed Reading} - (\\pm\\text{Zero Error})$. Trailing zeros WITHOUT a decimal point ($2500\\text{ m}$) are non-significant ($2$ sig figs), whereas trailing zeros AFTER a decimal ($2.500\\text{ km}$) are significant ($4$ sig figs).",
+      "keyFormulas": [
+        {
+          "formulaId": "P01-F04",
+          "label": "Vernier & Screw Gauge Least Count",
+          "latex": "$\\text{LC}_{\\text{vernier}} = 1\\,\\text{MSD} - 1\\,\\text{VSD},\\qquad \\text{LC}_{\\text{screw}} = \\frac{\\text{Pitch}}{N_{\\text{CSD}}},\\qquad R_{\\text{true}} = R_{\\text{obs}} - e_0$",
+          "aiExplainContext": "Compute least count and apply signed zero-error correction."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "si-dimensions",
+      "heading": "1. SI Base Quantities, Dimensional Formulas & Homogeneity",
+      "proseLatex": "The seven SI base dimensions are $[M],[L],[T],[I]$ (or $[A]$), $[\\Theta]$ (or $[K]$), $[N]$ (mol), and $[J]$ (cd). By the principle of dimensional homogeneity, only terms of identical dimensions may be added, subtracted, or equated, and arguments of transcendental functions ($\\sin\\phi, e^u, \\ln w$) MUST be dimensionless ($[M^0 L^0 T^0]$). High-yield JELET dimensions: Force $[MLT^{-2}]$, Work/Torque $[ML^2 T^{-2}]$, Viscosity $\\eta$ $[ML^{-1}T^{-1}]$, Planck's constant $h$ $[ML^2 T^{-1}]$, and $RC$, $L/R$, $\\sqrt{LC}$ all have dimension $[T]$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P01-F01",
+          "label": "Homogeneity &Dimensionless Time Constants",
+          "latex": "$[\\sin(\\omega t - kx)] \\implies [\\omega]=[T^{-1}],\\;[k]=[L^{-1}];\\qquad [RC] = \\left[\\frac{L}{R}\\right] = [\\sqrt{LC}] = [T]$",
+          "aiExplainContext": "Extract unknown constant dimensions from trig/exp arguments and circuit combinations."
+        },
+        {
+          "formulaId": "P01-F02",
+          "label": "System-of-Units Conversion Law",
+          "latex": "$n_1 u_1 = n_2 u_2 \\implies n_2 = n_1 \\left(\\frac{M_1}{M_2}\\right)^a \\left(\\frac{L_1}{L_2}\\right)^b \\left(\\frac{T_1}{T_2}\\right)^c$",
+          "aiExplainContext": "Convert numerical values between SI, CGS, and custom unit systems."
+        }
+      ]
+    },
+    {
+      "anchor": "error-analysis",
+      "heading": "2. Relative & Percentage Error Propagation",
+      "proseLatex": "Maximum absolute errors ALWAYS ADD in sums and differences: $\\Delta(A \\pm B) = \\Delta A + \\Delta B$. For power-law products and quotients $Z = \\frac{A^p B^q}{C^r}$, small fractional errors propagate with positive exponents as $\\frac{\\Delta Z}{Z} = |p|\\frac{\\Delta A}{A} + |q|\\frac{\\Delta B}{B} + |r|\\frac{\\Delta C}{C}$ — notice the denominator exponent $r$ contributes $+|r|$, never a minus sign!",
+      "keyFormulas": [
+        {
+          "formulaId": "P01-F03",
+          "label": "Maximum Percentage Error Law",
+          "latex": "$Z = A^p B^q C^{-r} \\implies \\left(\\frac{\\Delta Z}{Z}\\right)_{\\max}\\!\\times 100\\% = |p|\\frac{\\Delta A}{A}\\% + |q|\\frac{\\Delta B}{B}\\% + |r|\\frac{\\Delta C}{C}\\%$",
+          "aiExplainContext": "Compute worst-case percentage uncertainty in derived physical quantities."
+        }
+      ]
+    },
+    {
+      "anchor": "vernier-screw-sigfigs",
+      "heading": "3. Vernier Callipers, Screw Gauge & Significant Figures",
+      "proseLatex": "Vernier least count is $\\text{LC} = 1\\,\\text{MSD} - 1\\,\\text{VSD}$, and screw gauge least count is $\\text{LC} = \\frac{\\text{Pitch}}{\\text{Number of circular divisions}}$; corrected reading equals $\\text{Observed Reading} - (\\pm\\text{Zero Error})$. Trailing zeros WITHOUT a decimal point ($2500\\text{ m}$) are non-significant ($2$ sig figs), whereas trailing zeros AFTER a decimal ($2.500\\text{ km}$) are significant ($4$ sig figs).",
+      "keyFormulas": [
+        {
+          "formulaId": "P01-F04",
+          "label": "Vernier & Screw Gauge Least Count",
+          "latex": "$\\text{LC}_{\\text{vernier}} = 1\\,\\text{MSD} - 1\\,\\text{VSD},\\qquad \\text{LC}_{\\text{screw}} = \\frac{\\text{Pitch}}{N_{\\text{CSD}}},\\qquad R_{\\text{true}} = R_{\\text{obs}} - e_0$",
+          "aiExplainContext": "Compute least count and apply signed zero-error correction."
         }
       ]
     }
@@ -31,19 +140,40 @@
   "workedExamples": [
     {
       "exampleId": "P01-EX01",
-      "problemLatex": "Find the dimension of $a$ in $(P + a/V^2)(V-b) = RT$.",
+      "problemLatex": "In van der Waals' equation $\\left(P + \\frac{a}{V^2}\\right)(V - b) = RT$, find the dimensional formula of $a/b$.",
       "stepsLatex": [
-        "$[P] = [ML^{-1}T^{-2}]$, $[V] = [L^3]$.",
-        "$[a/V^2] = [ML^{-1}T^{-2}]$.",
-        "$[a] = [ML^3T^{-2}]$."
+        "Homogeneity requires $[a/V^2] = [P] \\implies [a] = [P][V]^2$ and $[b] = [V]$.",
+        "Hence $[a/b] = [P][V] = [ML^{-1}T^{-2}][L^3] = [ML^2 T^{-2}]$ (dimension of energy/work!)."
       ],
-      "answerLatex": "$[ML^3T^{-2}]$"
+      "answerLatex": "$[M L^2 T^{-2}]$"
+    },
+    {
+      "exampleId": "P01-EX02",
+      "problemLatex": "If mass $m$ has $1\\%$ error and speed $v$ has $3\\%$ error, find the maximum percentage error in kinetic energy $K = \\frac{1}{2}mv^2$.",
+      "stepsLatex": [
+        "Constant $\\frac{1}{2}$ has zero uncertainty; exponents are $p = 1$ on $m$ and $q = 2$ on $v$.",
+        "$(\\Delta K/K)\\% = 1(1\\%) + 2(3\\%) = 7\\%$."
+      ],
+      "answerLatex": "$7\\%$"
     }
   ],
   "wbjeebTraps": [
-    "Dimensional analysis cannot determine dimensionless constants.",
-    "Units must be consistent in every term of an equation."
+    "Dimensionless $\\neq$ unitless: plane angle (rad) and solid angle (sr) have SI units yet dimension $[M^0 L^0 T^0]$; conversely torque and work share $[ML^2 T^{-2}]$ despite being physically distinct.",
+    "Errors NEVER subtract in worst-case propagation: in $Z = A/B$ or $Z = A - B$, uncertainties ADD.",
+    "Notice $[\\varepsilon_0 \\mu_0]^{-1/2} = [c] = [LT^{-1}]$ — fastest way to recall electromagnetic combination dimensions without expanding $[I]$."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Units and Measurements | Full Chapter | Physics",
+      "url": "https://www.youtube.com/watch?v=6cBxQVma2KU",
+      "videoId": "6cBxQVma2KU",
+      "duration": "32 min",
+      "durationMinutes": 32,
+      "provider": "YouTube · Najam Academy",
+      "channelName": "Najam Academy",
+      "language": "en",
+      "scopeNote": "SI base units, dimensional homogeneity, conversions & error propagation"
+    }
+  ],
   "practiceSetIds": []
 }

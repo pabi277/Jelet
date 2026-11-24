@@ -8,17 +8,110 @@
   "pyqIds": [
     "jelet-2024-q069"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2024-q069"
+  ],
+  "notes": [
     {
-      "anchor": "surface-tension",
-      "heading": "1. Surface Tension & Surface Energy",
-      "proseLatex": "Surface tension $\\gamma = F/L$. Surface energy $= \\gamma \\cdot \\Delta A$. Angle of contact.",
+      "anchor": "surface-tension-energy",
+      "heading": "1. Surface Tension, Surface Energy & Droplet Coalescence",
+      "proseLatex": "Surface tension $S = F/\\ell$ ($\\text{N/m}$) equals isothermal surface energy per unit free area $W/\\Delta A$ ($\\text{J/m}^2$, dimension $[MT^{-2}]$). A liquid DROP in air has ONE free surface ($\\Delta A = 4\\pi R^2$), whereas a SOAP FILM or SOAP BUBBLE in air has TWO free air-liquid interfaces ($\\Delta A = 2\\times 4\\pi R^2 = 8\\pi R^2$). When $n$ identical droplets of radius $r$ coalesce into one big drop of radius $R$, volume conservation gives $R = n^{1/3}r$ and surface area shrinks, RELEASING heat.",
       "keyFormulas": [
         {
           "formulaId": "P07-F01",
-          "label": "Capillary Rise",
-          "latex": "$h = \\frac{2\\gamma\\cos\\theta}{\\rho g r}$",
-          "aiExplainContext": "Jurin's formula for capillary rise."
+          "label": "Drop vs Soap-Bubble Work & Coalescence Energy",
+          "latex": "$W_{\\text{drop}} = 4\\pi R^2 S,\\quad W_{\\text{soap bubble}} = 8\\pi R^2 S,\\quad R = n^{1/3}r,\\quad \\Delta U_{\\text{rel}} = 4\\pi R^2 S(n^{1/3} - 1)$",
+          "aiExplainContext": "Count 1 vs 2 free surfaces and compute energy absorbed on splitting or released on merging."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P07-EX01",
+          "problemLatex": "Work required to split a water drop of radius $R$ into $64$ identical droplets (surface tension $S$)?",
+          "stepsLatex": [
+            "Volume conservation: $\\frac{4}{3}\\pi R^3 = 64\\cdot\\frac{4}{3}\\pi r^3 \\implies r = R/4$.",
+            "$W = S(A_f - A_i) = S\\bigl[64\\cdot 4\\pi(R/4)^2 - 4\\pi R^2\\bigr] = S(16\\pi R^2 - 4\\pi R^2) = 12\\pi R^2 S$."
+          ],
+          "answerLatex": "$12\\pi R^2 S$"
+        }
+      ]
+    },
+    {
+      "anchor": "excess-pressure",
+      "heading": "2. Young-Laplace Excess Pressure & Communicating Soap Bubbles",
+      "proseLatex": "The concave side of any curved meniscus sits at higher pressure than the convex side. Excess pressure inside a liquid drop (or an air bubble submerged INSIDE water — 1 interface!) is $\\Delta P = \\frac{2S}{R}$, whereas inside a soap bubble in air (2 interfaces!) it doubles to $\\Delta P = \\frac{4S}{R}$. Since $\\Delta P \\propto 1/R$, when a small soap bubble and a large soap bubble are connected by a tube, air flows from the SMALLER bubble into the LARGER bubble!",
+      "keyFormulas": [
+        {
+          "formulaId": "P07-F02",
+          "label": "Laplace Excess Pressure (Drop / Air Bubble vs Soap Bubble)",
+          "latex": "$\\Delta P_{\\text{drop or underwater bubble}} = \\frac{2S}{R},\\qquad \\Delta P_{\\text{soap bubble in air}} = \\frac{4S}{R}$",
+          "aiExplainContext": "Distinguish 2S/R (1 interface) from 4S/R (2 interfaces) and bubble coalescence radius."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "capillarity",
+      "heading": "3. Angle of Contact, Jurin's Capillary Law & Tube of Insufficient Length",
+      "proseLatex": "Wetting liquids ($\\theta < 90^\\circ$, e.g., pure water on clean glass $\\theta \\approx 0^\\circ$) form a concave meniscus and RISE in a capillary tube, while non-wetting liquids ($\\theta > 90^\\circ$, e.g., mercury on glass $\\theta \\approx 135^\\circ$) form a convex meniscus and DEPRESS. Jurin's formula gives $h = \\frac{2S\\cos\\theta}{r\\rho g}$. If the capillary tube protrudes less than $h$ above the bath, water does NOT overflow as a fountain — instead the meniscus flattens ($R_m$ increases) so $h' R_m = h R_{m,0} = \\text{const}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P07-F03",
+          "label": "Jurin's Capillary Rise Formula",
+          "latex": "$h = \\frac{2S\\cos\\theta}{r\\rho g} \\implies h\\,r = \\text{const (Jurin's law)}$",
+          "aiExplainContext": "Predict capillary rise/depression and meniscus adjustment in short tubes."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P07-EX02",
+          "problemLatex": "Water rises to $6\\text{ cm}$ in a vertical glass capillary. If a tube of half the radius is used, how high does water rise?",
+          "stepsLatex": [
+            "By Jurin's law $h \\propto 1/r$ for the same liquid-solid pair and gravity.",
+            "Halving $r$ doubles $h$: $h_2 = 2 \\times 6\\text{ cm} = 12\\text{ cm}$."
+          ],
+          "answerLatex": "$12\\text{ cm}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "surface-tension-energy",
+      "heading": "1. Surface Tension, Surface Energy & Droplet Coalescence",
+      "proseLatex": "Surface tension $S = F/\\ell$ ($\\text{N/m}$) equals isothermal surface energy per unit free area $W/\\Delta A$ ($\\text{J/m}^2$, dimension $[MT^{-2}]$). A liquid DROP in air has ONE free surface ($\\Delta A = 4\\pi R^2$), whereas a SOAP FILM or SOAP BUBBLE in air has TWO free air-liquid interfaces ($\\Delta A = 2\\times 4\\pi R^2 = 8\\pi R^2$). When $n$ identical droplets of radius $r$ coalesce into one big drop of radius $R$, volume conservation gives $R = n^{1/3}r$ and surface area shrinks, RELEASING heat.",
+      "keyFormulas": [
+        {
+          "formulaId": "P07-F01",
+          "label": "Drop vs Soap-Bubble Work & Coalescence Energy",
+          "latex": "$W_{\\text{drop}} = 4\\pi R^2 S,\\quad W_{\\text{soap bubble}} = 8\\pi R^2 S,\\quad R = n^{1/3}r,\\quad \\Delta U_{\\text{rel}} = 4\\pi R^2 S(n^{1/3} - 1)$",
+          "aiExplainContext": "Count 1 vs 2 free surfaces and compute energy absorbed on splitting or released on merging."
+        }
+      ]
+    },
+    {
+      "anchor": "excess-pressure",
+      "heading": "2. Young-Laplace Excess Pressure & Communicating Soap Bubbles",
+      "proseLatex": "The concave side of any curved meniscus sits at higher pressure than the convex side. Excess pressure inside a liquid drop (or an air bubble submerged INSIDE water — 1 interface!) is $\\Delta P = \\frac{2S}{R}$, whereas inside a soap bubble in air (2 interfaces!) it doubles to $\\Delta P = \\frac{4S}{R}$. Since $\\Delta P \\propto 1/R$, when a small soap bubble and a large soap bubble are connected by a tube, air flows from the SMALLER bubble into the LARGER bubble!",
+      "keyFormulas": [
+        {
+          "formulaId": "P07-F02",
+          "label": "Laplace Excess Pressure (Drop / Air Bubble vs Soap Bubble)",
+          "latex": "$\\Delta P_{\\text{drop or underwater bubble}} = \\frac{2S}{R},\\qquad \\Delta P_{\\text{soap bubble in air}} = \\frac{4S}{R}$",
+          "aiExplainContext": "Distinguish 2S/R (1 interface) from 4S/R (2 interfaces) and bubble coalescence radius."
+        }
+      ]
+    },
+    {
+      "anchor": "capillarity",
+      "heading": "3. Angle of Contact, Jurin's Capillary Law & Tube of Insufficient Length",
+      "proseLatex": "Wetting liquids ($\\theta < 90^\\circ$, e.g., pure water on clean glass $\\theta \\approx 0^\\circ$) form a concave meniscus and RISE in a capillary tube, while non-wetting liquids ($\\theta > 90^\\circ$, e.g., mercury on glass $\\theta \\approx 135^\\circ$) form a convex meniscus and DEPRESS. Jurin's formula gives $h = \\frac{2S\\cos\\theta}{r\\rho g}$. If the capillary tube protrudes less than $h$ above the bath, water does NOT overflow as a fountain — instead the meniscus flattens ($R_m$ increases) so $h' R_m = h R_{m,0} = \\text{const}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P07-F03",
+          "label": "Jurin's Capillary Rise Formula",
+          "latex": "$h = \\frac{2S\\cos\\theta}{r\\rho g} \\implies h\\,r = \\text{const (Jurin's law)}$",
+          "aiExplainContext": "Predict capillary rise/depression and meniscus adjustment in short tubes."
         }
       ]
     }
@@ -26,19 +119,40 @@
   "workedExamples": [
     {
       "exampleId": "P07-EX01",
-      "problemLatex": "Derive the capillary rise formula.",
+      "problemLatex": "Work required to split a water drop of radius $R$ into $64$ identical droplets (surface tension $S$)?",
       "stepsLatex": [
-        "Upward force $= 2\\pi r\\gamma\\cos\\theta$.",
-        "Weight of liquid column $= \\pi r^2 h\\rho g$.",
-        "Equate: $h = 2\\gamma\\cos\\theta/(\\rho g r)$."
+        "Volume conservation: $\\frac{4}{3}\\pi R^3 = 64\\cdot\\frac{4}{3}\\pi r^3 \\implies r = R/4$.",
+        "$W = S(A_f - A_i) = S\\bigl[64\\cdot 4\\pi(R/4)^2 - 4\\pi R^2\\bigr] = S(16\\pi R^2 - 4\\pi R^2) = 12\\pi R^2 S$."
       ],
-      "answerLatex": "$h = 2\\gamma\\cos\\theta/(\\rho g r)$"
+      "answerLatex": "$12\\pi R^2 S$"
+    },
+    {
+      "exampleId": "P07-EX02",
+      "problemLatex": "Water rises to $6\\text{ cm}$ in a vertical glass capillary. If a tube of half the radius is used, how high does water rise?",
+      "stepsLatex": [
+        "By Jurin's law $h \\propto 1/r$ for the same liquid-solid pair and gravity.",
+        "Halving $r$ doubles $h$: $h_2 = 2 \\times 6\\text{ cm} = 12\\text{ cm}$."
+      ],
+      "answerLatex": "$12\\text{ cm}$"
     }
   ],
   "wbjeebTraps": [
-    "Surface tension decreases with temperature.",
-    "Small drops are spherical due to surface tension."
+    "An AIR bubble INSIDE water has only ONE air-water interface ($\\Delta P = 2S/R$), whereas a SOAP bubble in air has TWO ($\\Delta P = 4S/R$).",
+    "Smaller bubble has HIGHER internal pressure ($\\Delta P \\propto 1/R$): connecting a small and a large soap bubble makes the small one shrink and the large one grow!",
+    "Water NEVER overflows out of a capillary of insufficient length — the meniscus curvature simply adjusts."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Lecture 31: Capillarity and Surface Tension (Introduction)",
+      "url": "https://www.youtube.com/watch?v=W02qnxxm7v8",
+      "videoId": "W02qnxxm7v8",
+      "duration": "31 min",
+      "durationMinutes": 31,
+      "provider": "YouTube · Bahga Lab IIT Delhi",
+      "channelName": "Bahga Lab IIT Delhi",
+      "language": "en",
+      "scopeNote": "Surface tension, surface energy, Laplace excess pressure & Jurin's capillary law"
+    }
+  ],
   "practiceSetIds": []
 }

@@ -7,6 +7,24 @@
    ========================================================================== */
 
 /* ------------------------------------------------------------------ *
+ * Base reset (Phase 06): without it the browser default
+ * `body { margin: 8px }` plus content-box `width: 100%` on padded
+ * containers (`.app-main`) forced a ~32px horizontal overflow on every
+ * route — the root cause of sideways scroll on narrow phones.
+ * ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ------------------------------------------------------------------ *
  * App shell root
  * ------------------------------------------------------------------ */
 .app-shell {
@@ -26,6 +44,35 @@
 .app-shell {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ------------------------------------------------------------------ *
+ * Phase 06 — Page-level horizontal overflow guard
+ * The app is phone-first: NO page may ever scroll sideways. Root causes
+ * (KaTeX blocks, stems, chip rows) are internally contained in
+ * components.css; this is the belt-and-braces document-level guard.
+ * `overflow-x: clip` is preferred (it does not create a scroll
+ * container, so `position: sticky`/`fixed` keep working); the classic
+ * `hidden` declaration above it is the fallback for older engines.
+ * ------------------------------------------------------------------ */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+/* Long unbreakable tokens (IDs, URLs, copied notes) wrap instead of
+   pushing the page wide. `anywhere` also feeds min-content sizing, so
+   flex/grid children can never be forced wider than their track. */
+.app-shell {
+  overflow-wrap: anywhere;
+}
+
+/* Embedded media can never exceed the content column */
+.app-shell iframe,
+.app-shell video {
+  max-width: 100%;
 }
 
 /* ------------------------------------------------------------------ *

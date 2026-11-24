@@ -16,30 +16,118 @@
     "jelet-2025-q056",
     "jelet-2025-q065"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q048",
+    "jelet-2025-q051",
+    "jelet-2025-q056",
+    "jelet-2025-q065",
+    "jelet-2024-q056",
+    "jelet-2023-q055",
+    "jelet-2022-q051",
+    "jelet-2022-q052",
+    "jelet-2022-q063"
+  ],
+  "notes": [
     {
-      "anchor": "buoyancy",
-      "heading": "1. Pascal's Law, Buoyancy & Floatation",
-      "proseLatex": "Pascal's law: pressure transmitted equally. Buoyant force $= V\\rho g$ (Archimedes' principle).",
+      "anchor": "hydrostatics-buoyancy",
+      "heading": "1. Hydrostatic Pressure, Pascal's Law & Archimedes' Floatation",
+      "proseLatex": "Absolute pressure at depth $h$ in an incompressible static liquid of density $\\rho$ is $P = P_0 + \\rho g h$ (gauge pressure $= \\rho g h$, depending ONLY on vertical depth, never container shape!). Pascal's law transmits enclosed pressure undiminished, giving hydraulic mechanical advantage $F_2/F_1 = A_2/A_1$. By Archimedes' principle, upward buoyant thrust equals the weight of displaced fluid $F_B = V_{\\text{sub}}\\rho_f g$; a solid floats in equilibrium with submerged fraction $\\frac{V_{\\text{sub}}}{V} = \\frac{\\rho_s}{\\rho_f}$.",
       "keyFormulas": [
         {
           "formulaId": "P08-F01",
-          "label": "Buoyant Force",
-          "latex": "$F_b = V\\rho_{\\text{fluid}}g$",
-          "aiExplainContext": "Upward force equals weight of displaced fluid."
+          "label": "Hydrostatic Pressure, Hydraulic Lift & Floating Fraction",
+          "latex": "$P = P_0 + \\rho g h,\\qquad \\frac{F_1}{A_1} = \\frac{F_2}{A_2},\\qquad \\frac{V_{\\text{sub}}}{V_{\\text{body}}} = \\frac{\\rho_{\\text{body}}}{\\rho_{\\text{fluid}}}$",
+          "aiExplainContext": "Compute gauge/absolute pressure, hydraulic force multiplication, and floating submergence."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P08-EX01",
+          "problemLatex": "An iceberg ($\\rho_i = 0.90\\text{ g/cm}^3$) floats in sea water ($\\rho_w = 1.025\\text{ g/cm}^3$). What fraction of its volume stays ABOVE the water surface?",
+          "stepsLatex": [
+            "Submerged fraction $f_{\\text{sub}} = \\frac{\\rho_i}{\\rho_w} = \\frac{0.90}{1.025} = \\frac{36}{41}$.",
+            "Exposed fraction above water $= 1 - \\frac{36}{41} = \\frac{5}{41} \\approx 12.2\\%$."
+          ],
+          "answerLatex": "$\\frac{5}{41}$ ($\\approx 12.2\\%$)"
         }
       ]
     },
     {
-      "anchor": "viscosity",
-      "heading": "2. Viscosity, Stokes' Law & Terminal Velocity",
-      "proseLatex": "Viscous force $= 6\\pi\\eta r v$. Terminal velocity: viscous force = net weight.",
+      "anchor": "continuity-bernoulli",
+      "heading": "2. Continuity Equation, Bernoulli's Theorem & Torricelli's Efflux",
+      "proseLatex": "For steady incompressible flow, volume conservation gives $A_1 v_1 = A_2 v_2 = Q$ ($\\text{m}^3/\\text{s}$). Along a streamline of ideal non-viscous flow, Bernoulli's equation $P + \\frac{1}{2}\\rho v^2 + \\rho g h = \\text{const}$ expresses mechanical energy conservation per unit volume. Applying Bernoulli to a small orifice at depth $h$ below an open wide tank gives Torricelli's efflux speed $v = \\sqrt{2gh}$ (identical to free-fall speed from height $h$!).",
       "keyFormulas": [
         {
           "formulaId": "P08-F02",
-          "label": "Stokes' Law",
-          "latex": "$F_v = 6\\pi\\eta r v$",
-          "aiExplainContext": "Viscous drag on a sphere at low Reynolds number."
+          "label": "Continuity, Bernoulli's Equation & Torricelli Speed",
+          "latex": "$A_1 v_1 = A_2 v_2,\\qquad P + \\frac{1}{2}\\rho v^2 + \\rho g h = \\text{const},\\qquad v_{\\text{efflux}} = \\sqrt{2gh}$",
+          "aiExplainContext": "Solve Venturi-meter pressure drops and tank-orifice jet speeds."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "viscosity-stokes",
+      "heading": "3. Newton's Viscosity, Poiseuille's Law & Stokes' Terminal Velocity",
+      "proseLatex": "Viscous shear force between laminar layers is $F = -\\eta A\\frac{dv}{dy}$ where $\\eta$ has SI unit $\\text{Pa\\,s}$ ($1\\text{ Pa\\,s} = 10\\text{ poise}$). Laminar tube flow obeys Poiseuille's $R^4$ law $Q = \\frac{\\pi \\Delta P\\,R^4}{8\\eta L}$, while Reynolds number $\\text{Re} = \\frac{\\rho v D}{\\eta}$ separates laminar from turbulent regimes. A sphere of radius $r$ and density $\\rho$ falling through fluid of density $\\sigma$ experiences Stokes' drag $F_d = 6\\pi\\eta r v$ and settles at terminal velocity $v_T \\propto r^2$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P08-F03",
+          "label": "Stokes' Drag & Terminal Velocity Scaling",
+          "latex": "$F_d = 6\\pi\\eta r v,\\qquad v_T = \\frac{2 r^2(\\rho - \\sigma)g}{9\\eta},\\qquad Q_{\\text{pipe}} = \\frac{\\pi \\Delta P\\,R^4}{8\\eta L}$",
+          "aiExplainContext": "Scale terminal velocity when droplets coalesce (n^(2/3) scaling!) and pipe flow with R^4."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P08-EX02",
+          "problemLatex": "Eight identical raindrops each having terminal speed $2\\text{ cm/s}$ coalesce into one bigger drop. Find the new terminal speed.",
+          "stepsLatex": [
+            "Volume conservation: $R = 8^{1/3}r = 2r$.",
+            "Since $v_T \\propto r^2$, $v_T' = (R/r)^2 v_T = 2^2 \\times 2\\text{ cm/s} = 8\\text{ cm/s}$."
+          ],
+          "answerLatex": "$8\\text{ cm/s}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "hydrostatics-buoyancy",
+      "heading": "1. Hydrostatic Pressure, Pascal's Law & Archimedes' Floatation",
+      "proseLatex": "Absolute pressure at depth $h$ in an incompressible static liquid of density $\\rho$ is $P = P_0 + \\rho g h$ (gauge pressure $= \\rho g h$, depending ONLY on vertical depth, never container shape!). Pascal's law transmits enclosed pressure undiminished, giving hydraulic mechanical advantage $F_2/F_1 = A_2/A_1$. By Archimedes' principle, upward buoyant thrust equals the weight of displaced fluid $F_B = V_{\\text{sub}}\\rho_f g$; a solid floats in equilibrium with submerged fraction $\\frac{V_{\\text{sub}}}{V} = \\frac{\\rho_s}{\\rho_f}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P08-F01",
+          "label": "Hydrostatic Pressure, Hydraulic Lift & Floating Fraction",
+          "latex": "$P = P_0 + \\rho g h,\\qquad \\frac{F_1}{A_1} = \\frac{F_2}{A_2},\\qquad \\frac{V_{\\text{sub}}}{V_{\\text{body}}} = \\frac{\\rho_{\\text{body}}}{\\rho_{\\text{fluid}}}$",
+          "aiExplainContext": "Compute gauge/absolute pressure, hydraulic force multiplication, and floating submergence."
+        }
+      ]
+    },
+    {
+      "anchor": "continuity-bernoulli",
+      "heading": "2. Continuity Equation, Bernoulli's Theorem & Torricelli's Efflux",
+      "proseLatex": "For steady incompressible flow, volume conservation gives $A_1 v_1 = A_2 v_2 = Q$ ($\\text{m}^3/\\text{s}$). Along a streamline of ideal non-viscous flow, Bernoulli's equation $P + \\frac{1}{2}\\rho v^2 + \\rho g h = \\text{const}$ expresses mechanical energy conservation per unit volume. Applying Bernoulli to a small orifice at depth $h$ below an open wide tank gives Torricelli's efflux speed $v = \\sqrt{2gh}$ (identical to free-fall speed from height $h$!).",
+      "keyFormulas": [
+        {
+          "formulaId": "P08-F02",
+          "label": "Continuity, Bernoulli's Equation & Torricelli Speed",
+          "latex": "$A_1 v_1 = A_2 v_2,\\qquad P + \\frac{1}{2}\\rho v^2 + \\rho g h = \\text{const},\\qquad v_{\\text{efflux}} = \\sqrt{2gh}$",
+          "aiExplainContext": "Solve Venturi-meter pressure drops and tank-orifice jet speeds."
+        }
+      ]
+    },
+    {
+      "anchor": "viscosity-stokes",
+      "heading": "3. Newton's Viscosity, Poiseuille's Law & Stokes' Terminal Velocity",
+      "proseLatex": "Viscous shear force between laminar layers is $F = -\\eta A\\frac{dv}{dy}$ where $\\eta$ has SI unit $\\text{Pa\\,s}$ ($1\\text{ Pa\\,s} = 10\\text{ poise}$). Laminar tube flow obeys Poiseuille's $R^4$ law $Q = \\frac{\\pi \\Delta P\\,R^4}{8\\eta L}$, while Reynolds number $\\text{Re} = \\frac{\\rho v D}{\\eta}$ separates laminar from turbulent regimes. A sphere of radius $r$ and density $\\rho$ falling through fluid of density $\\sigma$ experiences Stokes' drag $F_d = 6\\pi\\eta r v$ and settles at terminal velocity $v_T \\propto r^2$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P08-F03",
+          "label": "Stokes' Drag & Terminal Velocity Scaling",
+          "latex": "$F_d = 6\\pi\\eta r v,\\qquad v_T = \\frac{2 r^2(\\rho - \\sigma)g}{9\\eta},\\qquad Q_{\\text{pipe}} = \\frac{\\pi \\Delta P\\,R^4}{8\\eta L}$",
+          "aiExplainContext": "Scale terminal velocity when droplets coalesce (n^(2/3) scaling!) and pipe flow with R^4."
         }
       ]
     }
@@ -47,19 +135,40 @@
   "workedExamples": [
     {
       "exampleId": "P08-EX01",
-      "problemLatex": "Ball of radius $r$, density $\\rho$ falls through height $h$ into water. Terminal velocity = entry velocity. Find $h$.",
+      "problemLatex": "An iceberg ($\\rho_i = 0.90\\text{ g/cm}^3$) floats in sea water ($\\rho_w = 1.025\\text{ g/cm}^3$). What fraction of its volume stays ABOVE the water surface?",
       "stepsLatex": [
-        "$v = \\sqrt{2gh}$.",
-        "$mg - $ buoyancy $= 6\\pi\\eta r v$.",
-        "Solve for $h$."
+        "Submerged fraction $f_{\\text{sub}} = \\frac{\\rho_i}{\\rho_w} = \\frac{0.90}{1.025} = \\frac{36}{41}$.",
+        "Exposed fraction above water $= 1 - \\frac{36}{41} = \\frac{5}{41} \\approx 12.2\\%$."
       ],
-      "answerLatex": "$h = [2r^2(\\rho-1)g/(9\\eta)]^2/(2g)$"
+      "answerLatex": "$\\frac{5}{41}$ ($\\approx 12.2\\%$)"
+    },
+    {
+      "exampleId": "P08-EX02",
+      "problemLatex": "Eight identical raindrops each having terminal speed $2\\text{ cm/s}$ coalesce into one bigger drop. Find the new terminal speed.",
+      "stepsLatex": [
+        "Volume conservation: $R = 8^{1/3}r = 2r$.",
+        "Since $v_T \\propto r^2$, $v_T' = (R/r)^2 v_T = 2^2 \\times 2\\text{ cm/s} = 8\\text{ cm/s}$."
+      ],
+      "answerLatex": "$8\\text{ cm/s}$"
     }
   ],
   "wbjeebTraps": [
-    "Terminal velocity occurs when net force is zero.",
-    "Bernoulli's theorem applies to ideal, incompressible, streamline flow."
+    "When pure ice floating in pure water melts completely, the water level remains UNCHANGED (displaced water volume already equals melted water volume!).",
+    "Unit conversion trap: $1\\text{ poise} = 0.1\\text{ Pa\\,s}$ (NOT $10\\text{ Pa\\,s}$).",
+    "Temperature trend flip: heating DECREASES viscosity of liquids (cohesive bonds weaken) but INCREASES viscosity of gases ($\\eta_{\\text{gas}} \\propto \\sqrt{T}$)."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "8.01x - Lect 27 - Fluid Mechanics, Hydrostatics, Pascal's Principle, Atmosph. Pressure",
+      "url": "https://www.youtube.com/watch?v=O_HQklhIlwQ",
+      "videoId": "O_HQklhIlwQ",
+      "duration": "49 min",
+      "durationMinutes": 49,
+      "provider": "YouTube · Lectures by Walter Lewin",
+      "channelName": "Lectures by Walter Lewin. They will make you ♥ Physics.",
+      "language": "en",
+      "scopeNote": "Hydrostatic pressure, Pascal's hydraulic press, Archimedes buoyancy & floatation"
+    }
+  ],
   "practiceSetIds": []
 }

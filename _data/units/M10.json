@@ -20,30 +20,122 @@
     "jelet-2025-q029",
     "jelet-2025-q034"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q010",
+    "jelet-2025-q029",
+    "jelet-2024-q026",
+    "jelet-2024-q027",
+    "jelet-2024-q028",
+    "jelet-2023-q027",
+    "jelet-2023-q028",
+    "jelet-2022-q027",
+    "jelet-2022-q028",
+    "jelet-2025-q034",
+    "jelet-2024-q039",
+    "jelet-2023-q040",
+    "jelet-2022-q040"
+  ],
+  "notes": [
     {
-      "anchor": "first-order",
-      "heading": "1. First-Order ODEs",
-      "proseLatex": "Variable separable, homogeneous, exact, and linear ($dy/dx + Py = Q$) forms.",
+      "anchor": "order-degree-first",
+      "heading": "1. Order, Degree & First-Order Exact / Linear ODEs",
+      "proseLatex": "The ORDER of an ODE is the highest derivative present; its DEGREE is the positive-integer exponent of that highest derivative AFTER clearing radicals and fractions in derivatives (undefined if a derivative sits inside $\\sin(y')$, $e^{y'}$, or $\\ln(y')$). First-order linear ODEs $\\frac{dy}{dx} + P(x)y = Q(x)$ use the integrating factor $\\text{IF} = e^{\\int P(x)\\,dx}$ giving $y\\cdot\\text{IF} = \\int Q(x)\\cdot\\text{IF}\\,dx + C$, while $M\\,dx + N\\,dy = 0$ is exact when $\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$.",
       "keyFormulas": [
         {
           "formulaId": "M10-F01",
-          "label": "Linear ODE Solution",
-          "latex": "$y = e^{-\\int P\\,dx}\\left[\\int Q e^{\\int P\\,dx}\\,dx + c\\right]$",
-          "aiExplainContext": "Integrating factor method."
+          "label": "Integrating Factor & Exactness Condition",
+          "latex": "$\\frac{dy}{dx} + P(x)y = Q(x) \\implies \\text{IF} = e^{\\int P\\,dx},\\; y\\cdot\\text{IF} = \\int Q\\cdot\\text{IF}\\,dx + C;\\quad M_y = N_x \\text{ (exact)}$",
+          "aiExplainContext": "Compute integrating factors and verify exactness of first-order ODEs."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M10-EX01",
+          "problemLatex": "Find the order, degree, and integrating factor for $x\\frac{dy}{dx} + 2y = x^3$ ($x > 0$).",
+          "stepsLatex": [
+            "Highest derivative is $\\frac{dy}{dx}$ to power $1$: order $= 1$, degree $= 1$.",
+            "Divide by $x$ to put into standard form $\\frac{dy}{dx} + \\frac{2}{x}y = x^2$, so $P(x) = \\frac{2}{x}$ and $\\text{IF} = e^{\\int (2/x)\\,dx} = e^{2\\ln x} = x^2$."
+          ],
+          "answerLatex": "Order $1$, Degree $1$, $\\text{IF} = x^2$"
         }
       ]
     },
     {
-      "anchor": "second-order",
-      "heading": "2. Linear 2nd-Order ODEs",
-      "proseLatex": "C.F. + P.I. for polynomial, $e^{ax}$, $\\sin ax$, $\\cos ax$ forcing terms.",
+      "anchor": "bernoulli-homogeneous",
+      "heading": "2. Homogeneous & Bernoulli First-Order Equations",
+      "proseLatex": "A homogeneous first-order ODE $\\frac{dy}{dx} = \\phi(y/x)$ reduces to separable form under $y = vx \\implies \\frac{dy}{dx} = v + x\\frac{dv}{dx}$. Bernoulli's equation $\\frac{dy}{dx} + P(x)y = Q(x)y^n$ ($n\\neq 0,1$) divides by $y^n$ and substitutes $u = y^{1-n}$, converting cleanly into the linear ODE $\\frac{du}{dx} + (1-n)P(x)u = (1-n)Q(x)$.",
       "keyFormulas": [
         {
           "formulaId": "M10-F02",
-          "label": "Second-Order Solution",
-          "latex": "$y = y_c + y_p$",
-          "aiExplainContext": "Complementary function + particular integral."
+          "label": "Homogeneous (y = vx) & Bernoulli Reductions",
+          "latex": "$y = vx \\implies x\\frac{dv}{dx} = \\phi(v) - v;\\qquad \\frac{dy}{dx} + Py = Qy^n \\xrightarrow{u = y^{1-n}} \\frac{du}{dx} + (1-n)Pu = (1-n)Q$",
+          "aiExplainContext": "Reduce homogeneous and Bernoulli ODEs to standard first-order forms."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "second-order-linear",
+      "heading": "3. Second-Order Constant-Coefficient ODEs (CF + PI)",
+      "proseLatex": "For $(aD^2 + bD + c)y = R(x)$ where $D = d/dx$, the auxiliary equation $am^2 + bm + c = 0$ determines the complementary function $y_{\\text{CF}}$: distinct real roots give $c_1 e^{m_1 x} + c_2 e^{m_2 x}$, repeated root $m$ gives $(c_1 + c_2 x)e^{mx}$, and complex roots $\\alpha \\pm i\\beta$ give $e^{\\alpha x}(c_1\\cos\\beta x + c_2\\sin\\beta x)$. For particular integral $y_{\\text{PI}} = \\frac{1}{f(D)}R(x)$: replace $D \\to k$ for $e^{kx}$ (if $f(k)=0$, multiply by $x$ and differentiate $f'(D)$) and replace $D^2 \\to -\\omega^2$ for $\\sin\\omega x$ or $\\cos\\omega x$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M10-F03",
+          "label": "Auxiliary Roots & Exponential / Sinusoidal PI Rules",
+          "latex": "$m = \\alpha\\pm i\\beta \\implies y_{\\text{CF}} = e^{\\alpha x}(c_1\\cos\\beta x + c_2\\sin\\beta x);\\quad \\frac{1}{f(D)}e^{kx} = \\frac{e^{kx}}{f(k)}\\;(f(k)\\neq 0)$",
+          "aiExplainContext": "Build CF from auxiliary roots and compute PI for exponential and trig RHS."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "M10-EX02",
+          "problemLatex": "Find the general solution of $\\frac{d^2y}{dx^2} - 4\\frac{dy}{dx} + 4y = e^{2x}$.",
+          "stepsLatex": [
+            "Auxiliary equation $(m-2)^2 = 0$ has repeated root $m = 2, 2$, so $y_{\\text{CF}} = (c_1 + c_2 x)e^{2x}$.",
+            "For $y_{\\text{PI}} = \\frac{1}{(D-2)^2}e^{2x}$, double resonance at $k=2$ gives $\\frac{x^2}{2!}e^{2x} = \\frac{1}{2}x^2 e^{2x}$."
+          ],
+          "answerLatex": "$y = (c_1 + c_2 x + \\tfrac{1}{2}x^2)e^{2x}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "order-degree-first",
+      "heading": "1. Order, Degree & First-Order Exact / Linear ODEs",
+      "proseLatex": "The ORDER of an ODE is the highest derivative present; its DEGREE is the positive-integer exponent of that highest derivative AFTER clearing radicals and fractions in derivatives (undefined if a derivative sits inside $\\sin(y')$, $e^{y'}$, or $\\ln(y')$). First-order linear ODEs $\\frac{dy}{dx} + P(x)y = Q(x)$ use the integrating factor $\\text{IF} = e^{\\int P(x)\\,dx}$ giving $y\\cdot\\text{IF} = \\int Q(x)\\cdot\\text{IF}\\,dx + C$, while $M\\,dx + N\\,dy = 0$ is exact when $\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M10-F01",
+          "label": "Integrating Factor & Exactness Condition",
+          "latex": "$\\frac{dy}{dx} + P(x)y = Q(x) \\implies \\text{IF} = e^{\\int P\\,dx},\\; y\\cdot\\text{IF} = \\int Q\\cdot\\text{IF}\\,dx + C;\\quad M_y = N_x \\text{ (exact)}$",
+          "aiExplainContext": "Compute integrating factors and verify exactness of first-order ODEs."
+        }
+      ]
+    },
+    {
+      "anchor": "bernoulli-homogeneous",
+      "heading": "2. Homogeneous & Bernoulli First-Order Equations",
+      "proseLatex": "A homogeneous first-order ODE $\\frac{dy}{dx} = \\phi(y/x)$ reduces to separable form under $y = vx \\implies \\frac{dy}{dx} = v + x\\frac{dv}{dx}$. Bernoulli's equation $\\frac{dy}{dx} + P(x)y = Q(x)y^n$ ($n\\neq 0,1$) divides by $y^n$ and substitutes $u = y^{1-n}$, converting cleanly into the linear ODE $\\frac{du}{dx} + (1-n)P(x)u = (1-n)Q(x)$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M10-F02",
+          "label": "Homogeneous (y = vx) & Bernoulli Reductions",
+          "latex": "$y = vx \\implies x\\frac{dv}{dx} = \\phi(v) - v;\\qquad \\frac{dy}{dx} + Py = Qy^n \\xrightarrow{u = y^{1-n}} \\frac{du}{dx} + (1-n)Pu = (1-n)Q$",
+          "aiExplainContext": "Reduce homogeneous and Bernoulli ODEs to standard first-order forms."
+        }
+      ]
+    },
+    {
+      "anchor": "second-order-linear",
+      "heading": "3. Second-Order Constant-Coefficient ODEs (CF + PI)",
+      "proseLatex": "For $(aD^2 + bD + c)y = R(x)$ where $D = d/dx$, the auxiliary equation $am^2 + bm + c = 0$ determines the complementary function $y_{\\text{CF}}$: distinct real roots give $c_1 e^{m_1 x} + c_2 e^{m_2 x}$, repeated root $m$ gives $(c_1 + c_2 x)e^{mx}$, and complex roots $\\alpha \\pm i\\beta$ give $e^{\\alpha x}(c_1\\cos\\beta x + c_2\\sin\\beta x)$. For particular integral $y_{\\text{PI}} = \\frac{1}{f(D)}R(x)$: replace $D \\to k$ for $e^{kx}$ (if $f(k)=0$, multiply by $x$ and differentiate $f'(D)$) and replace $D^2 \\to -\\omega^2$ for $\\sin\\omega x$ or $\\cos\\omega x$.",
+      "keyFormulas": [
+        {
+          "formulaId": "M10-F03",
+          "label": "Auxiliary Roots & Exponential / Sinusoidal PI Rules",
+          "latex": "$m = \\alpha\\pm i\\beta \\implies y_{\\text{CF}} = e^{\\alpha x}(c_1\\cos\\beta x + c_2\\sin\\beta x);\\quad \\frac{1}{f(D)}e^{kx} = \\frac{e^{kx}}{f(k)}\\;(f(k)\\neq 0)$",
+          "aiExplainContext": "Build CF from auxiliary roots and compute PI for exponential and trig RHS."
         }
       ]
     }
@@ -51,19 +143,40 @@
   "workedExamples": [
     {
       "exampleId": "M10-EX01",
-      "problemLatex": "Solve $d^2y/dx^2 + (dy/dx)^2 + 1 = 0$.",
+      "problemLatex": "Find the order, degree, and integrating factor for $x\\frac{dy}{dx} + 2y = x^3$ ($x > 0$).",
       "stepsLatex": [
-        "Let $p = dy/dx$: $p' + p^2 + 1 = 0$.",
-        "$p = \\tan(c-x)$.",
-        "Integrate to get $y$."
+        "Highest derivative is $\\frac{dy}{dx}$ to power $1$: order $= 1$, degree $= 1$.",
+        "Divide by $x$ to put into standard form $\\frac{dy}{dx} + \\frac{2}{x}y = x^2$, so $P(x) = \\frac{2}{x}$ and $\\text{IF} = e^{\\int (2/x)\\,dx} = e^{2\\ln x} = x^2$."
       ],
-      "answerLatex": "$y = \\ln|\\cos(c-x)| + c_1$"
+      "answerLatex": "Order $1$, Degree $1$, $\\text{IF} = x^2$"
+    },
+    {
+      "exampleId": "M10-EX02",
+      "problemLatex": "Find the general solution of $\\frac{d^2y}{dx^2} - 4\\frac{dy}{dx} + 4y = e^{2x}$.",
+      "stepsLatex": [
+        "Auxiliary equation $(m-2)^2 = 0$ has repeated root $m = 2, 2$, so $y_{\\text{CF}} = (c_1 + c_2 x)e^{2x}$.",
+        "For $y_{\\text{PI}} = \\frac{1}{(D-2)^2}e^{2x}$, double resonance at $k=2$ gives $\\frac{x^2}{2!}e^{2x} = \\frac{1}{2}x^2 e^{2x}$."
+      ],
+      "answerLatex": "$y = (c_1 + c_2 x + \\tfrac{1}{2}x^2)e^{2x}$"
     }
   ],
   "wbjeebTraps": [
-    "Check the type of ODE before choosing the method.",
-    "For exact ODEs, verify $\\partial M/\\partial y = \\partial N/\\partial x$."
+    "Always normalize $a(x)\\frac{dy}{dx} + b(x)y = c(x)$ by dividing through by $a(x)$ BEFORE computing $\\text{IF} = e^{\\int (b/a)\\,dx}$.",
+    "In $\\sqrt{1 + (y')^2} = (y'')^{1/3}$, raise to the $6$-th power to clear BOTH radicals: $(1+(y')^2)^3 = (y'')^2 \\implies$ order $2$, degree $2$.",
+    "For $\\sin\\omega x$ or $\\cos\\omega x$, substitute $D^2 = -\\omega^2$ ONLY into $D^2$ (never replace $D = -\\omega$)."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Advanced Engineering Mathematics (Kreyszig) - Ordinary Differential Equations - Basic Concepts",
+      "url": "https://www.youtube.com/watch?v=nsWtah8Crkk",
+      "videoId": "nsWtah8Crkk",
+      "duration": "20 min",
+      "durationMinutes": 20,
+      "provider": "YouTube · Electric-Electronic-Engineer",
+      "channelName": "Electric-Electronic-Engineer",
+      "language": "en",
+      "scopeNote": "Order, degree, separable, linear first-order and initial-value ODEs"
+    }
+  ],
   "practiceSetIds": []
 }

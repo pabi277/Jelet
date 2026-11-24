@@ -13,30 +13,115 @@
     "jelet-2024-q052",
     "jelet-2025-q060"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q060",
+    "jelet-2024-q050",
+    "jelet-2024-q052",
+    "jelet-2023-q052",
+    "jelet-2022-q059",
+    "jelet-2022-q069"
+  ],
+  "notes": [
     {
-      "anchor": "lens-formula",
-      "heading": "1. Lens Formula & Image Formation",
-      "proseLatex": "$1/v - 1/u = 1/f$. Convex lens converges; concave diverges.",
+      "anchor": "lensmaker-thin",
+      "heading": "1. Lensmaker's Formula, Thin-Lens Equation & Medium Immersion",
+      "proseLatex": "For a thin lens of glass index $n_g$ immersed in a surrounding medium $n_m$, Lensmaker's formula gives $\\frac{1}{f} = \\left(\\frac{n_g}{n_m} - 1\\right)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right)$ (for equiconvex in air: $R_1 = +R,\\; R_2 = -R \\implies \\frac{1}{f} = \\frac{2(n_g-1)}{R}$). Notice if $n_m > n_g$ (e.g., air bubble or crown glass in $\\text{CS}_2$), the sign flips so a convex lens behaves as a DIVERGING lens! The paraxial thin-lens formula is $\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$ with magnification $m = +\\frac{v}{u} = \\frac{f}{f + u}$.",
       "keyFormulas": [
         {
           "formulaId": "P14-F01",
-          "label": "Lens Formula",
-          "latex": "$\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$",
-          "aiExplainContext": "Thin lens equation with sign convention."
+          "label": "Lensmaker's Formula & Thin-Lens Equation",
+          "latex": "$\\frac{1}{f} = \\left(\\frac{n_g}{n_m} - 1\\right)\\!\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right),\\qquad \\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f},\\qquad m = \\frac{v}{u} = \\frac{f}{f + u}$",
+          "aiExplainContext": "Predict focal-length scaling in liquids and compute real/virtual image positions."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P14-EX01",
+          "problemLatex": "A convex glass lens ($n_g = 1.5$) has focal length $f_a = +20\\text{ cm}$ in air. Find its focal length $f_w$ when immersed in water ($n_w = 4/3$).",
+          "stepsLatex": [
+            "Ratio $\\frac{f_w}{f_a} = \\frac{n_g - 1}{(n_g/n_w) - 1} = \\frac{1.5 - 1}{(1.5 / (4/3)) - 1} = \\frac{0.5}{(9/8) - 1} = \\frac{0.5}{1/8} = 4$.",
+            "Hence $f_w = 4 \\times 20\\text{ cm} = +80\\text{ cm}$ (always quadruples for $n_g=3/2$ in water $n_w=4/3$!)."
+          ],
+          "answerLatex": "$+80\\text{ cm}$"
         }
       ]
     },
     {
-      "anchor": "combination",
-      "heading": "2. Lens Combination",
-      "proseLatex": "For two lenses in contact: $1/f = 1/f_1 + 1/f_2$. Equivalent focal length.",
+      "anchor": "lens-cutting-displacement",
+      "heading": "2. Cutting a Lens & Minimum Screen Distance (D ≥ 4f)",
+      "proseLatex": "Cutting an equiconvex lens (focal length $f$) TRANSVERSELY along its vertical diameter into two plano-convex halves DOUBLES each piece's focal length to $2f$ (power halves); cutting HORIZONTALLY along the principal axis leaves focal length UNCHANGED at $f$ (only image brightness drops as aperture area halves!). Between a real object and a real screen image formed by a converging lens, minimum separation is $D_{\\min} = 4f$, and for $D > 4f$ the displacement method gives $f = \\frac{D^2 - d^2}{4D}$.",
       "keyFormulas": [
         {
           "formulaId": "P14-F02",
-          "label": "Combination Power",
-          "latex": "$\\frac{1}{f} = \\frac{1}{f_1} + \\frac{1}{f_2}$",
-          "aiExplainContext": "Additive powers for thin lenses in contact."
+          "label": "Minimum Real Object-Image Distance & Displacement Method",
+          "latex": "$D_{\\min} = 4f,\\qquad f = \\frac{D^2 - d^2}{4D},\\qquad I_{\\text{real}} = \\sqrt{I_1 I_2}$",
+          "aiExplainContext": "Apply D >= 4f and the two-position displacement method."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "combination-silvering",
+      "heading": "3. Optical Power (Dioptre), Coaxial Combinations & Silvered Lenses",
+      "proseLatex": "Optical power is $P = \\frac{1}{f(\\text{in metres})} = \\frac{100}{f(\\text{in cm})}$ dioptres ($\\text{D}$). Two coaxial thin lenses separated by $d$ combine with $P_{\\text{eq}} = P_1 + P_2 - d P_1 P_2$ (in contact $d=0$: $P_{\\text{eq}} = P_1 + P_2$ and $m_{\\text{eq}} = m_1 m_2$). Silvering one face of a thin lens turns the system into an equivalent spherical MIRROR satisfying $\\frac{1}{F_{\\text{eq}}} = \\frac{1}{f_m} - \\frac{2}{f_L}$ (in magnitude: $P_{\\text{eq}} = 2P_{\\text{lens}} + P_{\\text{mirror}}$).",
+      "keyFormulas": [
+        {
+          "formulaId": "P14-F03",
+          "label": "Optical Power, Separated Lenses & Silvered Lens",
+          "latex": "$P(\\text{D}) = \\frac{100}{f(\\text{cm})},\\qquad \\frac{1}{F} = \\frac{1}{f_1} + \\frac{1}{f_2} - \\frac{d}{f_1 f_2},\\qquad P_{\\text{silvered}} = 2P_L + P_M$",
+          "aiExplainContext": "Add dioptre powers of contact/separated lenses and solve silvered-lens mirrors."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P14-EX02",
+          "problemLatex": "A thin convex lens ($f_1 = +25\\text{ cm}$) and a thin concave lens ($f_2 = -50\\text{ cm}$) are placed in contact. Find equivalent power and focal length.",
+          "stepsLatex": [
+            "$P_1 = 100/25 = +4\\text{ D}$ and $P_2 = 100/(-50) = -2\\text{ D}$.",
+            "$P_{\\text{eq}} = +4 - 2 = +2\\text{ D} \\implies F_{\\text{eq}} = 100/2 = +50\\text{ cm}$ (converging)."
+          ],
+          "answerLatex": "$+2\\text{ D},\\; F = +50\\text{ cm}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "lensmaker-thin",
+      "heading": "1. Lensmaker's Formula, Thin-Lens Equation & Medium Immersion",
+      "proseLatex": "For a thin lens of glass index $n_g$ immersed in a surrounding medium $n_m$, Lensmaker's formula gives $\\frac{1}{f} = \\left(\\frac{n_g}{n_m} - 1\\right)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right)$ (for equiconvex in air: $R_1 = +R,\\; R_2 = -R \\implies \\frac{1}{f} = \\frac{2(n_g-1)}{R}$). Notice if $n_m > n_g$ (e.g., air bubble or crown glass in $\\text{CS}_2$), the sign flips so a convex lens behaves as a DIVERGING lens! The paraxial thin-lens formula is $\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$ with magnification $m = +\\frac{v}{u} = \\frac{f}{f + u}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P14-F01",
+          "label": "Lensmaker's Formula & Thin-Lens Equation",
+          "latex": "$\\frac{1}{f} = \\left(\\frac{n_g}{n_m} - 1\\right)\\!\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right),\\qquad \\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f},\\qquad m = \\frac{v}{u} = \\frac{f}{f + u}$",
+          "aiExplainContext": "Predict focal-length scaling in liquids and compute real/virtual image positions."
+        }
+      ]
+    },
+    {
+      "anchor": "lens-cutting-displacement",
+      "heading": "2. Cutting a Lens & Minimum Screen Distance (D ≥ 4f)",
+      "proseLatex": "Cutting an equiconvex lens (focal length $f$) TRANSVERSELY along its vertical diameter into two plano-convex halves DOUBLES each piece's focal length to $2f$ (power halves); cutting HORIZONTALLY along the principal axis leaves focal length UNCHANGED at $f$ (only image brightness drops as aperture area halves!). Between a real object and a real screen image formed by a converging lens, minimum separation is $D_{\\min} = 4f$, and for $D > 4f$ the displacement method gives $f = \\frac{D^2 - d^2}{4D}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P14-F02",
+          "label": "Minimum Real Object-Image Distance & Displacement Method",
+          "latex": "$D_{\\min} = 4f,\\qquad f = \\frac{D^2 - d^2}{4D},\\qquad I_{\\text{real}} = \\sqrt{I_1 I_2}$",
+          "aiExplainContext": "Apply D >= 4f and the two-position displacement method."
+        }
+      ]
+    },
+    {
+      "anchor": "combination-silvering",
+      "heading": "3. Optical Power (Dioptre), Coaxial Combinations & Silvered Lenses",
+      "proseLatex": "Optical power is $P = \\frac{1}{f(\\text{in metres})} = \\frac{100}{f(\\text{in cm})}$ dioptres ($\\text{D}$). Two coaxial thin lenses separated by $d$ combine with $P_{\\text{eq}} = P_1 + P_2 - d P_1 P_2$ (in contact $d=0$: $P_{\\text{eq}} = P_1 + P_2$ and $m_{\\text{eq}} = m_1 m_2$). Silvering one face of a thin lens turns the system into an equivalent spherical MIRROR satisfying $\\frac{1}{F_{\\text{eq}}} = \\frac{1}{f_m} - \\frac{2}{f_L}$ (in magnitude: $P_{\\text{eq}} = 2P_{\\text{lens}} + P_{\\text{mirror}}$).",
+      "keyFormulas": [
+        {
+          "formulaId": "P14-F03",
+          "label": "Optical Power, Separated Lenses & Silvered Lens",
+          "latex": "$P(\\text{D}) = \\frac{100}{f(\\text{cm})},\\qquad \\frac{1}{F} = \\frac{1}{f_1} + \\frac{1}{f_2} - \\frac{d}{f_1 f_2},\\qquad P_{\\text{silvered}} = 2P_L + P_M$",
+          "aiExplainContext": "Add dioptre powers of contact/separated lenses and solve silvered-lens mirrors."
         }
       ]
     }
@@ -44,18 +129,40 @@
   "workedExamples": [
     {
       "exampleId": "P14-EX01",
-      "problemLatex": "Plano-convex lens ($\\mu_1$) fits plano-concave ($\\mu_2$). Find focal length.",
+      "problemLatex": "A convex glass lens ($n_g = 1.5$) has focal length $f_a = +20\\text{ cm}$ in air. Find its focal length $f_w$ when immersed in water ($n_w = 4/3$).",
       "stepsLatex": [
-        "$1/f = (\\mu_1-1)/R + (\\mu_2-1)/(-R) = (\\mu_1-\\mu_2)/R$.",
-        "$f = R/(\\mu_1-\\mu_2)$."
+        "Ratio $\\frac{f_w}{f_a} = \\frac{n_g - 1}{(n_g/n_w) - 1} = \\frac{1.5 - 1}{(1.5 / (4/3)) - 1} = \\frac{0.5}{(9/8) - 1} = \\frac{0.5}{1/8} = 4$.",
+        "Hence $f_w = 4 \\times 20\\text{ cm} = +80\\text{ cm}$ (always quadruples for $n_g=3/2$ in water $n_w=4/3$!)."
       ],
-      "answerLatex": "$R/(\\mu_1-\\mu_2)$"
+      "answerLatex": "$+80\\text{ cm}$"
+    },
+    {
+      "exampleId": "P14-EX02",
+      "problemLatex": "A thin convex lens ($f_1 = +25\\text{ cm}$) and a thin concave lens ($f_2 = -50\\text{ cm}$) are placed in contact. Find equivalent power and focal length.",
+      "stepsLatex": [
+        "$P_1 = 100/25 = +4\\text{ D}$ and $P_2 = 100/(-50) = -2\\text{ D}$.",
+        "$P_{\\text{eq}} = +4 - 2 = +2\\text{ D} \\implies F_{\\text{eq}} = 100/2 = +50\\text{ cm}$ (converging)."
+      ],
+      "answerLatex": "$+2\\text{ D},\\; F = +50\\text{ cm}$"
     }
   ],
   "wbjeebTraps": [
-    "Sign convention matters: object distances are negative.",
-    "Lens power $= 1/f$ in diopters."
+    "Dioptre unit trap: $P = 1/f$ requires $f$ in METRES (so $f = +20\\text{ cm} \\implies P = +5\\text{ D}$, NOT $+0.05\\text{ D}$!).",
+    "Lens magnification is $m = +\\frac{v}{u}$ (NO minus sign, unlike mirrors $m = -\\frac{v}{u}$!).",
+    "Painting black half the aperture of a lens STILL forms a COMPLETE image of the object — only image intensity drops."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Thin Lens Equation Converging and Diverging Lens Ray Diagram & Sign Conventions",
+      "url": "https://www.youtube.com/watch?v=VKMswYSiyko",
+      "videoId": "VKMswYSiyko",
+      "duration": "29 min",
+      "durationMinutes": 29,
+      "provider": "YouTube · The Organic Chemistry Tutor",
+      "channelName": "The Organic Chemistry Tutor",
+      "language": "en",
+      "scopeNote": "Thin-lens formula, Lensmaker's equation, optical power in dioptres & lens combinations"
+    }
+  ],
   "practiceSetIds": []
 }

@@ -14,13 +14,19 @@ import fs from "node:fs";
 
 import {
   AI_VAULT_STORAGE_KEY,
+  AI_PROVIDERS,
   readAiVault,
   writeAiVault,
   clearAiVault,
   maskApiKey,
+  validateAiProvider,
+  resolveEffectiveModel,
   buildGroundTruthSystemPrompt,
   buildAiRequestPayload,
+  sendBuiltAiRequest,
 } from "../assets/js/core/ai-vault.js";
+import { normalizeUnit } from "../assets/js/core/data-loader.js";
+import { buildOfflineCorpusReply } from "../assets/js/views/ai-tutor.js";
 import { buildEnvelope } from "../assets/js/db/backup.js";
 
 function createMemoryStorage() {
@@ -88,4 +94,108 @@ test("Ground-Truth prompt builder locks official WBJEEB key & byte-exact preview
   const parsed = JSON.parse(req.bodyString);
   assert.equal(parsed.system_instruction.parts[0].text, sys);
   assert.equal(parsed.contents[0].parts[0].text, "Why was option B wrong?");
+});
+
+test("Custom model name is persisted in vault, passed to BYOK payloads, and falls back when blank", () => {
+  const mem = createMemoryStorage();
+
+  // 1. Custom model persisted and routed to Gemini endpoint URL
+  writeAiVault(
+    {
+      provider: "gemini",
+      useCustomModel: true,
+      customModel: "gemini-2.5-pro",
+      apiKey: "test-key",
+    },
+    mem
+  );
+  const savedGemini = readAiVault(mem);
+  assert.equal(savedGemini.useCustomModel, true);
+  assert.equal(savedGemini.customModel, "gemini-2.5-pro");
+  assert.equal(savedGemini.model, "gemini-2.5-pro");
+
+  const geminiReq = buildAiRequestPayload({
+    vault: savedGemini,
+    systemPrompt: "Sys",
+    history: [],
+    userMessage: "Hi",
+  });
+  assert.equal(geminiReq.model, "gemini-2.5-pro");
+  assert.ok(geminiReq.endpoint.includes("/models/gemini-2.5-pro:generateContent"));
+
+  // 2. Custom model routed to OpenRouter / Groq JSON body
+  writeAiVault(
+    {
+      provider: "openrouter",
+      useCustomModel: true,
+      customModel: "deepseek/deepseek-chat",
+    },
+    mem
+  );
+  const orReq = buildAiRequestPayload({
+    vault: readAiVault(mem),
+    systemPrompt: "Sys",
+    history: [],
+    userMessage: "Hi",
+  });
+  assert.equal(orReq.model, "deepseek/deepseek-chat");
+  assert.equal(JSON.parse(orReq.bodyString).model, "deepseek/deepseek-chat");
+
+  // 3. Blank custom model falls back to provider defaultModel
+  writeAiVault(
+    {
+      provider: "groq",
+      useCustomModel: true,
+      customModel: "   ",
+    },
+    mem
+  );
+  const groqSaved = readAiVault(mem);
+  assert.equal(groqSaved.model, AI_PROVIDERS.groq.defaultModel);
+  assert.equal(resolveEffectiveModel(groqSaved), AI_PROVIDERS.groq.defaultModel);
+  const groqReq = buildAiRequestPayload({
+    vault: groqSaved,
+    systemPrompt: "Sys",
+    history: [],
+    userMessage: "Hi",
+  });
+  assert.equal(groqReq.model, AI_PROVIDERS.groq.defaultModel);
+  assert.equal(JSON.parse(groqReq.bodyString).model, AI_PROVIDERS.groq.defaultModel);
+});
+
+test("Unknown custom provider surfaces a clear validation error and offline corpus path stays independent", async () => {
+  assert.throws(
+    () => validateAiProvider("unknown-llm-host"),
+    /Unknown AI provider "unknown-llm-host"/
+  );
+  assert.throws(
+    () =>
+      buildAiRequestPayload({
+        vault: { provider: "unknown-llm-host", apiKey: "k" },
+        systemPrompt: "Sys",
+        history: [],
+        userMessage: "Hi",
+      }),
+    /Unknown AI provider "unknown-llm-host"/
+  );
+  await assert.rejects(
+    () =>
+      sendBuiltAiRequest({
+        provider: "gemini",
+        endpoint: "https://evil.example.com/v1/chat",
+        headers: {},
+        bodyString: "{}",
+      }),
+    /Unsupported provider endpoint/
+  );
+
+  // Offline corpus reply works with zero API key and completely independent of vault model/provider
+  const p02 = normalizeUnit(JSON.parse(fs.readFileSync("./_data/units/P02.json", "utf8")));
+  const offlineReply = await buildOfflineCorpusReply({
+    context: { unit: p02 },
+    userPrompt: "Key formulas & traps",
+    languageMode: "English",
+  });
+  assert.ok(offlineReply.includes("P02"));
+  assert.ok(offlineReply.includes("High-Yield Formulas"));
 });

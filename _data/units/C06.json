@@ -10,30 +10,102 @@
     "jelet-2022-q085",
     "jelet-2023-q089"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2022-q083",
+    "jelet-2022-q085",
+    "jelet-2023-q089"
+  ],
+  "notes": [
     {
-      "anchor": "extraction",
-      "heading": "1. Ores, Gangue & Extraction Principles",
-      "proseLatex": "Minerals, ores, gangue, flux, slag. Extraction of iron, copper, and aluminium.",
+      "anchor": "ores-concentration",
+      "heading": "1. Key Ores, Gangue & Concentration Methods",
+      "proseLatex": "All ores are minerals, but NOT all minerals are ores (an ore allows profitable metal extraction). Must-know JELET ores: Bauxite ($\\text{Al}_2\\text{O}_3\\cdot 2\\text{H}_2\\text{O}$) and Cryolite ($\\text{Na}_3\\text{AlF}_6$) for $\\text{Al}$; Haematite ($\\text{Fe}_2\\text{O}_3$), Magnetite ($\\text{Fe}_3\\text{O}_4$), Siderite ($\\text{FeCO}_3$) for $\\text{Fe}$; Copper pyrites ($\\text{CuFeS}_2$), Malachite ($\\text{CuCO}_3\\cdot\\text{Cu(OH)}_2$) for $\\text{Cu}$; Zinc blende ($\\text{ZnS}$), Calamine ($\\text{ZnCO}_3$) for $\\text{Zn}$; Galena ($\\text{PbS}$) for $\\text{Pb}$. Sulphide ores are concentrated by FROTH FLOTATION (pine oil collector, $\\text{NaCN}$ depressant for $\\text{ZnS}/\\text{PbS}$), while bauxite uses Bayer chemical leaching.",
       "keyFormulas": [
         {
           "formulaId": "C06-F01",
-          "label": "Extraction Methods",
-          "latex": "Carbon reduction, electrolysis, self-reduction",
-          "aiExplainContext": "Key methods for metal extraction."
+          "label": "High-Frequency Ore Formulas & Concentration Pairing",
+          "latex": "$\\text{Bauxite: Al}_2\\text{O}_3\\cdot 2\\text{H}_2\\text{O}\\;(\\text{leaching});\\quad \\text{Galena/Blende/Pyrites: MS}\\;(\\text{froth flotation})$",
+          "aiExplainContext": "Match metal ores to formulas and concentration techniques."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "extraction-refining",
+      "heading": "2. Calcination vs Roasting, Smelting, Hall-Héroult & Refining",
+      "proseLatex": "CALCINATION heats carbonate/hydrated ores in ABSENCE (or limited supply) of air ($\\text{ZnCO}_3 \\to \\text{ZnO} + \\text{CO}_2$), whereas ROASTING heats sulphide ores in EXCESS air ($2\\text{ZnS} + 3\\text{O}_2 \\to 2\\text{ZnO} + 2\\text{SO}_2$). Blast-furnace iron smelting uses limestone ($\\text{CaCO}_3 \\to \\text{CaO}$) as basic flux to remove acidic $\\text{SiO}_2$ gangue as $\\text{CaSiO}_3$ slag. Highly electropositive $\\text{Al}$ is extracted electrolytically via Hall-Héroult (alumina dissolved in molten $\\text{Na}_3\\text{AlF}_6 + \\text{CaF}_2$ to lower melting point and raise conductivity). Ultrapure refining methods: electrolytic ($\\text{Cu, Zn}$), Mond process ($\\text{Ni(CO)}_4$), van Arkel ($\\text{Ti, Zr}$), and zone refining ($\\text{Si, Ge}$).",
+      "keyFormulas": [
+        {
+          "formulaId": "C06-F02",
+          "label": "Slag Formation & Refining Process Map",
+          "latex": "$\\underbrace{\\text{CaO}}_{\\text{basic flux}} + \\underbrace{\\text{SiO}_2}_{\\text{acidic gangue}} \\to \\underbrace{\\text{CaSiO}_3}_{\\text{slag}};\\quad \\text{Ni}\\xrightarrow{\\text{CO}}\\text{Ni(CO)}_4\\text{ (Mond)};\\quad \\text{Si, Ge (zone refining)}$",
+          "aiExplainContext": "Distinguish calcination vs roasting, acidic vs basic flux, and named refining processes."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "C06-EX01",
+          "problemLatex": "Why are cryolite ($\\text{Na}_3\\text{AlF}_6$) and fluorspar ($\\text{CaF}_2$) added to $\\text{Al}_2\\text{O}_3$ in the Hall-Héroult cell?",
+          "stepsLatex": [
+            "Pure $\\text{Al}_2\\text{O}_3$ melts above $2300\\text{ K}$ and is a poor electrical conductor.",
+            "Adding $\\text{Na}_3\\text{AlF}_6 + \\text{CaF}_2$ lowers the fusion temperature to $\\sim 1140\\text{ K}$ and sharply increases melt electrical conductivity."
+          ],
+          "answerLatex": "Lowers fusion point and boosts electrical conductivity"
         }
       ]
     },
     {
       "anchor": "alloys",
-      "heading": "2. Alloys & Their Uses",
-      "proseLatex": "Brass, bronze, german silver, duralumin, nichrome, stainless steel — compositions and applications.",
+      "heading": "3. Engineering Alloys & Compositions",
+      "proseLatex": "High-yield JELET alloy compositions: Brass ($\\text{Cu} + \\text{Zn}$), Bronze ($\\text{Cu} + \\text{Sn}$), German silver ($\\text{Cu} + \\text{Zn} + \\text{Ni}$ — contains $0\\%$ silver!), Gunmetal ($\\text{Cu} + \\text{Sn} + \\text{Zn}$), Solder ($\\text{Pb} + \\text{Sn}$), Duralumin ($\\text{Al} + \\text{Cu} + \\text{Mg} + \\text{Mn}$, aircraft frames), Stainless steel ($\\text{Fe} + \\text{Cr} + \\text{Ni} + \\text{C}$), and Nichrome ($\\text{Ni} + \\text{Cr} + \\text{Fe}$, heating coils).",
+      "keyFormulas": [
+        {
+          "formulaId": "C06-F03",
+          "label": "Must-Know Engineering Alloy Compositions",
+          "latex": "$\\text{Brass}=\\text{Cu+Zn},\\quad \\text{Bronze}=\\text{Cu+Sn},\\quad \\text{German silver}=\\text{Cu+Zn+Ni (0\\% Ag)},\\quad \\text{Duralumin}=\\text{Al+Cu+Mg+Mn}$",
+          "aiExplainContext": "Recall exact constituent metals of Brass, Bronze, German silver, Duralumin and Solder."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "ores-concentration",
+      "heading": "1. Key Ores, Gangue & Concentration Methods",
+      "proseLatex": "All ores are minerals, but NOT all minerals are ores (an ore allows profitable metal extraction). Must-know JELET ores: Bauxite ($\\text{Al}_2\\text{O}_3\\cdot 2\\text{H}_2\\text{O}$) and Cryolite ($\\text{Na}_3\\text{AlF}_6$) for $\\text{Al}$; Haematite ($\\text{Fe}_2\\text{O}_3$), Magnetite ($\\text{Fe}_3\\text{O}_4$), Siderite ($\\text{FeCO}_3$) for $\\text{Fe}$; Copper pyrites ($\\text{CuFeS}_2$), Malachite ($\\text{CuCO}_3\\cdot\\text{Cu(OH)}_2$) for $\\text{Cu}$; Zinc blende ($\\text{ZnS}$), Calamine ($\\text{ZnCO}_3$) for $\\text{Zn}$; Galena ($\\text{PbS}$) for $\\text{Pb}$. Sulphide ores are concentrated by FROTH FLOTATION (pine oil collector, $\\text{NaCN}$ depressant for $\\text{ZnS}/\\text{PbS}$), while bauxite uses Bayer chemical leaching.",
+      "keyFormulas": [
+        {
+          "formulaId": "C06-F01",
+          "label": "High-Frequency Ore Formulas & Concentration Pairing",
+          "latex": "$\\text{Bauxite: Al}_2\\text{O}_3\\cdot 2\\text{H}_2\\text{O}\\;(\\text{leaching});\\quad \\text{Galena/Blende/Pyrites: MS}\\;(\\text{froth flotation})$",
+          "aiExplainContext": "Match metal ores to formulas and concentration techniques."
+        }
+      ]
+    },
+    {
+      "anchor": "extraction-refining",
+      "heading": "2. Calcination vs Roasting, Smelting, Hall-Héroult & Refining",
+      "proseLatex": "CALCINATION heats carbonate/hydrated ores in ABSENCE (or limited supply) of air ($\\text{ZnCO}_3 \\to \\text{ZnO} + \\text{CO}_2$), whereas ROASTING heats sulphide ores in EXCESS air ($2\\text{ZnS} + 3\\text{O}_2 \\to 2\\text{ZnO} + 2\\text{SO}_2$). Blast-furnace iron smelting uses limestone ($\\text{CaCO}_3 \\to \\text{CaO}$) as basic flux to remove acidic $\\text{SiO}_2$ gangue as $\\text{CaSiO}_3$ slag. Highly electropositive $\\text{Al}$ is extracted electrolytically via Hall-Héroult (alumina dissolved in molten $\\text{Na}_3\\text{AlF}_6 + \\text{CaF}_2$ to lower melting point and raise conductivity). Ultrapure refining methods: electrolytic ($\\text{Cu, Zn}$), Mond process ($\\text{Ni(CO)}_4$), van Arkel ($\\text{Ti, Zr}$), and zone refining ($\\text{Si, Ge}$).",
       "keyFormulas": [
         {
           "formulaId": "C06-F02",
-          "label": "Alloy Composition",
-          "latex": "Brass: Cu + Zn; Bronze: Cu + Sn",
-          "aiExplainContext": "Common alloy compositions."
+          "label": "Slag Formation & Refining Process Map",
+          "latex": "$\\underbrace{\\text{CaO}}_{\\text{basic flux}} + \\underbrace{\\text{SiO}_2}_{\\text{acidic gangue}} \\to \\underbrace{\\text{CaSiO}_3}_{\\text{slag}};\\quad \\text{Ni}\\xrightarrow{\\text{CO}}\\text{Ni(CO)}_4\\text{ (Mond)};\\quad \\text{Si, Ge (zone refining)}$",
+          "aiExplainContext": "Distinguish calcination vs roasting, acidic vs basic flux, and named refining processes."
+        }
+      ]
+    },
+    {
+      "anchor": "alloys",
+      "heading": "3. Engineering Alloys & Compositions",
+      "proseLatex": "High-yield JELET alloy compositions: Brass ($\\text{Cu} + \\text{Zn}$), Bronze ($\\text{Cu} + \\text{Sn}$), German silver ($\\text{Cu} + \\text{Zn} + \\text{Ni}$ — contains $0\\%$ silver!), Gunmetal ($\\text{Cu} + \\text{Sn} + \\text{Zn}$), Solder ($\\text{Pb} + \\text{Sn}$), Duralumin ($\\text{Al} + \\text{Cu} + \\text{Mg} + \\text{Mn}$, aircraft frames), Stainless steel ($\\text{Fe} + \\text{Cr} + \\text{Ni} + \\text{C}$), and Nichrome ($\\text{Ni} + \\text{Cr} + \\text{Fe}$, heating coils).",
+      "keyFormulas": [
+        {
+          "formulaId": "C06-F03",
+          "label": "Must-Know Engineering Alloy Compositions",
+          "latex": "$\\text{Brass}=\\text{Cu+Zn},\\quad \\text{Bronze}=\\text{Cu+Sn},\\quad \\text{German silver}=\\text{Cu+Zn+Ni (0\\% Ag)},\\quad \\text{Duralumin}=\\text{Al+Cu+Mg+Mn}$",
+          "aiExplainContext": "Recall exact constituent metals of Brass, Bronze, German silver, Duralumin and Solder."
         }
       ]
     }
@@ -41,17 +113,31 @@
   "workedExamples": [
     {
       "exampleId": "C06-EX01",
-      "problemLatex": "Name the alloy: Cu + Zn.",
+      "problemLatex": "Why are cryolite ($\\text{Na}_3\\text{AlF}_6$) and fluorspar ($\\text{CaF}_2$) added to $\\text{Al}_2\\text{O}_3$ in the Hall-Héroult cell?",
       "stepsLatex": [
-        "Brass is copper-zinc alloy."
+        "Pure $\\text{Al}_2\\text{O}_3$ melts above $2300\\text{ K}$ and is a poor electrical conductor.",
+        "Adding $\\text{Na}_3\\text{AlF}_6 + \\text{CaF}_2$ lowers the fusion temperature to $\\sim 1140\\text{ K}$ and sharply increases melt electrical conductivity."
       ],
-      "answerLatex": "Brass"
+      "answerLatex": "Lowers fusion point and boosts electrical conductivity"
     }
   ],
   "wbjeebTraps": [
-    "Aluminium is extracted by electrolysis of molten $\\text{Al}_2\\text{O}_3$ in cryolite.",
-    "Alloys generally have properties superior to pure metals."
+    "GERMAN SILVER contains ZERO silver ($\\text{Ag} = 0\\%$) — it is purely $\\text{Cu} + \\text{Zn} + \\text{Ni}$!",
+    "Copper pyrites ($\\text{CuFeS}_2$) and Iron pyrites ($\\text{FeS}_2$, 'fool's gold'): $\\text{FeS}_2$ is rarely used for iron extraction because of high sulphur content.",
+    "Calcination = NO/limited air (carbonates/hydrates); Roasting = EXCESS air (sulphides) — never swap the two!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Chemistry - Concentration or Dressing of Ores - Metallurgy Part 2 - English",
+      "url": "https://www.youtube.com/watch?v=HwXx_ZXQ8CE",
+      "videoId": "HwXx_ZXQ8CE",
+      "duration": "9 min",
+      "durationMinutes": 9,
+      "provider": "YouTube · Bodhaguru",
+      "channelName": "Bodhaguru",
+      "language": "en",
+      "scopeNote": "Ores vs minerals, gravity/magnetic/froth-flotation concentration & metal extraction"
+    }
+  ],
   "practiceSetIds": []
 }

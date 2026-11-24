@@ -37,11 +37,50 @@ export const AI_PROVIDERS = {
 export const DEFAULT_VAULT = {
   provider: "gemini",
   model: "gemini-2.5-flash",
+  useCustomModel: false,
+  customModel: "",
   apiKey: "",
   previewPrompt: true,
   acceptedWelcomeVersion: 0,
   preferredLanguage: "English",
 };
+
+const KNOWN_ENDPOINT_ORIGINS = [
+  "https://generativelanguage.googleapis.com/",
+  "https://api.groq.com/",
+  "https://openrouter.ai/",
+];
+
+/**
+ * Validate that `providerId` is a supported provider with a known endpoint.
+ * Throws a descriptive Error for unknown custom providers instead of silently failing.
+ */
+export function validateAiProvider(providerId) {
+  const id = String(providerId ?? "").trim();
+  if (!id || !Object.prototype.hasOwnProperty.call(AI_PROVIDERS, id)) {
+    throw new Error(
+      `Unknown AI provider "${id || "(empty)"}". Supported providers: Google Gemini (gemini), Groq (groq), OpenRouter (openrouter).`
+    );
+  }
+  return AI_PROVIDERS[id];
+}
+
+/**
+ * Resolve the effective model name for a vault state:
+ * - When `useCustomModel` is true, uses trimmed `customModel` or falls back to `defaultModel` if blank.
+ * - Otherwise uses trimmed `model` or falls back to `defaultModel` if blank.
+ */
+export function resolveEffectiveModel(vault = {}) {
+  const providerCfg = Object.prototype.hasOwnProperty.call(AI_PROVIDERS, vault.provider)
+    ? AI_PROVIDERS[vault.provider]
+    : AI_PROVIDERS.gemini;
+  if (vault.useCustomModel) {
+    const custom = typeof vault.customModel === "string" ? vault.customModel.trim() : "";
+    return custom || providerCfg.defaultModel;
+  }
+  const explicit = typeof vault.model === "string" ? vault.model.trim() : "";
+  return explicit || providerCfg.defaultModel;
+}
 
 /** Read isolated AI vault from `localStorage` (safe in Node tests where localStorage may be absent). */
 export function readAiVault(storage = globalThis.localStorage) {
@@ -52,12 +91,25 @@ export function readAiVault(storage = globalThis.localStorage) {
     const raw = storage.getItem(AI_VAULT_STORAGE_KEY);
     if (!raw) return { ...DEFAULT_VAULT };
     const parsed = JSON.parse(raw);
-    const provider = AI_PROVIDERS[parsed.provider] ? parsed.provider : "gemini";
+    const provider =
+      parsed.provider === undefined || parsed.provider === null || parsed.provider === ""
+        ? "gemini"
+        : String(parsed.provider);
+    const knownCfg = Object.prototype.hasOwnProperty.call(AI_PROVIDERS, provider)
+      ? AI_PROVIDERS[provider]
+      : AI_PROVIDERS.gemini;
+    const useCustomModel = Boolean(parsed.useCustomModel);
+    const customModel = typeof parsed.customModel === "string" ? parsed.customModel : "";
+    const effectiveModel = useCustomModel
+      ? customModel.trim() || knownCfg.defaultModel
+      : (typeof parsed.model === "string" ? parsed.model.trim() : "") || knownCfg.defaultModel;
     return {
       ...DEFAULT_VAULT,
       ...parsed,
       provider,
-      model: parsed.model || AI_PROVIDERS[provider].defaultModel,
+      useCustomModel,
+      customModel,
+      model: effectiveModel,
     };
   } catch {
     return { ...DEFAULT_VAULT };
@@ -66,11 +118,12 @@ export function readAiVault(storage = globalThis.localStorage) {
 
 /** Save isolated AI vault patch to `localStorage`. */
 export function writeAiVault(patch, storage = globalThis.localStorage) {
-  const next = { ...readAiVault(storage), ...patch };
+  const merged = { ...readAiVault(storage), ...patch };
+  merged.model = resolveEffectiveModel(merged);
   if (storage && typeof storage.setItem === "function") {
-    storage.setItem(AI_VAULT_STORAGE_KEY, JSON.stringify(next));
+    storage.setItem(AI_VAULT_STORAGE_KEY, JSON.stringify(merged));
   }
-  return next;
+  return merged;
 }
 
 /** Wipe API key and reset isolated AI vault. */
@@ -175,13 +228,18 @@ export function buildGroundTruthSystemPrompt({
  * INVARIANT (docs/04 §4): `preview.bodyString` is byte-for-byte the `body` sent over `fetch()`.
  */
 export function buildAiRequestPayload({
-  vault,
+  vault = {},
   systemPrompt,
   history = [], // [{ role: "user"|"assistant", text: string }] up to 8 turns
   userMessage,
 }) {
-  const provider = AI_PROVIDERS[vault.provider] ? vault.provider : "gemini";
-  const model = vault.model || AI_PROVIDERS[provider].defaultModel;
+  const rawProvider =
+    vault.provider === undefined || vault.provider === null || vault.provider === ""
+      ? "gemini"
+      : vault.provider;
+  const providerCfg = validateAiProvider(rawProvider);
+  const provider = providerCfg.id;
+  const model = resolveEffectiveModel({ ...vault, provider });
   const boundedHistory = history.slice(-8);
 
   if (provider === "gemini") {
@@ -201,7 +259,7 @@ export function buildAiRequestPayload({
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(vault.apiKey || "")}`;
     return {
       provider,
-      providerLabel: AI_PROVIDERS[provider].label,
+      providerLabel: providerCfg.label,
       model,
       endpoint,
       headers: { "Content-Type": "application/json" },
@@ -229,7 +287,7 @@ export function buildAiRequestPayload({
   const bodyString = JSON.stringify(bodyObj, null, 2);
   return {
     provider,
-    providerLabel: AI_PROVIDERS[provider].label,
+    providerLabel: providerCfg.label,
     model,
     endpoint,
     headers: {
@@ -242,7 +300,14 @@ export function buildAiRequestPayload({
 
 /** Execute a built AI request with `AbortSignal`, using `req.bodyString` byte-for-byte. */
 export async function sendBuiltAiRequest(req, { signal } = {}) {
-  const res = await fetch(req.endpoint, {
+  validateAiProvider(req?.provider);
+  const endpoint = String(req?.endpoint || "");
+  if (!KNOWN_ENDPOINT_ORIGINS.some((origin) => endpoint.startsWith(origin))) {
+    throw new Error(
+      `Unsupported provider endpoint "${endpoint || "(empty)"}". Choose Google Gemini, Groq, or OpenRouter.`
+    );
+  }
+  const res = await fetch(endpoint, {
     method: "POST",
     headers: req.headers,
     body: req.bodyString,
@@ -252,7 +317,7 @@ export async function sendBuiltAiRequest(req, { signal } = {}) {
   if (!res.ok) {
     const msg =
       json?.error?.message ||
-      `Provider returned HTTP ${res.status}. Check your API key or quota in You & AI.`;
+      `Provider returned HTTP ${res.status}. Check your API key, model name (${req.model}), or quota in You & AI.`;
     throw new Error(msg);
   }
   if (req.provider === "gemini") {
@@ -264,7 +329,8 @@ export async function sendBuiltAiRequest(req, { signal } = {}) {
 
 /** Minimal zero-study-data connection test (`docs/04 §2.3`: `Reply with OK`, `maxOutputTokens: 8`). */
 export async function testAiConnection(vault) {
-  if (!vault.apiKey || !vault.apiKey.trim()) {
+  validateAiProvider(vault?.provider);
+  if (!vault?.apiKey || !vault.apiKey.trim()) {
     throw new Error("Enter an API key first.");
   }
   const t0 = performance.now();
@@ -276,5 +342,5 @@ export async function testAiConnection(vault) {
   });
   const text = await sendBuiltAiRequest(req);
   const latencyMs = Math.round(performance.now() - t0);
-  return { ok: true, latencyMs, sample: text.trim().slice(0, 24) };
+  return { ok: true, latencyMs, model: req.model, sample: text.trim().slice(0, 24) };
 }

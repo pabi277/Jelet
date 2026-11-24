@@ -20,30 +20,122 @@
     "jelet-2025-q045",
     "jelet-2025-q054"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q045",
+    "jelet-2025-q054",
+    "jelet-2024-q047",
+    "jelet-2024-q057",
+    "jelet-2024-q061",
+    "jelet-2024-q065",
+    "jelet-2023-q044",
+    "jelet-2023-q050",
+    "jelet-2022-q047",
+    "jelet-2022-q048",
+    "jelet-2023-q066",
+    "jelet-2023-q067",
+    "jelet-2022-q067"
+  ],
+  "notes": [
     {
-      "anchor": "work-energy",
-      "heading": "1. Work-Energy Theorem",
-      "proseLatex": "Work done $= \\vec{F}\\cdot\\vec{d}$. KE $= \\frac{1}{2}mv^2$, PE $= mgh$. Work-energy theorem: $W_{\\text{net}} = \\Delta KE$.",
+      "anchor": "work-energy-theorem",
+      "heading": "1. Work by Variable Forces, Work-Energy Theorem & Momentum-KE Link",
+      "proseLatex": "Work done by a general force along a path is $W = \\int \\vec{F}\\cdot d\\vec{r}$ (for constant force, $FD\\cos\\theta$; centripetal force does ZERO work since $\\vec{F}_c \\perp d\\vec{r}$). The Work-Energy Theorem $W_{\\text{all}} = W_{\\text{cons}} + W_{\\text{non-cons}} = \\Delta K$ holds universally even with friction! Kinetic energy and momentum obey $K = \\frac{p^2}{2m}$, so for two bodies of equal momentum, the lighter body carries greater kinetic energy ($K \\propto 1/m$).",
       "keyFormulas": [
         {
           "formulaId": "P04-F01",
-          "label": "Work-Energy Theorem",
-          "latex": "$W_{\\text{net}} = \\frac{1}{2}mv_f^2 - \\frac{1}{2}mv_i^2$",
-          "aiExplainContext": "Net work equals change in kinetic energy."
+          "label": "Work-Energy Theorem & Momentum-KE Relation",
+          "latex": "$W_{\\text{all}} = \\int_{r_1}^{r_2}\\vec{F}\\cdot d\\vec{r} = K_f - K_i,\\qquad K = \\frac{p^2}{2m},\\qquad p = \\sqrt{2mK}$",
+          "aiExplainContext": "Relate net work to kinetic-energy change and compare KE/momentum changes."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P04-EX01",
+          "problemLatex": "If linear momentum of a rigid particle increases by $50\\%$, by what percentage does its kinetic energy increase?",
+          "stepsLatex": [
+            "From $K \\propto p^2$, $p' = 1.5\\,p \\implies K' = (1.5)^2 K = 2.25\\,K$ (do NOT use the small-error linear approximation $2\\times 50\\%$!).",
+            "Percentage increase $= (2.25 - 1)\\times 100\\% = 125\\%$."
+          ],
+          "answerLatex": "$125\\%$"
         }
       ]
     },
     {
-      "anchor": "conservation",
-      "heading": "2. Conservation of Mechanical Energy",
-      "proseLatex": "When only conservative forces act, total mechanical energy is conserved.",
+      "anchor": "conservative-power",
+      "heading": "2. Conservative Forces, Spring Potential & Instantaneous Power",
+      "proseLatex": "Conservative forces ($\\vec{F} = -\\nabla U$, closed-loop work $\\oint \\vec{F}\\cdot d\\vec{r} = 0$) include gravity ($U = mgh$), electrostatics, and Hookean springs ($U_s = \\frac{1}{2}kx^2$), conserving mechanical energy $E = K + U$ when $W_{\\text{nc}} = 0$. Instantaneous power is $P = \\frac{dW}{dt} = \\vec{F}\\cdot\\vec{v}$; a vehicle driven by a constant-power engine ($Fv = P_0$) accelerates as $v\\,dv/dx = P_0/(mv)$, giving $v \\propto t^{1/2}$ and $x \\propto t^{3/2}$.",
       "keyFormulas": [
         {
           "formulaId": "P04-F02",
-          "label": "Energy Conservation",
-          "latex": "$KE_i + PE_i = KE_f + PE_f$",
-          "aiExplainContext": "Use when no non-conservative forces."
+          "label": "Potential Gradient, Spring Energy & Instantaneous Power",
+          "latex": "$F_x = -\\frac{dU}{dx},\\qquad U_{\\text{spring}} = \\frac{1}{2}kx^2,\\qquad P = \\vec{F}\\cdot\\vec{v}$",
+          "aiExplainContext": "Find equilibrium points (dU/dx = 0) and instantaneous power F.v."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "vertical-circle-collisions",
+      "heading": "3. Vertical Circle Minimum Speeds & 1D Collisions",
+      "proseLatex": "To complete a vertical loop of radius $R$ attached to a light STRING, critical speeds are $v_{\\text{top}} = \\sqrt{gR}$ and $v_{\\text{bottom}} = \\sqrt{5gR}$ (for a light rigid ROD, only $v_{\\text{bottom}} = \\sqrt{4gR}$ is needed since a rod supports compression at the top). In 1D collisions, coefficient of restitution $e = \\frac{v_2 - v_1}{u_1 - u_2}$ satisfies $e=1$ (elastic: identical masses simply swap velocities!), $0<e<1$ (inelastic), and $e=0$ (perfectly inelastic coalescence).",
+      "keyFormulas": [
+        {
+          "formulaId": "P04-F03",
+          "label": "Vertical Loop Critical Speed & Coefficient of Restitution",
+          "latex": "$v_{\\text{bot, string}} = \\sqrt{5gR},\\quad v_{\\text{top, string}} = \\sqrt{gR},\\quad e = \\frac{v_2 - v_1}{u_1 - u_2},\\quad h_n = e^{2n}h_0$",
+          "aiExplainContext": "Solve vertical loop critical speeds and bouncing-ball / 1D collision problems."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P04-EX02",
+          "problemLatex": "A ball dropped from $h_0 = 16\\text{ m}$ onto a floor with $e = 0.5$ rebounds twice. Find the height after the second bounce.",
+          "stepsLatex": [
+            "After each bounce $v_{\\text{up}} = e\\,v_{\\text{down}}$, so $h_n = e^{2n} h_0$.",
+            "For $n = 2$: $h_2 = (0.5)^4 \\times 16 = \\frac{1}{16}\\times 16 = 1\\text{ m}$."
+          ],
+          "answerLatex": "$1\\text{ m}$"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "work-energy-theorem",
+      "heading": "1. Work by Variable Forces, Work-Energy Theorem & Momentum-KE Link",
+      "proseLatex": "Work done by a general force along a path is $W = \\int \\vec{F}\\cdot d\\vec{r}$ (for constant force, $FD\\cos\\theta$; centripetal force does ZERO work since $\\vec{F}_c \\perp d\\vec{r}$). The Work-Energy Theorem $W_{\\text{all}} = W_{\\text{cons}} + W_{\\text{non-cons}} = \\Delta K$ holds universally even with friction! Kinetic energy and momentum obey $K = \\frac{p^2}{2m}$, so for two bodies of equal momentum, the lighter body carries greater kinetic energy ($K \\propto 1/m$).",
+      "keyFormulas": [
+        {
+          "formulaId": "P04-F01",
+          "label": "Work-Energy Theorem & Momentum-KE Relation",
+          "latex": "$W_{\\text{all}} = \\int_{r_1}^{r_2}\\vec{F}\\cdot d\\vec{r} = K_f - K_i,\\qquad K = \\frac{p^2}{2m},\\qquad p = \\sqrt{2mK}$",
+          "aiExplainContext": "Relate net work to kinetic-energy change and compare KE/momentum changes."
+        }
+      ]
+    },
+    {
+      "anchor": "conservative-power",
+      "heading": "2. Conservative Forces, Spring Potential & Instantaneous Power",
+      "proseLatex": "Conservative forces ($\\vec{F} = -\\nabla U$, closed-loop work $\\oint \\vec{F}\\cdot d\\vec{r} = 0$) include gravity ($U = mgh$), electrostatics, and Hookean springs ($U_s = \\frac{1}{2}kx^2$), conserving mechanical energy $E = K + U$ when $W_{\\text{nc}} = 0$. Instantaneous power is $P = \\frac{dW}{dt} = \\vec{F}\\cdot\\vec{v}$; a vehicle driven by a constant-power engine ($Fv = P_0$) accelerates as $v\\,dv/dx = P_0/(mv)$, giving $v \\propto t^{1/2}$ and $x \\propto t^{3/2}$.",
+      "keyFormulas": [
+        {
+          "formulaId": "P04-F02",
+          "label": "Potential Gradient, Spring Energy & Instantaneous Power",
+          "latex": "$F_x = -\\frac{dU}{dx},\\qquad U_{\\text{spring}} = \\frac{1}{2}kx^2,\\qquad P = \\vec{F}\\cdot\\vec{v}$",
+          "aiExplainContext": "Find equilibrium points (dU/dx = 0) and instantaneous power F.v."
+        }
+      ]
+    },
+    {
+      "anchor": "vertical-circle-collisions",
+      "heading": "3. Vertical Circle Minimum Speeds & 1D Collisions",
+      "proseLatex": "To complete a vertical loop of radius $R$ attached to a light STRING, critical speeds are $v_{\\text{top}} = \\sqrt{gR}$ and $v_{\\text{bottom}} = \\sqrt{5gR}$ (for a light rigid ROD, only $v_{\\text{bottom}} = \\sqrt{4gR}$ is needed since a rod supports compression at the top). In 1D collisions, coefficient of restitution $e = \\frac{v_2 - v_1}{u_1 - u_2}$ satisfies $e=1$ (elastic: identical masses simply swap velocities!), $0<e<1$ (inelastic), and $e=0$ (perfectly inelastic coalescence).",
+      "keyFormulas": [
+        {
+          "formulaId": "P04-F03",
+          "label": "Vertical Loop Critical Speed & Coefficient of Restitution",
+          "latex": "$v_{\\text{bot, string}} = \\sqrt{5gR},\\quad v_{\\text{top, string}} = \\sqrt{gR},\\quad e = \\frac{v_2 - v_1}{u_1 - u_2},\\quad h_n = e^{2n}h_0$",
+          "aiExplainContext": "Solve vertical loop critical speeds and bouncing-ball / 1D collision problems."
         }
       ]
     }
@@ -51,18 +143,40 @@
   "workedExamples": [
     {
       "exampleId": "P04-EX01",
-      "problemLatex": "A disc rolls up an incline with velocity $V$. Find max height.",
+      "problemLatex": "If linear momentum of a rigid particle increases by $50\\%$, by what percentage does its kinetic energy increase?",
       "stepsLatex": [
-        "$KE = \\frac{1}{2}mv^2 + \\frac{1}{2}I\\omega^2 = \\frac{3}{4}mv^2$ (disc).",
-        "$mgh = \\frac{3}{4}mv^2 \\Rightarrow h = 3v^2/(4g)$."
+        "From $K \\propto p^2$, $p' = 1.5\\,p \\implies K' = (1.5)^2 K = 2.25\\,K$ (do NOT use the small-error linear approximation $2\\times 50\\%$!).",
+        "Percentage increase $= (2.25 - 1)\\times 100\\% = 125\\%$."
       ],
-      "answerLatex": "$3v^2/(4g)$"
+      "answerLatex": "$125\\%$"
+    },
+    {
+      "exampleId": "P04-EX02",
+      "problemLatex": "A ball dropped from $h_0 = 16\\text{ m}$ onto a floor with $e = 0.5$ rebounds twice. Find the height after the second bounce.",
+      "stepsLatex": [
+        "After each bounce $v_{\\text{up}} = e\\,v_{\\text{down}}$, so $h_n = e^{2n} h_0$.",
+        "For $n = 2$: $h_2 = (0.5)^4 \\times 16 = \\frac{1}{16}\\times 16 = 1\\text{ m}$."
+      ],
+      "answerLatex": "$1\\text{ m}$"
     }
   ],
   "wbjeebTraps": [
-    "Rolling KE includes both translation and rotation.",
-    "Work is a scalar: $W = Fd\\cos\\theta$."
+    "For finite changes ($\\ge 5\\%$) in $p$ or $v$, ALWAYS compute exact $(1 + \\delta)^2 - 1$, never linear $2\\delta$ (e.g., $+100\\%$ in $p \\implies +300\\%$ in $K$, NOT $+200\\%$!).",
+    "Linear momentum is conserved in ALL isolated collisions (elastic OR inelastic), whereas kinetic energy is conserved ONLY when $e = 1$.",
+    "Constant power $P_0$ does NOT give constant acceleration: $a = \\frac{P_0}{mv}$ decreases as $v$ grows."
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Work Energy And Power class 11 One Shot | Derivations | Physics Chapter 5",
+      "url": "https://www.youtube.com/watch?v=dhNhg9t3Lhw",
+      "videoId": "dhNhg9t3Lhw",
+      "duration": "48 min",
+      "durationMinutes": 48,
+      "provider": "YouTube · PW Class 11 Science",
+      "channelName": "PW Class 11 Science",
+      "language": "en",
+      "scopeNote": "Variable-force work, Work-Energy theorem, springs, power & collisions"
+    }
+  ],
   "practiceSetIds": []
 }

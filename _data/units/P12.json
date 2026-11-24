@@ -6,17 +6,108 @@
   "estimatedMinutes": 20,
   "examFrequency": "low",
   "pyqIds": [],
-  "sections": [
+  "practiceQuestions": [],
+  "notes": [
     {
       "anchor": "plane-mirror",
-      "heading": "1. Plane Mirror Reflection",
-      "proseLatex": "Laws of reflection. Image is virtual, same size, equidistant behind the mirror.",
+      "heading": "1. Laws of Reflection, Plane Mirror Kinematics & Mirror Rotation",
+      "proseLatex": "The incident ray, reflected ray, and normal lie in one plane with $\\angle i = \\angle r$ (single plane-mirror deviation is $\\delta = \\pi - 2i$; vectorially $\\hat{e}_r = \\hat{e}_i - 2(\\hat{e}_i\\cdot\\hat{n})\\hat{n}$). A plane mirror forms a virtual, erect, laterally inverted image at equal perpendicular distance behind the mirror. Rotating the mirror by $\\theta$ for a fixed incident ray rotates the reflected ray by $2\\theta$, and minimum mirror height to see one's full standing body is $H/2$ (independent of standing distance!).",
       "keyFormulas": [
         {
           "formulaId": "P12-F01",
-          "label": "Image Distance",
-          "latex": "$v = -u$ (plane mirror)",
-          "aiExplainContext": "Image is as far behind as object is in front."
+          "label": "Plane Mirror Deviation, Rotation & Relative Image Speed",
+          "latex": "$\\delta = 180^\\circ - 2i,\\quad \\theta_{\\text{reflected}} = 2\\theta_{\\text{mirror}},\\quad v_{IM,\\perp} = -v_{OM,\\perp},\\quad h_{\\min} = \\frac{H_{\\text{person}}}{2}$",
+          "aiExplainContext": "Solve mirror rotation, image approach speed, and minimum mirror height problems."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P12-EX01",
+          "problemLatex": "An object approaches a stationary plane mirror at $4\\text{ m/s}$ while the mirror itself moves toward the object at $1\\text{ m/s}$. Find the speed of the image relative to the ground and relative to the object.",
+          "stepsLatex": [
+            "Take rightward $+x$ toward mirror: $v_O = +4$, $v_M = -1$; from $v_I - v_M = -(v_O - v_M)$, $v_I = 2v_M - v_O = 2(-1) - 4 = -6\\text{ m/s}$ ($6\\text{ m/s}$ ground speed).",
+            "Relative speed between object and image $|v_O - v_I| = |4 - (-6)| = 10\\text{ m/s}$."
+          ],
+          "answerLatex": "$6\\text{ m/s}$ (ground), $10\\text{ m/s}$ (relative to object)"
+        }
+      ]
+    },
+    {
+      "anchor": "inclined-mirrors",
+      "heading": "2. Multiple Images Between Two Inclined Plane Mirrors",
+      "proseLatex": "For two plane mirrors inclined at angle $\\theta$ (in degrees), compute $m = \\frac{360^\\circ}{\\theta}$. If $m$ is an EVEN integer, the number of images is ALWAYS $N = m - 1$ for every object position; if $m$ is an ODD integer, $N = m - 1$ on the angle bisector (symmetric) and $N = m$ off the bisector (asymmetric). Parallel mirrors ($\\theta \\to 0^\\circ$) produce infinitely many images.",
+      "keyFormulas": [
+        {
+          "formulaId": "P12-F02",
+          "label": "Inclined Plane-Mirror Image Count (360° / θ)",
+          "latex": "$N = \\begin{cases} m - 1, & m\\text{ even (any position) or } m\\text{ odd (symmetric)}\\\\ m, & m\\text{ odd (asymmetric)}\\end{cases}$",
+          "aiExplainContext": "Count distinct images formed by two mirrors at 90, 60, 72, or 45 degrees."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "P12-EX02",
+          "problemLatex": "How many images of a point candle are formed between two perpendicular plane mirrors ($\\theta = 90^\\circ$)?",
+          "stepsLatex": [
+            "Compute $m = 360^\\circ / 90^\\circ = 4$ (even integer).",
+            "Therefore $N = m - 1 = 3$ images regardless of where the candle is placed."
+          ],
+          "answerLatex": "$3$"
+        }
+      ]
+    },
+    {
+      "anchor": "spherical-mirrors",
+      "heading": "3. Concave & Convex Spherical Mirrors (Paraxial Sign Convention)",
+      "proseLatex": "Under Cartesian sign convention (pole at origin, incident light $+x$), focal length is $f = R/2$ ($f < 0$ for concave, $f > 0$ for convex) and the mirror equation is $\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$ with transverse magnification $m = -\\frac{v}{u} = \\frac{f}{f - u}$. Notice a mirror's focal length $f = R/2$ is purely geometric — immersing a mirror in water does NOT change its focal length (unlike lenses!).",
+      "keyFormulas": [
+        {
+          "formulaId": "P12-F03",
+          "label": "Spherical Mirror Equation & Magnification",
+          "latex": "$\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f} = \\frac{2}{R},\\qquad m = -\\frac{v}{u} = \\frac{f}{f - u}$",
+          "aiExplainContext": "Apply Cartesian signs (+/-) to concave and convex mirror image problems."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "plane-mirror",
+      "heading": "1. Laws of Reflection, Plane Mirror Kinematics & Mirror Rotation",
+      "proseLatex": "The incident ray, reflected ray, and normal lie in one plane with $\\angle i = \\angle r$ (single plane-mirror deviation is $\\delta = \\pi - 2i$; vectorially $\\hat{e}_r = \\hat{e}_i - 2(\\hat{e}_i\\cdot\\hat{n})\\hat{n}$). A plane mirror forms a virtual, erect, laterally inverted image at equal perpendicular distance behind the mirror. Rotating the mirror by $\\theta$ for a fixed incident ray rotates the reflected ray by $2\\theta$, and minimum mirror height to see one's full standing body is $H/2$ (independent of standing distance!).",
+      "keyFormulas": [
+        {
+          "formulaId": "P12-F01",
+          "label": "Plane Mirror Deviation, Rotation & Relative Image Speed",
+          "latex": "$\\delta = 180^\\circ - 2i,\\quad \\theta_{\\text{reflected}} = 2\\theta_{\\text{mirror}},\\quad v_{IM,\\perp} = -v_{OM,\\perp},\\quad h_{\\min} = \\frac{H_{\\text{person}}}{2}$",
+          "aiExplainContext": "Solve mirror rotation, image approach speed, and minimum mirror height problems."
+        }
+      ]
+    },
+    {
+      "anchor": "inclined-mirrors",
+      "heading": "2. Multiple Images Between Two Inclined Plane Mirrors",
+      "proseLatex": "For two plane mirrors inclined at angle $\\theta$ (in degrees), compute $m = \\frac{360^\\circ}{\\theta}$. If $m$ is an EVEN integer, the number of images is ALWAYS $N = m - 1$ for every object position; if $m$ is an ODD integer, $N = m - 1$ on the angle bisector (symmetric) and $N = m$ off the bisector (asymmetric). Parallel mirrors ($\\theta \\to 0^\\circ$) produce infinitely many images.",
+      "keyFormulas": [
+        {
+          "formulaId": "P12-F02",
+          "label": "Inclined Plane-Mirror Image Count (360° / θ)",
+          "latex": "$N = \\begin{cases} m - 1, & m\\text{ even (any position) or } m\\text{ odd (symmetric)}\\\\ m, & m\\text{ odd (asymmetric)}\\end{cases}$",
+          "aiExplainContext": "Count distinct images formed by two mirrors at 90, 60, 72, or 45 degrees."
+        }
+      ]
+    },
+    {
+      "anchor": "spherical-mirrors",
+      "heading": "3. Concave & Convex Spherical Mirrors (Paraxial Sign Convention)",
+      "proseLatex": "Under Cartesian sign convention (pole at origin, incident light $+x$), focal length is $f = R/2$ ($f < 0$ for concave, $f > 0$ for convex) and the mirror equation is $\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$ with transverse magnification $m = -\\frac{v}{u} = \\frac{f}{f - u}$. Notice a mirror's focal length $f = R/2$ is purely geometric — immersing a mirror in water does NOT change its focal length (unlike lenses!).",
+      "keyFormulas": [
+        {
+          "formulaId": "P12-F03",
+          "label": "Spherical Mirror Equation & Magnification",
+          "latex": "$\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f} = \\frac{2}{R},\\qquad m = -\\frac{v}{u} = \\frac{f}{f - u}$",
+          "aiExplainContext": "Apply Cartesian signs (+/-) to concave and convex mirror image problems."
         }
       ]
     }
@@ -24,17 +115,40 @@
   "workedExamples": [
     {
       "exampleId": "P12-EX01",
-      "problemLatex": "Two inclined mirrors: find number of images.",
+      "problemLatex": "An object approaches a stationary plane mirror at $4\\text{ m/s}$ while the mirror itself moves toward the object at $1\\text{ m/s}$. Find the speed of the image relative to the ground and relative to the object.",
       "stepsLatex": [
-        "$n = \\frac{360}{\\theta} - 1$ (if $360/\\theta$ is integer)."
+        "Take rightward $+x$ toward mirror: $v_O = +4$, $v_M = -1$; from $v_I - v_M = -(v_O - v_M)$, $v_I = 2v_M - v_O = 2(-1) - 4 = -6\\text{ m/s}$ ($6\\text{ m/s}$ ground speed).",
+        "Relative speed between object and image $|v_O - v_I| = |4 - (-6)| = 10\\text{ m/s}$."
       ],
-      "answerLatex": "$n = 360/\\theta - 1$"
+      "answerLatex": "$6\\text{ m/s}$ (ground), $10\\text{ m/s}$ (relative to object)"
+    },
+    {
+      "exampleId": "P12-EX02",
+      "problemLatex": "How many images of a point candle are formed between two perpendicular plane mirrors ($\\theta = 90^\\circ$)?",
+      "stepsLatex": [
+        "Compute $m = 360^\\circ / 90^\\circ = 4$ (even integer).",
+        "Therefore $N = m - 1 = 3$ images regardless of where the candle is placed."
+      ],
+      "answerLatex": "$3$"
     }
   ],
   "wbjeebTraps": [
-    "Angle of incidence = angle of reflection.",
-    "Virtual image cannot be captured on a screen."
+    "Walking toward a stationary mirror at speed $v$: your image approaches YOU at $2v$, while its speed relative to the MIRROR is $v$.",
+    "Mirror equation has a PLUS sign ($\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$), whereas the lens equation has a MINUS sign ($\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$).",
+    "Submerging a concave or convex MIRROR in water leaves its focal length $f = R/2$ completely UNCHANGED!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Reflection & Spherical Mirrors (Light & Optics)",
+      "url": "https://www.youtube.com/watch?v=xv5P7dM4EKA",
+      "videoId": "xv5P7dM4EKA",
+      "duration": "23 min",
+      "durationMinutes": 23,
+      "provider": "YouTube · Sara Rose Ph.D.",
+      "channelName": "Sara Rose Ph.D.",
+      "language": "en",
+      "scopeNote": "Laws of reflection, plane mirror rotation, inclined mirrors & spherical mirror formula"
+    }
+  ],
   "practiceSetIds": []
 }

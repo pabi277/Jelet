@@ -14,30 +14,106 @@
     "jelet-2024-q099",
     "jelet-2025-q095"
   ],
-  "sections": [
+  "practiceQuestions": [
+    "jelet-2025-q095",
+    "jelet-2024-q095",
+    "jelet-2024-q099",
+    "jelet-2023-q091",
+    "jelet-2023-q093",
+    "jelet-2023-q100",
+    "jelet-2022-q094"
+  ],
+  "notes": [
     {
-      "anchor": "values",
-      "heading": "1. Peak, Average & RMS Values",
-      "proseLatex": "RMS $= V_m/\\sqrt{2}$ for sine. Form factor $= \\text{RMS}/\\text{average}$. Peak factor $= V_m/V_{rms}$.",
+      "anchor": "rms-average-phasors",
+      "heading": "1. Sinusoidal RMS, Half-Cycle Average, Form Factor & Crest Factor",
+      "proseLatex": "For a pure sine wave $v(t) = V_m\\sin(\\omega t + \\phi)$ ($\\omega = 2\\pi f$), effective heating value is $V_{\\text{rms}} = \\frac{V_m}{\\sqrt{2}} \\approx 0.707\\,V_m$ and half-cycle rectified average is $V_{\\text{avg}} = \\frac{2V_m}{\\pi} \\approx 0.637\\,V_m$ (full-cycle average is $0$). Form factor is $K_f = \\frac{V_{\\text{rms}}}{V_{\\text{avg}}} = \\frac{\\pi}{2\\sqrt{2}} \\approx 1.11$ and peak/crest factor is $K_p = \\frac{V_m}{V_{\\text{rms}}} = \\sqrt{2} \\approx 1.414$ (for a symmetric square wave, $K_f = K_p = 1$; for a half-wave rectified sine, $V_{\\text{rms}} = V_m/2$ and $V_{\\text{avg}} = V_m/\\pi$!).",
       "keyFormulas": [
         {
           "formulaId": "E05-F01",
-          "label": "RMS Value",
-          "latex": "$V_{rms} = V_m/\\sqrt{2}$ (sine wave)",
-          "aiExplainContext": "Effective value of AC."
+          "label": "Sine, Half-Wave & Square-Wave RMS / Form Factor",
+          "latex": "$\\text{Sine}: V_{\\text{rms}} = \\frac{V_m}{\\sqrt{2}},\\; V_{\\text{avg}} = \\frac{2V_m}{\\pi},\\; K_f = 1.11;\\quad \\text{Half-wave}: V_{\\text{rms}} = \\frac{V_m}{2},\\; K_f = \\frac{\\pi}{2} \\approx 1.57$",
+          "aiExplainContext": "Recall exact RMS, average, form factor, and peak factor of standard waveforms."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "anchor": "rlc-resonance",
+      "heading": "2. Series RLC Impedance, Resonance, Q-Factor & Bandwidth",
+      "proseLatex": "Series RLC impedance is $Z = R + j(X_L - X_C)$ where $X_L = \\omega L$ (current LAGS voltage by $90^\\circ$ in pure $L$) and $X_C = \\frac{1}{\\omega C}$ (current LEADS voltage by $90^\\circ$ in pure $C$), with $|Z| = \\sqrt{R^2 + (X_L - X_C)^2}$. At series resonance ($X_L = X_C \\implies f_0 = \\frac{1}{2\\pi\\sqrt{LC}}$), impedance hits its MINIMUM $|Z|_{\\min} = R$, current hits its MAXIMUM $V/R$ at UNITY power factor ($\\cos\\phi = 1$), and reactive voltages magnify to $Q V$ where quality factor $Q = \\frac{\\omega_0 L}{R} = \\frac{1}{R}\\sqrt{\\frac{L}{C}} = \\frac{f_0}{\\text{BW}}$!",
+      "keyFormulas": [
+        {
+          "formulaId": "E05-F02",
+          "label": "Series RLC Impedance, Resonant Frequency & Q-Factor",
+          "latex": "$f_0 = \\frac{1}{2\\pi\\sqrt{LC}},\\qquad Q = \\frac{\\omega_0 L}{R} = \\frac{1}{R}\\sqrt{\\frac{L}{C}} = \\frac{f_0}{f_2 - f_1},\\qquad \\text{BW} = \\frac{R}{2\\pi L}\\text{ Hz}$",
+          "aiExplainContext": "Compute resonant frequency, half-power bandwidth, Q-factor, and voltage magnification."
+        }
+      ],
+      "examples": [
+        {
+          "exampleId": "E05-EX01",
+          "problemLatex": "A series RLC circuit with $R = 10\\,\\Omega,\\; L = 0.1\\text{ H},\\; C = 10\\,\\mu\\text{F}$ is excited at resonance. Find $\\omega_0$, quality factor $Q$, and bandwidth in $\\text{rad/s}$.",
+          "stepsLatex": [
+            "$\\omega_0 = \\frac{1}{\\sqrt{0.1 \\times 10^{-5}}} = \\frac{1}{10^{-3}} = 1000\\text{ rad/s}$.",
+            "$Q = \\frac{\\omega_0 L}{R} = \\frac{1000 \\times 0.1}{10} = 10$, and $\\Delta\\omega = \\frac{R}{L} = \\frac{10}{0.1} = 100\\text{ rad/s}$."
+          ],
+          "answerLatex": "$\\omega_0 = 1000\\text{ rad/s},\\; Q = 10,\\; \\Delta\\omega = 100\\text{ rad/s}$"
         }
       ]
     },
     {
-      "anchor": "rlc",
-      "heading": "2. RLC Circuits, Resonance & Power",
-      "proseLatex": "Impedance triangle, Q-factor, resonance at $f_0 = 1/(2\\pi\\sqrt{LC})$. Power factor $\\cos\\phi$.",
+      "anchor": "ac-power-3phase",
+      "heading": "3. Active, Reactive & Apparent Power Triangle",
+      "proseLatex": "Using RMS magnitudes $V, I$ and impedance phase $\\phi$: Active (real) power $P = VI\\cos\\phi = I^2 R$ ($\\text{W}$), Reactive power $Q = VI\\sin\\phi = I^2(X_L - X_C)$ ($\\text{VAR}$), and Apparent power $S = VI = \\sqrt{P^2 + Q^2}$ ($\\text{VA}$), with power factor $\\cos\\phi = R/|Z| = P/S$ (pure $L$ or pure $C$ consumes ZERO average real power, $\\cos\\phi = 0$!). In balanced $3$-phase circuits: Star ($\\text{Y}$) has $V_L = \\sqrt{3}V_{\\text{ph}},\\; I_L = I_{\\text{ph}}$; Delta ($\\Delta$) has $V_L = V_{\\text{ph}},\\; I_L = \\sqrt{3}I_{\\text{ph}}$; and BOTH obey $P_{3\\phi} = \\sqrt{3}V_L I_L\\cos\\phi$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E05-F03",
+          "label": "AC Power Triangle & Balanced 3-Phase Power",
+          "latex": "$P = VI\\cos\\phi,\\quad Q = VI\\sin\\phi,\\quad S = \\sqrt{P^2 + Q^2},\\quad P_{3\\phi} = \\sqrt{3}\\,V_L I_L\\cos\\phi$",
+          "aiExplainContext": "Calculate real/reactive/apparent power, power factor, and 3-phase Y/Delta line relations."
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "sections": [
+    {
+      "anchor": "rms-average-phasors",
+      "heading": "1. Sinusoidal RMS, Half-Cycle Average, Form Factor & Crest Factor",
+      "proseLatex": "For a pure sine wave $v(t) = V_m\\sin(\\omega t + \\phi)$ ($\\omega = 2\\pi f$), effective heating value is $V_{\\text{rms}} = \\frac{V_m}{\\sqrt{2}} \\approx 0.707\\,V_m$ and half-cycle rectified average is $V_{\\text{avg}} = \\frac{2V_m}{\\pi} \\approx 0.637\\,V_m$ (full-cycle average is $0$). Form factor is $K_f = \\frac{V_{\\text{rms}}}{V_{\\text{avg}}} = \\frac{\\pi}{2\\sqrt{2}} \\approx 1.11$ and peak/crest factor is $K_p = \\frac{V_m}{V_{\\text{rms}}} = \\sqrt{2} \\approx 1.414$ (for a symmetric square wave, $K_f = K_p = 1$; for a half-wave rectified sine, $V_{\\text{rms}} = V_m/2$ and $V_{\\text{avg}} = V_m/\\pi$!).",
+      "keyFormulas": [
+        {
+          "formulaId": "E05-F01",
+          "label": "Sine, Half-Wave & Square-Wave RMS / Form Factor",
+          "latex": "$\\text{Sine}: V_{\\text{rms}} = \\frac{V_m}{\\sqrt{2}},\\; V_{\\text{avg}} = \\frac{2V_m}{\\pi},\\; K_f = 1.11;\\quad \\text{Half-wave}: V_{\\text{rms}} = \\frac{V_m}{2},\\; K_f = \\frac{\\pi}{2} \\approx 1.57$",
+          "aiExplainContext": "Recall exact RMS, average, form factor, and peak factor of standard waveforms."
+        }
+      ]
+    },
+    {
+      "anchor": "rlc-resonance",
+      "heading": "2. Series RLC Impedance, Resonance, Q-Factor & Bandwidth",
+      "proseLatex": "Series RLC impedance is $Z = R + j(X_L - X_C)$ where $X_L = \\omega L$ (current LAGS voltage by $90^\\circ$ in pure $L$) and $X_C = \\frac{1}{\\omega C}$ (current LEADS voltage by $90^\\circ$ in pure $C$), with $|Z| = \\sqrt{R^2 + (X_L - X_C)^2}$. At series resonance ($X_L = X_C \\implies f_0 = \\frac{1}{2\\pi\\sqrt{LC}}$), impedance hits its MINIMUM $|Z|_{\\min} = R$, current hits its MAXIMUM $V/R$ at UNITY power factor ($\\cos\\phi = 1$), and reactive voltages magnify to $Q V$ where quality factor $Q = \\frac{\\omega_0 L}{R} = \\frac{1}{R}\\sqrt{\\frac{L}{C}} = \\frac{f_0}{\\text{BW}}$!",
       "keyFormulas": [
         {
           "formulaId": "E05-F02",
-          "label": "Resonance",
-          "latex": "$f_0 = \\frac{1}{2\\pi\\sqrt{LC}}$",
-          "aiExplainContext": "Frequency at which reactances cancel."
+          "label": "Series RLC Impedance, Resonant Frequency & Q-Factor",
+          "latex": "$f_0 = \\frac{1}{2\\pi\\sqrt{LC}},\\qquad Q = \\frac{\\omega_0 L}{R} = \\frac{1}{R}\\sqrt{\\frac{L}{C}} = \\frac{f_0}{f_2 - f_1},\\qquad \\text{BW} = \\frac{R}{2\\pi L}\\text{ Hz}$",
+          "aiExplainContext": "Compute resonant frequency, half-power bandwidth, Q-factor, and voltage magnification."
+        }
+      ]
+    },
+    {
+      "anchor": "ac-power-3phase",
+      "heading": "3. Active, Reactive & Apparent Power Triangle",
+      "proseLatex": "Using RMS magnitudes $V, I$ and impedance phase $\\phi$: Active (real) power $P = VI\\cos\\phi = I^2 R$ ($\\text{W}$), Reactive power $Q = VI\\sin\\phi = I^2(X_L - X_C)$ ($\\text{VAR}$), and Apparent power $S = VI = \\sqrt{P^2 + Q^2}$ ($\\text{VA}$), with power factor $\\cos\\phi = R/|Z| = P/S$ (pure $L$ or pure $C$ consumes ZERO average real power, $\\cos\\phi = 0$!). In balanced $3$-phase circuits: Star ($\\text{Y}$) has $V_L = \\sqrt{3}V_{\\text{ph}},\\; I_L = I_{\\text{ph}}$; Delta ($\\Delta$) has $V_L = V_{\\text{ph}},\\; I_L = \\sqrt{3}I_{\\text{ph}}$; and BOTH obey $P_{3\\phi} = \\sqrt{3}V_L I_L\\cos\\phi$.",
+      "keyFormulas": [
+        {
+          "formulaId": "E05-F03",
+          "label": "AC Power Triangle & Balanced 3-Phase Power",
+          "latex": "$P = VI\\cos\\phi,\\quad Q = VI\\sin\\phi,\\quad S = \\sqrt{P^2 + Q^2},\\quad P_{3\\phi} = \\sqrt{3}\\,V_L I_L\\cos\\phi$",
+          "aiExplainContext": "Calculate real/reactive/apparent power, power factor, and 3-phase Y/Delta line relations."
         }
       ]
     }
@@ -45,18 +121,31 @@
   "workedExamples": [
     {
       "exampleId": "E05-EX01",
-      "problemLatex": "Series RLC resonance condition.",
+      "problemLatex": "A series RLC circuit with $R = 10\\,\\Omega,\\; L = 0.1\\text{ H},\\; C = 10\\,\\mu\\text{F}$ is excited at resonance. Find $\\omega_0$, quality factor $Q$, and bandwidth in $\\text{rad/s}$.",
       "stepsLatex": [
-        "$X_L = X_C \\Rightarrow \\omega L = 1/(\\omega C)$.",
-        "$f_0 = 1/(2\\pi\\sqrt{LC})$."
+        "$\\omega_0 = \\frac{1}{\\sqrt{0.1 \\times 10^{-5}}} = \\frac{1}{10^{-3}} = 1000\\text{ rad/s}$.",
+        "$Q = \\frac{\\omega_0 L}{R} = \\frac{1000 \\times 0.1}{10} = 10$, and $\\Delta\\omega = \\frac{R}{L} = \\frac{10}{0.1} = 100\\text{ rad/s}$."
       ],
-      "answerLatex": "$f_0 = 1/(2\\pi\\sqrt{LC})$"
+      "answerLatex": "$\\omega_0 = 1000\\text{ rad/s},\\; Q = 10,\\; \\Delta\\omega = 100\\text{ rad/s}$"
     }
   ],
   "wbjeebTraps": [
-    "At resonance, impedance is purely resistive (minimum).",
-    "Power factor $= \\cos\\phi = R/Z$."
+    "Series vs Parallel resonance flip: SERIES resonance gives MINIMUM $|Z| = R$ and MAXIMUM current; PARALLEL (tank) resonance gives MAXIMUM $|Z|$ (rejector circuit) and MINIMUM line current!",
+    "Never add AC series branch voltages algebraically: $V_S = \\sqrt{V_R^2 + (V_L - V_C)^2}$, so at resonance $V_L = V_C = QV_S$ can easily exceed supply voltage $V_S$!",
+    "Remember bandwidth units: $\\Delta\\omega = R/L$ is in $\\text{rad/s}$, whereas $\\Delta f = \\frac{R}{2\\pi L}$ is in $\\text{Hz}$!"
   ],
-  "videoLectures": [],
+  "videoLectures": [
+    {
+      "title": "Series RLC Circuits, Resonant Frequency, Inductive Reactance & Capacitive Reactance - AC Circuits",
+      "url": "https://www.youtube.com/watch?v=2GvqQvohP2k",
+      "videoId": "2GvqQvohP2k",
+      "duration": "24 min",
+      "durationMinutes": 24,
+      "provider": "YouTube · The Organic Chemistry Tutor",
+      "channelName": "The Organic Chemistry Tutor",
+      "language": "en",
+      "scopeNote": "RMS/form factor, phasors, RLC impedance, series resonance, Q-factor & AC power"
+    }
+  ],
   "practiceSetIds": []
 }
