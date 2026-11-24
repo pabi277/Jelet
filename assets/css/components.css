@@ -1146,4 +1146,230 @@
   }
 }
 
+/* ------------------------------------------------------------------ *
+ * Practice Arena, Interactive Runner & Results (03, 04, 10)
+ * ------------------------------------------------------------------ */
+.mode-card-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  width: 100%;
+  min-height: var(--tap-min);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.mode-card-btn__icon {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-pill);
+  background: var(--brand-tint);
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mode-card-btn__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+.mode-card-btn__title {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+}
+.mode-card-btn__desc {
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+
+.mode-config {
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--border-subtle);
+}
+.mode-config[hidden] {
+  display: none;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-s);
+}
+@media (min-width: 768px) {
+  .form-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+.form-label {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+}
+
+/* Assisted runner immediate feedback states */
+.exam-option[data-feedback="correct"] {
+  border-color: var(--status-correct-fg);
+  background: var(--status-correct-bg);
+}
+.exam-option[data-feedback="correct"] .option__letter {
+  background: var(--status-correct-fg);
+  color: var(--bg-surface);
+}
+.exam-option[data-feedback="wrong"] {
+  border-color: var(--status-wrong-fg);
+  background: var(--status-wrong-bg);
+}
+.exam-option[data-feedback="wrong"] .option__letter {
+  background: var(--status-wrong-fg);
+  color: var(--bg-surface);
+}
+
+/* Score Ring & Results Hero */
+.results-hero-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+}
+.results-ring-block {
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+  flex-wrap: wrap;
+}
+.score-ring {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  flex: 0 0 auto;
+}
+.score-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.score-ring__track {
+  fill: none;
+  stroke: var(--bg-surface-subtle);
+  stroke-width: 9;
+}
+.score-ring__fill {
+  fill: none;
+  stroke: var(--brand-primary);
+  stroke-width: 9;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s ease;
+}
+.score-ring__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.score-ring__pct {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+}
+.results-score-big {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  color: var(--brand-primary);
+}
+.results-score-max {
+  font-size: var(--fs-h3);
+  color: var(--text-secondary);
+}
+
+.results-tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-s);
+}
+@media (min-width: 768px) {
+  .results-tiles-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.results-mini-tile {
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-s) var(--space-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+.results-subj-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-s);
+}
+@media (min-width: 768px) {
+  .results-subj-strip {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.results-subj-item {
+  border-left: 4px solid var(--brand-primary);
+  padding-left: var(--space-s);
+  display: flex;
+  flex-direction: column;
+}
+.results-subj-item[data-subject="MATH"] { border-color: var(--math-stripe); }
+.results-subj-item[data-subject="PHYS"] { border-color: var(--phys-stripe); }
+.results-subj-item[data-subject="CHEM"] { border-color: var(--chem-stripe); }
+.results-subj-item[data-subject="FEEE"] { border-color: var(--feee-stripe); }
+
+.tiebreak-details {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-s);
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+.tiebreak-details summary {
+  cursor: pointer;
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+}
+.tiebreak-grid {
+  margin-top: var(--space-s);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xs);
+}
+@media (min-width: 768px) {
+  .tiebreak-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.results-item-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+
 

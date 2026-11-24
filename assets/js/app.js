@@ -11,6 +11,8 @@ import { openDB, getMeta, setMeta, onSync } from "./db/indexeddb.js";
 import { $, el, icon } from "./core/ui.js";
 import { renderPapersLibrary, renderPaperReader } from "./views/papers.js";
 import { renderLiveExam, renderPrintableOmr } from "./views/exam.js";
+import { renderPracticeArena, renderPracticeRunner } from "./views/practice.js";
+import { renderResultsView } from "./views/results.js";
 
 /* ------------------------------------------------------------------ *
  * Route table — five global destinations only (no audit clutter)
@@ -255,6 +257,12 @@ export async function render() {
       setViewCleanup(cleanup);
     } else if (route.view === "omr-print") {
       await renderPrintableOmr(main, route.param);
+    } else if (route.view === "practice") {
+      await renderPracticeArena(main, route.query);
+    } else if (route.view === "practice-run") {
+      await renderPracticeRunner(main, route.param, { openAiTutor: openAiTutorContext });
+    } else if (route.view === "results") {
+      await renderResultsView(main, route.param, { openAiTutor: openAiTutorContext });
     } else if (route.view === "today") {
       renderTodayFallback(main);
     } else {
