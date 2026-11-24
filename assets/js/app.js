@@ -16,6 +16,7 @@ import { renderResultsView } from "./views/results.js";
 import { renderLearnExplorer, renderUnitLesson, renderFormulaSheet } from "./views/learn.js";
 import { renderTodayDashboard } from "./views/today.js";
 import { renderYouHub } from "./views/you.js";
+import { initAiTutor } from "./views/ai-tutor.js";
 
 /* ------------------------------------------------------------------ *
  * Route table — five global destinations only (no audit clutter)
@@ -144,33 +145,15 @@ export function closeAllSheets() {
 }
 
 /* ------------------------------------------------------------------ *
- * Temporary fallback views for slices under construction
+ * Fallback view
  * ------------------------------------------------------------------ */
-function renderTodayFallback(main) {
-  main.innerHTML = "";
-  const grid = el(`<section class="subject-grid" style="margin-top:1rem" aria-label="Subject mastery"></section>`);
-  for (const s of SUBJECTS) {
-    grid.appendChild(
-      el(`
-        <button class="subject-card" data-subject="${s.id}" type="button">
-          <h3 class="subject-card__title">${s.name}</h3>
-          <p class="subject-card__count">${s.qs} · ${s.units} units</p>
-          <div class="meter" style="margin-top:.5rem"><div class="meter__fill" style="width:0%"></div></div>
-          <p class="subject-card__count" style="margin-top:.4rem">0 / ${s.units} mastered</p>
-        </button>
-      `)
-    );
-  }
-  main.appendChild(grid);
-}
-
 function renderPlaceholder(main, title) {
   main.innerHTML = "";
   main.appendChild(
     el(`
       <div class="view">
         <h2 style="margin:0 0 .5rem">${title}</h2>
-        <p class="view__placeholder">Loading screen module…</p>
+        <p class="view__placeholder">Route not found — <a href="#/">return to Today</a>.</p>
       </div>
     `)
   );
@@ -302,6 +285,9 @@ async function init() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeAllSheets();
   });
+
+  const tutor = initAiTutor({ openOverlay: openSheet, closeAllSheets });
+  registerAiTutorOpener(tutor.openTutor);
 
   try {
     await openDB();

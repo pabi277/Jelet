@@ -42,6 +42,21 @@
       </div>
     </section>
 
+    <!-- ===== Scoped, Corpus-Grounded Codec AI Tutor Sheet ===== -->
+    <section class="bottom-sheet ai-sheet" id="aiSheet" role="dialog" aria-modal="true" aria-label="Codec AI Tutor" aria-hidden="true">
+      <div class="bottom-sheet__handle" aria-hidden="true"></div>
+      <div class="bottom-sheet__header">
+        <div class="cluster-xs" style="flex:1;min-width:0">
+          <h2 class="bottom-sheet__title" style="flex:0 1 auto">Codec AI Tutor</h2>
+          <span class="pill" id="aiSheetModeBadge">Corpus Verified</span>
+        </div>
+        <button class="btn btn--ghost" id="closeAiSheetBtn" type="button" aria-label="Close AI Tutor">
+          <svg class="ico" aria-hidden="true"><use href="./assets/icons/icons.svg#icon-close"/></svg>
+        </button>
+      </div>
+      <div class="bottom-sheet__body ai-sheet__body" id="aiSheetBody"></div>
+    </section>
+
     <!-- ===== 5-tab bottom navigation ===== -->
     <nav class="bottom-nav" id="bottomNav" aria-label="Primary"></nav>
   </div>
