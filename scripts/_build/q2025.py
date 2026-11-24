@@ -55,7 +55,7 @@ Q2025 = [
 
 (11,"MATH","M05",1,3,
  "The expression $\\hat{i} \\times (\\vec{a} \\times \\hat{i}) + \\hat{j} \\times (\\vec{a} \\times \\hat{j}) + \\hat{k} \\times (\\vec{a} \\times \\hat{k})$ simplifies to",
- {"A":"$0$","B":"$\vec{a}$","C":"$2\\vec{a}$","D":"$4\\vec{a}$"},
+ {"A":"$0$","B":"$\\vec{a}$","C":"$2\\vec{a}$","D":"$4\\vec{a}$"},
  ["C"],"hard",["vector","cross-product","baccab"],None),
 
 (12,"MATH","M06",1,3,
@@ -94,7 +94,7 @@ Q2025 = [
  ["A"],"hard",["even-odd","function-decomposition","exponential"],None),
 
 (19,"MATH","M05",1,5,
- "Let $\vec{a} = \\lambda(\\hat{i} + \\hat{j} - \\hat{k})$ and $\vec{b} = \\mu(\\hat{i} - \\hat{j} + \\hat{k})$ be two given vectors. $\\hat{c}$ is a unit vector perpendicular to $\\vec{a}$ but coplanar with $\\vec{a}$ and $\vec{b}$. Then the unit vector $\vec{d}$ perpendicular to both $\vec{a}$ and $\vec{c}$ is",
+ "Let $\\vec{a} = \\lambda(\\hat{i} + \\hat{j} - \\hat{k})$ and $\\vec{b} = \\mu(\\hat{i} - \\hat{j} + \\hat{k})$ be two given vectors. $\\hat{c}$ is a unit vector perpendicular to $\\vec{a}$ but coplanar with $\\vec{a}$ and $\\vec{b}$. Then the unit vector $\\vec{d}$ perpendicular to both $\\vec{a}$ and $\\vec{c}$ is",
  {"A":"$\\dfrac{2\\hat{i} - \\hat{j} + \\hat{k}}{\\sqrt{6}}$","B":"$\\dfrac{-2\\hat{j} + \\hat{k}}{\\sqrt{5}}$","C":"$\\dfrac{\\hat{i} + \\hat{j} + \\hat{k}}{\\sqrt{3}}$","D":"$\\dfrac{\\hat{i} - \\hat{j} + \\hat{k}}{\\sqrt{3}}$"},
  ["B"],"hard",["vectors","unit-vector","perpendicular"],None),
 
@@ -217,12 +217,12 @@ Q2025 = [
 
 (43,"PHYS","P05",1,10,
  "If three vectors satisfy the relation $\\vec{A} \\cdot \\vec{B} = 0$ and $\\vec{A} \\cdot \\vec{C} = 0$, then $\\vec{A}$ can be parallel to",
- {"A":"$\vec{C}$","B":"$\vec{B}$","C":"$\vec{B} \\times \\vec{C}$","D":"$\vec{B} \\cdot \\vec{C}$"},
+ {"A":"$\\vec{C}$","B":"$\\vec{B}$","C":"$\\vec{B} \\times \\vec{C}$","D":"$\\vec{B} \\cdot \\vec{C}$"},
  ["C"],"medium",["vectors","dot-product","cross-product"],None),
 
 (44,"PHYS","P02",1,10,
  "The acceleration of a particle varies with time as shown in the figure. The corresponding velocity-time graph will be [Assume at $t = 0$, velocity $v = 0$]",
- {"A":"$v$ increases linearly then constant","B":"$v$ increases then decreases","C":"$v$ constant then increases","D":"$v$ decreases linearly"},
+ {"A":{"figure":"fig-2025-q44-A","latex":"$v$ increases linearly then constant"},"B":{"figure":"fig-2025-q44-B","latex":"$v$ increases then decreases"},"C":{"figure":"fig-2025-q44-C","latex":"$v$ constant then increases"},"D":{"figure":"fig-2025-q44-D","latex":"$v$ decreases linearly"}},
  ["C"],"medium",["kinematics","acceleration-graph","velocity-time"],"fig-2025-q44"),
 
 (45,"PHYS","P05",1,11,
@@ -257,7 +257,7 @@ Q2025 = [
 
 (51,"PHYS","P08",1,12,
  "Which of the graphs shown in figures represents the velocity-time ($v$-$t$) graph of a small spherical body falling in a viscous fluid? (Body just dropped on the surface of the viscous fluid)",
- {"A":"$v$ increases then becomes constant","B":"$v$ constant from start","C":"$v$ decreases then constant","D":"$v$ increases linearly forever"},
+ {"A":{"figure":"fig-2025-q51-A","latex":"v increases then becomes constant"},"B":{"figure":"fig-2025-q51-B","latex":"v constant from start"},"C":{"figure":"fig-2025-q51-C","latex":"v decreases then constant"},"D":{"figure":"fig-2025-q51-D","latex":"v increases linearly forever"}},
  ["A"],"medium",["fluid","viscous","velocity-time-graph"],"fig-2025-q51"),
 
 (52,"PHYS","P03",1,12,
@@ -292,7 +292,7 @@ Q2025 = [
 
 (58,"PHYS","P11",1,14,
  "One mole of an ideal gas goes from an initial state $A$ to final state $B$ via two processes. It firstly undergoes isothermal expansion from volume $V$ to $3V$ and then its volume is reduced from $3V$ to $V$ at constant pressure. The correct $P$-$V$ diagram representing the two processes is",
- {"A":"isothermal expansion then isobaric compression","B":"isobaric expansion then isothermal compression","C":"isothermal then isochoric","D":"isobaric then isochoric"},
+ {"A":{"figure":"fig-2025-q58-A","latex":"isothermal expansion then isobaric compression"},"B":{"figure":"fig-2025-q58-B","latex":"isothermal then isobaric"},"C":{"figure":"fig-2025-q58-C","latex":"isothermal then isochoric"},"D":{"figure":"fig-2025-q58-D","latex":"isobaric then isochoric"}},
  ["B"],"medium",["thermodynamics","pv-diagram","processes"],"fig-2025-q58"),
 
 (59,"PHYS","P03",1,14,
@@ -333,7 +333,7 @@ Q2025 = [
 # ---------------- PHYSICS Cat-II (Q66-70) ----------------
 (66,"PHYS","P02",2,17,
  "A car starts from rest and accelerates uniformly for $4\\,\\text{sec}$ and then moves with uniform velocity. Which of the following displacement ($x$) - time ($t$) graph represents the motion of the car ?",
- {"A":"parabolic then linear","B":"linear then parabolic","C":"linear throughout","D":"parabolic throughout"},
+ {"A":{"figure":"fig-2025-q66-A","latex":"parabolic then linear"},"B":{"figure":"fig-2025-q66-B","latex":"linear then parabolic"},"C":{"figure":"fig-2025-q66-C","latex":"linear throughout"},"D":{"figure":"fig-2025-q66-D","latex":"parabolic then linear (correct)"}},
  ["D"],"medium",["kinematics","displacement-time","graph"],"fig-2025-q66"),
 
 (67,"PHYS","P03",2,17,
@@ -353,7 +353,7 @@ Q2025 = [
 
 (70,"PHYS","P05",2,18,
  "For a vector, $\\vec{P} = (\\vec{A} \\times \\vec{B}) \\times (\\vec{C} \\times \\vec{D})$, choose the correct alternative(s).",
- {"A":"Vector $\vec{P}$ is perpendicular to the plane containing $\vec{A}$ and $\vec{B}$.","B":"$\vec{P}$ resides in a plane containing $\vec{A}$ and $\vec{B}$.","C":"$\vec{P}$ resides in a plane containing $\vec{C}$ and $\vec{D}$.","D":"$\vec{P}$ is parallel to the line of intersection of two planes containing $\vec{A}, \\vec{B}$ and $\vec{C}, \\vec{D}$ respectively."},
+ {"A":"Vector $\\vec{P}$ is perpendicular to the plane containing $\\vec{A}$ and $\\vec{B}$.","B":"$\\vec{P}$ resides in a plane containing $\\vec{A}$ and $\\vec{B}$.","C":"$\\vec{P}$ resides in a plane containing $\\vec{C}$ and $\\vec{D}$.","D":"$\\vec{P}$ is parallel to the line of intersection of two planes containing $\\vec{A}, \\vec{B}$ and $\\vec{C}, \\vec{D}$ respectively."},
  ["B","C","D"],"hard",["vectors","cross-product","triple-product"],None),
 
 # ---------------- CHEMISTRY Cat-I (Q71-85) ----------------

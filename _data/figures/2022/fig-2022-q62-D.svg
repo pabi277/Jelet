@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" width="200" height="140" role="img" aria-label="Option D: P-V cycle - different shape">
+  <rect x="0" y="0" width="200" height="140" fill="transparent"/>
+  <line x1="30" y1="120" x2="180" y2="120" stroke="var(--fig-axis)" stroke-width="1"/>
+  <line x1="30" y1="120" x2="30" y2="20" stroke="var(--fig-axis)" stroke-width="1"/>
+  <text x="25" y="128" font-family="monospace" font-size="7" fill="var(--fig-text)">V</text>
+  <text x="20" y="15" font-family="monospace" font-size="7" fill="var(--fig-text)">P</text>
+  <path d="M 50,30 L 150,30 Q 150,80 120,100 L 50,100 Z" stroke="var(--fig-primary)" stroke-width="2" fill="none"/>
+</svg>

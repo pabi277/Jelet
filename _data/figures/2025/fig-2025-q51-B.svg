@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" width="200" height="140" role="img" aria-label="Option B: velocity constant from start">
+  <rect x="0" y="0" width="200" height="140" fill="transparent"/>
+  <line x1="30" y1="110" x2="180" y2="110" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <line x1="30" y1="110" x2="30" y2="20" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <text x="15" y="118" font-family="monospace" font-size="8" fill="var(--fig-text)" text-anchor="middle">t</text>
+  <text x="15" y="24" font-family="monospace" font-size="8" fill="var(--fig-text)" text-anchor="middle">v</text>
+  <path d="M 30,60 L 180,60" stroke="var(--fig-primary)" stroke-width="2" fill="none"/>
+</svg>

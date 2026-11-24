@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" width="240" height="200" role="img" aria-label="2022 Q62: V-T cycle">
   <rect x="0" y="0" width="240" height="200" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2022 Q62: V-T cycle</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">V-T diagram (cycle)</text>
-  <line x1="40" y1="160" x2="200" y2="160" stroke="#475569" stroke-width="1.5"/>
-  <line x1="40" y1="40" x2="40" y2="160" stroke="#475569" stroke-width="1.5"/>
-  <polyline points="60,140 180,60 60,60 60,140" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <circle cx="60" cy="140" r="4" fill="#f87171"/>
-  <text x="45" y="155" font-family="monospace" font-size="10" fill="#fca5a5" text-anchor="start">A</text>
-  <circle cx="180" cy="60" r="4" fill="#34d399"/>
-  <text x="185" y="55" font-family="monospace" font-size="10" fill="#6ee7b7" text-anchor="start">B</text>
-  <circle cx="60" cy="60" r="4" fill="#f59e0b"/>
-  <text x="45" y="55" font-family="monospace" font-size="10" fill="#fcd34d" text-anchor="start">C</text>
-  <text x="30" y="165" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="start">T</text>
-  <text x="205" y="170" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="start">V</text>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-text)">2022 Q62: V-T cycle</text>
+  <text x="40" y="25" font-family="monospace" font-size="10" fill="var(--fig-text-light)" text-anchor="start">V-T diagram (cycle)</text>
+  <line x1="40" y1="160" x2="200" y2="160" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <line x1="40" y1="40" x2="40" y2="160" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <polyline points="60,140 180,60 60,60 60,140" stroke="var(--fig-primary)" stroke-width="2" fill="none"/>
+  <circle cx="60" cy="140" r="4" fill="var(--fig-negative)"/>
+  <text x="45" y="155" font-family="monospace" font-size="10" fill="var(--fig-neg-light)" text-anchor="start">A</text>
+  <circle cx="180" cy="60" r="4" fill="var(--fig-positive)"/>
+  <text x="185" y="55" font-family="monospace" font-size="10" fill="var(--fig-pos-light)" text-anchor="start">B</text>
+  <circle cx="60" cy="60" r="4" fill="var(--fig-amber)"/>
+  <text x="45" y="55" font-family="monospace" font-size="10" fill="var(--fig-amber-light)" text-anchor="start">C</text>
+  <text x="30" y="165" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">T</text>
+  <text x="205" y="170" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">V</text>
 </svg>

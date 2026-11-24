@@ -59,7 +59,7 @@ Q2023 = [
  ["B"],"hard",["hyperbola","parametric","foci"],None),
 
 (12,"MATH","M05",1,4,
- "If $\vec{a}$ and $\vec{b}$ are two unit vectors, then the vector $(\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
+ "If $\\vec{a}$ and $\\vec{b}$ are two unit vectors, then the vector $(\\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
  {"A":"$\\vec{a} + \\vec{b}$","B":"$\\vec{a} - \\vec{b}$","C":"$2\\vec{a} + 3\\vec{b}$","D":"$2\\vec{a} - 3\\vec{b}$"},
  ["B"],"hard",["vector-algebra","cross-product","triple-product"],None),
 
@@ -175,7 +175,7 @@ Q2023 = [
  ["D"],"hard",["coordinate-geometry","triangle","area"],None),
 
 (35,"MATH","M05",2,8,
- "Let $\vec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\vec{W} = \\hat{i} + 3\\hat{k}$. If $\vec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
+ "Let $\\vec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\\vec{W} = \\hat{i} + 3\\hat{k}$. If $\\vec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
  {"A":"$\\sqrt{59}$","B":"$\\sqrt{59}$","C":"$1$","D":"$\\sqrt{59}$"},
  ["B"],"hard",["vectors","scalar-triple-product","maximum"],None),
 

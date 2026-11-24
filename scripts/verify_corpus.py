@@ -13,7 +13,7 @@ Checks:
 
 Exit code 0 = all gates pass, 1 = failure.
 """
-import json, os, sys
+import json, os, sys, glob
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "_data")
@@ -165,6 +165,42 @@ def main():
         if os.path.isdir(fig_dir):
             fig_count += len([f for f in os.listdir(fig_dir) if f.endswith(".svg")])
     print(f"✓ Figures: {fig_count} SVG files")
+
+    # 6. Control-character hard check: reject any ASCII control char
+    #    (except \n, \r) in any string field of any _data JSON file.
+    import re as _re
+    ctrl_re = _re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1f]')
+    for json_file in sorted(glob.glob(os.path.join(DATA, "**", "*.json"), recursive=True)):
+        with open(json_file, "r", encoding="utf-8") as fh:
+            content = fh.read()
+        matches = list(ctrl_re.finditer(content))
+        if matches:
+            for m in matches:
+                idx = m.start()
+                snippet = content[max(0, idx - 20):idx + 20]
+                check(False, f"control char {repr(m.group())} in {json_file}: ...{snippet}...")
+    print("✓ Control-character scan: 0 ASCII control chars in any _data JSON")
+
+    # 7. Stub solution hard check: reject "Given key" placeholders and
+    #    derviations shorter than 80 characters.
+    for paper_entry in manifest.get("papers", []):
+        year = str(paper_entry["year"])
+        sol_path = os.path.join(ROOT, paper_entry["solutionsFile"])
+        if not os.path.exists(sol_path):
+            continue
+        sol = load_json(sol_path)
+        sols = sol.get("solutions", {})
+        for qid, s in sols.items():
+            body = json.dumps(s)
+            if "Given key" in body:
+                check(False, f"{year} {qid}: contains 'Given key' stub placeholder")
+            # Check total derivation length across all step bodies
+            total_len = 0
+            for step in s.get("steps", []):
+                total_len += len(str(step.get("bodyLatex", "")))
+            if total_len < 80:
+                check(False, f"{year} {qid}: derivation too short ({total_len} chars, min 80)")
+    print("✓ Stub solution scan: 0 'Given key' placeholders, 0 short derivations")
 
     # Report
     print()

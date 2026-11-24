@@ -442,3 +442,371 @@
   font-size: var(--fs-body);
   padding: var(--space-l) 0;
 }
+
+/* ==========================================================================
+   Phase 04 — Exam Runner styles
+   ========================================================================== */
+
+/* ---- Exam header (sticky top bar with timer) ---- */
+.exam-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  height: var(--topbar-h);
+  padding: 0 var(--space-m);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.exam-header__title {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  flex: 1;
+  min-width: 0;
+}
+
+.exam-header__timer {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+  padding: var(--space-3xs) var(--space-s);
+  border-radius: var(--radius-pill);
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+  white-space: nowrap;
+}
+
+.exam-header__timer.is-urgent {
+  background: var(--status-wrong-bg);
+  color: var(--status-wrong-fg);
+  animation: pulse 1s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ---- Exam progress bar ---- */
+.exam-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  margin: var(--space-m) 0 var(--space-m);
+}
+
+.exam-progress span {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  min-width: 60px;
+}
+
+.exam-progress .meter {
+  flex: 1;
+}
+
+/* ---- Question card ---- */
+.exam-q-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-s);
+  padding: var(--space-l);
+  transition: border-color 0.2s ease;
+}
+
+.exam-q-card.is-reviewed {
+  border-color: var(--status-review-fg);
+}
+
+.exam-q-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+  flex-wrap: wrap;
+}
+
+.exam-q-number {
+  font-family: var(--font-mono);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  color: var(--brand-primary);
+}
+
+.exam-q-stem {
+  font-size: var(--fs-question);
+  line-height: var(--lh-prose);
+  margin-bottom: var(--space-m);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.exam-q-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.exam-q-hint {
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+  margin-top: var(--space-s);
+  padding: var(--space-2xs) var(--space-s);
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-s);
+}
+
+/* Option card checkbox/radio visual */
+.option__text {
+  font-size: var(--fs-option);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---- OMR trigger button ---- */
+.exam-omr-trigger {
+  margin-top: var(--space-m);
+}
+
+/* ---- Bottom actions bar ---- */
+.exam-actions {
+  display: flex;
+  gap: var(--space-s);
+  margin-top: var(--space-m);
+  position: sticky;
+  bottom: calc(var(--bottom-nav-h) + var(--space-m));
+  background: var(--bg-canvas);
+  padding: var(--space-s) 0;
+  z-index: var(--z-sticky);
+}
+
+.exam-actions .btn {
+  flex: 1;
+}
+
+/* ---- OMR sheet footer ---- */
+.bottom-sheet__footer {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-l) var(--space-l);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.bottom-sheet__footer .btn {
+  flex: 1;
+}
+
+/* ---- OMR grid cell (current question highlight) ---- */
+.omr-cell.is-current {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 1px;
+}
+
+/* ---- Results ---- */
+.exam-results__header {
+  text-align: center;
+  margin-bottom: var(--space-l);
+}
+
+.exam-results__header h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  margin: 0 0 var(--space-2xs);
+}
+
+.exam-results__header p {
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+
+.exam-results__hero {
+  text-align: center;
+}
+
+.exam-results__score {
+  font-family: var(--font-mono);
+  font-size: clamp(2.5rem, 12vw, 4rem);
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-on-brand);
+  line-height: 1.1;
+}
+
+.exam-results__sub {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  font-size: var(--fs-caption);
+  opacity: 0.85;
+}
+
+.exam-results__actions {
+  margin-top: var(--space-xl);
+  display: flex;
+  justify-content: center;
+}
+
+/* ---- Subject breakdown ---- */
+.subject-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.subject-breakdown__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.subject-breakdown__name {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  min-width: 100px;
+}
+
+.subject-breakdown__row .meter {
+  flex: 1;
+}
+
+.subject-breakdown__marks {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  min-width: 70px;
+  text-align: right;
+}
+
+/* ---- Outcome summary grid ---- */
+.outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: var(--space-s);
+}
+
+.outcome-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-s);
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-m);
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+
+/* ---- Tie-breaker vector ---- */
+.tiebreaker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.tiebreaker-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-2xs) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: var(--fs-caption);
+}
+
+.tiebreaker-row:last-child {
+  border-bottom: none;
+}
+
+.tiebreaker-step {
+  font-family: var(--font-mono);
+  font-weight: var(--fw-bold);
+  color: var(--brand-primary);
+  min-width: 50px;
+}
+
+.tiebreaker-label {
+  flex: 1;
+  color: var(--text-secondary);
+}
+
+.tiebreaker-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  min-width: 80px;
+  text-align: right;
+}
+
+.tiebreaker-dir {
+  font-size: var(--fs-micro);
+  color: var(--text-muted);
+  min-width: 50px;
+  text-align: right;
+}
+
+/* ---- Desktop: split exam view (Screen 09) ---- */
+@media (min-width: 1024px) {
+  .exam-header {
+    position: fixed;
+    top: 0;
+    left: var(--rail-w);
+    right: 0;
+    z-index: var(--z-topbar);
+  }
+
+  .app-main {
+    padding-top: calc(var(--topbar-h) + var(--space-xl));
+  }
+
+  .exam-progress {
+    position: fixed;
+    top: var(--topbar-h);
+    left: var(--rail-w);
+    right: 0;
+    margin: 0;
+    padding: var(--space-2xs) var(--space-xl);
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    z-index: var(--z-sticky);
+  }
+
+  /* Desktop: OMR sheet docks as a permanent right sidebar */
+  .bottom-sheet#examOmrSheet {
+    left: auto;
+    right: var(--space-xl);
+    top: calc(var(--topbar-h) + var(--space-2xl) + var(--space-m));
+    bottom: var(--space-xl);
+    width: 340px;
+    max-width: calc(100vw - var(--rail-w) - var(--space-3xl));
+    max-height: none;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-l);
+    /* Always visible on desktop */
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .bottom-sheet#examOmrSheet .bottom-sheet__handle {
+    display: none;
+  }
+
+  .bottom-sheet#examOmrSheet:not(.is-open) {
+    /* On desktop, sheet is always open */
+  }
+
+  .exam-actions {
+    position: static;
+    background: transparent;
+    padding: 0;
+  }
+}

@@ -56,7 +56,18 @@ def build(year, data):
             full_t = 12 if cat == 1 else 24
             neg_t = 3 if cat == 1 else 0
             status = "active"; correct_out = correct
-        opt_list = [{"id": k, "latex": v, "figure": None} for k, v in opts.items()]
+        # Build options list — support figure-based options (for graph/circuit/structure questions)
+        opt_list = []
+        for k, v in opts.items():
+            if isinstance(v, dict) and "figure" in v:
+                fig_src = v["figure"]
+                opt_list.append({"id": k, "latex": v.get("latex", ""), "figure": {
+                    "src": f"./_data/figures/{year}/{fig_src}.svg",
+                    "alt": f"Option {k} for JELET {year} Q{qnum}",
+                    "width": 200, "height": 140, "themeAdaptive": True
+                }})
+            else:
+                opt_list.append({"id": k, "latex": v, "figure": None})
         stem_fig = None
         if figkey:
             stem_fig = {"src": f"./_data/figures/{year}/{figkey}.svg", "alt": f"Figure for JELET {year} Q{qnum}", "width": 420, "height": 220, "themeAdaptive": True}

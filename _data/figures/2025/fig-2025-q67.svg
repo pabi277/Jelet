@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" width="240" height="160" role="img" aria-label="2025 Q67: Pulley with force">
   <rect x="0" y="0" width="240" height="160" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2025 Q67: Pulley with force</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Pulley system</text>
-  <line x1="30" y1="50" x2="200" y2="50" stroke="#475569" stroke-width="2"/>
-  <circle cx="100" cy="70" r="12" stroke="#60a5fa" stroke-width="2" fill="#1e293b"/>
-  <line x1="100" y1="82" x2="100" y2="120" stroke="#94a3b8" stroke-width="1.5"/>
-  <rect x="85" y="120" width="30" height="25" fill="none" stroke="#60a5fa" stroke-width="2"/>
-  <text x="100" y="115" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">block (2 kg)</text>
-  <line x1="170" y1="70" x2="200" y2="70" stroke="#f87171" stroke-width="2"/>
-  <polygon points="200,70 193.1,74.0 193.1,66.0" fill="#f87171"/>
-  <text x="172" y="60" font-family="monospace" font-size="12" fill="#cbd5e1">F = 40 N</text>
+  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-text)">2025 Q67: Pulley with force</text>
+  <text x="40" y="30" font-family="monospace" font-size="10" fill="var(--fig-text-light)" text-anchor="start">Pulley system</text>
+  <line x1="30" y1="50" x2="200" y2="50" stroke="var(--fig-axis)" stroke-width="2"/>
+  <circle cx="100" cy="70" r="12" stroke="var(--fig-primary)" stroke-width="2" fill="var(--fig-dark)"/>
+  <line x1="100" y1="82" x2="100" y2="120" stroke="var(--fig-text)" stroke-width="1.5"/>
+  <rect x="85" y="120" width="30" height="25" fill="none" stroke="var(--fig-primary)" stroke-width="2"/>
+  <text x="100" y="115" font-family="monospace" font-size="9" fill="var(--fig-text-light)" text-anchor="middle">block (2 kg)</text>
+  <line x1="170" y1="70" x2="200" y2="70" stroke="var(--fig-negative)" stroke-width="2"/>
+  <polygon points="200,70 193.1,74.0 193.1,66.0" fill="var(--fig-negative)"/>
+  <text x="172" y="60" font-family="monospace" font-size="12" fill="var(--fig-text-light)">F = 40 N</text>
 </svg>
