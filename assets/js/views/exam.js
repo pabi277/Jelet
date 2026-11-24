@@ -126,7 +126,7 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
         <button type="button" class="icon-btn" id="examPauseExitBtn" title="Save &amp; Pause Exam" aria-label="Save and exit exam">
           ${icon("icon-back")}
         </button>
-        <div class="exam-header__title" id="examHeaderTitle">${escapeHtml(session.title.replace(/ · Official Timed Mock$/, ""))}</div>
+        <div class="exam-header__title" id="examHeaderTitle">${escapeHtml(String(session.title || "Exam Session").replace(/ · Official Timed Mock$/, ""))}</div>
         <div class="exam-timer-pill mono" id="examTimerPill" aria-live="off">
           ${icon("icon-timer")} <span id="examTimerText">${formatDurationClock(remainingMs, { forceHours: true })}</span>
         </div>
@@ -180,7 +180,7 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
       <!-- Submit Confirmation Dialog -->
       <div class="exam-submit-modal" id="examSubmitModal" hidden role="dialog" aria-modal="true" aria-label="Confirm paper submission">
         <div class="card exam-submit-modal__card stack-m">
-          <h3 class="card__title">Submit ${escapeHtml(session.title)}?</h3>
+          <h3 class="card__title">Submit ${escapeHtml(String(session.title || "Exam Session"))}?</h3>
           <div id="examSubmitSummary" class="stack-xs"></div>
           <p class="card__meta">Once submitted, answers are locked and exact 1/12-mark WBJEEB scoring + SymPy solutions unlock immediately.</p>
           <div class="row-between" style="gap:var(--space-s)">
@@ -249,8 +249,16 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
     gridEl.innerHTML = "";
     questions.forEach((q, idx) => {
       const st = cellStateFor(q);
+      const stateText =
+        st === "answered-review"
+          ? "answered, marked for review"
+          : st === "review"
+          ? "marked for review"
+          : st === "answered"
+          ? "answered"
+          : "not answered";
       const cell = el(
-        `<button class="omr-cell ${idx === currentIndex ? "is-current" : ""}" type="button" data-q="${idx + 1}" ${st !== "unvisited" ? `data-state="${st}"` : ""}>${q.qNumber || idx + 1}</button>`
+        `<button class="omr-cell ${idx === currentIndex ? "is-current" : ""}" type="button" data-q="${idx + 1}" ${st !== "unvisited" ? `data-state="${st}"` : ""} aria-label="Question ${q.qNumber || idx + 1}, ${stateText}">${q.qNumber || idx + 1}</button>`
       );
       cell.addEventListener("click", () => {
         currentIndex = idx;
@@ -461,18 +469,31 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
   }
 
   async function finalizeSubmission(autoExpired = false) {
-    if (submitting) return;
+    if (submitting) return; // double-submit guard
     submitting = true;
     clearInterval(timerInterval);
     session.currentIndex = currentIndex;
     session.responses = responses;
     session.markedForReview = [...reviewSet];
     session.remainingMs = Math.max(0, Math.round(remainingMs));
-    const attempt = await submitSessionToAttempt({ session, questions });
-    if (autoExpired) {
-      showToast("Time up! Paper auto-submitted.");
+    try {
+      const attempt = await submitSessionToAttempt({ session, questions });
+      if (autoExpired) {
+        showToast("Time up! Paper auto-submitted.");
+      }
+      location.hash = `#/results/${attempt.attemptId}`;
+    } catch (err) {
+      // Never leave the runner stuck: re-arm submission so the student can
+      // retry once storage is available again.
+      submitting = false;
+      showToast(
+        err?.name === "StorageQuotaError"
+          ? "Storage quota exceeded — submission not saved. Free space and submit again."
+          : "Submission failed — your answers were kept. Try submitting again."
+      );
+      const confirmBtn = $("#confirmSubmitBtn", root);
+      if (confirmBtn) confirmBtn.disabled = false;
     }
-    location.hash = `#/results/${attempt.attemptId}`;
   }
 
   // Controls wiring

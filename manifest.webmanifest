@@ -1,0 +1,27 @@
+{
+  "name": "JELET Study Hub (v3)",
+  "short_name": "JELET Hub",
+  "description": "100%-accurate, phone-first offline PWA for WBJEEB JELET Paper-I: 400 verified PYQs (2022–2025), 400 SymPy-verified solutions, 42 syllabus units, live timed OMR mocks, and a corpus-grounded AI tutor.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0F6E66",
+  "background_color": "#0F6E66",
+  "icons": [
+    {
+      "src": "./assets/icons/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icons/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

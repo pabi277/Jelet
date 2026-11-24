@@ -622,6 +622,11 @@
   font-size: var(--fs-question);
   min-width: 0;
 }
+.search-box input:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
 .input-field,
 .input-select,
 .input-textarea {

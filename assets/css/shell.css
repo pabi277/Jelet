@@ -29,6 +29,58 @@
 }
 
 /* ------------------------------------------------------------------ *
+ * Skip-to-content link (a11y): hidden until keyboard focus
+ * ------------------------------------------------------------------ */
+.skip-link {
+  position: absolute;
+  left: var(--space-s);
+  top: -100px;
+  z-index: var(--z-toast);
+  padding: var(--space-xs) var(--space-s);
+  border-radius: var(--radius-s);
+  background: var(--bg-surface);
+  color: var(--brand-primary);
+  font-weight: var(--fw-semibold);
+  box-shadow: var(--shadow-m);
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  top: var(--space-s);
+}
+
+/* Visible, consistent focus ring for keyboard users across the shell */
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Storage-availability notice (in-memory fallback / quota events)
+ * ------------------------------------------------------------------ */
+.storage-notice {
+  position: relative;
+  z-index: var(--z-topbar);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  flex-wrap: wrap;
+  margin: var(--space-xs) var(--space-s) 0;
+  padding: var(--space-xs) var(--space-s);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-worked-example);
+  color: var(--text-primary);
+  font-size: var(--fs-caption);
+}
+
+.storage-notice span {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ------------------------------------------------------------------ *
  * Top bar (sticky, compact phone header)
  * ------------------------------------------------------------------ */
 .topbar {
@@ -159,12 +211,18 @@
   border-top-right-radius: var(--radius-sheet);
   box-shadow: var(--shadow-sheet);
   transform: translateY(100%);
-  transition: transform 0.26s cubic-bezier(0.32, 0.72, 0, 1);
+  /* visibility flips after the slide-down so closed sheets leave the
+     a11y tree / tab order entirely (keyboard focus never enters them) */
+  visibility: hidden;
+  transition: transform 0.26s cubic-bezier(0.32, 0.72, 0, 1),
+    visibility 0s linear 0.26s;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
 .bottom-sheet.is-open {
   transform: translateY(0);
+  visibility: visible;
+  transition: transform 0.26s cubic-bezier(0.32, 0.72, 0, 1), visibility 0s;
 }
 
 .bottom-sheet__handle {

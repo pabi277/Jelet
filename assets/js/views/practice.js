@@ -517,6 +517,19 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
   const [manifest, qIndex] = await Promise.all([loadManifest(), getQuestionIndex()]);
   const unitTitleMap = new Map((manifest.units || []).map((u) => [u.unitId, u.title]));
   const questions = (session.questionIds || []).map((id) => qIndex.get(id)).filter(Boolean);
+
+  // Empty/corrupted pool guard: never render a blank runner.
+  if (!questions.length) {
+    main.innerHTML = `
+      <div class="card stack-s">
+        <h2 class="card__title">This practice session has no questions</h2>
+        <p class="card__meta">The session may be corrupted or its questions were removed. Start a fresh drill from Practice.</p>
+        <div><a href="#/practice" class="btn btn--primary">Back to Practice</a></div>
+      </div>
+    `;
+    return;
+  }
+
   let bookmarksMap = await getBookmarksMap();
 
   let currentIndex = Math.min(Math.max(0, session.currentIndex || 0), questions.length - 1);
@@ -524,6 +537,7 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
   const revealedSet = new Set(session.revealedQuestionIds || []);
   const assistedSet = new Set(session.assistedQuestionIds || []);
   const isSessionAssisted = session.mode === "assisted";
+  let submitting = false; // double-submit guard for Finish & Score
 
   async function persist() {
     session.currentIndex = currentIndex;
@@ -600,6 +614,7 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
             data-selected="${isSel}"
             ${feedbackAttr}
             ${isRevealed ? "disabled" : ""}
+            aria-label="Option ${escapeHtml(opt.id)}"
           >
             ${indicator}
             <span class="option__letter">${escapeHtml(opt.id)}</span>
@@ -751,9 +766,29 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
   }
 
   async function finishDrill() {
-    await persist();
-    const attempt = await submitSessionToAttempt({ session, questions });
-    location.hash = `#/results/${attempt.attemptId}`;
+    if (submitting) return; // double-submit guard
+    submitting = true;
+    const finishBtn = $("#pracFinishBtn", root);
+    if (finishBtn) {
+      finishBtn.disabled = true;
+      finishBtn.textContent = "Saving…";
+    }
+    try {
+      await persist();
+      const attempt = await submitSessionToAttempt({ session, questions });
+      location.hash = `#/results/${attempt.attemptId}`;
+    } catch (err) {
+      submitting = false;
+      if (finishBtn) {
+        finishBtn.disabled = false;
+        finishBtn.textContent = "Finish & Score";
+      }
+      showToast(
+        err?.name === "StorageQuotaError"
+          ? "Storage quota exceeded — finish again after freeing space."
+          : "Could not save this attempt — your answers are preserved; try again."
+      );
+    }
   }
 
   $("#pracFinishBtn", root).addEventListener("click", finishDrill);

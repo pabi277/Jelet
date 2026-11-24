@@ -36,6 +36,22 @@ Read these documents in order before writing a single line of code:
 
 ---
 
+## Running & Deploying
+
+The app is a **zero-build, 100% static, installable offline PWA**. Preview it
+locally with:
+
+```bash
+python3 -m http.server 8000   # then open http://localhost:8000/
+```
+
+It deploys to **any static host** (GitHub Pages, Netlify, Vercel, Cloudflare
+Pages, S3, Termux) — see **[`DEPLOY.md`](./DEPLOY.md)** for per-host steps,
+the hash-routing subpath note, and the installable-PWA / Service Worker
+requirements.
+
+---
+
 ## Planned Repository Structure (When Code Starts in Phase 01)
 
 ```text
