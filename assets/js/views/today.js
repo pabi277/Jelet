@@ -12,13 +12,25 @@
 import {
   loadManifest,
   loadAllPapers,
+  loadUnit,
   getQuestionIndex,
 } from "../core/data-loader.js";
 import { escapeHtml } from "../core/math.js";
 import { formatTwelfths, SUBJECT_META, isVoidedQuestion } from "../core/scoring.js";
-import { computeHubSnapshot, createSession } from "../core/stats.js";
+import {
+  computeHubSnapshot,
+  createSession,
+  WEAK_AREA_MIN_ATTEMPTS,
+} from "../core/stats.js";
 import { getMeta, setMeta } from "../db/indexeddb.js";
-import { $, el, icon, formatDurationClock, showToast } from "../core/ui.js";
+import {
+  $,
+  el,
+  icon,
+  formatDurationClock,
+  showToast,
+  subjectBadgeHtml,
+} from "../core/ui.js";
 
 const POMODORO_FULL_SEC = 25 * 60;
 const SUBJECT_ICONS = {
@@ -50,6 +62,7 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
     totalOfficialPyqs,
     mockBestTwelfths,
     dueMistakes,
+    weakAreas,
     subjectStats,
     roadmapUnit,
   } = snapshot;
@@ -213,6 +226,15 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
         ${icon("icon-chevron")}
       </button>
 
+      <!-- Weak Areas & Per-Subject / Per-Unit Accuracy Breakdown (Phase 07 · Slice 1) -->
+      <section class="stack-xs" id="todayWeakAreasSection" aria-label="Weak areas and accuracy breakdown">
+        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+          <h3 class="section-heading">Weak Areas</h3>
+          <span class="pill">Min ${WEAK_AREA_MIN_ATTEMPTS} attempts · Worst first</span>
+        </div>
+        <div id="todayWeakAreasSlot" class="stack-s"></div>
+      </section>
+
       <!-- 2x2 Subject Mastery Grid (07-today-dashboard.png & 08-modern-web-dashboard.png) -->
       <section class="stack-xs" aria-label="Your subjects">
         <div class="row-between">
@@ -226,6 +248,201 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
 
   main.innerHTML = "";
   main.appendChild(root);
+
+  // Populate Weak Areas & Accuracy Breakdown (strictly local attempt data, N>=3)
+  function accuracyTone(pct) {
+    if (pct < 50) return "wrong";
+    if (pct < 75) return "partial";
+    return "correct";
+  }
+
+  async function launchUnitDrill(unitId) {
+    const [unit, qIndex] = await Promise.all([loadUnit(unitId), getQuestionIndex()]);
+    const idPool =
+      unit.practiceQuestions && unit.practiceQuestions.length
+        ? unit.practiceQuestions
+        : unit.pyqIds || [];
+    const qs = idPool
+      .map((id) => qIndex.get(id))
+      .filter((q) => q && !isVoidedQuestion(q));
+    if (!qs.length) {
+      showToast(`No active PYQs mapped to ${unit.unitId} — opening unit notes.`);
+      location.hash = `#/learn/${encodeURIComponent(unit.unitId)}`;
+      return;
+    }
+    const sess = await createSession({
+      kind: "drill",
+      mode: "independent",
+      title: `Weak-Area Drill · ${unit.unitId} ${unit.title}`,
+      questions: qs,
+    });
+    location.hash = `#/practice-run/${sess.sessionId}`;
+  }
+
+  async function launchDaily10Sprint() {
+    const papers = await loadAllPapers();
+    const allActive = papers
+      .flatMap((p) => p.questions)
+      .filter((q) => !isVoidedQuestion(q));
+
+    const quotas = [
+      ["MATH", 4],
+      ["PHYS", 3],
+      ["CHEM", 2],
+      ["FEEE", 1],
+    ];
+    const picked = [];
+    // Deterministic daily seed from local date so Daily 10-Q feels cohesive yet balanced
+    const daySeed = Math.floor(Date.now() / (24 * 60 * 60 * 1000));
+    for (const [sid, count] of quotas) {
+      const pool = allActive.filter((q) => q.subjectId === sid);
+      for (let i = 0; i < count && pool.length > 0; i++) {
+        const idx = (daySeed * 7 + i * 13) % pool.length;
+        picked.push(pool[idx]);
+      }
+    }
+    const sess = await createSession({
+      kind: "daily10",
+      mode: "independent",
+      title: "Daily 10-Q JELET Weighted Sprint",
+      questions: picked,
+    });
+    location.hash = `#/practice-run/${sess.sessionId}`;
+  }
+
+  const weakSlot = $("#todayWeakAreasSlot", root);
+  if (!weakAreas.hasEnoughData) {
+    const emptyCard = el(`
+      <div class="card card--subtle stack-s" id="weakAreasEmptyState">
+        <div class="cluster-xs">
+          ${icon("icon-practice")}
+          <strong>Practice to generate insights</strong>
+        </div>
+        <p class="card__meta">
+          Solve at least ${WEAK_AREA_MIN_ATTEMPTS} independent questions in a unit or subject to surface your weakest topics with real accuracy numbers (${weakAreas.totalAttempts} independent attempt${weakAreas.totalAttempts === 1 ? "" : "s"} recorded so far).
+        </p>
+        <div class="cluster-xs">
+          <button type="button" class="btn btn--primary btn--sm" id="weakAreasStartDailyBtn">
+            ${icon("icon-bolt")} Start Daily 10-Q
+          </button>
+          <a href="#/practice" class="btn btn--ghost btn--sm" style="text-decoration:none">Topic Drill</a>
+        </div>
+      </div>
+    `);
+    $("#weakAreasStartDailyBtn", emptyCard).addEventListener("click", launchDaily10Sprint);
+    weakSlot.appendChild(emptyCard);
+  } else {
+    if (weakAreas.topWeakUnits.length > 0) {
+      const topCard = el(`
+        <div class="card stack-s" id="weakAreasTopCard">
+          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+            <div>
+              <strong class="card__title" style="display:block;margin:0">Top Focus Units</strong>
+              <p class="card__meta">Lowest independent accuracy across units with ≥${WEAK_AREA_MIN_ATTEMPTS} attempts</p>
+            </div>
+          </div>
+          <div class="stack-xs" id="weakTopUnitsList"></div>
+        </div>
+      `);
+      const topList = $("#weakTopUnitsList", topCard);
+      for (const u of weakAreas.topWeakUnits) {
+        const tone = accuracyTone(u.accuracyPct);
+        const item = el(`
+          <div class="weak-area-row">
+            <div class="weak-area-row__info">
+              <div class="cluster-xs">
+                <span class="mono unit-code-chip">${escapeHtml(u.unitId)}</span>
+                ${subjectBadgeHtml(u.subjectId)}
+                <span class="badge badge--${tone} mono">${u.accuracyPct}%</span>
+              </div>
+              <strong class="weak-area-row__title">${escapeHtml(u.title)}</strong>
+              <span class="card__meta mono">${u.correct}/${u.attempts} correct · ${u.questionsAttempted} Q${u.questionsAttempted === 1 ? "" : "s"} attempted</span>
+            </div>
+            <button type="button" class="btn btn--primary btn--sm js-drill-weak-unit" data-unit="${escapeHtml(u.unitId)}">
+              ${icon("icon-play")} Drill this
+            </button>
+          </div>
+        `);
+        $(".js-drill-weak-unit", item).addEventListener("click", () => launchUnitDrill(u.unitId));
+        topList.appendChild(item);
+      }
+      weakSlot.appendChild(topCard);
+    } else {
+      weakSlot.appendChild(
+        el(`
+          <div class="card card--subtle">
+            <p class="card__meta">Subject accuracy is unlocked below. Answer ≥${WEAK_AREA_MIN_ATTEMPTS} questions within any single syllabus unit to pin your top 3 weak units for 1-tap drills.</p>
+          </div>
+        `)
+      );
+    }
+
+    // Per-Subject and Per-Unit Accuracy Breakdown (sorted worst-first)
+    const breakdownCard = el(`
+      <div class="card stack-s" id="weakAreasBreakdownCard">
+        ${
+          weakAreas.subjects.length > 0
+            ? `
+          <div class="stack-xs">
+            <strong style="font-size:var(--fs-body)">Subject Accuracy (Worst First)</strong>
+            <div class="stack-xs" id="weakSubjectBreakdownList">
+              ${weakAreas.subjects
+                .map((s) => {
+                  const sMeta = SUBJECT_META[s.subjectId] || { shortName: s.subjectId };
+                  const tone = accuracyTone(s.accuracyPct);
+                  return `
+                    <div class="accuracy-breakdown-row">
+                      <div class="row-between" style="flex-wrap:wrap;gap:var(--space-2xs)">
+                        <span class="cluster-xs">
+                          ${subjectBadgeHtml(s.subjectId)}
+                          <span class="card__meta mono">${s.correct}/${s.attempts} correct</span>
+                        </span>
+                        <span class="badge badge--${tone} mono">${s.accuracyPct}%</span>
+                      </div>
+                      <div class="meter"><div class="meter__fill today-subj-fill" data-subject="${escapeHtml(s.subjectId)}" style="width:${s.accuracyPct}%"></div></div>
+                    </div>
+                  `;
+                })
+                .join("")}
+            </div>
+          </div>`
+            : ""
+        }
+        ${
+          weakAreas.units.length > 0
+            ? `
+          <details class="tiebreak-details" ${weakAreas.units.length <= 4 ? "open" : ""}>
+            <summary>Per-Unit Accuracy Breakdown (${weakAreas.units.length} unit${weakAreas.units.length === 1 ? "" : "s"} with ≥${WEAK_AREA_MIN_ATTEMPTS} attempts)</summary>
+            <div class="stack-xs" style="margin-top:var(--space-s)" id="weakUnitBreakdownList"></div>
+          </details>`
+            : ""
+        }
+      </div>
+    `);
+
+    const unitBreakdownList = $("#weakUnitBreakdownList", breakdownCard);
+    if (unitBreakdownList) {
+      for (const u of weakAreas.units) {
+        const tone = accuracyTone(u.accuracyPct);
+        const row = el(`
+          <div class="weak-unit-breakdown-item">
+            <div class="weak-unit-breakdown-item__main">
+              <span class="mono unit-code-chip">${escapeHtml(u.unitId)}</span>
+              <span class="weak-unit-breakdown-item__title">${escapeHtml(u.title)}</span>
+            </div>
+            <div class="cluster-xs">
+              <span class="card__meta mono">${u.correct}/${u.attempts}</span>
+              <span class="badge badge--${tone} mono">${u.accuracyPct}%</span>
+              <button type="button" class="btn btn--ghost btn--sm js-breakdown-drill-btn" data-unit="${escapeHtml(u.unitId)}">Drill</button>
+            </div>
+          </div>
+        `);
+        $(".js-breakdown-drill-btn", row).addEventListener("click", () => launchUnitDrill(u.unitId));
+        unitBreakdownList.appendChild(row);
+      }
+    }
+    weakSlot.appendChild(breakdownCard);
+  }
 
   // Populate 2x2 Subject Cards
   const subjGrid = $("#todaySubjectsGrid", root);
@@ -273,36 +490,7 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
   });
 
   // Quick Action: Daily 10-Q (balanced 4 Maths + 3 Physics + 2 Chem + 1 FEEE PYQ sampler)
-  $("#qaDaily10Btn", root).addEventListener("click", async () => {
-    const papers = await loadAllPapers();
-    const allActive = papers
-      .flatMap((p) => p.questions)
-      .filter((q) => !isVoidedQuestion(q));
-
-    const quotas = [
-      ["MATH", 4],
-      ["PHYS", 3],
-      ["CHEM", 2],
-      ["FEEE", 1],
-    ];
-    const picked = [];
-    // Deterministic daily seed from local date so Daily 10-Q feels cohesive yet balanced
-    const daySeed = Math.floor(Date.now() / (24 * 60 * 60 * 1000));
-    for (const [sid, count] of quotas) {
-      const pool = allActive.filter((q) => q.subjectId === sid);
-      for (let i = 0; i < count && pool.length > 0; i++) {
-        const idx = (daySeed * 7 + i * 13) % pool.length;
-        picked.push(pool[idx]);
-      }
-    }
-    const sess = await createSession({
-      kind: "daily10",
-      mode: "independent",
-      title: "Daily 10-Q JELET Weighted Sprint",
-      questions: picked,
-    });
-    location.hash = `#/practice-run/${sess.sessionId}`;
-  });
+  $("#qaDaily10Btn", root).addEventListener("click", launchDaily10Sprint);
 
   // Mistake Queue Strip action
   $("#todayMistakeBtn", root).addEventListener("click", async () => {

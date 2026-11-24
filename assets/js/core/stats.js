@@ -15,6 +15,9 @@ import { scoreAttempt, MAX_PAPER_TWELFTHS } from "./scoring.js";
 const DAY_MS = 24 * 60 * 60 * 1000;
 const LEITNER_INTERVAL_DAYS = [0, 1, 3, 7, 14];
 
+export const WEAK_AREA_MIN_ATTEMPTS = 3;
+export const WEAK_AREA_TOP_K = 3;
+
 function localDateKey(isoOrMs) {
   const d = new Date(isoOrMs);
   if (Number.isNaN(d.getTime())) return null;
@@ -312,6 +315,120 @@ export async function savePersonalNote(targetId, type = "question", noteText = "
 }
 
 /* ------------------------------------------------------------------ *
+ * Weak-Area Detection (Phase 07 · Slice 1)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Aggregate per-unit and per-subject accuracy from real independent `questionStats`.
+ * Only surfaces units/subjects with at least `minAttempts` (default 3) attempts,
+ * sorted worst-first (lowest accuracy ratio, then most mistakes, then canonical ID).
+ */
+export function computeWeakAreas(
+  questionStats = [],
+  manifestUnits = [],
+  { minAttempts = WEAK_AREA_MIN_ATTEMPTS, topK = WEAK_AREA_TOP_K } = {}
+) {
+  const unitMetaMap = new Map();
+  for (const u of manifestUnits || []) {
+    if (u && u.unitId) unitMetaMap.set(u.unitId, u);
+  }
+
+  const unitBuckets = new Map();
+  const subjectBuckets = new Map();
+  for (const sid of ["MATH", "PHYS", "CHEM", "FEEE"]) {
+    subjectBuckets.set(sid, {
+      subjectId: sid,
+      attempts: 0,
+      correct: 0,
+      mistakes: 0,
+      questionsAttempted: 0,
+    });
+  }
+
+  let totalAttempts = 0;
+
+  for (const rec of questionStats || []) {
+    if (!rec) continue;
+    const att = Number(rec.attemptsCount) || 0;
+    if (att <= 0) continue;
+    const corr = Math.min(att, Math.max(0, Number(rec.correctCount) || 0));
+    const mist = Math.max(0, Number(rec.mistakeCount) || 0);
+    totalAttempts += att;
+
+    if (rec.unitId) {
+      const meta = unitMetaMap.get(rec.unitId);
+      let uBucket = unitBuckets.get(rec.unitId);
+      if (!uBucket) {
+        uBucket = {
+          unitId: rec.unitId,
+          subjectId: rec.subjectId || meta?.subjectId || "",
+          officialCode: meta?.officialCode || rec.unitId,
+          title: meta?.title || rec.unitId,
+          attempts: 0,
+          correct: 0,
+          mistakes: 0,
+          questionsAttempted: 0,
+        };
+        unitBuckets.set(rec.unitId, uBucket);
+      }
+      uBucket.attempts += att;
+      uBucket.correct += corr;
+      uBucket.mistakes += mist;
+      uBucket.questionsAttempted += 1;
+    }
+
+    const sid = rec.subjectId || unitMetaMap.get(rec.unitId)?.subjectId;
+    if (sid && subjectBuckets.has(sid)) {
+      const sBucket = subjectBuckets.get(sid);
+      sBucket.attempts += att;
+      sBucket.correct += corr;
+      sBucket.mistakes += mist;
+      sBucket.questionsAttempted += 1;
+    }
+  }
+
+  const finalize = (bucket) => ({
+    ...bucket,
+    accuracyRatio: bucket.attempts > 0 ? bucket.correct / bucket.attempts : null,
+    accuracyPct: bucket.attempts > 0 ? Math.round((bucket.correct * 100) / bucket.attempts) : null,
+  });
+
+  const worstFirstUnitSort = (a, b) =>
+    a.accuracyRatio - b.accuracyRatio ||
+    b.mistakes - a.mistakes ||
+    b.attempts - a.attempts ||
+    String(a.unitId).localeCompare(String(b.unitId));
+
+  const worstFirstSubjectSort = (a, b) =>
+    a.accuracyRatio - b.accuracyRatio ||
+    b.mistakes - a.mistakes ||
+    b.attempts - a.attempts ||
+    String(a.subjectId).localeCompare(String(b.subjectId));
+
+  const units = [...unitBuckets.values()]
+    .filter((u) => u.attempts >= minAttempts)
+    .map(finalize)
+    .sort(worstFirstUnitSort);
+
+  const subjects = [...subjectBuckets.values()]
+    .filter((s) => s.attempts >= minAttempts)
+    .map(finalize)
+    .sort(worstFirstSubjectSort);
+
+  const topWeakUnits = units.slice(0, Math.max(0, topK));
+
+  return {
+    minAttempts,
+    topK,
+    totalAttempts,
+    hasEnoughData: units.length > 0 || subjects.length > 0,
+    topWeakUnits,
+    units,
+    subjects,
+  };
+}
+
+/* ------------------------------------------------------------------ *
  * Aggregated Honest Dashboard & Subject Snapshot
  * ------------------------------------------------------------------ */
 export async function computeHubSnapshot(manifest) {
@@ -417,11 +534,14 @@ export async function computeHubSnapshot(manifest) {
     .filter((u) => u.lastVisitedAt || u.updatedAt)
     .sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
 
+  const weakAreas = computeWeakAreas(qStats, manifestUnits);
+
   return {
     meta,
     activeSession: sessions[0] || null,
     activeSessions: sessions,
     attempts,
+    questionStats: qStats,
     streakDays,
     officialPyqsPracticed,
     totalOfficialPyqs,
@@ -429,6 +549,7 @@ export async function computeHubSnapshot(manifest) {
     mockBestTwelfths,
     paperBestMap,
     dueMistakes,
+    weakAreas,
     subjectStats,
     unitMap,
     roadmapUnit,
