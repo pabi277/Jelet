@@ -239,6 +239,11 @@
     padding-right: var(--space-2xl);
   }
 
+  .topbar {
+    padding-left: calc(var(--icon-rail-w) + var(--space-xl));
+    padding-right: var(--space-2xl);
+  }
+
   /* Bottom sheets become right slide-over drawers on tablet */
   .bottom-sheet {
     left: auto;
@@ -285,6 +290,27 @@
     padding-right: var(--space-3xl);
   }
 
+  .topbar {
+    padding-left: calc(var(--rail-w) + var(--space-2xl));
+    padding-right: var(--space-3xl);
+  }
+
+  .bottom-nav__brand {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-s) var(--space-m) var(--space-m);
+    margin-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .bottom-nav__tab {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--space-s);
+    padding: var(--space-s) var(--space-m);
+    width: 100%;
+  }
+
   /* Desktop: bottom sheets dock as a right panel */
   .bottom-sheet {
     left: auto;
@@ -311,3 +337,46 @@
     transition: none;
   }
 }
+
+/* Brand header inside nav rail (hidden on phone/tablet, shown on desktop >=1024px) */
+.bottom-nav__brand {
+  display: none;
+}
+.bottom-nav__brand-title {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  color: var(--brand-primary);
+}
+.bottom-nav__brand-sub {
+  font-size: var(--fs-micro);
+  color: var(--text-secondary);
+}
+
+/* Immersive modes: Live Exam (09, 11) and Phone Deep Lesson (05) */
+.app-shell[data-immersive="exam"] .topbar,
+.app-shell[data-immersive="exam"] .bottom-nav {
+  display: none;
+}
+.app-shell[data-immersive="exam"] .app-main {
+  padding: 0;
+  max-width: none;
+}
+
+.app-shell[data-immersive="lesson"] .topbar,
+.app-shell[data-immersive="lesson"] .bottom-nav {
+  display: none;
+}
+.app-shell[data-immersive="lesson"] .app-main {
+  padding-top: 0;
+  padding-bottom: calc(var(--bottom-nav-h) + var(--space-2xl) + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  .app-shell[data-immersive="lesson"] .topbar,
+  .app-shell[data-immersive="lesson"] .bottom-nav {
+    display: flex;
+  }
+  .app-shell[data-immersive="lesson"] .app-main {
+    padding-top: var(--space-m);
+  }
+}
+
