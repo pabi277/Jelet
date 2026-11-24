@@ -311,6 +311,7 @@
  * SVG figure frame (tap-to-zoom, currentColor-adaptive)
  * ------------------------------------------------------------------ */
 .figure-frame {
+  position: relative;
   max-width: 100%;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-m);
@@ -323,7 +324,78 @@
   width: 100%;
   height: auto;
   max-width: 100%;
+  color: var(--fig-text);
+  stroke: none;
+}
+.figure-frame--compact svg {
+  max-height: 150px;
+  width: auto;
+  margin: 0 auto;
+}
+.figure-frame__loading {
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+  text-align: center;
+  padding: var(--space-m);
+}
+.figure-frame__zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-xs);
+  padding: var(--space-2xs) var(--space-s);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface-subtle);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+}
+.figure-frame__zoom-btn svg {
+  width: 14px;
+  height: 14px;
   stroke: currentColor;
+}
+.figure-zoom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-toast);
+  display: none;
+  flex-direction: column;
+  background: var(--bg-canvas);
+  padding: env(safe-area-inset-top) var(--space-m) env(safe-area-inset-bottom);
+}
+.figure-zoom-modal.is-open {
+  display: flex;
+}
+.figure-zoom-modal__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding: var(--space-s) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.figure-zoom-modal__caption {
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+  flex: 1;
+}
+.figure-zoom-modal__stage {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-m);
+}
+.figure-zoom-modal__stage svg {
+  width: 100%;
+  max-width: 780px;
+  height: auto;
+  color: var(--fig-text);
 }
 
 /* ------------------------------------------------------------------ *
