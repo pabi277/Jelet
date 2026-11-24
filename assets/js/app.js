@@ -14,6 +14,7 @@ import { renderLiveExam, renderPrintableOmr } from "./views/exam.js";
 import { renderPracticeArena, renderPracticeRunner } from "./views/practice.js";
 import { renderResultsView } from "./views/results.js";
 import { renderLearnExplorer, renderUnitLesson, renderFormulaSheet } from "./views/learn.js";
+import { renderTodayDashboard } from "./views/today.js";
 
 /* ------------------------------------------------------------------ *
  * Route table — five global destinations only (no audit clutter)
@@ -271,7 +272,8 @@ export async function render() {
     } else if (route.view === "formulas") {
       await renderFormulaSheet(main, { openAiTutor: openAiTutorContext });
     } else if (route.view === "today") {
-      renderTodayFallback(main);
+      const cleanup = await renderTodayDashboard(main, { openAiTutor: openAiTutorContext });
+      setViewCleanup(cleanup);
     } else {
       renderPlaceholder(main, route.view);
     }
