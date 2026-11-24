@@ -39,6 +39,7 @@ const SHELL_ASSETS = [
   "./assets/js/core/scoring.js",
   "./assets/js/core/data-loader.js",
   "./assets/js/core/stats.js",
+  "./assets/js/core/charts.js",
   "./assets/js/core/ui.js",
   "./assets/js/core/ai-vault.js",
   "./assets/js/db/indexeddb.js",

@@ -660,6 +660,89 @@ export function computeMockAnalytics(attempt, questions = [], questionTimes = {}
   };
 }
 
+/**
+ * Build the mock history view model from real submitted attempts.
+ * Only independent full 120-mark mocks count (never assisted drills).
+ * Returns newest-first list, oldest-first trend series (for sparklines) and
+ * honest personal bests (never faked — `null` when no mocks exist).
+ */
+export function computeMockHistory(attempts = []) {
+  const safeAttempts = Array.isArray(attempts) ? attempts : [];
+  const mocks = safeAttempts
+    .filter(
+      (a) =>
+        a &&
+        a.kind === "mock" &&
+        a.mode === "independent" &&
+        a.maxTwelfths === MAX_PAPER_TWELFTHS
+    )
+    .map((a) => {
+      const c = a.counts || {};
+      const attempted = (c.correct || 0) + (c.partial || 0) + (c.incorrect || 0);
+      const accuracyPct =
+        attempted > 0 ? Math.round(((c.correct || 0) * 100) / attempted) : 0;
+      return {
+        attemptId: a.attemptId,
+        submittedAt: a.submittedAt,
+        paperId: a.paperId || null,
+        title: a.title || "Timed Mock",
+        totalTwelfths: a.totalTwelfths,
+        maxTwelfths: a.maxTwelfths,
+        scoreMarks: a.totalTwelfths / 12,
+        scorePct:
+          a.maxTwelfths > 0
+            ? Math.max(0, Math.round((a.totalTwelfths * 100) / a.maxTwelfths))
+            : 0,
+        accuracyPct,
+        elapsedMs: Number.isFinite(Number(a.elapsedMs)) ? Number(a.elapsedMs) : null,
+        durationMs: Number.isFinite(Number(a.durationMs)) ? Number(a.durationMs) : null,
+        counts: c,
+        hasAnalytics: Boolean(a.analytics),
+      };
+    })
+    .sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
+
+  const orderedOldestFirst = [...mocks].sort((a, b) =>
+    String(a.submittedAt).localeCompare(String(b.submittedAt))
+  );
+
+  const trends = {
+    score: orderedOldestFirst.map((m) => m.scoreMarks),
+    accuracy: orderedOldestFirst.map((m) => m.accuracyPct),
+    timeMs: orderedOldestFirst
+      .filter((m) => m.elapsedMs != null)
+      .map((m) => m.elapsedMs),
+  };
+
+  let bests = {
+    bestScore: null,
+    bestAccuracy: null,
+    fastestTime: null,
+  };
+  if (mocks.length) {
+    const byScore = [...mocks].sort((a, b) => b.totalTwelfths - a.totalTwelfths)[0];
+    const byAcc = [...mocks].sort((a, b) => b.accuracyPct - a.accuracyPct)[0];
+    const timed = mocks.filter((m) => m.elapsedMs != null);
+    const byTime = timed.length
+      ? [...timed].sort((a, b) => a.elapsedMs - b.elapsedMs)[0]
+      : null;
+    bests = {
+      bestScore: byScore,
+      bestAccuracy: byAcc,
+      fastestTime: byTime,
+    };
+  }
+
+  return {
+    count: mocks.length,
+    mocks,
+    orderedOldestFirst,
+    trends,
+    bests,
+    empty: mocks.length === 0,
+  };
+}
+
 export async function getAttempt(attemptId) {
   return db.get("attempts", attemptId);
 }
@@ -1119,6 +1202,9 @@ export async function computeHubSnapshot(manifest) {
     ? Math.max(...fullIndepMocks.map((a) => a.totalTwelfths))
     : null;
 
+  // Mock history view model (trend lines + personal bests)
+  const mockHistory = computeMockHistory(attempts);
+
   // Paper best scores map (paperId -> best attempt)
   const paperBestMap = new Map();
   for (const a of attempts) {
@@ -1199,6 +1285,7 @@ export async function computeHubSnapshot(manifest) {
     totalOfficialPyqs,
     independentAccuracy,
     mockBestTwelfths,
+    mockHistory,
     paperBestMap,
     dueMistakes,
     mistakeQueue,

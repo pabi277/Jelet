@@ -16,6 +16,7 @@ import {
   formatTwelfths,
 } from "../core/scoring.js";
 import { computeHubSnapshot } from "../core/stats.js";
+import { sparklineSvg } from "../core/charts.js";
 import {
   AI_PROVIDERS,
   readAiVault,
@@ -32,7 +33,7 @@ import {
   verifyEnvelope,
   importBackup,
 } from "../db/backup.js";
-import { $, el, icon, showToast } from "../core/ui.js";
+import { $, el, icon, showToast, formatDurationClock } from "../core/ui.js";
 
 export async function renderYouHub(main, { onThemeToggle } = {}) {
   main.innerHTML = `<div class="view"><p class="view__placeholder">Loading local vault…</p></div>`;
@@ -83,6 +84,41 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
       : readiness.trend === "declining"
       ? "badge--partial"
       : "badge--brand";
+
+  // Mock history & trend view model (Phase 08)
+  const mockHistory = snapshot.mockHistory || {
+    count: 0,
+    mocks: [],
+    trends: { score: [], accuracy: [], timeMs: [] },
+    bests: { bestScore: null, bestAccuracy: null, fastestTime: null },
+    empty: true,
+  };
+  const mockBestIds = new Set(
+    [
+      mockHistory.bests.bestScore?.attemptId,
+      mockHistory.bests.bestAccuracy?.attemptId,
+      mockHistory.bests.fastestTime?.attemptId,
+    ].filter(Boolean)
+  );
+  const mockDate = (iso) => {
+    try {
+      return new Date(iso).toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+    } catch {
+      return "—";
+    }
+  };
+  const fmtMarks = (v) => (v == null ? "—" : formatTwelfths(v * 12));
+  const fmtPct = (v) => (v == null ? "—" : `${Math.round(v)}%`);
+  const scoreVals = mockHistory.trends.score || [];
+  const accVals = mockHistory.trends.accuracy || [];
+  const timeVals = mockHistory.trends.timeMs || [];
+  const latestScore = scoreVals.length ? scoreVals[scoreVals.length - 1] : null;
+  const latestAcc = accVals.length ? accVals[accVals.length - 1] : null;
+  const latestTime = timeVals.length ? timeVals[timeVals.length - 1] : null;
 
   const root = el(`
     <div class="view stack-m you-view">
@@ -148,6 +184,85 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
                 </div>
               </div>
             `
+        }
+      </section>
+
+      <!-- Mock History & Trends (Phase 08) -->
+      <section class="card stack-s" id="youMockHistorySection" aria-label="Mock history and trends">
+        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+          <div>
+            <h3 class="card__title" style="margin:0">Mock History</h3>
+            <p class="card__meta">Timed 100-Q / 120-mark / 2-hour mocks — score, accuracy &amp; completion-time trends</p>
+          </div>
+          <span class="pill mono">${mockHistory.count} mock${mockHistory.count === 1 ? "" : "s"}</span>
+        </div>
+
+        ${
+          mockHistory.empty
+            ? `
+          <div class="mock-history-empty" id="mockHistoryEmptyState">
+            <div class="cluster-xs">${icon("icon-timer")} <strong>No mocks yet</strong></div>
+            <p class="card__meta">Start a 2-hour timed mock from the Papers library to begin tracking your score, accuracy and completion-time trends.</p>
+            <a href="#/papers" class="btn btn--primary btn--sm" style="text-decoration:none">${icon("icon-papers")} Browse Papers</a>
+          </div>`
+            : `
+          <div class="mock-trends-grid">
+            <div class="mock-trend-card">
+              <div class="row-between"><strong style="font-size:var(--fs-body)">Score</strong><span class="card__meta mono">${fmtMarks(latestScore)} / 120</span></div>
+              ${sparklineSvg(scoreVals, { width: 150, height: 40, ariaLabel: "Score over time" })}
+              <span class="card__meta mono">Best ${fmtMarks(mockHistory.bests.bestScore?.scoreMarks)} / 120</span>
+            </div>
+            <div class="mock-trend-card">
+              <div class="row-between"><strong style="font-size:var(--fs-body)">Accuracy</strong><span class="card__meta mono">${fmtPct(latestAcc)}</span></div>
+              ${sparklineSvg(accVals, { width: 150, height: 40, stroke: "var(--fig-secondary)", fill: "var(--fig-secondary)", ariaLabel: "Accuracy over time" })}
+              <span class="card__meta mono">Best ${mockHistory.bests.bestAccuracy ? mockHistory.bests.bestAccuracy.accuracyPct + "%" : "—"}</span>
+            </div>
+            <div class="mock-trend-card">
+              <div class="row-between"><strong style="font-size:var(--fs-body)">Time taken</strong><span class="card__meta mono">${latestTime != null ? formatDurationClock(latestTime) : "—"}</span></div>
+              ${sparklineSvg(timeVals, { width: 150, height: 40, stroke: "var(--fig-accent)", fill: "var(--fig-accent)", ariaLabel: "Completion time over time" })}
+              <span class="card__meta mono">Fastest ${mockHistory.bests.fastestTime ? formatDurationClock(mockHistory.bests.fastestTime.elapsedMs) : "—"}</span>
+            </div>
+          </div>
+
+          <div class="mock-bests-grid">
+            <div class="mock-best-tile">
+              <span class="card__meta">${icon("icon-trophy")} Best Score</span>
+              <strong class="mono">${mockHistory.bests.bestScore ? fmtMarks(mockHistory.bests.bestScore.scoreMarks) + " / 120" : "—"}</strong>
+              <span class="card__meta">${mockHistory.bests.bestScore ? mockDate(mockHistory.bests.bestScore.submittedAt) : "—"}</span>
+            </div>
+            <div class="mock-best-tile">
+              <span class="card__meta">${icon("icon-check")} Best Accuracy</span>
+              <strong class="mono">${mockHistory.bests.bestAccuracy ? mockHistory.bests.bestAccuracy.accuracyPct + "%" : "—"}</strong>
+              <span class="card__meta">${mockHistory.bests.bestAccuracy ? mockDate(mockHistory.bests.bestAccuracy.submittedAt) : "—"}</span>
+            </div>
+            <div class="mock-best-tile">
+              <span class="card__meta">${icon("icon-timer")} Fastest Completion</span>
+              <strong class="mono">${mockHistory.bests.fastestTime ? formatDurationClock(mockHistory.bests.fastestTime.elapsedMs) : "—"}</strong>
+              <span class="card__meta">${mockHistory.bests.fastestTime ? mockDate(mockHistory.bests.fastestTime.submittedAt) : "—"}</span>
+            </div>
+          </div>
+
+          <div class="stack-xs">
+            ${mockHistory.mocks
+              .map(
+                (m) => `
+            <a class="mock-history-item" href="#/results/${escapeHtml(m.attemptId)}">
+              <div class="row-between">
+                <div class="cluster-xs">
+                  ${mockBestIds.has(m.attemptId) ? `<span class="badge badge--correct">${icon("icon-trophy")} PB</span>` : ""}
+                  <strong class="mono">${fmtMarks(m.scoreMarks)} / 120</strong>
+                  <span class="badge ${m.accuracyPct >= 75 ? "badge--correct" : m.accuracyPct >= 50 ? "badge--partial" : "badge--wrong"} mono">${m.accuracyPct}%</span>
+                </div>
+                <span class="card__meta mono">${escapeHtml(mockDate(m.submittedAt))}</span>
+              </div>
+              <div class="row-between" style="margin-top:var(--space-2xs)">
+                <span class="card__meta">${escapeHtml(m.title)}</span>
+                <span class="card__meta mono">${m.elapsedMs != null ? formatDurationClock(m.elapsedMs) : "—"} / ${m.durationMs != null ? formatDurationClock(m.durationMs) : "—"}</span>
+              </div>
+            </a>`
+              )
+              .join("")}
+          </div>`
         }
       </section>
 

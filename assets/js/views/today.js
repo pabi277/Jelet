@@ -16,6 +16,7 @@ import {
   getQuestionIndex,
 } from "../core/data-loader.js";
 import { escapeHtml } from "../core/math.js";
+import { sparklineSvg } from "../core/charts.js";
 import { formatTwelfths, SUBJECT_META, isVoidedQuestion } from "../core/scoring.js";
 import {
   computeHubSnapshot,
@@ -65,6 +66,7 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
     officialPyqsPracticed,
     totalOfficialPyqs,
     mockBestTwelfths,
+    mockHistory,
     dueMistakes,
     mistakeQueue,
     weakAreas,
@@ -154,6 +156,30 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
           <div class="stat-tile__label">${icon("icon-refresh")} Mistake Queue</div>
           <div class="stat-tile__value">${dueMistakes.length} Due</div>
         </div>
+      </section>
+
+      <!-- Mock History Summary (Phase 08) -->
+      <section class="card stack-s" id="todayMockHistoryCard" aria-label="Mock history summary">
+        <div class="row-between">
+          <h3 class="section-heading" style="margin:0">Mock History</h3>
+          <a href="#/you" class="card__meta" style="text-decoration:none">All mocks ›</a>
+        </div>
+        ${
+          mockHistory.empty
+            ? `<p class="card__meta" style="margin:0">No timed mocks yet — start a 2-hour mock from Papers to track score, accuracy &amp; completion-time trends.</p>`
+            : `
+          <div class="today-mock-summary stack-xs">
+            <div class="row-between">
+              <span class="card__meta">Best score</span>
+              <strong class="mono">${mockHistory.bests.bestScore ? formatTwelfths(mockHistory.bests.bestScore.totalTwelfths) + " / 120" : "—"}</strong>
+            </div>
+            ${sparklineSvg(mockHistory.trends.score, { width: 240, height: 40, ariaLabel: "Mock score trend" })}
+            <div class="row-between">
+              <span class="card__meta">Mocks taken</span>
+              <strong class="mono">${mockHistory.count}</strong>
+            </div>
+          </div>`
+        }
       </section>
 
       <!-- Emerald-Teal Focus Hero Card (07-today-dashboard.png & 08-modern-web-dashboard.png) -->
