@@ -251,7 +251,7 @@ function buildNav(navRoot) {
   );
   for (const r of ROUTES) {
     const btn = el(`
-      <button class="bottom-nav__tab" type="button" data-route="${r.id}">
+      <button class="bottom-nav__tab" type="button" data-route="${r.id}" aria-label="${r.label} section">
         ${icon(r.icon)}<span>${r.label}</span>
       </button>
     `);

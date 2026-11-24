@@ -614,6 +614,7 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
             data-selected="${isSel}"
             ${feedbackAttr}
             ${isRevealed ? "disabled" : ""}
+            aria-label="Option ${escapeHtml(opt.id)}"
           >
             ${indicator}
             <span class="option__letter">${escapeHtml(opt.id)}</span>

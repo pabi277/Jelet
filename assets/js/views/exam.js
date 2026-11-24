@@ -249,8 +249,16 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
     gridEl.innerHTML = "";
     questions.forEach((q, idx) => {
       const st = cellStateFor(q);
+      const stateText =
+        st === "answered-review"
+          ? "answered, marked for review"
+          : st === "review"
+          ? "marked for review"
+          : st === "answered"
+          ? "answered"
+          : "not answered";
       const cell = el(
-        `<button class="omr-cell ${idx === currentIndex ? "is-current" : ""}" type="button" data-q="${idx + 1}" ${st !== "unvisited" ? `data-state="${st}"` : ""}>${q.qNumber || idx + 1}</button>`
+        `<button class="omr-cell ${idx === currentIndex ? "is-current" : ""}" type="button" data-q="${idx + 1}" ${st !== "unvisited" ? `data-state="${st}"` : ""} aria-label="Question ${q.qNumber || idx + 1}, ${stateText}">${q.qNumber || idx + 1}</button>`
       );
       cell.addEventListener("click", () => {
         currentIndex = idx;
