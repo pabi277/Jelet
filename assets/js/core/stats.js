@@ -849,7 +849,11 @@ export async function savePersonalNote(targetId, type = "question", noteText = "
 export function computeWeakAreas(
   questionStats = [],
   manifestUnits = [],
-  { minAttempts = WEAK_AREA_MIN_ATTEMPTS, topK = WEAK_AREA_TOP_K } = {}
+  {
+    minAttempts = WEAK_AREA_MIN_ATTEMPTS,
+    topK = WEAK_AREA_TOP_K,
+    mockAttempts = [],
+  } = {}
 ) {
   const unitMetaMap = new Map();
   for (const u of manifestUnits || []) {
@@ -940,14 +944,71 @@ export function computeWeakAreas(
 
   const topWeakUnits = units.slice(0, Math.max(0, topK));
 
+  // Phase 08: fold the mock analytics blob (per-item outcomes) into weak-area
+  // detection as an additive, non-double-counting signal. Mock items already
+  // update `questionStats`; this additionally surfaces mock-only per-unit
+  // accuracy so mock performance refines weak areas beyond practice drills.
+  const mockUnitBuckets = new Map();
+  for (const a of mockAttempts || []) {
+    if (!a || a.kind !== "mock" || a.mode !== "independent") continue;
+    for (const item of a.items || []) {
+      if (!item || !item.unitId) continue;
+      if (item.outcome === "unattempted" || item.outcome === "voided_awarded") continue;
+      let u = mockUnitBuckets.get(item.unitId);
+      if (!u) {
+        u = {
+          unitId: item.unitId,
+          subjectId: item.subjectId || "",
+          attempts: 0,
+          correct: 0,
+          questionsAttempted: 0,
+        };
+        mockUnitBuckets.set(item.unitId, u);
+      }
+      u.attempts += 1;
+      if (item.outcome === "correct") u.correct += 1;
+      u.questionsAttempted += 1;
+    }
+  }
+
+  const mockUnits = [...mockUnitBuckets.values()]
+    .map((u) => ({
+      ...u,
+      title: unitMetaMap.get(u.unitId)?.title || u.unitId,
+      accuracyRatio: u.attempts > 0 ? u.correct / u.attempts : null,
+      accuracyPct: u.attempts > 0 ? Math.round((u.correct * 100) / u.attempts) : null,
+    }))
+    .sort(worstFirstUnitSort);
+  const mockWeakUnits = mockUnits
+    .filter((u) => u.attempts >= minAttempts)
+    .slice(0, Math.max(0, topK));
+
+  const unitsWithMock = units.map((u) => {
+    const m = mockUnitBuckets.get(u.unitId);
+    return m
+      ? {
+          ...u,
+          mockAttempts: m.attempts,
+          mockCorrect: m.correct,
+          mockAccuracyPct:
+            m.attempts > 0 ? Math.round((m.correct * 100) / m.attempts) : null,
+        }
+      : u;
+  });
+
   return {
     minAttempts,
     topK,
     totalAttempts,
+    mockTotalAttempts: mockUnitBuckets.size
+      ? [...mockUnitBuckets.values()].reduce((acc, u) => acc + u.attempts, 0)
+      : 0,
     hasEnoughData: units.length > 0 || subjects.length > 0,
     topWeakUnits,
-    units,
+    units: unitsWithMock,
     subjects,
+    mockUnits,
+    mockWeakUnits,
   };
 }
 
@@ -1265,7 +1326,7 @@ export async function computeHubSnapshot(manifest) {
     .filter((u) => u.lastVisitedAt || u.updatedAt)
     .sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
 
-  const weakAreas = computeWeakAreas(qStats, manifestUnits);
+  const weakAreas = computeWeakAreas(qStats, manifestUnits, { mockAttempts: attempts });
   const routingInfo = resolveDefaultRoutingStrategy(qStats);
   const readiness = computeReadinessEstimate({
     attempts,
@@ -1405,6 +1466,47 @@ export function computeReadinessEstimate({
     trendLabel = "Flat (1 session baseline)";
   }
 
+  // Mock performance integration (Phase 08): full 120-mark independent mocks
+  // feed the readiness snapshot so mock scores sit alongside the estimate.
+  const mockAttempts = safeAttempts
+    .filter(
+      (a) =>
+        a &&
+        a.kind === "mock" &&
+        a.mode === "independent" &&
+        a.maxTwelfths === MAX_PAPER_TWELFTHS
+    )
+    .slice()
+    .sort((a, b) => String(a.submittedAt || "").localeCompare(String(b.submittedAt || "")));
+  const mockCount = mockAttempts.length;
+  const mockBestTwelfths = mockCount
+    ? Math.max(...mockAttempts.map((a) => a.totalTwelfths))
+    : null;
+  const mockAccuracySeries = mockAttempts
+    .map((a) => {
+      const c = a.counts || {};
+      const answered = (c.correct || 0) + (c.partial || 0) + (c.incorrect || 0);
+      return answered > 0 ? Math.round(((c.correct || 0) * 100) / answered) : null;
+    })
+    .filter((v) => v != null);
+  const mockAvgAccuracyPct = mockAccuracySeries.length
+    ? Math.round(mockAccuracySeries.reduce((a, b) => a + b, 0) / mockAccuracySeries.length)
+    : null;
+  let mockTrend = "insufficient";
+  if (mockAccuracySeries.length >= 2) {
+    const split = Math.floor(mockAccuracySeries.length / 2);
+    const earlier = mockAccuracySeries.slice(0, split).reduce((a, b) => a + b, 0) / split;
+    const recent =
+      mockAccuracySeries.slice(split).reduce((a, b) => a + b, 0) /
+      (mockAccuracySeries.length - split);
+    const d = Math.round(recent - earlier);
+    if (d >= 5) mockTrend = "improving";
+    else if (d <= -5) mockTrend = "declining";
+    else mockTrend = "flat";
+  } else if (mockAccuracySeries.length === 1) {
+    mockTrend = "flat";
+  }
+
   const hasEnoughData = totalQuestionAttempts >= minAttempts;
 
   if (!hasEnoughData) {
@@ -1426,6 +1528,10 @@ export function computeReadinessEstimate({
       trend: "insufficient",
       trendDeltaPct: null,
       trendLabel: "Need more attempts",
+      mockCount,
+      mockBestTwelfths,
+      mockAvgAccuracyPct,
+      mockTrend,
     };
   }
 
@@ -1460,5 +1566,9 @@ export function computeReadinessEstimate({
     trend,
     trendDeltaPct,
     trendLabel,
+    mockCount,
+    mockBestTwelfths,
+    mockAvgAccuracyPct,
+    mockTrend,
   };
 }

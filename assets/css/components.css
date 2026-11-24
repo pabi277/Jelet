@@ -2457,6 +2457,20 @@
   font-size: var(--fs-h3);
   color: var(--fg-primary);
 }
+.readiness-mock-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-s);
+  padding: var(--space-s) var(--space-m);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--brand-primary);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+  font-size: var(--fs-caption);
+  color: var(--fg-secondary);
+}
 .readiness-empty {
   display: flex;
   flex-direction: column;

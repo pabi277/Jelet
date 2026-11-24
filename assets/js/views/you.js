@@ -169,6 +169,11 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
                   <span class="card__meta">Last independent sets</span>
                 </div>
               </div>
+              ${
+                readiness.mockCount
+                  ? `<div class="readiness-mock-line">${icon("icon-timer")} <strong>Mock performance:</strong> ${readiness.mockCount} timed mock${readiness.mockCount === 1 ? "" : "s"} · Best <strong class="mono">${readiness.mockBestTwelfths != null ? formatTwelfths(readiness.mockBestTwelfths) + " / 120" : "—"}</strong> · Avg accuracy <strong class="mono">${readiness.mockAvgAccuracyPct != null ? readiness.mockAvgAccuracyPct + "%" : "—"}</strong>${readiness.mockTrend !== "insufficient" ? ` · Mock trend ${escapeHtml(readiness.mockTrend)}` : ""}</div>`
+                  : ""
+              }
             `
             : `
               <div class="readiness-empty" id="readinessEmptyState">
