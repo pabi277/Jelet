@@ -402,108 +402,281 @@ def fig_2025_q46():
     body += mlabel(178, 198, "Time", 12, anchor="start")
     return svg_plain(250, 205, body, "2025 Q46: displacement versus time; A to B is a straight rising line, B to C a curved dip, C to D a straight falling line, D to E a curve rising and flattening")
 
-def fig_2025_q51():
-    """velocity-time graph in viscous fluid."""
-    body = ""
-    body += label(40, 30, "v-t in viscous fluid", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-axis)")
-    body += line(40, 160, 40, 40, stroke="var(--fig-axis)")
-    body += label(25, 165, "t", 9, "var(--fig-axis)", "middle")
-    body += label(30, 35, "v", 9, "var(--fig-axis)", "middle")
-    # v increases then becomes constant
-    body += path("M 40,160 Q 100,100 140,80 L 200,80", stroke="var(--fig-primary)", sw=2)
-    body += label(150, 75, "terminal velocity", 9, "var(--fig-text)")
-    return svg_wrap(240, 180, body, "2025 Q51: Velocity-time in viscous fluid")
+# ---------------------------------------------------------------------------
+# JELET 2025 Batch 3 (Q51–Q75) — faithful redraws of the booklet figures.
+# Curves are drawn as dense polylines from explicit formulas so that the
+# verifier (scripts/verify_solutions_sympy.py) can read the geometry back.
+# ---------------------------------------------------------------------------
+def _pts(f, t0, t1, n=40):
+    """Sample a parametric curve f(s) -> (x, y) for s in [t0, t1]."""
+    return " ".join(f"{x:.1f},{y:.1f}" for x, y in (f(t0 + (t1 - t0) * k / n) for k in range(n + 1)))
 
+def _bez(p0, p1, p2, p3):
+    """Cubic Bézier as a callable on [0, 1]."""
+    def f(s):
+        u = 1 - s
+        return (u**3*p0[0] + 3*u*u*s*p1[0] + 3*u*s*s*p2[0] + s**3*p3[0],
+                u**3*p0[1] + 3*u*u*s*p1[1] + 3*u*s*s*p2[1] + s**3*p3[1])
+    return f
+
+def _chain(*segs, n=30):
+    """Join several Bézier/line segments into one polyline point string (no duplicate joints)."""
+    out = []
+    for i, seg in enumerate(segs):
+        if seg[0] == "L":
+            (x0, y0), (x1, y1) = seg[1], seg[2]
+            pts = [(x0, y0), (x1, y1)]
+        else:
+            f = _bez(*seg[1:])
+            pts = [f(k / n) for k in range(n + 1)]
+        if out:
+            pts = pts[1:]
+        out += pts
+    return " ".join(f"{x:.1f},{y:.1f}" for x, y in out)
+
+def _arrowhead(x, y, ang_deg, size=6, color="var(--fig-line)"):
+    import math
+    a = math.radians(ang_deg)
+    p1 = (x - size*math.cos(a) + size*0.5*math.sin(a), y - size*math.sin(a) - size*0.5*math.cos(a))
+    p2 = (x - size*math.cos(a) - size*0.5*math.sin(a), y - size*math.sin(a) + size*0.5*math.cos(a))
+    return f'  <polygon points="{x:.1f},{y:.1f} {p1[0]:.1f},{p1[1]:.1f} {p2[0]:.1f},{p2[1]:.1f}" fill="{color}"/>\n'
+
+def _arrow_on(pts, frac, size=6, color="var(--fig-line)"):
+    """Arrowhead placed ON a sampled curve at parameter fraction frac, pointing along the drawing direction."""
+    import math
+    i = max(1, min(len(pts) - 1, int(round(frac*(len(pts) - 1)))))
+    (x0, y0), (x1, y1) = pts[i - 1], pts[i]
+    return _arrowhead(x1, y1, math.degrees(math.atan2(y1 - y0, x1 - x0)), size, color)
+
+def _rot_label(x, y, text, size=12, italic=False):
+    style = ' font-style="italic"' if italic else ""
+    return f'  <text x="0" y="0" transform="translate({x},{y}) rotate(-90)" font-family="Times New Roman, serif" font-size="{size}"{style} fill="var(--fig-text)" text-anchor="middle">{text}</text>\n'
+
+# ---- Q51: four v–t option graphs (no stem figure in the booklet) ----------
+_Q51 = dict(ox=40, oy=105, xr=200, yt=12)
+
+def _q51_frame(curve_pts, aria):
+    o = _Q51
+    body = axes_xy(o["ox"], o["oy"], o["ox"], o["xr"], o["oy"], o["yt"])
+    body += mlabel(o["ox"] - 14, 30, "v", 12)
+    body += mlabel(o["ox"] - 10, o["oy"] + 16, "0", 12)
+    body += mlabel(o["xr"] - 8, o["oy"] + 16, "t", 12)
+    body += polyline(curve_pts, stroke="var(--fig-primary)", sw=1.6)
+    return svg_plain(220, 125, body, aria)
+
+def fig_2025_q51_optA():
+    pts = _chain(("C", (40, 104), (62, 97), (85, 62), (110, 50)), ("C", (110, 50), (128, 42), (145, 41), (190, 40)))
+    return _q51_frame(pts, "Graph (A): v versus t; v starts at 0, rises along an S-shaped curve and levels off to a constant value")
+
+def fig_2025_q51_optB():
+    pts = _chain(("C", (41, 16), (55, 55), (75, 73), (110, 76)), ("L", (110, 76), (190, 76)))
+    return _q51_frame(pts, "Graph (B): v versus t; v starts at a large value on the v-axis and decreases, levelling off to a constant value")
+
+def fig_2025_q51_optC():
+    pts = _chain(("C", (40, 105), (62, 66), (86, 34), (104, 34)), ("C", (104, 34), (118, 34), (118, 62), (126, 78)),
+                 ("C", (126, 78), (136, 96), (150, 100), (176, 101)))
+    return _q51_frame(pts, "Graph (C): v versus t; v rises from 0 to a maximum, then falls steeply back towards zero")
+
+def fig_2025_q51_optD():
+    pts = _chain(("L", (40, 105), (72, 62)), ("C", (72, 62), (76, 57), (80, 56), (88, 56)), ("L", (88, 56), (150, 56)),
+                 ("C", (150, 56), (163, 56), (169, 49), (174, 40)), ("L", (174, 40), (194, 6)))
+    return _q51_frame(pts, "Graph (D): v versus t; v rises linearly from 0, stays constant for a while, then rises steeply again")
+
+# ---- Q54: disc rolling up a curved incline --------------------------------
 def fig_2025_q54():
-    """disc rolling up incline."""
-    body = ""
-    body += label(40, 30, "Disc on incline", 10)
-    body += line(30, 140, 120, 140, stroke="var(--fig-axis)", sw=2)
-    body += line(120, 140, 210, 70, stroke="var(--fig-axis)", sw=2)
-    body += line(120, 140, 120, 165, stroke="var(--fig-axis)", sw=1)
-    body += line(210, 70, 210, 165, stroke="var(--fig-axis)", sw=1)
-    body += circle(165, 105, 12, stroke="var(--fig-primary)", sw=2, fill="var(--fig-fill)")
-    body += arrow(180, 105, 195, 105, stroke="var(--fig-danger)", sw=1.5, label="v", label_pos=(197, 100))
-    body += label(165, 130, "incline", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 175, body, "2025 Q54: Disc on incline")
+    body = line(20, 140, 260, 140, stroke="var(--fig-axis)", sw=1.4)
+    f = lambda s: (40 + 175*s, 140 - 125*s**2.3)          # concave-up incline from the base to the top
+    body += polyline(_pts(f, 0, 1.03, 50), stroke="var(--fig-line)", sw=1.4)
+    body += path("M 64,140 A 24,24 0 0 0 62,133", stroke="var(--fig-line)", sw=1)   # angle mark at the base
+    body += circle(31, 134, 6, stroke="var(--fig-primary)", sw=1.3)
+    body += dot(31, 134, 1.2, fill="var(--fig-primary)")
+    body += arrow(33, 134, 44, 134, stroke="var(--fig-primary)", sw=1)
+    body += mlabel(52, 130, "V", 12)
+    body += circle(211, 22, 6, stroke="var(--fig-primary)", sw=1.3)
+    body += dot(211, 22, 1.2, fill="var(--fig-primary)")
+    body += line(214, 30, 214, 140, stroke="var(--fig-line)", sw=1.4, dash="5,4")
+    body += mlabel(224, 88, "h", 12, anchor="start")
+    return svg_plain(270, 150, body, "2025 Q54: a disc on a horizontal surface moving with velocity V towards a concave-up curved incline; the disc rises to a height h shown by a dashed vertical line")
 
+# ---- Q55: extension–load graph for wires A and B --------------------------
 def fig_2025_q55():
-    """extension-load graph for two wires."""
-    body = ""
-    body += label(40, 30, "Load vs Extension", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-axis)")
-    body += line(40, 160, 40, 40, stroke="var(--fig-axis)")
-    body += label(25, 165, "ext", 9, "var(--fig-axis)", "middle")
-    body += label(30, 35, "load", 9, "var(--fig-axis)", "middle")
-    body += line(40, 160, 180, 55, stroke="var(--fig-primary)", sw=2)
-    body += line(40, 160, 180, 105, stroke="var(--fig-secondary)", sw=2)
-    body += label(175, 50, "A", 11, "var(--fig-primary)")
-    body += label(175, 100, "B", 11, "var(--fig-secondary)")
-    return svg_wrap(240, 180, body, "2025 Q55: Extension-load graph")
+    ox, oy = 60, 150
+    body = axes_xy(ox, oy, ox, 230, oy, 15)
+    body += line(ox, oy, 128, 30, stroke="var(--fig-primary)", sw=1.5)   # B (steeper)
+    body += line(ox, oy, 185, 62, stroke="var(--fig-primary)", sw=1.5)   # A
+    body += mlabel(136, 30, "B", 12)
+    body += mlabel(194, 62, "A", 12)
+    body += _rot_label(44, 92, "extension ⟶", 12)
+    body += mlabel(135, 170, "load ⟶", 12)
+    return svg_plain(250, 180, body, "2025 Q55: extension (vertical) versus load (horizontal) for wires A and B; both are straight lines through the origin, B steeper than A")
 
-def fig_2025_q58():
-    """P-V diagram: isothermal then isobaric."""
-    body = ""
-    body += label(40, 30, "P-V diagram", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-axis)")
-    body += line(40, 160, 40, 40, stroke="var(--fig-axis)")
-    body += label(25, 165, "V", 9, "var(--fig-axis)", "middle")
-    body += label(30, 35, "P", 9, "var(--fig-axis)", "middle")
-    body += path("M 50,140 Q 120,140 150,90", stroke="var(--fig-primary)", sw=2)
-    body += line(150, 90, 185, 90, stroke="var(--fig-danger)", sw=2, dash="5,3")
-    body += dot(50, 140, 3); body += dot(150, 90, 3); body += dot(185, 90, 3)
-    body += label(55, 155, "A", 10, "var(--fig-text)")
-    body += label(145, 85, "B", 10, "var(--fig-text)")
-    return svg_wrap(240, 180, body, "2025 Q58: P-V diagram")
+# ---- Q57: P–V cycle a-c-b, a-d-b and curve b-a ----------------------------
+def fig_2025_q57():
+    ox, oy = 45, 150
+    body = axes_xy(ox, oy, ox, 245, oy, 12)
+    ax, ay, bx, by = 85, 125, 205, 35
+    body += polyline(f"{ax},{ay} {ax},{by} {bx},{by} {bx},{ay} {ax},{ay}", stroke="var(--fig-line)", sw=1.4)
+    curve = _bez((bx, by), (192, 70), (150, 78), (125, 86))
+    curve2 = _bez((125, 86), (100, 94), (88, 110), (ax, ay))
+    cpts = [curve(k/25) for k in range(26)] + [curve2(k/25) for k in range(1, 26)]
+    body += polyline(_fmt(cpts), stroke="var(--fig-line)", sw=1.4)
+    body += _arrowhead(ax, 82, -90) + _arrowhead(150, by, 0) + _arrowhead(bx, 82, -90) + _arrowhead(150, ay, 0)
+    body += _arrow_on(cpts, 0.42)                           # b -> a along the curve
+    body += mlabel(ax - 8, ay + 4, "a", 12, italic=True) + mlabel(ax - 14, by + 4, "c", 12)
+    body += mlabel(bx + 10, by - 2, "b", 12) + mlabel(bx + 10, ay + 6, "d", 12)
+    body += mlabel(ox - 12, 33, "P", 12) + arrow(ox - 12, 75, ox - 12, 52, stroke="var(--fig-axis)", sw=1)
+    body += mlabel(ox - 12, oy + 5, "0", 12)
+    body += arrow(125, oy + 14, 150, oy + 14, stroke="var(--fig-axis)", sw=1) + mlabel(232, oy + 18, "V", 12)
+    return svg_plain(260, 175, body, "2025 Q57: P–V diagram; rectangle with a bottom-left, c top-left, b top-right, d bottom-right; arrows a→c, c→b, a→d, d→b, and a curved path from b back to a")
 
+# ---- Q58: four P–V option diagrams (no stem figure in the booklet) --------
+_Q58 = dict(ox=50, oy=110, v1=90, v3=170)
+
+def _q58_frame(proc, labels, axis_style, aria):
+    o = _Q58
+    body = axes_xy(o["ox"], o["oy"], o["ox"], 230, o["oy"], 10)
+    body += line(o["v1"], 22, o["v1"], o["oy"], stroke="var(--fig-line)", sw=1, dash="1.5,2.5")
+    body += line(o["v3"], 22, o["v3"], o["oy"], stroke="var(--fig-line)", sw=1, dash="1.5,2.5")
+    body += polyline(proc, stroke="var(--fig-primary)", sw=1.5)
+    for txt, (x, y) in labels:
+        body += mlabel(x, y, txt, 12)
+    body += mlabel(o["ox"] - 14, 74, "P", 12) + arrow(o["ox"] - 14, 58, o["ox"] - 14, 42, stroke="var(--fig-axis)", sw=1)
+    if axis_style == "AB":
+        body += mlabel(o["v1"], o["oy"] + 16, "V", 12) + arrow(100, o["oy"] + 12, 120, o["oy"] + 12, stroke="var(--fig-axis)", sw=1)
+        body += mlabel(128, o["oy"] + 16, "V", 12) + mlabel(o["v3"], o["oy"] + 16, "3V", 12)
+    elif axis_style == "C":
+        body += mlabel(o["v1"] - 6, o["oy"] + 16, "V", 12) + arrow(96, o["oy"] + 10, 114, o["oy"] + 10, stroke="var(--fig-axis)", sw=1)
+        body += mlabel(105, o["oy"] + 27, "V", 12) + mlabel(o["v3"], o["oy"] + 16, "3V", 12)
+    else:
+        body += arrow(110, o["oy"] + 12, 130, o["oy"] + 12, stroke="var(--fig-axis)", sw=1) + mlabel(140, o["oy"] + 16, "V", 12)
+    return svg_plain(240, 142, body, aria)
+
+def _q58_iso(p_hi, p_lo, reverse=False):
+    """Convex decreasing curve P = c + k / V through (v1, p_hi) and (v3, p_lo) in pixel space (P measured up)."""
+    o = _Q58
+    V1, V3 = o["v1"] - o["ox"], o["v3"] - o["ox"]
+    k = (p_hi - p_lo) / (1/V1 - 1/V3); c = p_hi - k/V1
+    vs = [V1 + (V3 - V1)*j/30 for j in range(31)]
+    if reverse:
+        vs = vs[::-1]
+    return [(o["ox"] + v, o["oy"] - (c + k/v)) for v in vs]
+
+def _fmt(pts):
+    return " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+
+def fig_2025_q58_optA():
+    o = _Q58
+    proc = _fmt([(o["v1"], 30), (o["v3"], 66), (o["v1"], 66)])
+    body_lbl = [("A", (o["v1"] - 10, 30)), ("B", (o["v1"] - 10, 70))]
+    svg = _q58_frame(proc, body_lbl, "AB", "Graph (A): P–V diagram; a straight sloping line from A at V down to 3V, then a horizontal line at lower pressure back to B at V")
+    return svg.replace("</svg>", _arrowhead(132, 49, 24) + _arrowhead(126, 66, 180) + "</svg>")
+
+def fig_2025_q58_optB():
+    o = _Q58
+    pts = _q58_iso(80, 44) + [(o["v1"], o["oy"] - 44)]
+    svg = _q58_frame(_fmt(pts), [("A", (o["v1"] - 10, 30)), ("B", (o["v1"] - 10, 70))], "AB",
+                     "Graph (B): P–V diagram; a curve (isothermal) falling from A at V to 3V, then a horizontal line at the lower pressure back to B at V")
+    return svg.replace("</svg>", _arrow_on(pts[:31], 0.4) + _arrowhead(130, o["oy"] - 44, 180) + "</svg>")
+
+def fig_2025_q58_optC():
+    o = _Q58
+    pts = [(o["v1"], o["oy"] - 44)] + _q58_iso(80, 44, reverse=True)
+    svg = _q58_frame(_fmt(pts), [("B", (o["v1"] - 10, 30)), ("A", (o["v1"] - 10, 70))], "C",
+                     "Graph (C): P–V diagram; a horizontal line from A at V to 3V, then a curve rising from 3V back to B at V")
+    return svg.replace("</svg>", _arrowhead(130, o["oy"] - 44, 0) + _arrow_on(pts[1:], 0.6) + "</svg>")
+
+def fig_2025_q58_optD():
+    o = _Q58
+    pts = _q58_iso(80, 44) + [(o["v1"], 92)]
+    svg = _q58_frame(_fmt(pts), [("A", (o["v1"] - 10, 30)), ("B", (o["v1"] - 10, 98))], "D",
+                     "Graph (D): P–V diagram; a curve falling from A at V to 3V, then a straight line sloping down back to B at V at a lower pressure")
+    lower = [pts[-2], pts[-1]]
+    mid = [lower[0], ((lower[0][0] + lower[1][0])/2, (lower[0][1] + lower[1][1])/2)]
+    return svg.replace("</svg>", _arrow_on(pts[:31], 0.4) + _arrow_on(mid, 1.0) + "</svg>")
+
+# ---- Q61: three liquids, arcs labelled with mixture temperatures ----------
 def fig_2025_q61():
-    """three liquids mixing."""
     body = ""
-    body += label(40, 30, "Liquids A, B, C", 10)
-    for y, name, col in [(50, "A", "var(--fig-primary)"), (90, "B", "var(--fig-secondary)"), (130, "C", "var(--fig-accent)")]:
-        body += f'  <rect x="50" y="{y}" width="140" height="30" fill="{col}" fill-opacity="0.2" stroke="{col}" stroke-width="1.5"/>\n'
-        body += label(60, y+20, name, 12, col)
-    return svg_wrap(240, 180, body, "2025 Q61: Three liquids")
+    xs = {"A": 40, "B": 135, "C": 230}
+    for k, x in xs.items():
+        body += circle(x, 95, 8, stroke="var(--fig-line)", sw=1.1)
+        body += mlabel(x, 99, k, 10)
+        body += mlabel(x, 118, "m", 12)
+    body += path("M 40,87 C 45,30 130,30 135,87", stroke="var(--fig-line)", sw=1.3)
+    body += path("M 135,87 C 140,30 225,30 230,87", stroke="var(--fig-line)", sw=1.3)
+    body += mlabel(87, 22, "13ºC", 12) + mlabel(182, 22, "16ºC", 12)
+    body += mlabel(40, 145, "10ºC", 12) + mlabel(135, 145, "15ºC", 12) + mlabel(230, 145, "20ºC", 12)
+    return svg_plain(270, 155, body, "2025 Q61: liquids A, B, C of equal mass m at 10ºC, 15ºC and 20ºC; an arc joining A and B is labelled 13ºC and an arc joining B and C is labelled 16ºC")
+
+# ---- Q62: temperature versus heat input ------------------------------------
+Q62_POINTS = [(50, 140), (82, 105), (125, 105), (153, 75), (180, 75), (215, 38)]   # O, A, B, C, D, E
 
 def fig_2025_q62():
-    """heat input graph with DE segment."""
-    body = ""
-    body += label(40, 30, "Heat vs Temperature", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-axis)")
-    body += line(40, 160, 40, 40, stroke="var(--fig-axis)")
-    body += label(25, 165, "T", 9, "var(--fig-axis)", "middle")
-    body += label(30, 35, "Q", 9, "var(--fig-axis)", "middle")
-    body += polyline("40,150 90,150 90,110 150,110 150,60 200,60", stroke="var(--fig-primary)", sw=2)
-    for x, y, t in [(40,150,"A"),(90,150,"B"),(90,110,"C"),(150,110,"D"),(150,60,"E"),(200,60,"F")]:
-        body += dot(x, y, 2.5)
-        body += label(x-5, y+18, t, 9, "var(--fig-text)", "middle")
-    body += line(150, 110, 150, 60, stroke="var(--fig-danger)", sw=2, dash="4,2")
-    return svg_wrap(240, 180, body, "2025 Q62: Heating curve")
+    ox, oy = 50, 140
+    body = axes_xy(ox, oy, ox, 245, oy, 10)
+    body += polyline(_fmt(Q62_POINTS), stroke="var(--fig-primary)", sw=1.5)
+    for txt, (x, y) in zip("ABCDE", Q62_POINTS[1:]):
+        dx, dy = {"A": (6, 16), "B": (0, 16), "C": (6, 14), "D": (2, 14), "E": (8, -2)}[txt]
+        body += mlabel(x + dx, y + dy, txt, 12)
+    body += _rot_label(30, 92, "Temperature ⟶", 12)
+    body += mlabel(150, 160, "Heat input ⟶", 12)
+    return svg_plain(260, 170, body, "2025 Q62: temperature versus heat input; rising from the origin to A, flat from A to B, rising from B to C, flat from C to D, rising again from D to E")
 
-def fig_2025_q66():
-    """x-t graph: parabolic then linear."""
-    body = ""
-    body += label(40, 30, "x-t graph", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-axis)")
-    body += line(40, 160, 40, 40, stroke="var(--fig-axis)")
-    body += label(25, 165, "t", 9, "var(--fig-axis)", "middle")
-    body += label(30, 35, "x", 9, "var(--fig-axis)", "middle")
-    body += path("M 40,160 Q 90,100 120,70 L 200,70", stroke="var(--fig-primary)", sw=2)
-    body += label(150, 65, "uniform velocity", 9, "var(--fig-text)")
-    return svg_wrap(240, 180, body, "2025 Q66: x-t graph")
+# ---- Q66: four x–t option graphs (no stem figure in the booklet) ----------
+_Q66 = dict(ox=45, oy=110, t4=105)
 
+def _q66_frame(curve_pts, aria):
+    o = _Q66
+    body = axes_xy(o["ox"], o["oy"], o["ox"], 210, o["oy"], 8)
+    body += line(o["t4"], 40, o["t4"], o["oy"], stroke="var(--fig-line)", sw=1, dash="2,2")
+    body += polyline(curve_pts, stroke="var(--fig-primary)", sw=1.6)
+    body += _rot_label(o["ox"] - 14, 72, "x", 12, italic=True) + arrow(o["ox"] - 14, 62, o["ox"] - 14, 44, stroke="var(--fig-axis)", sw=1)
+    body += mlabel(o["ox"], o["oy"] + 16, "0", 12) + mlabel(o["t4"], o["oy"] + 16, "4", 12)
+    body += arrow(165, o["oy"] + 12, 185, o["oy"] + 12, stroke="var(--fig-axis)", sw=1) + mlabel(192, o["oy"] + 16, "t", 12, italic=True)
+    return svg_plain(220, 135, body, aria)
+
+def _q66_parab(h, concave_up=True, n=24):
+    """x(t) through the origin and (t4, h): concave up = from rest (x = a t^2); concave down = mirrored."""
+    o = _Q66; w = o["t4"] - o["ox"]
+    pts = []
+    for j in range(n + 1):
+        s = j / n
+        frac = s*s if concave_up else 1 - (1 - s)**2
+        pts.append((o["ox"] + w*s, o["oy"] - h*frac))
+    return pts
+
+def fig_2025_q66_optA():
+    pts = _q66_parab(55, concave_up=False) + [(135, 95)]
+    return _q66_frame(_fmt(pts), "Graph (A): x versus t; x rises along a curve that is concave down until t = 4, then decreases along a straight line")
+
+def fig_2025_q66_optB():
+    pts = _q66_parab(40, concave_up=False) + [(118, 2)]
+    return _q66_frame(_fmt(pts), "Graph (B): x versus t; x rises along a concave-down curve until t = 4, then rises along a much steeper straight line")
+
+def fig_2025_q66_optC():
+    pts = _q66_parab(58) + [(155, 52)]
+    return _q66_frame(_fmt(pts), "Graph (C): x versus t; x rises along a concave-up curve until t = 4, then stays constant (horizontal line)")
+
+def fig_2025_q66_optD():
+    o = _Q66; w = o["t4"] - o["ox"]; s = 1.15                # line slope; parabola height h = s w / 2 for tangency
+    h = s*w/2
+    pts = _q66_parab(h) + [(o["t4"] + 60, o["oy"] - h - s*60)]
+    return _q66_frame(_fmt(pts), "Graph (D): x versus t; x rises along a concave-up curve from the origin until t = 4, then continues as a straight line tangent to the curve")
+
+# ---- Q67: block over a pulley pulled by F = 40 N --------------------------
 def fig_2025_q67():
-    """block hanging from pulley, force applied."""
-    body = ""
-    body += label(40, 30, "Pulley system", 10)
-    body += line(30, 50, 200, 50, stroke="var(--fig-line)", sw=2)
-    body += circle(100, 70, 12, stroke="var(--fig-primary)", sw=2, fill="var(--fig-fill)")
-    body += line(100, 82, 100, 120, stroke="var(--fig-axis)", sw=1.5)
-    body += f'  <rect x="85" y="120" width="30" height="25" fill="none" stroke="var(--fig-primary)" stroke-width="2"/>\n'
-    body += label(100, 115, "block (2 kg)", 9, "var(--fig-text)", "middle")
-    body += arrow(170, 70, 200, 70, stroke="var(--fig-danger)", sw=2, label="F = 40 N", label_pos=(172, 60))
-    return svg_wrap(240, 160, body, "2025 Q67: Pulley with force")
+    body = line(40, 20, 190, 20, stroke="var(--fig-line)", sw=1.4)
+    for k in range(5):
+        x = 70 + 22*k
+        body += line(x, 20, x + 12, 6, stroke="var(--fig-line)", sw=1)
+    body += line(115, 20, 115, 52, stroke="var(--fig-line)", sw=1.4)
+    body += circle(115, 52, 22, stroke="var(--fig-line)", sw=1.4)
+    body += line(93, 52, 93, 112, stroke="var(--fig-line)", sw=1.2)
+    body += f'  <rect x="68" y="112" width="50" height="26" fill="none" stroke="var(--fig-line)" stroke-width="1.4"/>\n'
+    body += mlabel(93, 130, "2kg", 13)
+    body += arrow(137, 52, 137, 145, stroke="var(--fig-line)", sw=1.2)
+    body += mlabel(146, 147, "F=40N", 13, anchor="start")
+    return svg_plain(220, 160, body, "2025 Q67: a fixed smooth pulley hanging from a ceiling; a 2 kg block hangs from the left end of the string and the right end is pulled down by a force F = 40 N")
 
 def fig_2025_q81():
     """organic compound structure (simplified skeletal)."""
@@ -1146,13 +1319,23 @@ def main():
             "fig-2025-q44-optC": fig_2025_q44_optC,
             "fig-2025-q44-optD": fig_2025_q44_optD,
             "fig-2025-q46": fig_2025_q46,
-            "fig-2025-q51": fig_2025_q51,
+            "fig-2025-q51-optA": fig_2025_q51_optA,
+            "fig-2025-q51-optB": fig_2025_q51_optB,
+            "fig-2025-q51-optC": fig_2025_q51_optC,
+            "fig-2025-q51-optD": fig_2025_q51_optD,
             "fig-2025-q54": fig_2025_q54,
             "fig-2025-q55": fig_2025_q55,
-            "fig-2025-q58": fig_2025_q58,
+            "fig-2025-q57": fig_2025_q57,
+            "fig-2025-q58-optA": fig_2025_q58_optA,
+            "fig-2025-q58-optB": fig_2025_q58_optB,
+            "fig-2025-q58-optC": fig_2025_q58_optC,
+            "fig-2025-q58-optD": fig_2025_q58_optD,
             "fig-2025-q61": fig_2025_q61,
             "fig-2025-q62": fig_2025_q62,
-            "fig-2025-q66": fig_2025_q66,
+            "fig-2025-q66-optA": fig_2025_q66_optA,
+            "fig-2025-q66-optB": fig_2025_q66_optB,
+            "fig-2025-q66-optC": fig_2025_q66_optC,
+            "fig-2025-q66-optD": fig_2025_q66_optD,
             "fig-2025-q67": fig_2025_q67,
             "fig-2025-q81": fig_2025_q81,
             "fig-2025-q82": fig_2025_q82,

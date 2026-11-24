@@ -1579,135 +1579,200 @@
       }
     },
     "jelet-2025-q051": {
-      "conceptSummary": "Viscous fluid velocity profile.",
+      "conceptSummary": "Viscous drag $6\\pi\\eta r v$ grows with speed until it balances the effective weight, so $v$ rises from $0$ and approaches a terminal value.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Physics",
-          "bodyLatex": "Velocity increases then becomes constant (terminal)."
+          "title": "Equation of motion",
+          "bodyLatex": "For a sphere of radius $r$, density $\\rho$ in a fluid of density $\\sigma$ and viscosity $\\eta$: $m\\dfrac{dv}{dt} = mg - \\tfrac{4}{3}\\pi r^{3}\\sigma g - 6\\pi\\eta r v$."
         },
         {
           "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (A)."
+          "title": "Solve with $v(0) = 0$",
+          "bodyLatex": "Writing $\\tau = \\dfrac{m}{6\\pi\\eta r}$ and $v_{t} = \\dfrac{2r^{2}(\\rho - \\sigma)g}{9\\eta}$: $v(t) = v_{t}\\left(1 - e^{-t/\\tau}\\right)$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Shape of the graph",
+          "bodyLatex": "$v(0) = 0$ (body just dropped); $\\dfrac{dv}{dt} = \\dfrac{v_{t}}{\\tau}e^{-t/\\tau} > 0$ so $v$ increases monotonically; $\\dfrac{dv}{dt} \\to 0$ and $v \\to v_{t}$, a constant terminal velocity."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Match the graphs",
+          "bodyLatex": "(B) starts with a non-zero speed, (C) slows back to zero, and (D) speeds up again after levelling off — none is possible once drag balances the weight. Graph (A) starts at $0$, rises and flattens to a constant value. Answer: (A)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Viscous."
+        "note": "SymPy: dsolve(m v' = m g' - k v, v(0)=0) = v_t (1 - exp(-t/tau)); verifier reads each option SVG: only (A) starts at v = 0, is monotone and ends flat."
       }
     },
     "jelet-2025-q052": {
-      "conceptSummary": "Inelastic collision.",
+      "conceptSummary": "No external horizontal force acts on bullet + block, so momentum is conserved; a perfectly inelastic impact dissipates kinetic energy.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analysis",
-          "bodyLatex": "Momentum conserved, KE not."
+          "title": "Momentum",
+          "bodyLatex": "The surface is frictionless and gravity/normal forces are vertical, so the horizontal momentum of the system is conserved: $mu = (m + M)v_{f}$."
         },
         {
           "stepNumber": 2,
+          "title": "Kinetic energy",
+          "bodyLatex": "$KE_{i} = \\tfrac{1}{2}mu^{2}$, $KE_{f} = \\tfrac{1}{2}(m + M)v_{f}^{2} = \\dfrac{m}{m + M}KE_{i} < KE_{i}$. The difference $\\dfrac{M}{m + M}KE_{i}$ goes into heat, sound and deformation as the bullet embeds."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A)."
+          "bodyLatex": "Only momentum is conserved. Answer: (A)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Collision."
+        "note": "SymPy: v_f = m u/(m+M); KE_f/KE_i simplifies to m/(m+M) < 1 for M > 0."
       }
     },
     "jelet-2025-q053": {
-      "conceptSummary": "Centre of mass with linear density.",
+      "conceptSummary": "For a rod of uniform cross-section the mass per unit length is proportional to $\\rho(x) = \\rho_{0}x^{2}/L^{2}$; use $x_{cm} = \\dfrac{\\int x\\,dm}{\\int dm}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "$x_{cm} = 2L/3$ if density increases from 0 to $\\lambda_0$."
+          "title": "Mass element",
+          "bodyLatex": "With cross-section $A$: $dm = A\\rho_{0}\\dfrac{x^{2}}{L^{2}}dx$, $0 \\leq x \\leq L$."
         },
         {
           "stepNumber": 2,
+          "title": "Integrals",
+          "bodyLatex": "$\\displaystyle\\int_{0}^{L} dm = \\dfrac{A\\rho_{0}}{L^{2}}\\cdot\\dfrac{L^{3}}{3}$ and $\\displaystyle\\int_{0}^{L} x\\,dm = \\dfrac{A\\rho_{0}}{L^{2}}\\cdot\\dfrac{L^{4}}{4}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Centre of mass",
+          "bodyLatex": "$x_{cm} = \\dfrac{L^{4}/4}{L^{3}/3} = \\dfrac{3L}{4}$ from the $x = 0$ end (the mass is concentrated towards the dense end)."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (D): $L/4$ (density direction differs). Answer: (D)."
+          "bodyLatex": "Answer: (D) $\\dfrac{3L}{4}$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key D."
+        "note": "SymPy: integrate(x*x^2,(x,0,L))/integrate(x^2,(x,0,L)) = 3L/4."
       }
     },
     "jelet-2025-q054": {
-      "conceptSummary": "Rolling energy on incline.",
+      "conceptSummary": "A rolling disc has translational plus rotational kinetic energy $\\tfrac{1}{2}MV^{2} + \\tfrac{1}{2}I\\omega^{2} = \\tfrac{3}{4}MV^{2}$; all of it becomes $Mgh$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "KE",
-          "bodyLatex": "$= \\frac{3}{4}mv^2$. $h = 3v^2/(4g)$."
+          "title": "Kinetic energy of rolling",
+          "bodyLatex": "For a disc $I = \\tfrac{1}{2}MR^{2}$ and rolling without slipping gives $\\omega = V/R$: $KE = \\tfrac{1}{2}MV^{2} + \\tfrac{1}{2}\\cdot\\tfrac{1}{2}MR^{2}\\cdot\\dfrac{V^{2}}{R^{2}} = \\tfrac{3}{4}MV^{2}$."
         },
         {
           "stepNumber": 2,
+          "title": "Energy conservation",
+          "bodyLatex": "Static friction in pure rolling does no work, so at the highest point (disc momentarily at rest) $Mgh = \\tfrac{3}{4}MV^{2}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Height",
+          "bodyLatex": "$h = \\dfrac{3V^{2}}{4g}$ (independent of $M$, $R$ and the shape of the incline)."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B) $3v^2/(4g)$."
+          "bodyLatex": "(D) $\\dfrac{V^{2}}{2g}$ would ignore rotation. Answer: (B) $\\dfrac{3V^{2}}{4g}$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Rolling."
+        "note": "SymPy: solve(M g h - (M V^2/2 + (M R^2/2)(V/R)^2/2), h) = 3V^2/(4g)."
       }
     },
     "jelet-2025-q055": {
-      "conceptSummary": "Young's modulus from graph.",
+      "conceptSummary": "$Y = \\dfrac{F/A}{\\Delta l/l}$, so for identical wires $Y \\propto \\dfrac{\\text{load}}{\\text{extension}}$ = the reciprocal of the slope of the extension–load graph.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Slope",
-          "bodyLatex": "Steeper = higher $Y$."
+          "title": "Relation between slope and $Y$",
+          "bodyLatex": "$\\Delta l = \\dfrac{l}{AY}F$, so the slope of the extension (vertical) versus load (horizontal) line is $\\dfrac{l}{AY}$. With the same $l$ and $A$, a steeper line means a smaller $Y$."
         },
         {
           "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (A): $Y_A > Y_B$. Answer: (A)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key A."
-      }
-    },
-    "jelet-2025-q056": {
-      "conceptSummary": "Floatation of cylinder.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Formula",
-          "bodyLatex": "$d = \\rho[1+(n-1)\\rho]$."
+          "title": "Read the graph",
+          "bodyLatex": "Line B is steeper than line A (B stretches more for the same load)."
         },
         {
-          "stepNumber": 2,
+          "stepNumber": 3,
+          "title": "Compare",
+          "bodyLatex": "$\\text{slope}_{B} > \\text{slope}_{A} \\Rightarrow Y_{B} < Y_{A}$, i.e. $Y_{A} > Y_{B}$. (C) and (D) are excluded: the slopes are unequal, and (D) would need B to be the stiffer wire."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (D)."
+          "bodyLatex": "Answer: (A) $Y_{A} > Y_{B}$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Floatation."
+        "note": "Verifier reads the two lines of fig-2025-q55.svg: slope_B/slope_A = Y_A/Y_B > 1, so only option A holds."
       }
     },
-    "jelet-2025-q057": {
-      "conceptSummary": "First law of thermodynamics.",
+    "jelet-2025-q056": {
+      "conceptSummary": "Floating equilibrium: weight of the cylinder = total buoyant force from the two liquids it displaces.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "$W = 144 - 120 = 24$ J."
+          "title": "Weight",
+          "bodyLatex": "With cross-section $A$: $W = dALg$."
         },
         {
           "stepNumber": 2,
+          "title": "Buoyant force",
+          "bodyLatex": "Length $pL$ is in the denser liquid ($n\\rho$) and $(1 - p)L$ in the lighter one ($\\rho$): $F_{B} = n\\rho\\,A(pL)g + \\rho\\,A(1 - p)Lg$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Equate",
+          "bodyLatex": "$d = n\\rho p + \\rho(1 - p) = \\rho\\{1 + (n - 1)p\\}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) $\\{1 + (n - 1)p\\}\\rho$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: solve(d A L g - (n rho A p L g + rho A (1-p) L g), d) = rho (1 + (n-1) p)."
+      }
+    },
+    "jelet-2025-q057": {
+      "conceptSummary": "Internal energy is a state function: $\\Delta U_{a\\to b}$ found from path $acb$ also holds for path $adb$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Path $acb$",
+          "bodyLatex": "First law: $\\Delta U = Q - W = 200 - 80 = 120$ J."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Path $adb$",
+          "bodyLatex": "Same end states, so $\\Delta U = 120$ J; with $Q = 144$ J, $W = Q - \\Delta U = 144 - 120 = 24$ J."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Consistency with the figure",
+          "bodyLatex": "$adb$ runs along the lower pressure (isobar $ad$, then isochor $db$), so it does less work than $acb$ ($24 < 80$ J), as expected."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
           "bodyLatex": "Answer: (D) $24$ J."
         }
@@ -1715,139 +1780,29 @@
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "First law."
+        "note": "SymPy: dU = 200 - 80 = 120; W_adb = 144 - 120 = 24."
       }
     },
     "jelet-2025-q058": {
-      "conceptSummary": "PV diagram: isothermal + isobaric.",
+      "conceptSummary": "Isothermal expansion is a falling rectangular hyperbola $PV = $ const; the return at constant pressure is a horizontal line at the lower pressure.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Process",
-          "bodyLatex": "Isothermal expansion then isobaric compression."
+          "title": "First process (A to intermediate state)",
+          "bodyLatex": "Isothermal: $PV = nRT$ constant. As $V$ goes $V \\to 3V$, $P$ falls from $P_{A}$ to $P_{A}/3$ along a convex decreasing curve (a hyperbola), not a straight line."
         },
         {
           "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (B). Answer: (B)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key B."
-      }
-    },
-    "jelet-2025-q059": {
-      "conceptSummary": "SHM time period.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Derive",
-          "bodyLatex": "$T = 2\\pi\\sqrt{(x_1^2-x_2^2)/(v_2^2-v_1^2)}$."
+          "title": "Second process (to B)",
+          "bodyLatex": "Compression $3V \\to V$ at constant pressure $P_{A}/3$: a horizontal line traversed right to left, ending at B with $V_{B} = V$, $P_{B} = P_{A}/3 < P_{A}$ (B lies below A)."
         },
         {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (A)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "SHM."
-      }
-    },
-    "jelet-2025-q060": {
-      "conceptSummary": "Lens combination focal length.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Formula",
-          "bodyLatex": "$1/f = (\\mu_1-\\mu_2)/R \\Rightarrow f = R/(\\mu_1-\\mu_2)$."
+          "stepNumber": 3,
+          "title": "Check the graphs",
+          "bodyLatex": "(A) draws the isothermal as a straight line. (C) does the processes in the wrong order (isobaric expansion first, from A at the lower pressure). (D) returns along a sloping line, so the pressure is not constant. (B) shows the falling curve from A at $V$ to $3V$ and then the horizontal line back to B at $V$."
         },
         {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (D)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Lens."
-      }
-    },
-    "jelet-2025-q061": {
-      "conceptSummary": "Calorimetry with three liquids.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "Mixing temperatures to find final."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (A): $13\\,^\\circ$C. Answer: (A)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key A."
-      }
-    },
-    "jelet-2025-q062": {
-      "conceptSummary": "Heating curve slope.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "Slope of DE region."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (D). Answer: (D)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key D."
-      }
-    },
-    "jelet-2025-q063": {
-      "conceptSummary": "Thermal conduction ratio.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "$Q_1/Q_2 = (4/9)(2) = 8/9$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (C) $8:9$."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Conduction."
-      }
-    },
-    "jelet-2025-q064": {
-      "conceptSummary": "Photoelectric effect.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "$\\lambda_1 < \\lambda_2 \\Rightarrow v_1 > v_2$."
-        },
-        {
-          "stepNumber": 2,
+          "stepNumber": 4,
           "title": "Conclusion",
           "bodyLatex": "Answer: (B)."
         }
@@ -1855,227 +1810,507 @@
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Photoelectric."
+        "note": "Verifier parses each option SVG: only (B) has a convex decreasing first leg from A (V to 3V) followed by a horizontal leg back to B at V, with arrowheads along the drawing direction."
+      }
+    },
+    "jelet-2025-q059": {
+      "conceptSummary": "In SHM $\\nu^{2} = \\omega^{2}(a^{2} - x^{2})$; subtract the two instances to eliminate the amplitude $a$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Write the relation twice",
+          "bodyLatex": "$\\nu_{1}^{2} = \\omega^{2}(a^{2} - x_{1}^{2})$ and $\\nu_{2}^{2} = \\omega^{2}(a^{2} - x_{2}^{2})$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Eliminate the amplitude",
+          "bodyLatex": "$\\nu_{1}^{2} - \\nu_{2}^{2} = \\omega^{2}(x_{2}^{2} - x_{1}^{2}) \\Rightarrow \\omega = \\sqrt{\\dfrac{\\nu_{1}^{2} - \\nu_{2}^{2}}{x_{2}^{2} - x_{1}^{2}}}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Time period",
+          "bodyLatex": "$T = \\dfrac{2\\pi}{\\omega} = 2\\pi\\sqrt{\\dfrac{x_{2}^{2} - x_{1}^{2}}{\\nu_{1}^{2} - \\nu_{2}^{2}}}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "(C) inverts the ratio: $\\dfrac{\\nu_{1}^{2} - \\nu_{2}^{2}}{x_{1}^{2} - x_{2}^{2}} = -\\omega^{2}$, so it would be $2\\pi\\sqrt{-\\omega^{2}}$, not even real (and has the wrong dimensions). (B) and (D) add the squares instead of subtracting them, which does not eliminate $a$. Answer: (A)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: with v_i^2 = w^2 (a^2 - x_i^2), option A simplifies to 2 pi / w; B, C, D do not."
+      }
+    },
+    "jelet-2025-q060": {
+      "conceptSummary": "The two lenses are in contact: $\\dfrac{1}{F} = \\dfrac{1}{f_{1}} + \\dfrac{1}{f_{2}}$ with the lens-maker's formula for each, sharing the curved surface of radius R.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Plano-convex lens ($\\mu_{1}$)",
+          "bodyLatex": "$\\dfrac{1}{f_{1}} = (\\mu_{1} - 1)\\left(\\dfrac{1}{R} - \\dfrac{1}{\\infty}\\right) = \\dfrac{\\mu_{1} - 1}{R}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Plano-concave lens ($\\mu_{2}$)",
+          "bodyLatex": "Its curved surface has the same radius but is concave: $\\dfrac{1}{f_{2}} = -\\dfrac{\\mu_{2} - 1}{R}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Combine",
+          "bodyLatex": "$\\dfrac{1}{F} = \\dfrac{\\mu_{1} - 1}{R} - \\dfrac{\\mu_{2} - 1}{R} = \\dfrac{\\mu_{1} - \\mu_{2}}{R} \\Rightarrow F = \\dfrac{R}{\\mu_{1} - \\mu_{2}}$. (If $\\mu_{1} = \\mu_{2}$ the combination is a parallel glass slab, $F \\to \\infty$, as expected.)"
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) $\\dfrac{R}{\\mu_{1} - \\mu_{2}}$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: 1/((mu1-1)/R - (mu2-1)/R) simplifies to R/(mu1 - mu2)."
+      }
+    },
+    "jelet-2025-q061": {
+      "conceptSummary": "Heat lost = heat gained for each mixture gives the ratios of the specific heats; then apply the same balance to A + C.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "A and B mixed at $13^{\\circ}$C",
+          "bodyLatex": "$mc_{A}(13 - 10) = mc_{B}(15 - 13) \\Rightarrow 3c_{A} = 2c_{B} \\Rightarrow c_{A} = \\tfrac{2}{3}c_{B}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "B and C mixed at $16^{\\circ}$C",
+          "bodyLatex": "$mc_{B}(16 - 15) = mc_{C}(20 - 16) \\Rightarrow c_{B} = 4c_{C} \\Rightarrow c_{C} = \\tfrac{1}{4}c_{B}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "A and C mixed at $\\theta$",
+          "bodyLatex": "$mc_{A}(\\theta - 10) = mc_{C}(20 - \\theta) \\Rightarrow \\tfrac{2}{3}(\\theta - 10) = \\tfrac{1}{4}(20 - \\theta) \\Rightarrow 8\\theta - 80 = 60 - 3\\theta \\Rightarrow \\theta = \\dfrac{140}{11}\\,^{\\circ}\\text{C} \\approx 12.7^{\\circ}\\text{C}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "The result lies between $10^{\\circ}$C and $20^{\\circ}$C, nearer A (larger heat capacity), so (C) and (D) are impossible and (B) $\\approx 7.9^{\\circ}$C is below both. Answer: (A) $\\dfrac{140}{11}\\,^{\\circ}$C."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: c_A = 2/3 c_B, c_C = c_B/4; solve(c_A(th-10) - c_C(20-th)) = 140/11."
+      }
+    },
+    "jelet-2025-q062": {
+      "conceptSummary": "With heat supplied at a constant rate, $dQ = mc\\,dT$ on a sloping part, so the slope of the temperature–heat graph is $\\dfrac{dT}{dQ} = \\dfrac{1}{mc}$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify the phases",
+          "bodyLatex": "OA: solid heating; AB (flat): melting; BC: liquid heating; CD (flat): boiling; DE: heating of the vapour."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Slope of a rising segment",
+          "bodyLatex": "On a sloping part no phase change occurs: $Q = mc\\,\\Delta T \\Rightarrow \\dfrac{\\Delta T}{\\Delta Q} = \\dfrac{1}{mc}$, the inverse of the heat capacity of the phase present."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Apply to DE",
+          "bodyLatex": "DE follows the boiling plateau, so the material is vapour: slope of DE $= \\dfrac{1}{(mc)_{\\text{vapour}}}$. Latent heats correspond to the lengths of the flat parts, not to slopes."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) Inverse of heat capacity of vapour."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: T(Q) = T_D + (Q - Q_D)/(m c_v) gives dT/dQ = 1/(m c_v); the verifier confirms AB and CD are flat and DE rises in fig-2025-q62.svg."
+      }
+    },
+    "jelet-2025-q063": {
+      "conceptSummary": "Steady conduction: $H = \\dfrac{kA\\Delta T}{l} \\propto \\dfrac{r^{2}}{l}$ for the same material and temperature difference.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Heat current",
+          "bodyLatex": "$H = \\dfrac{k\\pi r^{2}\\Delta T}{l}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Ratio",
+          "bodyLatex": "$\\dfrac{H_{1}}{H_{2}} = \\left(\\dfrac{r_{1}}{r_{2}}\\right)^{2}\\dfrac{l_{2}}{l_{1}} = \\left(\\dfrac{2}{3}\\right)^{2}\\cdot\\dfrac{2}{1} = \\dfrac{8}{9}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $8 : 9$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: (2/3)^2 / (1/2) = 8/9."
+      }
+    },
+    "jelet-2025-q064": {
+      "conceptSummary": "Einstein's equation $\\tfrac{1}{2}mV_{\\max}^{2} = \\dfrac{hc}{\\lambda} - \\phi$ with the same work function $\\phi$ for both blocks.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Same metal, same work function",
+          "bodyLatex": "Both blocks are of the same metal, so $\\phi$ is identical; the stem states photo-electrons are emitted from both, so $\\dfrac{hc}{\\lambda_{2}} > \\phi$ as well."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Photon energies",
+          "bodyLatex": "$\\dfrac{hc}{\\lambda_{1}} = \\dfrac{1240\\text{ eV nm}}{350\\text{ nm}} \\approx 3.54$ eV and $\\dfrac{hc}{\\lambda_{2}} = \\dfrac{1240}{540} \\approx 2.30$ eV."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Compare maximum speeds",
+          "bodyLatex": "$\\tfrac{1}{2}mV_{1}^{2} - \\tfrac{1}{2}mV_{2}^{2} = hc\\left(\\dfrac{1}{\\lambda_{1}} - \\dfrac{1}{\\lambda_{2}}\\right) \\approx 1.25\\text{ eV} > 0$, independent of $\\phi$. Hence $V_{1} > V_{2}$; the size of the blocks is irrelevant, so (D) is wrong."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $V_{1} > V_{2}$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: KE1 - KE2 = h c (1/350nm - 1/540nm) = 1.25 eV > 0 for any common work function."
       }
     },
     "jelet-2025-q065": {
-      "conceptSummary": "Stokes' law terminal velocity.",
+      "conceptSummary": "The ball's speed is unchanged in water only if it enters at the terminal velocity; equate $\\sqrt{2gh}$ to Stokes' terminal velocity.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Balance",
-          "bodyLatex": "Terminal velocity = entry velocity."
+          "title": "Terminal velocity in water",
+          "bodyLatex": "$v_{t} = \\dfrac{2r^{2}(\\rho - \\sigma)g}{9\\eta} = \\dfrac{2(10^{-4})^{2}(10^{4} - 10^{3})(9.8)}{9 \\times 9.8 \\times 10^{-6}} = \\dfrac{2 \\times 10^{-8} \\times 9000}{9 \\times 10^{-6}} = 20$ m/s (density of water $\\sigma = 10^{3}$ kg/m$^{3}$)."
         },
         {
           "stepNumber": 2,
+          "title": "Speed after free fall",
+          "bodyLatex": "$v = \\sqrt{2gh}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Equate",
+          "bodyLatex": "$2gh = v_{t}^{2} \\Rightarrow h = \\dfrac{400}{2 \\times 9.8} = 20.41$ m."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A): $20.41$ m. Answer: (A)."
+          "bodyLatex": "Answer: (A) $20{\\cdot}41$ m."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key A."
+        "note": "SymPy/numeric: v_t = 2 r^2 (rho - sigma) g / (9 eta) = 20 m/s; h = v_t^2/(2g) = 20.408 m."
       }
     },
     "jelet-2025-q066": {
-      "conceptSummary": "x-t graph for car motion.",
+      "conceptSummary": "Uniform acceleration from rest gives $x = \\tfrac{1}{2}at^{2}$ (an upward-opening parabola starting with zero slope); afterwards $x$ grows linearly with the slope equal to the velocity at $t = 4$ s.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "Parabolic (acceleration) then linear (uniform velocity)."
+          "title": "First 4 s",
+          "bodyLatex": "$x = \\tfrac{1}{2}at^{2}$: $x(0) = 0$, slope $v(0) = 0$, curve concave up."
         },
         {
           "stepNumber": 2,
+          "title": "After 4 s",
+          "bodyLatex": "$v = 4a$ constant, so $x = 8a + 4a(t - 4)$: a straight line. Velocity is continuous, so the line is tangent to the parabola at $t = 4$ (no kink)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Evaluate every graph",
+          "bodyLatex": "(A) concave down at the start (decelerating) and then $x$ decreases — FALSE. (B) concave down, then a sudden jump in slope — FALSE. (C) correct parabola, but $x$ becomes constant (car stops) — FALSE. (D) concave-up curve from the origin followed by a straight line continuing its slope — TRUE."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (D). Answer: (D)."
+          "bodyLatex": "Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key D."
+        "note": "Verifier reads each option SVG: only (D) fits x = a t^2 (a > 0, zero initial slope) on [0, 4] followed by a line of slope 2 a t_4 (C^1 join)."
       }
     },
     "jelet-2025-q067": {
-      "conceptSummary": "Work-energy with pulley.",
+      "conceptSummary": "For a light string over a smooth light pulley the tension equals the applied pull $F$; then use Newton's law and work–energy for the block.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "$T=40$ N, $a=10$ m/s², $s=2$ m. Work by tension $=80$ J."
+          "title": "Tension",
+          "bodyLatex": "The string is light and the pulley smooth and light, so the tension is the same throughout and equals the pull: $T = F = 40$ N. (A) is FALSE."
         },
         {
           "stepNumber": 2,
+          "title": "Acceleration and displacement",
+          "bodyLatex": "For the block: $T - mg = ma \\Rightarrow 40 - 20 = 2a \\Rightarrow a = 10$ m/s$^{2}$ upward. In $t = \\dfrac{2}{\\sqrt{10}}$ s from rest: $s = \\tfrac{1}{2}at^{2} = \\tfrac{1}{2}(10)\\dfrac{4}{10} = 2$ m upward. (D) is TRUE."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Work done",
+          "bodyLatex": "By tension on the block: $W_{T} = Ts = 40 \\times 2 = 80$ J — (C) TRUE. By gravity: $W_{g} = -mgs = -20 \\times 2 = -40$ J, not $-20$ J — (B) FALSE."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Check",
+          "bodyLatex": "Net work $= 80 - 40 = 40$ J $= \\tfrac{1}{2}mv^{2}$ with $v = at = 10 \\times \\dfrac{2}{\\sqrt{10}} = 2\\sqrt{10}$ m/s: $\\tfrac{1}{2}(2)(40) = 40$ J. ✓"
+        },
+        {
+          "stepNumber": 5,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (C,D)."
+          "bodyLatex": "Answer: (C), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key C,D."
+        "note": "SymPy: a = (40 - 20)/2 = 10; s = a t^2/2 at t = 2/sqrt(10) is 2; W_T = 80, W_g = -40; W_net = KE = 40."
       }
     },
     "jelet-2025-q068": {
-      "conceptSummary": "Conservation in planetary orbit.",
+      "conceptSummary": "Gravity is a central, conservative force: angular momentum about the Sun and total mechanical energy are conserved; KE and PE vary with distance.",
       "steps": [
         {
           "stepNumber": 1,
           "title": "Angular momentum",
-          "bodyLatex": "Conserved. Total energy: conserved."
+          "bodyLatex": "The force on the planet points towards the Sun, so its torque about the Sun is zero: $\\vec{L} = \\vec{r} \\times m\\vec{v}$ is constant (Kepler's second law). (B) TRUE."
         },
         {
           "stepNumber": 2,
+          "title": "Total energy",
+          "bodyLatex": "Gravity is conservative and there is no other force: $E = K + U = -\\dfrac{GMm}{2a}$ is constant. (D) TRUE."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Kinetic and potential energy",
+          "bodyLatex": "$U = -\\dfrac{GMm}{r}$ changes as $r$ varies between perihelion and aphelion; $K = E - U$ therefore changes too (the planet is fastest at perihelion). (A) and (C) FALSE."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B,D)."
+          "bodyLatex": "Answer: (B), (D)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Conservation."
+        "note": "SymPy/numeric: Kepler orbit with e = 0.3: L = m sqrt(G M a (1-e^2)) and E constant; U and K differ between perihelion and aphelion."
       }
     },
     "jelet-2025-q069": {
-      "conceptSummary": "Steam-ice calorimetry.",
+      "conceptSummary": "Compare the heat needed to melt all the ice and warm it to $100^{\\circ}$C with the heat available from condensing all the steam.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Compute",
-          "bodyLatex": "Heat balance between steam and ice."
+          "title": "Heat to take the ice to water at $100^{\\circ}$C",
+          "bodyLatex": "$Q_{\\text{need}} = m_{\\text{ice}}L_{F} + m_{\\text{ice}}S\\,(100 - 0) = 10^{4}(80) + 10^{4}(1)(100) = 1.8 \\times 10^{6}$ cal."
         },
         {
           "stepNumber": 2,
+          "title": "Heat available from the steam",
+          "bodyLatex": "Condensing all the steam would release $5000 \\times 540 = 2.7 \\times 10^{6}$ cal $> Q_{\\text{need}}$, so not all steam condenses and the mixture stays at $100^{\\circ}$C. (B) TRUE, (A) impossible (FALSE)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Steam condensed",
+          "bodyLatex": "$m_{c} = \\dfrac{1.8 \\times 10^{6}}{540} = 3333\\tfrac{1}{3}$ g $= 3\\tfrac{1}{3}$ kg."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Final composition",
+          "bodyLatex": "Water $= 10 + 3\\tfrac{1}{3} = 13\\tfrac{1}{3}$ kg — (C) TRUE. Steam left $= 5 - 3\\tfrac{1}{3} = 1\\tfrac{2}{3}$ kg — (D) TRUE. (Total $15$ kg conserved.)"
+        },
+        {
+          "stepNumber": 5,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B,C,D). Answer: (B,C,D)."
+          "bodyLatex": "Answer: (B), (C), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key B,C,D."
+        "note": "SymPy: Q_need = 1.8e6 cal < 2.7e6 cal; condensed 10000/3 g; water 40/3 kg, steam 5/3 kg, T = 100 C."
       }
     },
     "jelet-2025-q070": {
-      "conceptSummary": "Vector triple product.",
+      "conceptSummary": "Expand $(\\vec{A}\\times\\vec{B})\\times(\\vec{C}\\times\\vec{D})$ two ways with the vector triple product.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "$\\vec{P}$ in planes of $C,D$ and $A,B$, along intersection."
+          "title": "Expansion 1",
+          "bodyLatex": "$\\overline{P} = [(\\overline{A}\\times\\overline{B})\\cdot\\overline{D}]\\,\\overline{C} - [(\\overline{A}\\times\\overline{B})\\cdot\\overline{C}]\\,\\overline{D}$: a combination of $\\overline{C}$ and $\\overline{D}$, so $\\overline{P}$ lies in the plane of $\\overline{C}$ and $\\overline{D}$. (C) TRUE."
         },
         {
           "stepNumber": 2,
+          "title": "Expansion 2",
+          "bodyLatex": "$\\overline{P} = -(\\overline{C}\\times\\overline{D})\\times(\\overline{A}\\times\\overline{B}) = [(\\overline{C}\\times\\overline{D})\\cdot\\overline{A}]\\,\\overline{B} - [(\\overline{C}\\times\\overline{D})\\cdot\\overline{B}]\\,\\overline{A}$: so $\\overline{P}$ lies in the plane of $\\overline{A}$ and $\\overline{B}$. (B) TRUE."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Line of intersection",
+          "bodyLatex": "Lying in both planes, $\\overline{P}$ is parallel to their line of intersection (equivalently $\\overline{P} \\perp \\overline{A}\\times\\overline{B}$ and $\\overline{P} \\perp \\overline{C}\\times\\overline{D}$, the two plane normals). (D) TRUE."
+        },
+        {
+          "stepNumber": 4,
+          "title": "(A)",
+          "bodyLatex": "$\\overline{P}$ lies in the plane of $\\overline{A}, \\overline{B}$, so it cannot be perpendicular to that plane (unless $\\overline{P} = \\vec{0}$). (A) FALSE."
+        },
+        {
+          "stepNumber": 5,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B,C,D)."
+          "bodyLatex": "Answer: (B), (C), (D)."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Vector identity."
+        "note": "SymPy: for generic symbolic A, B, C, D, P.(A x B) = P.(C x D) = 0 and P equals both triple-product expansions; P is not parallel to A x B."
       }
     },
     "jelet-2025-q071": {
-      "conceptSummary": "Orbital designation.",
+      "conceptSummary": "The azimuthal quantum number $l = 0, 1, 2, 3$ corresponds to $s, p, d, f$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Given",
-          "bodyLatex": "$n=5$, $l=3 \\Rightarrow 5f$."
+          "title": "Decode $l$",
+          "bodyLatex": "$l = 3$ is an $f$ orbital (allowed since $l \\leq n - 1 = 4$)."
         },
         {
           "stepNumber": 2,
+          "title": "Designation",
+          "bodyLatex": "$n = 5$, $l = 3$ gives the $5f$ orbital."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (D)."
+          "bodyLatex": "Answer: (D) $5f$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Quantum."
+        "note": "Check: 'spdfg'[3] = 'f' and 3 <= 5 - 1."
       }
     },
     "jelet-2025-q072": {
-      "conceptSummary": "PCl5 bond types.",
+      "conceptSummary": "PCl$_{5}$ is trigonal bipyramidal ($sp^{3}d$): three equatorial and two axial P–Cl bonds of different lengths.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "VSEPR",
-          "bodyLatex": "Trigonal bipyramidal: 2 types."
+          "title": "Geometry",
+          "bodyLatex": "P has $5$ bond pairs and no lone pair: VSEPR gives a trigonal bipyramid ($sp^{3}d$ hybridisation)."
         },
         {
           "stepNumber": 2,
+          "title": "Bond types",
+          "bodyLatex": "The $3$ equatorial bonds (at $120^{\\circ}$, about $202$ pm) are equivalent; the $2$ axial bonds (at $90^{\\circ}$ to the equatorial plane, about $240$ pm) are longer because they suffer more bond-pair repulsion."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B)."
+          "bodyLatex": "Two types of P–Cl bonds. Answer: (B) Two."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "VSEPR."
+        "note": "Geometry check: in an ideal trigonal bipyramid the axial (3 neighbours at 90 deg) and equatorial (2 at 90 deg, 2 at 120 deg) environments differ -> 2 distinct bond classes."
       }
     },
     "jelet-2025-q073": {
-      "conceptSummary": "Doping.",
+      "conceptSummary": "Doping Si (group 14) with a group-15 donor adds a free electron per impurity atom: negative charge carriers, i.e. an $n$-type semiconductor.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "Electron-rich dopant $\\Rightarrow n$-type."
+          "title": "Electron-rich impurity",
+          "bodyLatex": "An electron-rich dopant such as P or As has $5$ valence electrons; $4$ form bonds with neighbouring Si atoms and the $5$th is loosely bound."
         },
         {
           "stepNumber": 2,
+          "title": "Charge carriers",
+          "bodyLatex": "These extra electrons are the majority carriers (negative), so conduction increases and the material is $n$-type. Electron-deficient dopants (B, Al) would give $p$-type."
+        },
+        {
+          "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (C)."
+          "bodyLatex": "Answer: (C) $n$-type semiconductor."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Doping."
+        "note": "Valence count: dopant group 15 (5 e-) in a group-14 lattice leaves 5 - 4 = +1 free electron -> n-type."
       }
     },
     "jelet-2025-q074": {
-      "conceptSummary": "Redox classification.",
+      "conceptSummary": "Track oxidation numbers of N: $+2$ (NO) and $+4$ (N$_{2}$O$_{4}$) both go to $+3$ (NO$_{2}^{-}$).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "NO + N2O4 → NO2 is comproportionation."
+          "title": "Oxidation numbers",
+          "bodyLatex": "NO: N $= +2$. N$_{2}$O$_{4}$: N $= +4$. NO$_{2}^{-}$: $x - 4 = -1 \\Rightarrow$ N $= +3$."
         },
         {
           "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (C)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key C."
-      }
-    },
-    "jelet-2025-q075": {
-      "conceptSummary": "pH comparison.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "pH",
-          "bodyLatex": "pH 6 vs 7: $X$ is 10× more acidic."
+          "title": "Balanced equation",
+          "bodyLatex": "$2\\text{NO} + \\text{N}_{2}\\text{O}_{4} + 4\\text{OH}^{-} \\rightarrow 4\\text{NO}_{2}^{-} + 2\\text{H}_{2}\\text{O}$ (atoms and charge balance; electrons lost $2 \\times 1$ = electrons gained $2 \\times 1$)."
         },
         {
-          "stepNumber": 2,
+          "stepNumber": 3,
+          "title": "Classify",
+          "bodyLatex": "Two species of the same element in different oxidation states give a single intermediate oxidation state: this is comproportionation (the reverse of disproportionation)."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B)."
+          "bodyLatex": "Answer: (C) Comproportionation."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "pH."
+        "note": "SymPy: oxidation numbers +2, +4 -> +3; element and charge balance of 2NO + N2O4 + 4OH- -> 4NO2- + 2H2O verified."
+      }
+    },
+    "jelet-2025-q075": {
+      "conceptSummary": "$[\\text{H}^{+}] = 10^{-\\text{pH}}$: pH $6$ has $10^{-6}$ M, pH $7$ has $10^{-7}$ M (neutral at $25^{\\circ}$C, $[\\text{H}^{+}] = [\\text{OH}^{-}]$).",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Hydrogen-ion concentrations",
+          "bodyLatex": "X: $[\\text{H}^{+}] = 10^{-6}$ M; Y: $[\\text{H}^{+}] = 10^{-7}$ M."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Evaluate each statement",
+          "bodyLatex": "(A) Y at pH $7$ is neutral, not acidic — FALSE. (B) $\\dfrac{10^{-6}}{10^{-7}} = 10$: X is $10$ times more acidic — TRUE. (C) The symbol printed as $\\rangle$ means $>$; in Y, $[\\text{OH}^{-}] = K_{w}/[\\text{H}^{+}] = 10^{-7} = [\\text{H}^{+}]$, so $[\\text{OH}^{-}] > [\\text{H}^{+}]$ is FALSE. (D) FALSE since (B) is correct."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) Solution X is 10 times more acidic than solution Y."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: 10^-6 / 10^-7 = 10; Kw/10^-7 = 10^-7 = [H+] in Y, so OH- is not greater."
       }
     },
     "jelet-2025-q076": {

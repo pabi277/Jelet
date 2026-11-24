@@ -14,7 +14,10 @@ Checks:
      the redrawn SVG geometry; Q41 (withdrawn) checks [a] = ML^5T^-2 matches no
      option and that the item awards +12 twelfths. Documented key disputes
      (KEY_DISPUTES_2025) are printed explicitly.
-  6. Report coverage statistics
+  6. 2025 Q51–Q75 (Batch 3): same method; graph-option items (Q51, Q58, Q66)
+     and figure-dependent items (Q55, Q62) are checked against the redrawn SVG
+     geometry, and stemFigure/option-figure presence is asserted.
+  7. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -796,6 +799,333 @@ def _b2_q50():
 
 B2_TESTS_2025 = [(f"2025 Q{n}", f"jelet-2025-q{n:03d}", globals()[f"_b2_q{n}"]) for n in range(26, 51)]
 
+# ---------------------------------------------------------------------------
+# 2025 Batch 3 (Q51–Q75): independent re-derivations (same method as Batch 2).
+# Graph-option items (Q51, Q58, Q66) and figure-dependent items (Q55, Q62) are
+# checked against the geometry of the redrawn SVGs, so a wrong redraw fails.
+# ---------------------------------------------------------------------------
+_b3_result = _b2_result
+
+def _svg_geom(src):
+    """Parse a generated SVG into axes origin, dashed verticals, polylines, data lines, arrowheads and labels."""
+    import re as _re
+    svg = open(os.path.join(ROOT, src), encoding="utf-8").read()
+    lines = [(tuple(map(float, m[:4])), m[4]) for m in _re.findall(r'<line x1="([-0-9.]+)" y1="([-0-9.]+)" x2="([-0-9.]+)" y2="([-0-9.]+)"([^>]*)/>', svg)]
+    axis = [l for l, a in lines if "--fig-axis" in a and "dasharray" not in a]
+    horiz = [l for l in axis if l[1] == l[3]]; vert = [l for l in axis if l[0] == l[2]]
+    ox = vert[0][0] if vert else None; oy = horiz[0][1] if horiz else None
+    dashed = sorted({l[0] for l, a in lines if "dasharray" in a and l[0] == l[2]})
+    data_lines = [l for l, a in lines if "--fig-primary" in a]
+    polys = [[tuple(map(float, p.split(","))) for p in m.split()] for m in _re.findall(r'<polyline points="([^"]+)"', svg)]
+    heads = [[tuple(map(float, p.split(","))) for p in m.split()] for m in _re.findall(r'<polygon points="([^"]+)" fill="var\(--fig-line\)"', svg)]
+    labels = {t: (float(x), float(y)) for x, y, t in _re.findall(r'<text x="([-0-9.]+)" y="([-0-9.]+)"[^>]*>([A-E])</text>', svg)}
+    return dict(ox=ox, oy=oy, dashed=dashed, polys=polys, data_lines=data_lines, heads=heads, labels=labels)
+
+def _fit_quadratic(T, Y):
+    X = sympy.Matrix([[t*t, t, 1] for t in T]); Yv = sympy.Matrix(Y)
+    al, be, ga = [float(c) for c in (X.T*X).solve(X.T*Yv)]
+    rms = (sum((al*t*t + be*t + ga - y)**2 for t, y in zip(T, Y))/len(T))**0.5
+    return al, be, ga, rms
+
+def _figures_ok(qnum, stem_expected, n_opt_figs):
+    q = _paper_2025()[qnum]
+    has_stem = bool(q.get("stemFigure"))
+    n = sum(1 for o in q["options"] if o.get("figure"))
+    return has_stem == stem_expected and n == n_opt_figs, f"stemFigure={'yes' if has_stem else 'null'}, option figures={n}"
+
+def _b3_q51():
+    t = sympy.symbols("t", nonnegative=True); m, g, k = sympy.symbols("m g k", positive=True)
+    v = sympy.Function("v")
+    sol = sympy.dsolve(sympy.Eq(m*v(t).diff(t), m*g - k*v(t)), v(t), ics={v(0): 0}).rhs
+    vt = sympy.limit(sol, t, sympy.oo)
+    props = (sympy.simplify(sol.subs(t, 0)) == 0, sympy.simplify(sympy.diff(sol, t)).is_positive, vt == m*g/k)
+    figok, fdesc = _figures_ok(51, False, 4)
+    truth = {}
+    for o in _paper_2025()[51]["options"]:
+        G = _svg_geom(o["figure"]["src"]); pts = G["polys"][0]
+        T = [x - G["ox"] for x, _ in pts]; V = [G["oy"] - y for _, y in pts]
+        starts_rest = abs(V[0]) < 2 and abs(T[0]) < 2
+        monotone = all(b - a >= -0.5 for a, b in zip(V, V[1:]))
+        slopes = [(V[i+1] - V[i])/max(T[i+1] - T[i], 1e-9) for i in range(len(V) - 1)]
+        tail = slopes[-max(3, len(slopes)//10):]
+        levels_off = max(abs(s) for s in tail) < 0.1*max(abs(s) for s in slopes)
+        truth[o["id"]] = starts_rest and monotone and levels_off
+    m_ = sorted(k_ for k_, v_ in truth.items() if v_) if (all(props) and figok) else []
+    return _b3_result(51, ["small spherical body falling in a viscous fluid", "Body just dropped"], {k_: f"Graph ({k_})" for k_ in "ABCD"}, m_, f"v(t) = {sol}, v(0)=0, v'>0, v->{vt}; {fdesc}; SVG signature {truth}")
+
+def _b3_q52():
+    m, M, u = sympy.symbols("m M u", positive=True)
+    vf = m*u/(m + M)
+    ratio = sympy.simplify((sympy.Rational(1, 2)*(m + M)*vf**2)/(sympy.Rational(1, 2)*m*u**2))
+    p_cons = sympy.simplify((m + M)*vf - m*u) == 0
+    ke_cons = sympy.simplify(ratio - 1) == 0
+    props = {"A": p_cons and not ke_cons, "B": ke_cons and not p_cons, "C": p_cons and ke_cons, "D": not p_cons and not ke_cons}
+    m_ = sorted(k for k, v in props.items() if v)
+    return _b3_result(52, ["embedded in a solid block", "frictionless surface"], {"A": "momentum is conserved.", "C": "both momentum and kinetic energy"}, m_, f"KE_f/KE_i = {ratio}")
+
+def _b3_q53():
+    x, L, rho0 = sympy.symbols("x L rho0", positive=True)
+    rho = rho0*x**2/L**2
+    xcm = sympy.simplify(sympy.integrate(x*rho, (x, 0, L))/sympy.integrate(rho, (x, 0, L)))
+    opts = {"A": 2*L/3, "B": L/2, "C": L/3, "D": 3*L/4}
+    m_ = _pick(opts, lambda v: sympy.simplify(v - xcm) == 0)
+    return _b3_result(53, [r"\rho = \rho_{0}\dfrac{x^{2}}{L^{2}}", "cylindrical thick and long rod"], {"A": r"\dfrac{2L}{3}", "B": r"\dfrac{L}{2}", "C": r"\dfrac{L}{3}", "D": r"\dfrac{3L}{4}"}, m_, f"x_cm = {xcm}")
+
+def _b3_q54():
+    M, R, V, g, h = sympy.symbols("M R V g h", positive=True)
+    I = M*R**2/2
+    hs = sympy.solve(sympy.Eq(M*g*h, M*V**2/2 + I*(V/R)**2/2), h)[0]
+    opts = {"A": 3*V**2/(2*g), "B": 3*V**2/(4*g), "C": V**2/(4*g), "D": V**2/(2*g)}
+    figok, fdesc = _figures_ok(54, True, 0)
+    m_ = _pick(opts, lambda v: figok and sympy.simplify(v - hs) == 0)
+    return _b3_result(54, ["disc of mass M and radius R", "rolls up an inclined plane"], {"A": r"\dfrac{3V^{2}}{2g}", "B": r"\dfrac{3V^{2}}{4g}", "D": r"\dfrac{V^{2}}{2g}"}, m_, f"h = {hs}; {fdesc}")
+
+def _b3_q55():
+    figok, fdesc = _figures_ok(55, True, 0)
+    G = _svg_geom(_paper_2025()[55]["stemFigure"]["src"])
+    slope = {}
+    for (x1, y1, x2, y2) in G["data_lines"]:
+        end = (x2, y2)
+        name = min(G["labels"], key=lambda k: (G["labels"][k][0] - end[0])**2 + (G["labels"][k][1] - end[1])**2)
+        slope[name] = sympy.nsimplify((y1 - y2)/(x2 - x1))       # extension per unit load (pixels)
+    # Y = F l / (A dl): same l, A  =>  Y_A / Y_B = slope_B / slope_A
+    r = slope["B"]/slope["A"]
+    opts = {"A": r > 1, "B": r < 1, "C": r == 1, "D": r == sympy.Rational(1, 2)}
+    m_ = sorted(k for k, v in opts.items() if v) if figok else []
+    return _b3_result(55, ["extension-load graph", "Young's modulus"], {"A": r"Y_{A} > Y_{B}", "D": r"Y_{B} = 2Y_{A}"}, m_, f"slopes {slope}, Y_A/Y_B = {sympy.N(r, 4)}; {fdesc}")
+
+def _b3_q56():
+    d, A, L, g, rho, n, p = sympy.symbols("d A L g rho n p", positive=True)
+    ds = sympy.solve(sympy.Eq(d*A*L*g, n*rho*A*p*L*g + rho*A*(1 - p)*L*g), d)[0]
+    opts = {"A": (1 + (n + 1)*p)*rho, "B": (2 + (n + 1)*p)*rho, "C": (2 + (n - 1)*p)*rho, "D": (1 + (n - 1)*p)*rho}
+    m_ = _pick(opts, lambda v: sympy.simplify(v - ds) == 0)
+    return _b3_result(56, [r"$\rho$ and $n\rho$", "length $pL$ ($p < 1$) in the denser liquid"], {"A": r"\{1 + (n + 1)p\}\rho", "D": r"\{1 + (n - 1)p\}\rho"}, m_, f"d = {sympy.factor(ds)}")
+
+def _b3_q57():
+    dU = 200 - 80; W = 144 - dU
+    figok, fdesc = _figures_ok(57, True, 0)
+    m_ = _pick({"A": 6, "B": 12, "C": 18, "D": 24}, lambda v: figok and v == W)
+    return _b3_result(57, ["Q = 200 J", "W = 80 J", "Q = 144 J"], {"A": "$6$ J", "D": "$24$ J"}, m_, f"dU = {dU} J, W_adb = {W} J; {fdesc}")
+
+def _b3_q58():
+    figok, fdesc = _figures_ok(58, False, 4)
+    truth = {}
+    for o in _paper_2025()[58]["options"]:
+        G = _svg_geom(o["figure"]["src"]); pts = G["polys"][0]; lab = G["labels"]
+        v1, v3 = G["dashed"][0], G["dashed"][-1]
+        P = lambda pt: G["oy"] - pt[1]
+        near = lambda pt, k: (pt[0] - lab[k][0])**2 + (pt[1] - lab[k][1])**2 < 18**2
+        k = max(range(len(pts)), key=lambda i: pts[i][0])
+        leg1, leg2 = pts[:k+1], pts[k:]
+        ok_labels = near(pts[0], "A") and near(pts[-1], "B")
+        # leg 1: isothermal expansion V -> 3V: strictly decreasing and convex (curved, below its chord)
+        dec = abs(leg1[0][0] - v1) < 1 and abs(leg1[-1][0] - v3) < 1 and all(P(b) < P(a) for a, b in zip(leg1, leg1[1:]))
+        chord = lambda x: P(leg1[0]) + (P(leg1[-1]) - P(leg1[0]))*(x - leg1[0][0])/(leg1[-1][0] - leg1[0][0])
+        convex = dec and len(leg1) > 3 and max(chord(x) - P((x, y)) for x, y in leg1) > 3
+        # leg 2: isobaric compression 3V -> V: horizontal, right to left, ending below A
+        iso_p = len(leg2) >= 2 and abs(leg2[-1][0] - v1) < 1 and all(abs(P(a) - P(leg2[0])) < 0.5 for a in leg2) and leg2[-1][0] < leg2[0][0]
+        below = P(pts[-1]) < P(pts[0])
+        # arrowheads must point along the drawing direction of the segment they sit on
+        def head_ok(h):
+            tip = h[0]; base = ((h[1][0] + h[2][0])/2, (h[1][1] + h[2][1])/2)
+            d = (tip[0] - base[0], tip[1] - base[1])
+            def seg_dist(i):                                  # point-to-segment distance from the arrow tip
+                (x1, y1), (x2, y2) = pts[i], pts[i+1]
+                L2 = (x2 - x1)**2 + (y2 - y1)**2 or 1e-12
+                u = max(0.0, min(1.0, ((tip[0] - x1)*(x2 - x1) + (tip[1] - y1)*(y2 - y1))/L2))
+                return (tip[0] - x1 - u*(x2 - x1))**2 + (tip[1] - y1 - u*(y2 - y1))**2
+            j = min(range(len(pts) - 1), key=seg_dist)
+            if seg_dist(j) > 2.0**2:
+                return False
+            s = (pts[j+1][0] - pts[j][0], pts[j+1][1] - pts[j][1])
+            return d[0]*s[0] + d[1]*s[1] > 0
+        heads = len(G["heads"]) == 2 and all(head_ok(h) for h in G["heads"])
+        truth[o["id"]] = ok_labels and convex and iso_p and below and heads
+    m_ = sorted(k for k, v in truth.items() if v) if figok else []
+    return _b3_result(58, ["isothermal expansion from volume V to 3V", "constant pressure"], {k: f"Graph ({k})" for k in "ABCD"}, m_, f"{fdesc}; SVG process check {truth}")
+
+def _b3_q59():
+    w, a = sympy.symbols("omega a", positive=True); x1, x2 = sympy.symbols("x1 x2", positive=True)
+    v1s, v2s = w**2*(a**2 - x1**2), w**2*(a**2 - x2**2)          # nu^2 values
+    T = 2*sympy.pi/w
+    opts = {"A": 2*sympy.pi*sympy.sqrt((x2**2 - x1**2)/(v1s - v2s)), "B": 2*sympy.pi*sympy.sqrt((v1s + v2s)/(x1**2 + x2**2)),
+            "C": 2*sympy.pi*sympy.sqrt((v1s - v2s)/(x1**2 - x2**2)), "D": 2*sympy.pi*sympy.sqrt((x1**2 + x2**2)/(v1s + v2s))}
+    m_ = _pick(opts, lambda e: sympy.simplify(e - T) == 0)
+    return _b3_result(59, ["SHM", r"$\nu_{1}$ and $\nu_{2}$"], {"A": r"\dfrac{x_{2}^{2} - x_{1}^{2}}{\nu_{1}^{2} - \nu_{2}^{2}}", "C": r"\dfrac{\nu_{1}^{2} - \nu_{2}^{2}}{x_{1}^{2} - x_{2}^{2}}"}, m_, "T = 2 pi / omega")
+
+def _b3_q60():
+    m1, m2, R = sympy.symbols("mu1 mu2 R", positive=True)
+    F = sympy.simplify(1/((m1 - 1)/R - (m2 - 1)/R))
+    opts = {"A": 2*R/(m2 - m1), "B": R/(2*(m1 + m2)), "C": R/(2*(m1 - m2)), "D": R/(m1 - m2)}
+    m_ = _pick(opts, lambda v: sympy.simplify(v - F) == 0)
+    return _b3_result(60, ["plano convex lens fits exactly into a plano concave lens"], {"A": r"\dfrac{2\text{R}}{\mu_{2} - \mu_{1}}", "D": r"\dfrac{\text{R}}{\mu_{1} - \mu_{2}}"}, m_, f"F = {F}")
+
+def _b3_q61():
+    cA, cB, cC, th = sympy.symbols("c_A c_B c_C theta", positive=True)
+    s = sympy.solve([cA*(13 - 10) - cB*(15 - 13), cB*(16 - 15) - cC*(20 - 16)], [cA, cC], dict=True)[0]
+    T = sympy.solve(sympy.Eq(s[cA]*(th - 10), s[cC]*(20 - th)), th)[0]
+    figok, fdesc = _figures_ok(61, True, 0)
+    opts = {"A": sympy.Rational(140, 11), "B": sympy.Rational(110, 14), "C": 30, "D": 15}
+    m_ = _pick(opts, lambda v: figok and v == T)
+    return _b3_result(61, ["13^{\\circ}$C", "16^{\\circ}$C"], {"A": r"\dfrac{140}{11}", "B": r"\dfrac{110}{14}"}, m_, f"c_A = {s[cA]}, c_C = {s[cC]}, theta = {T}; {fdesc}")
+
+def _b3_q62():
+    figok, fdesc = _figures_ok(62, True, 0)
+    G = _svg_geom(_paper_2025()[62]["stemFigure"]["src"]); pts = G["polys"][0]
+    vert = {k: min(pts, key=lambda p: (p[0] - xy[0])**2 + (p[1] - xy[1])**2) for k, xy in G["labels"].items()}
+    slope = lambda a, b: (vert[a][1] - vert[b][1])/(vert[b][0] - vert[a][0])
+    flats = abs(slope("A", "B")) < 1e-9 and abs(slope("C", "D")) < 1e-9
+    de_rising = slope("D", "E") > 0
+    m, cv, Lf, Lv, Q, QD, TD = sympy.symbols("m c_v L_f L_v Q Q_D T_D", positive=True)
+    T_vap = TD + (Q - QD)/(m*cv)                   # vapour phase after the boiling plateau CD
+    dTdQ = sympy.diff(T_vap, Q)
+    opts = {"A": Lf, "B": Lv, "C": m*cv, "D": 1/(m*cv)}
+    m_ = _pick(opts, lambda v: figok and flats and de_rising and sympy.simplify(v - dTdQ) == 0)
+    return _b3_result(62, ["heat at a constant rate", "slope of DE"], {"C": "Heat capacity of vapour", "D": "Inverse of heat capacity of vapour"}, m_, f"AB, CD flat={flats}, DE rising={de_rising}; dT/dQ = {dTdQ}; {fdesc}")
+
+def _b3_q63():
+    r = sympy.Rational(2, 3)**2/sympy.Rational(1, 2)
+    m_ = _pick({"A": sympy.Rational(1, 3), "B": sympy.Rational(4, 3), "C": sympy.Rational(8, 9), "D": sympy.Rational(3, 2)}, lambda v: v == r)
+    return _b3_result(63, ["ratio $1 : 2$ and $2 : 3$"], {"A": "1 : 3", "C": "8 : 9"}, m_, f"H1/H2 = {r}")
+
+def _b3_q64():
+    h, c, e = sympy.Rational(662607015, 10**42), 299792458, sympy.Rational(1602176634, 10**28)
+    phi = sympy.symbols("phi", positive=True)
+    E1 = h*c/(sympy.Rational(350, 10**9))/e; E2 = h*c/(sympy.Rational(540, 10**9))/e        # eV
+    diff_ke = sympy.N(E1 - E2, 6)                            # = KE1 - KE2, independent of phi
+    rel = "gt" if diff_ke > 0 else ("eq" if diff_ke == 0 else "lt")
+    m_ = _pick({"A": "eq", "B": "gt", "C": "lt", "D": "unknown"}, lambda v: v == rel)
+    return _b3_result(64, ["350$ nm", "540$ nm", "same metal"], {"B": r"\text{V}_{1} > \text{V}_{2}", "D": "can not be predicted"}, m_, f"E1 = {sympy.N(E1, 4)} eV, E2 = {sympy.N(E2, 4)} eV, KE1 - KE2 = {diff_ke} eV for any phi")
+
+def _b3_q65():
+    r, rho, sig, eta, g = sympy.Rational(1, 10**4), 10**4, 10**3, sympy.Rational(98, 10)*sympy.Rational(1, 10**6), sympy.Rational(98, 10)
+    vt = 2*r**2*(rho - sig)*g/(9*eta)
+    h = vt**2/(2*g)
+    opts = {"A": sympy.Rational(2041, 100), "B": sympy.Rational(2041, 1000), "C": sympy.Rational(2041, 10000), "D": sympy.Rational(2041, 10)}
+    m_ = _pick(opts, lambda v: abs(sympy.N(h - v)) < sympy.N(v)*sympy.Rational(1, 1000))
+    return _b3_result(65, ["1 \\times 10^{-4}$m", "10^{4}$kg/m$^{3}$", "9{\\cdot}8 \\times 10^{-6}"], {"A": r"20{\cdot}41", "C": r"0{\cdot}2041"}, m_, f"v_t = {vt} m/s, h = {sympy.N(h, 6)} m")
+
+def _b3_q66():
+    figok, fdesc = _figures_ok(66, False, 4)
+    truth = {}
+    for o in _paper_2025()[66]["options"]:
+        G = _svg_geom(o["figure"]["src"]); pts = G["polys"][0]
+        t4 = G["dashed"][0] - G["ox"]
+        T = [x - G["ox"] for x, _ in pts]; X = [G["oy"] - y for _, y in pts]
+        first = [(t, x) for t, x in zip(T, X) if t <= t4 + 1e-9]; after = [(t, x) for t, x in zip(T, X) if t >= t4 - 1e-9]
+        if len(first) < 4 or len(after) < 2:                 # no sampled curve on [0, t4]: cannot be a parabola
+            truth[o["id"]] = False
+            continue
+        al, be, ga, rms = _fit_quadratic([p[0] for p in first], [p[1] for p in first])
+        from_rest = al > 0 and abs(be) < 0.05 and abs(ga) < 1 and rms < 0.3          # x = a t^2
+        s_line = (after[-1][1] - after[0][1])/(after[-1][0] - after[0][0])
+        straight = all(abs(x - (after[0][1] + s_line*(t - after[0][0]))) < 0.3 for t, x in after)
+        v4 = 2*al*t4 + be
+        uniform_after = straight and s_line > 0 and abs(s_line - v4) < 0.08*v4
+        truth[o["id"]] = from_rest and uniform_after
+    t, a = sympy.symbols("t a", positive=True)
+    x1 = a*t**2/2; x2 = x1.subs(t, 4) + sympy.diff(x1, t).subs(t, 4)*(t - 4)
+    c1 = sympy.simplify(sympy.diff(x2, t) - sympy.diff(x1, t).subs(t, 4)) == 0
+    m_ = sorted(k for k, v in truth.items() if v) if (figok and c1) else []
+    return _b3_result(66, ["starts from rest and accelerates uniformly for $4$ sec", "uniform velocity"], {k: f"Graph ({k})" for k in "ABCD"}, m_, f"x = a t^2/2 then slope 4a (C1 join: {c1}); {fdesc}; SVG fit {truth}")
+
+def _b3_q67():
+    m, g, F = 2, 10, 40
+    T = F
+    a = sympy.Rational(T - m*g, m); t = 2/sympy.sqrt(10)
+    s = sympy.simplify(a*t**2/2); Wt = T*s; Wg = -m*g*s
+    ke = sympy.Rational(1, 2)*m*(a*t)**2
+    assert sympy.simplify(Wt + Wg - ke) == 0
+    props = {"A": T == 20, "B": Wg == -20, "C": Wt == 80, "D": s == 2}
+    figok, fdesc = _figures_ok(67, True, 0)
+    m_ = sorted(k for k, v in props.items() if v) if figok else []
+    return _b3_result(67, ["F = 40 N", r"t = \dfrac{2}{\sqrt{10}}", "g = 10 m/s$^{2}$"], {"A": "Tension in the string is 20 N.", "B": "Work done by gravity is –20 J.", "C": "Workdone by tension on block is 80 J.", "D": "Displacement of the block is 2 m."}, m_, f"T = {T} N, a = {a}, s = {s} m, W_T = {Wt} J, W_g = {Wg} J; {fdesc}")
+
+def _b3_q68():
+    G, M, m, aa, e = sympy.symbols("G M m a e", positive=True)
+    vals = {}
+    for e_v in [sympy.Rational(3, 10)]:
+        rp, ra = aa*(1 - e_v), aa*(1 + e_v)
+        vis = lambda r: sympy.sqrt(G*M*(2/r - 1/aa))                 # vis-viva
+        Lp, La = m*rp*vis(rp), m*ra*vis(ra)                          # velocity perpendicular to r at apsides
+        Ep = m*vis(rp)**2/2 - G*M*m/rp; Ea = m*vis(ra)**2/2 - G*M*m/ra
+        vals = {"A": sympy.simplify(m*vis(rp)**2/2 - m*vis(ra)**2/2) == 0, "B": sympy.simplify(Lp - La) == 0,
+                "C": sympy.simplify(G*M*m/rp - G*M*m/ra) == 0, "D": sympy.simplify(Ep - Ea) == 0}
+    m_ = sorted(k for k, v in vals.items() if v)
+    return _b3_result(68, ["elliptical orbit", "has a constant"], {"A": "Kinetic energy.", "B": "angular momentum about the Sun.", "C": "Potential energy.", "D": "total energy."}, m_, f"perihelion vs aphelion (e = 0.3): {vals}")
+
+def _b3_q69():
+    S, LF, LV = 1, 80, 540
+    m_ice, m_steam = 10000, 5000                                     # grams
+    need = m_ice*LF + m_ice*S*100; avail = m_steam*LV
+    assert need < avail
+    T = 100; cond = sympy.Rational(need, LV)
+    water = sympy.Rational(m_ice, 1000) + cond/1000; steam = sympy.Rational(m_steam, 1000) - cond/1000
+    props = {"A": T == 160, "B": T == 100, "C": water == sympy.Rational(40, 3), "D": steam == sympy.Rational(5, 3)}
+    m_ = sorted(k for k, v in props.items() if v)
+    return _b3_result(69, ["5kg of steam", "10kg of ice", r"\text{L}_{\text{v}} = 540"], {"A": "160^{\\circ}", "C": r"13\dfrac{1}{3}", "D": r"1\dfrac{2}{3}"}, m_, f"need {need} cal < avail {avail} cal; condensed {cond} g; water {water} kg, steam {steam} kg at {T} C")
+
+def _b3_q70():
+    A = sympy.Matrix([1, 2, -1]); B = sympy.Matrix([0, 1, 3]); C = sympy.Matrix([2, -1, 1]); Dv = sympy.Matrix([1, 1, 1])
+    n1, n2 = A.cross(B), C.cross(Dv)
+    P = n1.cross(n2)
+    assert P != sympy.zeros(3, 1)
+    inter = sympy.Matrix.vstack(n1.T, n2.T).nullspace()[0]          # direction of intersection line of the two planes
+    par = lambda u, v: u.cross(v) == sympy.zeros(3, 1)
+    in_plane = lambda u, a, b: sympy.Matrix.hstack(u, a, b).det() == 0
+    props = {"A": par(P, n1), "B": in_plane(P, A, B), "C": in_plane(P, C, Dv), "D": par(P, inter)}
+    # symbolic confirmation of B and C for arbitrary vectors
+    sy = [sympy.Matrix(sympy.symbols(f"{c}1:4")) for c in "abcd"]
+    Ps = (sy[0].cross(sy[1])).cross(sy[2].cross(sy[3]))
+    symB = sympy.expand(Ps.dot(sy[0].cross(sy[1]))) == 0; symC = sympy.expand(Ps.dot(sy[2].cross(sy[3]))) == 0
+    m_ = sorted(k for k, v in props.items() if v) if (symB and symC) else []
+    return _b3_result(70, [r"\overline{P} = \left(\overline{A} \times \overline{B}\right) \times \left(\overline{C} \times \overline{D}\right)"], {"A": "perpendicular to the plane", "D": "line of intersection"}, m_, f"P = {list(P)}, intersection dir = {list(inter)}; symbolic P.(AxB)=0: {symB}, P.(CxD)=0: {symC}")
+
+def _b3_q71():
+    n, l = 5, 3
+    name = f"{n}{'spdfg'[l]}" if l <= n - 1 else None
+    m_ = _pick({"A": "5s", "B": "5p", "C": "5d", "D": "5f"}, lambda v: v == name)
+    return _b3_result(71, ["$n = 5$ and $l = 3$"], {"A": "5s", "D": "5f"}, m_, f"orbital = {name}")
+
+def _b3_q72():
+    import itertools, math
+    bonds = [(1, 0, 0), (-0.5, math.sqrt(3)/2, 0), (-0.5, -math.sqrt(3)/2, 0), (0, 0, 1), (0, 0, -1)]   # trigonal bipyramid
+    def env(i):
+        angs = sorted(round(math.degrees(math.acos(max(-1, min(1, sum(a*b for a, b in zip(bonds[i], bonds[j])))))), 3) for j in range(5) if j != i)
+        return tuple(angs)
+    classes = {env(i) for i in range(5)}
+    n = len(classes)
+    m_ = _pick({"A": 1, "B": 2, "C": 3, "D": 5}, lambda v: v == n)
+    return _b3_result(72, ["P–Cl bonds", "PCl$_{5}$"], {"A": "One", "B": "Two"}, m_, f"bond environments {sorted(classes)} -> {n} types")
+
+def _b3_q73():
+    host, dopant = 4, 5                                     # Si group 14; electron-rich dopant (P/As) group 15
+    extra = dopant - host
+    kind = "n" if extra > 0 else ("p" if extra < 0 else "intrinsic")
+    m_ = _pick({"A": "insulator", "B": "p", "C": "n", "D": "amorphous"}, lambda v: v == kind)
+    return _b3_result(73, ["electron-rich impurity"], {"B": "$p$-type", "C": "$n$-type"}, m_, f"extra electrons per dopant = {extra} -> {kind}-type")
+
+def _b3_q74():
+    x = sympy.symbols("x")
+    ox = {s: sympy.solve(e, x)[0] for s, e in {"NO": x - 2, "N2O4": 2*x - 8, "NO2-": x - 4 + 1}.items()}
+    # 2 NO + N2O4 + 4 OH- -> 4 NO2- + 2 H2O
+    lhs = {"N": 2 + 2, "O": 2 + 4 + 4, "H": 4, "q": -4}; rhs = {"N": 4, "O": 8 + 2, "H": 4, "q": -4}
+    balanced = lhs == rhs
+    lo, hi, prod = min(ox["NO"], ox["N2O4"]), max(ox["NO"], ox["N2O4"]), ox["NO2-"]
+    kind = "comproportionation" if (lo < prod < hi) else "other"
+    m_ = _pick({"A": "decomposition", "B": "disproportionation", "C": "comproportionation", "D": "acid-base"}, lambda v: balanced and v == kind)
+    return _b3_result(74, ["NO reacts with N$_{2}$O$_{4}$", "NO$_{2}^{-}$"], {"B": "Disproportionation", "C": "Comproportionation"}, m_, f"oxidation numbers {ox}; balanced={balanced}")
+
+def _b3_q75():
+    Hx, Hy = sympy.Integer(10)**-6, sympy.Integer(10)**-7; Kw = sympy.Integer(10)**-14
+    OHy = Kw/Hy
+    props = {"A": Hx > Kw**sympy.Rational(1, 2) and Hy > Kw**sympy.Rational(1, 2), "B": Hx/Hy == 10, "C": OHy > Hy}
+    props["D"] = not any(props.values())
+    m_ = sorted(k for k, v in props.items() if v)
+    return _b3_result(75, ["pH of 6.0", "pH of 7.0"], {"B": "10 times more acidic", "C": r"\rangle"}, m_, f"[H+]X/[H+]Y = {Hx/Hy}, [OH-]Y = {OHy} = [H+]Y")
+
+B3_TESTS_2025 = [(f"2025 Q{n}", f"jelet-2025-q{n:03d}", globals()[f"_b3_q{n}"]) for n in range(51, 76)]
+
 def main():
     if not HAS_SYMPY:
         print("⚠️  sympy not installed — skipping independent SymPy re-verification")
@@ -845,7 +1175,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + B1_TESTS_2025 + B2_TESTS_2025
+        ] + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:

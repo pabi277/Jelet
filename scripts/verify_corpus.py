@@ -226,6 +226,21 @@ def main():
             fig_count += len([f for f in os.listdir(fig_dir) if f.endswith(".svg")])
     print(f"✓ Figures: {fig_count} SVG files")
 
+    # 10. Orphaned figures: every SVG on disk must be referenced by a stemFigure
+    #     or an options[i].figure (stale answer-spoiler stems must be deleted).
+    referenced = set()
+    for paper_path in glob.glob(os.path.join(DATA, "papers", "*.json")):
+        for q in load_json(paper_path).get("questions", []):
+            figs = [q.get("stemFigure")] + [o.get("figure") for o in q.get("options", [])]
+            for fg in figs:
+                if fg and fg.get("src"):
+                    referenced.add(os.path.normpath(os.path.join(ROOT, fg["src"])))
+    on_disk = {os.path.normpath(p) for p in glob.glob(os.path.join(DATA, "figures", "*", "*.svg"))}
+    orphans = sorted(os.path.relpath(p, ROOT) for p in on_disk - referenced)
+    check(not orphans, f"Orphaned figure SVG(s) not referenced by any question: {orphans}")
+    if not orphans:
+        print(f"✓ Orphaned figures: 0 (all {len(on_disk)} SVGs referenced)")
+
     # Report
     print()
     if errors:

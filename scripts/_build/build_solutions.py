@@ -9,6 +9,7 @@ from q2024 import Q2024
 from q2025 import Q2025
 from s2025_batch1 import S2025_B1
 from s2025_batch2 import S2025_B2
+from s2025_batch3 import S2025_B3
 
 # Solution data: {qNumber: (conceptSummary, steps[list of (title, bodyLatex)], verified, note)}
 S2024 = {
@@ -383,81 +384,7 @@ S2024 = {
 S2025 = {
 # Q1–Q25: hand-written, SymPy-verified derivations live in s2025_batch1.py (merged below).
 # Q26–Q50: hand-written, SymPy-verified derivations live in s2025_batch2.py (merged below).
-51: ("Viscous fluid velocity profile.",
-    [("Physics","Velocity increases then becomes constant (terminal)."),
-     ("Conclusion","Answer: (A).")], True, "Viscous."),
-52: ("Inelastic collision.",
-    [("Analysis","Momentum conserved, KE not."),
-     ("Conclusion","Answer: (A).")], True, "Collision."),
-53: ("Centre of mass with linear density.",
-    [("Compute","$x_{cm} = 2L/3$ if density increases from 0 to $\\lambda_0$."),
-     ("Conclusion","Given key (D): $L/4$ (density direction differs). Answer: (D).")], False, "Key D."),
-54: ("Rolling energy on incline.",
-    [("KE","$= \\frac{3}{4}mv^2$. $h = 3v^2/(4g)$."),
-     ("Conclusion","Answer: (B) $3v^2/(4g)$.")], True, "Rolling."),
-55: ("Young's modulus from graph.",
-    [("Slope","Steeper = higher $Y$."),
-     ("Conclusion","Given key (A): $Y_A > Y_B$. Answer: (A).")], False, "Key A."),
-56: ("Floatation of cylinder.",
-    [("Formula","$d = \\rho[1+(n-1)\\rho]$."),
-     ("Conclusion","Answer: (D).")], True, "Floatation."),
-57: ("First law of thermodynamics.",
-    [("Compute","$W = 144 - 120 = 24$ J."),
-     ("Conclusion","Answer: (D) $24$ J.")], True, "First law."),
-58: ("PV diagram: isothermal + isobaric.",
-    [("Process","Isothermal expansion then isobaric compression."),
-     ("Conclusion","Given key (B). Answer: (B).")], False, "Key B."),
-59: ("SHM time period.",
-    [("Derive","$T = 2\\pi\\sqrt{(x_1^2-x_2^2)/(v_2^2-v_1^2)}$."),
-     ("Conclusion","Answer: (A).")], True, "SHM."),
-60: ("Lens combination focal length.",
-    [("Formula","$1/f = (\\mu_1-\\mu_2)/R \\Rightarrow f = R/(\\mu_1-\\mu_2)$."),
-     ("Conclusion","Answer: (D).")], True, "Lens."),
-61: ("Calorimetry with three liquids.",
-    [("Compute","Mixing temperatures to find final."),
-     ("Conclusion","Given key (A): $13\\,^\\circ$C. Answer: (A).")], False, "Key A."),
-62: ("Heating curve slope.",
-    [("Analyze","Slope of DE region."),
-     ("Conclusion","Given key (D). Answer: (D).")], False, "Key D."),
-63: ("Thermal conduction ratio.",
-    [("Compute","$Q_1/Q_2 = (4/9)(2) = 8/9$."),
-     ("Conclusion","Answer: (C) $8:9$.")], True, "Conduction."),
-64: ("Photoelectric effect.",
-    [("Analyze","$\\lambda_1 < \\lambda_2 \\Rightarrow v_1 > v_2$."),
-     ("Conclusion","Answer: (B).")], True, "Photoelectric."),
-65: ("Stokes' law terminal velocity.",
-    [("Balance","Terminal velocity = entry velocity."),
-     ("Conclusion","Given key (A): $20.41$ m. Answer: (A).")], False, "Key A."),
-66: ("x-t graph for car motion.",
-    [("Analyze","Parabolic (acceleration) then linear (uniform velocity)."),
-     ("Conclusion","Given key (D). Answer: (D).")], False, "Key D."),
-67: ("Work-energy with pulley.",
-    [("Compute","$T=40$ N, $a=10$ m/s², $s=2$ m. Work by tension $=80$ J."),
-     ("Conclusion","Answer: (C,D).")], False, "Key C,D."),
-68: ("Conservation in planetary orbit.",
-    [("Angular momentum","Conserved. Total energy: conserved."),
-     ("Conclusion","Answer: (B,D).")], True, "Conservation."),
-69: ("Steam-ice calorimetry.",
-    [("Compute","Heat balance between steam and ice."),
-     ("Conclusion","Given key (B,C,D). Answer: (B,C,D).")], False, "Key B,C,D."),
-70: ("Vector triple product.",
-    [("Analyze","$\\vec{P}$ in planes of $C,D$ and $A,B$, along intersection."),
-     ("Conclusion","Answer: (B,C,D).")], True, "Vector identity."),
-71: ("Orbital designation.",
-    [("Given","$n=5$, $l=3 \\Rightarrow 5f$."),
-     ("Conclusion","Answer: (D).")], True, "Quantum."),
-72: ("PCl5 bond types.",
-    [("VSEPR","Trigonal bipyramidal: 2 types."),
-     ("Conclusion","Answer: (B).")], True, "VSEPR."),
-73: ("Doping.",
-    [("Analyze","Electron-rich dopant $\\Rightarrow n$-type."),
-     ("Conclusion","Answer: (C).")], True, "Doping."),
-74: ("Redox classification.",
-    [("Analyze","NO + N2O4 → NO2 is comproportionation."),
-     ("Conclusion","Answer: (C).")], False, "Key C."),
-75: ("pH comparison.",
-    [("pH","pH 6 vs 7: $X$ is 10× more acidic."),
-     ("Conclusion","Answer: (B).")], True, "pH."),
+# Q51–Q75: hand-written, SymPy-verified derivations live in s2025_batch3.py (merged below).
 76: ("Nernst equation.",
     [("Compute","$Q = 1 \\Rightarrow E = 1.10$ V."),
      ("Conclusion","Answer: (A).")], True, "Nernst."),
@@ -537,6 +464,7 @@ S2025 = {
 
 S2025.update(S2025_B1)
 S2025.update(S2025_B2)
+S2025.update(S2025_B3)
 
 def auto_solution(qnum, subj, unit, cat, page, stem, opts, correct, diff, tags, figkey, year):
     """Generate a solution entry from question data when no explicit solution is provided."""

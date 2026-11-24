@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 175" width="260" height="175" role="img" aria-label="2025 Q57: P–V diagram; rectangle with a bottom-left, c top-left, b top-right, d bottom-right; arrows a→c, c→b, a→d, d→b, and a curved path from b back to a">
+  <rect x="0" y="0" width="260" height="175" fill="transparent"/>
+  <line x1="45" y1="150" x2="245" y2="150" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="245,150 238.1,154.0 238.1,146.0" fill="var(--fig-axis)"/>
+  <line x1="45" y1="150" x2="45" y2="12" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="45,12 49.0,18.9 41.0,18.9" fill="var(--fig-axis)"/>
+  <polyline points="85,125 85,35 205,35 205,125 85,125" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <polyline points="205.0,35.0 203.3,39.1 201.3,42.9 199.1,46.5 196.7,49.8 194.1,53.0 191.3,55.9 188.3,58.6 185.1,61.2 181.8,63.6 178.4,65.8 174.9,67.8 171.3,69.7 167.7,71.5 164.0,73.1 160.2,74.7 156.5,76.1 152.7,77.4 149.0,78.7 145.3,79.9 141.7,81.0 138.1,82.0 134.7,83.1 131.3,84.1 128.1,85.0 125.0,86.0 122.1,87.0 119.2,88.1 116.6,89.2 114.0,90.4 111.5,91.7 109.2,93.0 107.0,94.4 104.9,95.8 102.9,97.3 101.0,98.9 99.2,100.4 97.5,102.1 96.0,103.7 94.5,105.4 93.2,107.1 91.9,108.8 90.8,110.6 89.7,112.4 88.8,114.2 87.9,116.0 87.1,117.8 86.5,119.6 85.9,121.4 85.4,123.2 85.0,125.0" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <polygon points="85.0,82.0 82.0,88.0 88.0,88.0" fill="var(--fig-line)"/>
+  <polygon points="150.0,35.0 144.0,32.0 144.0,38.0" fill="var(--fig-line)"/>
+  <polygon points="205.0,82.0 202.0,88.0 208.0,88.0" fill="var(--fig-line)"/>
+  <polygon points="150.0,125.0 144.0,122.0 144.0,128.0" fill="var(--fig-line)"/>
+  <polygon points="138.1,82.0 144.7,83.2 143.0,77.5" fill="var(--fig-line)"/>
+  <text x="77" y="129" font-family="Times New Roman, serif" font-size="12" font-style="italic" fill="var(--fig-text)" text-anchor="middle">a</text>
+  <text x="71" y="39" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">c</text>
+  <text x="215" y="33" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">b</text>
+  <text x="215" y="131" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">d</text>
+  <text x="33" y="33" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">P</text>
+  <line x1="33" y1="75" x2="33" y2="52" stroke="var(--fig-axis)" stroke-width="1"/>
+  <polygon points="33,52 37.0,58.9 29.0,58.9" fill="var(--fig-axis)"/>
+  <text x="33" y="155" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">0</text>
+  <line x1="125" y1="164" x2="150" y2="164" stroke="var(--fig-axis)" stroke-width="1"/>
+  <polygon points="150,164 143.1,168.0 143.1,160.0" fill="var(--fig-axis)"/>
+  <text x="232" y="168" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">V</text>
+</svg>

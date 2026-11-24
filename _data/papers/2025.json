@@ -2522,34 +2522,52 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "Which of the graphs shown in figures represents the velocity-time ($v$-$t$) graph of a small spherical body falling in a viscous fluid? (Body just dropped on the surface of the viscous fluid)",
-      "stemFigure": {
-        "src": "./_data/figures/2025/fig-2025-q51.svg",
-        "alt": "Figure for JELET 2025 Q51",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemLatex": "Which of the graphs shown in figures represents the velocity – time ($v$–$t$) graph of a small spherical body falling in a viscous fluid? (Body just dropped on the surface of the viscous fluid)",
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$v$ increases then becomes constant",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q51-optA.svg",
+            "alt": "Graph (A): v versus t; v starts at 0, rises along an S-shaped curve and levels off to a constant value",
+            "width": 220,
+            "height": 125,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "$v$ constant from start",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q51-optB.svg",
+            "alt": "Graph (B): v versus t; v starts at a large value on the v-axis and decreases, levelling off to a constant value",
+            "width": 220,
+            "height": 125,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "$v$ decreases then constant",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q51-optC.svg",
+            "alt": "Graph (C): v versus t; v rises from 0 to a maximum, then falls steeply back towards zero",
+            "width": 220,
+            "height": 125,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "$v$ increases linearly forever",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q51-optD.svg",
+            "alt": "Graph (D): v versus t; v rises linearly from 0, stays constant for a while, then rises steeply again",
+            "width": 220,
+            "height": 125,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -2560,10 +2578,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q51)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "fluid",
-        "viscous",
+        "viscosity",
+        "terminal-velocity",
         "velocity-time-graph"
       ]
     },
@@ -2610,9 +2628,9 @@
       },
       "difficulty": "easy",
       "tags": [
-        "momentum",
+        "momentum-conservation",
         "inelastic-collision",
-        "conservation"
+        "kinetic-energy"
       ]
     },
     {
@@ -2624,7 +2642,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A rod of length $L$ has its linear density increasing linearly from zero at one end to $\\lambda_{0}$ at the other end. If $L$ is the length of rod and $x$ is the position of an elementary mass from one end of the rod, then the position of its centre of mass from $x = 0$ end is",
+      "stemLatex": "The variation of density of a cylindrical thick and long rod is $\\rho = \\rho_{0}\\dfrac{x^{2}}{L^{2}}$ where $L$ is the length of rod and '$x$' is the position of an elementary mass from one end of the rod. Then the position of its centre of mass from $x$=0 end is",
       "stemFigure": null,
       "options": [
         {
@@ -2634,17 +2652,17 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{L}{3}$",
+          "latex": "$\\dfrac{L}{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{3L}{4}$",
+          "latex": "$\\dfrac{L}{3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{L}{4}$",
+          "latex": "$\\dfrac{3L}{4}$",
           "figure": null
         }
       ],
@@ -2656,11 +2674,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q53)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "centre-of-mass",
-        "linear-density",
-        "rod"
+        "variable-density",
+        "integration"
       ]
     },
     {
@@ -2672,12 +2690,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "A disc of mass $M$ and radius $R$ rolls on a horizontal surface and then rolls up an inclined plane as shown in the figure. If the velocity of the disc is $V$, the height to which the disc will rise will be",
+      "stemLatex": "A disc of mass M and radius R rolls on a horizontal surface and then rolls up an inclined plane as shown in the figure. If the velocity of the disc is V, the height to which the disc will rise will be",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q54.svg",
-        "alt": "Figure for JELET 2025 Q54",
-        "width": 420,
-        "height": 220,
+        "alt": "A disc on a horizontal surface moving with velocity V towards a concave-up curved incline; it rises to height h, shown by a dashed vertical line",
+        "width": 270,
+        "height": 150,
         "themeAdaptive": true
       },
       "options": [
@@ -2710,11 +2728,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q54)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "rolling",
-        "energy",
-        "inclined-plane"
+        "rolling-motion",
+        "energy-conservation",
+        "moment-of-inertia"
       ]
     },
     {
@@ -2726,12 +2744,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "The dimensions of two wires $A$ and $B$ are the same, but their materials are different. Their extension-load graphs are shown in figure. If $Y_{A}$ and $Y_{B}$ are the values of Young's modulus of elasticity of $A$ and $B$ respectively, then",
+      "stemLatex": "The dimensions of two wires A and B are the same, but their materials are different. Their extension-load graph are shown in figure. If $Y_{A}$ and $Y_{B}$ are the values of Young's modulus of elasticity of A and B respectively, then",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q55.svg",
-        "alt": "Figure for JELET 2025 Q55",
-        "width": 420,
-        "height": 220,
+        "alt": "Extension (vertical axis) versus load (horizontal axis) for wires A and B: straight lines through the origin, B steeper than A",
+        "width": 250,
+        "height": 180,
         "themeAdaptive": true
       },
       "options": [
@@ -2764,11 +2782,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q55)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "elasticity",
-        "young-modulus",
-        "graph"
+        "youngs-modulus",
+        "extension-load-graph",
+        "elasticity"
       ]
     },
     {
@@ -2780,27 +2798,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "Two non-mixing liquids of densities $\\rho$ and $n\\rho$ ($n > 1$) are put in a container. The height of each liquid is $h$. A solid cylinder of length $L$ and density $d$ is put in this container. The cylinder floats with its axis vertical and length $\\rho L$ ($\\rho < 1$) in the denser liquid and the rest part within other liquid. The density $'d'$ is equal to",
+      "stemLatex": "Two non-mixing liquids of densities $\\rho$ and $n\\rho$ ($n > 1$) are put in a container. The height of each liquid is $h$. A solid cylinder of length $L$ and density $d$ is put in this container. The cylinder floats with its axis vertical and length $pL$ ($p < 1$) in the denser liquid and the rest part within other liquid. The density '$d$' is equal to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\{1 + (n + 1)\\rho\\}\\rho$",
+          "latex": "$\\{1 + (n + 1)p\\}\\rho$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\{2 + (n + 1)\\rho\\}\\rho$",
+          "latex": "$\\{2 + (n + 1)p\\}\\rho$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\{2 + (n - 1)\\rho\\}\\rho$",
+          "latex": "$\\{2 + (n - 1)p\\}\\rho$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\{1 + (n - 1)\\rho\\}\\rho$",
+          "latex": "$\\{1 + (n - 1)p\\}\\rho$",
           "figure": null
         }
       ],
@@ -2812,11 +2830,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q56)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "fluid",
-        "floatation",
-        "density"
+        "flotation",
+        "archimedes-principle",
+        "two-liquids"
       ]
     },
     {
@@ -2828,27 +2846,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "When a system is taken from state $a$ to state $b$ along the path $acb$, it is found that a quantity of heat $Q = 200\\,\\text{J}$ is absorbed by the system and a work $W = 80\\,\\text{J}$ is done by it. Along the path $adb$, $Q = 144\\,\\text{J}$. The work done along the path $adb$ is",
-      "stemFigure": null,
+      "stemLatex": "When a system is taken from state '$a$' to state 'b' along the path '$a$cb', it is found that a quantity of heat Q = 200 J is absorbed by the system and a work W = 80 J is done by it. Along the path '$a$db', Q = 144 J. The work done along the path '$a$db' is",
+      "stemFigure": {
+        "src": "./_data/figures/2025/fig-2025-q57.svg",
+        "alt": "P–V diagram: rectangle with a at bottom-left, c top-left, b top-right, d bottom-right; arrows a→c→b and a→d→b, plus a curved path from b back to a",
+        "width": 260,
+        "height": 175,
+        "themeAdaptive": true
+      },
       "options": [
         {
           "id": "A",
-          "latex": "$6\\,\\text{J}$",
+          "latex": "$6$ J",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$12\\,\\text{J}$",
+          "latex": "$12$ J",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$18\\,\\text{J}$",
+          "latex": "$18$ J",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$24\\,\\text{J}$",
+          "latex": "$24$ J",
           "figure": null
         }
       ],
@@ -2860,11 +2884,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q57)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "thermodynamics",
-        "first-law",
-        "work-heat"
+        "first-law-of-thermodynamics",
+        "internal-energy",
+        "state-function"
       ]
     },
     {
@@ -2876,34 +2900,52 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "One mole of an ideal gas goes from an initial state $A$ to final state $B$ via two processes. It firstly undergoes isothermal expansion from volume $V$ to $3V$ and then its volume is reduced from $3V$ to $V$ at constant pressure. The correct $P$-$V$ diagram representing the two processes is",
-      "stemFigure": {
-        "src": "./_data/figures/2025/fig-2025-q58.svg",
-        "alt": "Figure for JELET 2025 Q58",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemLatex": "One mole of an ideal gas goes from an initial state A to final state B via two processes. It firstly undergoes isothermal expansion from volume V to 3V and then its volume is reduced from 3V to V at constant pressure. The correct P – V diagram representing the two processes is",
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "isothermal expansion then isobaric compression",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q58-optA.svg",
+            "alt": "Graph (A): P–V diagram; a straight sloping line from A at V down to 3V, then a horizontal line at lower pressure back to B at V",
+            "width": 240,
+            "height": 142,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "isobaric expansion then isothermal compression",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q58-optB.svg",
+            "alt": "Graph (B): P–V diagram; a curve falling from A at V to 3V, then a horizontal line at the lower pressure back to B at V",
+            "width": 240,
+            "height": 142,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "isothermal then isochoric",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q58-optC.svg",
+            "alt": "Graph (C): P–V diagram; a horizontal line from A at V to 3V, then a curve rising from 3V back to B at V",
+            "width": 240,
+            "height": 142,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "isobaric then isochoric",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q58-optD.svg",
+            "alt": "Graph (D): P–V diagram; a curve falling from A at V to 3V, then a straight line sloping down back to B at V at a lower pressure",
+            "width": 240,
+            "height": 142,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -2916,9 +2958,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "thermodynamics",
         "pv-diagram",
-        "processes"
+        "isothermal-process",
+        "isobaric-process"
       ]
     },
     {
@@ -2930,27 +2972,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "A particle is executing SHM along a straight line. Its velocities at distances $x_{1}$ and $x_{2}$ from the mean position are $v_{1}$ and $v_{2}$, respectively. Its time period is",
+      "stemLatex": "A particle is executing SHM along a straight line. Its velocities at distances $x_{1}$ and $x_{2}$ from the mean position are $\\nu_{1}$ and $\\nu_{2}$ respectively. Its time period is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$2\\pi\\sqrt{\\dfrac{x_{1}^{2} - x_{2}^{2}}{v_{2}^{2} - v_{1}^{2}}}$",
+          "latex": "$2\\pi\\sqrt{\\dfrac{x_{2}^{2} - x_{1}^{2}}{\\nu_{1}^{2} - \\nu_{2}^{2}}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2\\pi\\sqrt{\\dfrac{x_{1}^{2} + x_{2}^{2}}{v_{1}^{2} + v_{2}^{2}}}$",
+          "latex": "$2\\pi\\sqrt{\\dfrac{\\nu_{1}^{2} + \\nu_{2}^{2}}{x_{1}^{2} + x_{2}^{2}}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$2\\pi\\sqrt{\\dfrac{x_{1}^{2} - x_{2}^{2}}{v_{1}^{2} - v_{2}^{2}}}$",
+          "latex": "$2\\pi\\sqrt{\\dfrac{\\nu_{1}^{2} - \\nu_{2}^{2}}{x_{1}^{2} - x_{2}^{2}}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$2\\pi\\sqrt{\\dfrac{x_{1} + x_{2}}{v_{1} + v_{2}}}$",
+          "latex": "$2\\pi\\sqrt{\\dfrac{x_{1}^{2} + x_{2}^{2}}{\\nu_{1}^{2} + \\nu_{2}^{2}}}$",
           "figure": null
         }
       ],
@@ -2962,10 +3004,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q59)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "shm",
-        "velocity",
+        "velocity-displacement-relation",
         "time-period"
       ]
     },
@@ -2978,27 +3020,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A plano convex lens fits exactly into a plano concave lens. Their plane surfaces are parallel to each other. If lenses are made of different materials of refractive indices $\\mu_{1}$ and $\\mu_{2}$ and $R$ is the radius of curvature of the curved surface of the lenses, the focal length of combination is",
+      "stemLatex": "A plano convex lens fits exactly into a plano concave lens. Their plane surfaces are parallel to each other. If lenses are made of different materials of refractive indices $\\mu_{1}$ & $\\mu_{2}$ and R is the radius of curvature of the curved surface of the lenses, the focal length of combination is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{2R}{\\mu_{1} + \\mu_{2}}$",
+          "latex": "$\\dfrac{2\\text{R}}{\\mu_{2} - \\mu_{1}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{R}{\\mu_{2} - \\mu_{1}}$",
+          "latex": "$\\dfrac{\\text{R}}{2(\\mu_{1} + \\mu_{2})}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{R}{2(\\mu_{1} - \\mu_{2})}$",
+          "latex": "$\\dfrac{\\text{R}}{2(\\mu_{1} - \\mu_{2})}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{R}{\\mu_{1} - \\mu_{2}}$",
+          "latex": "$\\dfrac{\\text{R}}{\\mu_{1} - \\mu_{2}}$",
           "figure": null
         }
       ],
@@ -3010,10 +3052,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q60)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "lens",
-        "combination",
+        "lens-makers-formula",
+        "lens-combination",
         "focal-length"
       ]
     },
@@ -3026,33 +3068,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "The temperature of equal masses of three different liquids $A$, $B$ and $C$ are $10^{\\circ}\\text{C}$, $15^{\\circ}\\text{C}$ and $20^{\\circ}\\text{C}$ respectively. The temperature when $A$ and $B$ are mixed is $13^{\\circ}\\text{C}$ and when $B$ and $C$ are mixed, it is $16^{\\circ}\\text{C}$. What will be the temperature when $A$ and $C$ are mixed ?",
+      "stemLatex": "The temperature of equal masses of three different liquids A, B and C are $10^{\\circ}$C, $15^{\\circ}$C and $20^{\\circ}$C respectively. The temperature when A and B are mixed is $13^{\\circ}$C and when B and C are mixed, it is $16^{\\circ}$C. What will be the temperature when A and C are mixed?",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q61.svg",
-        "alt": "Figure for JELET 2025 Q61",
-        "width": 420,
-        "height": 220,
+        "alt": "Liquids A, B, C of equal mass m at 10ºC, 15ºC and 20ºC; an arc joining A and B is labelled 13ºC and an arc joining B and C is labelled 16ºC",
+        "width": 270,
+        "height": 155,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$13^{\\circ}\\text{C}$",
+          "latex": "$\\dfrac{140}{11}\\,^{\\circ}$C",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{110}{7}\\,^{\\circ}\\text{C}$",
+          "latex": "$\\dfrac{110}{14}\\,^{\\circ}$C",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$30^{\\circ}\\text{C}$",
+          "latex": "$30^{\\circ}$C",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$15^{\\circ}\\text{C}$",
+          "latex": "$15^{\\circ}$C",
           "figure": null
         }
       ],
@@ -3064,11 +3106,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q61)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "calorimetry",
-        "mixing",
-        "temperature"
+        "specific-heat",
+        "principle-of-mixtures"
       ]
     },
     {
@@ -3080,12 +3122,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A substance is heated with heat input as shown in figure. What does the slope of $DE$ represent ?",
+      "stemLatex": "A solid material is supplied with heat at a constant rate. The temperature of material is changing with heat input as shown in figure. What does the slope of DE represent?",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q62.svg",
-        "alt": "Figure for JELET 2025 Q62",
-        "width": 420,
-        "height": 220,
+        "alt": "Temperature versus heat input: rising from the origin to A, flat from A to B, rising from B to C, flat from C to D, rising again from D to E",
+        "width": 260,
+        "height": 170,
         "themeAdaptive": true
       },
       "options": [
@@ -3118,11 +3160,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q62)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "thermodynamics",
-        "heat-graph",
-        "slope"
+        "heating-curve",
+        "heat-capacity",
+        "latent-heat"
       ]
     },
     {
@@ -3166,11 +3208,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q63)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
         "thermal-conduction",
-        "rods",
-        "ratio"
+        "steady-state",
+        "heat-current"
       ]
     },
     {
@@ -3182,27 +3224,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "Surfaces of two metal block $A$ and $B$ of same dimension made of same metal are illuminated with light of wavelength $\\lambda_{1} = 350\\,\\text{nm}$ and $\\lambda_{2} = 540\\,\\text{nm}$ respectively. If $v_{1}$ and $v_{2}$ represent the maximum speed of the photo-electrons emitted from block $A$ and $B$ respectively, then",
+      "stemLatex": "Surfaces of two metal block A and B of same dimension made of same metal are illuminated with light of wavelength $\\lambda_{1} = 350$ nm and $\\lambda_{2} = 540$ nm respectively. If $\\text{V}_{1}$ and $\\text{V}_{2}$ represent the maximum speed of the photo-electrons emitted from block A and B repectively, then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$v_{1} = v_{2}$",
+          "latex": "$\\text{V}_{1} = \\text{V}_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$v_{1} > v_{2}$",
+          "latex": "$\\text{V}_{1} > \\text{V}_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$v_{1} < v_{2}$",
+          "latex": "$\\text{V}_{1} < \\text{V}_{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "the relation between $v_{1}$ and $v_{2}$ can not be predicted from the supplied data.",
+          "latex": "the relation between $\\text{V}_{1}$ and $\\text{V}_{2}$ can not be predicted from the supplied data.",
           "figure": null
         }
       ],
@@ -3214,11 +3256,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q64)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "photoelectric",
-        "wavelength",
-        "max-speed"
+        "photoelectric-effect",
+        "einstein-equation",
+        "maximum-speed"
       ]
     },
     {
@@ -3230,27 +3272,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A spherical ball of radius $1 \\times 10^{-4}\\,\\text{m}$ and density $10^{3}\\,\\text{kg/m}^{3}$ falls freely under gravity through a distance $h$ before entering a tank of water. If the velocity of the ball does not change after entering the water, find $h$. (Viscosity of water is $9.8 \\times 10^{-6}\\,\\text{N-s/m}^{2}$)",
+      "stemLatex": "A spherical ball of radius $1 \\times 10^{-4}$m and density $10^{4}$kg/m$^{3}$ falls freely under gravity through a distance $h$ before entering a tank of water. If the velocity of the ball does not change after entering the water, find $h$. (Viscosity of water is $9{\\cdot}8 \\times 10^{-6}$ N – S/m$^{2}$)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$20.41\\,\\text{m}$",
+          "latex": "$20{\\cdot}41$ m",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2.041\\,\\text{m}$",
+          "latex": "$2{\\cdot}041$ m",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0.2041\\,\\text{m}$",
+          "latex": "$0{\\cdot}2041$ m",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$204.1\\,\\text{m}$",
+          "latex": "$204{\\cdot}1$ m",
           "figure": null
         }
       ],
@@ -3262,11 +3304,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q65)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "fluid",
-        "viscosity",
-        "stokes-law"
+        "terminal-velocity",
+        "stokes-law",
+        "free-fall"
       ]
     },
     {
@@ -3278,34 +3320,52 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "A car starts from rest and accelerates uniformly for $4\\,\\text{sec}$ and then moves with uniform velocity. Which of the following displacement ($x$) - time ($t$) graph represents the motion of the car ?",
-      "stemFigure": {
-        "src": "./_data/figures/2025/fig-2025-q66.svg",
-        "alt": "Figure for JELET 2025 Q66",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemLatex": "A car starts from rest and accelerates uniformly for $4$ sec and then moves with uniform velocity. Which of the following displacement ($x$) – time (t) graph represents the motion of the car?",
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "parabolic then linear",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q66-optA.svg",
+            "alt": "Graph (A): x versus t; x rises along a concave-down curve until t = 4, then decreases along a straight line",
+            "width": 220,
+            "height": 135,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "linear then parabolic",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q66-optB.svg",
+            "alt": "Graph (B): x versus t; x rises along a concave-down curve until t = 4, then rises along a much steeper straight line",
+            "width": 220,
+            "height": 135,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "linear throughout",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q66-optC.svg",
+            "alt": "Graph (C): x versus t; x rises along a concave-up curve until t = 4, then stays constant",
+            "width": 220,
+            "height": 135,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "parabolic throughout",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q66-optD.svg",
+            "alt": "Graph (D): x versus t; x rises along a concave-up curve from the origin until t = 4, then continues as a straight line tangent to the curve",
+            "width": 220,
+            "height": 135,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -3319,8 +3379,8 @@
       "difficulty": "medium",
       "tags": [
         "kinematics",
-        "displacement-time",
-        "graph"
+        "displacement-time-graph",
+        "uniform-acceleration"
       ]
     },
     {
@@ -3332,33 +3392,33 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "A block of mass $2\\,\\text{kg}$ is hanging over a smooth and light pulley through a light string. The other end of the string is pulled by a constant force $F = 40\\,\\text{N}$. At $t = 0$ the system is at rest as shown. Then in the time interval from $t = 0$ to $t = \\dfrac{2}{\\sqrt{10}}\\,\\text{sec}$, pick up the correct statement(s). ($g = 10\\,\\text{m/s}^{2}$)",
+      "stemLatex": "A block of mass 2kg is hanging over a smooth and light pulley through a light string. The other end of the string is pulled by a constant force F = 40 N. At t = 0 the system is at rest as shown. Then in the time interval from t = 0 to $t = \\dfrac{2}{\\sqrt{10}}$ sec, pick up the correct statement(s).(g = 10 m/s$^{2}$)",
       "stemFigure": {
         "src": "./_data/figures/2025/fig-2025-q67.svg",
-        "alt": "Figure for JELET 2025 Q67",
-        "width": 420,
-        "height": 220,
+        "alt": "A fixed smooth pulley hanging from a ceiling; a 2 kg block hangs on the left of the string and the right end is pulled down by F = 40 N",
+        "width": 220,
+        "height": 160,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "Tension in the string is $20\\,\\text{N}$.",
+          "latex": "Tension in the string is 20 N.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "Work done by gravity is $-20\\,\\text{J}$.",
+          "latex": "Work done by gravity is –20 J.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "Work done by tension on block is $80\\,\\text{J}$.",
+          "latex": "Workdone by tension on block is 80 J.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "Displacement of the block is $2\\,\\text{m}$.",
+          "latex": "Displacement of the block is 2 m.",
           "figure": null
         }
       ],
@@ -3371,11 +3431,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q67)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "work-energy",
+        "newtons-laws",
         "pulley",
-        "force"
+        "work-done"
       ]
     },
     {
@@ -3420,11 +3480,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q68)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "gravitation",
-        "planet",
-        "conservation"
+        "kepler-laws",
+        "angular-momentum-conservation",
+        "orbital-energy"
       ]
     },
     {
@@ -3436,27 +3496,27 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 18,
-      "stemLatex": "$5\\,\\text{kg}$ of steam at $100^{\\circ}\\text{C}$ is mixed with $10\\,\\text{kg}$ of ice at $0^{\\circ}\\text{C}$. Choose the correct alternative(s). (Given $S_{\\text{water}} = 1\\,\\text{Cal/g}^{\\circ}\\text{C}$, $L_{f} = 80\\,\\text{Cal/g}$, $L_{v} = 540\\,\\text{Cal/g}$.)",
+      "stemLatex": "5kg of steam at $100^{\\circ}$C is mixed with 10kg of ice at $0^{\\circ}$C. Choose the correct alternative(/s). (Given $\\text{S}_{\\text{water}} = 1$ Cal/g$^{\\circ}$C , $\\text{L}_{\\text{F}} = 80$ Cal/g, $\\text{L}_{\\text{v}} = 540$ Cal/g.)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "Equilibrium temperature of the mixture is $160^{\\circ}\\text{C}$.",
+          "latex": "Equilibrium temperature of the mixture is $160^{\\circ}$C.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "Equilibrium temperature of the mixture is $100^{\\circ}\\text{C}$.",
+          "latex": "Equilibrium temperature of the mixture is $100^{\\circ}$C.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "At equilibrium mixture contains $13\\,\\text{kg}$ of water.",
+          "latex": "At Equilibrium mixture contains $13\\dfrac{1}{3}$ kg of water.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "At equilibrium, mixture contains $1\\,\\text{kg}$ of steam.",
+          "latex": "At Equilibrium, mixture contains $1\\dfrac{2}{3}$ kg of steam.",
           "figure": null
         }
       ],
@@ -3470,43 +3530,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q69)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "calorimetry",
-        "steam-ice",
-        "latent-heat"
+        "latent-heat",
+        "phase-equilibrium"
       ]
     },
     {
       "id": "jelet-2025-q070",
       "qNumber": 70,
       "subjectId": "PHYS",
-      "unitId": "P05",
+      "unitId": "P02",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 18,
-      "stemLatex": "For a vector, $\\vec{P} = (\\vec{A} \\times \\vec{B}) \\times (\\vec{C} \\times \\vec{D})$, choose the correct alternative(s).",
+      "stemLatex": "For a vector, $\\overline{P} = \\left(\\overline{A} \\times \\overline{B}\\right) \\times \\left(\\overline{C} \\times \\overline{D}\\right)$, choose the correct alternative(/s).",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "Vector $\\vec{P}$ is perpendicular to the plane containing $\\vec{A}$ and $\\vec{B}$.",
+          "latex": "Vector $\\overline{P}$ is perpendicular to the plane containing $\\overline{A}$ and $\\overline{B}$.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\vec{P}$ resides in a plane containing $\\vec{A}$ and $\\vec{B}$.",
+          "latex": "$\\overline{P}$ resides in a plane containing $\\overline{A}$ and $\\overline{B}$.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\vec{P}$ resides in a plane containing $\\vec{C}$ and $\\vec{D}$.",
+          "latex": "$\\overline{P}$ resides in a plane containing $\\overline{C}$ and $\\overline{D}$.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\vec{P}$ is parallel to the line of intersection of two planes containing $\\vec{A}, \\vec{B}$ and $\\vec{C}, \\vec{D}$ respectively.",
+          "latex": "$\\overline{P}$ is parallel to the line of intersection of two planes containing $\\overline{A}$, $\\overline{B}$ and $\\overline{C}$, $\\overline{D}$ respectively.",
           "figure": null
         }
       ],
@@ -3523,8 +3583,8 @@
       "difficulty": "hard",
       "tags": [
         "vectors",
-        "cross-product",
-        "triple-product"
+        "vector-triple-product",
+        "cross-product"
       ]
     },
     {
@@ -3570,9 +3630,9 @@
       },
       "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "quantum-numbers",
-        "orbital"
+        "orbital-designation",
+        "azimuthal-quantum-number"
       ]
     },
     {
@@ -3584,7 +3644,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "How many types of $P$-$Cl$ bonds are present in $PCl_{5}$ molecule ?",
+      "stemLatex": "How many types of P–Cl bonds are present in PCl$_{5}$ molecule?",
       "stemFigure": null,
       "options": [
         {
@@ -3616,11 +3676,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q72)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
-        "pc l5",
-        "bond-types"
+        "vsepr",
+        "trigonal-bipyramidal",
+        "axial-equatorial-bonds"
       ]
     },
     {
@@ -3647,7 +3707,7 @@
         },
         {
           "id": "C",
-          "latex": "$n$-type semiconductor",
+          "latex": "$n$-type  semiconductor",
           "figure": null
         },
         {
@@ -3666,7 +3726,7 @@
       },
       "difficulty": "easy",
       "tags": [
-        "semiconductor",
+        "semiconductors",
         "doping",
         "n-type"
       ]
@@ -3680,7 +3740,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "NO reacts with $N_{2}O_{4}$ in a basic solution to form $NO_{2}$. The reaction is classified as",
+      "stemLatex": "NO reacts with N$_{2}$O$_{4}$ in a basic solution to form NO$_{2}^{-}$. The reaction is classified as",
       "stemFigure": null,
       "options": [
         {
@@ -3715,8 +3775,8 @@
       "difficulty": "medium",
       "tags": [
         "redox",
-        "comproportionation",
-        "no-no2"
+        "oxidation-number",
+        "comproportionation"
       ]
     },
     {
@@ -3728,22 +3788,22 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "Suppose solution $X$ has a pH of $6.0$ and solution $Y$ has a pH of $7.0$. Which of the following statements about two solutions is correct ?",
+      "stemLatex": "Suppose solution X has a pH of 6.0 and solution Y has a pH of 7.0. Which of the following statements about two solutions is correct?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "Both $X$ and $Y$ are acidic.",
+          "latex": "Both X and Y are acidic.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "Solution $X$ is $10$ times more acidic than solution $Y$.",
+          "latex": "Solution X is 10 times more acidic than solution Y.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$[\\text{OH}^{-}] > [\\text{H}^{+}]$ in solution $Y$.",
+          "latex": "$\\left[\\text{OH}^{-}\\right] \\rangle \\left[\\text{H}^{+}\\right]$ in solution Y.",
           "figure": null
         },
         {
@@ -3760,11 +3820,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-171/25 (16-11-2025) (Set A, Q75)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "ph",
-        "acidity",
-        "solutions"
+        "ph-scale",
+        "hydrogen-ion-concentration",
+        "neutral-solution"
       ]
     },
     {
