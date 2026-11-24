@@ -996,6 +996,12 @@ export async function computeHubSnapshot(manifest) {
 
   const weakAreas = computeWeakAreas(qStats, manifestUnits);
   const routingInfo = resolveDefaultRoutingStrategy(qStats);
+  const readiness = computeReadinessEstimate({
+    attempts,
+    questionStats: qStats,
+    totalUnits: manifestUnits.length || 42,
+    totalQuestions: totalOfficialPyqs,
+  });
 
   return {
     meta,
@@ -1013,11 +1019,174 @@ export async function computeHubSnapshot(manifest) {
     mistakeQueue,
     weakAreas,
     routingInfo,
+    readiness,
     subjectStats,
     unitMap,
     roadmapUnit,
     savedBookmarks,
     bookmarkRows,
     recentlyVisitedUnits,
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * Readiness Snapshot (Phase 07 · Slice 4 — Estimate Only)
+ * ------------------------------------------------------------------ */
+
+export const READINESS_MIN_ATTEMPTS = 5;
+
+/**
+ * Computes an honest, local-only study readiness estimate from independent
+ * attempt history — NEVER a prediction or guarantee of exam score/GMR.
+ *
+ * Breakdown:
+ *  - totalQuestionAttempts & sessionCount (independent only)
+ *  - averageAccuracyPct (totalCorrect / totalQuestionAttempts)
+ *  - coverage across 42 syllabus units & 400 official PYQs
+ *  - trend ("improving" | "flat" | "declining" | "insufficient") across recent independent sessions
+ */
+export function computeReadinessEstimate({
+  attempts = [],
+  questionStats = [],
+  totalUnits = 42,
+  totalQuestions = 400,
+  minAttempts = READINESS_MIN_ATTEMPTS,
+} = {}) {
+  const safeStats = Array.isArray(questionStats) ? questionStats : [];
+  const safeAttempts = Array.isArray(attempts) ? attempts : [];
+
+  let totalQuestionAttempts = 0;
+  let totalCorrect = 0;
+  const coveredUnits = new Set();
+  let officialAttemptedCount = 0;
+
+  for (const s of safeStats) {
+    if (!s) continue;
+    const att = Math.max(0, Number(s.attemptsCount) || 0);
+    if (att <= 0) continue;
+    const corr = Math.min(att, Math.max(0, Number(s.correctCount) || 0));
+    totalQuestionAttempts += att;
+    totalCorrect += corr;
+    if (s.unitId) coveredUnits.add(s.unitId);
+    if ((s.sourceType || "official-pyq") === "official-pyq") {
+      officialAttemptedCount += 1;
+    }
+  }
+
+  const averageAccuracyPct =
+    totalQuestionAttempts > 0
+      ? Math.round((totalCorrect * 100) / totalQuestionAttempts)
+      : null;
+
+  const unitsCovered = Math.min(totalUnits, coveredUnits.size);
+  const unitCoveragePct =
+    totalUnits > 0 ? Math.round((unitsCovered * 100) / totalUnits) : 0;
+
+  const questionsCovered = Math.min(totalQuestions, officialAttemptedCount);
+  const questionCoveragePct =
+    totalQuestions > 0 ? Math.round((questionsCovered * 100) / totalQuestions) : 0;
+
+  // Independent session accuracy trend (oldest -> newest across up to last 6 scored sessions)
+  const independentSessions = safeAttempts
+    .filter((a) => a && a.mode === "independent")
+    .slice()
+    .sort((a, b) => String(a.submittedAt || "").localeCompare(String(b.submittedAt || "")));
+
+  const scoredSessions = independentSessions
+    .map((a) => {
+      const c = a.counts || {};
+      const answered = (c.correct || 0) + (c.partial || 0) + (c.incorrect || 0);
+      if (answered <= 0) return null;
+      return {
+        submittedAt: a.submittedAt,
+        accRatio: (c.correct || 0) / answered,
+      };
+    })
+    .filter(Boolean);
+
+  let trend = "insufficient";
+  let trendDeltaPct = null;
+  let trendLabel = "Practice more to establish trend";
+
+  if (scoredSessions.length >= 2) {
+    const windowSessions = scoredSessions.slice(-6);
+    const splitIdx = Math.floor(windowSessions.length / 2);
+    const firstHalf = windowSessions.slice(0, splitIdx);
+    const secondHalf = windowSessions.slice(splitIdx);
+    const mean = (arr) => arr.reduce((acc, x) => acc + x.accRatio, 0) / arr.length;
+    const earlierAcc = mean(firstHalf);
+    const recentAcc = mean(secondHalf);
+    trendDeltaPct = Math.round((recentAcc - earlierAcc) * 100);
+    if (trendDeltaPct >= 5) {
+      trend = "improving";
+      trendLabel = `Improving (+${trendDeltaPct}%)`;
+    } else if (trendDeltaPct <= -5) {
+      trend = "declining";
+      trendLabel = `Dipping (${trendDeltaPct}%)`;
+    } else {
+      trend = "flat";
+      trendLabel = `Flat (${trendDeltaPct >= 0 ? "+" : ""}${trendDeltaPct}%)`;
+    }
+  } else if (scoredSessions.length === 1) {
+    trend = "flat";
+    trendDeltaPct = 0;
+    trendLabel = "Flat (1 session baseline)";
+  }
+
+  const hasEnoughData = totalQuestionAttempts >= minAttempts;
+
+  if (!hasEnoughData) {
+    return {
+      minAttempts,
+      hasEnoughData: false,
+      estimatePct: null,
+      stageLabel: "Insufficient data",
+      sessionCount: independentSessions.length,
+      totalQuestionAttempts,
+      totalCorrect,
+      averageAccuracyPct,
+      unitsCovered,
+      totalUnits,
+      unitCoveragePct,
+      questionsCovered,
+      totalQuestions,
+      questionCoveragePct,
+      trend: "insufficient",
+      trendDeltaPct: null,
+      trendLabel: "Need more attempts",
+    };
+  }
+
+  const trendBonus = trend === "improving" ? 5 : trend === "flat" ? 2.5 : 0;
+  const rawEstimate =
+    (averageAccuracyPct || 0) * 0.5 +
+    unitCoveragePct * 0.25 +
+    questionCoveragePct * 0.2 +
+    trendBonus;
+  const estimatePct = Math.max(0, Math.min(100, Math.round(rawEstimate)));
+
+  let stageLabel = "Early Foundation";
+  if (estimatePct >= 80) stageLabel = "Broad Revision";
+  else if (estimatePct >= 60) stageLabel = "Expanding Mastery";
+  else if (estimatePct >= 35) stageLabel = "Building Coverage";
+
+  return {
+    minAttempts,
+    hasEnoughData: true,
+    estimatePct,
+    stageLabel,
+    sessionCount: independentSessions.length,
+    totalQuestionAttempts,
+    totalCorrect,
+    averageAccuracyPct,
+    unitsCovered,
+    totalUnits,
+    unitCoveragePct,
+    questionsCovered,
+    totalQuestions,
+    questionCoveragePct,
+    trend,
+    trendDeltaPct,
+    trendLabel,
   };
 }

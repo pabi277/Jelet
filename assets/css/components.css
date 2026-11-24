@@ -2319,6 +2319,47 @@
   background: var(--bg-surface-subtle);
 }
 
+/* ---------------------------------------------------------------------------
+ * 24. Readiness Snapshot Card (`#/you` · Phase 07 Slice 4)
+ * ------------------------------------------------------------------------- */
+.readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-s);
+}
+@media (min-width: 768px) {
+  .readiness-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.readiness-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  padding: var(--space-s);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+  min-width: 0;
+}
+.readiness-metric__label {
+  font-size: var(--fs-caption);
+  color: var(--fg-muted);
+}
+.readiness-metric__val {
+  font-size: var(--fs-h3);
+  color: var(--fg-primary);
+}
+.readiness-empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-s);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+}
+
 
 
 

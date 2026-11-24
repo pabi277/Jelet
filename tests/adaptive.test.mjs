@@ -24,6 +24,8 @@ import {
   applyQuestionAttemptToStat,
   applyMistakeFlagToStat,
   computeMistakeQueueState,
+  READINESS_MIN_ATTEMPTS,
+  computeReadinessEstimate,
 } from "../assets/js/core/stats.js";
 import { normalizeUnit } from "../assets/js/core/data-loader.js";
 
@@ -349,4 +351,93 @@ test("Spaced Mistake Notebook: deterministic 1d -> 3d -> 7d schedule & explicit 
     { graduationThreshold: 4 }
   );
   assert.equal(r.nextReviewAt, new Date(t0 + 4 * DAY_MS + 7 * DAY_MS).toISOString());
+});
+
+test("computeReadinessEstimate: returns honest empty state below threshold and ignores zero-attempt flagged stubs", () => {
+  assert.equal(READINESS_MIN_ATTEMPTS, 5);
+
+  const empty = computeReadinessEstimate({ attempts: [], questionStats: [] });
+  assert.equal(empty.hasEnoughData, false);
+  assert.equal(empty.estimatePct, null);
+  assert.equal(empty.totalQuestionAttempts, 0);
+  assert.equal(empty.unitsCovered, 0);
+  assert.equal(empty.questionsCovered, 0);
+  assert.equal(empty.trend, "insufficient");
+
+  // 4 independent question attempts + 2 flagged-only zero-attempt stubs -> still < 5 attempts!
+  const underThreshold = computeReadinessEstimate({
+    attempts: [
+      { mode: "independent", submittedAt: "2026-11-20T10:00:00Z", counts: { correct: 3, partial: 0, incorrect: 1 } },
+      { mode: "assisted", submittedAt: "2026-11-21T10:00:00Z", counts: { correct: 10, partial: 0, incorrect: 0 } },
+    ],
+    questionStats: [
+      { questionId: "jelet-2025-q001", unitId: "M01", sourceType: "official-pyq", attemptsCount: 2, correctCount: 1 },
+      { questionId: "jelet-2025-q002", unitId: "M02", sourceType: "official-pyq", attemptsCount: 2, correctCount: 2 },
+      { questionId: "jelet-2025-q003", unitId: "P01", sourceType: "official-pyq", attemptsCount: 0, correctCount: 0, flaggedAsMistake: true },
+    ],
+  });
+  assert.equal(underThreshold.hasEnoughData, false);
+  assert.equal(underThreshold.estimatePct, null);
+  assert.equal(underThreshold.totalQuestionAttempts, 4);
+  assert.equal(underThreshold.sessionCount, 1); // assisted session excluded
+  assert.equal(underThreshold.unitsCovered, 2); // flagged stub with 0 attempts excluded
+  assert.equal(underThreshold.questionsCovered, 2);
+});
+
+test("computeReadinessEstimate: computes transparent accuracy, 42-unit/400-PYQ coverage, and improving/flat/declining trends", () => {
+  // 21 units covered (50%), 100 official PYQs covered (25%), 80% accuracy, improving session trend
+  const qStats = [];
+  for (let i = 1; i <= 100; i++) {
+    const unitNum = ((i - 1) % 21) + 1;
+    qStats.push({
+      questionId: `jelet-2025-q${String(i).padStart(3, "0")}`,
+      unitId: `U${String(unitNum).padStart(2, "0")}`,
+      sourceType: "official-pyq",
+      attemptsCount: 1,
+      correctCount: i <= 80 ? 1 : 0,
+    });
+  }
+
+  const improvingAttempts = [
+    { mode: "independent", submittedAt: "2026-11-20T10:00:00Z", counts: { correct: 5, partial: 0, incorrect: 5 } },
+    { mode: "independent", submittedAt: "2026-11-21T10:00:00Z", counts: { correct: 6, partial: 0, incorrect: 4 } },
+    { mode: "independent", submittedAt: "2026-11-22T10:00:00Z", counts: { correct: 8, partial: 0, incorrect: 2 } },
+    { mode: "independent", submittedAt: "2026-11-23T10:00:00Z", counts: { correct: 9, partial: 0, incorrect: 1 } },
+  ];
+
+  const rImproving = computeReadinessEstimate({
+    attempts: improvingAttempts,
+    questionStats: qStats,
+    totalUnits: 42,
+    totalQuestions: 400,
+  });
+
+  assert.equal(rImproving.hasEnoughData, true);
+  assert.equal(rImproving.totalQuestionAttempts, 100);
+  assert.equal(rImproving.averageAccuracyPct, 80);
+  assert.equal(rImproving.unitsCovered, 21);
+  assert.equal(rImproving.unitCoveragePct, 50);
+  assert.equal(rImproving.questionsCovered, 100);
+  assert.equal(rImproving.questionCoveragePct, 25);
+  assert.equal(rImproving.trend, "improving");
+  assert.ok(rImproving.trendDeltaPct >= 25);
+  // 80*0.5 (40) + 50*0.25 (12.5) + 25*0.20 (5) + 5 = 62.5 -> 63 ("Expanding Mastery")
+  assert.equal(rImproving.estimatePct, 63);
+  assert.equal(rImproving.stageLabel, "Expanding Mastery");
+
+  // Reversing chronological order of those accuracies produces "declining" trend
+  const decliningAttempts = [
+    { mode: "independent", submittedAt: "2026-11-20T10:00:00Z", counts: { correct: 9, partial: 0, incorrect: 1 } },
+    { mode: "independent", submittedAt: "2026-11-21T10:00:00Z", counts: { correct: 8, partial: 0, incorrect: 2 } },
+    { mode: "independent", submittedAt: "2026-11-22T10:00:00Z", counts: { correct: 6, partial: 0, incorrect: 4 } },
+    { mode: "independent", submittedAt: "2026-11-23T10:00:00Z", counts: { correct: 5, partial: 0, incorrect: 5 } },
+  ];
+  const rDeclining = computeReadinessEstimate({
+    attempts: decliningAttempts,
+    questionStats: qStats,
+    totalUnits: 42,
+    totalQuestions: 400,
+  });
+  assert.equal(rDeclining.trend, "declining");
+  assert.ok(rDeclining.estimatePct < rImproving.estimatePct);
 });

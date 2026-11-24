@@ -59,6 +59,30 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
   };
 
   const activeProviderCfg = AI_PROVIDERS[vault.provider] || AI_PROVIDERS.gemini;
+  const readiness = snapshot.readiness || {
+    minAttempts: 5,
+    hasEnoughData: false,
+    estimatePct: null,
+    stageLabel: "Insufficient data",
+    sessionCount: 0,
+    totalQuestionAttempts: 0,
+    totalCorrect: 0,
+    averageAccuracyPct: null,
+    unitsCovered: 0,
+    totalUnits: 42,
+    unitCoveragePct: 0,
+    questionsCovered: 0,
+    totalQuestions: 400,
+    questionCoveragePct: 0,
+    trend: "insufficient",
+    trendLabel: "Need more attempts",
+  };
+  const trendBadgeClass =
+    readiness.trend === "improving"
+      ? "badge--correct"
+      : readiness.trend === "declining"
+      ? "badge--partial"
+      : "badge--brand";
 
   const root = el(`
     <div class="view stack-m you-view">
@@ -67,6 +91,65 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
         ${icon("icon-lock")}
         <span>100% Local-First on Your Device · API key stays isolated and NEVER enters backups.</span>
       </div>
+
+      <!-- Readiness Snapshot (Phase 07 · Slice 4 — Explicitly-Labeled Estimate Only) -->
+      <section class="card stack-s readiness-card" id="youReadinessSection" aria-label="Study readiness estimate">
+        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+          <div>
+            <h3 class="card__title" style="margin:0">Study readiness — estimate, not a prediction of your exam score</h3>
+          </div>
+          ${
+            readiness.hasEnoughData
+              ? `<span class="badge badge--brand mono" id="readinessStageBadge">${readiness.estimatePct}% · ${escapeHtml(readiness.stageLabel)}</span>`
+              : `<span class="pill mono">Min ${readiness.minAttempts} Qs</span>`
+          }
+        </div>
+        ${
+          readiness.hasEnoughData
+            ? `
+              <p class="card__meta" style="margin:0">
+                Rough local readiness snapshot from your independent attempt history across accuracy, 42-unit breadth, 400-PYQ depth, and recent trend — never a guaranteed WBJEEB score or rank.
+              </p>
+              <div class="meter"><div class="meter__fill" style="width:${readiness.estimatePct}%"></div></div>
+              <div class="readiness-grid" id="readinessBreakdownGrid">
+                <div class="readiness-metric">
+                  <span class="readiness-metric__label">Attempts</span>
+                  <strong class="readiness-metric__val mono">${readiness.totalQuestionAttempts} Qs</strong>
+                  <span class="card__meta">${readiness.sessionCount} independent set${readiness.sessionCount === 1 ? "" : "s"}</span>
+                </div>
+                <div class="readiness-metric">
+                  <span class="readiness-metric__label">Avg Accuracy</span>
+                  <strong class="readiness-metric__val mono">${readiness.averageAccuracyPct}%</strong>
+                  <span class="card__meta">${readiness.totalCorrect}/${readiness.totalQuestionAttempts} correct</span>
+                </div>
+                <div class="readiness-metric">
+                  <span class="readiness-metric__label">Syllabus Coverage</span>
+                  <strong class="readiness-metric__val mono">${readiness.unitsCovered}/${readiness.totalUnits} units</strong>
+                  <span class="card__meta">${readiness.questionsCovered}/${readiness.totalQuestions} PYQs (${readiness.questionCoveragePct}%)</span>
+                </div>
+                <div class="readiness-metric">
+                  <span class="readiness-metric__label">Recent Trend</span>
+                  <div><span class="badge ${trendBadgeClass} mono">${escapeHtml(readiness.trendLabel)}</span></div>
+                  <span class="card__meta">Last independent sets</span>
+                </div>
+              </div>
+            `
+            : `
+              <div class="readiness-empty" id="readinessEmptyState">
+                <p class="card__meta" style="margin:0">
+                  <strong>Practice more to generate your readiness estimate</strong> (${readiness.totalQuestionAttempts}/${readiness.minAttempts} independent question attempts recorded; ${readiness.unitsCovered}/${readiness.totalUnits} units &amp; ${readiness.questionsCovered}/${readiness.totalQuestions} PYQs touched).
+                </p>
+                <p class="card__meta" style="margin:0">
+                  What to do: complete an <strong>Independent</strong> Daily 10-Q sprint, Topic Drill, or 2-hour Timed Mock so the hub can compute local accuracy, 42-unit coverage, and recent trend.
+                </p>
+                <div class="cluster-xs">
+                  <a href="#/practice" class="btn btn--primary btn--sm" style="text-decoration:none">${icon("icon-practice")} Open Practice Arena</a>
+                  <a href="#/papers" class="btn btn--ghost btn--sm" style="text-decoration:none">${icon("icon-papers")} Browse Papers</a>
+                </div>
+              </div>
+            `
+        }
+      </section>
 
       <!-- Card 1: JU Target & Diploma CGPA Check (13-phone-you-ai-and-ju-hub.png) -->
       <section class="card stack-s">
