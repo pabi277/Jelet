@@ -71,7 +71,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $A = \\begin{bmatrix} a & \\beta \\\\ \\beta & a \\end{bmatrix}$ and $A^{2} = Kxy I$ where $\\beta = \\sqrt{xy}$. Then the value of $K$ is",
+      "stemLatex": "If $A = \\begin{pmatrix} x & y \\\\ y & x \\end{pmatrix}$ and $A^{2} = \\begin{pmatrix} \\alpha & \\beta \\\\ \\beta & \\alpha \\end{pmatrix}$, where $\\beta = \\dfrac{1}{2}Kxy$, then the value of $K$ is",
       "stemFigure": null,
       "options": [
         {
@@ -103,11 +103,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q1)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "matrices",
-        "matrix-power",
-        "identity"
+        "matrix-product",
+        "symmetric-matrix",
+        "matrix-power"
       ]
     },
     {
@@ -119,7 +119,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $P = \\begin{bmatrix} \\sqrt{3}/2 & 1/2 \\\\ 1/2 & \\sqrt{3}/2 \\end{bmatrix}$ and $Q = PAP^{T}$ (where $A$ is any $2 \\times 2$ matrix). Then $P^{T}Q^{99}P$ is",
+      "stemLatex": "Let $P = \\begin{pmatrix} \\dfrac{\\sqrt{3}}{2} & \\dfrac{1}{2} \\\\ -\\dfrac{1}{2} & \\dfrac{\\sqrt{3}}{2} \\end{pmatrix}$ and $Q = PAP^{T}$ (where $A$ is any $2 \\times 2$ matrix). Then $P^{T}Q^{99}P$ is",
       "stemFigure": null,
       "options": [
         {
@@ -151,23 +151,23 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q2)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "matrices",
         "orthogonal-matrix",
-        "powers"
+        "matrix-power",
+        "similarity"
       ]
     },
     {
       "id": "jelet-2023-q003",
       "qNumber": 3,
       "subjectId": "MATH",
-      "unitId": "M02",
+      "unitId": "M01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "If the rank of the matrix $\\begin{bmatrix} 2 & -4 & a-4 \\\\ -2 & 2 & a+1 \\end{bmatrix}$ is $1$, then the value of $a$ is",
+      "stemLatex": "If the rank of the matrix $\\begin{pmatrix} -1 & 2 & 5 \\\\ 2 & -4 & a-4 \\\\ 1 & -2 & a+1 \\end{pmatrix}$ is $1$, then the value of $a$ is",
       "stemFigure": null,
       "options": [
         {
@@ -199,10 +199,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q3)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "determinants",
         "rank",
+        "proportional-rows",
         "matrix"
       ]
     },
@@ -210,12 +210,12 @@
       "id": "jelet-2023-q004",
       "qNumber": 4,
       "subjectId": "MATH",
-      "unitId": "M03",
+      "unitId": "M02",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "In a Geometric Progression, $p$-th, $q$-th and $r$-th terms are $x$, $y$ and $z$ respectively. Then which of the following is correct for the matrix $A = \\begin{bmatrix} \\log x & p \\\\ \\log y & q \\\\ \\log z & r \\end{bmatrix}$ where $x, y, z$ are positive?",
+      "stemLatex": "In a Geometric Progression, $p^{\\text{th}}$, $q^{\\text{th}}$ and $r^{\\text{th}}$ elements are $x$, $y$ and $z$ respectively. Then which of the following is correct for the matrix $A = \\begin{bmatrix} \\log x & p & 1 \\\\ \\log y & q & 1 \\\\ \\log z & r & 1 \\end{bmatrix}$, where $x$, $y$ and $z$ are positive",
       "stemFigure": null,
       "options": [
         {
@@ -230,12 +230,12 @@
         },
         {
           "id": "C",
-          "latex": "$|A| = r \\log y$",
+          "latex": "$|A| = r\\log y$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$|A| = q \\log z$",
+          "latex": "$|A| = q\\log z$",
           "figure": null
         }
       ],
@@ -247,43 +247,43 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q4)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "gp",
-        "determinant"
+        "determinant",
+        "geometric-progression",
+        "column-operations"
       ]
     },
     {
       "id": "jelet-2023-q005",
       "qNumber": 5,
       "subjectId": "MATH",
-      "unitId": "M05",
+      "unitId": "M04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "If $\\vec{a} \\times \\vec{b} = (a_1, a_2)$ and $\\vec{b} \\times \\vec{c} = (b_1, b_2)$, then which of the following is true?",
+      "stemLatex": "If $(a_{1}, b_{1})$, $(a_{2}, b_{2})$ and $(a_{1} - a_{2}, b_{1} - b_{2})$ are three collinear points, then which of the following is true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$a_1 b_2 = b_1 a_2$",
+          "latex": "$a_{1}b_{2} = b_{1}a_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$a_1 a_2 = b_1 b_2$",
+          "latex": "$a_{1}a_{2} = b_{1}b_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$a_1 b_2 + b_1 a_2 = 0$",
+          "latex": "$a_{1}b_{2} + b_{1}a_{2} = 0$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$a_1 b_1 = a_2 b_2$",
+          "latex": "$a_{1}b_{1} = a_{2}b_{2}$",
           "figure": null
         }
       ],
@@ -295,10 +295,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q5)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
-        "cross-product"
+        "collinearity",
+        "area-of-triangle",
+        "determinant"
       ]
     },
     {
@@ -342,11 +343,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q6)"
       },
-      "difficulty": "voided",
+      "difficulty": "medium",
       "tags": [
         "linear-system",
-        "infinite-solutions",
-        "determinant"
+        "consistency",
+        "withdrawn"
       ]
     },
     {
@@ -358,7 +359,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If $f(x) = \\cos\\left(\\dfrac{a}{x}\\right) + i \\sin\\left(\\dfrac{a}{x}\\right)$, then $\\lim_{n\\to\\infty} f(\\pi)$ equals",
+      "stemLatex": "If $f_{r}(\\alpha) = \\left(\\cos\\dfrac{\\alpha}{r^{2}} + i\\sin\\dfrac{\\alpha}{r^{2}}\\right) \\times \\left(\\cos\\dfrac{2\\alpha}{r^{2}} + i\\sin\\dfrac{2\\alpha}{r^{2}}\\right) \\times \\cdots\\cdots \\times \\left(\\cos\\dfrac{\\alpha}{r} + i\\sin\\dfrac{\\alpha}{r}\\right)$, then $\\lim\\limits_{n \\to \\infty} f_{n}(\\pi)$ equals",
       "stemFigure": null,
       "options": [
         {
@@ -378,7 +379,7 @@
         },
         {
           "id": "D",
-          "latex": "$8$",
+          "latex": "$\\infty$",
           "figure": null
         }
       ],
@@ -390,11 +391,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q7)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "limit",
-        "de-moivre"
+        "de-moivre",
+        "product-of-cis",
+        "limit"
       ]
     },
     {
@@ -406,7 +407,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If $a, b, c$ are the roots of $y^{3} - 3y^{2} + 3y + 26 = 0$ and $\\omega$ is a cube root of unity, then the value of $\\dfrac{b-1}{\\omega} + \\dfrac{c-1}{\\omega^{2}} + \\dfrac{a-1}{1}$ is",
+      "stemLatex": "If $a$, $b$, $c$ are the roots of $y^{3} - 3y^{2} + 3y + 26 = 0$ and $\\omega$ is a cube root of unity, then the value of $\\dfrac{a-1}{b-1} + \\dfrac{b-1}{c-1} + \\dfrac{c-1}{a-1}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -421,12 +422,12 @@
         },
         {
           "id": "C",
-          "latex": "$30$",
+          "latex": "$3\\omega$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$30/2$",
+          "latex": "$3\\omega^{2}$",
           "figure": null
         }
       ],
@@ -438,11 +439,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q8)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "roots-of-unity",
-        "vieta"
+        "cube-roots-of-unity",
+        "cubic-equation",
+        "substitution"
       ]
     },
     {
@@ -454,7 +455,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If a line joining two points $A(2, 0)$ and $B(3, 1)$ is rotated about $A$ in anticlockwise direction through an angle $15^{\\circ}$, then the equation of the line in the new position is",
+      "stemLatex": "If a line joining two points $A\\,(2, 0)$ and $B\\,(3, 1)$ is rotated about $A$ in anticlockwise direction through an angle $15^{\\circ}$, then the equation of the line in the new position is",
       "stemFigure": null,
       "options": [
         {
@@ -474,7 +475,7 @@
         },
         {
           "id": "D",
-          "latex": "$3x - y = 2\\sqrt{3}$",
+          "latex": "$\\sqrt{3}x - y = 2\\sqrt{3}$",
           "figure": null
         }
       ],
@@ -486,11 +487,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q9)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "coordinate-geometry",
+        "straight-line",
         "rotation",
-        "line-equation"
+        "slope"
       ]
     },
     {
@@ -534,11 +535,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q10)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "parabola",
-        "chord",
-        "coordinate-geometry"
+        "chord-length",
+        "intersection"
       ]
     },
     {
@@ -550,7 +551,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "A conic section is defined by the equations $x = -1 + \\sec t$, $y = 2 + 3\\tan t$. The coordinates of the foci are",
+      "stemLatex": "A conic section is defined by the equation $x = -1 + \\sec t$, $y = 2 + 3\\tan t$. The coordinates of the foci are",
       "stemFigure": null,
       "options": [
         {
@@ -582,10 +583,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q11)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "hyperbola",
-        "parametric",
+        "parametric-form",
         "foci"
       ]
     },
@@ -597,8 +598,8 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 4,
-      "stemLatex": "If $\\vec{a}$ and $\\vec{b}$ are two unit vectors, then the vector $(\\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
+      "pdfPage": 5,
+      "stemLatex": "If $\\vec{a}$ and $\\vec{b}$ are two-unit vectors, then the vector $(\\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b})$ is parallel to the vector",
       "stemFigure": null,
       "options": [
         {
@@ -630,11 +631,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q12)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "vector-algebra",
-        "cross-product",
-        "triple-product"
+        "vector-triple-product",
+        "unit-vectors",
+        "parallel"
       ]
     },
     {
@@ -651,22 +652,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$(2\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
+          "latex": "$\\dfrac{1}{\\sqrt{3}}(2\\hat{i} + 2\\hat{j} + \\hat{k})$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$(\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
+          "latex": "$\\dfrac{1}{3}(2\\hat{i} + \\hat{j} + 2\\hat{k})$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(2\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
+          "latex": "$\\dfrac{1}{3}(\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$(2\\hat{i} + 2\\hat{j} + 2\\hat{k})$",
+          "latex": "$\\dfrac{1}{3}(2\\hat{i} + 2\\hat{j} + \\hat{k})$",
           "figure": null
         }
       ],
@@ -678,11 +679,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q13)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
         "tangent-vector",
-        "curve"
+        "space-curve",
+        "unit-vector"
       ]
     },
     {
@@ -694,7 +695,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "The value of $\\displaystyle\\lim_{x \\to 0} \\dfrac{\\sin(\\pi \\cos^{2} x)}{x^{2}}$ is",
+      "stemLatex": "$\\lim\\limits_{x \\to 0} \\dfrac{\\sin(\\pi\\cos^{2}x)}{x^{2}} =$",
       "stemFigure": null,
       "options": [
         {
@@ -726,11 +727,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q14)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "limit",
-        "trigonometric",
-        "squeeze-theorem"
+        "standard-limit",
+        "trig-identity"
       ]
     },
     {
@@ -742,7 +743,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "If the function $f(x) = \\begin{cases} \\dfrac{x^{2} - (A+2)x + A}{x - 2}, & x \\neq 2 \\\\ 2, & x = 2 \\end{cases}$ is continuous at $x = 2$, then",
+      "stemLatex": "If the function $f(x) = \\begin{cases} \\dfrac{x^{2} - (A+2)x + A}{x - 2} & \\text{for } x \\neq 2 \\\\ 2 & \\text{for } x = 2 \\end{cases}$ is continuous at $x = 2$, then",
       "stemFigure": null,
       "options": [
         {
@@ -774,11 +775,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q15)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
         "continuity",
-        "limit",
-        "removable-discontinuity"
+        "removable-discontinuity",
+        "limit"
       ]
     },
     {
@@ -790,17 +791,17 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "Suppose that $f$ is a differentiable function with the property that $\\lim_{h\\to 0} \\dfrac{f(x+h) - f(x)}{h^{2}} = 3$. Then $f(x)$ is",
+      "stemLatex": "Suppose that $f$ is a differentiable function with the property that $f(x + y) = f(x) + f(y) + xy$, $f(0) = 0$ and $\\lim\\limits_{h \\to 0} \\dfrac{1}{h}f(h) = 3$, then $f(x)$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{3x^{2}}{x+2}$",
+          "latex": "$x + \\dfrac{x^{2}}{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{3x}{x+2}$",
+          "latex": "$3x + \\dfrac{x^{2}}{2}$",
           "figure": null
         },
         {
@@ -822,11 +823,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q16)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "differentiability",
-        "limit",
-        "derivative"
+        "functional-equation",
+        "derivative-from-first-principles"
       ]
     },
     {
@@ -838,7 +838,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "The value of $\\displaystyle\\lim_{x \\to a} \\dfrac{\\sqrt{\\Phi(x)} - b}{\\sqrt{\\Phi(a)} - b}$ where $\\Phi(a) = a^{2}$ is",
+      "stemLatex": "If $f(a) = a^{2}$, $\\phi(a) = b^{2}$ and $f'(a) = 3\\phi'(a)$, then $\\lim\\limits_{x \\to a} \\dfrac{\\sqrt{f(x)} - a}{\\sqrt{\\phi(x)} - b}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -848,7 +848,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{3b}{a}$",
+          "latex": "$\\dfrac{b}{3a}$",
           "figure": null
         },
         {
@@ -870,11 +870,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q17)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "limit",
-        "derivative",
-        "l'hospital"
+        "lhospital",
+        "chain-rule",
+        "limit"
       ]
     },
     {
@@ -886,7 +886,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "The function $f(x) = x(x+3)e^{x}$ satisfies the condition of Rolle's theorem in $[-3, 0]$. The value of $c$, where $f'(c) = 0$, is",
+      "stemLatex": "The function $f(x) = x(x + 3)e^{-\\left(\\frac{1}{2}\\right)x}$ satisfies the condition of Rolle's theorem in $[-3, 0]$. The value of $c$, where $f'(c) = 0$, is",
       "stemFigure": null,
       "options": [
         {
@@ -918,11 +918,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q18)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "rolle-theorem",
-        "derivative",
-        "mean-value"
+        "rolles-theorem",
+        "product-rule",
+        "critical-point"
       ]
     },
     {
@@ -934,27 +934,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "The slope of the tangent to the curve represented by $x = t^{2} + 3t - 8$ and $y = 2t^{2} - 2t - 5$ at the point $M(2, -1)$ is",
+      "stemLatex": "The slope of the tangent to the curve represented by $x = t^{2} + 3t - 8$ and $y = 2t^{2} - 2t - 5$ at the point $M\\,(2, -1)$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{6}{17}$",
+          "latex": "$\\dfrac{6}{7}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$-\\dfrac{6}{17}$",
+          "latex": "$\\dfrac{7}{6}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{3-2}{2-3}$",
+          "latex": "$\\dfrac{3}{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$-\\dfrac{3}{2}$",
+          "latex": "$\\dfrac{2}{3}$",
           "figure": null
         }
       ],
@@ -966,11 +966,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q19)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "parametric-curves",
-        "tangent",
-        "slope"
+        "parametric-derivative",
+        "tangent-slope"
       ]
     },
     {
@@ -982,17 +981,17 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "The tangent to the curve $x = a\\sqrt{\\cos 2\\theta}\\cos\\theta$, $y = a\\sqrt{\\cos 2\\theta}\\sin\\theta$ at the point corresponding to $\\theta = \\dfrac{\\pi}{6}$ is",
+      "stemLatex": "The tangent to the curve $x = a\\sqrt{\\cos 2\\theta}\\,\\cos\\theta$, $y = a\\sqrt{\\cos 2\\theta}\\,\\sin\\theta$ at the point, corresponding to $\\theta = \\dfrac{\\pi}{6}$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "parallel to $x$-axis",
+          "latex": "parallel to $x$ axis",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "parallel to $y$-axis",
+          "latex": "parallel to $y$ axis",
           "figure": null
         },
         {
@@ -1014,11 +1013,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q20)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "parametric-curves",
+        "parametric-derivative",
         "tangent",
-        "polar"
+        "lemniscate"
       ]
     },
     {
@@ -1062,11 +1061,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q21)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "maxima-minima",
         "quadratic",
-        "inequality"
+        "completing-square"
       ]
     },
     {
@@ -1078,7 +1077,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "If the function $u = \\log\\dfrac{x^{3}+x^{2}y}{x-y}$, then $x\\dfrac{\\partial u}{\\partial x} + y\\dfrac{\\partial u}{\\partial y}$ is",
+      "stemLatex": "If the function $u = \\log\\left(\\dfrac{x^{3} + x^{2}y - y^{3}}{x - y}\\right)$, then $x\\dfrac{\\partial u}{\\partial x} + y\\dfrac{\\partial u}{\\partial y}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1110,11 +1109,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q22)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "partial-differentiation",
-        "logarithm",
-        "homogeneous"
+        "euler-theorem",
+        "homogeneous-function",
+        "partial-derivative"
       ]
     },
     {
@@ -1158,10 +1157,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q23)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "partial-differentiation",
-        "homogeneous-function"
+        "partial-derivative",
+        "evaluation"
       ]
     },
     {
@@ -1173,7 +1172,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "If $k = e^{2007}$, the value of $I = \\displaystyle\\int \\dfrac{\\pi \\cos(\\pi \\log x)}{x} \\,dx$ is",
+      "stemLatex": "If $k = e^{2007}$, the value of $I = \\displaystyle\\int_{1}^{k} \\dfrac{\\pi\\cos(\\pi\\log x)}{x}\\,dx$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1205,9 +1204,9 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q24)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "integration",
+        "definite-integral",
         "substitution",
         "logarithm"
       ]
@@ -1221,7 +1220,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "Let $f(x), g(x)$ and $h(x)$ be continuous functions on $[0, a]$ such that $f(x) = f(a-x)$, $g(x) = -g(a-x)$ and $3h(x) - 4h(a-x) = 5$. Then $\\displaystyle\\int_{0}^{a} f(x) g(x) h(x)\\,dx$ is",
+      "stemLatex": "Let $f(x)$, $g(x)$ and $h(x)$ be continuous functions on $[0, a]$ such that $f(x) = f(a - x)$, $g(x) = -g(a - x)$ and $3h(x) - 4h(a - x) = 5$. Then $\\displaystyle\\int_{0}^{a} f(x)\\,g(x)\\,h(x)\\,dx$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1253,11 +1252,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q25)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "definite-integral",
-        "symmetry",
-        "properties"
+        "king-property",
+        "symmetry"
       ]
     },
     {
@@ -1274,7 +1273,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{3}$ sq. unit",
+          "latex": "$1$ sq. unit",
           "figure": null
         },
         {
@@ -1284,12 +1283,12 @@
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{2}{3}$ sq. unit",
+          "latex": "$\\dfrac{1}{3}$ sq. unit",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1$ sq. unit",
+          "latex": "$\\dfrac{2}{3}$ sq. unit",
           "figure": null
         }
       ],
@@ -1301,11 +1300,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q26)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "area",
-        "definite-integral",
-        "conic"
+        "area-between-curves",
+        "parabolas"
       ]
     },
     {
@@ -1317,27 +1315,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "The solution of the differential equation $x\\,d\\Phi = \\Phi \\,d\\left(\\dfrac{y}{x}\\right)$ where $\\Phi(y/x)$ is",
+      "stemLatex": "The solution of the differential equation $y' = \\dfrac{y}{x} + \\dfrac{\\phi(y/x)}{\\phi'(y/x)}$ is (where $c$ is any arbitrary constant.)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$x\\Phi(y/x) = xc$",
+          "latex": "$x\\phi(y/x) = xc$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\Phi(y/x) = c$",
+          "latex": "$\\phi(y/x) = c$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$y\\Phi(y/x) = c$",
+          "latex": "$y\\phi(y/x) = c$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\Phi(y/x) = xc$",
+          "latex": "$\\phi(y/x) = xc$",
           "figure": null
         }
       ],
@@ -1349,11 +1347,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q27)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ode",
-        "exact",
-        "general-solution"
+        "homogeneous-ode",
+        "substitution-y-vx",
+        "separable"
       ]
     },
     {
@@ -1365,7 +1363,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "The particular solution of $\\dfrac{dy}{dx} = \\dfrac{3x + 4y}{\\log x}$, $y(0) = 0$ is",
+      "stemLatex": "The particular solution of $\\log\\dfrac{dy}{dx} = 3x + 4y$, $y(0) = 0$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1397,11 +1395,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q28)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ode",
-        "variable-separable",
-        "particular-solution"
+        "separable-ode",
+        "initial-value",
+        "exponential"
       ]
     },
     {
@@ -1445,11 +1443,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q29)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "probability",
-        "combinatorics",
-        "counting"
+        "combinatorial-probability",
+        "complement"
       ]
     },
     {
@@ -1461,7 +1458,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "For the events $A$ and $B$, if $P(A) = P(A/B) = \\dfrac{1}{4}$ and $P(B/A) = \\dfrac{1}{2}$, then",
+      "stemLatex": "For the events $A$ and $B$ if $P(A) = P(A/B) = \\dfrac{1}{4}$ and $P(B/A) = \\dfrac{1}{2}$, then",
       "stemFigure": null,
       "options": [
         {
@@ -1476,12 +1473,12 @@
         },
         {
           "id": "C",
-          "latex": "$P(A'/B) = \\dfrac{1}{2}$",
+          "latex": "$P(A'/B) = \\dfrac{1}{3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$P(B'/A) = \\dfrac{1}{4}$",
+          "latex": "$P(B'/A') = 1/4$",
           "figure": null
         }
       ],
@@ -1493,10 +1490,9 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q30)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "probability",
-        "conditional",
+        "conditional-probability",
         "independence"
       ]
     },
@@ -1509,7 +1505,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "Let $X$ and $Y$ be two non-zero symmetric matrices of order $3$ and $Z$ be a non-zero skew symmetric matrix of order $3$. Then which of the following matrix/matrices are skew symmetric?",
+      "stemLatex": "Let $X$ and $Y$ be two non-zero symmetric matrices of order $3$ and $Z$ be a non-zero skew symmetric matrix of order $3$. Then which of the following matrix/matrices are skew symmetric ?",
       "stemFigure": null,
       "options": [
         {
@@ -1542,11 +1538,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q31)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "symmetric",
+        "symmetric-matrix",
         "skew-symmetric",
-        "matrix-powers"
+        "transpose"
       ]
     },
     {
@@ -1558,22 +1554,22 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "For non-zero $a, b, c$, the determinant $\\Delta = \\begin{vmatrix} a & b & c \\\\ a\\alpha+b & b\\alpha+c & c\\alpha+a \\\\ a\\alpha^{2}+b & b\\alpha^{2}+c & c\\alpha^{2}+a \\end{vmatrix}$ is equal to zero if",
+      "stemLatex": "For non-zero $\\alpha$, $a$, $b$, $c$, the determinant $\\Delta = \\begin{vmatrix} a & b & a\\alpha + b \\\\ b & c & b\\alpha + c \\\\ a\\alpha + b & b\\alpha + c & 0 \\end{vmatrix}$ is equal to zero if",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$a, b, c$ are in A.P.",
+          "latex": "$a$, $b$, $c$ are in A. P.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$a, b, c$ are in G.P.",
+          "latex": "$a$, $b$, $c$ are in G.P.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$a, b, c$ are in H.P.",
+          "latex": "$a$, $b$, $c$ are in H. P.",
           "figure": null
         },
         {
@@ -1591,11 +1587,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q32)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "determinant",
-        "matrix",
-        "roots"
+        "geometric-progression",
+        "factorisation"
       ]
     },
     {
@@ -1607,7 +1603,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "If $z = \\dfrac{\\sqrt{3} + i^{2007}}{\\sqrt{3} - i^{2007}}$, then",
+      "stemLatex": "If $z = \\left(\\dfrac{\\sqrt{3}}{2} + \\dfrac{i}{2}\\right)^{2007} + \\left(\\dfrac{\\sqrt{3}}{2} - \\dfrac{i}{2}\\right)^{2007}$, then",
       "stemFigure": null,
       "options": [
         {
@@ -1622,12 +1618,12 @@
         },
         {
           "id": "C",
-          "latex": "$\\text{Re}(z) > 0$",
+          "latex": "$\\operatorname{Re}(z) > 0$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{Im}(z) > 0$",
+          "latex": "$\\operatorname{Im}(z) > 0$",
           "figure": null
         }
       ],
@@ -1639,11 +1635,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q33)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "powers-of-i",
-        "modulus"
+        "de-moivre",
+        "conjugates",
+        "polar-form"
       ]
     },
     {
@@ -1660,22 +1656,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\left(\\dfrac{3+\\sqrt{3}}{2}, \\dfrac{3+\\sqrt{3}}{2}\\right)$",
+          "latex": "$\\left(-\\dfrac{3}{2}, \\dfrac{3}{2}\\right)$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\left(\\dfrac{3-\\sqrt{3}}{2}, \\dfrac{3-\\sqrt{3}}{2}\\right)$",
+          "latex": "$\\left(\\dfrac{3}{2}, -\\dfrac{3}{2}\\right)$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(0, 3)$",
+          "latex": "$\\left(\\dfrac{7}{2}, \\dfrac{14}{3}\\right)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$(1, 4)$",
+          "latex": "$\\left(\\dfrac{7}{2}, \\dfrac{13}{2}\\right)$",
           "figure": null
         }
       ],
@@ -1687,11 +1683,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q34)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "coordinate-geometry",
-        "triangle",
-        "area"
+        "area-of-triangle",
+        "locus",
+        "key-dispute"
       ]
     },
     {
@@ -1703,12 +1699,12 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 8,
-      "stemLatex": "Let $\\vec{U} = \\hat{i} + \\hat{j} - k\\hat{k}$ and $\\vec{W} = \\hat{i} + 3\\hat{k}$. If $\\vec{V}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\vec{V}\\vec{W}]$ is",
+      "stemLatex": "Let $\\vec{V} = 2\\hat{i} + \\hat{j} - \\hat{k}$ and $\\vec{W} = \\hat{i} + 3\\hat{k}$. If $\\vec{U}$ is a unit vector, then the maximum value of the scalar triple product $[\\vec{U}\\,\\vec{V}\\,\\vec{W}]$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\sqrt{59}$",
+          "latex": "$59$",
           "figure": null
         },
         {
@@ -1723,7 +1719,7 @@
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{59}$",
+          "latex": "$\\sqrt{60}$",
           "figure": null
         }
       ],
@@ -1735,10 +1731,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q35)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "vectors",
         "scalar-triple-product",
+        "cross-product",
         "maximum"
       ]
     },
@@ -1751,7 +1747,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "If $f(x) = \\lim_{n\\to\\infty}\\dfrac{x^{2n+1}}{x^{2n}+1}$, then",
+      "stemLatex": "Let $f(x) = \\lim\\limits_{n \\to \\infty} \\dfrac{x^{2n} - 1}{x^{2n} + 1}$, then",
       "stemFigure": null,
       "options": [
         {
@@ -1784,11 +1780,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q36)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "limit",
-        "function-limit",
-        "piecewise"
+        "limit-of-sequence",
+        "piecewise-function"
       ]
     },
     {
@@ -1833,11 +1828,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q37)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "tangent-normal",
-        "derivative",
-        "coordinate-geometry"
+        "normal",
+        "rectangular-hyperbola",
+        "slope-sign"
       ]
     },
     {
@@ -1849,27 +1844,27 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "If $z = \\log\\sqrt{x^{2} + y^{2}}$, then which of the following is/are true?",
+      "stemLatex": "If $z = \\log\\sqrt{x^{2} + y^{2}}$, then which of the following is/are true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$x\\dfrac{\\partial z}{\\partial x} + y\\dfrac{\\partial z}{\\partial y} = 1$",
+          "latex": "$y\\dfrac{\\partial z}{\\partial x} + x\\dfrac{\\partial z}{\\partial y} = 1$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{\\partial z}{\\partial x} = \\dfrac{y}{x}$",
+          "latex": "$x\\dfrac{\\partial z}{\\partial x} + y\\dfrac{\\partial z}{\\partial y} = 1$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{\\partial z}{\\partial x} + \\dfrac{\\partial z}{\\partial y} = \\dfrac{1}{x+y}$",
+          "latex": "$x\\dfrac{\\partial z}{\\partial x} + y\\dfrac{\\partial z}{\\partial y} = \\sqrt{x^{2} + y^{2}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{\\partial z}{\\partial x} = \\dfrac{x}{x^{2}+y^{2}}$",
+          "latex": "$y\\dfrac{\\partial z}{\\partial x} = x\\dfrac{\\partial z}{\\partial y}$",
           "figure": null
         }
       ],
@@ -1882,11 +1877,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q38)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "partial-differentiation",
+        "partial-derivative",
         "logarithm",
-        "homogeneous"
+        "euler-theorem"
       ]
     },
     {
@@ -1898,7 +1893,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "The value of $\\alpha$ which satisfies $\\displaystyle\\int_{0}^{\\pi/2} \\sin x\\,dx = \\sin 2\\alpha$ ($\\alpha \\in [\\pi, 2\\pi]$) is/are",
+      "stemLatex": "The value of $\\alpha$ which satisfies $\\displaystyle\\int_{\\pi/2}^{\\alpha} \\sin x\\,dx = \\sin 2\\alpha$ $(\\alpha \\in [\\pi, 2\\pi])$ is/are",
       "stemFigure": null,
       "options": [
         {
@@ -1931,11 +1926,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q39)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "definite-integral",
-        "trigonometric",
-        "inverse"
+        "trigonometric-equation"
       ]
     },
     {
@@ -1947,7 +1941,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "The solution of $\\dfrac{dv}{du}$ where $u = y$ and $v = xy$ is/are",
+      "stemLatex": "The solution/solutions of $v = u\\dfrac{dv}{du} + \\left(\\dfrac{dv}{du}\\right)^{2}$, where $u = y$ and $v = xy$ is/are (where $c$, $c_{1}$ are arbitrary constants.)",
       "stemFigure": null,
       "options": [
         {
@@ -1967,7 +1961,7 @@
         },
         {
           "id": "D",
-          "latex": "$xy = cy + c_1$",
+          "latex": "$xy = cy + c_{1}$",
           "figure": null
         }
       ],
@@ -1983,9 +1977,9 @@
       },
       "difficulty": "hard",
       "tags": [
-        "ode",
-        "differentiation",
-        "general-solution"
+        "clairaut-equation",
+        "singular-solution",
+        "substitution"
       ]
     },
     {

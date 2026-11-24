@@ -4,1003 +4,1063 @@
   "keyTier": "official",
   "solutions": {
     "jelet-2023-q001": {
-      "conceptSummary": "Solve using matrices for JELET 2023 Q1.",
+      "conceptSummary": "Square the symmetric matrix and read off the off-diagonal entry $\\beta$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves matrices."
+          "title": "Multiply",
+          "bodyLatex": "$A^{2} = \\begin{pmatrix} x & y \\\\ y & x \\end{pmatrix}\\begin{pmatrix} x & y \\\\ y & x \\end{pmatrix} = \\begin{pmatrix} x^{2} + y^{2} & 2xy \\\\ 2xy & x^{2} + y^{2} \\end{pmatrix}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Match with the given form",
+          "bodyLatex": "$A^{2}$ has the printed shape $\\begin{pmatrix} \\alpha & \\beta \\\\ \\beta & \\alpha \\end{pmatrix}$ with $\\alpha = x^{2} + y^{2}$ and $\\beta = 2xy$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $4$."
+          "title": "Solve for $K$",
+          "bodyLatex": "$\\dfrac{1}{2}Kxy = 2xy \\Rightarrow K = 4$. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: A^2 = [[x^2+y^2, 2xy], [2xy, x^2+y^2]]; solve(K xy/2 = 2xy) -> K = 4."
       }
     },
     "jelet-2023-q002": {
-      "conceptSummary": "Solve using matrices for JELET 2023 Q2.",
+      "conceptSummary": "$P$ is orthogonal ($P^{T}P = I$), so powers of $Q = PAP^{T}$ telescope: $Q^{n} = PA^{n}P^{T}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves matrices."
+          "title": "$P$ is orthogonal",
+          "bodyLatex": "$P$ is the rotation matrix with $\\cos\\theta = \\dfrac{\\sqrt{3}}{2}$, $\\sin\\theta = \\dfrac{1}{2}$: $P^{T}P = \\begin{pmatrix} \\tfrac{3}{4} + \\tfrac{1}{4} & 0 \\\\ 0 & \\tfrac{1}{4} + \\tfrac{3}{4} \\end{pmatrix} = I$, so $P^{T}P = PP^{T} = I$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Telescope the powers",
+          "bodyLatex": "$Q^{2} = PAP^{T}\\,PAP^{T} = PA(P^{T}P)AP^{T} = PA^{2}P^{T}$, and by induction $Q^{99} = PA^{99}P^{T}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $A^{99}$."
+          "title": "Sandwich with $P^{T}$ and $P$",
+          "bodyLatex": "$P^{T}Q^{99}P = (P^{T}P)A^{99}(P^{T}P) = A^{99}$. Options (A), (B) do not involve $A$, and (C) $A \\neq A^{99}$ in general (e.g. $A = \\begin{pmatrix} 1 & 1 \\\\ 0 & 2 \\end{pmatrix}$). Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: P^T P = I; P^T Q^3 P = A^3 for a generic A; exact P^T Q^99 P = A^99 for A = [[1,1],[0,2]], differs from P^99, (P^T)^99, A."
       }
     },
     "jelet-2023-q003": {
-      "conceptSummary": "Solve using determinants for JELET 2023 Q3.",
+      "conceptSummary": "Rank $1$ means every row is a multiple of the first (non-zero) row $(-1, 2, 5)$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves determinants."
+          "title": "Compare the first two columns",
+          "bodyLatex": "Row 2 $= (2, -4, a-4)$: its first two entries are $-2\\times(-1, 2)$, so we need $a - 4 = -2\\times 5 = -10$, i.e. $a = -6$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Check row 3",
+          "bodyLatex": "Row 3 $= (1, -2, a+1)$ is $-1\\times(-1, 2)$ in the first two entries, so we need $a + 1 = -5$, i.e. $a = -6$ again. Both conditions agree."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $-6$."
+          "title": "Verify",
+          "bodyLatex": "With $a = -6$ the rows are $(-1, 2, 5)$, $(2, -4, -10)$, $(1, -2, -5)$, all multiples of $(-1, 2, 5)$, so the rank is $1$. For $a = -1, -2, 4$ the rank is $2$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: rank of the matrix at a = -1, -2, -6, 4 is 2, 2, 1, 2."
       }
     },
     "jelet-2023-q004": {
-      "conceptSummary": "Solve using complex-numbers for JELET 2023 Q4.",
+      "conceptSummary": "Logs of GP terms are linear in the term number, so column 1 is a combination of columns 2 and 3.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves complex-numbers."
+          "title": "Write the GP terms",
+          "bodyLatex": "Let the GP have first term $A_{0}$ and ratio $R$. Then $x = A_{0}R^{p-1}$, $y = A_{0}R^{q-1}$, $z = A_{0}R^{r-1}$, so $\\log x = (\\log A_{0} - \\log R) + p\\log R$, and similarly for $y$ and $z$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Column operation",
+          "bodyLatex": "$C_{1} \\to C_{1} - (\\log R)\\,C_{2} - (\\log A_{0} - \\log R)\\,C_{3}$ turns every entry of column 1 into $0$. Hence $|A| = 0$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) Singular matrix."
+          "title": "Judge the options",
+          "bodyLatex": "$|A| = 0$, so $A$ is singular (A). An orthogonal matrix has $|A| = \\pm 1$, so (B) is false. (C) and (D) claim $|A| = r\\log y$ or $q\\log z$, which are non-zero in general (e.g. $A_{0} = 2$, $R = 3$, $q = 2$, $r = 4$ gives $r\\log y = 4\\log 6 \\neq 0$). Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: det with log x = log A0 + (p-1) log R etc. expands to 0; r log y = 4 log 6 != 0 for a sample GP."
       }
     },
     "jelet-2023-q005": {
-      "conceptSummary": "Solve using vector-algebra for JELET 2023 Q5.",
+      "conceptSummary": "Three points are collinear iff the area determinant vanishes.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves vector-algebra."
+          "title": "Area determinant",
+          "bodyLatex": "$\\begin{vmatrix} a_{1} & b_{1} & 1 \\\\ a_{2} & b_{2} & 1 \\\\ a_{1} - a_{2} & b_{1} - b_{2} & 1 \\end{vmatrix}$. Apply $R_{3} \\to R_{3} - R_{1} + R_{2}$: row 3 becomes $(0, 0, 1)$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Expand",
+          "bodyLatex": "Expanding along the new row 3 gives $1\\cdot\\begin{vmatrix} a_{1} & b_{1} \\\\ a_{2} & b_{2} \\end{vmatrix} = a_{1}b_{2} - a_{2}b_{1}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $a_1 b_2 = b_1 a_2$."
+          "title": "Collinearity condition",
+          "bodyLatex": "Collinear $\\iff a_{1}b_{2} - a_{2}b_{1} = 0 \\iff a_{1}b_{2} = b_{1}a_{2}$. The other three relations are not multiples of this determinant. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: determinant = a1 b2 - a2 b1; only option A is proportional to it."
       }
     },
     "jelet-2023-q006": {
-      "conceptSummary": "Solve using linear-system for JELET 2023 Q6.",
+      "conceptSummary": "Infinitely many solutions need $\\det = 0$ AND a consistent system. Here the only singular value $k = -1$ makes the system inconsistent, so no option is correct. WBJEEB withdrew the item.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves linear-system."
+          "title": "Coefficient determinant",
+          "bodyLatex": "$\\Delta = \\begin{vmatrix} 1 & 1 & 1 \\\\ 2 & 3 & -1 \\\\ 1 & 1 & -k \\end{vmatrix} = 1(-3k + 1) - 1(-2k + 1) + 1(2 - 3) = -k - 1$. So $\\Delta = 0$ only for $k = -1$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Test $k = -1$",
+          "bodyLatex": "For $k = -1$ the third equation reads $x + y + z = 4$, while the first says $x + y + z = 1$. The system is inconsistent (rank of the coefficient matrix $2$, rank of the augmented matrix $3$), so it has no solution."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is question is voided."
+          "title": "Test the options",
+          "bodyLatex": "For $k = 0, 3, 2, -2$, $\\Delta = -1, -4, -3, 1 \\neq 0$, so Cramer's rule gives a unique solution. For no real $k$ are there infinitely many solutions."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Why the item was withdrawn",
+          "bodyLatex": "No option (indeed no real $k$) satisfies the stem, so the single-correct question has no valid answer. The WBJEEB final key JEEB/Reg-267/23 marks Q6 W (withdrawn)."
+        },
+        {
+          "stepNumber": 5,
+          "title": "Marking",
+          "bodyLatex": "Q6 is a Category-I item marked W (withdrawn). It awards the full $+1$ mark ($+12$ twelfths) to every candidate, whatever they marked."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: W."
+        "note": "SymPy: det = -(k+1); at k = -1 rank C = 2, rank [C|b] = 3 (inconsistent); det != 0 for every option -> no option correct -> W, +1 mark (+12 twelfths) to all."
       }
     },
     "jelet-2023-q007": {
-      "conceptSummary": "Solve using complex-numbers for JELET 2023 Q7.",
+      "conceptSummary": "A product of $\\operatorname{cis}$ factors adds the arguments (De Moivre).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves complex-numbers."
+          "title": "Add the arguments",
+          "bodyLatex": "$f_{r}(\\alpha) = \\operatorname{cis}\\left(\\dfrac{\\alpha}{r^{2}}(1 + 2 + \\cdots + r)\\right) = \\operatorname{cis}\\left(\\dfrac{\\alpha}{r^{2}}\\cdot\\dfrac{r(r+1)}{2}\\right) = \\operatorname{cis}\\left(\\dfrac{\\alpha(r+1)}{2r}\\right)$. (The last factor $\\operatorname{cis}\\dfrac{\\alpha}{r} = \\operatorname{cis}\\dfrac{r\\alpha}{r^{2}}$ is the $r$-th term.)"
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Put $\\alpha = \\pi$, $r = n$",
+          "bodyLatex": "$f_{n}(\\pi) = \\cos\\dfrac{\\pi(n+1)}{2n} + i\\sin\\dfrac{\\pi(n+1)}{2n}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $i$."
+          "title": "Take the limit",
+          "bodyLatex": "$\\dfrac{n+1}{2n} \\to \\dfrac{1}{2}$, so $f_{n}(\\pi) \\to \\cos\\dfrac{\\pi}{2} + i\\sin\\dfrac{\\pi}{2} = i$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: sum_{j=1}^{r} j alpha/r^2 = alpha(r+1)/(2r); limit of exp(i pi (n+1)/(2n)) = I."
       }
     },
     "jelet-2023-q008": {
-      "conceptSummary": "Solve using complex-numbers for JELET 2023 Q8.",
+      "conceptSummary": "The cubic is $(y - 1)^{3} + 27 = 0$, so $a - 1$, $b - 1$, $c - 1$ are $-3$, $-3\\omega$, $-3\\omega^{2}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves complex-numbers."
+          "title": "Complete the cube",
+          "bodyLatex": "$y^{3} - 3y^{2} + 3y + 26 = (y - 1)^{3} + 27$. So $(y - 1)^{3} = -27$ and $y - 1 = -3,\\ -3\\omega,\\ -3\\omega^{2}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Label the roots",
+          "bodyLatex": "Take $a - 1 = -3$, $b - 1 = -3\\omega$, $c - 1 = -3\\omega^{2}$. Then $\\dfrac{a-1}{b-1} = \\dfrac{1}{\\omega} = \\omega^{2}$, $\\dfrac{b-1}{c-1} = \\dfrac{1}{\\omega} = \\omega^{2}$, $\\dfrac{c-1}{a-1} = \\omega^{2}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $30/2$."
+          "title": "Sum",
+          "bodyLatex": "The sum is $3\\omega^{2}$. Answer: (D)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Note on labelling",
+          "bodyLatex": "The expression is cyclic. Swapping the labels of $b$ and $c$ (equivalently $\\omega \\leftrightarrow \\omega^{2}$) gives $3\\omega$, option (C). The official key takes the conventional labelling above and lists (D). Options (A) and (B) are never attained."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: cubic(y+1) = y^3 + 27; with roots 1-3, 1-3w, 1-3w^2 the sum is 3w^2 (swapped labels give 3w); key D kept."
       }
     },
     "jelet-2023-q009": {
-      "conceptSummary": "Solve using coordinate-geometry for JELET 2023 Q9.",
+      "conceptSummary": "Rotating about $A$ changes the inclination of $AB$ from $45^{\\circ}$ to $60^{\\circ}$ while keeping $A$ on the line.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves coordinate-geometry."
+          "title": "Inclination of $AB$",
+          "bodyLatex": "Slope of $AB = \\dfrac{1 - 0}{3 - 2} = 1$, so $AB$ makes $45^{\\circ}$ with the $x$-axis."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Rotate",
+          "bodyLatex": "An anticlockwise rotation of $15^{\\circ}$ gives inclination $60^{\\circ}$, slope $\\tan 60^{\\circ} = \\sqrt{3}$. The line still passes through $A(2, 0)$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $3x - y = 2\\sqrt{3}$."
+          "title": "Equation",
+          "bodyLatex": "$y - 0 = \\sqrt{3}(x - 2) \\Rightarrow \\sqrt{3}x - y = 2\\sqrt{3}$. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: tan(pi/4 + pi/12) = sqrt(3); only option D is proportional to y - sqrt(3)(x - 2)."
       }
     },
     "jelet-2023-q010": {
-      "conceptSummary": "Solve using parabola for JELET 2023 Q10.",
+      "conceptSummary": "Intersect the line with the parabola and measure the distance between the two points.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves parabola."
+          "title": "Substitute",
+          "bodyLatex": "$y = 2x - 3$ in $y^{2} = 8x$: $(2x - 3)^{2} = 8x \\Rightarrow 4x^{2} - 20x + 9 = 0 \\Rightarrow x = \\dfrac{20 \\pm 16}{8} = \\dfrac{9}{2}, \\dfrac{1}{2}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Endpoints",
+          "bodyLatex": "$x = \\dfrac{9}{2} \\Rightarrow y = 6$, and $x = \\dfrac{1}{2} \\Rightarrow y = -2$. The chord joins $\\left(\\dfrac{9}{2}, 6\\right)$ and $\\left(\\dfrac{1}{2}, -2\\right)$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $4\\sqrt{5}$ units."
+          "title": "Length",
+          "bodyLatex": "$\\sqrt{4^{2} + 8^{2}} = \\sqrt{80} = 4\\sqrt{5}$ units. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: intersections (1/2, -2), (9/2, 6); distance 4 sqrt(5)."
       }
     },
     "jelet-2023-q011": {
-      "conceptSummary": "Solve using hyperbola for JELET 2023 Q11.",
+      "conceptSummary": "Eliminate $t$ with $\\sec^{2}t - \\tan^{2}t = 1$ to get a hyperbola centred at $(-1, 2)$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves hyperbola."
+          "title": "Eliminate the parameter",
+          "bodyLatex": "$\\sec t = x + 1$ and $\\tan t = \\dfrac{y - 2}{3}$, so $(x + 1)^{2} - \\dfrac{(y - 2)^{2}}{9} = 1$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Hyperbola data",
+          "bodyLatex": "Centre $(-1, 2)$, transverse axis horizontal, $a^{2} = 1$, $b^{2} = 9$, so $c = \\sqrt{a^{2} + b^{2}} = \\sqrt{10}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $(-1 \\pm \\sqrt{10}, 2)$."
+          "title": "Foci",
+          "bodyLatex": "$(-1 \\pm \\sqrt{10}, 2)$. Option (C) uses $c = \\sqrt{8}$ (that would be $\\sqrt{b^{2} - a^{2}}$), and (A), (D) shift the centre. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: (x+1)^2 - (y-2)^2/9 - 1 vanishes on the parametrisation; c = sqrt(10); foci (-1 ± sqrt(10), 2)."
       }
     },
     "jelet-2023-q012": {
-      "conceptSummary": "Solve using vector-algebra for JELET 2023 Q12.",
+      "conceptSummary": "Expand with the vector triple product: $\\vec{p} \\times (\\vec{a} \\times \\vec{b}) = \\vec{a}(\\vec{p}\\cdot\\vec{b}) - \\vec{b}(\\vec{p}\\cdot\\vec{a})$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves vector-algebra."
+          "title": "Apply BAC–CAB",
+          "bodyLatex": "With $\\vec{p} = \\vec{a} + \\vec{b}$: $(\\vec{a} + \\vec{b}) \\times (\\vec{a} \\times \\vec{b}) = \\vec{a}\\,[(\\vec{a} + \\vec{b})\\cdot\\vec{b}] - \\vec{b}\\,[(\\vec{a} + \\vec{b})\\cdot\\vec{a}]$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Use $|\\vec{a}| = |\\vec{b}| = 1$",
+          "bodyLatex": "$(\\vec{a} + \\vec{b})\\cdot\\vec{b} = \\vec{a}\\cdot\\vec{b} + 1$ and $(\\vec{a} + \\vec{b})\\cdot\\vec{a} = 1 + \\vec{a}\\cdot\\vec{b}$, so the vector is $(1 + \\vec{a}\\cdot\\vec{b})(\\vec{a} - \\vec{b})$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\vec{a} - \\vec{b}$."
+          "title": "Conclusion",
+          "bodyLatex": "It is a scalar multiple of $\\vec{a} - \\vec{b}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: for three pairs of rational unit vectors (a+b)x(axb) = (1 + a.b)(a - b) and is parallel only to a - b."
       }
     },
     "jelet-2023-q013": {
-      "conceptSummary": "Solve using vector-algebra for JELET 2023 Q13.",
+      "conceptSummary": "The tangent direction is $\\vec{r}\\,'(t)$; normalise it at $t = 2$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves vector-algebra."
+          "title": "Differentiate",
+          "bodyLatex": "$\\vec{r}(t) = (t^{2} + 2)\\hat{i} + (4t - 5)\\hat{j} + (2t^{2} - 6t)\\hat{k}$, so $\\vec{r}\\,'(t) = 2t\\,\\hat{i} + 4\\hat{j} + (4t - 6)\\hat{k}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Evaluate at $t = 2$",
+          "bodyLatex": "$\\vec{r}\\,'(2) = 4\\hat{i} + 4\\hat{j} + 2\\hat{k}$, with magnitude $\\sqrt{16 + 16 + 4} = 6$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $(2\\hat{i} + 2\\hat{j} + 2\\hat{k})$."
+          "title": "Unit tangent",
+          "bodyLatex": "$\\hat{T} = \\dfrac{1}{6}(4\\hat{i} + 4\\hat{j} + 2\\hat{k}) = \\dfrac{1}{3}(2\\hat{i} + 2\\hat{j} + \\hat{k})$. Option (A) has the right direction but magnitude $\\sqrt{3}$, so it is not a unit vector. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: r'(2) = (4, 4, 2), |r'(2)| = 6, T = (2/3, 2/3, 1/3)."
       }
     },
     "jelet-2023-q014": {
-      "conceptSummary": "Solve using limit for JELET 2023 Q14.",
+      "conceptSummary": "Rewrite $\\sin(\\pi\\cos^{2}x) = \\sin(\\pi - \\pi\\sin^{2}x) = \\sin(\\pi\\sin^{2}x)$, then use $\\sin\\theta \\sim \\theta$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves limit."
+          "title": "Trig identity",
+          "bodyLatex": "$\\pi\\cos^{2}x = \\pi - \\pi\\sin^{2}x$ and $\\sin(\\pi - \\theta) = \\sin\\theta$, so $\\sin(\\pi\\cos^{2}x) = \\sin(\\pi\\sin^{2}x)$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Standard limits",
+          "bodyLatex": "$\\dfrac{\\sin(\\pi\\sin^{2}x)}{x^{2}} = \\dfrac{\\sin(\\pi\\sin^{2}x)}{\\pi\\sin^{2}x}\\cdot\\pi\\cdot\\left(\\dfrac{\\sin x}{x}\\right)^{2}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\pi$."
+          "title": "Take the limit",
+          "bodyLatex": "As $x \\to 0$: $1\\cdot\\pi\\cdot 1 = \\pi$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: sin(pi cos^2 x) - sin(pi sin^2 x) simplifies to 0; limit = pi."
       }
     },
     "jelet-2023-q015": {
-      "conceptSummary": "Solve using continuity for JELET 2023 Q15.",
+      "conceptSummary": "For a finite limit at $x = 2$ the numerator must vanish there; then the limit must equal $f(2) = 2$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves continuity."
+          "title": "Numerator at $x = 2$",
+          "bodyLatex": "$4 - 2(A + 2) + A = -A$. The denominator vanishes at $x = 2$, so a finite limit needs $-A = 0$, i.e. $A = 0$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Limit with $A = 0$",
+          "bodyLatex": "$\\dfrac{x^{2} - 2x}{x - 2} = \\dfrac{x(x - 2)}{x - 2} = x \\to 2$ as $x \\to 2$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $A = 0$."
+          "title": "Continuity",
+          "bodyLatex": "$\\lim_{x\\to 2} f(x) = 2 = f(2)$, so $f$ is continuous. For $A = 1, -1, 2$ the numerator is non-zero at $2$ and the limit is infinite. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: numerator(2) = -A -> A = 0; limit at 2 equals 2 only for A = 0."
       }
     },
     "jelet-2023-q016": {
-      "conceptSummary": "Solve using differentiability for JELET 2023 Q16.",
+      "conceptSummary": "Differentiate from first principles using the functional equation, then integrate with $f(0) = 0$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves differentiability."
+          "title": "Difference quotient",
+          "bodyLatex": "$\\dfrac{f(x + h) - f(x)}{h} = \\dfrac{f(h) + xh}{h} = \\dfrac{f(h)}{h} + x$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Take the limit",
+          "bodyLatex": "$f'(x) = \\lim_{h\\to 0}\\dfrac{f(h)}{h} + x = 3 + x$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{3x}{x+2}$."
+          "title": "Integrate",
+          "bodyLatex": "$f(x) = 3x + \\dfrac{x^{2}}{2} + C$ and $f(0) = 0$ gives $C = 0$. Check: $f(x + y) - f(x) - f(y) = \\dfrac{(x+y)^{2} - x^{2} - y^{2}}{2} = xy$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: f' = 3 + x, f = 3x + x^2/2; only option B satisfies f(x+y) = f(x)+f(y)+xy, f(0)=0, lim f(h)/h = 3."
       }
     },
     "jelet-2023-q017": {
-      "conceptSummary": "Solve using limit for JELET 2023 Q17.",
+      "conceptSummary": "A $0/0$ form: apply L'Hospital's rule with the chain rule for the square roots.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves limit."
+          "title": "Check the form",
+          "bodyLatex": "$\\sqrt{f(a)} - a = \\sqrt{a^{2}} - a = 0$ and $\\sqrt{\\phi(a)} - b = 0$ (with $a, b > 0$), so the limit is $0/0$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "L'Hospital",
+          "bodyLatex": "$\\lim_{x\\to a} \\dfrac{\\sqrt{f(x)} - a}{\\sqrt{\\phi(x)} - b} = \\dfrac{f'(a)/(2\\sqrt{f(a)})}{\\phi'(a)/(2\\sqrt{\\phi(a)})} = \\dfrac{f'(a)}{\\phi'(a)}\\cdot\\dfrac{b}{a}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $\\dfrac{3b}{a}$."
+          "title": "Substitute $f'(a) = 3\\phi'(a)$",
+          "bodyLatex": "The limit is $3\\cdot\\dfrac{b}{a} = \\dfrac{3b}{a}$. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: concrete f, phi with f(a)=a^2, phi(a)=b^2, f'(a)=3phi'(a) for (a,b) = (2,5), (3,1/2), (7,4) give limits 3b/a."
       }
     },
     "jelet-2023-q018": {
-      "conceptSummary": "Solve using rolle-theorem for JELET 2023 Q18.",
+      "conceptSummary": "Rolle's hypotheses hold ($f(-3) = f(0) = 0$); solve $f'(c) = 0$ inside $(-3, 0)$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves rolle-theorem."
+          "title": "Endpoints",
+          "bodyLatex": "$f(-3) = (-3)(0)e^{3/2} = 0$ and $f(0) = 0$, and $f$ is differentiable everywhere."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Derivative",
+          "bodyLatex": "$f'(x) = e^{-x/2}\\left[(2x + 3) - \\dfrac{1}{2}(x^{2} + 3x)\\right] = -\\dfrac{1}{2}e^{-x/2}(x^{2} - x - 6) = -\\dfrac{1}{2}e^{-x/2}(x - 3)(x + 2)$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $-2$."
+          "title": "Pick the root in $(-3, 0)$",
+          "bodyLatex": "$f'(c) = 0 \\Rightarrow c = 3$ or $c = -2$. Only $c = -2$ lies in $(-3, 0)$. The endpoints $-3$ and $0$ are not admissible. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: f(-3) = f(0) = 0; f' = -(x-3)(x+2)e^{-x/2}/2; root in (-3,0) is -2."
       }
     },
     "jelet-2023-q019": {
-      "conceptSummary": "Solve using parametric-curves for JELET 2023 Q19.",
+      "conceptSummary": "Find the parameter of $M$ from both coordinate equations, then $\\dfrac{dy}{dx} = \\dfrac{dy/dt}{dx/dt}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves parametric-curves."
+          "title": "Parameter of $M(2, -1)$",
+          "bodyLatex": "$t^{2} + 3t - 8 = 2 \\Rightarrow (t + 5)(t - 2) = 0$, and $2t^{2} - 2t - 5 = -1 \\Rightarrow 2(t - 2)(t + 1) = 0$. The common value is $t = 2$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Derivatives",
+          "bodyLatex": "$\\dfrac{dx}{dt} = 2t + 3 = 7$ and $\\dfrac{dy}{dt} = 4t - 2 = 6$ at $t = 2$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{6}{17}$."
+          "title": "Slope",
+          "bodyLatex": "$\\dfrac{dy}{dx} = \\dfrac{6}{7}$. Option (B) is the reciprocal. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: common t = 2; slope (4t-2)/(2t+3) = 6/7."
       }
     },
     "jelet-2023-q020": {
-      "conceptSummary": "Solve using parametric-curves for JELET 2023 Q20.",
+      "conceptSummary": "Differentiate both coordinates with respect to $\\theta$; a zero $dy/d\\theta$ with non-zero $dx/d\\theta$ means a horizontal tangent.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves parametric-curves."
+          "title": "$dy/d\\theta$",
+          "bodyLatex": "$\\dfrac{dy}{d\\theta} = a\\left[\\dfrac{-\\sin 2\\theta}{\\sqrt{\\cos 2\\theta}}\\sin\\theta + \\sqrt{\\cos 2\\theta}\\cos\\theta\\right] = \\dfrac{a(\\cos 2\\theta\\cos\\theta - \\sin 2\\theta\\sin\\theta)}{\\sqrt{\\cos 2\\theta}} = \\dfrac{a\\cos 3\\theta}{\\sqrt{\\cos 2\\theta}}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "$dx/d\\theta$",
+          "bodyLatex": "Similarly $\\dfrac{dx}{d\\theta} = -\\dfrac{a\\sin 3\\theta}{\\sqrt{\\cos 2\\theta}}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) parallel to $x$-axis."
+          "title": "At $\\theta = \\dfrac{\\pi}{6}$",
+          "bodyLatex": "$\\cos 3\\theta = \\cos\\dfrac{\\pi}{2} = 0$ while $\\dfrac{dx}{d\\theta} = -\\dfrac{a}{\\sqrt{1/2}} = -\\sqrt{2}\\,a \\neq 0$. So $\\dfrac{dy}{dx} = 0$ and the tangent is parallel to the $x$ axis. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: at theta = pi/6, dx/dtheta = -sqrt(2) a, dy/dtheta = 0 -> slope 0."
       }
     },
     "jelet-2023-q021": {
-      "conceptSummary": "Solve using maxima-minima for JELET 2023 Q21.",
+      "conceptSummary": "Complete the squares to get $\\min f$ and $\\max g$, then compare.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves maxima-minima."
+          "title": "Minimum of $f$",
+          "bodyLatex": "$f(x) = (x + b)^{2} + 2c^{2} - b^{2}$, so $\\min f = 2c^{2} - b^{2}$ (at $x = -b$)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Maximum of $g$",
+          "bodyLatex": "$g(x) = -(x + c)^{2} + b^{2} + c^{2}$, so $\\max g = b^{2} + c^{2}$ (at $x = -c$)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $|c| > |b|\\sqrt{2}$."
+          "title": "Inequality",
+          "bodyLatex": "$2c^{2} - b^{2} > b^{2} + c^{2} \\iff c^{2} > 2b^{2} \\iff |c| > |b|\\sqrt{2}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: min f = 2c^2 - b^2, max g = b^2 + c^2; c^2 > 2b^2 matches only option B on a 13x13 grid of (b, c)."
       }
     },
     "jelet-2023-q022": {
-      "conceptSummary": "Solve using partial-differentiation for JELET 2023 Q22.",
+      "conceptSummary": "$u = \\log F$ with $F$ homogeneous of degree $2$; Euler's theorem gives $xu_{x} + yu_{y} = \\dfrac{xF_{x} + yF_{y}}{F} = 2$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves partial-differentiation."
+          "title": "Degree of homogeneity",
+          "bodyLatex": "The numerator $x^{3} + x^{2}y - y^{3}$ has degree $3$ and the denominator $x - y$ degree $1$, so $F = \\dfrac{x^{3} + x^{2}y - y^{3}}{x - y}$ is homogeneous of degree $2$: $F(sx, sy) = s^{2}F(x, y)$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Euler's theorem",
+          "bodyLatex": "$xF_{x} + yF_{y} = 2F$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $2$."
+          "title": "Apply to $u = \\log F$",
+          "bodyLatex": "$x\\dfrac{\\partial u}{\\partial x} + y\\dfrac{\\partial u}{\\partial y} = \\dfrac{xF_{x} + yF_{y}}{F} = \\dfrac{2F}{F} = 2$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: F(sx, sy)/F(x, y) = s^2; x u_x + y u_y simplifies to 2."
       }
     },
     "jelet-2023-q023": {
-      "conceptSummary": "Solve using partial-differentiation for JELET 2023 Q23.",
+      "conceptSummary": "Write $f = \\dfrac{ax}{y} + \\dfrac{by}{x}$, differentiate, and equate at $(1, -2)$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves partial-differentiation."
+          "title": "Partial derivatives",
+          "bodyLatex": "$f = \\dfrac{ax}{y} + \\dfrac{by}{x}$, so $f_{x} = \\dfrac{a}{y} - \\dfrac{by}{x^{2}}$ and $f_{y} = -\\dfrac{ax}{y^{2}} + \\dfrac{b}{x}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Evaluate at $(1, -2)$",
+          "bodyLatex": "$f_{x} = -\\dfrac{a}{2} + 2b$ and $f_{y} = -\\dfrac{a}{4} + b$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $a = 4b$."
+          "title": "Equate",
+          "bodyLatex": "$-\\dfrac{a}{2} + 2b = -\\dfrac{a}{4} + b \\Rightarrow b = \\dfrac{a}{4} \\Rightarrow a = 4b$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: (f_x - f_y)(1, -2) = b - a/4 -> a = 4b."
       }
     },
     "jelet-2023-q024": {
-      "conceptSummary": "Solve using integration for JELET 2023 Q24.",
+      "conceptSummary": "Substitute $u = \\log x$: the integral becomes $\\displaystyle\\int_{0}^{2007}\\pi\\cos(\\pi u)\\,du$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves integration."
+          "title": "Substitution",
+          "bodyLatex": "$u = \\log x$, $du = \\dfrac{dx}{x}$. The limits $x = 1 \\to u = 0$ and $x = e^{2007} \\to u = 2007$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Integrate",
+          "bodyLatex": "$I = \\displaystyle\\int_{0}^{2007} \\pi\\cos(\\pi u)\\,du = \\Big[\\sin(\\pi u)\\Big]_{0}^{2007} = \\sin(2007\\pi) - \\sin 0$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $0$."
+          "title": "Evaluate",
+          "bodyLatex": "$\\sin(2007\\pi) = 0$ (an integer multiple of $\\pi$), so $I = 0$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: substitution x = e^u maps the integrand to pi cos(pi u); integral 0..2007 = 0."
       }
     },
     "jelet-2023-q025": {
-      "conceptSummary": "Solve using definite-integral for JELET 2023 Q25.",
+      "conceptSummary": "The relation forces $h$ to be the constant $-5$; then $fg$ is anti-symmetric about $x = a/2$ and integrates to $0$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves definite-integral."
+          "title": "Solve for $h$",
+          "bodyLatex": "Replace $x$ by $a - x$: $3h(a - x) - 4h(x) = 5$. Together with $3h(x) - 4h(a - x) = 5$, subtracting gives $7h(x) = 7h(a - x)$, so $h(x) = h(a - x)$ and then $-h(x) = 5$, i.e. $h \\equiv -5$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Reduce the integral",
+          "bodyLatex": "$I = \\displaystyle\\int_{0}^{a} f\\,g\\,h\\,dx = -5\\int_{0}^{a} f(x)g(x)\\,dx$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $0$."
+          "title": "Use $x \\to a - x$",
+          "bodyLatex": "$J = \\displaystyle\\int_{0}^{a} f(x)g(x)\\,dx = \\int_{0}^{a} f(a - x)g(a - x)\\,dx = \\int_{0}^{a} f(x)\\,(-g(x))\\,dx = -J$, so $J = 0$ and $I = 0$. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: the 2x2 linear system gives h(x) = h(a-x) = -5; integral of f g h over six sample (f, g, a) triples is 0."
       }
     },
     "jelet-2023-q026": {
-      "conceptSummary": "Solve using area for JELET 2023 Q26.",
+      "conceptSummary": "The parabolas $y = x^{2}$ and $y = \\sqrt{x}$ meet at $x = 0$ and $x = 1$; integrate the gap.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves area."
+          "title": "Intersection",
+          "bodyLatex": "$x = y^{2}$ is $y = \\sqrt{x}$ in the first quadrant. $x^{2} = \\sqrt{x} \\Rightarrow x^{4} = x \\Rightarrow x = 0, 1$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Set up",
+          "bodyLatex": "On $[0, 1]$, $\\sqrt{x} \\geq x^{2}$, so the area is $\\displaystyle\\int_{0}^{1}(\\sqrt{x} - x^{2})\\,dx$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\dfrac{2}{3}$ sq. unit."
+          "title": "Evaluate",
+          "bodyLatex": "$\\left[\\dfrac{2}{3}x^{3/2} - \\dfrac{x^{3}}{3}\\right]_{0}^{1} = \\dfrac{2}{3} - \\dfrac{1}{3} = \\dfrac{1}{3}$ sq. unit. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: integrate(sqrt(x) - x^2, (x, 0, 1)) = 1/3."
       }
     },
     "jelet-2023-q027": {
-      "conceptSummary": "Solve using ode for JELET 2023 Q27.",
+      "conceptSummary": "Homogeneous equation: put $y = vx$, then separate the variables.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ode."
+          "title": "Substitute $y = vx$",
+          "bodyLatex": "$y' = v + x\\dfrac{dv}{dx}$, so $v + x\\dfrac{dv}{dx} = v + \\dfrac{\\phi(v)}{\\phi'(v)}$, i.e. $x\\dfrac{dv}{dx} = \\dfrac{\\phi(v)}{\\phi'(v)}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Separate",
+          "bodyLatex": "$\\dfrac{\\phi'(v)}{\\phi(v)}\\,dv = \\dfrac{dx}{x} \\Rightarrow \\log|\\phi(v)| = \\log|x| + \\log c$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $\\Phi(y/x) = xc$."
+          "title": "Solution",
+          "bodyLatex": "$\\phi(y/x) = cx$. Check with $\\phi(s) = s$: $y = cx^{2}$ satisfies $y' = 2y/x$, while (A)/(B) give $y = cx$ and (C) gives $y^{2} = cx$, which fail. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: each option family substituted into the ODE for phi(s) = s, e^s, s^2; only D satisfies it."
       }
     },
     "jelet-2023-q028": {
-      "conceptSummary": "Solve using ode for JELET 2023 Q28.",
+      "conceptSummary": "$\\log\\dfrac{dy}{dx} = 3x + 4y$ means $\\dfrac{dy}{dx} = e^{3x}e^{4y}$, which is separable.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ode."
+          "title": "Separate",
+          "bodyLatex": "$e^{-4y}\\,dy = e^{3x}\\,dx$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Integrate",
+          "bodyLatex": "$-\\dfrac{e^{-4y}}{4} = \\dfrac{e^{3x}}{3} + C$. Multiply by $-12$: $3e^{-4y} = -4e^{3x} - 12C$, i.e. $4e^{3x} + 3e^{-4y} = K$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $4e^{3x} + 3e^{-4y} = 7$."
+          "title": "Initial condition",
+          "bodyLatex": "$y(0) = 0$: $4 + 3 = K = 7$, so $4e^{3x} + 3e^{-4y} = 7$. (B) has the wrong sign in $e^{4y}$, (C) fails at the origin ($2 \\neq 1$), and (D) has an impossible negative right side. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: for each option, implicit y' = -F_x/F_y compared with e^{3x+4y} and F(0,0) = 0; only A passes."
       }
     },
     "jelet-2023-q029": {
-      "conceptSummary": "Solve using probability for JELET 2023 Q29.",
+      "conceptSummary": "Use the complement: the minimum is at least $5$ iff both numbers come from $\\{5, \\ldots, 10\\}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves probability."
+          "title": "Sample space",
+          "bodyLatex": "$\\binom{10}{2} = 45$ equally likely unordered pairs."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Complement",
+          "bodyLatex": "$P(\\min \\geq 5) = \\dfrac{\\binom{6}{2}}{45} = \\dfrac{15}{45} = \\dfrac{1}{3}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{2}{3}$."
+          "title": "Answer",
+          "bodyLatex": "$P(\\min < 5) = 1 - \\dfrac{1}{3} = \\dfrac{2}{3}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy/enumeration: 30 of 45 pairs have min < 5 -> 2/3."
       }
     },
     "jelet-2023-q030": {
-      "conceptSummary": "Solve using probability for JELET 2023 Q30.",
+      "conceptSummary": "From $P(A/B) = P(A)$, the events are independent; compute $P(B)$ and test each option.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves probability."
+          "title": "Joint and marginal",
+          "bodyLatex": "$P(A\\cap B) = P(B/A)P(A) = \\dfrac{1}{2}\\cdot\\dfrac{1}{4} = \\dfrac{1}{8}$, and $P(B) = \\dfrac{P(A\\cap B)}{P(A/B)} = \\dfrac{1/8}{1/4} = \\dfrac{1}{2}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Independence",
+          "bodyLatex": "$P(A)P(B) = \\dfrac{1}{4}\\cdot\\dfrac{1}{2} = \\dfrac{1}{8} = P(A\\cap B)$, so $A$ and $B$ are independent (A). $P(A\\cap B) \\neq 0$, so they are not mutually exclusive (B false)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $A$ and $B$ are independent."
+          "title": "Options (C), (D)",
+          "bodyLatex": "$P(A'/B) = 1 - P(A/B) = \\dfrac{3}{4} \\neq \\dfrac{1}{3}$. $P(A\\cup B) = \\dfrac{1}{4} + \\dfrac{1}{2} - \\dfrac{1}{8} = \\dfrac{5}{8}$, so $P(B'/A') = \\dfrac{1 - 5/8}{3/4} = \\dfrac{1}{2} \\neq \\dfrac{1}{4}$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: P(A∩B) = 1/8 = P(A)P(B); P(A'/B) = 3/4, P(B'/A') = 1/2."
       }
     },
     "jelet-2023-q031": {
-      "conceptSummary": "Solve using symmetric for JELET 2023 Q31.",
+      "conceptSummary": "Use $(MN)^{T} = N^{T}M^{T}$, $X^{T} = X$, $Z^{T} = -Z$; even powers of $Z$ are symmetric, odd powers skew. All four options are judged.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves symmetric."
+          "title": "Powers of $Z$",
+          "bodyLatex": "$(Z^{k})^{T} = (Z^{T})^{k} = (-1)^{k}Z^{k}$: $Z^{4}$ is symmetric, while $Z^{5}$ and $Z^{99}$ are skew symmetric. Powers of $X$ and $Y$ stay symmetric."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "(A) and (B)",
+          "bodyLatex": "(A) $M = X^{3}Z^{4} - Z^{4}X^{3}$: $M^{T} = Z^{4}X^{3} - X^{3}Z^{4} = -M$, so it is skew symmetric. (B) $M = X^{5}Z^{5} - Z^{5}X^{5}$: $M^{T} = (-Z^{5})X^{5} - X^{5}(-Z^{5}) = M$, so it is symmetric (not skew in general)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $X^{3}Z^{4} - Z^{4}X^{3}$, (C) $Y^{99}Z^{99} + Z^{99}Y^{99}$."
+          "title": "(C) and (D)",
+          "bodyLatex": "(C) $M = Y^{99}Z^{99} + Z^{99}Y^{99}$: $M^{T} = -Z^{99}Y^{99} - Y^{99}Z^{99} = -M$, so it is skew symmetric. (D) $M = X^{19}Y^{7} + Y^{7}X^{19}$: $M^{T} = Y^{7}X^{19} + X^{19}Y^{7} = M$, so it is symmetric."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Skew symmetric: (A) and (C). Answer: (A), (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: AC."
+        "note": "SymPy: random integer symmetric X, Y and skew Z (2 draws): A, C satisfy M^T = -M (non-zero); B, D are symmetric non-zero."
       }
     },
     "jelet-2023-q032": {
-      "conceptSummary": "Solve using determinant for JELET 2023 Q32.",
+      "conceptSummary": "Factor the determinant: $\\Delta = (b^{2} - ac)(a\\alpha^{2} + 2b\\alpha + c)$. All four options are judged.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves determinant."
+          "title": "Column operation",
+          "bodyLatex": "$C_{3} \\to C_{3} - \\alpha C_{1} - C_{2}$: rows 1 and 2 of $C_{3}$ become $0$, and row 3 becomes $0 - \\alpha(a\\alpha + b) - (b\\alpha + c) = -(a\\alpha^{2} + 2b\\alpha + c)$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Expand",
+          "bodyLatex": "$\\Delta = -(a\\alpha^{2} + 2b\\alpha + c)\\begin{vmatrix} a & b \\\\ b & c \\end{vmatrix} = -(a\\alpha^{2} + 2b\\alpha + c)(ac - b^{2}) = (b^{2} - ac)(a\\alpha^{2} + 2b\\alpha + c)$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $a, b, c$ are in G.P., (D) $\\alpha$ is a root of $ax^{2} + 2bx + c = 0$."
+          "title": "Judge the options",
+          "bodyLatex": "(B) G.P.: $b^{2} = ac \\Rightarrow \\Delta = 0$. (D) $a\\alpha^{2} + 2b\\alpha + c = 0 \\Rightarrow \\Delta = 0$. (A) A.P. ($2b = a + c$) and (C) H.P. ($b = \\frac{2ac}{a+c}$) do not make either factor vanish in general (A.P. $a = 1$, $b = 2$, $c = 3$, $\\alpha = 1$ gives $\\Delta = 1\\cdot 8 = 8 \\neq 0$; H.P. $a = 1$, $b = \\tfrac{4}{3}$, $c = 2$, $\\alpha = 1$ gives $\\Delta = -\\tfrac{2}{9}\\cdot\\tfrac{17}{3} \\neq 0$)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: BD."
+        "note": "SymPy: factor(det) = -(ac - b^2)(a alpha^2 + 2b alpha + c); vanishes identically under the G.P. and root conditions only."
       }
     },
     "jelet-2023-q033": {
-      "conceptSummary": "Solve using complex-numbers for JELET 2023 Q33.",
+      "conceptSummary": "$\\dfrac{\\sqrt{3}}{2} \\pm \\dfrac{i}{2} = e^{\\pm i\\pi/6}$, so $z = 2\\cos\\dfrac{2007\\pi}{6}$ by De Moivre. All four options are judged.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves complex-numbers."
+          "title": "Polar form",
+          "bodyLatex": "$\\dfrac{\\sqrt{3}}{2} + \\dfrac{i}{2} = \\cos\\dfrac{\\pi}{6} + i\\sin\\dfrac{\\pi}{6}$, and the second number is its conjugate."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "De Moivre",
+          "bodyLatex": "$z = \\operatorname{cis}\\dfrac{2007\\pi}{6} + \\operatorname{cis}\\left(-\\dfrac{2007\\pi}{6}\\right) = 2\\cos\\dfrac{2007\\pi}{6}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $z = 0$."
+          "title": "Reduce the angle",
+          "bodyLatex": "$\\dfrac{2007\\pi}{6} = 334\\pi + \\dfrac{\\pi}{2}$, so $\\cos\\dfrac{2007\\pi}{6} = \\cos\\dfrac{\\pi}{2} = 0$ and $z = 0$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Judge the options",
+          "bodyLatex": "(A) $z = 0$ is true. (B) $z = i$ is false. (C) $\\operatorname{Re}(z) = 0$, not $> 0$, so false. (D) $\\operatorname{Im}(z) = 0$, so false. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: 2cos(2007 pi/6) = 0; 60-digit mpmath evaluation of the two powers sums to |z| < 1e-40."
       }
     },
     "jelet-2023-q034": {
-      "conceptSummary": "Solve using coordinate-geometry for JELET 2023 Q34.",
+      "conceptSummary": "Put the third vertex at $(t, t + 3)$ and solve $\\tfrac{1}{2}|\\text{cross product}| = 5$. Two vertices qualify; the official key lists only one.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves coordinate-geometry."
+          "title": "Area formula",
+          "bodyLatex": "With $P(2, 1)$, $Q(3, -2)$, $R(t, t + 3)$: $2\\cdot\\text{Area} = \\left|(3 - 2)(t + 3 - 1) - (-2 - 1)(t - 2)\\right| = |t + 2 + 3t - 6| = |4t - 4|$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Solve",
+          "bodyLatex": "$|4t - 4| = 10 \\Rightarrow t - 1 = \\pm\\dfrac{5}{2} \\Rightarrow t = \\dfrac{7}{2}$ or $t = -\\dfrac{3}{2}$. The vertices are $\\left(\\dfrac{7}{2}, \\dfrac{13}{2}\\right)$ and $\\left(-\\dfrac{3}{2}, \\dfrac{3}{2}\\right)$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $(1, 4)$."
+          "title": "Judge the options",
+          "bodyLatex": "(D) $\\left(\\dfrac{7}{2}, \\dfrac{13}{2}\\right)$ is on $y = x + 3$ with area $5$, so true. (A) $\\left(-\\dfrac{3}{2}, \\dfrac{3}{2}\\right)$ is on $y = x + 3$ with area $\\tfrac{1}{2}|-6 - 4| = 5$, so also true. (B) $\\left(\\dfrac{3}{2}, -\\dfrac{3}{2}\\right)$ is not on the line (area $2$). (C) $\\left(\\dfrac{7}{2}, \\dfrac{14}{3}\\right)$ is not on the line."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Official key and dispute",
+          "bodyLatex": "The mathematics gives (A), (D). The official key JEEB/Reg-267/23 lists only (D), and that key is used for scoring here. Under the Category-II rule, marking (D) alone scores the full $2$ marks, while marking (A) as well counts as a wrong option and scores $0$. This is recorded as a key dispute."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: |4t - 4| = 10 -> t = 7/2, -3/2; areas of A..D = 5, 2, 49/12, 5 with A, D on the line. Key dispute: official key D kept; A also correct."
       }
     },
     "jelet-2023-q035": {
-      "conceptSummary": "Solve using vectors for JELET 2023 Q35.",
+      "conceptSummary": "$[\\vec{U}\\,\\vec{V}\\,\\vec{W}] = \\vec{U}\\cdot(\\vec{V}\\times\\vec{W}) \\leq |\\vec{U}|\\,|\\vec{V}\\times\\vec{W}| = |\\vec{V}\\times\\vec{W}|$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves vectors."
+          "title": "Cross product",
+          "bodyLatex": "$\\vec{V}\\times\\vec{W} = \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 2 & 1 & -1 \\\\ 1 & 0 & 3 \\end{vmatrix} = 3\\hat{i} - 7\\hat{j} - \\hat{k}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Magnitude",
+          "bodyLatex": "$|\\vec{V}\\times\\vec{W}| = \\sqrt{9 + 49 + 1} = \\sqrt{59}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\sqrt{59}$."
+          "title": "Maximise",
+          "bodyLatex": "By Cauchy–Schwarz, $\\vec{U}\\cdot(\\vec{V}\\times\\vec{W}) \\leq \\sqrt{59}$, with equality for $\\vec{U} = \\dfrac{3\\hat{i} - 7\\hat{j} - \\hat{k}}{\\sqrt{59}}$. The maximum is $\\sqrt{59}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: V x W = (3, -7, -1), |V x W| = sqrt(59), attained by the unit vector along V x W."
       }
     },
     "jelet-2023-q036": {
-      "conceptSummary": "Solve using limit for JELET 2023 Q36.",
+      "conceptSummary": "$x^{2n} \\to \\infty$, $1$ or $0$ according as $|x| > 1$, $|x| = 1$ or $|x| < 1$. All four options are judged.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves limit."
+          "title": "$|x| > 1$",
+          "bodyLatex": "Divide by $x^{2n}$: $\\dfrac{1 - x^{-2n}}{1 + x^{-2n}} \\to 1$. So (A) is true."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "$|x| = 1$",
+          "bodyLatex": "$x^{2n} = 1$, so $f(x) = \\dfrac{0}{2} = 0 \\neq 1$. So (B) is false."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $f(x) = 1$ for $|x| > 1$, (C) $f(x) = -1$ for $|x| < 1$."
+          "title": "$|x| < 1$",
+          "bodyLatex": "$x^{2n} \\to 0$, so $f(x) = \\dfrac{-1}{1} = -1$. So (C) is true."
+        },
+        {
+          "stepNumber": 4,
+          "title": "(D)",
+          "bodyLatex": "$f$ is defined for every real $x$ (values $1$, $0$, $-1$), so (D) is false. Answer: (A), (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: AC."
+        "note": "SymPy: limits at x = 2, -3, 3/2 give 1; at ±1 give 0; at 1/2, 0, -2/3 give -1."
       }
     },
     "jelet-2023-q037": {
-      "conceptSummary": "Solve using tangent-normal for JELET 2023 Q37.",
+      "conceptSummary": "On $xy = 2$ the tangent slope $-2/x^{2}$ is always negative, so every normal has positive slope $x^{2}/2$. All four options are judged.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves tangent-normal."
+          "title": "Tangent slope",
+          "bodyLatex": "$y = \\dfrac{2}{x} \\Rightarrow \\dfrac{dy}{dx} = -\\dfrac{2}{x^{2}} < 0$ for all $x \\neq 0$. The tangent is never horizontal or vertical."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Normal slope",
+          "bodyLatex": "Normal slope $= \\dfrac{x^{2}}{2} > 0$. The line $ax + by + c = 0$ has slope $-\\dfrac{a}{b}$ ($b \\neq 0$), so $-\\dfrac{a}{b} > 0$, i.e. $a$ and $b$ have opposite signs."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $a > 0, b < 0$, (C) $a < 0, b > 0$."
+          "title": "Witnesses",
+          "bodyLatex": "The normal at $(2, 1)$ is $y - 1 = 2(x - 2)$, i.e. $2x - y - 3 = 0$ ($a > 0$, $b < 0$). Multiplying by $-1$ gives $-2x + y + 3 = 0$ ($a < 0$, $b > 0$). Same-sign pairs (A), (D) would need a negative normal slope, which is impossible."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B), (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: BC."
+        "note": "SymPy: tangent slope -2/x0^2, normal slope x0^2/2 > 0; Eq(x0^2/2, -a/b) solvable only when a, b have opposite signs."
       }
     },
     "jelet-2023-q038": {
-      "conceptSummary": "Solve using partial-differentiation for JELET 2023 Q38.",
+      "conceptSummary": "$z = \\tfrac{1}{2}\\log(x^{2} + y^{2})$, so $z_{x} = \\dfrac{x}{x^{2} + y^{2}}$ and $z_{y} = \\dfrac{y}{x^{2} + y^{2}}$. All four options are judged.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves partial-differentiation."
+          "title": "Partial derivatives",
+          "bodyLatex": "$z = \\dfrac{1}{2}\\log(x^{2} + y^{2}) \\Rightarrow \\dfrac{\\partial z}{\\partial x} = \\dfrac{x}{x^{2} + y^{2}}$ and $\\dfrac{\\partial z}{\\partial y} = \\dfrac{y}{x^{2} + y^{2}}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "(B) and (C)",
+          "bodyLatex": "$xz_{x} + yz_{y} = \\dfrac{x^{2} + y^{2}}{x^{2} + y^{2}} = 1$, so (B) is true and (C) is false ($1 \\neq \\sqrt{x^{2} + y^{2}}$ in general). This is Euler's theorem for a log of a degree-1 homogeneous function."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{\\partial z}{\\partial x} = \\dfrac{y}{x}$, (D) $\\dfrac{\\partial z}{\\partial x} = \\dfrac{x}{x^{2}+y^{2}}$."
+          "title": "(A) and (D)",
+          "bodyLatex": "$yz_{x} + xz_{y} = \\dfrac{2xy}{x^{2} + y^{2}}$, which is not identically $1$, so (A) is false. $yz_{x} = \\dfrac{xy}{x^{2} + y^{2}} = xz_{y}$, so (D) is true."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: BD."
+        "note": "SymPy: z_x = x/(x^2+y^2), z_y = y/(x^2+y^2); x z_x + y z_y = 1, y z_x - x z_y = 0; A and C not identities."
       }
     },
     "jelet-2023-q039": {
-      "conceptSummary": "Solve using definite-integral for JELET 2023 Q39.",
+      "conceptSummary": "$\\displaystyle\\int_{\\pi/2}^{\\alpha}\\sin x\\,dx = -\\cos\\alpha$, so solve $-\\cos\\alpha = 2\\sin\\alpha\\cos\\alpha$ on $[\\pi, 2\\pi]$. All four options are judged.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves definite-integral."
+          "title": "Integrate",
+          "bodyLatex": "$\\displaystyle\\int_{\\pi/2}^{\\alpha}\\sin x\\,dx = \\Big[-\\cos x\\Big]_{\\pi/2}^{\\alpha} = -\\cos\\alpha + \\cos\\dfrac{\\pi}{2} = -\\cos\\alpha$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Factor",
+          "bodyLatex": "$-\\cos\\alpha = 2\\sin\\alpha\\cos\\alpha \\iff \\cos\\alpha\\,(1 + 2\\sin\\alpha) = 0$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{3\\pi}{2}$, (C) $\\dfrac{7\\pi}{6}$."
+          "title": "Solve in $[\\pi, 2\\pi]$",
+          "bodyLatex": "$\\cos\\alpha = 0 \\Rightarrow \\alpha = \\dfrac{3\\pi}{2}$. $\\sin\\alpha = -\\dfrac{1}{2} \\Rightarrow \\alpha = \\dfrac{7\\pi}{6}, \\dfrac{11\\pi}{6}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Judge the options",
+          "bodyLatex": "(B) $\\dfrac{3\\pi}{2}$ and (C) $\\dfrac{7\\pi}{6}$ are solutions. (A) $\\dfrac{7\\pi}{4}$: $-\\cos\\alpha = -\\dfrac{\\sqrt{2}}{2}$ but $\\sin 2\\alpha = -1$. (D) $\\dfrac{5\\pi}{3}$: $-\\cos\\alpha = -\\dfrac{1}{2}$ but $\\sin 2\\alpha = -\\dfrac{\\sqrt{3}}{2}$. Answer: (B), (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: BC."
+        "note": "SymPy: -cos(a) - sin(2a) = -(2 sin a + 1) cos a; roots in [pi, 2pi] = 7pi/6, 3pi/2, 11pi/6."
       }
     },
     "jelet-2023-q040": {
-      "conceptSummary": "Solve using ode for JELET 2023 Q40.",
+      "conceptSummary": "With $p = \\dfrac{dv}{du}$ the equation $v = up + p^{2}$ is Clairaut's: general solution $v = cu + c^{2}$, singular solution from the $c$-discriminant. All four options are judged.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ode."
+          "title": "General solution",
+          "bodyLatex": "Differentiate $v = up + p^{2}$ with respect to $u$: $p = p + (u + 2p)\\dfrac{dp}{du}$, so $(u + 2p)\\dfrac{dp}{du} = 0$. Taking $\\dfrac{dp}{du} = 0$ gives $p = c$ and $v = cu + c^{2}$, i.e. $xy = cy + c^{2}$. This is option (D) with $c_{1} = c^{2}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Singular solution",
+          "bodyLatex": "Taking $u + 2p = 0$ gives $p = -\\dfrac{u}{2}$, so $v = -\\dfrac{u^{2}}{2} + \\dfrac{u^{2}}{4} = -\\dfrac{u^{2}}{4}$. Back in $x, y$: $xy = -\\dfrac{y^{2}}{4} \\iff y(y + 4x) = 0$, i.e. $y = 0$ or $y = -4x$. These are options (A) and (C)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $y = 0$, (C) $y = -4x$, (D) $xy = cy + c_1$."
+          "title": "Reject (B)",
+          "bodyLatex": "$y = 4x$ gives $v = xy = \\dfrac{u^{2}}{4}$, so $p = \\dfrac{u}{2}$ and $up + p^{2} = \\dfrac{u^{2}}{2} + \\dfrac{u^{2}}{4} = \\dfrac{3u^{2}}{4} \\neq \\dfrac{u^{2}}{4}$. It is not a solution."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A), (C), (D). Reading note: (D) $xy = cy + c_{1}$ is the printed form of the general solution and satisfies the equation exactly when $c_{1} = c^{2}$."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: ACD."
+        "note": "SymPy: v = cu + c^2 satisfies Clairaut identically; c-discriminant gives v = -u^2/4 <=> y(4x + y) = 0; y = 4x fails (3u^2/4 != u^2/4)."
       }
     },
     "jelet-2023-q041": {

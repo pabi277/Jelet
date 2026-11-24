@@ -14,6 +14,7 @@ from s2025_batch4 import S2025_B4
 from s2024_batchA import S2024_A
 from s2024_batchB import S2024_B
 from s2024_batchC import S2024_C
+from s2023_batchA import S2023_A
 
 # Solution data: {qNumber: (conceptSummary, steps[list of (title, bodyLatex)], verified, note)}
 S2024 = {
@@ -25,6 +26,13 @@ S2024 = {
 S2024.update(S2024_A)
 S2024.update(S2024_B)
 S2024.update(S2024_C)
+
+S2023 = {
+# Q1–Q40 (Mathematics): s2023_batchA.py — hand-written and SymPy-verified (merged below).
+# The legacy auto-generated 2023 Mathematics entries are replaced; Q41–Q100 await Batches B and C.
+}
+
+S2023.update(S2023_A)
 
 S2025 = {
 # Q1–Q25: hand-written, SymPy-verified derivations live in s2025_batch1.py (merged below).
@@ -82,7 +90,7 @@ def build(year, data, sols):
 
 def main():
     outdir = "_data/solutions"
-    for year, data, sols in [("2022", Q2022, {}), ("2023", Q2023, {}), ("2024", Q2024, S2024), ("2025", Q2025, S2025)]:
+    for year, data, sols in [("2022", Q2022, {}), ("2023", Q2023, S2023), ("2024", Q2024, S2024), ("2025", Q2025, S2025)]:
         s = build(year, data, sols)
         path = os.path.join(outdir, f"{year}.solutions.json")
         with open(path, "w") as f:

@@ -32,7 +32,13 @@ Checks:
      read back from the redrawn SVG geometry (data-role attributes); numeric
      options bound to printed values; Cat-II Q66–Q70 evaluate all four options;
      withdrawn Q49/Q58 must have no correct option and state the +1 rule.
- 10. Report coverage statistics
+ 10. 2023 Q1–Q40 (Batch A, Mathematics): 40 independent checks (_a23_qN) from the
+     verbatim Set A booklet stems (pages 3–9): booklet layout (page, category,
+     twelfths, unitId, no figures) asserted, stem + option fingerprints, all four
+     options judged for Cat-II Q31–Q40, withdrawn Q6 must have no correct option
+     and state the +1 (+12 twelfths) rule; KEY_DISPUTES_2023 (Q34) printed. A 2023
+     Batch A coverage gate requires 40/40 checks, method sympy, >= 3 steps, 0 stubs.
+ 11. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -3587,6 +3593,661 @@ def _c24_guard(n):
 
 C_TESTS_2024 = [(f"2024 Q{n}", f"jelet-2024-q{n:03d}", _c24_guard(n)) for n in range(71, 101)]
 
+# ---------------------------------------------------------------------------
+# 2023 Batch A (Mathematics, Q1–Q40): independent SymPy re-derivation from the
+# verbatim stems transcribed from booklet pages 3–9 (Set A). Each check
+# (a) asserts the booklet layout (pdfPage, category, twelfths, unitId, no
+# figures — the Mathematics section prints none), (b) asserts stem and option
+# fingerprints of the exact LaTeX in _data/papers/2023.json, (c) recomputes the
+# mathematics from scratch and evaluates ALL FOUR options (Cat-II Q31–Q40 judge
+# each option independently), and (d) requires the true option set to equal
+# key.correct (JEEB/Reg-267/23, Series-A column). Q6 is withdrawn (W).
+# KEY_DISPUTES_2023 / INTERPRETATION_NOTES_2023 are printed; the official key
+# is never modified.
+# ---------------------------------------------------------------------------
+
+def _paper_2023():
+    if not hasattr(_paper_2023, "cache"):
+        paper = load_json(os.path.join(DATA, "papers", "2023.json"))
+        _paper_2023.cache = {q["qNumber"]: q for q in paper["questions"]}
+    return _paper_2023.cache
+
+# Booklet layout of Q1–Q40 (page = PDF page of the Set A booklet) and the unit each item really tests.
+_A23_PAGE = {**{n: 3 for n in range(1, 6)}, **{n: 4 for n in range(6, 12)}, **{n: 5 for n in range(12, 18)},
+             **{n: 6 for n in range(18, 25)}, **{n: 7 for n in range(25, 31)}, **{n: 8 for n in range(31, 36)},
+             **{n: 9 for n in range(36, 41)}}
+_A23_UNIT = {1: "M01", 2: "M01", 3: "M01", 4: "M02", 5: "M04", 6: "M02", 7: "M03", 8: "M03", 9: "M04", 10: "M04",
+             11: "M04", 12: "M05", 13: "M05", 14: "M06", 15: "M06", 16: "M06", 17: "M06", 18: "M06", 19: "M07",
+             20: "M07", 21: "M07", 22: "M08", 23: "M08", 24: "M09", 25: "M09", 26: "M09", 27: "M10", 28: "M10",
+             29: "M11", 30: "M11", 31: "M01", 32: "M02", 33: "M03", 34: "M04", 35: "M05", 36: "M06", 37: "M07",
+             38: "M08", 39: "M09", 40: "M10"}
+
+KEY_DISPUTES_2023 = {
+    34: {"official_key": ["D"], "extra_true": ["A"],
+         "reason": "the third vertex (t, t+3) gives twice-area |4t - 4| = 10, so t = 7/2 OR t = -3/2; option (A) "
+                   "(-3/2, 3/2) lies on y = x + 3 and also gives area 5, but the official key lists only D"},
+}
+INTERPRETATION_NOTES_2023 = {
+    8: "the roots are 1-3, 1-3ω, 1-3ω²; with the conventional labelling a-1 = -3, b-1 = -3ω, c-1 = -3ω² the sum is "
+       "3ω² (D). Swapping the labels of b and c (equivalently ω <-> ω²) gives 3ω (C); the official key D is kept.",
+    40: "(D) xy = cy + c1 is read as the printed form of Clairaut's general solution v = cu + c² (it satisfies the "
+        "equation exactly when c1 = c²); (A) y = 0 is read as a branch of the singular solution "
+        "u² + 4v = 0 <=> y(y + 4x) = 0. Official key A, C, D kept unchanged.",
+}
+
+def _a23_layout(qnum):
+    q = _paper_2023().get(qnum)
+    if q is None:
+        return False, f"2023 Q{qnum} missing from the paper"
+    cat = 1 if qnum <= 30 else 2
+    probs = []
+    if q.get("pdfPage") != _A23_PAGE[qnum]:
+        probs.append(f"pdfPage {q.get('pdfPage')} != booklet page {_A23_PAGE[qnum]}")
+    if q.get("category") != cat or q.get("fullTwelfths") != (12 if cat == 1 else 24) or q.get("negativeTwelfths") != (3 if cat == 1 else 0):
+        probs.append(f"category/twelfths {q.get('category')}/{q.get('fullTwelfths')}/{q.get('negativeTwelfths')} != Cat-{cat}")
+    if q.get("unitId") != _A23_UNIT[qnum] or q.get("subjectId") != "MATH":
+        probs.append(f"unitId {q.get('unitId')} != {_A23_UNIT[qnum]}")
+    if q.get("stemFigure") or any(o.get("figure") for o in q.get("options", [])):
+        probs.append("Mathematics Q1–Q40 print no figures — stemFigure/option figures must be null")
+    if [o.get("id") for o in q.get("options", [])] != ["A", "B", "C", "D"]:
+        probs.append("options are not A–D")
+    if os.path.exists(os.path.join(DATA, "figures", "2023", f"fig-2023-q{qnum:02d}.svg")):
+        probs.append(f"orphan/spoiler SVG fig-2023-q{qnum:02d}.svg exists")
+    return (not probs), "; ".join(probs)
+
+def _a23_result(qnum, stem_fps, opt_fps, matched, detail, enc=None):
+    q = _paper_2023()[qnum]
+    stem = q["stemLatex"]
+    missing = [fp for fp in stem_fps if fp not in stem]
+    if missing:
+        return False, f"stem fingerprint(s) {missing} not found in stemLatex"
+    olatex = {o["id"]: o["latex"] for o in q["options"]}
+    omissing = [fp for fp in opt_fps if fp.split(":", 1)[1] not in olatex.get(fp.split(":", 1)[0], "")]
+    if omissing:
+        return False, f"option fingerprint(s) {omissing} not found in option latex"
+    if len(set(olatex.values())) != 4:
+        return False, f"options are not four distinct printed choices: {olatex}"
+    if enc:
+        bad = [k for k, v in enc.items() if (lambda pv: pv is None or sympy.simplify(pv - v) != 0)(_numval(olatex[k]))]
+        if bad:
+            return False, f"option(s) {bad} in the paper do not encode the values evaluated by the check ({ {k: olatex[k] for k in bad} })"
+    key = sorted(q["key"]["correct"])
+    if q["key"]["status"] != "active":
+        return False, f"key status {q['key']['status']} — only Q6 is withdrawn in 2023 Q1–Q40"
+    dispute = KEY_DISPUTES_2023.get(qnum)
+    if dispute and key != dispute["official_key"]:
+        return False, f"key.correct {key} differs from the pinned official key {dispute['official_key']} recorded for this dispute"
+    expected = sorted(set(key) | set(dispute["extra_true"])) if dispute else key
+    if qnum in INTERPRETATION_NOTES_2023 and matched == expected:
+        KEY_DISPUTE_LOG.append(f"2023 Q{qnum} (interpretation): {INTERPRETATION_NOTES_2023[qnum]}")
+    if dispute and matched == expected:
+        KEY_DISPUTE_LOG.append(f"2023 Q{qnum}: official key {key}; SymPy also proves {dispute['extra_true']} true — {dispute['reason']}")
+        return True, f"{detail}; true set {matched} = official key {key} + documented dispute {dispute['extra_true']}"
+    return matched == expected, f"{detail}; SymPy-true option(s) {matched} vs key {key}"
+
+def _a23_withdrawn(qnum, stem_fps, matched, must, detail):
+    q = _paper_2023()[qnum]
+    missing = [fp for fp in stem_fps if fp not in q["stemLatex"]]
+    if missing:
+        return False, f"stem fingerprint(s) {missing} not found in stemLatex"
+    withdrawn = q["key"]["status"] == "voided" and q["key"]["correct"] == ["W"]
+    full = q["fullTwelfths"] == 12 and q["category"] == 1
+    sol = load_json(os.path.join(DATA, "solutions", "2023.solutions.json"))["solutions"][f"jelet-2023-q{qnum:03d}"]
+    text = " ".join(s["bodyLatex"] for s in sol["steps"])
+    sol_ok = all(m in text for m in must) and "+12" in text and "+1" in text and "0 marks" not in text
+    return (matched == [] and withdrawn and full and sol_ok), (f"{detail}; options satisfying the stem {matched} (none) -> key W; "
+                                                              f"withdrawn={withdrawn}, Cat-I 12 twelfths={full}, solution states analysis + '+1 mark (+12 twelfths)'={sol_ok}")
+
+def _a23_proportional(e1, e2, vars_):
+    """True if polynomials e1, e2 (in vars_) are non-zero constant multiples of each other."""
+    e1, e2 = sympy.expand(e1), sympy.expand(e2)
+    if e1 == 0 or e2 == 0:
+        return False
+    r = sympy.simplify(e1 / e2)
+    return all(sympy.diff(r, v) == 0 for v in vars_) and r != 0
+
+def _a23_mpow(M, n):
+    """Exact matrix power by repeated squaring with expansion (keeps radicals tidy)."""
+    R, B = sympy.eye(M.shape[0]), M
+    while n:
+        if n & 1:
+            R = (R * B).applyfunc(sympy.expand)
+        B = (B * B).applyfunc(sympy.expand)
+        n >>= 1
+    return R
+
+def _a23_q1():
+    x, y, K = sympy.symbols("x y K", nonzero=True)
+    A = sympy.Matrix([[x, y], [y, x]])
+    A2 = (A * A).applyfunc(sympy.expand)
+    shape_ok = A2[0, 0] == A2[1, 1] and A2[0, 1] == A2[1, 0]          # A^2 has the printed (alpha beta; beta alpha) form
+    Ksol = sympy.solve(sympy.Eq(A2[0, 1], sympy.Rational(1, 2) * K * x * y), K)
+    opts = {"A": sympy.Rational(1, 2), "B": 1, "C": 2, "D": 4}
+    m = _pick(opts, lambda v: shape_ok and Ksol == [v])
+    return _a23_result(1, [r"A = \begin{pmatrix} x & y \\ y & x \end{pmatrix}", r"\beta = \dfrac{1}{2}Kxy"], [], m,
+                       f"A^2 = {A2.tolist()}, beta = {A2[0, 1]} -> K = {Ksol}", enc=opts)
+
+def _a23_q2():
+    s3 = sympy.sqrt(3)
+    P = sympy.Matrix([[s3/2, sympy.Rational(1, 2)], [-sympy.Rational(1, 2), s3/2]])
+    orth = (P.T * P).applyfunc(sympy.simplify) == sympy.eye(2)
+    A = sympy.Matrix([[1, 1], [0, 2]])                                  # any 2x2 matrix; non-symmetric, non-commuting with P
+    Q = (P * A * P.T).applyfunc(sympy.expand)
+    lhs = (P.T * _a23_mpow(Q, 99) * P).applyfunc(sympy.expand)
+    cand = {"A": _a23_mpow(P, 99), "B": _a23_mpow(P.T, 99), "C": A, "D": _a23_mpow(A, 99)}
+    m = _pick(cand, lambda M: orth and (M - lhs).applyfunc(sympy.simplify) == sympy.zeros(2))
+    # symbolic confirmation of the telescoping step for a generic A: P^T Q^3 P = A^3
+    a, b, c, d = sympy.symbols("a b c d")
+    G = sympy.Matrix([[a, b], [c, d]])
+    QG = P * G * P.T
+    tele = (P.T * QG * QG * QG * P - G**3).applyfunc(lambda e: sympy.simplify(sympy.expand(e))) == sympy.zeros(2)
+    return _a23_result(2, [r"\dfrac{\sqrt{3}}{2} & \dfrac{1}{2} \\ -\dfrac{1}{2} & \dfrac{\sqrt{3}}{2}", r"Q = PAP^{T}", r"P^{T}Q^{99}P"],
+                       ["A:P^{99}", "B:(P^{T})^{99}", "D:A^{99}"], m if tele else [],
+                       f"P^T P = I: {orth}; generic P^T Q^3 P = A^3: {tele}; for A = [[1,1],[0,2]]: P^T Q^99 P = A^99")
+
+def _a23_q3():
+    a = sympy.Symbol("a")
+    M = lambda av: sympy.Matrix([[-1, 2, 5], [2, -4, av - 4], [1, -2, av + 1]])
+    opts = {"A": -1, "B": -2, "C": -6, "D": 4}
+    ranks = {k: M(v).rank() for k, v in opts.items()}
+    sol = sympy.solve([sympy.Eq(M(a)[1, 2], -2 * 5), sympy.Eq(M(a)[2, 2], -1 * 5)], a)   # R2 = -2 R1, R3 = -R1
+    m = _pick(opts, lambda v: M(v).rank() == 1)
+    return _a23_result(3, [r"-1 & 2 & 5 \\ 2 & -4 & a-4 \\ 1 & -2 & a+1", "is $1$"], [], m, f"proportional rows need a = {sol}; ranks {ranks}", enc=opts)
+
+def _a23_q4():
+    A0, R, p, q, r = sympy.symbols("A0 R p q r", positive=True)
+    lx, ly, lz = [sympy.log(A0) + (n - 1) * sympy.log(R) for n in (p, q, r)]     # log of the n-th GP term A0 R^(n-1)
+    M = sympy.Matrix([[lx, p, 1], [ly, q, 1], [lz, r, 1]])
+    det = sympy.simplify(sympy.expand(M.det()))
+    num = {A0: 2, R: 3, p: 1, q: 2, r: 4}
+    y_, z_ = 2 * 3**1, 2 * 3**3
+    props = {"A": det == 0,
+             "B": det in (1, -1),                                          # orthogonal => det = ±1
+             "C": sympy.simplify(det - 4 * sympy.log(y_)) == 0,
+             "D": sympy.simplify(det - 2 * sympy.log(z_)) == 0}
+    return _a23_result(4, [r"\log x & p & 1 \\ \log y & q & 1 \\ \log z & r & 1", "Geometric Progression"],
+                       ["A:Singular matrix", "B:Orthogonal matrix", r"C:|A| = r\log y", r"D:|A| = q\log z"], _true(props),
+                       f"col1 = (log A0 - log R)·col3 + log R·col2 -> |A| = {det}; sample r log y = {sympy.N(4*sympy.log(y_), 4)} != 0")
+
+def _a23_q5():
+    a1, a2, b1, b2 = sympy.symbols("a1 a2 b1 b2")
+    det = sympy.expand(sympy.Matrix([[a1, b1, 1], [a2, b2, 1], [a1 - a2, b1 - b2, 1]]).det())
+    rel = {"A": a1*b2 - b1*a2, "B": a1*a2 - b1*b2, "C": a1*b2 + b1*a2, "D": a1*b1 - a2*b2}
+    m = _pick(rel, lambda e: _a23_proportional(e, det, [a1, a2, b1, b2]))
+    return _a23_result(5, [r"(a_{1} - a_{2}, b_{1} - b_{2})", "collinear"],
+                       ["A:a_{1}b_{2} = b_{1}a_{2}", "C:a_{1}b_{2} + b_{1}a_{2} = 0"], m, f"collinearity determinant = {det}")
+
+def _a23_q6():
+    k = sympy.Symbol("k")
+    C = sympy.Matrix([[1, 1, 1], [2, 3, -1], [1, 1, -k]])
+    rhs = sympy.Matrix([1, 5, 4])
+    d = sympy.factor(C.det())
+    ksing = sympy.solve(d, k)
+    Cs = C.subs(k, ksing[0])
+    r_c, r_aug = Cs.rank(), Cs.row_join(rhs).rank()
+    opts = {"A": 0, "B": 3, "C": 2, "D": -2}
+    # infinitely many solutions <=> rank C = rank [C|b] < 3
+    m = _pick(opts, lambda v: C.subs(k, v).rank() == C.subs(k, v).row_join(rhs).rank() < 3)
+    return _a23_withdrawn(6, [r"x + y + z = 1", r"2x + 3y - z = 5", r"x + y - kz = 4", "infinite number of solutions"], m,
+                          ["k = -1", "inconsistent"],
+                          f"det = {d} -> singular only at k = {ksing}; there rank C = {r_c}, rank [C|b] = {r_aug} (inconsistent); "
+                          f"each option k gives det != 0 (unique solution)")
+
+def _a23_q7():
+    al, r, j, n = sympy.symbols("alpha r j n", positive=True)
+    S = sympy.simplify(sympy.summation(j * al / r**2, (j, 1, r)))             # total argument of the product
+    f_n_pi = sympy.exp(sympy.I * S.subs({al: sympy.pi, r: n}))
+    L = sympy.simplify(sympy.limit(f_n_pi, n, sympy.oo))
+    opts = {"A": sympy.I, "B": -sympy.I, "C": sympy.Integer(1), "D": sympy.oo}
+    m = _pick(opts, lambda v: sympy.simplify(L - v) == 0 if v != sympy.oo else L == v)
+    return _a23_result(7, [r"f_{r}(\alpha)", r"\cos\dfrac{2\alpha}{r^{2}}", r"\cos\dfrac{\alpha}{r} + i\sin\dfrac{\alpha}{r}", r"f_{n}(\pi)"],
+                       ["A:i", "D:\\infty"], m, f"arg f_r(alpha) = {S} -> f_n(pi) = e^(i·{S.subs({al: sympy.pi, r: n})}) -> {L}")
+
+def _a23_q8():
+    y = sympy.Symbol("y")
+    w = sympy.exp(2 * sympy.pi * sympy.I / 3)
+    cubic = y**3 - 3*y**2 + 3*y + 26
+    shifted = sympy.expand(cubic.subs(y, y + 1))                               # (y)^3 + 27 after y -> y + 1
+    a, b, c = [1 - 3 * w**kk for kk in range(3)]                               # roots 1 - 3, 1 - 3ω, 1 - 3ω²
+    roots_ok = all(sympy.simplify(sympy.expand(cubic.subs(y, rt))) == 0 for rt in (a, b, c))
+    S = sympy.simplify(sympy.expand_complex((a - 1)/(b - 1) + (b - 1)/(c - 1) + (c - 1)/(a - 1)))
+    S_swapped = sympy.simplify(sympy.expand_complex((a - 1)/(c - 1) + (c - 1)/(b - 1) + (b - 1)/(a - 1)))
+    opts = {"A": sympy.Integer(0), "B": sympy.Integer(3), "C": 3 * w, "D": 3 * w**2}
+    m = _pick(opts, lambda v: roots_ok and sympy.simplify(sympy.expand_complex(S - v)) == 0)
+    never = all(sympy.simplify(sympy.expand_complex(S_swapped - opts[kk])) != 0 for kk in "AB")
+    return _a23_result(8, [r"y^{3} - 3y^{2} + 3y + 26 = 0", r"\dfrac{a-1}{b-1} + \dfrac{b-1}{c-1} + \dfrac{c-1}{a-1}"],
+                       ["C:3\\omega", "D:3\\omega^{2}"], m if never else [],
+                       f"cubic(y+1) = {shifted}; S (a-1, b-1, c-1 = -3, -3ω, -3ω²) = 3ω² ({sympy.N(S, 4)}); swapped labelling -> 3ω")
+
+def _a23_q9():
+    x, y = sympy.symbols("x y")
+    th = sympy.atan2(1, 1) + sympy.pi / 12                                    # 45° + 15°
+    m_new = sympy.simplify(sympy.tan(th))
+    target = y - m_new * (x - 2)
+    s3 = sympy.sqrt(3)
+    lines = {"A": s3*x - y - s3, "B": s3*x + y - 2*s3, "C": x + y*s3 - 2*s3, "D": s3*x - y - 2*s3}
+    m = _pick(lines, lambda e: _a23_proportional(e, target, [x, y]))
+    return _a23_result(9, [r"A\,(2, 0)", r"B\,(3, 1)", r"15^{\circ}", "anticlockwise"],
+                       [r"A:\sqrt{3}x - y = \sqrt{3}", r"B:\sqrt{3}x + y = 2\sqrt{3}", r"C:x + y\sqrt{3} = 2\sqrt{3}", r"D:\sqrt{3}x - y = 2\sqrt{3}"],
+                       m, f"slope AB = 1 (45°) -> new slope tan 60° = {m_new}; line y = {m_new}(x - 2)")
+
+def _a23_q10():
+    x, y = sympy.symbols("x y", real=True)
+    pts = sympy.solve([y**2 - 8*x, 2*x - y - 3], [x, y], dict=True)
+    (P1, P2) = [(p[x], p[y]) for p in pts]
+    L = sympy.sqrt((P1[0] - P2[0])**2 + (P1[1] - P2[1])**2)
+    opts = {"A": 4, "B": 5, "C": 4*sympy.sqrt(5), "D": 4*sympy.sqrt(3)}
+    m = _pick(opts, lambda v: sympy.simplify(L - v) == 0)
+    return _a23_result(10, [r"y^{2} = 8x", r"2x - y - 3 = 0"], [], m, f"intersections {P1}, {P2}; length = {sympy.simplify(L)}", enc=opts)
+
+def _a23_q11():
+    t, x, y = sympy.symbols("t x y")
+    conic = (x + 1)**2 - (y - 2)**2 / 9 - 1
+    on = sympy.simplify(conic.subs({x: -1 + sympy.sec(t), y: 2 + 3*sympy.tan(t)}))
+    a2, b2 = 1, 9
+    ce = sympy.sqrt(a2 + b2)
+    foci = {(-1 + ce, 2), (-1 - ce, 2)}
+    s10, s8 = sympy.sqrt(10), sympy.sqrt(8)
+    opts = {"A": {(1 + s10, 2), (1 - s10, 2)}, "B": {(-1 + s10, 2), (-1 - s10, 2)},
+            "C": {(-1 + s8, 2), (-1 - s8, 2)}, "D": {(1 + s8, -2), (1 - s8, -2)}}
+    m = _pick(opts, lambda v: on == 0 and v == foci)
+    return _a23_result(11, [r"x = -1 + \sec t", r"y = 2 + 3\tan t"], [r"B:(-1 \pm \sqrt{10}, 2)", r"C:(-1 \pm \sqrt{8}, 2)"], m,
+                       f"(x+1)^2 - (y-2)^2/9 = 1 on the curve: {on == 0}; c = sqrt(a^2 + b^2) = {ce}; foci {foci}")
+
+def _a23_q12():
+    R = sympy.Rational
+    pairs = [((1, 0, 0), (R(3, 5), R(4, 5), 0)), ((R(2, 3), R(1, 3), R(2, 3)), (R(2, 7), R(3, 7), R(6, 7))),
+             ((0, R(3, 5), R(-4, 5)), (R(1, 3), R(-2, 3), R(2, 3)))]
+    res = {k: True for k in "ABCD"}
+    for av, bv in pairs:
+        a, b = sympy.Matrix(av), sympy.Matrix(bv)
+        assert a.norm() == 1 and b.norm() == 1
+        v = (a + b).cross(a.cross(b))
+        for k, comb in {"A": a + b, "B": a - b, "C": 2*a + 3*b, "D": 2*a - 3*b}.items():
+            res[k] = res[k] and v.cross(comb) == sympy.zeros(3, 1) and v != sympy.zeros(3, 1)
+        assert v == (1 + a.dot(b)) * (a - b)                                   # BAC-CAB closed form
+    return _a23_result(12, [r"(\vec{a} + \vec{b}) \times (\vec{a} \times \vec{b})", "two-unit vectors"],
+                       [r"B:\vec{a} - \vec{b}", r"D:2\vec{a} - 3\vec{b}"], _true(res),
+                       "for three unit-vector pairs (a+b)×(a×b) = (1 + a·b)(a - b), parallel only to a - b")
+
+def _a23_q13():
+    t = sympy.Symbol("t")
+    r = sympy.Matrix([t**2 + 2, 4*t - 5, 2*t**2 - 6*t])
+    v = r.diff(t).subs(t, 2)
+    T = v / v.norm()
+    R = sympy.Rational
+    opts = {"A": sympy.Matrix([2, 2, 1]) / sympy.sqrt(3), "B": sympy.Matrix([2, 1, 2]) * R(1, 3),
+            "C": sympy.Matrix([1, 2, 2]) * R(1, 3), "D": sympy.Matrix([2, 2, 1]) * R(1, 3)}
+    m = _pick(opts, lambda u: (u - T).applyfunc(sympy.simplify) == sympy.zeros(3, 1))
+    return _a23_result(13, [r"x = t^{2} + 2", r"y = 4t - 5", r"z = 2t^{2} - 6t", "t = 2"],
+                       [r"A:\dfrac{1}{\sqrt{3}}(2\hat{i} + 2\hat{j} + \hat{k})", r"D:\dfrac{1}{3}(2\hat{i} + 2\hat{j} + \hat{k})"], m,
+                       f"r'(2) = {list(v)}, |r'(2)| = {v.norm()} -> T = {list(T)}")
+
+def _a23_q14():
+    x = sympy.Symbol("x")
+    L = sympy.limit(sympy.sin(sympy.pi * sympy.cos(x)**2) / x**2, x, 0)
+    ident = sympy.simplify(sympy.sin(sympy.pi * sympy.cos(x)**2) - sympy.sin(sympy.pi * sympy.sin(x)**2)) == 0
+    opts = {"A": 0, "B": 1, "C": sympy.pi, "D": -sympy.pi}
+    m = _pick(opts, lambda v: sympy.simplify(L - v) == 0)
+    return _a23_result(14, [r"\sin(\pi\cos^{2}x)", r"x \to 0"], [], m, f"sin(π cos²x) = sin(π sin²x): {ident}; limit = {L}", enc=opts)
+
+def _a23_q15():
+    x, A = sympy.symbols("x A")
+    f = (x**2 - (A + 2)*x + A) / (x - 2)
+    need = sympy.solve(sympy.Eq((x**2 - (A + 2)*x + A).subs(x, 2), 0), A)
+    opts = {"A": 0, "B": 1, "C": -1, "D": 2}
+    def cont(v):
+        L = sympy.limit(f.subs(A, v), x, 2)
+        return L.is_finite and sympy.simplify(L - 2) == 0
+    m = _pick(opts, cont)
+    return _a23_result(15, [r"\dfrac{x^{2} - (A+2)x + A}{x - 2}", r"2 & \text{for } x = 2"], ["A:A = 0", "B:A = 1"], m,
+                       f"numerator at x = 2 is {(x**2 - (A + 2)*x + A).subs(x, 2)} -> A = {need}; then f = x -> 2")
+
+def _a23_q16():
+    x, y, h = sympy.symbols("x y h")
+    fp = sympy.limit((x*h + 3*h) / h, h, 0)                                   # f'(x) = lim [f(h) + xh]/h with f(h) ~ 3h
+    f = sympy.integrate(fp, (x, 0, x))
+    opts = {"A": x + x**2/2, "B": 3*x + x**2/2, "C": 3*x + x**2, "D": 3*x + 2*x**2}
+    def ok(g):
+        fe = sympy.expand(g.subs(x, x + y) - g - g.subs(x, y) - x*y) == 0
+        return fe and g.subs(x, 0) == 0 and sympy.limit(g.subs(x, h) / h, h, 0) == 3
+    m = _pick(opts, ok)
+    return _a23_result(16, [r"f(x + y) = f(x) + f(y) + xy", r"f(0) = 0", r"\dfrac{1}{h}f(h) = 3"],
+                       [r"B:3x + \dfrac{x^{2}}{2}"], m, f"f'(x) = {fp} -> f = {f}; options satisfying all three conditions {m}")
+
+def _a23_q17():
+    x = sympy.Symbol("x")
+    vals = []
+    for av, bv, k in [(2, 5, 1), (3, sympy.Rational(1, 2), 2), (7, 4, -3)]:
+        phi = bv**2 + k*(x - av) + (x - av)**2
+        f = av**2 + 3*k*(x - av) + 5*(x - av)**2                              # f(a) = a², f'(a) = 3k = 3φ'(a)
+        L = sympy.limit((sympy.sqrt(f) - av) / (sympy.sqrt(phi) - bv), x, av)
+        vals.append((av, bv, L))
+    a, b = sympy.symbols("a b", positive=True)
+    opts = {"A": 3*b**2/a**2, "B": b/(3*a), "C": 3*b*(b + 1)/(a*(a + 1)), "D": 3*b/a}
+    m = _pick(opts, lambda e: all(sympy.simplify(e.subs({a: av, b: bv}) - L) == 0 for av, bv, L in vals))
+    return _a23_result(17, [r"f(a) = a^{2}", r"\phi(a) = b^{2}", r"f'(a) = 3\phi'(a)", r"\dfrac{\sqrt{f(x)} - a}{\sqrt{\phi(x)} - b}"],
+                       [r"A:\dfrac{3b^{2}}{a^{2}}", r"B:\dfrac{b}{3a}", r"D:\dfrac{3b}{a}"], m,
+                       f"limits for (a, b) samples {[(v[0], v[1], v[2]) for v in vals]} = 3b/a each")
+
+def _a23_q18():
+    x = sympy.Symbol("x", real=True)
+    f = x*(x + 3)*sympy.exp(-x/2)
+    rolle = f.subs(x, -3) == 0 and f.subs(x, 0) == 0
+    crit = [c for c in sympy.solve(sympy.diff(f, x), x) if -3 < c < 0]
+    opts = {"A": -3, "B": 0, "C": -2, "D": -1}
+    m = _pick(opts, lambda v: rolle and v in crit)
+    return _a23_result(18, [r"x(x + 3)e^{-\left(\frac{1}{2}\right)x}", r"[-3, 0]", "Rolle"], [], m,
+                       f"f(-3) = f(0) = 0: {rolle}; f' = {sympy.factor(sympy.diff(f, x))} -> c in (-3, 0): {crit}", enc=opts)
+
+def _a23_q19():
+    t = sympy.Symbol("t")
+    X, Y = t**2 + 3*t - 8, 2*t**2 - 2*t - 5
+    ts = sorted(set(sympy.solve(X - 2, t)) & set(sympy.solve(Y + 1, t)))
+    slope = sympy.simplify((sympy.diff(Y, t) / sympy.diff(X, t)).subs(t, ts[0]))
+    R = sympy.Rational
+    opts = {"A": R(6, 7), "B": R(7, 6), "C": R(3, 2), "D": R(2, 3)}
+    m = _pick(opts, lambda v: len(ts) == 1 and v == slope)
+    return _a23_result(19, [r"x = t^{2} + 3t - 8", r"y = 2t^{2} - 2t - 5", r"M\,(2, -1)"], [], m,
+                       f"common parameter t = {ts}; dy/dx = (4t - 2)/(2t + 3) = {slope}", enc=opts)
+
+def _a23_q20():
+    th, a = sympy.symbols("theta a", positive=True)
+    X, Y = a*sympy.sqrt(sympy.cos(2*th))*sympy.cos(th), a*sympy.sqrt(sympy.cos(2*th))*sympy.sin(th)
+    dx, dy = [sympy.simplify(sympy.diff(e, th).subs(th, sympy.pi/6)) for e in (X, Y)]
+    slope = sympy.oo if dx == 0 else sympy.simplify(dy / dx)
+    opts = {"A": 0, "B": sympy.oo, "C": 1, "D": 3}
+    m = _pick(opts, lambda v: v == slope)
+    return _a23_result(20, [r"x = a\sqrt{\cos 2\theta}\,\cos\theta", r"y = a\sqrt{\cos 2\theta}\,\sin\theta", r"\theta = \dfrac{\pi}{6}"],
+                       ["A:parallel to $x$ axis", "B:parallel to $y$ axis", "D:parallel to the line $y = 3x$"], m,
+                       f"dx/dθ = {dx}, dy/dθ = {dy} (dy/dθ = a cos3θ/√cos2θ) -> slope {slope}")
+
+def _a23_q21():
+    x, b, c = sympy.symbols("x b c", real=True)
+    f, g = x**2 + 2*b*x + 2*c**2, -x**2 - 2*c*x + b**2
+    fmin = sympy.simplify(f.subs(x, sympy.solve(sympy.diff(f, x), x)[0]))
+    gmax = sympy.simplify(g.subs(x, sympy.solve(sympy.diff(g, x), x)[0]))
+    cond = lambda bv, cv: (fmin - gmax).subs({b: bv, c: cv}) > 0
+    r2 = sympy.sqrt(2)
+    preds = {"A": lambda B, C: abs(B) > abs(C)*r2, "B": lambda B, C: abs(C) > abs(B)*r2,
+             "C": lambda B, C: abs(B) < abs(C)*r2, "D": lambda B, C: abs(C) < abs(B)*r2}
+    grid = [(sympy.Rational(i, 2), sympy.Rational(j, 2)) for i in range(-6, 7) for j in range(-6, 7)]
+    m = _pick(preds, lambda P: all(bool(P(B, C)) == bool(cond(B, C)) for B, C in grid))
+    return _a23_result(21, [r"x^{2} + 2bx + 2c^{2}", r"-x^{2} - 2cx + b^{2}", r"\min f(x) > \max g(x)"],
+                       [r"B:|c| > |b|\sqrt{2}", r"C:|b| < |c|\sqrt{2}"], m,
+                       f"min f = {fmin}, max g = {gmax}; condition c² > 2b² matches option(s) {m} on a 13×13 grid")
+
+def _a23_q22():
+    x, y, s = sympy.symbols("x y s", positive=True)
+    F = (x**3 + x**2*y - y**3) / (x - y)
+    deg = sympy.simplify(sympy.log(F.subs({x: s*x, y: s*y}) / F) / sympy.log(s))
+    u = sympy.log(F)
+    E = sympy.simplify(x*sympy.diff(u, x) + y*sympy.diff(u, y))
+    opts = {"A": 1, "B": 0, "C": 2, "D": 4}
+    m = _pick(opts, lambda v: E == v)
+    return _a23_result(22, [r"u = \log\left(\dfrac{x^{3} + x^{2}y - y^{3}}{x - y}\right)", r"x\dfrac{\partial u}{\partial x} + y\dfrac{\partial u}{\partial y}"],
+                       [], m, f"argument homogeneous of degree {deg}; x u_x + y u_y = {E}", enc=opts)
+
+def _a23_q23():
+    x, y, a, b = sympy.symbols("x y a b")
+    f = (a*x**2 + b*y**2) / (x*y)
+    rel = sympy.simplify((sympy.diff(f, x) - sympy.diff(f, y)).subs({x: 1, y: -2}))
+    rels = {"A": a - 4*b, "B": 8*a - b, "C": 12*a - b, "D": a - 20*b}
+    m = _pick(rels, lambda e: _a23_proportional(e, sympy.numer(sympy.together(rel)), [a, b]))
+    return _a23_result(23, [r"\dfrac{ax^{2} + by^{2}}{xy}", r"x = 1", r"y = -2"], ["A:a = 4b", "B:8a = b", "C:12a = b", "D:a = 20b"], m,
+                       f"(f_x - f_y)(1, -2) = {rel} = 0 <=> a = 4b")
+
+def _a23_q24():
+    x, uu = sympy.symbols("x u", positive=True)
+    integrand = sympy.pi*sympy.cos(sympy.pi*sympy.log(x)) / x
+    sub_ok = sympy.simplify(integrand.subs(x, sympy.exp(uu)) * sympy.exp(uu) - sympy.pi*sympy.cos(sympy.pi*uu)) == 0   # dx = e^u du
+    I = sympy.integrate(sympy.pi*sympy.cos(sympy.pi*uu), (uu, 0, 2007))         # limits: log 1 = 0, log e^2007 = 2007
+    opts = {"A": 0, "B": sympy.E, "C": 2007*sympy.pi, "D": sympy.pi}
+    m = _pick(opts, lambda v: sub_ok and sympy.simplify(I - v) == 0)
+    return _a23_result(24, [r"k = e^{2007}", r"\int_{1}^{k} \dfrac{\pi\cos(\pi\log x)}{x}\,dx"], [], m,
+                       f"u = log x: integrand -> π cos(πu) ({sub_ok}); I = sin(2007π) = {I}", enc=opts)
+
+def _a23_q25():
+    x = sympy.Symbol("x")
+    hx, hy = sympy.symbols("hx hy")                                           # h(x), h(a - x)
+    hs = sympy.solve([3*hx - 4*hy - 5, 3*hy - 4*hx - 5], [hx, hy])            # the relation at x and at a - x
+    vals = []
+    for a in (2, 3, sympy.Rational(5, 2)):
+        for f, g in [((x - sympy.Rational(a, 2))**2 + 1, x - sympy.Rational(a, 2)),
+                     (sympy.cos(x - sympy.Rational(a, 2)), sympy.sin(3*(x - sympy.Rational(a, 2))))]:
+            assert sympy.simplify(f - f.subs(x, a - x)) == 0 and sympy.simplify(g + g.subs(x, a - x)) == 0
+            vals.append(sympy.simplify(sympy.integrate(f*g*hs[hx], (x, 0, a))))
+    opts = {"A": sympy.Symbol("a"), "B": -sympy.Symbol("a"), "C": 1, "D": 0}
+    m = _pick(opts, lambda v: all(sympy.simplify(I - v) == 0 for I in vals))
+    return _a23_result(25, [r"f(x) = f(a - x)", r"g(x) = -g(a - x)", r"3h(x) - 4h(a - x) = 5", r"\int_{0}^{a} f(x)\,g(x)\,h(x)\,dx"],
+                       ["A:$a$", "B:$-a$", "D:$0$"], m, f"h(x) = h(a-x) = {hs[hx]} (forced); ∫fgh over samples = {vals}")
+
+def _a23_q26():
+    x = sympy.Symbol("x", nonnegative=True)
+    pts = sympy.solve(sympy.Eq(x**2, sympy.sqrt(x)), x)
+    A = sympy.integrate(sympy.sqrt(x) - x**2, (x, 0, 1))
+    R = sympy.Rational
+    opts = {"A": 1, "B": R(1, 2), "C": R(1, 3), "D": R(2, 3)}
+    m = _pick(opts, lambda v: A == v)
+    return _a23_result(26, [r"y = x^{2}", r"x = y^{2}"], [], m, f"curves meet at x = {pts}; area = ∫(√x - x²) = {A}", enc=opts)
+
+def _a23_q27():
+    x, c = sympy.symbols("x c", positive=True)
+    Y = sympy.Symbol("Y")
+    res = {k: True for k in "ABCD"}
+    for phi in (lambda s: s, lambda s: sympy.exp(s), lambda s: s**2):
+        sv = sympy.Symbol("sv")
+        rhs_expr = lambda yy: yy/x + phi(yy/x) / sympy.diff(phi(sv), sv).subs(sv, yy/x)
+        fam = {"A": x*phi(Y/x) - x*c, "B": phi(Y/x) - c, "C": Y*phi(Y/x) - c, "D": phi(Y/x) - x*c}
+        for k, F in fam.items():
+            sols = sympy.solve(F, Y)
+            ok = bool(sols) and all(sympy.simplify(sympy.diff(s, x) - rhs_expr(s)) == 0 for s in sols)
+            res[k] = res[k] and ok
+    return _a23_result(27, [r"y' = \dfrac{y}{x} + \dfrac{\phi(y/x)}{\phi'(y/x)}"],
+                       [r"A:x\phi(y/x) = xc", r"B:\phi(y/x) = c", r"D:\phi(y/x) = xc"], _true(res),
+                       "y = vx gives φ'(v)dv/φ(v) = dx/x -> φ(y/x) = cx; each family substituted into the ODE for φ(s) = s, e^s, s²")
+
+def _a23_q28():
+    x, y = sympy.symbols("x y")
+    fam = {"A": 4*sympy.exp(3*x) + 3*sympy.exp(-4*y) - 7, "B": 4*sympy.exp(3*x) + 3*sympy.exp(4*y) - 7,
+           "C": sympy.exp(3*x) + sympy.exp(-4*y) - 1, "D": 4*sympy.exp(3*x) + 3*sympy.exp(-4*y) + 7}
+    def ok(F):
+        through = sympy.simplify(F.subs({x: 0, y: 0})) == 0
+        yp = -sympy.diff(F, x) / sympy.diff(F, y)
+        return through and sympy.simplify(yp - sympy.exp(3*x + 4*y)) == 0       # log y' = 3x + 4y <=> y' = e^(3x+4y)
+    m = _pick(fam, ok)
+    yy = sympy.Function("yy")
+    gen = sympy.integrate(sympy.exp(-4*y), y) - sympy.integrate(sympy.exp(3*x), x)
+    return _a23_result(28, [r"\log\dfrac{dy}{dx} = 3x + 4y", r"y(0) = 0"],
+                       [r"A:4e^{3x} + 3e^{-4y} = 7", r"B:4e^{3x} + 3e^{4y} = 7", r"D:4e^{3x} + 3e^{-4y} = -7"], m,
+                       f"separate: ∫e^(-4y)dy = ∫e^(3x)dx -> {gen} = C; y(0) = 0 fixes 4e^(3x) + 3e^(-4y) = 7")
+
+def _a23_q29():
+    from itertools import combinations
+    pairs = list(combinations(range(1, 11), 2))
+    P = sympy.Rational(sum(1 for p in pairs if min(p) < 5), len(pairs))
+    R = sympy.Rational
+    opts = {"A": R(1, 3), "B": R(2, 3), "C": R(1, 2), "D": R(1, 5)}
+    m = _pick(opts, lambda v: v == P)
+    return _a23_result(29, [r"1, 2, 3, 4, \ldots, 10", "without replacement", "less than $5$"], [], m,
+                       f"{len(pairs)} pairs; P(min < 5) = 1 - C(6,2)/C(10,2) = {P}", enc=opts)
+
+def _a23_q30():
+    R = sympy.Rational
+    PA, PAgB, PBgA = R(1, 4), R(1, 4), R(1, 2)
+    PAB = PBgA * PA
+    PB = PAB / PAgB
+    PAuB = PA + PB - PAB
+    props = {"A": PAB == PA*PB, "B": PAB == 0,
+             "C": (PB - PAB) / PB == R(1, 3), "D": (1 - PAuB) / (1 - PA) == R(1, 4)}
+    return _a23_result(30, [r"P(A) = P(A/B) = \dfrac{1}{4}", r"P(B/A) = \dfrac{1}{2}"],
+                       ["A:independent", "B:mutually exclusive", r"C:P(A'/B) = \dfrac{1}{3}", "D:P(B'/A') = 1/4"], _true(props),
+                       f"P(A∩B) = {PAB}, P(B) = {PB}; P(A)P(B) = {PA*PB}; P(A'/B) = {(PB - PAB)/PB}; P(B'/A') = {(1 - PAuB)/(1 - PA)}")
+
+def _a23_q31():
+    import random
+    rng = random.Random(2023)
+    def sym():
+        M = sympy.Matrix(3, 3, lambda i, j: 0)
+        for i in range(3):
+            for j in range(i, 3):
+                M[i, j] = M[j, i] = rng.randint(-3, 3) or 1
+        return M
+    def skew():
+        M = sympy.zeros(3)
+        for i in range(3):
+            for j in range(i + 1, 3):
+                v = rng.randint(-3, 3) or 2
+                M[i, j], M[j, i] = v, -v
+        return M
+    res = {k: True for k in "ABCD"}
+    for _ in range(2):
+        X, Y, Z = sym(), sym(), skew()
+        mats = {"A": X**3*Z**4 - Z**4*X**3, "B": X**5*Z**5 - Z**5*X**5,
+                "C": Y**99*Z**99 + Z**99*Y**99, "D": X**19*Y**7 + Y**7*X**19}
+        for k, M in mats.items():
+            res[k] = res[k] and M.T == -M and M != sympy.zeros(3)
+    return _a23_result(31, ["non-zero symmetric matrices of order $3$", "skew symmetric matrix of order $3$"],
+                       ["A:X^{3}Z^{4} - Z^{4}X^{3}", "B:X^{5}Z^{5} - Z^{5}X^{5}", "C:Y^{99}Z^{99} + Z^{99}Y^{99}", "D:X^{19}Y^{7} + Y^{7}X^{19}"],
+                       _true(res), "random integer symmetric X, Y and skew Z (2 draws): M^T = -M tested for each option")
+
+def _a23_q32():
+    a, b, c, al = sympy.symbols("a b c alpha", nonzero=True)
+    D = sympy.Matrix([[a, b, a*al + b], [b, c, b*al + c], [a*al + b, b*al + c, 0]]).det()
+    fac = sympy.factor(D)
+    conds = {"A": {b: (a + c)/2}, "B": {c: b**2/a}, "C": {b: 2*a*c/(a + c)}, "D": {c: -a*al**2 - 2*b*al}}
+    m = _pick(conds, lambda sub: sympy.simplify(D.subs(sub)) == 0)
+    return _a23_result(32, [r"a & b & a\alpha + b \\ b & c & b\alpha + c \\ a\alpha + b & b\alpha + c & 0", "non-zero"],
+                       ["A:A. P.", "B:G.P.", "C:H. P.", r"D:ax^{2} + 2bx + c = 0"], m, f"Δ = {fac}")
+
+def _a23_q33():
+    import mpmath
+    w = sympy.exp(sympy.I*sympy.pi/6)
+    polar_ok = sympy.simplify(sympy.expand_complex(w) - (sympy.sqrt(3)/2 + sympy.I/2)) == 0
+    z = sympy.simplify(2*sympy.cos(sympy.Rational(2007, 6)*sympy.pi))       # w^n + conj(w)^n = 2 cos(nπ/6)
+    mpmath.mp.dps = 60
+    zn = (mpmath.sqrt(3)/2 + 1j/2)**2007 + (mpmath.sqrt(3)/2 - 1j/2)**2007
+    num_ok = abs(zn) < mpmath.mpf(10)**-40
+    props = {"A": z == 0, "B": z == sympy.I, "C": sympy.re(z) > 0, "D": sympy.im(z) > 0}
+    return _a23_result(33, [r"\left(\dfrac{\sqrt{3}}{2} + \dfrac{i}{2}\right)^{2007}", r"\left(\dfrac{\sqrt{3}}{2} - \dfrac{i}{2}\right)^{2007}"],
+                       ["A:z = 0", "B:z = i", r"C:\operatorname{Re}(z) > 0", r"D:\operatorname{Im}(z) > 0"],
+                       _true(props) if polar_ok and num_ok else [],
+                       f"z = 2cos(2007π/6) = 2cos(334π + π/2) = {z}; 60-digit numeric |z| < 1e-40: {num_ok}")
+
+def _a23_q34():
+    t = sympy.Symbol("t")
+    P, Q = (2, 1), (3, -2)
+    area = lambda X, Y: sympy.Abs((Q[0] - P[0])*(Y - P[1]) - (Q[1] - P[1])*(X - P[0])) / 2
+    ts = sympy.solve(sympy.Eq(((Q[0] - P[0])*(t + 3 - P[1]) - (Q[1] - P[1])*(t - P[0]))**2, 100), t)
+    R = sympy.Rational
+    opts = {"A": (R(-3, 2), R(3, 2)), "B": (R(3, 2), R(-3, 2)), "C": (R(7, 2), R(14, 3)), "D": (R(7, 2), R(13, 2))}
+    m = _pick(opts, lambda v: v[1] == v[0] + 3 and area(*v) == 5)
+    return _a23_result(34, [r"$(2, 1)$", r"$(3, -2)$", r"y = x + 3", "$5$ sq. units"],
+                       [r"A:\left(-\dfrac{3}{2}, \dfrac{3}{2}\right)", r"C:\left(\dfrac{7}{2}, \dfrac{14}{3}\right)", r"D:\left(\dfrac{7}{2}, \dfrac{13}{2}\right)"],
+                       m, f"vertex (t, t+3): 2·area = |4t - 4| = 10 -> t = {sorted(ts)}; areas A..D = {[area(*v) for v in opts.values()]}")
+
+def _a23_q35():
+    V, W = sympy.Matrix([2, 1, -1]), sympy.Matrix([1, 0, 3])
+    n = V.cross(W)
+    U = n / n.norm()
+    best = U.dot(n)                                                           # Cauchy–Schwarz bound |U||V×W| attained
+    opts = {"A": 59, "B": sympy.sqrt(59), "C": 1, "D": sympy.sqrt(60)}
+    m = _pick(opts, lambda v: sympy.simplify(best - v) == 0 and sympy.simplify(U.norm() - 1) == 0)
+    return _a23_result(35, [r"\vec{V} = 2\hat{i} + \hat{j} - \hat{k}", r"\vec{W} = \hat{i} + 3\hat{k}", r"[\vec{U}\,\vec{V}\,\vec{W}]"], [], m,
+                       f"V×W = {list(n)}, |V×W| = {n.norm()} = max of U·(V×W)", enc=opts)
+
+def _a23_q36():
+    n = sympy.Symbol("n", integer=True, positive=True)
+    f = lambda xv: sympy.limit((xv**(2*n) - 1) / (xv**(2*n) + 1), n, sympy.oo)
+    R = sympy.Rational
+    big, one, small = [2, -3, R(3, 2)], [1, -1], [R(1, 2), 0, R(-2, 3)]
+    props = {"A": all(f(v) == 1 for v in big), "B": all(f(v) == 1 for v in one),
+             "C": all(f(v) == -1 for v in small), "D": all(not f(v).is_finite for v in big + one + small)}
+    return _a23_result(36, [r"\dfrac{x^{2n} - 1}{x^{2n} + 1}", r"n \to \infty"],
+                       [r"A:$f(x) = 1$ for $|x| > 1$", r"B:$f(x) = 1$ for $|x| = 1$", r"C:$f(x) = -1$ for $|x| < 1$", "D:not defined"],
+                       _true(props), f"f(2) = {f(2)}, f(1) = {f(1)}, f(-1) = {f(-1)}, f(1/2) = {f(R(1, 2))}, f(0) = {f(0)}")
+
+def _a23_q37():
+    x0 = sympy.Symbol("x0", nonzero=True, real=True)
+    yfun = 2 / x0
+    tan_slope = sympy.diff(2 / x0, x0)                                        # -2/x0^2 < 0
+    norm_slope = sympy.simplify(-1 / tan_slope)                               # x0^2/2 > 0
+    # line ax + by + c = 0 has slope -a/b; a normal needs -a/b = x0^2/2 for some x0 != 0 (b = 0 impossible: tangent never horizontal)
+    signs = {"A": (1, 1), "B": (1, -1), "C": (-1, 1), "D": (-1, -1)}
+    def feasible(s):
+        m_ = sympy.Rational(-s[0], s[1])
+        return bool(sympy.solve(sympy.Eq(norm_slope, m_), x0))
+    m = _pick(signs, feasible)
+    # explicit witnesses: normal at (2, 1) is y - 1 = 2(x - 2) <=> 2x - y - 3 = 0 (a > 0, b < 0) and its negative (a < 0, b > 0)
+    wit = sympy.expand(2*(sympy.Symbol("x") - 2) - (sympy.Symbol("y") - yfun.subs(x0, 2)))
+    return _a23_result(37, [r"ax + by + c = 0", r"xy = 2", "normal"],
+                       ["A:a > 0, b > 0", "B:a > 0, b < 0", "C:a < 0, b > 0", "D:a < 0, b < 0"], m,
+                       f"tangent slope {tan_slope} < 0 -> normal slope {norm_slope} > 0 -> a, b opposite signs; witness normal {wit} = 0")
+
+def _a23_q38():
+    x, y = sympy.symbols("x y", positive=True)
+    z = sympy.log(sympy.sqrt(x**2 + y**2))
+    zx, zy = sympy.diff(z, x), sympy.diff(z, y)
+    props = {"A": sympy.simplify(y*zx + x*zy - 1) == 0, "B": sympy.simplify(x*zx + y*zy - 1) == 0,
+             "C": sympy.simplify(x*zx + y*zy - sympy.sqrt(x**2 + y**2)) == 0, "D": sympy.simplify(y*zx - x*zy) == 0}
+    return _a23_result(38, [r"z = \log\sqrt{x^{2} + y^{2}}"],
+                       [r"A:y\dfrac{\partial z}{\partial x} + x\dfrac{\partial z}{\partial y} = 1", r"B:x\dfrac{\partial z}{\partial x} + y\dfrac{\partial z}{\partial y} = 1",
+                        r"C:= \sqrt{x^{2} + y^{2}}", r"D:y\dfrac{\partial z}{\partial x} = x\dfrac{\partial z}{\partial y}"],
+                       _true(props), f"z_x = {zx}, z_y = {zy}; x z_x + y z_y = {sympy.simplify(x*zx + y*zy)}, y z_x - x z_y = 0")
+
+def _a23_q39():
+    x, al = sympy.symbols("x alpha", real=True)
+    F = sympy.integrate(sympy.sin(x), (x, sympy.pi/2, al)) - sympy.sin(2*al)
+    fac = sympy.factor(sympy.expand_trig(F))
+    roots = sorted(set(sympy.solveset(sympy.cos(al), al, sympy.Interval(sympy.pi, 2*sympy.pi))) |
+                   set(sympy.solveset(1 + 2*sympy.sin(al), al, sympy.Interval(sympy.pi, 2*sympy.pi))), key=float)
+    opts = {"A": 7*sympy.pi/4, "B": 3*sympy.pi/2, "C": 7*sympy.pi/6, "D": 5*sympy.pi/3}
+    m = _pick(opts, lambda v: sympy.simplify(F.subs(al, v)) == 0)
+    return _a23_result(39, [r"\int_{\pi/2}^{\alpha} \sin x\,dx = \sin 2\alpha", r"\alpha \in [\pi, 2\pi]"], [], m,
+                       f"-cos α - sin 2α = {fac} = 0 -> α ∈ {roots}", enc=opts)
+
+def _a23_q40():
+    x, y, u, c, c1 = sympy.symbols("x y u c c1")
+    p = sympy.Symbol("p")
+    clairaut = lambda v_of_u: sympy.simplify(v_of_u - (u*sympy.diff(v_of_u, u) + sympy.diff(v_of_u, u)**2))
+    # general solution v = cu + c^2 ; singular solution = c-discriminant of v - cu - c^2
+    gen_ok = clairaut(c*u + c**2) == 0
+    vsing = sympy.solve(sympy.Eq(sympy.diff(c*u + c**2, c), 0), c)[0]
+    v_s = sympy.expand((c*u + c**2).subs(c, vsing))                          # -u^2/4
+    sing_ok = clairaut(v_s) == 0
+    sing_xy = sympy.factor(sympy.expand((x*y - v_s.subs(u, y)) * 4))          # 4xy + y^2 = y(4x + y)
+    comps = [sympy.solve(fct, y) for fct, _ in sympy.factor_list(sing_xy)[1]]
+    comps = sorted({sympy.simplify(s) for cs in comps for s in cs}, key=str)
+    def as_v(yexpr):                                                        # curve y = y(x) -> v(u) with u = y
+        xs = sympy.solve(sympy.Eq(y, yexpr), x)
+        return [sympy.expand((x*y).subs(x, s).subs(y, u)) for s in xs] if xs else None
+    props = {
+        "A": sympy.Integer(0) in comps,                                       # y = 0 is a branch of y(4x + y) = 0
+        "B": all(clairaut(v) == 0 for v in as_v(4*x)),
+        "C": all(clairaut(v) == 0 for v in as_v(-4*x)) and -4*x in comps,
+        "D": gen_ok and sympy.simplify(clairaut(c*u + c1).subs(c1, c**2)) == 0,   # xy = cy + c1 with c1 = c^2
+    }
+    return _a23_result(40, [r"v = u\dfrac{dv}{du} + \left(\dfrac{dv}{du}\right)^{2}", r"u = y", r"v = xy"],
+                       ["A:y = 0", "B:y = 4x", "C:y = -4x", "D:xy = cy + c_{1}"], _true(props),
+                       f"Clairaut: general v = cu + c² ({gen_ok}); singular v = {v_s} ({sing_ok}) <=> {sing_xy} = 0, branches y = {comps}; "
+                       f"y = 4x gives v = u²/4, RHS {sympy.simplify(u*(u/2) + (u/2)**2)} ≠ v")
+
+def _a23_guard(n):
+    """Booklet layout first, then the mathematical check; exceptions count as FAIL (never crash the run)."""
+    f = globals()[f"_a23_q{n}"]
+    def g():
+        ok, why = _a23_layout(n)
+        if not ok:
+            return False, why
+        try:
+            return f()
+        except Exception as e:
+            return False, f"check raised {type(e).__name__}: {e}"
+    return g
+
+A_TESTS_2023 = [(f"2023 Q{n}", f"jelet-2023-q{n:03d}", _a23_guard(n)) for n in range(1, 41)]
+
+
 
 def main():
     if not HAS_SYMPY:
@@ -3634,7 +4295,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
+        ] + A_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -3644,6 +4305,21 @@ def main():
             else:
                 print(f"  ❌ {label}: FAIL — {note}")
                 errors.append(f"{label}: SymPy re-verification failed — {note}")
+
+        # 2023 Batch A gate: every Mathematics item Q1–Q40 must be a hand-written derivation
+        # (sympy-verified, >= 3 steps, no auto-generated stub text) backed by its own independent _a23 check.
+        sol23 = load_json(os.path.join(DATA, "solutions", "2023.solutions.json"))["solutions"]
+        want23 = [f"jelet-2023-q{n:03d}" for n in range(1, 41)]
+        cov23 = {qid for _, qid, _ in A_TESTS_2023}
+        miss23 = [q for q in want23 if q not in cov23]
+        stub23 = [q for q in want23 if q not in sol23 or sol23[q]["verification"].get("method") != "sympy"
+                  or len(sol23[q].get("steps", [])) < 3 or "Auto-generated" in sol23[q]["verification"].get("note", "")
+                  or any(st.get("title") == "Identify the problem type" for st in sol23[q].get("steps", []))]
+        if miss23 or stub23 or len(A_TESTS_2023) != 40:
+            errors.append(f"2023 Batch A coverage gate: without independent check {miss23}, stub/unverified {stub23}")
+            print(f"  ❌ 2023 Batch A coverage gate: missing checks {miss23}, stubs {stub23}")
+        else:
+            print(f"  ✅ 2023 Batch A coverage gate: Q1–Q40 (Mathematics) 40/40 hand-written, SymPy-verified and independently re-checked (0 stubs)")
 
         # 2024 Batch A gate: every Mathematics item Q1–Q40 must be a hand-written derivation
         # (sympy-verified, >= 3 steps) backed by its own independent _a24 check.
