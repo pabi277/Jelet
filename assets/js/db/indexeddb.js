@@ -97,7 +97,11 @@ async function withStore(store, mode, fn) {
       return;
     }
     tx.oncomplete = () => {
-      notify({ store, type: "mutate" });
+      if (mode !== "readonly") {
+        const msg = { store, type: "mutate" };
+        notify(msg);
+        try { _channel?.postMessage(msg); } catch (_) { /* ignore */ }
+      }
       resolve(result && result.__req ? result.__req.result : result);
     };
     tx.onerror = () => reject(tx.error);
@@ -143,10 +147,10 @@ export async function setMeta(patch) {
  * Generic store helpers
  * ----------------------------------------------------------------- */
 export async function getAll(store) {
-  return withStore(store, "readonly", (os) => os.getAll());
+  return withStore(store, "readonly", (os) => ({ __req: os.getAll() }));
 }
 export async function get(store, key) {
-  return withStore(store, "readonly", (os) => os.get(key));
+  return withStore(store, "readonly", (os) => ({ __req: os.get(key) }));
 }
 export async function put(store, value) {
   await withStore(store, "readwrite", (os) => os.put(value));

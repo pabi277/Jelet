@@ -112,3 +112,138 @@ test("mergeBackup: handles empty / missing inputs gracefully", () => {
   assert.ok(Array.isArray(merged.attempts));
   assert.equal(merged.attempts.length, 0);
 });
+
+/* ------------------------------------------------------------------ *
+ * Spec-faithful IDBRequest unwrap regression test
+ * (Catches raw IDBRequest returns from getAll() / get() where .filter fails)
+ * ------------------------------------------------------------------ */
+test("indexeddb getAll() & get() unwrap IDBRequest.result and power computeHubSnapshot()", async () => {
+  const fs = await import("node:fs");
+  const storesData = new Map();
+
+  class FakeIDBRequest {
+    constructor(value) {
+      // Intentionally NOT an Array — mirrors real browser IDBRequest
+      this.result = value;
+      this.error = null;
+      this.onsuccess = null;
+      this.onerror = null;
+      queueMicrotask(() => {
+        if (this.onsuccess) this.onsuccess({ target: this });
+      });
+    }
+  }
+
+  globalThis.BroadcastChannel = class {
+    postMessage() {}
+    close() {}
+  };
+
+  globalThis.indexedDB = {
+    open(_name, _version) {
+      const openReq = {
+        result: null,
+        error: null,
+        onupgradeneeded: null,
+        onsuccess: null,
+        onerror: null,
+      };
+      const fakeDb = {
+        objectStoreNames: {
+          contains: (s) => storesData.has(s),
+        },
+        createObjectStore(s, { keyPath }) {
+          const map = new Map();
+          map.__keyPath = keyPath;
+          storesData.set(s, map);
+          return { createIndex() {} };
+        },
+        transaction(storeOrStores, _mode) {
+          const tx = {
+            oncomplete: null,
+            onerror: null,
+            onabort: null,
+            objectStore(name) {
+              const map = storesData.get(name);
+              return {
+                getAll: () => new FakeIDBRequest([...map.values()]),
+                get: (k) => new FakeIDBRequest(map.get(k)),
+                put: (val) => {
+                  map.set(val[map.__keyPath], val);
+                  return new FakeIDBRequest(val[map.__keyPath]);
+                },
+                delete: (k) => {
+                  map.delete(k);
+                  return new FakeIDBRequest(undefined);
+                },
+                clear: () => {
+                  map.clear();
+                  return new FakeIDBRequest(undefined);
+                },
+              };
+            },
+          };
+          queueMicrotask(() => {
+            if (tx.oncomplete) tx.oncomplete();
+          });
+          return tx;
+        },
+        close() {},
+      };
+      openReq.result = fakeDb;
+      queueMicrotask(() => {
+        if (openReq.onupgradeneeded) openReq.onupgradeneeded({ oldVersion: 0 });
+        if (openReq.onsuccess) openReq.onsuccess({ target: openReq });
+      });
+      return openReq;
+    },
+  };
+
+  const db = await import("../assets/js/db/indexeddb.js");
+  const { exportBackup } = await import("../assets/js/db/backup.js");
+  const {
+    computeHubSnapshot,
+    createSession,
+    getSession,
+    submitSessionToAttempt,
+  } = await import("../assets/js/core/stats.js");
+
+  const manifest = JSON.parse(fs.readFileSync("./_data/manifest.json", "utf8"));
+  const paper2025 = JSON.parse(fs.readFileSync("./_data/papers/2025.json", "utf8"));
+
+  // 1. Fresh empty DB: getAll() must return an Array (not FakeIDBRequest)
+  const emptySessions = await db.getAll("sessions");
+  assert.equal(Array.isArray(emptySessions), true);
+  assert.equal(emptySessions.length, 0);
+
+  const freshSnap = await computeHubSnapshot(manifest);
+  assert.equal(freshSnap.streakDays, 0);
+  assert.equal(freshSnap.officialPyqsPracticed, 0);
+  assert.equal(freshSnap.mockBestTwelfths, null);
+  assert.equal(freshSnap.activeSession, null);
+
+  // 2. Create session -> get(sessionId) -> submitSessionToAttempt -> exportBackup
+  const qSlice = paper2025.questions.slice(0, 3);
+  const created = await createSession({
+    kind: "drill",
+    mode: "independent",
+    title: "Regression Drill",
+    questions: qSlice,
+  });
+  const loaded = await getSession(created.sessionId);
+  assert.equal(loaded.sessionId, created.sessionId);
+  assert.equal(loaded.title, "Regression Drill");
+
+  loaded.responses[qSlice[0].id] = [...qSlice[0].key.correct];
+  const attempt = await submitSessionToAttempt({ session: loaded, questions: qSlice });
+  assert.equal(attempt.totalTwelfths, 12);
+
+  const afterSnap = await computeHubSnapshot(manifest);
+  assert.equal(afterSnap.streakDays, 1);
+  assert.equal(afterSnap.officialPyqsPracticed, 1);
+
+  const backupEnv = await exportBackup();
+  assert.equal(await verifyEnvelope(backupEnv), true);
+  assert.equal(backupEnv.stores.attempts.length, 1);
+});
+
