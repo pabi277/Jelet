@@ -74,6 +74,30 @@ import { initAiTutor } from "./views/ai-tutor.js";
 /* ------------------------------------------------------------------ *
  * Route table — five global destinations only (no audit clutter)
  * ------------------------------------------------------------------ */
+const KNOWN_ROUTE_HEADS = new Set([
+  "learn",
+  "practice",
+  "practice-run",
+  "papers",
+  "omr-print",
+  "exam",
+  "results",
+  "formulas",
+  "you",
+]);
+
+/**
+ * True when the hash's first path segment is a known route head.
+ * Unknown/deep-linked hashes (typos, stale links, junk) are normalized
+ * to `#/` so the app never renders a blank screen.
+ */
+export function isKnownRouteHash(hashStr = location.hash) {
+  const raw = (hashStr || "#/").replace(/^#/, "") || "/";
+  const head = raw.split("?")[0].split("/").filter(Boolean)[0];
+  if (!head) return true; // `#/` and bare `#` are valid (Today)
+  return KNOWN_ROUTE_HEADS.has(head);
+}
+
 export const ROUTES = [
   { id: "today", label: "Today", desktopLabel: "Today", href: "#/", icon: "icon-today" },
   { id: "learn", label: "Learn", desktopLabel: "Learn", href: "#/learn", icon: "icon-learn" },
@@ -277,6 +301,11 @@ export async function render() {
   if (_rendering) return;
   _rendering = true;
   try {
+    // Normalize unknown/deep-linked hashes to Today (no blank screens).
+    if (!isKnownRouteHash(location.hash)) {
+      location.replace("#/");
+      return;
+    }
     if (typeof _activeViewCleanup === "function") {
       try { _activeViewCleanup(); } catch (_) { /* ignore */ }
       _activeViewCleanup = null;
