@@ -74,6 +74,112 @@ Service Worker (`sw.js`):
 - Do not rename or move `sw.js` or `manifest.webmanifest` — `tests/pwa.test.mjs`
   gates their location and contents.
 
+## Optional encrypted cloud sync (Phase 09)
+
+Sync is **opt-in and off by default**. With sync unconfigured the app is
+exactly as before: 100% local-first, zero network calls. When enabled, the
+client serializes study state, encrypts it **on-device**, and talks to any
+provider that can store one JSON document behind a two-call REST contract.
+
+### What syncs — and what NEVER syncs
+
+| Included (study state) | Excluded (never leaves the device) |
+|---|---|
+| `sessions`, `attempts`, `questionStats`, `unitProgress`, `bookmarksNotes`, profile/settings (`meta` app record), deletion tombstones | **BYOK AI API keys** (`jelet_ai_vault_v1` isolated vault), sync config/outbox (device-local) |
+
+The AI vault lives in `localStorage`, never in IndexedDB, and
+`sanitizeForSync()` additionally strips any `apiKey` field as defense-in-depth
+(`tests/sync.test.mjs` proves the guarantee).
+
+### Encryption model (honest, standard Web Crypto)
+
+- **KDF:** PBKDF2 → SHA-256, 250 000 iterations, random 16-byte salt
+- **Cipher:** AES-GCM-256, random 12-byte IV, header bound as AAD
+- **Passphrase:** entered by the user, held in tab memory only — **never**
+  stored in IndexedDB, localStorage, the sync config, or any export
+- This is the standard browser crypto stack used honestly — **not** "military
+  grade". A weak passphrase can be brute-forced offline, so pick a long one.
+
+Encrypted envelope (all binary fields base64):
+
+```json
+{
+  "v": 1,
+  "kdf": "PBKDF2",
+  "hash": "SHA-256",
+  "enc": "AES-GCM",
+  "iterations": 250000,
+  "salt": "…",
+  "iv": "…",
+  "ciphertext": "…"
+}
+```
+
+### REST contract (provider-agnostic)
+
+Base URL is user-provided in **You & AI → Encrypted Cloud Sync** (e.g.
+`https://api.example.com/jelet`). The client appends `/sync`.
+
+**Pull — `GET {base}/sync`**
+
+```
+200 { "ok": true, "payload": <envelope> }     ← remote data exists
+200 { "ok": true, "payload": null }           ← no remote data yet (recommended)
+404                                           ← also accepted as "no data yet"
+```
+
+**Push — `PUT {base}/sync`** with `Content-Type: application/json`
+
+```json
+{ "payload": <envelope>, "updatedAt": "2026-11-24T12:00:00.000Z" }
+```
+
+Response: `200 { "ok": true }` (any 2xx works; non-2xx surfaces as a kept
+outbox + "sync pending", never a silent failure).
+
+Minimal serverless example (any provider works — this is a single-document
+KV blob):
+
+```js
+// Cloudflare Worker / Deno / Node — stores ONE JSON blob per user
+let blob = null; // or KV/Secrets/S3 object of your choice
+export default {
+  async fetch(req) {
+    const url = new URL(req.url);
+    if (!url.pathname.endsWith("/sync")) return new Response("not found", { status: 404 });
+    if (req.method === "GET")
+      return json({ ok: true, payload: blob });
+    if (req.method === "PUT") {
+      blob = (await req.json()).payload;
+      return json({ ok: true });
+    }
+    return new Response("method not allowed", { status: 405 });
+  },
+};
+const json = (o) => new Response(JSON.stringify(o), {
+  headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
+});
+```
+
+> The endpoint stores **opaque ciphertext only** — the server can never read
+> study data. Add your own auth (bearer token in the URL path, signed URLs,
+> etc.) if the endpoint is shared; the client sends no credentials itself.
+
+### Merge semantics
+
+On every sync the client pulls the remote envelope, decrypts it, and merges
+**last-write-wins per record** (record ID + timestamp; same timestamp keeps
+the local record). Deletions propagate through a synced tombstone map so stale
+remote copies never resurrect. Every merge writes a merge log and reports
+"merged N records" in the You-hub status card.
+
+### Offline behaviour
+
+While sync is enabled, local mutations queue in a coalesced outbox. The
+outbox flushes on reconnect (`online` event), after a short debounce, and via
+the manual **Sync now** button. A failed flush keeps the queue and shows a
+clear "sync pending" state with the last error.
+
 ## Hash-routing & subpath safety
 
 - All navigation is hash-based (`#/`, `#/learn`, `#/practice`,
