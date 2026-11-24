@@ -1980,12 +1980,12 @@
       "id": "jelet-2022-q041",
       "qNumber": 41,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "The equation of a wave is given by $y = A\\sin(\\omega t - kx)$ where the symbols $A$, $\\omega$ and $k$ have their usual meanings. The dimension of $p$ and $q$ in $y = A\\sin(pt - qx)$ are respectively",
+      "stemLatex": "The equation of a wave is given by $y = A\\sin\\omega\\left(\\dfrac{p}{v} - q\\pi\\right)$ where the symbols $A$, $\\omega$ and $v$ have their usual meanings. The dimension of $p$ and $q$ are respectively,",
       "stemFigure": null,
       "options": [
         {
@@ -2012,54 +2012,48 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q41)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q41 (Set A, Q41)"
       },
       "difficulty": "easy",
       "tags": [
         "dimensions",
-        "waves",
-        "dimensional-analysis"
+        "dimensional-analysis",
+        "waves"
       ]
     },
     {
       "id": "jelet-2022-q042",
       "qNumber": 42,
       "subjectId": "PHYS",
-      "unitId": "P02",
+      "unitId": "P01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "The length, breadth and thickness of a strip are given by $L = (10.0 \\pm 0.1)\\,\\text{cm}$, $h = (1.00 \\pm 0.01)\\,\\text{cm}$, $t = (0.1 \\pm 0.001)\\,\\text{cm}$. The most probable error in volume will be",
-      "stemFigure": {
-        "src": "./_data/figures/2022/fig-2022-q42.svg",
-        "alt": "Figure for JELET 2022 Q42",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemLatex": "The length, breadth and thickness of a strip are given by $L = (10.0 \\pm 0.1)$ cm, $h = (1.00 \\pm 0.01)$ cm, $t = (0.1 \\pm 0.001)$ cm. The most probable error in volume will be",
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$0.03\\,\\text{cm}^{3}$",
+          "latex": "$0.03\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0.111\\,\\text{cm}^{3}$",
+          "latex": "$0.111\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0.012\\,\\text{cm}^{3}$",
+          "latex": "$0.012\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0.12\\,\\text{cm}^{3}$",
+          "latex": "$0.12\\ \\text{cm}^{3}$",
           "figure": null
         }
       ],
@@ -2068,14 +2062,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q42)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q42 (Set A, Q42)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "errors",
-        "error-analysis",
-        "volume"
+        "relative-error",
+        "measurement"
       ]
     },
     {
@@ -2092,36 +2086,36 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{\\sqrt{107}}{2}$ sq. unit",
+          "latex": "$\\sqrt{107}$ sq.unit",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\sqrt{107}$ sq. unit",
+          "latex": "$2\\sqrt{107}$ sq.unit",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3\\sqrt{2}$ sq. unit",
+          "latex": "$37\\sqrt{2}$ sq.unit",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{2}{\\sqrt{107}}$ sq. unit",
+          "latex": "$\\dfrac{1}{2}\\sqrt{107}$ sq.unit",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q43)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q43 (Set A, Q43)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
+        "vectors",
         "cross-product",
         "area"
       ]
@@ -2135,22 +2129,22 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "The kinetic energy of a particle moving along a circle of radius $R$ is $ax$ where $\\alpha$ is a constant and $x$ is the distance covered. The force acting in the radial direction is proportional to",
+      "stemLatex": "The kinetic energy of a particle moving along a circle of radius $R$ is $\\alpha x$ where $\\alpha$ is a constant and $x$ is the distance covered. The force acting in the radial direction is proportional to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{x}$",
+          "latex": "$x$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{x^{2}}$",
+          "latex": "$x^{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$x$",
+          "latex": "$\\dfrac{1}{x}$",
           "figure": null
         },
         {
@@ -2162,16 +2156,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q44)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q44 (Set A, Q44)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "rotation",
-        "force",
-        "centripetal"
+        "circular-motion",
+        "centripetal-force",
+        "kinetic-energy"
       ]
     },
     {
@@ -2183,27 +2177,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 11,
-      "stemLatex": "The trajectory of a point particle in a projectile motion is given by the equation $y = 2x - 5x^{2}$, where $y$ is height and $x$ is horizontal distance. With what velocity was the particle projected? ($g = -10\\,\\text{m/s}^{2}$)",
+      "stemLatex": "The trajectory of a point particle in a projectile motion is given by the equation $Y = 2x - 5x^{2}$, where $Y$ is height and $x$ is horizontal distance. With what velocity was the particle projected? ($g = 10\\ \\text{m/s}^{2}$)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\hat{i} + \\hat{j}\\,\\text{m/s}$",
+          "latex": "$\\hat{i} + \\hat{j}$ m/s",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2\\hat{i} + \\hat{j}\\,\\text{m/s}$",
+          "latex": "$2\\hat{i} + \\hat{j}$ m/s",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\hat{i} + 2\\hat{j}\\,\\text{m/s}$",
+          "latex": "$\\hat{i} + 2\\hat{j}$ m/s",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$3\\hat{i} + \\hat{j}\\,\\text{m/s}$",
+          "latex": "$3\\hat{i} + \\hat{j}$ m/s",
           "figure": null
         }
       ],
@@ -2212,14 +2206,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q45)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q45 (Set A, Q45)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "kinematics",
         "projectile",
-        "trajectory"
+        "trajectory-equation",
+        "velocity-components"
       ]
     },
     {
@@ -2231,66 +2225,67 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A constant force $F$ is applied to the block of mass $m$ connected to the spring of spring constant $k$ as shown in figure. Initially ($t = 0$), the block is at rest. The amplitude of oscillation of $m$ will be",
+      "stemLatex": "A constant force $F$ is applied to the block of mass $m$ connected to the spring of spring constant $k$ as shown in figure. Initially ($t = 0$), the block is at rest. The amplitude of oscillation of $m$ will be $\\left(\\text{consider } \\omega = \\sqrt{\\dfrac{k}{m}}\\right)$",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q46.svg",
-        "alt": "Figure for JELET 2022 Q46",
-        "width": 420,
-        "height": 220,
+        "alt": "A vertical hatched wall on the left and a hatched floor; a spring k joins the wall to a block m resting on the floor; a constant force F pulls the block to the right",
+        "width": 290,
+        "height": 108,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{F}{k}$",
+          "latex": "$\\dfrac{F}{m\\omega}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{F}{m\\omega}$",
-          "figure": null
-        },
-        {
-          "id": "C",
           "latex": "$\\dfrac{F}{m\\omega^{2}}$",
           "figure": null
         },
         {
+          "id": "C",
+          "latex": "$\\dfrac{F}{m}$",
+          "figure": null
+        },
+        {
           "id": "D",
-          "latex": "$\\dfrac{F}{m\\omega}$",
+          "latex": "$\\dfrac{F\\omega^{2}}{m}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q46)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q46 (Set A, Q46)"
       },
       "difficulty": "medium",
       "tags": [
-        "spring",
-        "oscillation",
-        "amplitude"
+        "spring-mass",
+        "shm",
+        "amplitude",
+        "equilibrium-shift"
       ]
     },
     {
       "id": "jelet-2022-q047",
       "qNumber": 47,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A block of mass $1.0\\,\\text{kg}$ moving on a smooth horizontal surface with speed $2\\,\\text{m/s}$ enters a rough surface. The retarding force $(F)$ on the block is given by $F = \\dfrac{k}{x}$; $10\\,\\text{m} < x < 100\\,\\text{m}$, where $k = 0.5\\,\\text{J}$. The kinetic energy of the block at $x = 100\\,\\text{m}$ will be (given, $\\ln 10 = 2.3$)",
+      "stemLatex": "A block of mass $1.0$ kg moving on a smooth horizontal surface with speed $2$ m/s enters a rough surface. The retarding force $(F_{r})$ on the block is given by $F_{r} = \\begin{cases} -\\dfrac{k}{x}\\ ; & 10\\,\\text{m} < x < 100\\,\\text{m} \\\\ 0\\ ; & x < 10\\,\\text{m and } x > 100\\,\\text{m} \\end{cases}$, Where $k = 0.5$ J. The kinetic energy of the block at $x = 100$ m will be (given, $\\ln 10 = 2.3$)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$2\\,\\text{J}$",
+          "latex": "$2$ J",
           "figure": null
         },
         {
@@ -2300,12 +2295,12 @@
         },
         {
           "id": "C",
-          "latex": "$1.15\\,\\text{J}$",
+          "latex": "$1.15$ J",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0.85\\,\\text{J}$",
+          "latex": "$0.85$ J",
           "figure": null
         }
       ],
@@ -2314,13 +2309,13 @@
         "correct": [
           "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q47)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q47 (Set A, Q47)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "work-energy",
-        "force",
+        "work-energy-theorem",
+        "variable-force",
         "integration"
       ]
     },
@@ -2328,107 +2323,125 @@
       "id": "jelet-2022-q048",
       "qNumber": 48,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 12,
-      "stemLatex": "A uniform disc of mass $M$ and radius $R$ can rotate in vertical plane about its horizontal axis. A point mass $m$ is glued to the disc at point $P$, as shown in figure. If the system is released from rest, the angular velocity of the disc when the point mass reaches the bottom most point $P_{2}$ is",
+      "stemLatex": "A uniform disc of mass $M$ and radius $R$ can rotate in vertical plane about its horizontal axis. A point mass $m$ is glued to the disc at point $P_{1}$ as shown in figure. If the system is released from rest, the angular velocity of the disc when the point mass reaches the bottom most point $P_{2}$ is",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q48.svg",
-        "alt": "Figure for JELET 2022 Q48",
-        "width": 420,
-        "height": 220,
+        "alt": "A disc of mass M with centre C on its horizontal axis (drawn slanting through C); a dashed horizontal diameter; the point mass m at P1, the left end of that diameter; a radius R drawn from C; a curved arrow at P1 pointing downward; P2 is the lowest point of the rim",
+        "width": 260,
+        "height": 196,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\sqrt{\\dfrac{4mg}{(2M+m)R}}$ rad/sec",
+          "latex": "$\\dfrac{2mg}{(m+M)R}$ rad/sec",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\sqrt{\\dfrac{4mg}{(m+M)R}}$ rad/sec",
+          "latex": "$\\dfrac{4mg}{(2M+m)}$ rad/sec",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\sqrt{\\dfrac{4mg}{(2m+M)R}}$ rad/sec",
+          "latex": "$\\dfrac{4mg}{(M+m)R}$ rad/sec",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\sqrt{\\dfrac{4mg}{(M+m)R}}$ rad/sec",
+          "latex": "$\\dfrac{4mg}{(2m+M)R}$ rad/sec",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q48)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q48 (Set A, Q48)"
       },
       "difficulty": "hard",
       "tags": [
         "rotation",
         "energy-conservation",
-        "angular-velocity"
+        "moment-of-inertia"
       ]
     },
     {
       "id": "jelet-2022-q049",
       "qNumber": 49,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P05",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
       "stemLatex": "Two identical point masses are placed on $y$ axis at $y = a$ and $y = -a$. The variation of the magnitude of the gravitational potential $|V(x)|$ as a function of $x$ is given by",
-      "stemFigure": {
-        "src": "./_data/figures/2022/fig-2022-q49.svg",
-        "alt": "Figure for JELET 2022 Q49",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "graph A",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-optA.svg",
+            "alt": "Graph (A): |V(x)| versus x; zero at x = 0, rising on both sides to level off at a constant value (an inverted bell touching the x-axis at the origin)",
+            "width": 200,
+            "height": 116,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "graph B",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-optB.svg",
+            "alt": "Graph (B): |V(x)| versus x; a U-shaped curve above the x-axis with its minimum at x = 0, rising steeply on both sides",
+            "width": 200,
+            "height": 116,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "graph C",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-optC.svg",
+            "alt": "Graph (C): |V(x)| versus x; a semicircular hump centred on x = 0 that meets the x-axis at two points",
+            "width": 200,
+            "height": 116,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "graph D",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q49-optD.svg",
+            "alt": "Graph (D): |V(x)| versus x; a bell-shaped curve with its maximum at x = 0, falling on both sides and approaching the x-axis without touching it",
+            "width": 200,
+            "height": 116,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q49)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q49 (Set A, Q49)"
       },
       "difficulty": "medium",
       "tags": [
-        "gravitation",
-        "potential",
+        "gravitational-potential",
+        "superposition",
         "graph"
       ]
     },
@@ -2436,12 +2449,12 @@
       "id": "jelet-2022-q050",
       "qNumber": 50,
       "subjectId": "PHYS",
-      "unitId": "P08",
+      "unitId": "P06",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "If the change in volume is $0.4\\%$ due to a change in length is $1\\%$ when a stress is applied along the length of the rod, the Poisson ratio of the material is",
+      "stemLatex": "If the change in volume is $0.4\\ \\%$ due to a change in length is $1\\%$ when a stress is applied along the length of the rod, the Poisson ratio of the material is",
       "stemFigure": null,
       "options": [
         {
@@ -2470,14 +2483,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q50)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q50 (Set A, Q50)"
       },
       "difficulty": "medium",
       "tags": [
         "elasticity",
         "poisson-ratio",
-        "stress-strain"
+        "volume-strain"
       ]
     },
     {
@@ -2489,50 +2502,50 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "A large open tank has two holes in the wall. One is a square hole of side $L$ at a depth $y$ and the other is a circular hole of radius $R$ at a depth $2y$. If the rate of water flow through both the holes are equal, then $R$ is equal to",
+      "stemLatex": "A large open tank has two holes in the wall. One is a square hole of side $L$ at a depth $y$ from the top and the other is a circular hole of radius $R$ at a depth $2y$ from the top. The quantities of water flowing out per second from both holes are the same. Then $R/L$ is equal to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{L}{\\sqrt{2\\pi}}$",
+          "latex": "$\\dfrac{1}{\\sqrt{2}\\,\\pi}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{L}{2\\pi}$",
+          "latex": "$\\dfrac{1}{2^{\\frac{1}{4}}\\sqrt{\\pi}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{L}{\\pi}$",
+          "latex": "$\\dfrac{1}{2^{\\frac{1}{4}}\\,\\pi}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{L}{24\\pi}$",
+          "latex": "$\\dfrac{1}{2\\pi}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q51)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q51 (Set A, Q51)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "fluid",
         "torricelli",
-        "flow-rate"
+        "efflux",
+        "equation-of-continuity"
       ]
     },
     {
       "id": "jelet-2022-q052",
       "qNumber": 52,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P08",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -2566,46 +2579,47 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q52)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q52 (Set A, Q52)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "fluid",
         "viscosity",
-        "terminal-velocity"
+        "stokes-law",
+        "terminal-velocity",
+        "power"
       ]
     },
     {
       "id": "jelet-2022-q053",
       "qNumber": 53,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P10",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "A well lagged wire of length $L$ and cross-sectional area $S$ has its ends maintained at temperatures $T_{1}$ and $T_{2}$. The thermal conductivity of the wire is given by $K = \\beta + T$ where $T$ is the temperature and $\\beta$ and $\\gamma$ are constants. Then the rate of flow of heat along the wire is equal to",
+      "stemLatex": "A well lagged wire of length $L$ and cross-sectional area $S$ has its ends maintained at temperatures $T_{1}$ and $T_{2}$. The thermal conductivity of the wire is given by $K = \\beta + \\gamma T$ where $T$ is the temperature and $\\beta$ and $\\gamma$ are constants. Then the rate of flow of heat along the wire is equal to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{S\\beta}{L}(T_{1}-T_{2})$ if $\\gamma = 0$",
+          "latex": "$\\dfrac{S\\beta}{L}(T_{1} - T_{2})$ if $\\gamma = 0$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{S\\gamma}{L}(T_{1}+T_{2})$ if $\\beta = 0$",
+          "latex": "$\\dfrac{S\\gamma}{2L}(T_{1}^{2} + T_{2}^{2})$ if $\\beta = 0$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{S\\beta}{L}(T_{1}-T_{2})$ if $\\gamma = 0, \\beta = 0$",
+          "latex": "$\\dfrac{S}{L}(T_{1} - T_{2})$ if $\\gamma = 0, \\beta = 0$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{S\\gamma}{L}(T_{1}+T_{2})$ if $\\beta = 0$",
+          "latex": "$\\dfrac{S\\beta}{L}(T_{1}^{2} - T_{2}^{2})$ if $\\gamma = \\dfrac{\\beta}{2}$",
           "figure": null
         }
       ],
@@ -2614,46 +2628,46 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q53)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q53 (Set A, Q53)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "thermodynamics",
-        "heat-conduction",
-        "conductivity"
+        "conduction",
+        "variable-conductivity",
+        "heat-current"
       ]
     },
     {
       "id": "jelet-2022-q054",
       "qNumber": 54,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P09",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 13,
-      "stemLatex": "A one litre glass flask contains some mercury. It is found that at different temperatures, the volume of air in the empty space in the flask remains the same. What is the volume of mercury in the flask? (The co-efficient of linear expansion of glass is $9 \\times 10^{-6}\\,^{\\circ}\\text{C}^{-1}$ and the volume expansion of mercury is $1.8 \\times 10^{-4}\\,^{\\circ}\\text{C}^{-1}$)",
+      "stemLatex": "A one litre glass flask contains some mercury. It is found that at different temperatures, the volume of air in the empty space in the flask remains the same. What is the volume of mercury in the flask ? (The co-efficient of linear expansion of glass is $9 \\times 10^{-6}\\ ^{\\circ}\\text{C}^{-1}$ and the volume expansion of mercury is $1.8 \\times 10^{-4}\\ ^{\\circ}\\text{C}^{-1}$)",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$50\\,\\text{cm}^{3}$",
+          "latex": "$50\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$150\\,\\text{cm}^{3}$",
+          "latex": "$150\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$450\\,\\text{cm}^{3}$",
+          "latex": "$450\\ \\text{cm}^{3}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$400\\,\\text{cm}^{3}$",
+          "latex": "$400\\ \\text{cm}^{3}$",
           "figure": null
         }
       ],
@@ -2662,14 +2676,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q54)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q54 (Set A, Q54)"
       },
       "difficulty": "medium",
       "tags": [
         "thermal-expansion",
-        "expansion",
-        "volume"
+        "volume-expansion",
+        "constant-air-gap"
       ]
     },
     {
@@ -2684,46 +2698,46 @@
       "stemLatex": "Consider an isobaric process of a monoatomic gas as shown in figure. The ratio of work done by the gas to the heat absorbed by it, when it undergoes a change from state $A$ to state $B$ is",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q55.svg",
-        "alt": "Figure for JELET 2022 Q55",
-        "width": 420,
-        "height": 220,
+        "alt": "P versus V: a horizontal line at constant pressure with point A and, to its right, point B",
+        "width": 240,
+        "height": 124,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{2}{5}$",
+          "latex": "$\\dfrac{2}{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{5}$",
+          "latex": "$\\dfrac{1}{3}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{3}{5}$",
+          "latex": "$\\dfrac{2}{7}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{1}{3}$",
+          "latex": "$\\dfrac{2}{5}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q55)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q55 (Set A, Q55)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "thermodynamics",
-        "isobaric",
-        "work-heat"
+        "isobaric-process",
+        "first-law",
+        "molar-heat-capacity"
       ]
     },
     {
@@ -2735,7 +2749,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "The angle of prism and refractive index of its material are $A$ and $\\cot\\dfrac{A}{2}$. Then $\\cos\\delta_{m}$ is ($\\delta_{m}$ : angle of minimum deviation) ($A < \\pi/2$)",
+      "stemLatex": "The angle of prism and refractive index of its material are $A$ and $\\cot\\dfrac{A}{2}$ respectively. Then $\\cos\\delta_{m}$ is ($\\delta_{m}$ : angle of minimum deviation) ($A < \\pi/2$)",
       "stemFigure": null,
       "options": [
         {
@@ -2764,14 +2778,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q56)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q56 (Set A, Q56)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "refraction",
         "prism",
-        "minimum-deviation"
+        "minimum-deviation",
+        "trigonometry"
       ]
     },
     {
@@ -2783,34 +2797,58 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 14,
-      "stemLatex": "A vessel of height $H$ contains a liquid of refractive index $\\mu$. A spot $P$ at the bottom of the vessel creates an image $P'$ at a distance $d$ from the top of the vessel when viewed from the top. The liquid gradually drains out from a hole at the bottom. If $x$ represents the height of the water from the bottom at any instant, then the graph $d$ versus $x$ will be like",
+      "stemLatex": "A vessel of height $H$ contains a liquid of refractive index ‘$\\mu$’. A spot $P$ at the bottom of the vessel creates an image $P'$ at a distance '$d$' from the top of the vessel when viewed from the top. The liquid gradually drains out from a hole at the bottom. If ‘$x$’ represents the height of the water from the bottom at any instant, then the graph $d$ versus $x$ will be like,",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q57.svg",
-        "alt": "Figure for JELET 2022 Q57",
-        "width": 420,
-        "height": 220,
+        "alt": "A vessel of height H viewed by an eye at Q above the top; liquid fills it to height x; the spot P at the bottom and its image P' at depth d below the top; a small outlet at the bottom right",
+        "width": 220,
+        "height": 214,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "graph A",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-optA.svg",
+            "alt": "Graph (A): d versus x; a straight line rising from d = H at x = 0 to d = μH at x = H",
+            "width": 200,
+            "height": 128,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "graph B",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-optB.svg",
+            "alt": "Graph (B): d versus x; a straight line falling from d = H at x = 0 to d = H/μ at x = H",
+            "width": 200,
+            "height": 128,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "graph C",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-optC.svg",
+            "alt": "Graph (C): d versus x; a straight line rising from d = H/μ at x = 0 to d = H at x = H",
+            "width": 200,
+            "height": 128,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "graph D",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q57-optD.svg",
+            "alt": "Graph (D): d versus x; a straight line rising from the origin O to d = H at x = H",
+            "width": 200,
+            "height": 128,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -2818,13 +2856,13 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q57)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q57 (Set A, Q57)"
       },
       "difficulty": "medium",
       "tags": [
-        "refraction",
         "apparent-depth",
+        "refraction",
         "graph"
       ]
     },
@@ -2832,12 +2870,12 @@
       "id": "jelet-2022-q058",
       "qNumber": 58,
       "subjectId": "PHYS",
-      "unitId": "P14",
+      "unitId": "P13",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A point source of monochromatic light $S$ is kept at the centre of the bottom of a cylinder of radius $15\\,\\text{cm}$. The cylinder contains liquid of refractive index $\\mu$ to a height of $7.0\\,\\text{cm}$. If the area of liquid surface through which the light emerges in air is $200\\,\\text{cm}^{2}$, then $\\mu^{2}$ equals to",
+      "stemLatex": "A point source of monochromatic light $S$ is kept at the centre of the bottom of a cylinder of radius $15$ cm. The cylinder contains liquid of refractive index $\\mu$ to a height of $7.0$ cm. If the area of liquid surface through which the light emerges in air is $200\\ \\text{cm}^{2}$, then $\\mu^{2}$ equal to",
       "stemFigure": null,
       "options": [
         {
@@ -2866,14 +2904,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q58)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q58 (Set A, Q58)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "refraction",
         "total-internal-reflection",
-        "critical-angle"
+        "critical-angle",
+        "circle-of-light"
       ]
     },
     {
@@ -2885,7 +2923,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A thin biconvex lens of radius $10\\,\\text{cm}$ and index $\\dfrac{3}{2}$ is placed on a horizontal plane mirror. The space between the lens and the mirror is filled with a liquid of refractive index $\\mu$. If the system has a focal length of $25\\,\\text{cm}$, then $\\mu$ equals to",
+      "stemLatex": "A thin biconvex lens of radius $10$ cm and index $\\dfrac{3}{2}$ is placed on a horizontal plane mirror. The space between the lens and the mirror is filled with a liquid of refractive index $\\mu$. If the system has a focal length of $25$ cm, then $\\mu$ equals to",
       "stemFigure": null,
       "options": [
         {
@@ -2914,14 +2952,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q59)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q59 (Set A, Q59)"
       },
       "difficulty": "hard",
       "tags": [
-        "lens",
-        "mirror",
-        "liquid-lens"
+        "lens-combination",
+        "liquid-lens",
+        "lens-maker"
       ]
     },
     {
@@ -2933,27 +2971,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "Given that a photon of light of wavelength $10,000\\,\\text{\\AA}$ has an energy equal to $1.243\\,\\text{eV}$. When light of wavelength $5000\\,\\text{\\AA}$ and intensity $I_{0}$ falls on a photo electric cell, the surface current is $0.4\\,\\mu\\text{A}$ and the stopping potential is $1.36\\,\\text{V}$. Then the work function is approximately",
+      "stemLatex": "Given that a photon of light of wavelength $10{,}000\\ \\text{A}^{\\circ}$ has an energy equal to $1.243$ eV. When light of wavelength $5000\\ \\text{A}^{\\circ}$ and intensity $I_{0}$ falls on a photo electric cell, the surface current is $0.4\\ \\mu\\text{A}$ and the stopping potential is $1.36$ V. Then the work function is approximately",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$0.43\\,\\text{eV}$",
+          "latex": "$0.43$ eV",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$1.54\\,\\text{eV}$",
+          "latex": "$1.54$ eV",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0.57\\,\\text{eV}$",
+          "latex": "$0.57$ eV",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$1.12\\,\\text{eV}$",
+          "latex": "$1.12$ eV",
           "figure": null
         }
       ],
@@ -2962,12 +3000,12 @@
         "correct": [
           "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q60)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q60 (Set A, Q60)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "photoelectric",
+        "photoelectric-effect",
         "work-function",
         "stopping-potential"
       ]
@@ -2981,17 +3019,17 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 15,
-      "stemLatex": "A and B are two identical balls. Ball A moving with a speed of $6\\,\\text{m/s}$ along the positive $x$ axis collides with ball B at rest. After collision each ball moves making a direction $30^{\\circ}$ with $x$ axis. Then,",
+      "stemLatex": "$A$ and $B$ are two identical balls. Ball $A$ moving with a speed of $6$ m/s along the positive $x$ axis collides with ball $B$ at rest. After collision each ball moves making a direction $30^{\\circ}$ with $x$ axis. Then,",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "Speed of ball A after collision is $\\sqrt{3}\\,\\text{m/s}$",
+          "latex": "Speed of ball $A$ after collision is $\\sqrt{3}$ m/s",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "Speed of ball B after collision is $\\sqrt{3}\\,\\text{m/s}$",
+          "latex": "Speed of ball $B$ after collision is $\\sqrt{3}$ m/s",
           "figure": null
         },
         {
@@ -3010,14 +3048,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q61)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q61 (Set A, Q61)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "collision",
-        "elastic",
-        "momentum-conservation"
+        "oblique-collision",
+        "momentum-conservation",
+        "kinetic-energy"
       ]
     },
     {
@@ -3029,49 +3067,73 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A cyclic process $ABCA$, shown in $V$-$T$ diagram, is performed with a constant mass of an ideal gas. Which of the following graphs represents the corresponding process on a $P$-$V$ diagram?",
+      "stemLatex": "A cyclic process $ABCA$, shown in $V$-$T$ diagram, is performed with a constant mass of an ideal gas. Which of the following graphs represents the corresponding prosses on a $P$-$V$ diagram ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q62.svg",
-        "alt": "Figure for JELET 2022 Q62",
-        "width": 420,
-        "height": 220,
+        "alt": "V versus T with origin O: from A a straight line rises to B (upper right), B to C runs horizontally to the left at constant V, and C to A drops vertically at constant T; arrows A→B→C→A",
+        "width": 252,
+        "height": 166,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "graph A",
-          "figure": null
+          "latex": "Graph (A)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-optA.svg",
+            "alt": "Graph (A): P–V diagram; from A a curve falls gently to B, B to C is vertical downward, and a steeper curve returns from C up to A",
+            "width": 200,
+            "height": 126,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "graph B",
-          "figure": null
+          "latex": "Graph (B)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-optB.svg",
+            "alt": "Graph (B): P–V diagram; A to B vertical downward, B to C horizontal to the right, and a curve returns from C up to A",
+            "width": 200,
+            "height": 126,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "graph C",
-          "figure": null
+          "latex": "Graph (C)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-optC.svg",
+            "alt": "Graph (C): P–V diagram; A to B horizontal to the right, B to C vertical downward, and a curve returns from C up to A",
+            "width": 200,
+            "height": 126,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "graph D",
-          "figure": null
+          "latex": "Graph (D)",
+          "figure": {
+            "src": "./_data/figures/2022/fig-2022-q62-optD.svg",
+            "alt": "Graph (D): P–V diagram; A to B horizontal to the right, B to C vertical downward, and a straight sloping line returns from C to A",
+            "width": 200,
+            "height": 126,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q62)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q62 (Set A, Q62)"
       },
       "difficulty": "medium",
       "tags": [
-        "thermodynamics",
+        "cyclic-process",
         "pv-diagram",
-        "cycle"
+        "vt-diagram"
       ]
     },
     {
@@ -3083,7 +3145,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A piece of ice floats in a liquid of density $\\rho_{L}$. Density of water is $\\rho_{W}$ and $\\rho_{L} \\neq \\rho_{W}$. When the ice melts completely, the level of liquid",
+      "stemLatex": "A piece of ice floats in a liquid of density $\\rho_{L}$. Density of water is $\\rho w$ and $\\rho_{L} \\neq \\rho_{W}$. When the ice melts completely, the level of liquid",
       "stemFigure": null,
       "options": [
         {
@@ -3112,21 +3174,21 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q63)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q63 (Set A, Q63)"
       },
       "difficulty": "medium",
       "tags": [
-        "fluid",
-        "buoyancy",
-        "density"
+        "floatation",
+        "archimedes",
+        "melting-ice"
       ]
     },
     {
       "id": "jelet-2022-q064",
       "qNumber": 64,
       "subjectId": "PHYS",
-      "unitId": "P15",
+      "unitId": "P05",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -3136,70 +3198,70 @@
       "options": [
         {
           "id": "A",
-          "latex": "$V_{P} + V_{Q} = V_{W}$",
+          "latex": "$V_{W} < V_{Q} = V_{P}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$V_{P} + V_{Q} > V_{W}$",
+          "latex": "$V_{W} > V_{Q} = V_{P}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$V_{P} + V_{Q} < V_{W}$",
+          "latex": "$V_{W} > V_{Q} > V_{P}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$V_{P} = V_{Q} = V_{W}$",
+          "latex": "$V_{Q} > V_{W} > V_{P}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q64)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q64 (Set A, Q64)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "gravitation",
         "escape-velocity",
-        "density"
+        "uniform-density",
+        "scaling"
       ]
     },
     {
       "id": "jelet-2022-q065",
       "qNumber": 65,
       "subjectId": "PHYS",
-      "unitId": "P11",
+      "unitId": "P09",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 16,
-      "stemLatex": "A rod of length $1000\\,\\text{mm}$ and co-efficient of linear expansion $\\alpha = 10^{-4}\\,^{\\circ}\\text{C}^{-1}$ is placed symmetrically between fixed walls separated by $1001\\,\\text{mm}$. The Young's modulus of the rod is $10^{11}\\,\\text{N/m}^{2}$. If the temperature is increased by $30^{\\circ}\\text{C}$, then the stress developed in the rod is",
+      "stemLatex": "A rod of length $1000$ mm and co-efficient of linear expansion $\\alpha = 10^{-4}\\ ^{\\circ}\\text{C}^{-1}$ is placed symmetrically between fixed walls separated by $1001$ mm. The Young's modulus of the rod is $10^{11}\\ \\text{N/m}^{2}$. If the temperature is increased by $30^{\\circ}\\text{C}$, then the stress developed in the rod is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$10^{8}\\,\\text{Pa}$",
+          "latex": "$10^{8}$ Pa",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2 \\times 10^{8}\\,\\text{Pa}$",
+          "latex": "$2 \\times 10^{8}$ Pa",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3 \\times 10^{8}\\,\\text{Pa}$",
+          "latex": "$3 \\times 10^{8}$ Pa",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$4 \\times 10^{8}\\,\\text{Pa}$",
+          "latex": "$4 \\times 10^{8}$ Pa",
           "figure": null
         }
       ],
@@ -3208,14 +3270,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q65)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q65 (Set A, Q65)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "elasticity",
         "thermal-stress",
-        "young-modulus"
+        "young-modulus",
+        "expansion-gap"
       ]
     },
     {
@@ -3227,12 +3289,12 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "A closed container of fixed volume has a mixture of one mole of hydrogen and one mole of helium in equilibrium at temperature $T$. Assume the gases are ideal. Which of the following statement(s) is/are true?",
+      "stemLatex": "A closed container of fixed volume has a mixture of one mole of hydrogen and one mole of helium in equilibrium at temperature $T$. Assume the gases are ideal. Which of the following statement (s) is/are true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "The average energy per mole of the mixture is $\\dfrac{3}{2}RT$",
+          "latex": "$\\gamma\\left(= \\dfrac{C_{P}}{C_{V}}\\right)$ of the mixture is $\\dfrac{3}{2}$",
           "figure": null
         },
         {
@@ -3247,22 +3309,23 @@
         },
         {
           "id": "D",
-          "latex": "The ratio of rms speed of the Helium molecules to that of hydrogen molecules is $1:\\sqrt{2}$",
+          "latex": "The ratio of rms speed of the Helium molecules to that of hydrogen molecules is $1 : \\sqrt{2}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
+          "A",
           "B",
           "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q66)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q66 (Set A, Q66)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "kinetic-theory",
+        "gas-mixture",
         "degrees-of-freedom",
         "rms-speed"
       ]
@@ -3271,12 +3334,12 @@
       "id": "jelet-2022-q067",
       "qNumber": 67,
       "subjectId": "PHYS",
-      "unitId": "P03",
+      "unitId": "P04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 17,
-      "stemLatex": "A particle of mass $m$ moves rectilinearly under the force $F = A - Bx$ where $A > 0$, $B > 0$ and $x$ is the distance from the point where the particle was initially at rest. If $d$ is the distance travelled by the particle till it comes to rest, then which of the following statement(s) is/are true?",
+      "stemLatex": "A particle of mass '$m$' moves rectilinearly under the force $F = A - Bx$ where $A > 0$, $B > 0$ and ‘$x$’ is the distance from the point where the particle was initially at rest. If ‘$d$’ is the distance travelled by the particle till it comes to rest, then which of the following statement(s) is/are true ?",
       "stemFigure": null,
       "options": [
         {
@@ -3291,7 +3354,7 @@
         },
         {
           "id": "C",
-          "latex": "Speed of the particle at a distance $x = \\dfrac{A}{B}$ is $\\dfrac{A}{\\sqrt{mB}}$",
+          "latex": "Speed of the particle at a distance $x = \\dfrac{A}{B}$ is $B\\sqrt{\\dfrac{m}{A}}$",
           "figure": null
         },
         {
@@ -3306,31 +3369,31 @@
           "A",
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q67)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q67 (Set A, Q67)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "work-energy",
-        "force",
-        "acceleration"
+        "work-energy-theorem",
+        "variable-force",
+        "shm"
       ]
     },
     {
       "id": "jelet-2022-q068",
       "qNumber": 68,
       "subjectId": "PHYS",
-      "unitId": "P04",
+      "unitId": "P03",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 18,
-      "stemLatex": "A stone of mass $m$ travels with a uniform speed $v_{0}$ perpendicular to a stick of mass $m$ and length $L$ at rest. The stone collides elastically with the stick at a distance $h$ from its centre of mass. The stone and the stick move with equal speed after collision. Assume that stone moves in the same direction after collision. Then which of the following statement(s) is/are true?",
+      "stemLatex": "A stone of mass '$m$' travels with a uniform speed $v_{0}$ perpendicular to a stick of mass ‘$m$’ and length $L$ at rest. The stone collides elastically with the stick at a distance ‘$h$’ from its centre of mass. The stone and the stick move with equal speed after collision. Assume that stone moves in the same direction after collision. Then which of the following statement(s) is/are true ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q68.svg",
-        "alt": "Figure for JELET 2022 Q68",
-        "width": 420,
-        "height": 220,
+        "alt": "A stone m moving to the right with speed v0 along a dashed horizontal line that meets a vertical stick; the stick's centre of mass CM lies a distance h below the line of motion",
+        "width": 250,
+        "height": 216,
         "themeAdaptive": true
       },
       "options": [
@@ -3341,7 +3404,7 @@
         },
         {
           "id": "B",
-          "latex": "The angular velocity of the stick is $\\dfrac{\\sqrt{6}v_{0}}{L}$",
+          "latex": "The angular velocity of the stick is $\\dfrac{\\sqrt{6}\\,v_{0}}{L}$",
           "figure": null
         },
         {
@@ -3351,7 +3414,7 @@
         },
         {
           "id": "D",
-          "latex": "The speed of the stone after collision is $v_{0}$",
+          "latex": "$h = \\dfrac{L}{\\sqrt{6}}$",
           "figure": null
         }
       ],
@@ -3359,16 +3422,17 @@
         "status": "active",
         "correct": [
           "A",
-          "B"
+          "B",
+          "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q68)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q68 (Set A, Q68)"
       },
       "difficulty": "hard",
       "tags": [
-        "collision",
+        "elastic-collision",
         "angular-momentum",
-        "elastic"
+        "rigid-body"
       ]
     },
     {
@@ -3380,23 +3444,23 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 18,
-      "stemLatex": "A biconvex lens of focal length $15\\,\\text{cm}$ is placed $10\\,\\text{cm}$ in front of a plane mirror. A small object $O$ is kept at a distance of $30\\,\\text{cm}$ in front of the lens as shown in the figure. Then which of the following statement(s) is/are true?",
+      "stemLatex": "A biconvex lens of focal length $15$ cm is placed $10$ cm in front of a plane mirror. A small object $O$ is kept at a distance of $30$ cm in front of the lens as shown in the figure. Then which of the following statement(s) is /are true ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q69.svg",
-        "alt": "Figure for JELET 2022 Q69",
-        "width": 420,
-        "height": 220,
+        "alt": "Principal axis (arrow to the right) with object O, the points I2 and IF, a biconvex lens, a plane mirror 10 cm to the right of the lens, and I1 beyond the mirror; O is 30 cm to the left of the lens",
+        "width": 356,
+        "height": 148,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "The second image $I_{2}$ will be formed at a distance $10\\,\\text{cm}$ to the left of the lens.",
+          "latex": "The second image $I_{2}$ will be formed at a distance $10$ cm to the left of the lens.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "The final image at $I_{P}$ is at a distance $16\\,\\text{cm}$ from mirror.",
+          "latex": "The final image at $I_{F}$ is at a distance $16$ cm from mirror.",
           "figure": null
         },
         {
@@ -3414,15 +3478,17 @@
         "status": "active",
         "correct": [
           "A",
-          "B"
+          "B",
+          "C",
+          "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q69)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q69 (Set A, Q69)"
       },
       "difficulty": "hard",
       "tags": [
-        "lens",
-        "mirror",
+        "lens-mirror-system",
+        "virtual-object",
         "image-formation"
       ]
     },
@@ -3464,13 +3530,13 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q70)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _b22_q70 (Set A, Q70)"
       },
       "difficulty": "medium",
       "tags": [
-        "photoelectric",
-        "frequency",
+        "photoelectric-effect",
+        "photon-flux",
         "intensity"
       ]
     },

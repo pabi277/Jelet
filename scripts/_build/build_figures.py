@@ -1279,159 +1279,239 @@ def fig_2024_q98():
 
 # ---- 2022 figures ----
 
-def fig_2022_q42():
-    """L, h, t error bars for a strip measurement."""
-    body = ""
-    body += label(40, 25, "Measurement error diagram", 10)
-    # three bars: L, h, t
-    for i, (name, val, err, y) in enumerate([("L", 10.0, 0.1, 60), ("h", 1.00, 0.01, 110), ("t", 0.1, 0.001, 160)]):
-        body += label(40, y-5, name, 11, "var(--fig-text)")
-        x1 = 80 + i * 30
-        body += line(x1, y, x1+40, y, stroke="var(--fig-primary)", sw=2)
-        body += line(x1, y-5, x1, y+5, stroke="var(--fig-danger)", sw=1.5)
-        body += line(x1+40, y-5, x1+40, y+5, stroke="var(--fig-danger)", sw=1.5)
-        body += label(x1+45, y+3, f"{val}±{err}", 9, "var(--fig-axis)")
-    return svg_wrap(240, 200, body, "2022 Q42: Measurement error bars")
+# ---------------------------------------------------------------------------
+# JELET 2022 Batch B (Physics Q41–Q70): faithful redraws of the Set-A booklet figures (PDF pages 12–18
+# read at 180 DPI, figures zoomed at 300–500 DPI). No captions (the booklet prints none); key elements carry
+# data-role attributes so scripts/verify_solutions_sympy.py (_b22_qN) can read the geometry back.
+# Q42 prints no figure (the old fig-2022-q42 "error bar" drawing was invented and is removed); Q49 prints only
+# four option graphs (no stem figure). Colours: var(--fig-*) tokens only.
+# ---------------------------------------------------------------------------
+def _b22_axes(ox, oy, xr, yt, xl=None, yb=None):
+    body = _p24_role(arrow(ox if xl is None else xl, oy, xr, oy, stroke="var(--fig-axis)", sw=1.2), "axis-h")
+    body += _p24_role(arrow(ox, oy if yb is None else yb, ox, yt, stroke="var(--fig-axis)", sw=1.2), "axis-v")
+    return body
 
-def fig_2022_q46():
-    """Spring-mass system with force F applied."""
+def _b22_dash(x1, y1, x2, y2, role):
+    return _p24_role(line(round(x1, 1), round(y1, 1), round(x2, 1), round(y2, 1), stroke="var(--fig-axis)", sw=0.9, dash="3,2.5"), role)
+
+def _b22_hatch(x1, y1, x2, y2, side, n, ln=7):
+    """Short slanted hatch strokes along a wall/floor segment; side = (dx, dy) unit offset of the hatching."""
     body = ""
-    body += label(40, 25, "Spring-mass system", 10)
-    # wall
-    body += line(30, 100, 30, 160, stroke="var(--fig-axis)", sw=3)
-    body += polyline("30,100 30,95 35,95 30,90 35,90 30,85 35,85 30,80 35,80 30,75 35,75 30,70 35,70", stroke="var(--fig-primary)", sw=2)
-    # spring
-    body += line(35, 70, 90, 70, stroke="var(--fig-primary)", sw=1.5)
-    # mass block
-    body += line(90, 60, 140, 60, stroke="var(--fig-primary)", sw=2)
-    body += line(90, 60, 90, 90, stroke="var(--fig-primary)", sw=2)
-    body += line(140, 60, 140, 90, stroke="var(--fig-primary)", sw=2)
-    body += line(90, 90, 140, 90, stroke="var(--fig-primary)", sw=2)
-    body += label(115, 78, "m", 11, "var(--fig-text)", "middle")
-    # force arrow
-    body += arrow(150, 75, 210, 75, stroke="var(--fig-danger)", label="F", label_pos=(215, 70))
-    body += label(115, 120, "Spring constant k", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 180, body, "2022 Q46: Spring-mass with force")
+    for j in range(n + 1):
+        x = x1 + (x2 - x1)*j/n; y = y1 + (y2 - y1)*j/n
+        body += line(round(x, 1), round(y, 1), round(x + side[0]*ln - side[1]*ln*0.6, 1), round(y + side[1]*ln + side[0]*ln*0.6, 1), stroke="var(--fig-line)", sw=0.8)
+    return body
+
+def _b22_dot(x, y, role, r=3.2, hollow=False):
+    fill = "none" if hollow else "var(--fig-node)"
+    return _p24_role(f'  <circle cx="{x}" cy="{y}" r="{r}" fill="{fill}" stroke="var(--fig-node)" stroke-width="1.2"/>\n', role)
+
+def _b22_dim(x, y1, y2, role):
+    """Vertical double-headed dimension arrow."""
+    body = _p24_role(line(x, y1, x, y2, stroke="var(--fig-line)", sw=1.0), role)
+    return body + _arrowhead(x, y1, -90, 6, "var(--fig-line)") + _arrowhead(x, y2, 90, 6, "var(--fig-line)")
+
+# ---- Q46: wall – spring k – block m on a hatched floor, force F to the right -------------------------
+def fig_2022_q46():
+    xw, yf = 34, 92
+    body = _p24_role(line(xw, 22, xw, yf, stroke="var(--fig-line)", sw=1.5), "wall") + _b22_hatch(xw, 26, xw, yf, (-1, 0), 9)
+    body += _p24_role(line(xw, yf, 272, yf, stroke="var(--fig-line)", sw=1.5), "floor") + _b22_hatch(xw, yf, 272, yf, (0, 1), 30)
+    body += _p24_role(line(xw, 66, 86, 66, stroke="var(--fig-line)", sw=1.2), "lead-wall") + _p23_spring(86, 130, 70)
+    body += _p24_role(line(130, 66, 172, 66, stroke="var(--fig-line)", sw=1.2), "lead-block")
+    body += _p24_role(f'  <rect x="172" y="46" width="44" height="46" fill="none" stroke="var(--fig-line)" stroke-width="1.4"/>\n', "block")
+    body += _p24_role(arrow(216, 66, 262, 66, stroke="var(--fig-line)", sw=1.3), "F")
+    body += mlabel(108, 40, "k", 14) + mlabel(194, 72, "m", 14) + mlabel(268, 71, "F", 14, anchor="start")
+    return svg_plain(290, 108, body, "2022 Q46: " + "a vertical hatched wall on the left and a hatched floor; a spring k joins the wall to a block m on the floor; a force F pulls the block to the right")
+
+# ---- Q48: disc, centre C, P1 at the left end of the dashed horizontal diameter, P2 at the bottom --------
+_P22_Q48 = dict(cx=130, cy=96, r=58)
 
 def fig_2022_q48():
-    """Disc with point mass m at point P, rotating to bottom P2."""
-    body = ""
-    body += label(40, 25, "Disc with point mass", 10)
-    # disc
-    body += circle(120, 120, 60, stroke="var(--fig-primary)", sw=2)
-    # center
-    body += dot(120, 120, 3)
-    # point mass at top P1
-    body += dot(120, 60, 5, fill="var(--fig-danger)")
-    body += label(125, 55, "P (top)", 9, "var(--fig-danger-soft)")
-    # bottom P2
-    body += dot(120, 180, 5, fill="var(--fig-secondary)")
-    body += label(125, 195, "P2 (bottom)", 9, "var(--fig-secondary-soft)")
-    body += label(60, 125, "M, R", 10, "var(--fig-text)")
-    body += label(120, 20, "m", 11, "var(--fig-danger)", "middle")
-    return svg_wrap(240, 220, body, "2022 Q48: Disc with point mass")
+    g = _P22_Q48; cx, cy, r = g["cx"], g["cy"], g["r"]
+    body = _p24_role(f'  <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="var(--fig-line)" stroke-width="1.5"/>\n', "disc")
+    body += _p24_role(line(cx - r - 18, cy, cx + r + 22, cy, stroke="var(--fig-axis)", sw=1.0, dash="4,3"), "diameter")
+    ax = _m.radians(-40)                                        # the horizontal axis, drawn slanting through C
+    body += _p24_role(line(round(cx - 100*_m.cos(ax), 1), round(cy - 100*_m.sin(ax), 1), round(cx - r*_m.cos(ax), 1), round(cy - r*_m.sin(ax), 1),
+                           stroke="var(--fig-line)", sw=1.2), "axis-in")
+    body += line(round(cx - r*_m.cos(ax), 1), round(cy - r*_m.sin(ax), 1), cx, cy, stroke="var(--fig-line)", sw=1.2)
+    body += _p24_role(line(cx, cy, round(cx + 100*_m.cos(ax), 1), round(cy + 100*_m.sin(ax), 1), stroke="var(--fig-line)", sw=1.2), "axis-out")
+    ra = _m.radians(-115)
+    body += _p24_role(arrow(cx, cy, round(cx + r*_m.cos(ra), 1), round(cy + r*_m.sin(ra), 1), stroke="var(--fig-line)", sw=1.2), "radius")
+    body += _b22_dot(cx, cy, "C", 3.0) + _b22_dot(cx - r, cy, "P1", 3.6) + _b22_dot(cx, cy + r, "P2", 3.6)
+    body += path(f"M {cx - r - 3},{cy + 8} Q {cx - r - 6},{cy + 22} {cx - r + 1},{cy + 30}", stroke="var(--fig-line)", sw=1.1)
+    body += _arrowhead(cx - r + 1, cy + 30, 60, 6, "var(--fig-line)")
+    body += _p24_sub(cx - r - 16, cy - 8, "P", "1", 13, italic=False) + mlabel(cx - r + 14, cy - 8, "m", 13)
+    body += mlabel(cx + 9, cy - 8, "C", 13) + mlabel(cx - 12, cy - r + 16, "R", 13) + mlabel(cx + 38, cy + 34, "M", 13)
+    body += _p24_sub(cx - 6, cy + r + 20, "P", "2", 13, italic=False)
+    return svg_plain(260, 196, body, "2022 Q48: " + "a disc of mass M with centre C; its horizontal axis is drawn slanting through C; the point mass m sits at P1, the left end of the dashed horizontal diameter; a radius R from C; a curved arrow at P1 points downward; P2 is the lowest point of the rim")
 
-def fig_2022_q49():
-    """|V(x)| vs x for two masses at y=±a."""
-    body = ""
-    body += label(40, 25, "|V(x)| vs x", 10)
-    body += line(40, 140, 200, 140, stroke="var(--fig-line)", sw=1.5)
-    body += line(40, 40, 40, 180, stroke="var(--fig-line)", sw=1.5)
-    # bell-shaped curve symmetric about x=0 (center)
-    body += path("M 40 140 C 70 140, 80 60, 120 50 C 160 60, 170 140, 200 140", stroke="var(--fig-primary)", sw=2)
-    body += label(120, 195, "x", 10, "var(--fig-axis)", "middle")
-    body += label(30, 55, "|V(x)|", 10, "var(--fig-axis)")
-    body += label(120, 30, "Symmetric bell curve", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 220, body, "2022 Q49: |V(x)| graph")
+# ---- Q49: four |V(x)| option graphs (no stem figure in the booklet) ------------------------------------
+_P22_Q49 = dict(ox=100, oy=100, xl=18, xr=186, yt=10)
 
+def _p22_q49(fn, u0, u1, aria):
+    g = _P22_Q49
+    body = _b22_axes(g["ox"], g["oy"], g["xr"], g["yt"], xl=g["xl"])
+    pts = [(g["ox"] + u, g["oy"] - fn(u)) for u in [u0 + (u1 - u0)*j/120 for j in range(121)]]
+    body += _p24_poly(pts, "V-x", stroke="var(--fig-primary)", sw=1.6)
+    body += mlabel(g["ox"] + 6, 20, "|V(x)|", 13, anchor="start") + mlabel(g["xr"] - 4, g["oy"] - 8, "x", 13, italic=True)
+    return svg_plain(200, 116, body, aria)
+
+def fig_2022_q49_optA():
+    return _p22_q49(lambda u: 62*(1 - _m.exp(-(u/30)**2)), -78, 78, "2022 Q49 (A): |V(x)| versus x, zero at x = 0 rising on both sides to a constant level")
+def fig_2022_q49_optB():
+    return _p22_q49(lambda u: 18 + 0.012*u*u, -50, 50, "2022 Q49 (B): |V(x)| versus x, a U-shaped curve above the axis with its minimum at x = 0")
+def fig_2022_q49_optC():
+    return _p22_q49(lambda u: 32*_m.sqrt(max(0.0, 1 - (u/40)**2)), -40, 40, "2022 Q49 (C): |V(x)| versus x, a semicircular hump meeting the x-axis at two points")
+def fig_2022_q49_optD():
+    return _p22_q49(lambda u: 66/_m.sqrt(1 + (u/22)**2), -78, 78, "2022 Q49 (D): |V(x)| versus x, a bell-shaped curve with its maximum at x = 0 approaching the axis on both sides")
+
+# ---- Q55: P–V, isobaric line with A and B ---------------------------------------------------------------
 def fig_2022_q55():
-    """PV diagram isobaric process A to B."""
-    body = ""
-    body += label(40, 25, "P-V diagram (isobaric)", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-line)", sw=1.5)
-    body += line(40, 40, 40, 160, stroke="var(--fig-line)", sw=1.5)
-    # isobaric: horizontal line from A to B
-    body += line(60, 100, 180, 100, stroke="var(--fig-primary)", sw=2.5)
-    body += dot(60, 100, 4, fill="var(--fig-danger)")
-    body += label(50, 118, "A", 10, "var(--fig-danger-soft)")
-    body += dot(180, 100, 4, fill="var(--fig-secondary)")
-    body += label(185, 118, "B", 10, "var(--fig-secondary-soft)")
-    body += label(30, 165, "V", 10, "var(--fig-axis)")
-    body += label(20, 50, "P", 10, "var(--fig-axis)")
-    return svg_wrap(240, 200, body, "2022 Q55: Isobaric P-V diagram")
+    ox, oy = 40, 112
+    body = _b22_axes(ox, oy, 214, 12)
+    body += _p24_role(line(ox, 70, 232, 70, stroke="var(--fig-line)", sw=1.4), "isobar")
+    body += _b22_dot(112, 70, "A", 3.6) + _b22_dot(162, 70, "B", 3.6)
+    body += mlabel(112, 56, "A", 14) + mlabel(162, 56, "B", 14) + mlabel(ox + 12, 20, "P", 14) + mlabel(220, 104, "V", 14)
+    return svg_plain(240, 124, body, "2022 Q55: " + "P versus V; a horizontal line at constant pressure with point A and, to its right, point B")
+
+# ---- Q57: draining vessel (stem) + four d–x option graphs -----------------------------------------------
+_P22_Q57 = dict(xl=80, xr=150, yt=44, yb=194, xliq=105, mu=4/3)
+
+def _b22_eye(cx, cy):
+    body = path(f"M {cx - 11},{cy} Q {cx},{cy - 9} {cx + 11},{cy} Q {cx},{cy + 9} {cx - 11},{cy} Z", stroke="var(--fig-line)", sw=1.2)
+    return body + f'  <circle cx="{cx}" cy="{cy}" r="3.2" fill="var(--fig-line)"/>\n'
 
 def fig_2022_q57():
-    """d vs x graph: linear decrease then constant."""
-    body = ""
-    body += label(40, 25, "d vs x graph", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-line)", sw=1.5)
-    body += line(40, 40, 40, 160, stroke="var(--fig-line)", sw=1.5)
-    # line from high d to H/mu then constant
-    body += line(40, 50, 100, 100, stroke="var(--fig-primary)", sw=2)
-    body += line(100, 100, 200, 100, stroke="var(--fig-primary)", sw=2)
-    body += dot(100, 100, 3)
-    body += label(30, 165, "x", 10, "var(--fig-axis)")
-    body += label(15, 55, "d", 10, "var(--fig-axis)")
-    body += label(100, 120, "H/μ", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 200, body, "2022 Q57: d vs x graph")
+    g = _P22_Q57; xl, xr, yt, yb = g["xl"], g["xr"], g["yt"], g["yb"]
+    H = yb - yt; ys = yb - g["xliq"]; d = (H - g["xliq"]) + g["xliq"]/g["mu"]; yp = yt + d; cx = (xl + xr)/2
+    body = _p24_role(f'  <rect x="{xl}" y="{ys}" width="{xr - xl}" height="{yb - ys}" fill="var(--fig-fill)" stroke="none"/>\n', "liquid")
+    for yy in range(int(ys) + 7, yb - 2, 8):
+        for xx in range(xl + 4, xr - 8, 12):
+            body += path(f"M {xx},{yy} q 3,-3 6,0 q 3,3 6,0", stroke="var(--fig-axis)", sw=0.6)
+    body += _p24_role(f'  <rect x="{xl}" y="{yt}" width="{xr - xl}" height="{H}" fill="none" stroke="var(--fig-line)" stroke-width="1.5"/>\n', "vessel")
+    body += _p24_role(line(xl, ys, xr, ys, stroke="var(--fig-line)", sw=1.0), "surface")
+    body += f'  <rect x="{xr}" y="{yb - 8}" width="8" height="8" fill="none" stroke="var(--fig-line)" stroke-width="1.1"/>\n'
+    body += _b22_dot(cx, yb, "P", 3.8) + _b22_dot(cx, round(yp, 1), "Pimg", 5, hollow=True)
+    body += _b22_eye(cx, 18) + mlabel(cx, 40, "Q", 12)
+    body += _b22_dim(66, yt, yb, "dim-H") + _b22_dim(168, yt, round(yp, 1), "dim-d") + _b22_dim(192, ys, yb, "dim-x")
+    body += mlabel(56, (yt + yb)/2 + 4, "H", 13) + mlabel(176, (yt + yp)/2 - 18, "d", 13, anchor="start") + mlabel(200, (ys + yb)/2 + 18, "x", 13, anchor="start")
+    body += mlabel(cx, yb + 15, "P", 12) + mlabel(cx + 12, round(yp, 1) + 4, "P′", 12, anchor="start")
+    return svg_plain(220, 214, body, "2022 Q57: " + "a vessel of height H viewed from Q above its top; liquid fills it to height x; the spot P at the bottom and its image P' at depth d below the top; a small outlet at the bottom right")
+
+_P22_Q57G = dict(ox=44, oy=108, xH=92, dH=56, mu=1.6)
+
+def _p22_q57(d0, dH, lab0, labH, aria):
+    """d–x option graph: straight line from (0, d0) to (H, dH); values in units of H; labels as printed."""
+    g = _P22_Q57G; ox, oy, s = g["ox"], g["oy"], g["dH"]
+    body = _b22_axes(ox, oy, ox + 140, 10)
+    x1 = ox + g["xH"]; y0 = round(oy - d0*s, 1); y1 = round(oy - dH*s, 1)
+    body += _p24_poly([(ox, y0), (x1, y1)], "d-x", stroke="var(--fig-primary)", sw=1.6)
+    body += _b22_dash(ox, y1, x1, y1, "guide-dH") + _b22_dash(x1, y1, x1, oy, "guide-xH")
+    if lab0 != "O":
+        body += mlabel(ox - 4, y0 + 4, lab0, 12, anchor="end")
+    body += mlabel(ox - 4, y1 + 4, labH, 12, anchor="end") + mlabel(ox - 6, oy + 6, "O", 12, anchor="end")
+    body += mlabel(x1, oy + 16, "H", 12) + mlabel(ox + 146, oy + 5, "x", 13, italic=True, anchor="start") + mlabel(ox + 10, 16, "d", 13, italic=True)
+    return svg_plain(200, 128, body, aria)
+
+def fig_2022_q57_optA():
+    mu = _P22_Q57G["mu"]; return _p22_q57(1, mu, "H", "μH", "2022 Q57 (A): d versus x, straight line rising from H at x = 0 to μH at x = H")
+def fig_2022_q57_optB():
+    mu = _P22_Q57G["mu"]; return _p22_q57(1, 1/mu, "H", "H/μ", "2022 Q57 (B): d versus x, straight line falling from H at x = 0 to H/μ at x = H")
+def fig_2022_q57_optC():
+    mu = _P22_Q57G["mu"]; return _p22_q57(1/mu, 1, "H/μ", "H", "2022 Q57 (C): d versus x, straight line rising from H/μ at x = 0 to H at x = H")
+def fig_2022_q57_optD():
+    return _p22_q57(0, 1, "O", "H", "2022 Q57 (D): d versus x, straight line rising from the origin to H at x = H")
+
+# ---- Q62: V–T cycle (stem, geometry as printed) + four P–V option graphs ------------------------------
+# Printed stem (skew-corrected, 500-DPI zoom): T_A : T_B = 146 : 524 and V_A : V_B = 43 : 286 in booklet pixels,
+# i.e. line AB extended meets the T-axis at T ≈ 0.54 T_A (it is not drawn through O). Reproduced at scale 0.33.
+_P22_Q62 = dict(ox=40, oy=150, TA=48, VA=14, TB=173, VB=94)
 
 def fig_2022_q62():
-    """V-T diagram cyclic process ABCA."""
-    body = ""
-    body += label(40, 25, "V-T diagram (cycle)", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-line)", sw=1.5)
-    body += line(40, 40, 40, 160, stroke="var(--fig-line)", sw=1.5)
-    # triangle cycle A->B->C->A
-    body += polyline("60,140 180,60 60,60 60,140", stroke="var(--fig-primary)", sw=2)
-    body += dot(60, 140, 4, fill="var(--fig-danger)")
-    body += label(45, 155, "A", 10, "var(--fig-danger-soft)")
-    body += dot(180, 60, 4, fill="var(--fig-secondary)")
-    body += label(185, 55, "B", 10, "var(--fig-secondary-soft)")
-    body += dot(60, 60, 4, fill="var(--fig-accent)")
-    body += label(45, 55, "C", 10, "var(--fig-accent-tint)")
-    body += label(30, 165, "T", 10, "var(--fig-axis)")
-    body += label(205, 170, "V", 10, "var(--fig-axis)")
-    return svg_wrap(240, 200, body, "2022 Q62: V-T cycle")
+    g = _P22_Q62; ox, oy = g["ox"], g["oy"]
+    A = (ox + g["TA"], oy - g["VA"]); B = (ox + g["TB"], oy - g["VB"]); C = (ox + g["TA"], oy - g["VB"])
+    body = _b22_axes(ox, oy, 232, 10)
+    for (p, q, role) in ((A, B, "AB"), (B, C, "BC"), (C, A, "CA")):
+        pts = [(p[0] + (q[0] - p[0])*j/20, p[1] + (q[1] - p[1])*j/20) for j in range(21)]
+        body += _p24_poly(pts, role, stroke="var(--fig-primary)", sw=1.6) + _arrow_on(pts, 0.55, 7, "var(--fig-primary)")
+    body += mlabel(A[0] - 6, A[1] + 12, "A", 14) + mlabel(B[0] + 6, B[1] - 8, "B", 14) + mlabel(C[0] - 10, C[1] + 2, "C", 14)
+    body += mlabel(ox - 12, oy + 12, "O", 14) + mlabel(ox - 12, 22, "V", 14) + mlabel(238, oy + 5, "T", 14, anchor="start")
+    return svg_plain(252, 166, body, "2022 Q62: " + "V versus T with origin O; from A a straight line rises to B at the upper right, B to C runs horizontally left at constant V, C to A drops vertically at constant T; arrows A to B to C to A")
 
+_P22_Q62G = dict(ox=30, oy=112)
+
+def _p22_q62(segs, labels, aria):
+    """segs: [(role, [(V, P), ...])] in axis units (px); drawn in the arrow direction."""
+    g = _P22_Q62G; ox, oy = g["ox"], g["oy"]
+    body = _b22_axes(ox, oy, 186, 10)
+    for role, vp in segs:
+        pts = [(round(ox + v, 1), round(oy - p, 1)) for v, p in vp]
+        body += _p24_poly(pts, role, stroke="var(--fig-primary)", sw=1.6) + _arrow_on(pts, 0.5, 7, "var(--fig-primary)")
+    for t, (v, p) in labels.items():
+        body += mlabel(round(ox + v, 1), round(oy - p, 1), t, 13)
+    body += mlabel(ox - 8, 16, "P", 13) + mlabel(180, oy - 8, "V", 13)
+    return svg_plain(200, 126, body, aria)
+
+def _iso(v0, v1, k, n=40):
+    return [(v0 + (v1 - v0)*j/n, k/(v0 + (v1 - v0)*j/n)) for j in range(n + 1)]
+
+def fig_2022_q62_optA():
+    VA, PA, VB = 30, 85, 112; k = PA*VA
+    ab = [(VA + (VB - VA)*j/40, PA*(VA/(VA + (VB - VA)*j/40))**0.35) for j in range(41)]
+    PB = ab[-1][1]; PC = k/VB
+    return _p22_q62([("AB", ab), ("BC", [(VB, PB), (VB, PC)]), ("CA", _iso(VB, VA, k))],
+                    {"A": (VA - 4, PA + 8), "B": (VB, PB + 9), "C": (VB + 8, PC - 12)},
+                    "2022 Q62 (A): P versus V; from A a curve falls gently to B, B to C vertical downward, a steeper curve returns from C to A")
+def fig_2022_q62_optB():
+    VA, PA, VC = 30, 85, 115; k = PA*VA; PB = k/VC
+    return _p22_q62([("AB", [(VA, PA), (VA, PB)]), ("BC", [(VA, PB), (VC, PB)]), ("CA", _iso(VC, VA, k))],
+                    {"A": (VA - 4, PA + 9), "B": (VA - 2, PB - 16), "C": (VC + 10, PB - 4)},
+                    "2022 Q62 (B): P versus V; A to B vertical downward, B to C horizontal to the right, a curve returns from C to A")
+def fig_2022_q62_optC():
+    VA, PA, VB = 30, 80, 110; k = PA*VA; PC = k/VB
+    return _p22_q62([("AB", [(VA, PA), (VB, PA)]), ("BC", [(VB, PA), (VB, PC)]), ("CA", _iso(VB, VA, k))],
+                    {"A": (VA - 4, PA + 8), "B": (VB, PA + 8), "C": (VB + 4, PC - 16)},
+                    "2022 Q62 (C): P versus V; A to B horizontal to the right, B to C vertical downward, a curve returns from C to A")
+def fig_2022_q62_optD():
+    VA, PA, VB = 30, 80, 110; PC = PA*VA/VB
+    ca = [(VB + (VA - VB)*j/20, PC + (PA - PC)*j/20) for j in range(21)]
+    return _p22_q62([("AB", [(VA, PA), (VB, PA)]), ("BC", [(VB, PA), (VB, PC)]), ("CA", ca)],
+                    {"A": (VA - 4, PA + 8), "B": (VB, PA + 8), "C": (VB + 4, PC - 16)},
+                    "2022 Q62 (D): P versus V; A to B horizontal to the right, B to C vertical downward, a straight sloping line returns from C to A")
+
+# ---- Q68: stone m with v0 along a dashed line, vertical stick, CM a distance h below the line ---------
 def fig_2022_q68():
-    """Stone hitting stick at distance h from CM."""
-    body = ""
-    body += label(40, 25, "Stone-stick collision", 10)
-    # stick (horizontal line)
-    body += line(40, 120, 200, 120, stroke="var(--fig-primary)", sw=3)
-    # CM marker
-    body += dot(120, 120, 4, fill="var(--fig-danger)")
-    body += label(125, 135, "CM", 9, "var(--fig-danger-soft)")
-    # hit point h from CM
-    body += dot(150, 120, 4, fill="var(--fig-secondary)")
-    body += label(155, 135, "h", 9, "var(--fig-secondary-soft)")
-    # stone approaching
-    body += arrow(20, 120, 40, 120, stroke="var(--fig-danger)", label="v₀", label_pos=(20, 105))
-    body += dot(20, 120, 5, fill="var(--fig-danger)")
-    body += label(120, 160, "Stick of mass m, length L", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 200, body, "2022 Q68: Stone hits stick")
+    xs, yl, ycm = 150, 48, 120
+    half = round((ycm - yl)*_m.sqrt(6)/2, 1)                    # stick drawn with h = L/sqrt(6), CM at its middle
+    top, bot = ycm - half, ycm + half
+    body = _p24_role(f'  <rect x="{xs - 3}" y="{top}" width="6" height="{bot - top}" fill="var(--fig-fill)" stroke="var(--fig-line)" stroke-width="1.2"/>\n', "stick")
+    body += _p24_role(line(84, yl, 240, yl, stroke="var(--fig-axis)", sw=0.9, dash="3,2.5"), "path")
+    body += _b22_dot(80, yl, "stone", 3.6) + _b22_dot(xs, ycm, "CM", 3.0)
+    body += _p24_role(arrow(92, 36, 124, 36, stroke="var(--fig-line)", sw=1.2), "v0")
+    body += _p24_role(line(128, yl + 2, 128, ycm, stroke="var(--fig-line)", sw=1.0), "h")
+    body += line(128, yl + 2, 133, yl + 2, stroke="var(--fig-line)", sw=1.0) + line(128, ycm, 133, ycm, stroke="var(--fig-line)", sw=1.0)
+    body += mlabel(70, yl + 5, "m", 13) + _p24_sub(100, 28, "V", "0", 12, italic=False) + mlabel(118, (yl + ycm)/2 + 4, "h", 13)
+    body += mlabel(xs + 10, ycm + 5, "CM", 13, anchor="start")
+    return svg_plain(250, 216, body, "2022 Q68: " + "a stone m moving right with speed v0 along a dashed horizontal line meeting a vertical stick; the stick's centre of mass CM is a distance h below that line")
 
+# ---- Q69: O, I2, IF, lens, plane mirror, I1 on the principal axis (positions as printed, not to scale) --
 def fig_2022_q69():
-    """Lens-mirror system with object O."""
-    body = ""
-    body += label(40, 25, "Lens-mirror system", 10)
-    # lens (vertical double arrow)
-    body += line(100, 60, 100, 160, stroke="var(--fig-primary)", sw=2.5)
-    body += line(95, 65, 105, 65, stroke="var(--fig-primary)", sw=2)
-    body += line(95, 155, 105, 155, stroke="var(--fig-primary)", sw=2)
-    body += label(85, 55, "Lens (f=15cm)", 8, "var(--fig-axis)")
-    # mirror (vertical line at right)
-    body += line(180, 60, 180, 160, stroke="var(--fig-secondary)", sw=3)
-    body += label(185, 55, "Mirror", 8, "var(--fig-secondary-soft)")
-    # distances
-    body += line(100, 170, 180, 170, stroke="var(--fig-axis)", sw=1, dash="3,3")
-    body += label(140, 185, "10 cm", 8, "var(--fig-axis)", "middle")
-    body += line(40, 170, 100, 170, stroke="var(--fig-axis)", sw=1, dash="3,3")
-    body += label(70, 185, "30 cm", 8, "var(--fig-axis)", "middle")
-    # object
-    body += arrow(40, 120, 40, 100, stroke="var(--fig-danger)", label="O", label_pos=(30, 95))
-    body += dot(40, 120, 4, fill="var(--fig-danger)")
-    return svg_wrap(240, 220, body, "2022 Q69: Lens-mirror setup")
+    ya = 62; xs = dict(O=60, I2=104, IF=128, lens=158, mirror=206, I1=250)
+    body = _p24_role(arrow(20, ya, 344, ya, stroke="var(--fig-line)", sw=1.1), "axis")
+    body += _p24_role(f'  <ellipse cx="{xs["lens"]}" cy="{ya}" rx="6" ry="44" fill="var(--fig-fill)" stroke="var(--fig-line)" stroke-width="1.2"/>\n', "lens")
+    body += _p24_role(line(xs["mirror"], 12, xs["mirror"], 112, stroke="var(--fig-line)", sw=1.8), "mirror") + _b22_hatch(xs["mirror"], 14, xs["mirror"], 110, (1, 0), 14, 5)
+    for k in ("O", "I2", "IF", "I1"):
+        body += _b22_dot(xs[k], ya, k, 3.4)
+    body += mlabel(xs["O"], ya - 12, "O", 13) + _p24_sub(xs["I2"] - 4, ya - 12, "I", "2", 13, italic=False)
+    body += _p24_sub(xs["IF"] - 4, ya - 12, "I", "F", 13, italic=False) + _p24_sub(xs["I1"] - 4, ya - 12, "I", "1", 13, italic=False)
+    body += _b22_dash(xs["O"], ya + 4, xs["O"], 134, "drop-O")
+    yd = 124
+    body += _p24_role(line(xs["O"], yd, xs["lens"], yd, stroke="var(--fig-line)", sw=1.0), "dim-30")
+    body += _arrowhead(xs["O"], yd, 180, 6, "var(--fig-line)") + _arrowhead(xs["lens"], yd, 0, 6, "var(--fig-line)")
+    body += _p24_role(line(xs["lens"], yd, xs["mirror"], yd, stroke="var(--fig-line)", sw=1.0), "dim-10")
+    body += _arrowhead(xs["lens"], yd, 180, 6, "var(--fig-line)") + _arrowhead(xs["mirror"], yd, 0, 6, "var(--fig-line)")
+    body += mlabel((xs["O"] + xs["lens"])/2, yd + 16, "30 cm", 12) + mlabel((xs["lens"] + xs["mirror"])/2, yd + 16, "10 cm", 12)
+    return svg_plain(356, 148, body, "2022 Q69: " + "principal axis with object O, points I2 and IF, a biconvex lens, a plane mirror 10 cm to the right of the lens and I1 beyond the mirror; O is 30 cm to the left of the lens")
 
 def fig_2022_q93():
     """Torque-speed curve with operating points W, X, Y, Z."""
@@ -1851,13 +1931,14 @@ def main():
     outdir_base = "_data/figures"
     figures = {
         "2022": {
-            "fig-2022-q42": fig_2022_q42,
             "fig-2022-q46": fig_2022_q46,
             "fig-2022-q48": fig_2022_q48,
-            "fig-2022-q49": fig_2022_q49,
+            **{f"fig-2022-q49-opt{k}": globals()[f"fig_2022_q49_opt{k}"] for k in "ABCD"},
             "fig-2022-q55": fig_2022_q55,
             "fig-2022-q57": fig_2022_q57,
+            **{f"fig-2022-q57-opt{k}": globals()[f"fig_2022_q57_opt{k}"] for k in "ABCD"},
             "fig-2022-q62": fig_2022_q62,
+            **{f"fig-2022-q62-opt{k}": globals()[f"fig_2022_q62_opt{k}"] for k in "ABCD"},
             "fig-2022-q68": fig_2022_q68,
             "fig-2022-q69": fig_2022_q69,
             "fig-2022-q93": fig_2022_q93,

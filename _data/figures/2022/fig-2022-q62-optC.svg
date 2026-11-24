@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 126" width="200" height="126" role="img" aria-label="2022 Q62 (C): P versus V; A to B horizontal to the right, B to C vertical downward, a curve returns from C to A">
+  <rect x="0" y="0" width="200" height="126" fill="transparent"/>
+  <line data-role="axis-h" x1="30" y1="112" x2="186" y2="112" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="186,112 179.1,116.0 179.1,108.0" fill="var(--fig-axis)"/>
+  <line data-role="axis-v" x1="30" y1="112" x2="30" y2="10" stroke="var(--fig-axis)" stroke-width="1.2"/>
+  <polygon points="30,10 34.0,16.9 26.0,16.9" fill="var(--fig-axis)"/>
+  <polyline data-role="AB" points="60.0,32.0 140.0,32.0" stroke="var(--fig-primary)" stroke-width="1.6" fill="none"/>
+  <polygon points="140.0,32.0 133.0,28.5 133.0,35.5" fill="var(--fig-primary)"/>
+  <polyline data-role="BC" points="140.0,32.0 140.0,90.2" stroke="var(--fig-primary)" stroke-width="1.6" fill="none"/>
+  <polygon points="140.0,90.2 143.5,83.2 136.5,83.2" fill="var(--fig-primary)"/>
+  <polyline data-role="CA" points="140.0,90.2 138.0,89.8 136.0,89.4 134.0,88.9 132.0,88.5 130.0,88.0 128.0,87.5 126.0,87.0 124.0,86.5 122.0,85.9 120.0,85.3 118.0,84.7 116.0,84.1 114.0,83.4 112.0,82.7 110.0,82.0 108.0,81.2 106.0,80.4 104.0,79.6 102.0,78.7 100.0,77.7 98.0,76.7 96.0,75.6 94.0,74.5 92.0,73.3 90.0,72.0 88.0,70.6 86.0,69.1 84.0,67.6 82.0,65.8 80.0,64.0 78.0,62.0 76.0,59.8 74.0,57.5 72.0,54.9 70.0,52.0 68.0,48.8 66.0,45.3 64.0,41.4 62.0,37.0 60.0,32.0" stroke="var(--fig-primary)" stroke-width="1.6" fill="none"/>
+  <polygon points="100.0,77.7 104.7,84.0 107.8,77.7" fill="var(--fig-primary)"/>
+  <text x="56" y="24" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">A</text>
+  <text x="140" y="24" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">B</text>
+  <text x="144" y="106.2" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">C</text>
+  <text x="22" y="16" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">P</text>
+  <text x="180" y="104" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">V</text>
+</svg>

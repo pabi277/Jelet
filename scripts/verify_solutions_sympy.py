@@ -56,7 +56,17 @@ Checks:
      item; Q7 (no correct option) must be withdrawn and state the +1 (+12 twelfths)
      rule; INTERPRETATION_NOTES_2022 printed. A 2022 Batch A gate requires 40/40
      checks, method sympy, >= 3 steps, 0 stubs, keyTier verified-derived, 0 SVGs.
- 13. Report coverage statistics
+ 13. 2022 Q41–Q70 (Batch B, Physics): 30 independent checks (_b22_qN) from the
+     verbatim Set A stems (pages 11–18; Cat-I Q41–Q65, Cat-II Q66–Q70 as printed).
+     Layout (page, category, twelfths, unitId, stem figures exactly for Q46/48/55/
+     57/62/68/69, option graphs for Q49/57/62, keyTier/sourceRef) asserted; all four
+     options judged; answers read back from the redrawn SVGs (Q46 spring–block, Q48
+     drop = R, Q49 |V| curve shapes, Q55 isobar, Q57 apparent depth + option end
+     labels, Q62 V–T legs + P–V leg classes, Q68 offset h, Q69 image order).
+     INTERPRETATION_NOTES_2022 for Q42, Q48, Q59, Q62, Q69. A 2022 Batch B gate
+     requires 30/30 checks, method sympy, >= 3 steps, 0 stubs, verified-derived,
+     19/19 figures, 0 orphan 2022 SVGs, var(--fig-*) colours only.
+ 14. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -4247,6 +4257,647 @@ def _a22_guard(n):
 A_TESTS_2022 = [(f"2022 Q{n}", f"jelet-2022-q{n:03d}", _a22_guard(n)) for n in range(1, 41)]
 
 # ---------------------------------------------------------------------------
+# 2022 Batch B (Physics, Q41–Q70): independent SymPy re-derivation from the verbatim stems transcribed
+# visually from booklet pages 11–18 (official Set A; Category-I Q41–Q65, Category-II Q66–Q70 as printed).
+# Keys are "verified-derived" (no WBJEEB 2022 key is archived). Each check (a) asserts the booklet layout
+# (pdfPage, category, twelfths, unitId, stem/option figure presence exactly where the booklet prints one,
+# no orphan/spoiler SVG, keyTier verified-derived + sourceRef _b22_qN), (b) asserts stem and option
+# fingerprints, (c) recomputes the physics from scratch and evaluates ALL FOUR options (Cat-II judge each
+# option independently), reading the answer-bearing geometry back from the redrawn SVGs (Q46, Q48, Q49,
+# Q55, Q57, Q62, Q68, Q69), and (d) requires the SymPy-true option set to equal key.correct.
+# No Q41–Q70 item is withdrawn. Interpretation notes (printed with the run): Q42, Q48, Q59, Q62, Q69.
+# ---------------------------------------------------------------------------
+_B22_PAGE = {**{n: 11 for n in range(41, 46)}, **{n: 12 for n in range(46, 49)}, **{n: 13 for n in range(49, 55)},
+             **{n: 14 for n in range(55, 58)}, **{n: 15 for n in range(58, 62)}, **{n: 16 for n in range(62, 66)},
+             66: 17, 67: 17, 68: 18, 69: 18, 70: 18}
+_B22_UNIT = {41: "P01", 42: "P01", 43: "P02", 44: "P02", 45: "P02", 46: "P03", 47: "P04", 48: "P04", 49: "P05", 50: "P06",
+             51: "P08", 52: "P08", 53: "P10", 54: "P09", 55: "P11", 56: "P13", 57: "P13", 58: "P13", 59: "P14", 60: "P15",
+             61: "P03", 62: "P11", 63: "P08", 64: "P05", 65: "P09", 66: "P11", 67: "P04", 68: "P03", 69: "P14", 70: "P15"}
+STEM_FIG_2022_B = {46, 48, 55, 57, 62, 68, 69}     # booklet prints a stem figure (Q42 prints none)
+OPT_FIG_2022_B = {49, 57, 62}                       # booklet prints four option graphs
+INTERPRETATION_NOTES_2022.update({
+    42: "'most probable error' is read as the maximum error of the school rule (fractional errors add: 3 × 1% of "
+        "1 cm³ = 0.03 cm³, option A); the statistical quadrature value 0.017 cm³ is not printed.",
+    48: "the printed options omit the square root (each is dimensionally ω², labelled 'rad/sec'); (D) 4mg/((2m+M)R) "
+        "is exactly ω² = 4mg/((2m+M)R), so the intended key is D (dropped radical). No option equals ω literally.",
+    59: "'focal length of the system' = focal length of the lens + liquid-lens combination (object coincides with its "
+        "own image at 25 cm) -> μ = 1.6 (C); the equivalent-mirror reading (1/F = 2/f_c) gives μ = 1.8, not printed.",
+    62: "the booklet's line AB, extended, meets the T-axis at ≈0.54 T_A rather than at O; read literally P would fall "
+        "along A→B (the lens-shaped graph A). AB is read in the standard textbook sense V ∝ T (isobar) -> graph C.",
+    69: "(A) names I2, the mirror's image of the virtual object I1 (10 cm left of the lens, as marked in the figure); "
+        "strictly the reflected rays meet the lens first, so I2 acts as a virtual object for the lens.",
+})
+
+def _b22_layout(qnum):
+    q = _paper_2022().get(qnum)
+    if q is None:
+        return False, f"2022 Q{qnum} missing from the paper"
+    cat = 1 if qnum <= 65 else 2
+    probs = []
+    if q.get("pdfPage") != _B22_PAGE[qnum]:
+        probs.append(f"pdfPage {q.get('pdfPage')} != booklet page {_B22_PAGE[qnum]}")
+    if q.get("category") != cat or q.get("fullTwelfths") != (12 if cat == 1 else 24) or q.get("negativeTwelfths") != (3 if cat == 1 else 0):
+        probs.append(f"category/twelfths {q.get('category')}/{q.get('fullTwelfths')}/{q.get('negativeTwelfths')} != Cat-{cat}")
+    if q.get("unitId") != _B22_UNIT[qnum] or q.get("subjectId") != "PHYS":
+        probs.append(f"unitId {q.get('unitId')} != {_B22_UNIT[qnum]}")
+    if [o.get("id") for o in q.get("options", [])] != ["A", "B", "C", "D"]:
+        probs.append("options are not A–D")
+    sf = q.get("stemFigure"); fn = f"fig-2022-q{qnum:02d}.svg"
+    if qnum in STEM_FIG_2022_B:
+        if not sf or sf.get("src") != f"./_data/figures/2022/{fn}":
+            probs.append(f"stem figure must be ./_data/figures/2022/{fn} (booklet prints one), got {sf and sf.get('src')}")
+        elif not os.path.exists(os.path.join(ROOT, sf["src"][2:])):
+            probs.append(f"figure file missing: {sf['src']}")
+        elif sf.get("alt", "").startswith("Figure for JELET"):
+            probs.append("generic alt text — describe the printed figure")
+    else:
+        if sf:
+            probs.append("booklet prints no stem figure for this item — stemFigure must be null")
+        if os.path.exists(os.path.join(DATA, "figures", "2022", fn)):
+            probs.append(f"orphan/spoiler SVG {fn} exists")
+    for o in q.get("options", []):
+        f = o.get("figure"); ofn = f"fig-2022-q{qnum:02d}-opt{o.get('id')}.svg"
+        if qnum in OPT_FIG_2022_B:
+            if not f or f.get("src") != f"./_data/figures/2022/{ofn}" or not os.path.exists(os.path.join(DATA, "figures", "2022", ofn)):
+                probs.append(f"option {o.get('id')} must show ./_data/figures/2022/{ofn}")
+            elif o.get("latex") != f"Graph ({o.get('id')})":
+                probs.append(f"option {o.get('id')} latex should read 'Graph ({o.get('id')})'")
+        elif f:
+            probs.append(f"booklet prints no option figures for Q{qnum}")
+    k = q.get("key", {})
+    if k.get("keyTier") != "verified-derived" or f"_b22_q{qnum}" not in k.get("sourceRef", ""):
+        probs.append(f"keyTier/sourceRef {k.get('keyTier')}/{k.get('sourceRef')} — expected verified-derived via _b22_q{qnum}")
+    return (not probs), "; ".join(probs)
+
+def _b22_opts(qnum):
+    return {o["id"]: o["latex"] for o in _paper_2022()[qnum]["options"]}
+
+def _b22_result(qnum, stem_fps, opt_fps, matched, detail):
+    q = _paper_2022()[qnum]
+    missing = [fp for fp in stem_fps if fp not in q["stemLatex"]]
+    if missing:
+        return False, f"stem fingerprint(s) {missing} not found in stemLatex"
+    olatex = _b22_opts(qnum)
+    omissing = [fp for fp in opt_fps if fp.split(":", 1)[1] not in olatex.get(fp.split(":", 1)[0], "")]
+    if omissing:
+        return False, f"option fingerprint(s) {omissing} not found in option latex"
+    if len(set(olatex.values())) != 4:
+        return False, f"options are not four distinct printed choices: {olatex}"
+    if q["key"]["status"] != "active":
+        return False, f"key status {q['key']['status']} — no 2022 Q41–Q70 item is withdrawn"
+    key = sorted(q["key"]["correct"])
+    if q["category"] == 1 and len(matched) > 1:
+        return False, f"{detail}; Cat-I item but SymPy finds several true options {matched}"
+    if qnum in INTERPRETATION_NOTES_2022 and matched == key:
+        KEY_DISPUTE_LOG.append(f"2022 Q{qnum} (interpretation): {INTERPRETATION_NOTES_2022[qnum]}")
+    return matched == key, f"{detail}; SymPy-true option(s) {matched} vs key {key}"
+
+def _b22_num(tex):
+    """Leading number of a printed option such as '$0.03\\ \\text{cm}^{3}$', '$1.15$ J', '$0$', '$2 \\times 10^{8}$ Pa'."""
+    t = tex.replace("$", "").replace(r"\ ", " ").strip()
+    m = re.match(r"(\d+(?:\.\d+)?)\s*\\times\s*10\^\{(-?\d+)\}", t)
+    if m:
+        return sympy.Rational(m.group(1)) * sympy.Integer(10)**int(m.group(2))
+    m = re.match(r"10\^\{(-?\d+)\}", t)
+    if m:
+        return sympy.Integer(10)**int(m.group(1))
+    m = re.match(r"(\d+(?:\.\d+)?)", t)
+    return sympy.Rational(m.group(1)) if m else None
+
+def _b22_expr(tex):
+    """_b23_expr after stripping printed units/labels; \\beta is mapped to the symbol 'theta' (unused elsewhere)."""
+    t = tex.strip()
+    t = re.sub(r"\s*(rad/sec|sq\.unit|m/s)\s*$", "", t)
+    t = t.replace(r"\beta", r"\theta")
+    return _b23_expr(t)
+
+def _svg22(qnum, opt=None):
+    q = _paper_2022()[qnum]
+    f = q["stemFigure"] if opt is None else next(o for o in q["options"] if o["id"] == opt)["figure"]
+    if not f:
+        return None
+    svg = open(os.path.join(ROOT, f["src"][2:]), encoding="utf-8").read()
+    roles = {}
+    for tag, attrs in re.findall(r"<(\w+) ([^>]*?)/?>", svg):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs)); a["_tag"] = tag
+        if "data-role" in a:
+            roles.setdefault(a["data-role"], []).append(a)
+    texts = []
+    for attrs, body in re.findall(r"<text\b([^>]*)>(.*?)</text>", svg):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs))
+        texts.append((float(a["x"]), float(a["y"]), re.sub(r"<[^>]+>", "", body)))
+    G = dict(roles=roles, texts=texts, raw=svg)
+    if "axis-h" in roles and "axis-v" in roles:
+        G["hax"] = _line_of(roles["axis-h"][0]); G["vax"] = _line_of(roles["axis-v"][0])
+        G["origin"] = _origin(G)
+    return G
+
+def _b22_pt(G, role):
+    a = G["roles"][role][0]
+    return float(a["cx"]), float(a["cy"])
+
+# ---------------- Q41–Q65 (Category I) ----------------
+def _b22_q41():
+    Lv, Tv = sympy.Matrix([1, 0]), sympy.Matrix([0, 1])
+    dim = {"L": Lv, "T": Tv}
+    omega, v = -Tv, Lv - Tv                                   # [omega] = T^-1, [v] = L T^-1
+    p = v - omega                                             # omega * p / v dimensionless
+    q_ = -omega                                               # omega * q * pi dimensionless
+    def parse(tex):
+        out = []
+        for part in tex.replace("$", "").split(","):
+            part = part.strip()
+            if part == "dimensionless":
+                out.append(sympy.Matrix([0, 0])); continue
+            vec = sympy.Matrix([0, 0])
+            for s, e in re.findall(r"([LT])(?:\^\{(-?\d+)\})?", part):
+                vec += dim[s] * (int(e) if e else 1)
+            out.append(vec)
+        return out
+    m = [k for k, tex in _b22_opts(41).items() if parse(tex) == [p, q_]]
+    return _b22_result(41, [r"y = A\sin\omega\left(\dfrac{p}{v} - q\pi\right)", r"$A$, $\omega$ and $v$"], ["D:dimensionless"], m,
+                       f"[p] = [v]/[omega] = L^{p[0]} T^{p[1]}, [q] = 1/[omega] = L^{q_[0]} T^{q_[1]}")
+
+def _b22_q42():
+    L, dL, h, dh, t, dt = (sympy.Rational(s) for s in ("10.0", "0.1", "1.00", "0.01", "0.1", "0.001"))
+    V = L*h*t
+    rel = dL/L + dh/h + dt/t
+    dV_max = rel*V
+    dV_quad = sympy.sqrt((dL/L)**2 + (dh/h)**2 + (dt/t)**2)*V
+    vals = {k: _b22_num(tex) for k, tex in _b22_opts(42).items()}
+    m = [k for k, val in vals.items() if val == dV_max]
+    quad_hit = [k for k, val in vals.items() if abs(float(val - dV_quad)) < 5e-4]
+    if quad_hit:
+        m = ["ambiguous"]                                     # the reading would matter if 0.017 were printed
+    return _b22_result(42, [r"$L = (10.0 \pm 0.1)$ cm", r"$h = (1.00 \pm 0.01)$ cm", r"$t = (0.1 \pm 0.001)$ cm", "most probable error in volume"], [], m,
+                       f"V = {V}, sum of fractional errors {rel} -> dV = {dV_max}; quadrature {float(dV_quad):.4f} (printed: {quad_hit or 'no'}); options {vals}")
+
+def _b22_q43():
+    P, Q, R = sympy.Matrix([1, 3, 2]), sympy.Matrix([2, -1, 1]), sympy.Matrix([-1, 2, 3])
+    cr = (Q - P).cross(R - P)
+    area = sympy.sqrt(cr.dot(cr))/2
+    m = [k for k, tex in _b22_opts(43).items() if (lambda e: e is not None and sympy.simplify(e - area) == 0)(_b22_expr(tex))]
+    return _b22_result(43, ["$P(1, 3, 2)$", "$Q(2, -1, 1)$", "$R(-1, 2, 3)$"], [r"D:\dfrac{1}{2}\sqrt{107}"], m,
+                       f"PQ x PR = {list(cr)}, area = {area}")
+
+def _b22_q44():
+    x, alpha, R, mm = sympy.symbols("x alpha R m", positive=True)
+    v2 = 2*alpha*x/mm
+    F = sympy.simplify(mm*v2/R)
+    n = sympy.simplify(x*sympy.diff(F, x)/F)
+    def expo(tex):
+        if "independent" in tex:
+            return 0
+        e = _b22_expr(tex)
+        return sympy.simplify(x*sympy.diff(e.subs(sympy.Symbol("x", positive=True), x), x)/e.subs(sympy.Symbol("x", positive=True), x))
+    m = [k for k, tex in _b22_opts(44).items() if expo(tex) == n]
+    return _b22_result(44, [r"is $\alpha x$", "force acting in the radial direction"], ["D:independent of $x$"], m,
+                       f"F_r = m v^2/R = {F}; power of x = {n}")
+
+def _b22_q45():
+    x = sympy.Symbol("x"); ux, uy = sympy.symbols("u_x u_y", positive=True); g = 10
+    traj = (uy/ux)*x - g*x**2/(2*ux**2)
+    sol = sympy.solve([sympy.Eq(traj.coeff(x, 1), 2), sympy.Eq(traj.coeff(x, 2), -5)], [ux, uy], dict=True)
+    sol = [s for s in sol if s[ux] > 0][0]
+    def comp(tex):
+        mt = re.search(r"(\d*)\\hat\{i\}\s*\+\s*(\d*)\\hat\{j\}", tex)
+        return (int(mt.group(1) or 1), int(mt.group(2) or 1)) if mt else None
+    m = [k for k, tex in _b22_opts(45).items() if comp(tex) == (sol[ux], sol[uy])]
+    return _b22_result(45, [r"$Y = 2x - 5x^{2}$", r"$g = 10\ \text{m/s}^{2}$"], [], m, f"u_x = {sol[ux]}, u_y = {sol[uy]} m/s")
+
+def _b22_q46():
+    G = _svg22(46)
+    wall = _line_of(G["roles"]["wall"][0]); floor = _line_of(G["roles"]["floor"][0]); Fv = _line_of(G["roles"]["F"][0])
+    blk = G["roles"]["block"][0]; bx, by, bw, bh = (float(blk[k]) for k in ("x", "y", "width", "height"))
+    lw = _line_of(G["roles"]["lead-wall"][0]); lb = _line_of(G["roles"]["lead-block"][0]); spr = _pts_of(G["roles"]["spring"][0])
+    fig_ok = (wall[0] == wall[2] and floor[1] == floor[3] and abs(by + bh - floor[1]) < 0.5 and Fv[1] == Fv[3] and Fv[2] > Fv[0]
+              and abs(Fv[0] - (bx + bw)) < 0.5 and abs(lw[0] - wall[0]) < 0.5 and abs(lb[2] - bx) < 0.5
+              and abs(spr[0][0] - lw[2]) < 1 and abs(spr[-1][0] - lb[0]) < 1 and bx > wall[0])
+    t = sympy.Symbol("t", nonnegative=True); mm, k, F, w = sympy.symbols("m k F omega", positive=True)
+    X = sympy.Function("X")
+    xs = sympy.dsolve(sympy.Eq(mm*X(t).diff(t, 2), F - k*X(t)), X(t), ics={X(0): 0, X(t).diff(t).subs(t, 0): 0}).rhs
+    xs = sympy.simplify(xs)
+    amp = sympy.simplify((xs.subs(t, sympy.pi*sympy.sqrt(mm/k)) - xs.subs(t, 0))/2)        # half the peak-to-peak swing
+    target = sympy.simplify(amp.subs(k, mm*w**2))
+    oms = {"m": mm, "F": F, "omega": w}
+    def val(tex):
+        e = _b22_expr(tex)
+        return e.subs({sympy.Symbol(n, positive=True): s for n, s in oms.items()}) if e is not None else None
+    m = [kk for kk, tex in _b22_opts(46).items() if (lambda e: e is not None and sympy.simplify(e - target) == 0)(val(tex))] if fig_ok else []
+    return _b22_result(46, ["constant force $F$", "spring constant $k$", r"\omega = \sqrt{\dfrac{k}{m}}"], [r"B:\dfrac{F}{m\omega^{2}}"], m,
+                       f"SVG: spring wall->block, block on floor, F to the right from the block ({fig_ok}); x(t) = {xs}; amplitude = {amp} = {target}")
+
+def _b22_q47():
+    x = sympy.Symbol("x", positive=True); k = sympy.Rational(1, 2)
+    W = -sympy.integrate(k/x, (x, 10, 100))
+    K0 = sympy.Rational(1, 2)*1*2**2
+    K_given = sympy.expand_log(K0 + W, force=True).subs(sympy.log(10), sympy.Rational(23, 10))
+    K_exact = float(K0 + W)
+    vals = {kk: _b22_num(tex) for kk, tex in _b22_opts(47).items()}
+    m = [kk for kk, v in vals.items() if v == K_given and K_exact > 0]
+    return _b22_result(47, [r"-\dfrac{k}{x}\ ; & 10\,\text{m} < x < 100\,\text{m}", "$k = 0.5$ J", r"$\ln 10 = 2.3$"], [], m,
+                       f"W = {W}; K = 2 + W = {K_given} with ln 10 = 2.3 (exact {K_exact:.4f}); options {vals}")
+
+def _b22_q48():
+    G = _svg22(48)
+    disc = G["roles"]["disc"][0]; cx, cy, r = float(disc["cx"]), float(disc["cy"]), float(disc["r"])
+    C = _b22_pt(G, "C"); P1 = _b22_pt(G, "P1"); P2 = _b22_pt(G, "P2"); dia = _line_of(G["roles"]["diameter"][0])
+    on_rim = lambda p: abs(math.hypot(p[0] - cx, p[1] - cy) - r) < 0.5
+    fig_ok = (on_rim(P1) and on_rim(P2) and abs(C[0] - cx) < 0.5 and abs(C[1] - cy) < 0.5 and abs(P1[1] - cy) < 0.5 and abs(dia[1] - cy) < 0.5
+              and dia[1] == dia[3] and P1[0] < cx and abs(P2[0] - cx) < 0.5 and P2[1] > cy)
+    drop = sympy.nsimplify(round((P2[1] - P1[1])/r, 3))         # fall of m in units of R, read from the figure
+    mm, M, R, g = sympy.symbols("m M R g", positive=True)
+    I = M*R**2/2 + mm*R**2
+    w2 = sympy.simplify(2*mm*g*drop*R/I)
+    w = sympy.sqrt(w2)
+    loc = {"m": mm, "M": M, "R": R, "g": g}
+    def val(tex):
+        e = _b22_expr(tex)
+        return e.subs({sympy.Symbol(n, positive=True): s for n, s in loc.items()}) if e is not None else None
+    lit = [k for k, tex in _b22_opts(48).items() if (lambda e: e is not None and sympy.simplify(e - w) == 0)(val(tex))]
+    sq = [k for k, tex in _b22_opts(48).items() if (lambda e: e is not None and sympy.simplify(e - w2) == 0)(val(tex))]
+    m = (lit or sq) if fig_ok else []
+    return _b22_result(48, ["uniform disc of mass $M$ and radius $R$", "point $P_{1}$", "bottom most point $P_{2}$"], ["D:rad/sec"], m,
+                       f"SVG: P1 level with C on the rim, P2 lowest ({fig_ok}), drop = {drop} R; I = {I}; omega^2 = {w2}; "
+                       f"options equal to omega: {lit}, equal to omega^2 (radical omitted in print): {sq}")
+
+def _b22_q49():
+    x = sympy.Symbol("x", real=True)
+    f = 2/sympy.sqrt(x**2 + 1)                                # |V| with G m = 1, a = 1
+    true_sig = (sympy.diff(f, x).subs(x, 0) == 0 and sympy.diff(f, x, 2).subs(x, 0) < 0,      # maximum at x = 0
+                bool(sympy.solve(sympy.Eq(f, 0), x) == []),                                    # never zero
+                bool(sympy.solve(sympy.diff(f, x) > 0, x).as_set().is_subset(sympy.Interval.open(-sympy.oo, 0))),   # rises only for x < 0
+                sympy.limit(f, x, sympy.oo) == 0)
+    truth, desc = {}, {}
+    for k in "ABCD":
+        G = _svg22(49, k); ox, oy = G["origin"]
+        pts = sorted((px - ox, oy - py) for px, py in _pts_of(G["roles"]["V-x"][0]))
+        U = [p[0] for p in pts]; Y = [p[1] for p in pts]
+        ic = min(range(len(U)), key=lambda i: abs(U[i]))
+        max_c = all(Y[ic] >= yy - 0.3 for yy in Y)
+        positive = min(Y) > 1.0
+        mono = all(Y[i + 1] <= Y[i] + 1e-6 for i in range(ic, len(Y) - 1)) and all(Y[i] <= Y[i + 1] + 1e-6 for i in range(ic))
+        decays = Y[0] < 0.5*Y[ic] and Y[-1] < 0.5*Y[ic]
+        sig = (max_c, positive, mono, decays)
+        rms = None
+        if sig == (True, True, True, True):
+            best = min(((sum((yy/Y[ic] - 1/math.sqrt(1 + (u/a)**2))**2 for u, yy in zip(U, Y))/len(U))**0.5, a) for a in [s/2 for s in range(10, 120)])
+            rms = round(best[0], 4)
+        truth[k] = sig == tuple(bool(s) for s in true_sig) and rms is not None and rms < 0.03
+        desc[k] = (sig, rms)
+    return _b22_result(49, ["$y = a$ and $y = -a$", r"$|V(x)|$"], [], _true(truth),
+                       f"|V| = 2Gm/sqrt(x^2+a^2): signature (max at 0, never 0, decreasing for x>0, -> 0) = {true_sig}; SVG option (signature, rms vs 1/sqrt(1+(x/a)^2)) = {desc}")
+
+def _b22_q50():
+    s = sympy.Symbol("sigma")
+    sig = sympy.solve(sympy.Eq(sympy.Rational(4, 1000), sympy.Rational(1, 100)*(1 - 2*s)), s)[0]
+    vals = {k: _b22_num(tex) for k, tex in _b22_opts(50).items()}
+    m = [k for k, v in vals.items() if v is not None and v == sig]
+    return _b22_result(50, [r"$0.4\ \%$", r"$1\%$", "Poisson ratio"], ["D:cannot be determined"], m, f"dV/V = e(1 - 2 sigma) -> sigma = {sig}")
+
+def _b22_q51():
+    L, R, y, g = sympy.symbols("L R y g", positive=True)
+    Rs = sympy.solve(sympy.Eq(L**2*sympy.sqrt(2*g*y), sympy.pi*R**2*sympy.sqrt(2*g*2*y)), R)[0]
+    ratio = sympy.simplify(Rs/L)
+    m = [k for k, tex in _b22_opts(51).items() if (lambda e: e is not None and abs(float(e - ratio)) < 1e-12)(_b22_expr(tex))]
+    return _b22_result(51, ["square hole of side $L$ at a depth $y$", "circular hole of radius $R$ at a depth $2y$", "$R/L$"], [], m,
+                       f"L^2 sqrt(2gy) = pi R^2 sqrt(4gy) -> R/L = {ratio} = {float(ratio):.5f}")
+
+def _b22_q52():
+    R, eta, rho, sg, g = sympy.symbols("R eta rho sigma g", positive=True)
+    vt = 2*R**2*(rho - sg)*g/(9*eta)
+    P = 6*sympy.pi*eta*R*vt*vt
+    n = sympy.simplify(R*sympy.diff(P, R)/P)
+    def expo(tex):
+        if "independent" in tex:
+            return 0
+        mt = re.search(r"R\^\{(\d+)\}", tex)
+        return int(mt.group(1)) if mt else None
+    m = [k for k, tex in _b22_opts(52).items() if expo(tex) == n]
+    return _b22_result(52, ["viscous liquid", "terminal velocity"], [r"B:proportional to $R^{5}$"], m, f"P = 6 pi eta R v_t^2 = {sympy.factor(P)}; power of R = {n}")
+
+def _b22_q53():
+    S, L, b, gm, T, T1, T2 = sympy.symbols("S L theta gamma T T1 T2", positive=True)       # theta stands for beta
+    H = S/L*sympy.integrate(b + gm*T, (T, T2, T1))
+    truth, desc = {}, {}
+    for k, tex in _b22_opts(53).items():
+        expr_tex, cond_tex = tex.split(" if ")
+        e = _b22_expr(expr_tex)
+        conds = {}
+        for c in cond_tex.replace("$", "").split(","):
+            lhs, rhs = c.split("=")
+            conds[_b22_expr("$" + lhs.strip() + "$")] = _b22_expr("$" + rhs.strip() + "$")
+        loc = {sympy.Symbol(n, positive=True): s for n, s in {"S": S, "L": L, "theta": b, "gamma": gm, "T1": T1, "T2": T2}.items()}
+        conds = {kk.subs(loc): vv.subs(loc) for kk, vv in conds.items()}
+        Hc = H.subs(conds)
+        truth[k] = e is not None and sympy.simplify(Hc - e.subs(loc)) == 0
+        desc[k] = sympy.factor(Hc)
+    return _b22_result(53, [r"$K = \beta + \gamma T$", "well lagged wire"], [r"B:T_{1}^{2} + T_{2}^{2}", r"D:\gamma = \dfrac{\beta}{2}"], _true(truth),
+                       f"H = {sympy.factor(H)}; under each option's condition H = {desc}")
+
+def _b22_q54():
+    Vg = 1000; ag = sympy.Rational(9, 10**6); gm = sympy.Rational(18, 10**5)
+    Vm = sympy.Symbol("V_m", positive=True)
+    sol = sympy.solve(sympy.Eq(Vg*3*ag, Vm*gm), Vm)[0]
+    vals = {k: _b22_num(tex) for k, tex in _b22_opts(54).items()}
+    m = [k for k, v in vals.items() if v == sol]
+    return _b22_result(54, ["one litre glass flask", r"$9 \times 10^{-6}", r"$1.8 \times 10^{-4}"], [], m, f"V_m gamma_Hg = V_flask 3 alpha_glass -> V_m = {sol} cm^3")
+
+def _b22_q55():
+    G = _svg22(55)
+    A, B = _b22_pt(G, "A"), _b22_pt(G, "B"); iso = _line_of(G["roles"]["isobar"][0]); ox, oy = G["origin"]
+    fig_ok = abs(A[1] - B[1]) < 0.5 and abs(A[1] - iso[1]) < 0.5 and iso[1] == iso[3] and B[0] > A[0] > ox and A[1] < oy
+    n, R, dT = sympy.symbols("n R Delta_T", positive=True)
+    W = n*R*dT; Q = sympy.Rational(3, 2)*n*R*dT + W
+    ratio = sympy.simplify(W/Q)
+    m = [k for k, tex in _b22_opts(55).items() if (lambda e: e is not None and e == ratio)(_b22_expr(tex))] if fig_ok else []
+    return _b22_result(55, ["isobaric process of a monoatomic gas", "state $A$ to state $B$"], [], m,
+                       f"SVG: A, B on one horizontal isobar, V_B > V_A ({fig_ok}); W/Q = nR dT / (5/2 nR dT) = {ratio}")
+
+def _b22_q56():
+    A, d = sympy.symbols("A delta", positive=True)
+    dm = sympy.pi - 2*A
+    idx_ok = all(abs(float((sympy.sin((A + dm)/2)/sympy.sin(A/2) - sympy.cot(A/2)).subs(A, a))) < 1e-12 for a in (0.3, 0.7, 1.2))
+    cands = {"A": sympy.sin(2*A), "B": sympy.cos(2*A), "C": -sympy.cos(2*A), "D": sympy.sin(A)}
+    texmap = {r"$\sin 2A$": "A", r"$\cos 2A$": "B", r"$-\cos 2A$": "C", r"$\sin A$": "D"}
+    printed = {k: texmap.get(tex) for k, tex in _b22_opts(56).items()}
+    m = [k for k in "ABCD" if printed[k] and idx_ok and all(abs(float((sympy.cos(dm) - cands[printed[k]]).subs(A, a))) < 1e-12 for a in (0.3, 0.7, 1.2))]
+    return _b22_result(56, [r"$\cot\dfrac{A}{2}$", r"($A < \pi/2$)"], [], m, f"delta_m = {dm} (index condition holds: {idx_ok}); cos delta_m = {sympy.simplify(sympy.cos(dm))}")
+
+def _b22_q57():
+    G = _svg22(57)
+    ves = G["roles"]["vessel"][0]; yt = float(ves["y"]); Hpx = float(ves["height"]); yb = yt + Hpx
+    ys = _line_of(G["roles"]["surface"][0])[1]; Pimg = _b22_pt(G, "Pimg"); P = _b22_pt(G, "P")
+    dimx = _line_of(G["roles"]["dim-x"][0]); dimd = _line_of(G["roles"]["dim-d"][0])
+    xpx, dpx = yb - ys, Pimg[1] - yt
+    mu_fig = xpx/(dpx - (Hpx - xpx))
+    stem_ok = (abs(P[1] - yb) < 0.5 and abs(dimx[1] - ys) < 0.5 and abs(dimx[3] - yb) < 0.5 and abs(dimd[1] - yt) < 0.5
+               and abs(dimd[3] - Pimg[1]) < 0.5 and ys < Pimg[1] < yb and 1.0 < mu_fig < 2.5)
+    H, mu, x = sympy.symbols("H mu x", positive=True)
+    d = (H - x) + x/mu
+    want = (sympy.simplify(d.subs(x, 0)), sympy.simplify(d.subs(x, H)))
+    labval = {"H": H, "μH": mu*H, "H/μ": H/mu}
+    truth, desc = {}, {}
+    for k in "ABCD":
+        Go = _svg22(57, k); ox, oy = Go["origin"]
+        pts = _pts_of(Go["roles"]["d-x"][0])
+        def lab(y):
+            if abs(y - oy) < 0.5:
+                return 0
+            hit = [t for tx, ty, t in Go["texts"] if tx < ox and abs(ty - 4 - y) < 1.5]
+            return labval.get(hit[0]) if hit else None
+        xH = any(t == "H" and abs(tx - pts[-1][0]) < 0.5 and ty > oy for tx, ty, t in Go["texts"])
+        ends = (lab(pts[0][1]), lab(pts[-1][1]))
+        straight = len(pts) == 2 and abs(pts[0][0] - ox) < 0.5
+        truth[k] = straight and xH and ends[0] is not None and ends[1] is not None and all(sympy.simplify(e - w) == 0 for e, w in zip(ends, want))
+        desc[k] = ends
+    m = _true(truth) if stem_ok else []
+    return _b22_result(57, ["vessel of height $H$", "distance '$d$' from the top", "height of the water from the bottom"], [], m,
+                       f"SVG stem: d = (H - x) + x/mu holds with mu = {mu_fig:.4f} ({stem_ok}); d(x) = {sympy.simplify(d)}, d(0), d(H) = {want}; option end labels {desc}")
+
+def _b22_q58():
+    r2 = sympy.Rational(200)/sympy.pi; h = sympy.Rational(7)
+    mu2 = sympy.simplify(1 + h**2/r2)
+    fits = sympy.sqrt(r2) < 15
+    vals = {k: _b22_num(tex) for k, tex in _b22_opts(58).items()}
+    m = [k for k, v in vals.items() if abs(float(v - mu2)) < 0.005] if fits else []
+    return _b22_result(58, ["radius $15$ cm", "height of $7.0$ cm", r"$200\ \text{cm}^{2}$", r"$\mu^{2}$"], [], m,
+                       f"r^2 = 200/pi (r = {float(sympy.sqrt(r2)):.3f} < 15: {fits}); mu^2 = 1 + 49 pi/200 = {float(mu2):.4f}; options {vals}")
+
+def _b22_q59():
+    mu = sympy.Symbol("mu", positive=True)
+    Pg = (sympy.Rational(3, 2) - 1)*(sympy.Rational(1, 10) + sympy.Rational(1, 10))
+    Pl = (mu - 1)*(-sympy.Rational(1, 10))
+    mu_int = sympy.solve(sympy.Eq(Pg + Pl, sympy.Rational(1, 25)), mu)[0]
+    mu_mir = sympy.solve(sympy.Eq(2*(Pg + Pl), sympy.Rational(1, 25)), mu)[0]
+    vals = {k: _b22_num(tex) for k, tex in _b22_opts(59).items()}
+    m = [k for k, v in vals.items() if v == mu_int]
+    if any(v == mu_mir for v in vals.values()):
+        m = ["ambiguous"]
+    return _b22_result(59, ["biconvex lens of radius $10$ cm", r"index $\dfrac{3}{2}$", "focal length of $25$ cm"], [], m,
+                       f"glass power {Pg}, liquid power {Pl}; combination f = 25 -> mu = {mu_int}; equivalent-mirror reading -> mu = {mu_mir} (not printed)")
+
+def _b22_q60():
+    E = sympy.Rational("1.243")*sympy.Rational(10000, 5000)
+    phi = E - sympy.Rational("1.36")
+    vals = {k: _b22_num(tex) for k, tex in _b22_opts(60).items()}
+    best = min(vals, key=lambda k: abs(vals[k] - phi))
+    m = [best] if abs(float(vals[best] - phi)) < 0.01 else []
+    return _b22_result(60, [r"$10{,}000\ \text{A}^{\circ}$", "$1.243$ eV", r"$5000\ \text{A}^{\circ}$", "$1.36$ V"], [], m,
+                       f"E(5000 A) = {E} eV, phi = {phi} eV; options {vals}")
+
+def _b22_q61():
+    vA, vB = sympy.symbols("v_A v_B", positive=True)
+    c, s = sympy.cos(sympy.pi/6), sympy.sin(sympy.pi/6)
+    sol = sympy.solve([sympy.Eq(6, vA*c + vB*c), sympy.Eq(0, vA*s - vB*s)], [vA, vB], dict=True)[0]
+    KE0 = sympy.Rational(1, 2)*36; KE1 = sympy.Rational(1, 2)*(sol[vA]**2 + sol[vB]**2)
+    olat = _b22_opts(61)
+    sp = lambda tex: sympy.sqrt(int(re.search(r"\\sqrt\{(\d+)\}", tex).group(1)))
+    props = {"A": sympy.simplify(sol[vA] - sp(olat["A"])) == 0, "B": sympy.simplify(sol[vB] - sp(olat["B"])) == 0,
+             "C": KE1 < KE0, "D": sympy.simplify(KE1 - KE0) == 0}
+    return _b22_result(61, ["speed of $6$ m/s", r"$30^{\circ}$ with $x$ axis"], ["C:not perfectly elastic", "D:Kinetic energy is conserved"], _true(props),
+                       f"v_A = v_B = {sol[vA]}; KE per unit mass {KE0} -> {KE1}")
+
+def _b22_seg_class(vp):
+    """Classify a P–V segment drawn in its arrow direction: (kind, sign dV, sign dP, PV trend)."""
+    V0, P0 = vp[0]; V1, P1 = vp[-1]
+    if max(abs(p - P0) for _, p in vp) < 0.6:
+        kind = "isobaric"
+    elif max(abs(v - V0) for v, _ in vp) < 0.6:
+        kind = "isochoric"
+    elif len(vp) >= 5 and max(abs(v*p/(V0*P0) - 1) for v, p in vp) < 0.02:
+        kind = "isothermal"
+    elif max(abs((P1 - P0)*(v - V0) - (V1 - V0)*(p - P0))/math.hypot(P1 - P0, V1 - V0) for v, p in vp) < 0.6:
+        kind = "straight"
+    else:
+        kind = "curve"
+    pv = [v*p for v, p in vp]
+    trend = "up" if all(b >= a - 1e-6 for a, b in zip(pv, pv[1:])) and pv[-1] > pv[0]*1.02 else ("down" if all(b <= a + 1e-6 for a, b in zip(pv, pv[1:])) and pv[-1] < pv[0]*0.98 else "flat")
+    sgn = lambda z: 0 if abs(z) < 0.6 else (1 if z > 0 else -1)
+    return kind, sgn(V1 - V0), sgn(P1 - P0), trend
+
+def _b22_q62():
+    G = _svg22(62); ox, oy = G["origin"]
+    TV = lambda p: (p[0] - ox, oy - p[1])
+    AB, BC, CA = (_pts_of(G["roles"][r][0]) for r in ("AB", "BC", "CA"))
+    (TA, VA), (TB, VB), (TC, VC) = TV(AB[0]), TV(AB[-1]), TV(BC[-1])
+    closed = (math.hypot(*(a - b for a, b in zip(AB[-1], BC[0]))) < 0.5 and math.hypot(*(a - b for a, b in zip(BC[-1], CA[0]))) < 0.5
+              and math.hypot(*(a - b for a, b in zip(CA[-1], AB[0]))) < 0.5)
+    topo = closed and abs(VB - VC) < 0.5 and TC < TB and abs(TC - TA) < 0.5 and VC > VA and TB > TA and VB > VA
+    T0 = TA - VA*(TB - TA)/(VB - VA)                          # T-axis intercept of line AB as drawn
+    f0 = T0/TA
+    printed_ok = 0.45 < f0 < 0.65                             # booklet: ≈ 0.54 (skew-corrected 500-DPI measurement)
+    # P = nRT/V legs: intended reading AB through O (V ∝ T)
+    T, V, b = sympy.symbols("T V b", positive=True)
+    P_AB = sympy.simplify((T/V).subs(V, b*T))                 # constant -> isobaric
+    intended = [("isobaric", 1, 0), ("isochoric", 0, -1), ("isothermal", -1, 1)]
+    T0s = sympy.Symbol("T_0", positive=True)
+    P_lit = sympy.simplify((T/V).subs(T, V/b + T0s))          # literal: V = b (T - T0) -> P = 1/b + T0/V falls with V
+    lit_AB_falls = sympy.diff(P_lit, V).is_negative
+    truth, lit, desc = {}, {}, {}
+    for k in "ABCD":
+        Go = _svg22(62, k); px, py = Go["origin"]
+        segs = [[(x - px, py - y) for x, y in _pts_of(Go["roles"][r][0])] for r in ("AB", "BC", "CA")]
+        cl = [_b22_seg_class(s) for s in segs]
+        joined = all(math.hypot(segs[i][-1][0] - segs[(i + 1) % 3][0][0], segs[i][-1][1] - segs[(i + 1) % 3][0][1]) < 0.5 for i in range(3))
+        truth[k] = joined and [c[:3] for c in cl] == intended and not (P_AB.free_symbols & {T, V})
+        lit[k] = joined and cl[0][0] == "curve" and cl[0][1] == 1 and cl[0][2] == -1 and cl[0][3] == "up" and [c[:3] for c in cl[1:]] == intended[1:] and bool(lit_AB_falls)
+        desc[k] = [c[0] for c in cl]
+    m = _true(truth) if (topo and printed_ok) else []
+    KEY_DISPUTE_LOG.append(f"2022 Q62 (literal reading): AB meets the T-axis at {f0:.2f} T_A; literal P–V match {_true(lit)} vs intended {_true(truth)}")
+    return _b22_result(62, ["cyclic process $ABCA$", "$V$-$T$ diagram", "$P$-$V$ diagram"], [], m,
+                       f"SVG stem: BC isochoric (T falls), CA isothermal (V falls), A->B both rise ({topo}); AB T-intercept {f0:.3f} T_A (as printed: {printed_ok}); "
+                       f"V = bT -> P = {P_AB} (isobaric); option legs {desc}")
+
+def _b22_q63():
+    m_, rL, rW = sympy.symbols("m rho_L rho_W", positive=True)
+    dV = m_/rW - m_/rL                                        # change of level volume on melting
+    rises = lambda ratio: (dV.subs(rL, ratio*rW).subs({m_: 1, rW: 1}) > 0)
+    falls = lambda ratio: (dV.subs(rL, ratio*rW).subs({m_: 1, rW: 1}) < 0)
+    lo, hi = sympy.Rational(4, 5), sympy.Rational(5, 4)
+    props = {"A": bool(rises(lo)), "B": bool(rises(hi)), "C": bool(falls(hi)), "D": bool(dV.subs(rL, lo*rW) == 0 and dV.subs(rL, hi*rW) == 0)}
+    return _b22_result(63, [r"$\rho_{L} \neq \rho_{W}$", "ice melts completely"], [r"A:rise if $\rho_{L} < \rho_{W}$", r"B:rise if $\rho_{L} > \rho_{W}$", r"C:fall if $\rho_{L} > \rho_{W}$"],
+                       _true(props), f"dV = m/rho_W - m/rho_L; at rho_L/rho_W = 4/5: {dV.subs({m_: 1, rW: 1, rL: lo})}, 5/4: {dV.subs({m_: 1, rW: 1, rL: hi})}")
+
+def _b22_q64():
+    G_, rho, RP = sympy.symbols("G rho R_P", positive=True)
+    M = lambda R: sympy.Rational(4, 3)*sympy.pi*R**3*rho
+    ve = lambda R: sympy.sqrt(2*G_*M(R)/R)
+    RQ = 2*RP                                                 # area 4A
+    RW = sympy.root(sympy.Rational(9), 3)*RP                  # mass M_P + 8 M_P
+    v = {"P": ve(RP), "Q": ve(RQ), "W": ve(RW)}
+    num = {k: float((vv/v["P"]).simplify()) for k, vv in v.items()}
+    def holds(tex):
+        t = tex.replace("$", "")
+        terms = re.findall(r"V_\{([PQW])\}", t); ops = re.findall(r"([<>=])", t)
+        ok = True
+        for (a, b), op in zip(zip(terms, terms[1:]), ops):
+            ok &= (num[a] < num[b] - 1e-9) if op == "<" else (num[a] > num[b] + 1e-9) if op == ">" else abs(num[a] - num[b]) < 1e-9
+        return ok
+    m = [k for k, tex in _b22_opts(64).items() if holds(tex)]
+    return _b22_result(64, ["surface areas $A$ and $4A$", "same uniform density", "$(M_{P} + M_{Q})$"], [], m,
+                       f"v_e ∝ R: V_P : V_Q : V_W = {', '.join(f'{k} {num[k]:.4f}' for k in 'PQW')}")
+
+def _b22_q65():
+    L0, a, dT, gap, Y = 1000, sympy.Rational(1, 10**4), 30, 1, 10**11
+    strain = (L0*a*dT - gap)/sympy.Integer(L0)
+    stress = Y*strain
+    vals = {k: _b22_num(tex) for k, tex in _b22_opts(65).items()}
+    m = [k for k, v in vals.items() if v == stress]
+    return _b22_result(65, ["$1000$ mm", "separated by $1001$ mm", r"$10^{11}\ \text{N/m}^{2}$", r"$30^{\circ}\text{C}$"], [], m,
+                       f"free expansion {L0*a*dT} mm, gap {gap} mm -> strain {strain}, stress {stress} Pa; options {vals}")
+
+# ---------------- Q66–Q70 (Category II) ----------------
+def _b22_q66():
+    R, T = sympy.symbols("R T", positive=True)
+    fH2, fHe = 5, 3
+    Cv = (sympy.Rational(fH2, 2)*R + sympy.Rational(fHe, 2)*R)/2
+    gamma = sympy.simplify((Cv + R)/Cv)
+    U = Cv*T
+    favg = sympy.Rational(fH2 + fHe, 2)
+    vr = sympy.sqrt(sympy.Rational(2, 4))                     # v_rms ∝ 1/sqrt(M): He (4) vs H2 (2)
+    props = {"A": gamma == sympy.Rational(3, 2), "B": sympy.simplify(U - 2*R*T) == 0, "C": favg == 5, "D": sympy.simplify(vr - 1/sympy.sqrt(2)) == 0}
+    return _b22_result(66, ["one mole of hydrogen and one mole of helium", "fixed volume"],
+                       [r"A:of the mixture is $\dfrac{3}{2}$", "B:$2RT$", "C:is $5$", r"D:$1 : \sqrt{2}$"], _true(props),
+                       f"Cv = {Cv}, gamma = {gamma}, U/n = {U}, mean dof = {favg}, v_He/v_H2 = {vr}")
+
+def _b22_q67():
+    x, A, B, mm = sympy.symbols("x A B m", positive=True)
+    KE = sympy.integrate(A - B*x, (x, 0, x))
+    d = [s for s in sympy.solve(KE, x) if s != 0][0]
+    a = (A - B*x)/mm
+    v_AB = sympy.sqrt(2*KE/mm).subs(x, A/B)
+    olat = _b22_opts(67)
+    loc = {"A": A, "B": B, "m": mm}
+    P = lambda tex: _b22_expr("$" + tex + "$").subs({sympy.Symbol(n, positive=True): s for n, s in loc.items()})
+    optA = P(re.search(r"d = (.+)\$", olat["A"]).group(1))
+    optB = P(re.search(r"is \$(-\\dfrac\{A\}\{m\})\$", olat["B"]).group(1))
+    optC = P(re.search(r"is \$(B\\sqrt\{\\dfrac\{m\}\{A\}\})\$", olat["C"]).group(1))
+    optD = P(re.search(r"slope \$(.+)\$", olat["D"]).group(1))
+    props = {"A": sympy.simplify(d - optA) == 0, "B": sympy.simplify(a.subs(x, d) - optB) == 0,
+             "C": sympy.simplify(v_AB - optC) == 0, "D": sympy.diff(a, x, 2) == 0 and sympy.simplify(sympy.diff(a, x) - optD) == 0}
+    return _b22_result(67, ["$F = A - Bx$", "initially at rest", "till it comes to rest"], [], _true(props),
+                       f"KE = {KE}; d = {d}; a(d) = {sympy.simplify(a.subs(x, d))}; v(A/B) = {sympy.simplify(v_AB)}; da/dx = {sympy.diff(a, x)}")
+
+def _b22_q68():
+    G = _svg22(68)
+    st = G["roles"]["stick"][0]; sx, sy, sw_, sh = (float(st[k]) for k in ("x", "y", "width", "height"))
+    pth = _line_of(G["roles"]["path"][0]); CM = _b22_pt(G, "CM"); stone = _b22_pt(G, "stone"); hl = _line_of(G["roles"]["h"][0]); v0a = _line_of(G["roles"]["v0"][0])
+    fig_ok = (pth[1] == pth[3] and sh > 5*sw_ and abs(CM[0] - (sx + sw_/2)) < 0.5 and abs(CM[1] - (sy + sh/2)) < 0.5 and stone[0] < sx
+              and pth[0] < sx < pth[2] and sy < pth[1] < CM[1] and abs(hl[1] - pth[1]) < 3 and abs(hl[3] - CM[1]) < 0.5 and v0a[2] > v0a[0] and v0a[1] == v0a[3])
+    h_frac_fig = (CM[1] - pth[1])/sh                           # drawn offset / L (impact point on the stick)
+    mm, v0, L = sympy.symbols("m v_0 L", positive=True)
+    V, w, h = sympy.symbols("V omega h", positive=True)
+    I = mm*L**2/12
+    sol = sympy.solve([sympy.Eq(mm*v0, mm*V + mm*V),
+                       sympy.Eq(mm*v0**2/2, mm*V**2/2 + mm*V**2/2 + I*w**2/2),
+                       sympy.Eq(mm*v0*h, mm*V*h + I*w)], [V, w, h], dict=True)[0]
+    olat = _b22_opts(68)
+    loc = {"v0": v0, "L": L}
+    P = lambda tex: _b22_expr("$" + tex + "$").subs({sympy.Symbol(n, positive=True): s for n, s in loc.items()})
+    optA = P(re.search(r"is \$(.+)\$", olat["A"]).group(1)); optB = P(re.search(r"is \$(.+)\$", olat["B"]).group(1))
+    optD = P(re.search(r"h = (.+)\$", olat["D"]).group(1))
+    on_stick = sympy.simplify(sol[h] - L/2).is_negative
+    props = {"A": sympy.simplify(sol[V] - optA) == 0, "B": sympy.simplify(sol[w] - optB) == 0,
+             "C": False,                                         # no external torque about the CM: L is conserved (the solve uses it)
+             "D": sympy.simplify(sol[h] - optD) == 0 and bool(on_stick)}
+    if "not conserved" not in olat["C"]:
+        props["C"] = None
+    m = _true(props) if fig_ok and props["C"] is not None else []
+    return _b22_result(68, ["collides elastically", "equal speed after collision", "same direction after collision"], [], m,
+                       f"SVG: path ⟂ stick, CM at the stick's middle, h below the line ({fig_ok}; drawn h/L = {h_frac_fig:.3f}); "
+                       f"solve momentum + energy + angular momentum: V = {sol[V]}, omega = {sol[w]}, h = {sol[h]} (< L/2: {on_stick})")
+
+def _b22_q69():
+    G = _svg22(69)
+    xs = {k: _b22_pt(G, k)[0] for k in ("O", "I2", "IF", "I1")}
+    xs["lens"] = float(G["roles"]["lens"][0]["cx"]); xs["mirror"] = _line_of(G["roles"]["mirror"][0])[0]
+    labels_ok = any(t == "30 cm" for *_, t in G["texts"]) and any(t == "10 cm" for *_, t in G["texts"])
+    d30, d10 = _line_of(G["roles"]["dim-30"][0]), _line_of(G["roles"]["dim-10"][0])
+    dims_ok = abs(d30[0] - xs["O"]) < 0.5 and abs(d30[2] - xs["lens"]) < 0.5 and abs(d10[0] - xs["lens"]) < 0.5 and abs(d10[2] - xs["mirror"]) < 0.5
+    f, xm, xo = sympy.Integer(15), sympy.Integer(10), sympy.Integer(-30)       # lens at 0, light initially to +x
+    v1 = 1/(sympy.Rational(1, 1)/f + 1/xo)                    # 1/v - 1/u = 1/f
+    xI1 = v1
+    xI2 = 2*xm - xI1                                          # plane-mirror image of the (virtual) object I1
+    u2 = -xI2                                                 # light now travels to -x: coordinate s = -x
+    v2 = 1/(1/f + 1/u2)
+    xIF = -v2
+    computed = {"O": xo, "I2": xI2, "IF": xIF, "lens": 0, "mirror": xm, "I1": xI1}
+    order_ok = sorted(xs, key=xs.get) == sorted(computed, key=computed.get)
+    props = {"A": xI2 == -10, "B": abs(xIF - xm) == 16, "C": xI1 > xm, "D": v2 > 0}
+    m = _true(props) if (labels_ok and dims_ok and order_ok) else []
+    return _b22_result(69, ["focal length $15$ cm", "$10$ cm in front of a plane mirror", "distance of $30$ cm"],
+                       ["A:$10$ cm to the left of the lens", "B:$16$ cm from mirror", "C:virtual object for mirror", "D:The final image is real."], m,
+                       f"I1 at x = {xI1} (mirror at {xm}), I2 at {xI2}, IF at {xIF} (|IF - mirror| = {abs(xIF - xm)}, v = {v2} > 0 real); "
+                       f"SVG order O<I2<IF<lens<mirror<I1 matches the computed positions ({order_ok}), 30/10 cm dimensions ({labels_ok and dims_ok})")
+
+def _b22_q70():
+    h, I, phi = sympy.symbols("h I phi", positive=True)
+    lam_b, lam_v = sympy.Rational(470), sympy.Rational(410)            # nm (blue, violet)
+    nb, nv = 1/lam_b, 1/lam_v                                  # ∝ frequency
+    flux = lambda n: I/(h*n)
+    Kmax = lambda n: h*n - phi
+    props = {"A": bool(nb > nv), "B": bool(sympy.simplify(flux(nb) - flux(nv)) > 0), "C": bool(sympy.simplify(Kmax(nb) - Kmax(nv)) > 0),
+             "D": False}                                       # phi is a property of the surface only
+    return _b22_result(70, ["blue and violet of same intensity", "$n_{b}$ and $n_{v}$"], ["A:$n_{b} > n_{v}$", "D:Work function of the material is different"],
+                       _true(props), f"n_v/n_b = {nv/nb}; photon flux ratio blue/violet = {sympy.simplify(flux(nb)/flux(nv))}; K_max(blue) - K_max(violet) = {sympy.simplify(Kmax(nb) - Kmax(nv))}")
+
+def _b22_guard(n):
+    """Booklet layout first, then the physics check; exceptions count as FAIL (never crash the run)."""
+    f = globals()[f"_b22_q{n}"]
+    def g():
+        ok, why = _b22_layout(n)
+        if not ok:
+            return False, why
+        try:
+            return f()
+        except Exception as e:
+            return False, f"check raised {type(e).__name__}: {e}"
+    return g
+
+B_TESTS_2022 = [(f"2022 Q{n}", f"jelet-2022-q{n:03d}", _b22_guard(n)) for n in range(41, 71)]
+
+# ---------------------------------------------------------------------------
 # 2023 Batch A (Mathematics, Q1–Q40): independent SymPy re-derivation from the
 # verbatim stems transcribed from booklet pages 3–9 (Set A). Each check
 # (a) asserts the booklet layout (pdfPage, category, twelfths, unitId, no
@@ -6329,7 +6980,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + A_TESTS_2022 + A_TESTS_2023 + B_TESTS_2023 + C_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
+        ] + A_TESTS_2022 + B_TESTS_2022 + A_TESTS_2023 + B_TESTS_2023 + C_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -6361,6 +7012,34 @@ def main():
         else:
             print(f"  ✅ 2022 Batch A coverage gate: Q1–Q40 (Mathematics) 40/40 hand-written, SymPy-verified and independently re-checked "
                   f"(0 stubs; keyTier verified-derived; withdrawn {wd22})")
+
+        # 2022 Batch B gate: every Physics item Q41–Q70 must be a hand-written derivation (sympy-verified, >= 3 steps,
+        # no auto-generated stub text) backed by its own independent _b22 check, keyTier "verified-derived", no
+        # withdrawals, every booklet figure present (7 stem + 12 option SVGs), 0 orphan 2022 SVGs and only
+        # var(--fig-*) colours (no raw hex) in the 2022 figures.
+        wantB22 = [f"jelet-2022-q{n:03d}" for n in range(41, 71)]
+        covB22 = {qid for _, qid, _ in B_TESTS_2022}
+        missB22 = [q for q in wantB22 if q not in covB22]
+        stubB22 = [q for q in wantB22 if q not in sol22 or sol22[q]["verification"].get("method") != "sympy"
+                   or len(sol22[q].get("steps", [])) < 3 or "Auto-generated" in sol22[q]["verification"].get("note", "")
+                   or any(st.get("title") == "Identify the problem type" for st in sol22[q].get("steps", []))]
+        tierB22 = [n for n in range(41, 71) if pap22[n]["key"].get("keyTier") != "verified-derived"]
+        wdB22 = [n for n in range(41, 71) if pap22[n]["key"]["status"] != "active"]
+        refs22 = {os.path.basename(f["src"]) for q in pap22.values() for f in [q.get("stemFigure")] + [o.get("figure") for o in q["options"]] if f}
+        disk22 = sorted(fn for fn in os.listdir(os.path.join(DATA, "figures", "2022")) if fn.endswith(".svg"))
+        orphB22 = sorted(set(disk22) - refs22)
+        figB22 = sorted(fn for fn in refs22 if re.match(r"fig-2022-q(4[1-9]|5\d|6\d|70)", fn))
+        missfigB22 = sorted(fn for fn in refs22 if fn not in disk22)
+        hexB22 = [fn for fn in disk22 if re.search(r"#[0-9a-fA-F]{3,8}\b", open(os.path.join(DATA, "figures", "2022", fn), encoding="utf-8").read())
+                  or re.search(r'(?:fill|stroke)="(?!var\(--fig-|none|transparent)', open(os.path.join(DATA, "figures", "2022", fn), encoding="utf-8").read())]
+        if missB22 or stubB22 or tierB22 or wdB22 or orphB22 or missfigB22 or hexB22 or len(figB22) != 19 or len(B_TESTS_2022) != 30:
+            errors.append(f"2022 Batch B (Q41–Q70) coverage gate: without independent check {missB22}, stub/unverified {stubB22}, tiers {tierB22}, "
+                          f"withdrawn {wdB22}, orphan SVGs {orphB22}, missing SVGs {missfigB22}, raw colours {hexB22}, figures {len(figB22)}/19")
+            print(f"  ❌ 2022 Batch B (Q41–Q70) coverage gate: missing checks {missB22}, stubs {stubB22}, tiers {tierB22}, withdrawn {wdB22}, "
+                  f"orphans {orphB22}, missing SVGs {missfigB22}, raw colours {hexB22}, figures {len(figB22)}/19")
+        else:
+            print(f"  ✅ 2022 Batch B (Q41–Q70) coverage gate: Physics 30/30 hand-written, SymPy-verified and independently re-checked "
+                  f"(0 stubs; keyTier verified-derived; 0 withdrawn; 19/19 booklet figures, SVG geometry asserted, 0 orphan 2022 SVGs, var(--fig-*) only)")
 
         # 2023 Batch A gate: every Mathematics item Q1–Q40 must be a hand-written derivation
         # (sympy-verified, >= 3 steps, no auto-generated stub text) backed by its own independent _a23 check.

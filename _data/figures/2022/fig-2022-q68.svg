@@ -1,15 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" width="240" height="200" role="img" aria-label="2022 Q68: Stone hits stick">
-  <rect x="0" y="0" width="240" height="200" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-axis)">2022 Q68: Stone hits stick</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">Stone-stick collision</text>
-  <line x1="40" y1="120" x2="200" y2="120" stroke="var(--fig-primary)" stroke-width="3"/>
-  <circle cx="120" cy="120" r="4" fill="var(--fig-danger)"/>
-  <text x="125" y="135" font-family="monospace" font-size="9" fill="var(--fig-danger-soft)" text-anchor="start">CM</text>
-  <circle cx="150" cy="120" r="4" fill="var(--fig-secondary)"/>
-  <text x="155" y="135" font-family="monospace" font-size="9" fill="var(--fig-secondary-soft)" text-anchor="start">h</text>
-  <line x1="20" y1="120" x2="40" y2="120" stroke="var(--fig-danger)" stroke-width="1.8"/>
-  <polygon points="40,120 33.1,124.0 33.1,116.0" fill="var(--fig-danger)"/>
-  <text x="20" y="105" font-family="monospace" font-size="12" fill="var(--fig-text)">v₀</text>
-  <circle cx="20" cy="120" r="5" fill="var(--fig-danger)"/>
-  <text x="120" y="160" font-family="monospace" font-size="9" fill="var(--fig-axis)" text-anchor="middle">Stick of mass m, length L</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 216" width="250" height="216" role="img" aria-label="2022 Q68: a stone m moving right with speed v0 along a dashed horizontal line meeting a vertical stick; the stick's centre of mass CM is a distance h below that line">
+  <rect x="0" y="0" width="250" height="216" fill="transparent"/>
+  <rect data-role="stick" x="147" y="31.799999999999997" width="6" height="176.39999999999998" fill="var(--fig-fill)" stroke="var(--fig-line)" stroke-width="1.2"/>
+  <line data-role="path" x1="84" y1="48" x2="240" y2="48" stroke="var(--fig-axis)" stroke-width="0.9" stroke-dasharray="3,2.5"/>
+  <circle data-role="stone" cx="80" cy="48" r="3.6" fill="var(--fig-node)" stroke="var(--fig-node)" stroke-width="1.2"/>
+  <circle data-role="CM" cx="150" cy="120" r="3.0" fill="var(--fig-node)" stroke="var(--fig-node)" stroke-width="1.2"/>
+  <line data-role="v0" x1="92" y1="36" x2="124" y2="36" stroke="var(--fig-line)" stroke-width="1.2"/>
+  <polygon points="124,36 117.1,40.0 117.1,32.0" fill="var(--fig-line)"/>
+  <line data-role="h" x1="128" y1="50" x2="128" y2="120" stroke="var(--fig-line)" stroke-width="1.0"/>
+  <line x1="128" y1="50" x2="133" y2="50" stroke="var(--fig-line)" stroke-width="1.0"/>
+  <line x1="128" y1="120" x2="133" y2="120" stroke="var(--fig-line)" stroke-width="1.0"/>
+  <text x="70" y="53" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">m</text>
+  <text x="100" y="28" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">V<tspan dy="3" font-size="8">0</tspan></text>
+  <text x="118" y="88.0" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">h</text>
+  <text x="160" y="125" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">CM</text>
 </svg>

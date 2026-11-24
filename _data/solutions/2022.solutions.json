@@ -1019,753 +1019,778 @@
       }
     },
     "jelet-2022-q041": {
-      "conceptSummary": "Solve using dimensions for JELET 2022 Q41.",
+      "conceptSummary": "The argument of a sine is dimensionless, so every term inside $\\omega\\left(\\frac{p}{v} - q\\pi\\right)$ must be dimensionless after multiplying by $\\omega$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves dimensions."
+          "title": "Dimensions of the symbols",
+          "bodyLatex": "$[\\omega] = T^{-1}$ (angular frequency) and $[v] = LT^{-1}$ (wave speed); $\\pi$ is a pure number."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "First term",
+          "bodyLatex": "$\\left[\\omega\\dfrac{p}{v}\\right] = 1 \\Rightarrow [p] = \\dfrac{[v]}{[\\omega]} = \\dfrac{LT^{-1}}{T^{-1}} = L$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $L, T^{-1}$."
+          "title": "Second term",
+          "bodyLatex": "$[\\omega q\\pi] = 1 \\Rightarrow [q] = \\dfrac{1}{[\\omega]} = T$. So $p$ and $q$ have dimensions $L, T$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: [p] = [v]/[omega] = L^1 T^0, [q] = 1/[omega] = L^0 T^1; only (C) 'L, T' matches."
       }
     },
     "jelet-2022-q042": {
-      "conceptSummary": "Solve using errors for JELET 2022 Q42.",
+      "conceptSummary": "For a product $V = Lht$ the fractional errors add: $\\dfrac{\\Delta V}{V} = \\dfrac{\\Delta L}{L} + \\dfrac{\\Delta h}{h} + \\dfrac{\\Delta t}{t}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves errors."
+          "title": "Volume",
+          "bodyLatex": "$V = Lht = 10.0 \\times 1.00 \\times 0.1 = 1.0\\ \\text{cm}^{3}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Fractional errors",
+          "bodyLatex": "$\\dfrac{\\Delta L}{L} = \\dfrac{0.1}{10.0} = 0.01$, $\\dfrac{\\Delta h}{h} = \\dfrac{0.01}{1.00} = 0.01$, $\\dfrac{\\Delta t}{t} = \\dfrac{0.001}{0.1} = 0.01$; sum $= 0.03$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $0.03\\,\\text{cm}^{3}$."
+          "title": "Error in volume",
+          "bodyLatex": "$\\Delta V = 0.03 \\times 1.0 = 0.03\\ \\text{cm}^{3}$. Answer: (A)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Interpretation note",
+          "bodyLatex": "The stem says 'most probable error', which in a strict statistical sense would be the quadrature sum $\\sqrt{3}\\times 0.01 \\times 1.0 \\approx 0.017\\ \\text{cm}^{3}$; that value is not printed. The options are built on the usual school rule (fractional errors add), which gives exactly the printed $0.03\\ \\text{cm}^{3}$; options (B), (C), (D) match neither rule."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: V = 1, dV/V = 3/100 -> dV = 0.03 (A); quadrature 0.0173 matches no option; B 0.111, C 0.012, D 0.12 rejected."
       }
     },
     "jelet-2022-q043": {
-      "conceptSummary": "Solve using vector-algebra for JELET 2022 Q43.",
+      "conceptSummary": "Area of a triangle $= \\tfrac{1}{2}\\,|\\vec{PQ} \\times \\vec{PR}|$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves vector-algebra."
+          "title": "Side vectors",
+          "bodyLatex": "$\\vec{PQ} = Q - P = (1, -4, -1)$, $\\vec{PR} = R - P = (-2, -1, 1)$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Cross product",
+          "bodyLatex": "$\\vec{PQ} \\times \\vec{PR} = \\big((-4)(1) - (-1)(-1),\\ (-1)(-2) - (1)(1),\\ (1)(-1) - (-4)(-2)\\big) = (-5, 1, -9)$, with magnitude $\\sqrt{25 + 1 + 81} = \\sqrt{107}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{\\sqrt{107}}{2}$ sq. unit."
+          "title": "Area",
+          "bodyLatex": "Area $= \\tfrac{1}{2}\\sqrt{107}$ sq. unit. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: PQ x PR = (-5, 1, -9), |.| = sqrt(107), area = sqrt(107)/2 -> (D)."
       }
     },
     "jelet-2022-q044": {
-      "conceptSummary": "Solve using rotation for JELET 2022 Q44.",
+      "conceptSummary": "The radial (centripetal) force is $mv^{2}/R = 2K/R$, so it follows the kinetic energy directly.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves rotation."
+          "title": "Speed from kinetic energy",
+          "bodyLatex": "$K = \\tfrac{1}{2}mv^{2} = \\alpha x \\Rightarrow mv^{2} = 2\\alpha x$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Radial force",
+          "bodyLatex": "$F_{r} = \\dfrac{mv^{2}}{R} = \\dfrac{2\\alpha x}{R}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $x$."
+          "title": "Proportionality",
+          "bodyLatex": "With $\\alpha$ and $R$ constant, $F_{r} \\propto x$ (not $x^{2}$, not $1/x$, not constant). Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: F_r = 2*alpha*x/R; d(ln F_r)/d(ln x) = 1 -> proportional to x (A)."
       }
     },
     "jelet-2022-q045": {
-      "conceptSummary": "Solve using kinematics for JELET 2022 Q45.",
+      "conceptSummary": "Compare $Y = 2x - 5x^{2}$ with the projectile path $y = x\\tan\\theta - \\dfrac{g x^{2}}{2u^{2}\\cos^{2}\\theta}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves kinematics."
+          "title": "Launch direction",
+          "bodyLatex": "$\\tan\\theta = 2$, i.e. $u_{y}/u_{x} = 2$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Horizontal component",
+          "bodyLatex": "$\\dfrac{g}{2u^{2}\\cos^{2}\\theta} = \\dfrac{g}{2u_{x}^{2}} = 5 \\Rightarrow u_{x}^{2} = \\dfrac{10}{10} = 1$, so $u_{x} = 1$ m/s."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\hat{i} + 2\\hat{j}\\,\\text{m/s}$."
+          "title": "Velocity of projection",
+          "bodyLatex": "$u_{y} = 2u_{x} = 2$ m/s, so $\\vec{u} = \\hat{i} + 2\\hat{j}$ m/s. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: matching x and x^2 coefficients gives ux = 1, uy = 2 -> i + 2j (C); others give wrong coefficients."
       }
     },
     "jelet-2022-q046": {
-      "conceptSummary": "Solve using spring for JELET 2022 Q46.",
+      "conceptSummary": "A constant force only shifts the equilibrium of a spring–mass system; the block starts at rest at the old equilibrium, which is an extreme position.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves spring."
+          "title": "New equilibrium",
+          "bodyLatex": "With $F$ applied, equilibrium is where $kx_{0} = F$, i.e. $x_{0} = \\dfrac{F}{k}$ from the unstretched position."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Motion",
+          "bodyLatex": "$m\\ddot{x} = F - kx \\Rightarrow x(t) = \\dfrac{F}{k}(1 - \\cos\\omega t)$ for $x(0) = 0$, $\\dot{x}(0) = 0$; it oscillates between $0$ and $2F/k$ about $F/k$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{F}{k}$."
+          "title": "Amplitude",
+          "bodyLatex": "Amplitude $= \\dfrac{F}{k} = \\dfrac{F}{m\\omega^{2}}$ since $k = m\\omega^{2}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: dsolve m x'' = F - k x with x(0)=0, x'(0)=0 -> x = F/k (1 - cos wt); amplitude F/k = F/(m w^2) (B)."
       }
     },
     "jelet-2022-q047": {
-      "conceptSummary": "Solve using work-energy for JELET 2022 Q47.",
+      "conceptSummary": "Work–energy theorem with the variable retarding force: $\\Delta K = -\\displaystyle\\int_{10}^{100} \\frac{k}{x}\\,dx$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves work-energy."
+          "title": "Initial kinetic energy",
+          "bodyLatex": "$K_{0} = \\tfrac{1}{2}(1.0)(2)^{2} = 2$ J (no force acts for $x < 10$ m)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Work of the retarding force",
+          "bodyLatex": "$W = -\\displaystyle\\int_{10}^{100} \\frac{0.5}{x}\\,dx = -0.5\\ln\\frac{100}{10} = -0.5 \\times 2.3 = -1.15$ J."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $0.85\\,\\text{J}$."
+          "title": "Final kinetic energy",
+          "bodyLatex": "$K = 2 - 1.15 = 0.85$ J (positive, so the block does reach $x = 100$ m). Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: integral of 0.5/x from 10 to 100 = 0.5 ln 10 = 1.15 (ln 10 = 2.3); K = 2 - 1.15 = 0.85 J (D)."
       }
     },
     "jelet-2022-q048": {
-      "conceptSummary": "Solve using rotation for JELET 2022 Q48.",
+      "conceptSummary": "Energy conservation about the fixed axis: the loss of potential energy of $m$ becomes rotational kinetic energy of disc + point mass.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves rotation."
+          "title": "Drop of the point mass",
+          "bodyLatex": "$P_{1}$ is level with the centre $C$ and $P_{2}$ is the lowest point, so $m$ falls by $R$; the disc's own centre of mass stays on the axis."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Moment of inertia about the axis",
+          "bodyLatex": "$I = \\tfrac{1}{2}MR^{2} + mR^{2} = \\tfrac{1}{2}(M + 2m)R^{2}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\sqrt{\\dfrac{4mg}{(2M+m)R}}$ rad/sec."
+          "title": "Energy equation",
+          "bodyLatex": "$mgR = \\tfrac{1}{2}I\\omega^{2} = \\tfrac{1}{4}(M + 2m)R^{2}\\omega^{2} \\Rightarrow \\omega^{2} = \\dfrac{4mg}{(2m + M)R}$, so $\\omega = \\sqrt{\\dfrac{4mg}{(2m + M)R}}$ rad/s."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Matching the printed options (interpretation note)",
+          "bodyLatex": "The printed options carry no square root, so dimensionally each is an $\\omega^{2}$ (units $\\text{s}^{-2}$) labelled 'rad/sec'. Option (D) $\\dfrac{4mg}{(2m + M)R}$ is exactly $\\omega^{2}$; (A) $\\dfrac{2mg}{(m+M)R}$, (B) $\\dfrac{4mg}{(2M+m)}$ (also missing $R$) and (C) $\\dfrac{4mg}{(M+m)R}$ are not, even as squares. Read as a dropped radical, the intended key is (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: from the SVG, drop = R (P1 level with C, P2 lowest); I = (M/2 + m) R^2; omega^2 = 4 m g/((2m + M) R) = option D; no option equals omega literally (radical omitted)."
       }
     },
     "jelet-2022-q049": {
-      "conceptSummary": "Solve using gravitation for JELET 2022 Q49.",
+      "conceptSummary": "Superpose the two point-mass potentials at a point $(x, 0)$ on the perpendicular bisector.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves gravitation."
+          "title": "Potential",
+          "bodyLatex": "Each mass is at distance $\\sqrt{x^{2} + a^{2}}$, so $V(x) = -\\dfrac{2Gm}{\\sqrt{x^{2} + a^{2}}}$ and $|V(x)| = \\dfrac{2Gm}{\\sqrt{x^{2} + a^{2}}}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Shape",
+          "bodyLatex": "$|V|$ is even in $x$, largest at $x = 0$ ($2Gm/a$), strictly decreasing for $x > 0$, and positive everywhere, tending to $0$ only as $|x| \\to \\infty$; it has inflection points at $x = \\pm a/\\sqrt{2}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) graph B."
+          "title": "Choose the graph",
+          "bodyLatex": "(A) and (B) have a minimum at $x = 0$; (C) reaches zero at finite $x$. Only the bell curve (D) has a maximum at $x = 0$ and approaches the axis asymptotically. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: |V| = 2Gm/sqrt(x^2+a^2), |V|'(0)=0, |V|''(0)<0, decreasing for x>0, limit 0; SVG option curves classified -> only D (max at 0, positive tails)."
       }
     },
     "jelet-2022-q050": {
-      "conceptSummary": "Solve using elasticity for JELET 2022 Q50.",
+      "conceptSummary": "For a longitudinal strain $\\varepsilon$ the volume strain is $\\dfrac{\\Delta V}{V} = \\varepsilon(1 - 2\\sigma)$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves elasticity."
+          "title": "Volume of the rod",
+          "bodyLatex": "$V = \\pi r^{2}L \\Rightarrow \\dfrac{\\Delta V}{V} = \\dfrac{\\Delta L}{L} + 2\\dfrac{\\Delta r}{r} = \\varepsilon - 2\\sigma\\varepsilon$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Substitute",
+          "bodyLatex": "$0.004 = 0.01(1 - 2\\sigma) \\Rightarrow 1 - 2\\sigma = 0.4$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $0.3$."
+          "title": "Poisson ratio",
+          "bodyLatex": "$\\sigma = 0.3$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: solve 0.004 = 0.01 (1 - 2 sigma) -> sigma = 3/10 (A)."
       }
     },
     "jelet-2022-q051": {
-      "conceptSummary": "Solve using fluid for JELET 2022 Q51.",
+      "conceptSummary": "Torricelli: efflux speed at depth $h$ is $\\sqrt{2gh}$; equal volume rates mean $A_{1}v_{1} = A_{2}v_{2}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves fluid."
+          "title": "Efflux speeds",
+          "bodyLatex": "Square hole: $v_{1} = \\sqrt{2gy}$; circular hole: $v_{2} = \\sqrt{2g(2y)} = \\sqrt{2}\\,v_{1}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Equal rates",
+          "bodyLatex": "$L^{2}\\sqrt{2gy} = \\pi R^{2}\\sqrt{2}\\sqrt{2gy} \\Rightarrow R^{2} = \\dfrac{L^{2}}{\\sqrt{2}\\,\\pi}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{L}{\\sqrt{2\\pi}}$."
+          "title": "Ratio",
+          "bodyLatex": "$\\dfrac{R}{L} = \\dfrac{1}{2^{1/4}\\sqrt{\\pi}}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: L^2 sqrt(2gy) = pi R^2 sqrt(4gy) -> R/L = 2^(-1/4)/sqrt(pi) (B); A, C, D differ."
       }
     },
     "jelet-2022-q052": {
-      "conceptSummary": "Solve using fluid for JELET 2022 Q52.",
+      "conceptSummary": "At terminal velocity all the work done against viscous drag appears as heat: $P = F_{v}v_{t} = 6\\pi\\eta R v_{t}^{2}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves fluid."
+          "title": "Terminal velocity",
+          "bodyLatex": "$v_{t} = \\dfrac{2R^{2}(\\rho - \\sigma)g}{9\\eta} \\propto R^{2}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Rate of heating",
+          "bodyLatex": "$P = 6\\pi\\eta R v_{t}\\cdot v_{t} = 6\\pi\\eta R v_{t}^{2} \\propto R \\cdot R^{4} = R^{5}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) proportional to $R^{5}$."
+          "title": "Conclusion",
+          "bodyLatex": "The rate of heat production is proportional to $R^{5}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: P = 6 pi eta R v_t^2 with v_t = 2R^2(rho-sigma)g/(9eta); d ln P / d ln R = 5 (B)."
       }
     },
     "jelet-2022-q053": {
-      "conceptSummary": "Solve using thermodynamics for JELET 2022 Q53.",
+      "conceptSummary": "Steady flow through a lagged wire: $H = -KS\\dfrac{dT}{dx}$ is the same at every section, so $H L = S\\displaystyle\\int_{T_{2}}^{T_{1}} K\\,dT$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves thermodynamics."
+          "title": "Integrate",
+          "bodyLatex": "$H = \\dfrac{S}{L}\\displaystyle\\int_{T_{2}}^{T_{1}} (\\beta + \\gamma T)\\,dT = \\dfrac{S}{L}\\left[\\beta(T_{1} - T_{2}) + \\dfrac{\\gamma}{2}(T_{1}^{2} - T_{2}^{2})\\right]$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Test each option",
+          "bodyLatex": "(A) $\\gamma = 0$: $H = \\dfrac{S\\beta}{L}(T_{1} - T_{2})$ — true. (B) $\\beta = 0$ gives $\\dfrac{S\\gamma}{2L}(T_{1}^{2} - T_{2}^{2})$, not a sum of squares — false. (C) $\\gamma = \\beta = 0$ makes $K = 0$ and $H = 0$, not $\\dfrac{S}{L}(T_{1} - T_{2})$ — false."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{S\\beta}{L}(T_{1}-T_{2})$ if $\\gamma = 0$."
+          "title": "Option (D)",
+          "bodyLatex": "$\\gamma = \\beta/2$: $H = \\dfrac{S\\beta}{L}(T_{1} - T_{2}) + \\dfrac{S\\beta}{4L}(T_{1}^{2} - T_{2}^{2}) \\neq \\dfrac{S\\beta}{L}(T_{1}^{2} - T_{2}^{2})$ in general — false. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: H = (S/L)[beta (T1-T2) + gamma/2 (T1^2 - T2^2)]; each option's condition substituted -> only A identically equal."
       }
     },
     "jelet-2022-q054": {
-      "conceptSummary": "Solve using thermal-expansion for JELET 2022 Q54.",
+      "conceptSummary": "The air volume stays constant when the flask and the mercury expand by the same amount: $V_{g}\\gamma_{g} = V_{m}\\gamma_{m}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves thermal-expansion."
+          "title": "Volume expansivity of glass",
+          "bodyLatex": "$\\gamma_{g} = 3\\alpha_{g} = 3 \\times 9 \\times 10^{-6} = 2.7 \\times 10^{-5}\\ ^{\\circ}\\text{C}^{-1}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Equal expansions",
+          "bodyLatex": "$1000 \\times 2.7 \\times 10^{-5}\\,\\Delta T = V_{m} \\times 1.8 \\times 10^{-4}\\,\\Delta T$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $150\\,\\text{cm}^{3}$."
+          "title": "Volume of mercury",
+          "bodyLatex": "$V_{m} = \\dfrac{1000 \\times 2.7 \\times 10^{-5}}{1.8 \\times 10^{-4}} = 150\\ \\text{cm}^{3}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: V_m = 1000 * 3 * 9e-6 / 1.8e-4 = 150 cm^3 (B)."
       }
     },
     "jelet-2022-q055": {
-      "conceptSummary": "Solve using thermodynamics for JELET 2022 Q55.",
+      "conceptSummary": "Isobaric process of a monatomic ideal gas: $W = nR\\Delta T$ and $Q = nC_{p}\\Delta T = \\tfrac{5}{2}nR\\Delta T$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves thermodynamics."
+          "title": "Read the figure",
+          "bodyLatex": "$A$ and $B$ lie on the same horizontal line of the $P$–$V$ diagram with $V_{B} > V_{A}$: an isobaric expansion, so $\\Delta T > 0$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Work and heat",
+          "bodyLatex": "$W = P(V_{B} - V_{A}) = nR\\Delta T$; $Q = \\Delta U + W = \\tfrac{3}{2}nR\\Delta T + nR\\Delta T = \\tfrac{5}{2}nR\\Delta T$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{2}{5}$."
+          "title": "Ratio",
+          "bodyLatex": "$\\dfrac{W}{Q} = \\dfrac{1}{5/2} = \\dfrac{2}{5}$. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: SVG A, B on one isobar with V_B > V_A; W/Q = R/(5R/2) = 2/5 (D)."
       }
     },
     "jelet-2022-q056": {
-      "conceptSummary": "Solve using refraction for JELET 2022 Q56.",
+      "conceptSummary": "At minimum deviation $\\mu = \\dfrac{\\sin\\frac{A + \\delta_{m}}{2}}{\\sin\\frac{A}{2}}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves refraction."
+          "title": "Substitute the index",
+          "bodyLatex": "$\\cot\\dfrac{A}{2} = \\dfrac{\\sin\\frac{A + \\delta_{m}}{2}}{\\sin\\frac{A}{2}} \\Rightarrow \\sin\\dfrac{A + \\delta_{m}}{2} = \\cos\\dfrac{A}{2} = \\sin\\left(\\dfrac{\\pi}{2} - \\dfrac{A}{2}\\right)$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Solve for the deviation",
+          "bodyLatex": "$\\dfrac{A + \\delta_{m}}{2} = \\dfrac{\\pi}{2} - \\dfrac{A}{2} \\Rightarrow \\delta_{m} = \\pi - 2A$ (positive since $A < \\pi/2$)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $-\\cos 2A$."
+          "title": "Cosine",
+          "bodyLatex": "$\\cos\\delta_{m} = \\cos(\\pi - 2A) = -\\cos 2A$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: delta_m = pi - 2A satisfies sin((A+delta)/2) = cot(A/2) sin(A/2); cos(delta_m) = -cos 2A, checked at A = 0.3, 0.7, 1.2 (C)."
       }
     },
     "jelet-2022-q057": {
-      "conceptSummary": "Solve using refraction for JELET 2022 Q57.",
+      "conceptSummary": "Apparent depth: the liquid layer of thickness $x$ appears as $x/\\mu$, the air gap $H - x$ appears at its true depth.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves refraction."
+          "title": "Image distance from the top",
+          "bodyLatex": "$d = (H - x) + \\dfrac{x}{\\mu} = H - x\\left(1 - \\dfrac{1}{\\mu}\\right)$, linear in $x$ with negative slope since $\\mu > 1$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "End points",
+          "bodyLatex": "Empty vessel ($x = 0$): $d = H$. Full vessel ($x = H$): $d = H/\\mu$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) graph B."
+          "title": "Choose the graph",
+          "bodyLatex": "A straight line falling from $H$ at $x = 0$ to $H/\\mu$ at $x = H$ — graph (B). (A) and (C) rise; (D) starts at the origin. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: d(x) = H - x(1 - 1/mu); d(0) = H, d(H) = H/mu; SVG stem consistent with mu = 4/3; option line end labels -> only B."
       }
     },
     "jelet-2022-q058": {
-      "conceptSummary": "Solve using refraction for JELET 2022 Q58.",
+      "conceptSummary": "Light leaves only inside the circle where the angle of incidence is below the critical angle: $\\tan C = r/h$ with $\\sin C = 1/\\mu$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves refraction."
+          "title": "Radius of the bright circle",
+          "bodyLatex": "$\\pi r^{2} = 200 \\Rightarrow r^{2} = \\dfrac{200}{\\pi} \\approx 63.7\\ \\text{cm}^{2}$ ($r \\approx 7.98$ cm $< 15$ cm, so the circle fits in the cylinder)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Critical angle",
+          "bodyLatex": "$\\sin^{2}C = \\dfrac{r^{2}}{r^{2} + h^{2}}$ with $h = 7.0$ cm, so $\\mu^{2} = \\dfrac{1}{\\sin^{2}C} = 1 + \\dfrac{h^{2}}{r^{2}} = 1 + \\dfrac{49\\pi}{200}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $1.77$."
+          "title": "Value",
+          "bodyLatex": "$\\mu^{2} = 1 + 0.770 = 1.77$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: mu^2 = 1 + 49 pi/200 = 1.7697 -> 1.77 (B)."
       }
     },
     "jelet-2022-q059": {
-      "conceptSummary": "Solve using lens for JELET 2022 Q59.",
+      "conceptSummary": "The liquid between the lens and the mirror forms a plano-concave liquid lens; the focal length of the lens–liquid combination is the distance at which an object coincides with its own image.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves lens."
+          "title": "Glass lens",
+          "bodyLatex": "$\\dfrac{1}{f_{g}} = \\left(\\dfrac{3}{2} - 1\\right)\\left(\\dfrac{1}{10} + \\dfrac{1}{10}\\right) = \\dfrac{1}{10}$ cm$^{-1}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Liquid lens",
+          "bodyLatex": "Upper surface radius $10$ cm (concave), lower surface plane: $\\dfrac{1}{f_{l}} = (\\mu - 1)\\left(-\\dfrac{1}{10} - 0\\right) = -\\dfrac{\\mu - 1}{10}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $1.6$."
+          "title": "Combination",
+          "bodyLatex": "$\\dfrac{1}{25} = \\dfrac{1}{10} - \\dfrac{\\mu - 1}{10} \\Rightarrow \\mu - 1 = 0.6 \\Rightarrow \\mu = 1.6$. Answer: (C)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Interpretation note",
+          "bodyLatex": "'Focal length of the system' is read in the usual textbook sense: the object distance at which the image coincides with the object (rays leave the lens–liquid combination parallel and retrace their path after reflection). Treating the whole set-up as an equivalent mirror, $\\dfrac{1}{F} = \\dfrac{2}{f_{c}}$ with $F = 25$ cm, would give $\\mu = 1.8$, which matches no option."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: 1/25 = 1/10 - (mu-1)/10 -> mu = 8/5 (C); equivalent-mirror reading 2(1/10 - (mu-1)/10) = 1/25 -> mu = 9/5 (no option)."
       }
     },
     "jelet-2022-q060": {
-      "conceptSummary": "Solve using photoelectric for JELET 2022 Q60.",
+      "conceptSummary": "Photon energy scales as $1/\\lambda$; Einstein's equation $\\phi = E - eV_{0}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves photoelectric."
+          "title": "Photon energy at 5000 Å",
+          "bodyLatex": "$E = 1.243 \\times \\dfrac{10000}{5000} = 2.486$ eV."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Maximum kinetic energy",
+          "bodyLatex": "$K_{\\max} = eV_{0} = 1.36$ eV (the photocurrent and intensity do not enter)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $1.12\\,\\text{eV}$."
+          "title": "Work function",
+          "bodyLatex": "$\\phi = 2.486 - 1.36 = 1.126 \\approx 1.12$ eV. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: phi = 1.243*2 - 1.36 = 1.126 eV, nearest printed value 1.12 (D)."
       }
     },
     "jelet-2022-q061": {
-      "conceptSummary": "Solve using collision for JELET 2022 Q61.",
+      "conceptSummary": "Conserve momentum along and perpendicular to $x$, then compare kinetic energies.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves collision."
+          "title": "Perpendicular momentum",
+          "bodyLatex": "$m v_{A}\\sin 30^{\\circ} = m v_{B}\\sin 30^{\\circ}$ (opposite sides of the axis) $\\Rightarrow v_{A} = v_{B} = v$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Momentum along $x$",
+          "bodyLatex": "$6m = 2mv\\cos 30^{\\circ} \\Rightarrow v = \\dfrac{6}{\\sqrt{3}} = 2\\sqrt{3}$ m/s, so (A) and (B) ($\\sqrt{3}$ m/s) are false."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) Collision is not perfectly elastic."
+          "title": "Kinetic energy",
+          "bodyLatex": "Before: $\\tfrac{1}{2}m(36) = 18m$; after: $2 \\times \\tfrac{1}{2}m(12) = 12m < 18m$. KE is lost, so the collision is not perfectly elastic (C true, D false). Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: v_A = v_B = 2 sqrt(3); KE ratio after/before = 2/3 -> not elastic (C)."
       }
     },
     "jelet-2022-q062": {
-      "conceptSummary": "Solve using thermodynamics for JELET 2022 Q62.",
+      "conceptSummary": "Translate each leg of the $V$–$T$ cycle using $PV = nRT$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves thermodynamics."
+          "title": "Read the $V$–$T$ diagram",
+          "bodyLatex": "$B \\to C$ is horizontal (constant $V$, $T$ falls); $C \\to A$ is vertical (constant $T$, $V$ falls); $A \\to B$ is a straight line along which $V$ and $T$ both increase."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Each leg on a $P$–$V$ diagram",
+          "bodyLatex": "$A \\to B$: $V \\propto T$, so $P$ is constant — a horizontal line to the right. $B \\to C$: isochoric cooling, so $P$ falls at constant $V$ — vertical downward. $C \\to A$: isothermal compression, $PV = $ const — a rectangular hyperbola rising back to $A$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) graph B."
+          "title": "Choose the graph",
+          "bodyLatex": "Horizontal $A \\to B$, vertical $B \\to C$ downward and a hyperbola $C \\to A$ is graph (C). (D) closes with a straight line (not isothermal); (B) has the wrong sequence. Answer: (C)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Interpretation note",
+          "bodyLatex": "The booklet draws $A$ well above the $T$-axis, and line $AB$, extended, meets the $T$-axis at about $0.54\\,T_{A}$ instead of at $O$. Read literally (with $V = b(T - T_{0})$), $P$ would fall from $A$ to $B$, which is the lens-shaped graph (A). The figure is read in the standard textbook sense that $AB$ represents $V \\propto T$ (an isobar through the origin), which gives (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: from the SVG, BC has V const, CA has T const, A->B both rising; isobaric reading -> (horizontal, vertical down, PV-const) = option C geometry; literal T-intercept 0.54 T_A logged (would favour A)."
       }
     },
     "jelet-2022-q063": {
-      "conceptSummary": "Solve using fluid for JELET 2022 Q63.",
+      "conceptSummary": "Floating ice displaces liquid of its own weight; on melting it becomes water of the same mass.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves fluid."
+          "title": "Volume displaced while floating",
+          "bodyLatex": "$V_{d} = \\dfrac{m}{\\rho_{L}}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Volume after melting",
+          "bodyLatex": "$V_{w} = \\dfrac{m}{\\rho_{W}}$; the level rises if $V_{w} > V_{d}$, i.e. $\\rho_{L} > \\rho_{W}$, and falls if $\\rho_{L} < \\rho_{W}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) will rise if $\\rho_{L} > \\rho_{W}$."
+          "title": "Options",
+          "bodyLatex": "(A) says rise for $\\rho_{L} < \\rho_{W}$ (it falls), (C) says fall for $\\rho_{L} > \\rho_{W}$ (it rises), and (D) needs $\\rho_{L} = \\rho_{W}$, which is excluded. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: sign(m/rho_W - m/rho_L) = sign(rho_L - rho_W) checked for rho_L/rho_W = 0.8, 1.25 -> only B holds."
       }
     },
     "jelet-2022-q064": {
-      "conceptSummary": "Solve using gravitation for JELET 2022 Q64.",
+      "conceptSummary": "For uniform density $v_{e} = \\sqrt{\\dfrac{2GM}{R}} = R\\sqrt{\\dfrac{8\\pi G\\rho}{3}} \\propto R$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves gravitation."
+          "title": "Radii of P and Q",
+          "bodyLatex": "Surface areas $A$ and $4A$ give $R_{Q} = 2R_{P}$, so $M_{Q} = 8M_{P}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Radius of W",
+          "bodyLatex": "$M_{W} = 9M_{P}$ at the same density, so $R_{W} = 9^{1/3}R_{P} \\approx 2.08R_{P}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $V_{P} + V_{Q} > V_{W}$."
+          "title": "Compare",
+          "bodyLatex": "$v_{e} \\propto R$: $V_{W} : V_{Q} : V_{P} = 2.08 : 2 : 1$, so $V_{W} > V_{Q} > V_{P}$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: v_e = R sqrt(8 pi G rho/3); R_Q = 2 R_P, R_W = 9^(1/3) R_P -> V_W > V_Q > V_P (C)."
       }
     },
     "jelet-2022-q065": {
-      "conceptSummary": "Solve using elasticity for JELET 2022 Q65.",
+      "conceptSummary": "Only the part of the free expansion that exceeds the gap is prevented; that prevented strain produces the stress.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves elasticity."
+          "title": "Free expansion",
+          "bodyLatex": "$\\Delta L = L\\alpha\\Delta T = 1000 \\times 10^{-4} \\times 30 = 3$ mm."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Prevented expansion",
+          "bodyLatex": "The gap is $1001 - 1000 = 1$ mm, so $3 - 1 = 2$ mm is prevented: strain $= \\dfrac{2}{1000} = 2 \\times 10^{-3}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $2 \\times 10^{8}\\,\\text{Pa}$."
+          "title": "Stress",
+          "bodyLatex": "$\\sigma = Y \\times \\text{strain} = 10^{11} \\times 2 \\times 10^{-3} = 2 \\times 10^{8}$ Pa. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: stress = 1e11 * (1000*1e-4*30 - 1)/1000 = 2e8 Pa (B)."
       }
     },
     "jelet-2022-q066": {
-      "conceptSummary": "Solve using kinetic-theory for JELET 2022 Q66.",
+      "conceptSummary": "Add the heat capacities of the two moles: $H_{2}$ has $C_{V} = \\tfrac{5}{2}R$, He has $C_{V} = \\tfrac{3}{2}R$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves kinetic-theory."
+          "title": "Mixture heat capacities",
+          "bodyLatex": "$C_{V} = \\dfrac{\\tfrac{5}{2}R + \\tfrac{3}{2}R}{2} = 2R$ per mole, $C_{P} = C_{V} + R = 3R$, so $\\gamma = \\dfrac{3}{2}$ — (A) true."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Energy and degrees of freedom",
+          "bodyLatex": "Average energy per mole $= C_{V}T = 2RT$ — (B) true. The mean number of degrees of freedom is $\\dfrac{5 + 3}{2} = 4$, not $5$ — (C) false."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) Average energy per mole of the gas mixture is $2RT$, (D) The ratio of rms speed of the Helium molecules to that of hydrogen molecules is $1:\\sqrt{2}$."
+          "title": "rms speeds",
+          "bodyLatex": "$v_{\\text{rms}} = \\sqrt{3RT/M}$: $\\dfrac{v_{\\text{He}}}{v_{H_{2}}} = \\sqrt{\\dfrac{2}{4}} = \\dfrac{1}{\\sqrt{2}}$ — (D) true. Answer: (A), (B), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: BD."
+        "note": "SymPy: Cv = 2R, gamma = 3/2, U/n = 2RT, f_avg = 4, v_He/v_H2 = 1/sqrt(2) -> A, B, D true; C false."
       }
     },
     "jelet-2022-q067": {
-      "conceptSummary": "Solve using work-energy for JELET 2022 Q67.",
+      "conceptSummary": "Work–energy theorem: $\\tfrac{1}{2}mv^{2} = \\displaystyle\\int_{0}^{x}(A - Bx')\\,dx' = Ax - \\tfrac{1}{2}Bx^{2}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves work-energy."
+          "title": "Stopping distance and acceleration there",
+          "bodyLatex": "$v = 0$ again when $Ad - \\tfrac{1}{2}Bd^{2} = 0 \\Rightarrow d = \\dfrac{2A}{B}$ — (A) true. Then $a(d) = \\dfrac{A - B(2A/B)}{m} = -\\dfrac{A}{m}$ — (B) true."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Speed at $x = A/B$",
+          "bodyLatex": "$\\tfrac{1}{2}mv^{2} = \\dfrac{A^{2}}{B} - \\dfrac{A^{2}}{2B} = \\dfrac{A^{2}}{2B} \\Rightarrow v = \\dfrac{A}{\\sqrt{mB}}$, not $B\\sqrt{m/A}$ (which even has different dimensions) — (C) false."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $d = \\dfrac{2A}{B}$, (B) acceleration of the particle at $d$ is $-\\dfrac{A}{m}$."
+          "title": "Acceleration–displacement graph",
+          "bodyLatex": "$a = \\dfrac{A}{m} - \\dfrac{B}{m}x$: a straight line of slope $-\\dfrac{B}{m}$, not $A/B$ — (D) false. Answer: (A), (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: AB."
+        "note": "SymPy: d = 2A/B, a(d) = -A/m, v(A/B) = A/sqrt(mB) != B sqrt(m/A), slope -B/m != A/B -> A, B."
       }
     },
     "jelet-2022-q068": {
-      "conceptSummary": "Solve using collision for JELET 2022 Q68.",
+      "conceptSummary": "Conserve linear momentum, angular momentum about the stick's centre of mass and (elastic) kinetic energy.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves collision."
+          "title": "Linear momentum",
+          "bodyLatex": "$mv_{0} = mv + mV$ with equal speeds $v = V$ (same direction) $\\Rightarrow V = \\dfrac{v_{0}}{2}$ — (A) true."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Kinetic energy",
+          "bodyLatex": "$\\tfrac{1}{2}mv_{0}^{2} = \\tfrac{1}{2}m\\dfrac{v_{0}^{2}}{4}\\times 2 + \\tfrac{1}{2}\\cdot\\dfrac{mL^{2}}{12}\\omega^{2} \\Rightarrow \\dfrac{mL^{2}}{24}\\omega^{2} = \\dfrac{mv_{0}^{2}}{4} \\Rightarrow \\omega = \\dfrac{\\sqrt{6}\\,v_{0}}{L}$ — (B) true."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) The speed of the stick after collision is $\\dfrac{v_{0}}{2}$, (B) The angular velocity of the stick is $\\dfrac{\\sqrt{6}v_{0}}{L}$."
+          "title": "Angular momentum about the CM",
+          "bodyLatex": "No external torque acts, so angular momentum is conserved — (C) false. $mv_{0}h = m\\dfrac{v_{0}}{2}h + \\dfrac{mL^{2}}{12}\\cdot\\dfrac{\\sqrt{6}v_{0}}{L} \\Rightarrow h = \\dfrac{\\sqrt{6}}{6}L = \\dfrac{L}{\\sqrt{6}}$ — (D) true. Answer: (A), (B), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: AB."
+        "note": "SymPy: solve momentum + energy + angular momentum -> V = v0/2, omega = sqrt(6) v0/L, h = L/sqrt(6) (< L/2, hits the stick) -> A, B, D."
       }
     },
     "jelet-2022-q069": {
-      "conceptSummary": "Solve using lens for JELET 2022 Q69.",
+      "conceptSummary": "Trace the rays lens → mirror → lens, using the virtual-object rule at each step.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves lens."
+          "title": "First image $I_{1}$",
+          "bodyLatex": "$u = -30$, $f = 15$: $\\dfrac{1}{v} = \\dfrac{1}{15} - \\dfrac{1}{30} = \\dfrac{1}{30} \\Rightarrow v = 30$ cm right of the lens, i.e. $20$ cm behind the mirror. The converging rays meet the mirror first, so $I_{1}$ is a virtual object for the mirror — (C) true."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Mirror image $I_{2}$",
+          "bodyLatex": "A plane mirror images a virtual object $20$ cm behind it into a point $20$ cm in front of it: $10$ cm to the left of the lens — (A) true."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) The second image $I_{2}$ will be formed at a distance $10\\,\\text{cm}$ to the left of the lens., (B) The final image at $I_{P}$ is at a distance $16\\,\\text{cm}$ from mirror.."
+          "title": "Final image $I_{F}$",
+          "bodyLatex": "The reflected rays converge towards $I_{2}$ but meet the lens first, so $I_{2}$ is a virtual object $10$ cm beyond the lens (light now travelling left): $\\dfrac{1}{v} = \\dfrac{1}{15} + \\dfrac{1}{10} = \\dfrac{1}{6} \\Rightarrow v = 6$ cm left of the lens, i.e. $16$ cm from the mirror — (B) true; formed by converging rays, so real — (D) true. Answer: (A), (B), (C), (D)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Interpretation note",
+          "bodyLatex": "(A) names $I_{2}$, the image formed by the mirror (where the reflected rays would converge without the lens), as marked in the booklet's figure. Strictly those rays are intercepted by the lens before converging, so $I_{2}$ acts as a virtual object for the lens; it is read as the mirror's image position."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: AB."
+        "note": "SymPy: I1 at +30 (20 cm behind mirror, virtual object), I2 at -10 (10 cm left of lens), IF at -6 (16 cm from mirror, real) -> A, B, C, D."
       }
     },
     "jelet-2022-q070": {
-      "conceptSummary": "Solve using photoelectric for JELET 2022 Q70.",
+      "conceptSummary": "Same intensity means the same energy flux; violet photons carry more energy ($n_{v} > n_{b}$).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves photoelectric."
+          "title": "Frequencies",
+          "bodyLatex": "Violet light has the higher frequency: $n_{v} > n_{b}$, so (A) is false."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Photon flux",
+          "bodyLatex": "Photons per second per area $= \\dfrac{I}{hn}$, so blue light delivers more photons and (for comparable quantum efficiency) ejects more electrons per second — (B) true."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) Number of electrons emitted per second by the blue light will be more than that by the violet light.."
+          "title": "Kinetic energy and work function",
+          "bodyLatex": "$K_{\\max} = hn - \\phi$ is larger for violet, so (C) is false; $\\phi$ is a property of the surface, the same for both colours, so (D) is false. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: n_v > n_b; flux I/(h n) larger for blue; K_max = h n - phi larger for violet; phi independent of colour -> only B."
       }
     },
     "jelet-2022-q071": {

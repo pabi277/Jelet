@@ -5,8 +5,8 @@
   "totals": {
     "papers": 4,
     "questions": 400,
-    "markableQuestions": 391,
-    "unmarkableQuestions": 9,
+    "markableQuestions": 390,
+    "unmarkableQuestions": 10,
     "units": 42
   },
   "papers": [
@@ -19,7 +19,9 @@
       "maxMarks": 120,
       "maxTwelfths": 1440,
       "questionCount": 100,
-      "voidedQuestions": [],
+      "voidedQuestions": [
+        7
+      ],
       "keyTier": "derived",
       "keyDocumentRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive)",
       "bookletSeries": "A",
