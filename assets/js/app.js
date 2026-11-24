@@ -15,6 +15,7 @@ import { renderPracticeArena, renderPracticeRunner } from "./views/practice.js";
 import { renderResultsView } from "./views/results.js";
 import { renderLearnExplorer, renderUnitLesson, renderFormulaSheet } from "./views/learn.js";
 import { renderTodayDashboard } from "./views/today.js";
+import { renderYouHub } from "./views/you.js";
 
 /* ------------------------------------------------------------------ *
  * Route table — five global destinations only (no audit clutter)
@@ -274,6 +275,8 @@ export async function render() {
     } else if (route.view === "today") {
       const cleanup = await renderTodayDashboard(main, { openAiTutor: openAiTutorContext });
       setViewCleanup(cleanup);
+    } else if (route.view === "you") {
+      await renderYouHub(main, { onThemeToggle: toggleTheme });
     } else {
       renderPlaceholder(main, route.view);
     }

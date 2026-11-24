@@ -1886,6 +1886,76 @@
 .today-subj-fill[data-subject="CHEM"] { background: var(--chem-stripe); }
 .today-subj-fill[data-subject="FEEE"] { background: var(--feee-stripe); }
 
+/* ------------------------------------------------------------------ *
+ * You & AI Local Vault, Switches & Action Rows (13-you-hub, 01-settings)
+ * ------------------------------------------------------------------ */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+  padding: var(--space-2xs) 0;
+}
+.switch-btn {
+  position: relative;
+  flex: 0 0 auto;
+  width: 50px;
+  height: 28px;
+  padding: 3px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface-subtle);
+  cursor: pointer;
+  transition: background 0.16s ease, border-color 0.16s ease;
+}
+.switch-btn__thumb {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform 0.16s ease, background 0.16s ease;
+}
+.switch-btn[aria-checked="true"] {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+.switch-btn[aria-checked="true"] .switch-btn__thumb {
+  transform: translateX(22px);
+  background: var(--text-on-brand);
+}
+
+.activity-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding: var(--space-m);
+  font: inherit;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+.action-list-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  min-height: var(--tap-min);
+  padding: var(--space-xs) var(--space-s);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+.action-list-row:hover {
+  border-color: var(--brand-primary);
+}
+
+
 
 
 
