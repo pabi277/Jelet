@@ -4921,6 +4921,722 @@ def _b23_guard(n):
 
 B_TESTS_2023 = [(f"2023 Q{n}", f"jelet-2023-q{n:03d}", _b23_guard(n)) for n in range(41, 71)]
 
+# ---------------------------------------------------------------------------
+# 2023 Batch C (Chemistry Q71–Q90 + FEEE Q91–Q100): independent re-derivation
+# from the verbatim stems transcribed from booklet pages 18–23 (Set A). Each
+# check (a) asserts the booklet layout (pdfPage, category, twelfths, subject,
+# unitId, figure presence: stem figures exactly for Q84/91/92/94/95, never
+# option figures, no orphan/spoiler SVG), (b) asserts stem and option
+# fingerprints and parses the printed option text (so a tampered option
+# changes the verdict), (c) recomputes the chemistry/circuit from scratch —
+# Bohr model, aufbau, MO filling, VSEPR, Lewis bond lists, stoichiometry and
+# SymPy nullspace balancing, structure graphs rebuilt from the Q84 SVG and
+# from IUPAC names, circuit netlists rebuilt from the Q91/Q92/Q94/Q95 SVGs
+# (MNA, capacitor Laplacians, waveform read back from the polyline) —
+# evaluating ALL FOUR options (Cat-II Q86–Q90 judge each option), and
+# (d) requires the true option set to equal key.correct (JEEB/Reg-267/23).
+# Q88 (Cat-II, +24 twelfths) and Q94 (Cat-I, +12 twelfths) are withdrawn (W).
+# Q96 is a documented key dispute (official A kept).
+# ---------------------------------------------------------------------------
+
+_C23_PAGE = {**{n: 18 for n in range(71, 75)}, **{n: 19 for n in range(75, 81)}, **{n: 20 for n in range(81, 86)},
+             **{n: 21 for n in range(86, 91)}, **{n: 22 for n in range(91, 95)}, **{n: 23 for n in range(95, 101)}}
+_C23_UNIT = {71: "C01", 72: "C01", 73: "C01", 74: "C04", 75: "C01", 76: "C02", 77: "C02", 78: "C03", 79: "C03", 80: "C05",
+             81: "C02", 82: "C05", 83: "C02", 84: "C08", 85: "C08", 86: "C01", 87: "C01", 88: "C05", 89: "C06", 90: "C03",
+             91: "E05", 92: "E04", 93: "E05", 94: "E04", 95: "E04", 96: "E02", 97: "E02", 98: "E03", 99: "E03", 100: "E05"}
+LAYOUT_2023_C = {84, 91, 92, 94, 95}                      # items whose booklet stem prints a figure (no option figures anywhere)
+WITHDRAWN_2023_C = {88, 94}
+
+KEY_DISPUTES_2023[96] = {
+    "official_key": ["A"], "extra_true": [],
+    "reason": "E2 = 4.44 f N2 Φm rises with f only if the peak flux Φm is held constant (official A); with the usual fixed "
+              "supply voltage Φm = V1/(4.44 f N1) falls and the ideal V2 = V1 N2/N1 is unchanged (C). The stem does not say "
+              "which is held constant; the official key A is kept"}
+INTERPRETATION_NOTES_2023.update({
+    87: "the printed condition 'n + 1 ≤ 4' is read as n + l ≤ 4 (l = 1 for a p electron); the literal n + 1 ≤ 4 gives the "
+        "same valid set {B, C}. Official key B, C kept.",
+    98: "no load/field data is printed; the intended reading is constant mechanical output power (P = Tω), giving 80 Nm (C). "
+        "At constant torque it would be 120 Nm (B). Official key C kept.",
+    99: "'the excitation is changed' is read at constant armature current (field-control speed regulation): T = kΦIa changes, "
+        "P = EbIa stays constant (B). Official key B kept.",
+    100: "the printed current '5 cos(100π + 100°)' omits t; it is read as 5 cos(100πt + 100°) A. The average power does not "
+         "depend on the phase, so P = ½·5²·4 = 50 W (B). Official key B kept.",
+})
+
+def _c23_layout(qnum):
+    q = _paper_2023().get(qnum)
+    if q is None:
+        return False, f"2023 Q{qnum} missing from the paper"
+    cat = 2 if 86 <= qnum <= 90 else 1
+    subj = "CHEM" if qnum <= 90 else "FEEE"
+    probs = []
+    if q.get("pdfPage") != _C23_PAGE[qnum]:
+        probs.append(f"pdfPage {q.get('pdfPage')} != booklet page {_C23_PAGE[qnum]}")
+    if q.get("category") != cat or q.get("fullTwelfths") != (12 if cat == 1 else 24) or q.get("negativeTwelfths") != (3 if cat == 1 else 0):
+        probs.append(f"category/twelfths {q.get('category')}/{q.get('fullTwelfths')}/{q.get('negativeTwelfths')} != Cat-{cat}")
+    if q.get("unitId") != _C23_UNIT[qnum] or q.get("subjectId") != subj:
+        probs.append(f"unitId/subject {q.get('unitId')}/{q.get('subjectId')} != {_C23_UNIT[qnum]}/{subj}")
+    if [o.get("id") for o in q.get("options", [])] != ["A", "B", "C", "D"]:
+        probs.append("options are not A–D")
+    if any(o.get("figure") for o in q.get("options", [])):
+        probs.append("the booklet prints no option figures in Q71–Q100")
+    sf = q.get("stemFigure"); fn = f"fig-2023-q{qnum:02d}.svg"
+    if qnum in LAYOUT_2023_C:
+        if not sf or sf.get("src") != f"./_data/figures/2023/{fn}":
+            probs.append(f"stem figure must be ./_data/figures/2023/{fn} (booklet prints one), got {sf and sf.get('src')}")
+        elif not os.path.exists(os.path.join(ROOT, sf["src"][2:])):
+            probs.append(f"figure file missing: {sf['src']}")
+        elif sf.get("alt", "").startswith("Figure for JELET"):
+            probs.append("generic alt text — describe the printed figure")
+    else:
+        if sf:
+            probs.append("booklet prints no figure for this item — stemFigure must be null")
+        if os.path.exists(os.path.join(DATA, "figures", "2023", fn)):
+            probs.append(f"orphan/spoiler SVG {fn} exists")
+    return (not probs), "; ".join(probs)
+
+def _c23_result(qnum, stem_fps, opt_fps, matched, detail):
+    q = _paper_2023()[qnum]
+    if q["key"]["status"] != "active" or qnum in WITHDRAWN_2023_C:
+        return False, f"key status {q['key']['status']} — only Q88 and Q94 are withdrawn in 2023 Q71–Q100"
+    return _b23_result(qnum, stem_fps, opt_fps, matched, detail)
+
+def _c23_withdrawn(qnum, stem_fps, no_unique_answer, must, detail):
+    """Withdrawn item: the analysis must show no unique valid answer; key W; marks to all (+12 Cat-I / +24 Cat-II)."""
+    err = _b23_common(qnum, stem_fps, [])
+    if err:
+        return False, err
+    q = _paper_2023()[qnum]
+    cat = q["category"]
+    withdrawn = q["key"]["status"] == "voided" and q["key"]["correct"] == ["W"] and qnum in WITHDRAWN_2023_C
+    full = q["fullTwelfths"] == (12 if cat == 1 else 24) and cat == (2 if 86 <= qnum <= 90 else 1)
+    sol = load_json(os.path.join(DATA, "solutions", "2023.solutions.json"))["solutions"][f"jelet-2023-q{qnum:03d}"]
+    text = " ".join(s["bodyLatex"] for s in sol["steps"])
+    mk = ("+1", "+12") if cat == 1 else ("+2", "+24")
+    sol_ok = all(m in text for m in must) and all(m in text for m in mk) and "0 marks" not in text and "withdrawn" in text.lower()
+    return (no_unique_answer and withdrawn and full and sol_ok), (
+        f"{detail}; no unique valid answer={no_unique_answer} -> key W; withdrawn={withdrawn}, Cat-{cat} "
+        f"{q['fullTwelfths']} twelfths={full}, solution states analysis + '{mk[0]} mark(s) ({mk[1]} twelfths)'={sol_ok}")
+
+def _c23_opts(qnum):
+    return _b23_opts(qnum)
+
+def _c23_num(tex):
+    """First plain decimal number in a printed option ('$-13.6$ eV', '0.01 (M)', '35 V', '12.25 V')."""
+    m = re.search(r"[-−]?\d+(?:\.\d+)?", tex.replace("$", ""))
+    return sympy.nsimplify(m.group().replace("−", "-")) if m else None
+
+def _c23_pick_num(qnum, value, rel=0.0, abs_tol=0.0):
+    out = []
+    for k, tex in _c23_opts(qnum).items():
+        v = _c23_num(tex)
+        if v is not None and abs(float(v) - float(value)) <= max(abs_tol, rel*abs(float(value))):
+            out.append(k)
+    return out
+
+def _c23_sci(tex):
+    """'6.02 \\times 10^{20}' -> Rational."""
+    m = re.search(r"([\d.]+)\s*\\times\s*10\^\{(-?\d+)\}", tex)
+    return sympy.nsimplify(m.group(1))*sympy.Integer(10)**int(m.group(2))
+
+# ---------------- chemistry helpers ----------------
+_C23_SUBSHELLS = sorted(((n, l) for n in range(1, 8) for l in range(0, min(n, 4))), key=lambda nl: (nl[0] + nl[1], nl[0]))
+
+def _c23_config(Z, charge=0):
+    """Ground-state occupancy {(n, l): e} by Madelung filling with the Cr/Cu (n-1)d5/d10 ns1 exceptions;
+    cations lose electrons from the highest n first (ns before (n-1)d)."""
+    occ, left = {}, Z
+    for n, l in _C23_SUBSHELLS:
+        if left <= 0:
+            break
+        e = min(left, 2*(2*l + 1)); occ[(n, l)] = e; left -= e
+    for (n, l), e in list(occ.items()):
+        if l == 2 and e in (4, 9) and occ.get((n + 1, 0)) == 2:
+            occ[(n, l)] += 1; occ[(n + 1, 0)] -= 1
+    for _ in range(charge):
+        n, l = max((k for k, e in occ.items() if e), key=lambda k: (k[0], k[1]))
+        occ[(n, l)] -= 1
+    return {k: e for k, e in occ.items() if e}
+
+def _c23_orbital_counts(occ):
+    """(shells, subshells, doubly-filled orbitals, unpaired electrons) with Hund's rule."""
+    filled = unp = 0
+    for (n, l), e in occ.items():
+        m = 2*l + 1
+        d = max(0, e - m); filled += d; unp += min(e, m) - d
+    return len({n for n, l in occ}), len(occ), filled, unp
+
+_C23_Z = {"H": 1, "Li": 3, "Be": 4, "B": 5, "C": 6, "N": 7, "O": 8, "F": 9, "Si": 14, "P": 15, "S": 16, "Cl": 17,
+          "Ca": 20, "Cu": 29, "Br": 35, "Xe": 54}
+
+def _c23_mo_bond_order(nel):
+    """Second-period homonuclear MO bond order; σ2p above π2p for ≤ 14 electrons (s–p mixing), below it otherwise."""
+    lev = [("s1", 2, 1), ("s1*", 2, -1), ("s2", 2, 1), ("s2*", 2, -1)]
+    lev += ([("pi", 4, 1), ("sp", 2, 1)] if nel <= 14 else [("sp", 2, 1), ("pi", 4, 1)]) + [("pi*", 4, -1), ("sp*", 2, -1)]
+    left, b, a = nel, 0, 0
+    for _, cap, s in lev:
+        e = min(left, cap); left -= e
+        if s > 0:
+            b += e
+        else:
+            a += e
+    return sympy.Rational(b - a, 2)
+
+def _c23_species(tex):
+    """'\\text{O}_{2}^{-}' -> (formula Counter, charge)."""
+    t = tex.replace("$", "").strip()
+    charge = 0
+    m = re.search(r"\^\{([0-9]*)([+-])\}", t)
+    if m:
+        charge = (int(m.group(1) or 1))*(1 if m.group(2) == "+" else -1)
+        t = t[:m.start()] + t[m.end():]
+    return _c24_formula(_c24_plain(t)), charge
+
+# Lewis structures as explicit bond lists (atom, atom, order) with the formal charges they carry; each formula is
+# re-derived from the bond list and must equal the printed species before σ/π are counted.
+_C23_LEWIS = {
+    "HCO3-": (["H", "O", "C", "O", "O"], [(0, 1, 1), (1, 2, 1), (2, 3, 2), (2, 4, 1)], {4: -1}),
+    "CH2(CN)2": (["C", "H", "H", "C", "N", "C", "N"], [(0, 1, 1), (0, 2, 1), (0, 3, 1), (3, 4, 3), (0, 5, 1), (5, 6, 3)], {}),
+    "(CN)2": (["N", "C", "C", "N"], [(0, 1, 3), (1, 2, 1), (2, 3, 3)], {}),
+    "XeO4": (["Xe", "O", "O", "O", "O"], [(0, 1, 2), (0, 2, 2), (0, 3, 2), (0, 4, 2)], {}),
+}
+_C23_VALENCE = {"H": (1,), "C": (4,), "N": (3,), "O": (2,), "Xe": (8,)}
+
+def _c23_sigma_pi(key):
+    from collections import Counter
+    atoms, bonds, fc = _C23_LEWIS[key]
+    val = Counter()
+    for a, b, o in bonds:
+        val[a] += o; val[b] += o
+    for i, e in enumerate(atoms):                       # neutral valence, shifted by -1 for each negative formal charge on O
+        want = tuple(v + (fc.get(i, 0) if e == "O" else 0) for v in _C23_VALENCE[e])
+        if val[i] not in want:
+            return None
+    return Counter(atoms), sum(fc.values()), len(bonds), sum(o - 1 for _, _, o in bonds)
+
+_C23_VAL = {"B": 3, "C": 4, "N": 5, "O": 6, "P": 5, "S": 6, "Br": 7, "Xe": 8, "Be": 2}
+_C23_SHAPE = {(2, 0): "linear", (3, 0): "trigonal planar", (4, 0): "tetrahedral", (4, 1): "trigonal pyramidal",
+              (5, 0): "trigonal bipyramidal", (5, 1): "see-saw", (5, 2): "T-shaped", (5, 3): "linear",
+              (6, 0): "octahedral", (6, 1): "square pyramidal", (6, 2): "square planar"}
+
+def _c23_vsepr(tex):
+    """VSEPR shape: each F/Cl/H ligand uses one centre electron, each O (double bond) two; the rest are lone pairs."""
+    f = _c24_formula(_c24_plain(tex))
+    centre = next(e for e, k in f.items() if k == 1)
+    ligs = [e for e, k in f.items() if e != centre for _ in range(k)]
+    used = sum({"F": 1, "Cl": 1, "H": 1, "O": 2}[l] for l in ligs)
+    lp = sympy.Rational(_C23_VAL[centre] - used, 2)
+    return _C23_SHAPE[(len(ligs) + int(lp), int(lp))]
+
+def _c23_name_graph(name):
+    """'pentanol', '2 – methylbutanol', '2 – pentanol', '2 – methylbutan-2 – ol' -> (molecule, carbinol carbon)."""
+    t = re.sub(r"\s+", "", name.replace("–", "-")).lower()
+    m = re.fullmatch(r"(?:(\d)-methyl)?(but|pent)an(?:-(\d)-)?ol", t) or re.fullmatch(r"(\d)-(but|pent)anol", t)
+    if not m:
+        return None
+    if len(m.groups()) == 2:
+        me, stem, oh = None, m.group(2), m.group(1)
+    else:
+        me, stem, oh = m.group(1), m.group(2), m.group(3)
+    n = {"but": 4, "pent": 5}[stem]; mol = _C24Mol(); cs = [mol.add("C") for _ in range(n)]
+    for a, b in zip(cs, cs[1:]):
+        mol.bond(a, b)
+    if me:
+        mol.bond(cs[int(me) - 1], mol.add("C"))
+    c_oh = cs[int(oh or 1) - 1]; mol.bond(c_oh, mol.add("O", 1))
+    for i, e in enumerate(mol.el):
+        if e == "C":
+            mol.h[i] = 4 - sum(mol.adj[i].values())
+    return (mol, c_oh) if mol.valence_ok() and all(h >= 0 for h in mol.h) else None
+
+# ---------------- Q71–Q85 (Chemistry, Category I) ----------------
+def _c23_q71():
+    stem = _paper_2023()[71]["stemLatex"]
+    E1 = sympy.nsimplify(re.search(r"\$(-[\d.]+)\$ eV", stem).group(1))
+    Z = _C23_Z["Li"]; n = 1 + {"first": 1, "second": 2, "third": 3}[re.search(r"energy of (\w+) excited state", stem).group(1)]
+    E = E1*Z**2/sympy.Integer(n)**2
+    m = _c23_pick_num(71, E, abs_tol=0.01)
+    return _c23_result(71, ["$-13.6$ eV", "excited state", r"$\text{Li}^{2+}$"], ["C:$-6.04$"], m,
+                       f"E_n = E1 Z^2/n^2 = {E1}·{Z}²/{n}² = {E} eV")
+
+def _c23_q72():
+    r2 = sympy.Symbol("r2", positive=True)
+    a0 = r2/sympy.Integer(2)**2                          # r_n = a0 n^2 / Z, Z = 1
+    r3 = a0*3**2
+    m = _b23_match(72, r3)
+    return _c23_result(72, ["second Bohr orbit", "third Bohr orbit", "H atom"], [], m, f"r_n ∝ n^2 -> r3 = {r3}")
+
+def _c23_q73():
+    occ = _c23_config(_C23_Z["Cu"], 1)
+    got = _c23_orbital_counts(occ)
+    neutral = _c23_config(_C23_Z["Cu"])
+    m = [k for k, tex in _c23_opts(73).items() if tuple(int(x) for x in re.findall(r"\d+", tex)) == got]
+    return _c23_result(73, [r"$\text{Cu}^{+}$", "filled orbitals and unpaired electrons"], [], m,
+                       f"Cu {sorted(neutral.items())} -> Cu+ {sorted(occ.items())}: (shells, subshells, filled, unpaired) = {got}")
+
+def _c23_q74():
+    stem = _paper_2023()[74]["stemLatex"]
+    w = sympy.nsimplify(re.search(r"deposit ([\d.]+) gm", stem).group(1)); M = sympy.nsimplify(re.search(r"Cu = ([\d.]+)", stem).group(1))
+    NA = sympy.Mul(*_b23_S("N", "A"))                    # the option parser reads N_{A} as the product N·A
+    z = 2                                                # Cu2+ + 2e- -> Cu (CuSO4)
+    N = z*w/M*NA
+    m = _b23_match(74, N)
+    return _c23_result(74, ["6.35 gm of copper", "Atomic mass of Cu = 63.5", "copper sulphate"], [], m, f"n_e = {z}·({w})/({M}) = {N/NA} mol -> N = {N} (N·A = N_A)")
+
+def _c23_q75():
+    x, y, z = sympy.symbols("x y z", real=True)
+    th, ph = sympy.symbols("theta phi", real=True)
+    psi2 = (y*z/(x**2 + y**2 + z**2))**2                # |angular d_yz|^2
+    axis = {"X": (1, 0, 0), "Y": (0, 1, 0), "Z": (0, 0, 1)}
+    on_axis = {a: psi2.subs({x: p[0], y: p[1], z: p[2]}) for a, p in axis.items()}
+    sph = sympy.simplify(psi2.subs({x: sympy.sin(th)*sympy.cos(ph), y: sympy.sin(th)*sympy.sin(ph), z: sympy.cos(th)}))
+    peak = sph.subs({th: sympy.pi/4, ph: sympy.pi/2})
+    gmax = sympy.Rational(1, 4)                         # max of sin^2θ cos^2θ sin^2φ
+    o = _c23_opts(75); truth = {}
+    for k, tex in o.items():
+        ax = re.findall(r"\b([XYZ])\b", tex)
+        ang = re.search(r"angle \$(\d+)\^\{\\circ\}\$ with Z axis", tex)
+        if ang:                                          # maximum of |ψ|² over φ at polar angle θ from Z must be the global max
+            at = sympy.simplify(sph.subs({th: sympy.rad(int(ang.group(1))), ph: sympy.pi/2}))
+            truth[k] = sympy.simplify(at - gmax) == 0
+        else:
+            truth[k] = len(ax) == 2 and all(on_axis[a] != 0 for a in ax)
+    return _c23_result(75, [r"$d_{yz}$ orbital"], [], _true(truth),
+                       f"|ψ|² on X, Y, Z axes = {list(on_axis.values())}; at θ = 45° in yz-plane = {peak} = global max {gmax}")
+
+def _c23_q76():
+    def bo(tex):
+        f, q = _c23_species(tex)
+        return _c23_mo_bond_order(sum(_C23_Z[e]*k for e, k in f.items()) - q)
+    truth = {}
+    for k, tex in _c23_opts(76).items():
+        parts = re.split(r"\s*>\s*", tex.replace("$", ""))
+        vals = [bo(p) for p in parts]
+        truth[k] = len(vals) == 3 and vals[0] > vals[1] > vals[2]
+    bos = {s: bo(s) for s in (r"\text{N}_{2}", r"\text{O}_{2}", r"\text{O}_{2}^{-}")}
+    return _c23_result(76, ["bond dissociation energy", r"$\text{O}_{2}^{-}$"], [], _true(truth), f"MO bond orders {bos}")
+
+def _c23_q77():
+    keymap = {}
+    truth = {}
+    for k, tex in _c23_opts(77).items():
+        f, q = _c23_species(tex)
+        hit = None
+        for name in _C23_LEWIS:
+            r = _c23_sigma_pi(name)
+            if r and dict(r[0]) == dict(f) and r[1] == q:
+                hit = (name, r[2], r[3])
+        keymap[k] = hit
+        truth[k] = bool(hit) and hit[1] == hit[2]
+    return _c23_result(77, [r"Equal number of $\sigma$ and $\pi$ bonds"], [], _true(truth),
+                       f"(species, σ, π) from Lewis bond lists: {keymap}")
+
+def _c23_q78():
+    stem = _paper_2023()[78]["stemLatex"]
+    V0 = sympy.Integer(re.search(r"to (\d+) L", stem).group(1))
+    p1, p2 = [int(x) for x in re.findall(r"pH (\d+)", stem)]
+    Vf = V0*sympy.Integer(10)**(-p1)/sympy.Integer(10)**(-p2)
+    add = Vf - V0
+    m = _c23_pick_num(78, add)
+    return _c23_result(78, ["1 L of an aqueous solution of HCl", "to produce an aqueous solution of pH"], [], m, f"[H+]V conserved -> V_f = {Vf} L, water added = {add} L")
+
+def _c23_q79():
+    stem = _paper_2023()[79]["stemLatex"]
+    N = _c23_sci(stem); V = sympy.Integer(re.search(r"(\d+) ml", stem).group(1))/1000
+    M = N/(sympy.nsimplify("6.02")*sympy.Integer(10)**23)/V
+    m = _c23_pick_num(79, M)
+    return _c23_result(79, ["10^{20}", "molecules of glucose"], [], m, f"n = {N}/N_A, M = n/V = {M} M")
+
+def _c23_q80():
+    Ka = _c23_sci(_paper_2023()[80]["stemLatex"]); Kw = sympy.Integer(10)**-14
+    K = Ka/Kw                                            # HA + OH- <=> A- + H2O = (HA <=> H+ + A-) + (H+ + OH- <=> H2O)
+    m = [k for k, tex in _c23_opts(80).items() if (lambda e: e is not None and sympy.simplify(e - K) == 0)(_b23_expr(tex))]
+    return _c23_result(80, ["k_{a} = 1.0 \\times 10^{-5}", "strong base"], [], m, f"K = Ka/Kw = {K}")
+
+def _c23_q81():
+    ion = {"Li": (1, 76), "Be": (2, 45), "B": (3, 27), "C": (4, 16)}            # Shannon radii (pm, CN 6)
+    zr = {e: sympy.Rational(z, r) for e, (z, r) in ion.items()}
+    truth = {}
+    for k, tex in _c23_opts(81).items():
+        t = tex.replace("$", "")
+        sp = [re.match(r"\\text\{([A-Z][a-z]?)", s.strip()).group(1) for s in re.split(r"[<>]", t)]
+        ops = re.findall(r"[<>]", t)
+        truth[k] = len(sp) == 4 and all((zr[a] < zr[b]) == (op == "<") for a, b, op in zip(sp, sp[1:], ops))
+    return _c23_result(81, ["covalent character"], ["A:> \\text{CCl}_{4}"], _true(truth), f"Fajans polarising power z/r (pm⁻¹): {zr}")
+
+def _c23_q82():
+    stem = _paper_2023()[82]["stemLatex"]
+    lhs, rhs = re.search(r"\$(.*)\$", stem).group(1).split(r"\rightleftharpoons")
+    def gas_moles(side):
+        tot = 0
+        for term in side.split(" + "):
+            if "(g)" not in term:
+                continue
+            c = re.match(r"\s*\\dfrac\{(\d+)\}\{(\d+)\}", term)
+            tot += sympy.Rational(int(c.group(1)), int(c.group(2))) if c else 1
+        return tot
+    dn = gas_moles(rhs) - gas_moles(lhs)
+    R, T = _b23_S("R", "T")
+    m = _b23_match(82, (R*T)**dn)
+    return _c23_result(82, [r"\rightleftharpoons", r"\dfrac{1}{2}\text{O}_{2}\text{(g)}"], [], m, f"Δn_g = {dn} -> Kp/Kc = (RT)^{dn}")
+
+def _c23_q83():
+    truth, sh = {}, {}
+    for k, tex in _c23_opts(83).items():
+        a, b = [s.strip() for s in tex.split("$, $")]
+        sh[k] = (_c23_vsepr(a), _c23_vsepr(b))
+        truth[k] = sh[k][0] == sh[k][1]
+    return _c23_result(83, ["identical shapes"], [], _true(truth), f"VSEPR shapes {sh}")
+
+def _c23_q84():
+    G = _svg23(84)
+    labs = [(float(a["data-cx"]), float(a["y"]) - 5, a["data-group"]) for a in re.findall(r"<text ([^>]*)>", G["raw"])
+            for a in [dict(re.findall(r'([\w-]+)="([^"]*)"', a))] if "data-group" in a]
+    bonds = [_line_of(b) for b in G["roles"].get("bond", [])]
+    mol = _C24Mol(); ids = []
+    for x, y, g in labs:
+        h = int(re.search(r"H(\d?)", g).group(1) or 1) if "H" in g else 0
+        ids.append(mol.add("C", h))
+    near = lambda p: min(range(len(labs)), key=lambda i: math.hypot(labs[i][0] - p[0], labs[i][1] - p[1]))
+    for x1, y1, x2, y2 in bonds:
+        a, b = near((x1, y1)), near((x2, y2))
+        if a == b or b in mol.adj[a]:
+            return False, "SVG bond does not join two distinct groups"
+        mol.bond(a, b)
+    deg = [sum(1 for j in mol.adj[i] if mol.el[j] == "C") for i in range(len(labs))]
+    ok = mol.valence_ok() and mol.formula() == {"C": 8, "H": 18}
+    n3 = deg.count(3)
+    opts = {k: (0 if "nil" in tex else int(tex)) for k, tex in _c23_opts(84).items()}
+    m = [k for k, v in opts.items() if v == n3] if ok else ["structure"]
+    return _c23_result(84, ["tertiary carbon"], ["D:nil/absent"], m,
+                       f"SVG graph {len(labs)} groups, {len(bonds)} bonds, formula {mol.formula()}, valences ok {mol.valence_ok()}; "
+                       f"C-degrees {sorted(deg)} -> {n3} tertiary, {deg.count(4)} quaternary")
+
+def _c23_q85():
+    info = {}
+    for k, tex in _c23_opts(85).items():
+        r = _c23_name_graph(tex)
+        if r is None:
+            return False, f"option {k} name '{tex}' not parsed"
+        mol, c = r
+        info[k] = sum(1 for j in mol.adj[c] if mol.el[j] == "C")
+    best = max(info.values())
+    m = [k for k, v in info.items() if v == best] if list(info.values()).count(best) == 1 else []
+    return _c23_result(85, ["conc. HCl and $\\text{ZnCl}_{2}$"], [], m, f"carbinol-carbon class (C neighbours) {info}; Lucas rate 3° > 2° > 1°")
+
+# ---------------- Q86–Q90 (Chemistry, Category II) ----------------
+def _c23_q86():
+    Rh = sympy.Rational(10967758, 100)                   # m^-1 (×100 cm)
+    truth, lam = {}, {}
+    for k, tex in _c23_opts(86).items():
+        n2, n1 = int(re.search(r"n_\{2\} = (\d+)", tex).group(1)), int(re.search(r"n_\{1\} = (\d+)", tex).group(1))
+        lam[k] = round(float(1/(Rh*100*(sympy.Rational(1, n1**2) - sympy.Rational(1, n2**2))))*1e9, 1)
+        truth[k] = n1 == 1 and n2 > n1 and lam[k] < 125      # Lyman: ends on n = 1, UV
+    return _c23_result(86, ["Lyman Series", r"n_{2} \rightarrow n_{1}"], [], _true(truth), f"λ (nm) by Rydberg: {lam}")
+
+def _c23_q87():
+    def tup(tex):
+        t = tex.replace(r"\left", "").replace(r"\right", "").replace("$", "")
+        t = re.sub(r"\\dfrac\{(\d)\}\{(\d)\}", r"\1/\2", t)
+        return [sympy.nsimplify(s.strip()) for s in t.strip("() ").split(",")]
+    t1, t2 = {}, {}
+    for k, tex in _c23_opts(87).items():
+        n, l, mm, s = tup(tex)
+        base = l == 1 and 0 <= l < n and abs(mm) <= l and abs(s) == sympy.Rational(1, 2)
+        t1[k] = base and n + l <= 4
+        t2[k] = base and n + 1 <= 4
+    if _true(t1) != _true(t2):
+        return False, f"n + l and n + 1 readings disagree {t1} vs {t2}"
+    return _c23_result(87, [r"single p electron having $n + 1 \leq 4$"], [], _true(t1), f"valid (l = 1, |m| ≤ l, n + l ≤ 4): {t1}")
+
+def _c23_q88():
+    o = _c23_opts(88)
+    T, M, dH = 273, 18, 6010                             # K, g/mol, J/mol
+    rho_i, rho_w = sympy.Rational(917, 1000), 1
+    dV = M*(sympy.Rational(1, rho_w) - 1/rho_i)*sympy.Rational(1, 10**6)       # m^3/mol
+    dTdP = T*dV/dH                                       # Clapeyron (K/Pa)
+    melt_with_P = dTdP < 0                               # higher P lowers the melting point -> ice melts
+    base = {"A": melt_with_P and "more ice will be melted" in o["A"],
+            "B": dTdP == 0 and "no effect" in o["B"],
+            "C": (not melt_with_P) and "more ice will be formed" in o["C"]}
+    undecidable = "shorten the time" in o["D"]           # kinetics: not determined by the thermodynamic data
+    readings = [_true({**base, "D": False}), _true({**base, "D": True})]
+    no_unique = undecidable and readings[0] != readings[1] and readings[0] == ["A"]
+    return _c23_withdrawn(88, [r"\rightleftharpoons", "the correct statement is"], no_unique,
+                          ["Clapeyron", "ice", "W"], f"ΔV_fus = {sympy.N(dV, 3)} m³/mol, dT/dP = {sympy.N(dTdP, 3)} K/Pa; readings {readings}")
+
+def _c23_q89():
+    o = _c23_opts(89); truth = {}
+    for k, tex in o.items():
+        if "$" in tex:
+            lhs, rhs = re.search(r"\$(.*)\$", tex).group(1).split(" = ")
+            r = [_c24_plain(s) for s in lhs.split(" + ")]; p = [_c24_plain(rhs)]
+            coef = _c24_balance(r, p)
+            acidic = [s for s in r if _c24_formula(s).keys() == {"Si", "O"}]; basic = [s for s in r if "Ca" in _c24_formula(s)]
+            truth[k] = coef == [1, 1, 1] and len(acidic) == 1 and len(basic) == 1 and _c24_formula(p[0]) == {"Ca": 1, "Si": 1, "O": 3}
+        else:
+            lhs, rhs = [s.strip() for s in tex.split("=")]
+            truth[k] = set(s.strip() for s in lhs.split("+")) == {"flux", "gangue"} and rhs == "slag"
+    return _c23_result(89, ["correct reaction"], ["A:slag + flux = gangue"], _true(truth), f"flux + gangue -> slag; SiO2 + CaO -> CaSiO3 balanced 1:1:1")
+
+def _c23_q90():
+    mol = _C24Mol()
+    n1, n2 = mol.add("N"), mol.add("N"); c1, c2 = mol.add("C", 2), mol.add("C", 2)
+    mol.bond(n1, c1); mol.bond(c1, c2); mol.bond(c2, n2)
+    for n in (n1, n1, n2, n2):
+        ch2 = mol.add("C", 2); mol.bond(n, ch2); mol.bond(ch2, mol.group("COOH"))
+    f = mol.formula()
+    nval = all(sum(mol.adj[i].values()) + mol.h[i] == 3 for i in (n1, n2))
+    acid_OH = sum(1 for i, e in enumerate(mol.el) if e == "O" and mol.h[i] == 1
+                  and any(mol.el[c] == "C" and 2 in mol.adj[c].values() for c in mol.adj[i]))
+    lone_N = sum(1 for i in (n1, n2) if sum(mol.adj[i].values()) + mol.h[i] == 3)          # neutral amine N: one lone pair
+    hydroxide = 0                                        # no ionisable OH- (no M–OH / quaternary hydroxide)
+    prop = {"Arrhenius acid": acid_OH > 0, "Bronsted acid": acid_OH > 0, "Lewis base": lone_N > 0, "Arrhenius base": hydroxide > 0}
+    ok = f == {"C": 10, "H": 16, "N": 2, "O": 8} and mol.valence_ok() and nval
+    truth = {k: ok and prop[tex.strip()] for k, tex in _c23_opts(90).items()}
+    return _c23_result(90, ["Ethylenediaminetetraacetic acid"], [], _true(truth),
+                       f"EDTA graph {f}: acidic O–H {acid_OH}, N lone pairs {lone_N}, OH⁻ sources {hydroxide}")
+
+# ---------------- Q91–Q100 (FEEE, Category I) ----------------
+def _c23_value(texts, comp, unit):
+    cx = sum(p[0] for p in comp["pins"])/2; cy = sum(p[1] for p in comp["pins"])/2
+    pat = {"Ω": r"(\d+(?:\.\d+)?) Ω", "V": r"(\d+(?:\.\d+)?) V", "mH": r"(\d+(?:\.\d+)?) mH", "μF": r".*?(\d+(?:\.\d+)?) μF"}[unit]
+    c = [(math.hypot(x - cx, y - cy), re.fullmatch(pat, t)) for x, y, t in texts if re.fullmatch(pat, t)]
+    d, mt = min(c, key=lambda z: z[0])
+    return sympy.nsimplify(mt.group(1)), d, mt.group(0)
+
+def _c23_series_loop(net, comps):
+    """True iff the components form one simple series loop (each net touches exactly two pins, connected cycle)."""
+    pins = [(net(p), i) for i, c in enumerate(comps) for p in c["pins"]]
+    if any(n is None for n, _ in pins):
+        return False
+    from collections import Counter
+    cnt = Counter(n for n, _ in pins)
+    if any(v != 2 for v in cnt.values()) or len(cnt) != len(comps):
+        return False
+    adj = {}
+    for c in comps:
+        a, b = net(c["pins"][0]), net(c["pins"][1]); adj.setdefault(a, []).append(b); adj.setdefault(b, []).append(a)
+    seen, st = set(), [next(iter(adj))]
+    while st:
+        u = st.pop()
+        if u not in seen:
+            seen.add(u); st += adj[u]
+    return len(seen) == len(cnt)
+
+def _c23_q91():
+    svg, segs, net, texts, comps = _b23_circuit(91)
+    kinds = sorted(c["kind"] for c in comps)
+    if kinds != ["C", "I", "L", "R"]:
+        return False, f"SVG components {kinds} != current source + R + L + C (series RLC as printed)"
+    loop = _c23_series_loop(net, comps)
+    by = {c["kind"]: c for c in comps}
+    R = _c23_value(texts, by["R"], "Ω")[0]; L = _c23_value(texts, by["L"], "mH")[0]/1000
+    Cv = _c23_value(texts, by["C"], "μF")[0]/10**6
+    G = _svg23(91)
+    pts = _b23_role_pts(G, "i-wave")
+    tick = {int(a["data-tick"]): float(a["x"]) for a in (dict(re.findall(r'([\w-]+)="([^"]*)"', s)) for s in re.findall(r"<text ([^>]*data-tick[^>]*)>", svg))}
+    px_ms = (tick[5] - tick[1])/4; x0 = tick[1] - px_ms
+    lab = {t: y for x, y, t in G["texts"] if t in ("5A", "0", "– 5A")}
+    y0 = _b23_role_line(G, "axis-t")[1]; px_A = (y0 - _b23_role_line(G, "level-5A")[1])/5
+    labels_ok = abs(lab["5A"] - 5 - _b23_role_line(G, "level-5A")[1]) < 1 and abs(lab["– 5A"] - 5 - _b23_role_line(G, "level-m5A")[1]) < 1
+    wave = [(round((x - x0)/px_ms, 2), round((y0 - y)/px_A, 2)) for x, y in pts]
+    imax = max(abs(sympy.nsimplify(a)) for _, a in wave)
+    slope = max(abs((wave[i + 1][1] - wave[i][1])/(wave[i + 1][0] - wave[i][0])) for i in range(len(wave) - 1))   # A/ms
+    vR, vL = R*imax, L*sympy.nsimplify(slope)*1000
+    m = _c23_pick_num(91, vR) if loop and labels_ok else ["figure"]
+    return _c23_result(91, ["current source $i(t)$", "series RLC circuit", "maximum potential difference across the resistor"], [], m,
+                       f"SVG: I–R–L–C single series loop {loop}; R = {R} Ω, L = {L} H, C = {Cv} F; i(t) read from polyline {wave}; "
+                       f"|i|max = {imax} A -> V_R,max = {vR} V (V_L,max = {vL} V is option-A distractor)")
+
+def _c23_cap_ceq(qnum):
+    svg, segs, net, texts, comps = _b23_circuit(qnum)
+    caps = [(c, _c23_value(texts, c, "μF")) for c in comps if c["kind"] == "C"]
+    return svg, segs, net, texts, comps, caps
+
+def _c23_q92():
+    svg, segs, net, texts, comps, caps = _c23_cap_ceq(92)
+    src = next(c for c in comps if c["kind"] == "V")
+    plus = tuple(map(float, re.search(r'data-plus="([^"]+)"', svg).group(1).split(",")))
+    E = _c23_value(texts, src, "V")[0]
+    p, n = net(plus), net(next(q for q in src["pins"] if q != plus))
+    nets = sorted({net(q) for c in comps for q in c["pins"]})
+    loop = _c23_series_loop(net, comps) and None not in nets
+    Rlist = [(net(c["pins"][0]), net(c["pins"][1]), 1/v[0]) for c, v in caps]           # capacitor ↔ conductance C
+    sol = _c24_mna(nets, n, Rlist, [(p, n, E)], [], [], [])
+    V = sol[0]
+    drops = {}
+    for c, v in caps:
+        lab = re.match(r"C(\d)", v[2]).group(1)
+        drops[lab] = abs(V[net(c["pins"][0])] - V[net(c["pins"][1])])
+    o = _c23_opts(92); truth = {}
+    for k, tex in o.items():
+        v1 = _b23_expr(re.search(r"V_\{1\} = (.*?)\$", tex).group(1)); v2 = _b23_expr(re.search(r"V_\{2\} = (.*?)\$", tex).group(1))
+        truth[k] = loop and sympy.simplify(v1 - drops["1"]) == 0 and sympy.simplify(v2 - drops["2"]) == 0
+    return _c23_result(92, ["potential drops across the capacitors $C_{1}$ and $C_{2}$"], [], _true(truth),
+                       f"SVG: 5 V source + C1 + C2 single loop {loop}; charge-balance nodal solve V1 = {drops['1']} V, V2 = {drops['2']} V")
+
+def _c23_q93():
+    stem = _paper_2023()[93]["stemLatex"]
+    a, b, w = [int(x) for x in re.search(r"\$(\d+) \+ (\d+)\\sin (\d+)\\pi t\$", stem).groups()]
+    t = sympy.symbols("t", real=True); T = sympy.Rational(2, w)
+    vrms = sympy.sqrt(sympy.integrate((a + b*sympy.sin(w*sympy.pi*t))**2, (t, 0, T))/T)
+    m = _c23_pick_num(93, sympy.N(vrms), abs_tol=0.006)
+    return _c23_result(93, ["r.m.s. value", r"10 + 10\sin 100\pi t"], [], m, f"V_rms = {sympy.simplify(vrms)} = {sympy.N(vrms, 6)} V")
+
+def _c23_q94():
+    svg, segs, net, texts, comps = _b23_circuit(94)
+    dots = [tuple(map(float, d)) for d in re.findall(r'<circle cx="([-0-9.]+)" cy="([-0-9.]+)" r="3.4" fill="var\(--fig-node\)"', svg)]
+    A = min(dots, key=lambda d: min(math.hypot(x - d[0], y - d[1]) for x, y, t in texts if t == "A"))
+    B = min(dots, key=lambda d: min(math.hypot(x - d[0], y - d[1]) for x, y, t in texts if t == "B"))
+    # mid-segment wire crossings (no endpoint on the other wire, no junction dot): candidates for 'joined' reading
+    cross = []
+    for s in segs:
+        for u in segs:
+            if s[1] == s[3] and u[0] == u[2]:
+                x, y = u[0], s[1]
+                if min(s[0], s[2]) < x < max(s[0], s[2]) and min(u[1], u[3]) < y < max(u[1], u[3]):
+                    cross.append((net((s[0], s[1])), net((u[0], u[1])), (x, y)))
+    def solve(joined, drop2):
+        par = {}
+        def f(a):
+            while par.get(a, a) != a:
+                a = par[a]
+            return a
+        if joined:
+            for a, b, _ in cross:
+                par[f(a)] = f(b)
+        N = lambda p: f(net(p))
+        Rl, cells = [], []
+        for c in comps:
+            if c["kind"] == "R":
+                r = _c23_value(texts, c, "Ω")[0]
+                if drop2 and r == 2:
+                    continue
+                Rl.append((N(c["pins"][0]), N(c["pins"][1]), r))
+            elif c["kind"] == "cell":
+                ip = _c24_cell_pos(c); e = _c23_value(texts, c, "V")[0]
+                cells.append((N(c["pins"][ip]), N(c["pins"][1 - ip]), e))
+        a, b = N(A), N(B)
+        # keep only the part of the network connected to A/B (a floating loop has no reference)
+        edges = [(x, y) for x, y, _ in Rl] + [(x, y) for x, y, _ in cells]
+        keep, st = set(), [a, b]
+        while st:
+            u = st.pop()
+            if u not in keep:
+                keep.add(u); st += [y for x, y in edges if x == u] + [x for x, y in edges if y == u]
+        Rk = [e for e in Rl if e[0] in keep]; Ck = [e for e in cells if e[0] in keep]
+        res = _c24_mna(sorted(keep), b, Rk, Ck, [], [], [])
+        return res[0][a] if res else None
+    v_join, v_open, v_no2 = solve(True, False), solve(False, False), solve(True, True)
+    pick = lambda v: _c23_pick_num(94, v, abs_tol=0.05)
+    m_join, m_open, m_no2 = pick(v_join), pick(v_open), pick(v_no2)
+    no_unique = len(cross) == 2 and m_join == [] and m_open == []
+    return _c23_withdrawn(94, ["voltage AB"], no_unique, [r"\dfrac{1800}{77}", "38.3", "13.3", "W"],
+                          f"SVG netlist: 3 cells (+ toward A) + 4 R; crossings {len(cross)}; V_AB joined = {v_join} ≈ {sympy.N(v_join, 4)} V "
+                          f"(options {m_join}), crossings open = {sympy.N(v_open, 4)} V ({m_open}); without the 2 Ω = {sympy.N(v_no2, 4)} V "
+                          f"= option {m_no2} (setter error)")
+
+def _c23_q95():
+    svg, segs, net, texts, comps, caps = _c23_cap_ceq(95)
+    dots = [tuple(map(float, d)) for d in re.findall(r'<circle cx="([-0-9.]+)" cy="([-0-9.]+)" r="3.4"', svg)]
+    X = min(dots, key=lambda d: min(math.hypot(x - d[0], y - d[1]) for x, y, t in texts if t == "X"))
+    Y = min(dots, key=lambda d: min(math.hypot(x - d[0], y - d[1]) for x, y, t in texts if t == "Y"))
+    nets = sorted({net(q) for c, _ in caps for q in c["pins"]} | {net(X), net(Y)})
+    if None in nets:
+        return False, "dangling capacitor pin in the Q95 SVG"
+    Rl = [(net(c["pins"][0]), net(c["pins"][1]), 1/v[0]) for c, v in caps]
+    sol = _c24_mna(nets, net(Y), Rl, [], [], [(net(X), net(Y), 1)], [])
+    Ceq = sympy.nsimplify(1/sol[0][net(X)])
+    m = [k for k, tex in _c23_opts(95).items()
+         if (lambda e: e is not None and sympy.simplify(e - Ceq) == 0)(_b23_expr(tex.replace(r"\ \mu\text{F}", "")))]
+    return _c23_result(95, ["equivalent capacitance", "across X-Y"], [], m,
+                       f"SVG netlist: {len(caps)} capacitors {[str(v[0]) for _, v in caps]} μF; Laplacian X–Y -> C_eq = {Ceq} μF")
+
+def _c23_q96():
+    f, N1, N2, Phi, V1 = sympy.symbols("f N1 N2 Phi V1", positive=True)
+    E2_flux = sympy.Rational(444, 100)*f*N2*Phi
+    E2_volt = E2_flux.subs(Phi, V1/(sympy.Rational(444, 100)*f*N1))
+    word = lambda d: "increases" if d > 0 else ("decreases" if d < 0 else "remains unchanged")
+    d_flux, d_volt = sympy.simplify(sympy.diff(E2_flux, f)), sympy.simplify(sympy.diff(E2_volt, f))
+    o = _c23_opts(96)
+    m_flux = [k for k, t in o.items() if t.strip() == word(d_flux)]
+    m_volt = [k for k, t in o.items() if t.strip() == word(d_volt)]
+    ok, why = _c23_result(96, ["supply frequency of a transformer increases"], ["C:remains unchanged"], m_flux,
+                          f"constant Φ: dE2/df = {d_flux} -> {m_flux}; constant V1: E2 = {E2_volt}, dE2/df = {d_volt} -> {m_volt}")
+    if ok and m_volt == ["C"]:
+        KEY_DISPUTE_LOG.append(f"2023 Q96: official key ['A']; the constant-V1 reading gives {m_volt} — {KEY_DISPUTES_2023[96]['reason']}")
+    elif ok:
+        return False, f"{why}; the recorded dispute (constant-V1 reading -> C) no longer holds"
+    return ok, why
+
+def _c23_q97():
+    f = sympy.symbols("f", nonnegative=True)
+    R, L, V = sympy.Rational(1, 2), 1, 230                # representative winding resistance / magnetising inductance
+    Z = sympy.sqrt(R**2 + (2*sympy.pi*f*L)**2)
+    ratio = sympy.N((V/Z.subs(f, 0))/(V/Z.subs(f, 50)))
+    E2_dc = sympy.diff(sympy.Integer(1), f)              # steady flux: dΦ/dt = 0 -> no secondary EMF
+    truth = {}
+    for k, t in _c23_opts(97).items():
+        t = t.strip()
+        truth[k] = ((t.startswith("damage") and ratio > 100) or (t == "no effect" and ratio == 1)
+                    or ("frequency" in t and E2_dc != 0))
+    return _c23_result(97, ["direct current supply"], [], _true(truth),
+                       f"|Z(0)| = R = {R} Ω vs |Z(50)| = {sympy.N(Z.subs(f, 50), 4)} Ω -> I_dc/I_ac = {ratio:.0f}; E2(dc) = {E2_dc}")
+
+def _c23_q98():
+    stem = _paper_2023()[98]["stemLatex"]
+    T1, n1 = [int(x) for x in re.search(r"(\d+) Nm at (\d+) rps", stem).groups()]
+    n2 = int(re.search(r"At (\d+) rps", stem).group(1))
+    P = T1*2*sympy.pi*n1; T2 = sympy.simplify(P/(2*sympy.pi*n2))
+    m = _c23_pick_num(98, T2)
+    return _c23_result(98, ["120 Nm at 20 rps", "At 30 rps"], [], m, f"constant P = Tω = {P} W -> T2 = {T2} Nm")
+
+def _c23_q99():
+    k, Phi, Ia, V, Ra = sympy.symbols("k Phi I_a V R_a", positive=True)
+    T = k*Phi*Ia; Eb = V - Ia*Ra; w = Eb/(k*Phi); P = sympy.simplify(T*w)
+    ch = {"torque": sympy.diff(T, Phi) != 0, "power": sympy.simplify(sympy.diff(P, Phi)) != 0, "speed": sympy.diff(w, Phi) != 0}
+    o = _c23_opts(99); truth = {}
+    for kk, t in o.items():
+        t = t.lower()
+        if "remain constant" in t and "torque will remain" in t:
+            truth[kk] = not ch["torque"]
+        elif "but power will remain constant" in t:
+            truth[kk] = ch["torque"] and not ch["power"]
+        elif "speed" in t:
+            truth[kk] = ch["torque"] and ch["power"] and ch["speed"]
+        else:
+            truth[kk] = ch["torque"] and ch["power"]
+    return _c23_result(99, ["dc shunt motor", "excitation is changed"], ["B:power will remain constant"], _true(truth),
+                       f"T = {T}, ω = {w}, P = Tω = {P}: changes with Φ {ch}")
+
+def _c23_q100():
+    stem = _paper_2023()[100]["stemLatex"]
+    Rz, Xz = [int(x) for x in re.search(r"\((\d+) - j(\d+)\)", stem).groups()]
+    Im, w, ph = [int(x) for x in re.search(r"(\d+)\\cos\((\d+)\\pi \+ (\d+)\^\{\\circ\}\)", stem).groups()]
+    t = sympy.symbols("t", real=True); T = sympy.Rational(2, w)
+    i = Im*sympy.cos(w*sympy.pi*t + sympy.rad(ph))
+    P = sympy.simplify(sympy.integrate(i**2*Rz, (t, 0, T))/T)                     # only R dissipates
+    Iph = Im*sympy.exp(sympy.I*sympy.rad(ph)); Vph = (Rz - sympy.I*Xz)*Iph
+    P2 = sympy.simplify(sympy.re(Vph*sympy.conjugate(Iph))/2)
+    m = _c23_pick_num(100, P) if sympy.simplify(P - P2) == 0 else []
+    return _c23_result(100, ["(4 - j3)", r"5\cos(100\pi + 100^{\circ})"], [], m, f"P = (1/T)∫i²R dt = {P} W = ½Re(V I*) = {P2} W")
+
+def _c23_guard(n):
+    """Booklet layout first, then the chemistry/circuit check; exceptions count as FAIL (never crash the run)."""
+    f = globals()[f"_c23_q{n}"]
+    def g():
+        ok, why = _c23_layout(n)
+        if not ok:
+            return False, why
+        try:
+            return f()
+        except Exception as e:
+            return False, f"check raised {type(e).__name__}: {e}"
+    return g
+
+C_TESTS_2023 = [(f"2023 Q{n}", f"jelet-2023-q{n:03d}", _c23_guard(n)) for n in range(71, 101)]
+
 
 
 
@@ -4970,7 +5686,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + A_TESTS_2023 + B_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
+        ] + A_TESTS_2023 + B_TESTS_2023 + C_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -5014,6 +5730,38 @@ def main():
         else:
             print(f"  ✅ 2023 Batch B (Q41–Q70) coverage gate: Physics 30/30 hand-written, SymPy-verified and independently re-checked, "
                   f"figure layout + SVG geometry + circuit netlists asserted, 0 orphan 2023 SVGs (0 stubs)")
+
+        # 2023 Batch C gate: every Chemistry + FEEE item Q71–Q100 must be a hand-written derivation (sympy-verified,
+        # >= 3 steps, no auto-generated stub text) backed by its own independent _c23 check.
+        wantC23 = [f"jelet-2023-q{n:03d}" for n in range(71, 101)]
+        covC23 = {qid for _, qid, _ in C_TESTS_2023}
+        missC23 = [q for q in wantC23 if q not in covC23]
+        stubC23 = [q for q in wantC23 if q not in sol23 or sol23[q]["verification"].get("method") != "sympy"
+                   or len(sol23[q].get("steps", [])) < 3 or "Auto-generated" in sol23[q]["verification"].get("note", "")
+                   or any(st.get("title") == "Identify the problem type" for st in sol23[q].get("steps", []))]
+        if missC23 or stubC23 or len(C_TESTS_2023) != 30:
+            errors.append(f"2023 Batch C (Q71–Q100) coverage gate: without independent check {missC23}, stub/unverified {stubC23}")
+            print(f"  ❌ 2023 Batch C (Q71–Q100) coverage gate: missing checks {missC23}, stubs {stubC23}")
+        else:
+            print(f"  ✅ 2023 Batch C (Q71–Q100) coverage gate: Chemistry 20/20 + FEEE 10/10 hand-written, SymPy-verified and independently "
+                  f"re-checked, structure graphs + circuit netlists rebuilt from SVG (0 stubs)")
+
+        # 2023 completion gate: all 100 solutions hand-written, SymPy-verified, independently checked; every 2023
+        # stem/option figure referenced and on disk, 0 orphan SVGs, 0 legacy unverified entries.
+        cov_all23 = {qid for _, qid, _ in A_TESTS_2023 + B_TESTS_2023 + C_TESTS_2023}
+        miss_all23 = sorted(q for q in sol23 if q not in cov_all23)
+        stub_all23 = sorted(q for q, v in sol23.items() if v["verification"].get("method") != "sympy" or len(v.get("steps", [])) < 3
+                            or "Auto-generated" in v["verification"].get("note", "")
+                            or any(st.get("title") == "Identify the problem type" for st in v.get("steps", [])))
+        figs23 = LAYOUT_2023_B | LAYOUT_2023_C
+        fig_bad23 = sorted(n for n, q in _paper_2023().items() if bool(q.get("stemFigure")) != (n in figs23))
+        if len(sol23) != 100 or len(cov_all23) != 100 or len(_paper_2023()) != 100 or miss_all23 or stub_all23 or orph23 or fig_bad23:
+            errors.append(f"2023 coverage gate: {len(sol23)} solutions, {len(cov_all23)} checks, without independent check {miss_all23}, "
+                          f"stub/unverified {stub_all23}, orphan SVGs {orph23}, stem-figure mismatches {fig_bad23}")
+            print(f"  ❌ 2023 coverage gate: missing checks {miss_all23}, stubs {stub_all23}, orphans {orph23}, figure mismatches {fig_bad23}")
+        else:
+            print(f"  ✅ 2023 coverage gate: 100/100 solutions hand-written, SymPy-verified and independently re-checked, "
+                  f"{len(figs23)} stem figures exactly as printed, 0 orphan 2023 SVGs (0 stubs)")
 
         # 2024 Batch A gate: every Mathematics item Q1–Q40 must be a hand-written derivation
         # (sympy-verified, >= 3 steps) backed by its own independent _a24 check.

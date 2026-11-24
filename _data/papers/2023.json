@@ -3485,27 +3485,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 18,
-      "stemLatex": "If the ground state energy of H-atom is $-13.6\\,\\text{eV}$, the energy of second excited state of $\\text{Li}^{2+}$ ion will be",
+      "stemLatex": "If the ground state energy of H-atom is $-13.6$ eV, the energy of second excited state of $\\text{Li}^{2+}$ ion will be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$-13.6\\,\\text{eV}$",
+          "latex": "$-13.6$ eV",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$-30.6\\,\\text{eV}$",
+          "latex": "$-30.6$ eV",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$-6.04\\,\\text{eV}$",
+          "latex": "$-6.04$ eV",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$+13.6\\,\\text{eV}$",
+          "latex": "$+13.6$ eV",
           "figure": null
         }
       ],
@@ -3517,10 +3517,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q71)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "atomic-structure",
         "bohr-model",
+        "hydrogen-like-ion",
         "energy-levels"
       ]
     },
@@ -3533,27 +3533,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 18,
-      "stemLatex": "If the radius of second Bohr orbit of H atom is $r_2$, the radius of third Bohr orbit will be",
+      "stemLatex": "If the radius of second Bohr orbit of H atom is ‘$r_{2}$’, the radius of third Bohr orbit will be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{4}{9}r_2$",
+          "latex": "$\\dfrac{4}{9}r_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{9}{4}r_2$",
+          "latex": "$4r_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{9}{2}r_2$",
+          "latex": "$\\dfrac{9}{4}r_{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$9r_2$",
+          "latex": "$9r_{2}$",
           "figure": null
         }
       ],
@@ -3565,11 +3565,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q72)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "bohr-model",
-        "radius"
+        "orbit-radius"
       ]
     },
     {
@@ -3586,22 +3585,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$4, 8, 15, 0$",
+          "latex": "4, 8, 15, 0",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$3, 6, 14, 0$",
+          "latex": "3, 6, 14, 0",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3, 6, 15, 1$",
+          "latex": "3, 6, 15, 1",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$4, 7, 14, 2$",
+          "latex": "4, 7, 14, 2",
           "figure": null
         }
       ],
@@ -3615,9 +3614,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "atomic-structure",
         "electronic-configuration",
-        "cu+"
+        "cu+",
+        "orbitals"
       ]
     },
     {
@@ -3629,27 +3628,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 18,
-      "stemLatex": "How many electrons would be required to deposit $6.35\\,\\text{gm}$ of copper at the cathode during the electrolysis of an aqueous solution of copper sulphate? (Atomic mass of Cu $= 63.5$, $N_A = $ Avogadro's number)",
+      "stemLatex": "How many electrons would be required to deposit 6.35 gm of copper at the cathode during the electrolysis of an aqueous solution of copper sulphate. Atomic mass of Cu = 63.5, $N_{A}$ = Avogadro’s no",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{N_A}{20}$",
+          "latex": "$\\dfrac{N_{A}}{20}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{N_A}{10}$",
+          "latex": "$\\dfrac{N_{A}}{10}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{2N_A}{5}$",
+          "latex": "$\\dfrac{N_{A}}{5}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{N_A}{5}$",
+          "latex": "$\\dfrac{N_{A}}{2}$",
           "figure": null
         }
       ],
@@ -3661,11 +3660,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q74)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "electrochemistry",
         "electrolysis",
-        "faraday"
+        "faraday-laws",
+        "mole-concept"
       ]
     },
     {
@@ -3677,27 +3676,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "The probability of finding electrons in $d_{z^{2}}$ orbital is",
+      "stemLatex": "The probability of finding electrons in $d_{yz}$ orbital is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "along $X$ and $Z$ axis",
+          "latex": "along X and Z axis",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "along $X$ and $Y$ axis",
+          "latex": "along X and Y axis",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "along $Y$ and $Z$ axis",
+          "latex": "along Y and Z axis",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "at an angle $45^{\\circ}$ with $Z$ axis",
+          "latex": "at an angle $45^{\\circ}$ with Z axis",
           "figure": null
         }
       ],
@@ -3709,11 +3708,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q75)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "atomic-structure",
-        "orbitals",
-        "d-orbital"
+        "d-orbitals",
+        "orbital-shape",
+        "angular-node"
       ]
     },
     {
@@ -3725,27 +3724,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "What is the correct order of bond dissociation energy among $\\text{N}_2$, $\\text{O}_2$ and $\\text{O}_2^{-}$?",
+      "stemLatex": "What is the correct order of bond dissociation energy among $\\text{N}_{2}$, $\\text{O}_{2}$ and $\\text{O}_{2}^{-}$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{N}_2 > \\text{O}_2 > \\text{O}_2^{-}$",
+          "latex": "$\\text{N}_{2} > \\text{O}_{2}^{-} > \\text{O}_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{O}_2 > \\text{O}_2^{-} > \\text{N}_2$",
+          "latex": "$\\text{O}_{2}^{-} > \\text{O}_{2} > \\text{N}_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{N}_2 > \\text{O}_2 > \\text{O}_2^{-}$",
+          "latex": "$\\text{N}_{2} > \\text{O}_{2} > \\text{O}_{2}^{-}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{O}_2^{-} > \\text{O}_2 > \\text{N}_2$",
+          "latex": "$\\text{O}_{2} > \\text{O}_{2}^{-} > \\text{N}_{2}$",
           "figure": null
         }
       ],
@@ -3757,11 +3756,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q76)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
-        "bond-energy",
-        "molecular-orbital"
+        "molecular-orbital-theory",
+        "bond-order",
+        "bond-energy"
       ]
     },
     {
@@ -3778,22 +3777,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{HCO}_3^{-}$",
+          "latex": "$\\text{HCO}_{3}^{-}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{CH}_2(\\text{CN})_2$",
+          "latex": "$\\text{CH}_{2}(\\text{CN})_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$(\\text{CN})_2$",
+          "latex": "$(\\text{CN})_{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{XeO}_4$",
+          "latex": "$\\text{XeO}_{4}$",
           "figure": null
         }
       ],
@@ -3805,11 +3804,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q77)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "chemical-bonding",
         "sigma-pi-bonds",
-        "structure"
+        "lewis-structure",
+        "xenon-compounds"
       ]
     },
     {
@@ -3821,27 +3820,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "How many litre(s) of water is to be added to $1\\,\\text{L}$ of an aqueous solution of HCl with a $1\\,\\text{N}$ concentration so that the resulting solution becomes $0.1\\,\\text{N}$?",
+      "stemLatex": "How many litre(s) of water is to be added to 1 L of an aqueous solution of HCl with a pH 1 to produce an aqueous solution of pH 2 ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$10\\,\\text{L}$",
+          "latex": "10 L",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$1\\,\\text{L}$",
+          "latex": "1 L",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$9\\,\\text{L}$",
+          "latex": "9 L",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$20\\,\\text{L}$",
+          "latex": "20 L",
           "figure": null
         }
       ],
@@ -3853,11 +3852,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q78)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "solutions",
-        "normality",
-        "dilution"
+        "ph",
+        "dilution",
+        "strong-acid"
       ]
     },
     {
@@ -3869,27 +3868,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "$6.02 \\times 10^{20}$ molecules of glucose are present in $100\\,\\text{ml}$ of its solution. The concentration of the glucose solution will be",
+      "stemLatex": "$6.02 \\times 10^{20}$ molecules of glucose are present in 100 ml of its solution. The concentration of the glucose solution will be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$0.01\\,\\text{M}$",
+          "latex": "0.01 (M)",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$0.001\\,\\text{M}$",
+          "latex": "0.001 (M)",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0.1\\,\\text{M}$",
+          "latex": "0.1 (M)",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0.2\\,\\text{M}$",
+          "latex": "0.2 (M)",
           "figure": null
         }
       ],
@@ -3901,11 +3900,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q79)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "stoichiometry",
+        "mole-concept",
         "molarity",
-        "concentration"
+        "avogadro-number"
       ]
     },
     {
@@ -3917,7 +3916,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "A given weak acid has its dissociation constant $k_a = 1.0 \\times 10^{-5}$. Calculate the equilibrium constant when it reacts with a strong base.",
+      "stemLatex": "A given weak acid has its dissociation constant $k_{a} = 1.0 \\times 10^{-5}$. Calculate the equilibrium constant when it reacts with a strong base.",
       "stemFigure": null,
       "options": [
         {
@@ -3949,11 +3948,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q80)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "equilibrium",
-        "dissociation",
-        "acid-base"
+        "acid-base-equilibrium",
+        "ionic-product",
+        "neutralisation"
       ]
     },
     {
@@ -3965,27 +3964,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The correct order of covalent character is:",
+      "stemLatex": "The correct order of covalent character is :",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$",
+          "latex": "$\\text{LiCl} < \\text{BeCl}_{2} < \\text{BCl}_{3} > \\text{CCl}_{4}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{LiCl} > \\text{BeCl}_2 > \\text{BCl}_3 > \\text{CCl}_4$",
+          "latex": "$\\text{LiCl} > \\text{BeCl}_{2} > \\text{BCl}_{3} > \\text{CCl}_{4}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$",
+          "latex": "$\\text{LiCl} < \\text{BeCl}_{2} < \\text{BCl}_{3} < \\text{CCl}_{4}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{LiCl} > \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$",
+          "latex": "$\\text{LiCl} > \\text{BeCl}_{2} < \\text{BCl}_{3} < \\text{CCl}_{4}$",
           "figure": null
         }
       ],
@@ -3997,10 +3996,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q81)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
-        "fajans-rule",
+        "fajans-rules",
+        "polarising-power",
         "covalent-character"
       ]
     },
@@ -4013,17 +4012,17 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The ratio of $K_p$ to $K_c$ for the reaction, $\\text{CO}(g) + \\dfrac{1}{2}\\text{O}_2(g) \\rightleftharpoons \\text{CO}_2(g)$ is",
+      "stemLatex": "The ratio of $\\dfrac{K_{p}}{K_{c}}$ for the reaction, $\\text{CO(g)} + \\dfrac{1}{2}\\text{O}_{2}\\text{(g)} \\rightleftharpoons \\text{CO}_{2}\\text{(g)}$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$(RT)^{1/2}$",
+          "latex": "$\\dfrac{1}{\\sqrt{RT}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$(RT)^{-1/2}$",
+          "latex": "$(RT)^{1/2}$",
           "figure": null
         },
         {
@@ -4045,11 +4044,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q82)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "equilibrium",
         "kp-kc",
-        "thermodynamics"
+        "gaseous-equilibrium",
+        "delta-n"
       ]
     },
     {
@@ -4066,22 +4065,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{BF}_3, \\text{PF}_3$",
+          "latex": "$\\text{BF}_{3}$, $\\text{PF}_{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{CF}_4, \\text{SF}_4$",
+          "latex": "$\\text{CF}_{4}$, $\\text{SF}_{4}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{XeF}_2, \\text{CO}_2$",
+          "latex": "$\\text{XeF}_{2}$, $\\text{CO}_{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{PF}_5, \\text{BrF}_5$",
+          "latex": "$\\text{PF}_{5}$, $\\text{BrF}_{5}$",
           "figure": null
         }
       ],
@@ -4093,11 +4092,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q83)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
         "vsepr",
-        "molecular-shape"
+        "molecular-shape",
+        "lone-pairs"
       ]
     },
     {
@@ -4109,22 +4108,28 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "How many tertiary carbon atom(s) is/are present in the given compound? $\\text{CH}_3$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}$(\\text{CH}_3$)-$\\text{CH}_2$-$\\text{CH}_3$",
-      "stemFigure": null,
+      "stemLatex": "How many tertiary carbon atom(s) is/are present in the given compound ?",
+      "stemFigure": {
+        "src": "./_data/figures/2023/fig-2023-q84.svg",
+        "alt": "Condensed structural formula drawn on one line: H3C–C–CH2–CH–CH3, with two CH3 groups on the second carbon (one drawn above, one below) and one CH3 group drawn above the fourth carbon (CH)",
+        "width": 352,
+        "height": 146,
+        "themeAdaptive": true
+      },
       "options": [
         {
           "id": "A",
-          "latex": "$1$",
+          "latex": "1",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2$",
+          "latex": "2",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3$",
+          "latex": "3",
           "figure": null
         },
         {
@@ -4141,10 +4146,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q84)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "organic",
-        "carbon-types",
+        "carbon-classification",
+        "tertiary-carbon",
         "structural-formula"
       ]
     },
@@ -4157,7 +4162,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Among the following alcohols, which would react faster with conc. HCl and $\\text{ZnCl}_2$?",
+      "stemLatex": "Among the following alcohols, which would react faster with conc. HCl and $\\text{ZnCl}_{2}$ ?",
       "stemFigure": null,
       "options": [
         {
@@ -4167,17 +4172,17 @@
         },
         {
           "id": "B",
-          "latex": "$2$-methylbutanol",
+          "latex": "2 – methylbutanol",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$2$-pentanol",
+          "latex": "2 – pentanol",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$2$-methylbutan-$2$-ol",
+          "latex": "2 – methylbutan-2 – ol",
           "figure": null
         }
       ],
@@ -4189,11 +4194,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q85)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "organic",
+        "lucas-test",
         "alcohols",
-        "reactivity"
+        "carbocation-stability"
       ]
     },
     {
@@ -4205,27 +4210,27 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "The Lyman Series for H atom corresponds to the transition, $n_2 \\to n_1$, when",
+      "stemLatex": "The Lyman Series for H atom corresponds to the transition, $n_{2} \\rightarrow n_{1}$ when",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$n_2 = 2, n_1 = 1$",
+          "latex": "$n_{2} = 2$, $n_{1} = 1$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$n_2 = 3, n_1 = 2$",
+          "latex": "$n_{2} = 3$, $n_{1} = 2$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$n_2 = 4, n_1 = 1$",
+          "latex": "$n_{2} = 4$, $n_{1} = 1$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$n_2 = 4, n_1 = 3$",
+          "latex": "$n_{2} = 4$, $n_{1} = 3$",
           "figure": null
         }
       ],
@@ -4238,11 +4243,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q86)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
-        "lyman-series",
-        "hydrogen-spectrum"
+        "hydrogen-spectrum",
+        "lyman-series"
       ]
     },
     {
@@ -4254,27 +4258,27 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "The set of four quantum numbers of a single $p$ electron having $n + l \\leq 4$ may be",
+      "stemLatex": "The set of four quantum numbers of a single p electron having $n + 1 \\leq 4$ may be",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$3, 1, +\\frac{1}{2}, -\\frac{1}{2}$",
+          "latex": "$\\left(3, 1, +2, -\\dfrac{1}{2}\\right)$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2, 1, -1, +\\frac{1}{2}$",
+          "latex": "$\\left(2, 1, -1, +\\dfrac{1}{2}\\right)$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3, 1, 0, -\\frac{1}{2}$",
+          "latex": "$\\left(3, 1, 0, -\\dfrac{1}{2}\\right)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$2, 1, -2, +\\frac{1}{2}$",
+          "latex": "$\\left(2, 1, -2, +\\dfrac{1}{2}\\right)$",
           "figure": null
         }
       ],
@@ -4287,11 +4291,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q87)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "atomic-structure",
         "quantum-numbers",
-        "p-electron"
+        "p-electron",
+        "n-plus-l-rule"
       ]
     },
     {
@@ -4303,7 +4307,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "For the equilibrium $\\text{H}_2\\text{O}(\\text{solid}) \\rightleftharpoons \\text{H}_2\\text{O}(\\text{liq.})$ the correct statement is",
+      "stemLatex": "For the equilibrium $\\text{H}_{2}\\text{O (solid)} \\rightleftharpoons \\text{H}_{2}\\text{O(liq.)}$ the correct statement is",
       "stemFigure": null,
       "options": [
         {
@@ -4335,11 +4339,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q88)"
       },
-      "difficulty": "voided",
+      "difficulty": "medium",
       "tags": [
-        "equilibrium",
+        "le-chatelier",
         "phase-equilibrium",
-        "le-chatelier"
+        "ice-water"
       ]
     },
     {
@@ -4351,7 +4355,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Choose the correct reaction:",
+      "stemLatex": "Choose the correct reaction :",
       "stemFigure": null,
       "options": [
         {
@@ -4366,7 +4370,7 @@
         },
         {
           "id": "C",
-          "latex": "$\\text{SiO}_2 + \\text{CaO} = \\text{CaSiO}_3$",
+          "latex": "$\\text{SiO}_{2} + \\text{CaO} = \\text{CaSiO}_{3}$",
           "figure": null
         },
         {
@@ -4384,11 +4388,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q89)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "metallurgy",
-        "flux-slag",
-        "gangue"
+        "flux",
+        "slag"
       ]
     },
     {
@@ -4434,11 +4438,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q90)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "acids-bases",
+        "acid-base-concepts",
         "edta",
-        "lewis-arrhenius"
+        "lewis-base"
       ]
     },
     {
@@ -4450,33 +4454,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "A current source $i(t)$ is applied to a series RLC circuit as shown in the figure. The maximum potential difference across the resistor is",
+      "stemLatex": "A current source $i(t)$ is applied to a series RLC circuit as shown in the figure. The maximum potential difference across the resistor is,",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q91.svg",
-        "alt": "Figure for JELET 2023 Q91",
-        "width": 420,
-        "height": 220,
+        "alt": "Left: circuit in which a current source i(t), arrow pointing up, feeds a series loop through a 3 Ω resistor and a 2 mH inductor on the top wire and a 500 μF capacitor on the right side. Right: graph of i(t) against t (ms) with dashed levels at 5A and – 5A; i rises linearly from 0 at t = 0 to 5A at t = 1, stays at 5A until t = 2, falls linearly through 0 at t = 3 to – 5A at t = 4, stays at – 5A until t = 5 and rises back to 0 at t = 6; dashed verticals at t = 1, 2, 4 and 5",
+        "width": 620,
+        "height": 196,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$10\\,\\text{V}$",
+          "latex": "10 V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$15\\,\\text{V}$",
+          "latex": "15 V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$5\\,\\text{V}$",
+          "latex": "5 V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$20\\,\\text{V}$",
+          "latex": "20 V",
           "figure": null
         }
       ],
@@ -4488,43 +4492,49 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q91)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
         "rlc-circuit",
-        "impedance"
+        "current-source",
+        "ohms-law"
       ]
     },
     {
       "id": "jelet-2023-q092",
       "qNumber": 92,
       "subjectId": "FEEE",
-      "unitId": "E05",
+      "unitId": "E04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "If $V_1$ and $V_2$ are the potential drops across the capacitors $C_1$ and $C_2$ respectively, then the correct values of $V_1$ and $V_2$ are, $\\text{(Given: } C_1 = 5\\,\\mu\\text{F}, C_2 = 10\\,\\mu\\text{F})$",
-      "stemFigure": null,
+      "stemLatex": "If $V_{1}$ and $V_{2}$ are the potential drops across the capacitors $C_{1}$ and $C_{2}$ respectively, then the correct values of $V_{1}$ and $V_{2}$ are,",
+      "stemFigure": {
+        "src": "./_data/figures/2023/fig-2023-q92.svg",
+        "alt": "Circuit loop: a 5 V source (+ on top) on the left side; capacitor C1 = 5 μF on the top wire; capacitor C2 = 10 μF on the right side; plain bottom wire",
+        "width": 370,
+        "height": 156,
+        "themeAdaptive": true
+      },
       "options": [
         {
           "id": "A",
-          "latex": "$V_1 = \\dfrac{10}{3},\\; V_2 = 10$",
+          "latex": "$V_{1} = \\dfrac{5}{3}$ V, $V_{2} = \\dfrac{10}{3}$ V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$V_1 = 10,\\; V_2 = \\dfrac{10}{3}$",
+          "latex": "$V_{1} = \\dfrac{10}{3}$ V, $V_{2} = \\dfrac{5}{3}$ V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$V_1 = \\dfrac{10}{3},\\; V_2 = \\dfrac{10}{3}$",
+          "latex": "$V_{1} = \\dfrac{5}{2}$ V, $V_{2} = \\dfrac{5}{2}$ V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$V_1 = 10,\\; V_2 = 10$",
+          "latex": "$V_{1} = \\dfrac{3}{5}$ V, $V_{2} = \\dfrac{10}{3}$ V",
           "figure": null
         }
       ],
@@ -4536,11 +4546,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q92)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
-        "capacitor-divider",
-        "voltage"
+        "series-capacitors",
+        "charge-sharing",
+        "dc-circuits"
       ]
     },
     {
@@ -4552,27 +4562,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "Find the r.m.s. value of $10 + 10\\sin 100\\pi t\\,\\text{V}$.",
+      "stemLatex": "Find the r.m.s. value of $10 + 10\\sin 100\\pi t$ V.",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$12.25\\,\\text{V}$",
+          "latex": "12.25 V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$7.07\\,\\text{V}$",
+          "latex": "7.07 V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$22.75\\,\\text{V}$",
+          "latex": "22.75 V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$70.71\\,\\text{V}$",
+          "latex": "70.71 V",
           "figure": null
         }
       ],
@@ -4584,11 +4594,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q93)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
         "rms-value",
-        "form-factor"
+        "dc-offset",
+        "sinusoid"
       ]
     },
     {
@@ -4600,33 +4610,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "In the circuit given, the voltage $V_{AB}$ is (with $50\\,\\text{V}$, $5\\,\\Omega$; $40\\,\\text{V}$, $4\\,\\Omega$; $30\\,\\text{V}$, $3\\,\\Omega$; $2\\,\\Omega$)",
+      "stemLatex": "In the circuit given, the voltage AB is",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q94.svg",
-        "alt": "Figure for JELET 2023 Q94",
-        "width": 420,
-        "height": 220,
+        "alt": "Circuit between terminals A and B: three branches, each a cell in series with a resistor (50 V with 5 Ω, 40 V with 4 Ω, 30 V with 3 Ω, long cell plate towards the A side), stacked between a left and a right vertical wire; the A terminal wire runs into the middle (40 V) branch and the middle branch continues to B; a 2 Ω resistor on a bottom wire joins A directly to B",
+        "width": 340,
+        "height": 206,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$35\\,\\text{V}$",
+          "latex": "35 V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$28.2\\,\\text{V}$",
+          "latex": "28.2 V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$38.3\\,\\text{V}$",
+          "latex": "38.3 V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$42.6\\,\\text{V}$",
+          "latex": "42.6 V",
           "figure": null
         }
       ],
@@ -4638,11 +4648,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q94)"
       },
-      "difficulty": "voided",
+      "difficulty": "medium",
       "tags": [
-        "dc-circuits",
-        "thevenin",
-        "voltage"
+        "millman-theorem",
+        "parallel-sources",
+        "dc-circuits"
       ]
     },
     {
@@ -4657,30 +4667,30 @@
       "stemLatex": "Find the equivalent capacitance of the combination shown in the figure across X-Y.",
       "stemFigure": {
         "src": "./_data/figures/2023/fig-2023-q95.svg",
-        "alt": "Figure for JELET 2023 Q95",
-        "width": 420,
-        "height": 220,
+        "alt": "Capacitor network from X to Y: a 2 μF capacitor on the upper path in parallel with two 2 μF capacitors in series on the lower path; this combination is followed by a 1 μF capacitor in series to Y",
+        "width": 350,
+        "height": 126,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$4\\,\\mu\\text{F}$",
+          "latex": "$\\dfrac{3}{4}\\ \\mu\\text{F}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$7\\,\\mu\\text{F}$",
+          "latex": "$7\\ \\mu\\text{F}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{4}{3}\\,\\mu\\text{F}$",
+          "latex": "$4\\ \\mu\\text{F}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$3\\,\\mu\\text{F}$",
+          "latex": "$\\dfrac{4}{3}\\ \\mu\\text{F}$",
           "figure": null
         }
       ],
@@ -4692,10 +4702,10 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q95)"
       },
-      "difficulty": "voided",
+      "difficulty": "easy",
       "tags": [
-        "dc-circuits",
-        "capacitor-combination",
+        "capacitor-network",
+        "series-parallel",
         "equivalent-capacitance"
       ]
     },
@@ -4740,11 +4750,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q96)"
       },
-      "difficulty": "easy",
+      "difficulty": "medium",
       "tags": [
-        "transformers",
-        "frequency",
-        "emf-equation"
+        "transformer",
+        "emf-equation",
+        "frequency"
       ]
     },
     {
@@ -4790,9 +4800,9 @@
       },
       "difficulty": "easy",
       "tags": [
-        "transformers",
+        "transformer",
         "dc-supply",
-        "core-saturation"
+        "winding-resistance"
       ]
     },
     {
@@ -4804,27 +4814,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "A dc motor develops a torque of $120\\,\\text{Nm}$ at $20\\,\\text{rps}$. At $30\\,\\text{rps}$, it will develop a torque of",
+      "stemLatex": "A dc motor develops a torque of 120 Nm at 20 rps. At 30 rps, it will develop a torque of,",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$160\\,\\text{Nm}$",
+          "latex": "160 Nm",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$120\\,\\text{Nm}$",
+          "latex": "120 Nm",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$80\\,\\text{Nm}$",
+          "latex": "80 Nm",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$40\\,\\text{Nm}$",
+          "latex": "40 Nm",
           "figure": null
         }
       ],
@@ -4836,11 +4846,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q98)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "electrical-machines",
         "dc-motor",
-        "torque"
+        "torque-speed",
+        "constant-power"
       ]
     },
     {
@@ -4884,11 +4894,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q99)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "electrical-machines",
         "dc-shunt-motor",
-        "excitation"
+        "field-control",
+        "constant-power"
       ]
     },
     {
@@ -4900,27 +4910,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "The average power delivered to an impedance $(4 - j3)\\,\\Omega$ by a current $5\\cos(100\\pi t + 100^{\\circ})\\,\\text{A}$ is",
+      "stemLatex": "The average power delivered to an impedance $(4 - j3)\\ \\Omega$ by a current $5\\cos(100\\pi + 100^{\\circ})$ A is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$4\\sqrt{2}\\,\\text{W}$",
+          "latex": "442 W",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$50\\,\\text{W}$",
+          "latex": "50 W",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$62.5\\,\\text{W}$",
+          "latex": "62.5 W",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$125\\,\\text{W}$",
+          "latex": "125 W",
           "figure": null
         }
       ],
@@ -4932,11 +4942,11 @@
         "keyTier": "official",
         "sourceRef": "JEEB/Reg-267/23 (03-08-2023) (Set A, Q100)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
-        "power",
-        "impedance"
+        "ac-power",
+        "complex-impedance",
+        "average-power"
       ]
     }
   ]

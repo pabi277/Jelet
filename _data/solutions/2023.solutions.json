@@ -1829,753 +1829,763 @@
       }
     },
     "jelet-2023-q071": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q71.",
+      "conceptSummary": "Bohr energy of a hydrogen-like ion: $E_{n} = -13.6\\,\\dfrac{Z^{2}}{n^{2}}$ eV. The second excited state is $n = 3$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "Identify $Z$ and $n$",
+          "bodyLatex": "$\\text{Li}^{2+}$ has one electron and $Z = 3$. Ground state is $n = 1$, first excited $n = 2$, so the second excited state is $n = 3$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Apply the Bohr formula",
+          "bodyLatex": "$E_{3} = -13.6 \\times \\dfrac{3^{2}}{3^{2}} = -13.6$ eV."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $-13.6\\,\\text{eV}$."
+          "title": "Compare",
+          "bodyLatex": "$-30.6$ eV would be $n = 2$ ($-13.6 \\times 9/4$), and $-6.04$ eV would be hydrogen-like $Z = 2$, $n = 3$. The value is $-13.6$ eV. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: E = -13.6*Z^2/n^2 with Z = 3, n = 3 -> -13.6 eV -> option A."
       }
     },
     "jelet-2023-q072": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q72.",
+      "conceptSummary": "Bohr radius $r_{n} = a_{0}\\dfrac{n^{2}}{Z}$, so for the same atom $r \\propto n^{2}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "Ratio of radii",
+          "bodyLatex": "$\\dfrac{r_{3}}{r_{2}} = \\dfrac{3^{2}}{2^{2}} = \\dfrac{9}{4}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Express $r_{3}$",
+          "bodyLatex": "$r_{3} = \\dfrac{9}{4}r_{2}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\dfrac{9}{2}r_2$."
+          "title": "Answer",
+          "bodyLatex": "$\\dfrac{4}{9}r_{2}$ inverts the ratio and $9r_{2}$ uses $r_{1}$ as reference. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: r_n = a0 n^2/Z -> r3/r2 = 9/4 -> option C."
       }
     },
     "jelet-2023-q073": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q73.",
+      "conceptSummary": "Write the configuration of $\\text{Cu}^{+}$ ($Z = 29$, 28 electrons) and count shells, subshells, doubly filled orbitals and unpaired electrons.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "Configuration",
+          "bodyLatex": "Cu is $[\\text{Ar}]\\,3d^{10}4s^{1}$ (half-filled/filled $d$ exception). Removing the $4s$ electron gives $\\text{Cu}^{+}$: $1s^{2}2s^{2}2p^{6}3s^{2}3p^{6}3d^{10}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Shells and subshells",
+          "bodyLatex": "Occupied shells: $n = 1, 2, 3$, i.e. 3 shells. Subshells: $1s, 2s, 2p, 3s, 3p, 3d$, i.e. 6 subshells."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $3, 6, 14, 0$."
+          "title": "Orbitals and unpaired electrons",
+          "bodyLatex": "Orbitals: $1 + 1 + 3 + 1 + 3 + 5 = 14$, each holding 2 electrons ($28 = 2 \\times 14$), so 14 filled orbitals and 0 unpaired electrons. The set is 3, 6, 14, 0. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "Aufbau with the Cu (3d10 4s1) exception, ionised from 4s: shells 3, subshells 6, filled orbitals 14, unpaired 0 -> option B."
       }
     },
     "jelet-2023-q074": {
-      "conceptSummary": "Solve using electrochemistry for JELET 2023 Q74.",
+      "conceptSummary": "Faraday: $\\text{Cu}^{2+} + 2e^{-} \\rightarrow \\text{Cu}$, so each mole of Cu needs 2 moles of electrons.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electrochemistry."
+          "title": "Moles of copper",
+          "bodyLatex": "$n(\\text{Cu}) = \\dfrac{6.35}{63.5} = 0.1$ mol."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Moles of electrons",
+          "bodyLatex": "$n(e^{-}) = 2 \\times 0.1 = 0.2$ mol."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\dfrac{2N_A}{5}$."
+          "title": "Number of electrons",
+          "bodyLatex": "$N = 0.2N_{A} = \\dfrac{N_{A}}{5}$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: n_e = 2 * 6.35/63.5 = 1/5 mol -> N_A/5 -> option C."
       }
     },
     "jelet-2023-q075": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q75.",
+      "conceptSummary": "The angular part of $d_{yz}$ is proportional to $yz/r^{2}$: its lobes lie in the $yz$-plane between the $Y$ and $Z$ axes.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "Angular function",
+          "bodyLatex": "$\\psi_{d_{yz}} \\propto \\dfrac{yz}{r^{2}} = \\sin\\theta\\cos\\theta\\sin\\phi$. It vanishes whenever $y = 0$ or $z = 0$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Along the axes",
+          "bodyLatex": "On the $X$, $Y$ and $Z$ axes at least one of $y$, $z$ is zero, so $|\\psi|^{2} = 0$ there: options (A), (B) and (C) describe nodal directions."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) at an angle $45^{\\circ}$ with $Z$ axis."
+          "title": "Maximum direction",
+          "bodyLatex": "In the $yz$-plane, $|\\psi|^{2} \\propto \\sin^{2}2\\theta$, maximal at $\\theta = 45^{\\circ}$, i.e. at $45^{\\circ}$ to the $Z$ axis (and the $Y$ axis). Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: |yz/r^2|^2 = 0 on the X, Y, Z axes; in the yz-plane it equals sin^2(2 theta)/4, maximal at theta = 45 deg -> option D."
       }
     },
     "jelet-2023-q076": {
-      "conceptSummary": "Solve using chemical-bonding for JELET 2023 Q76.",
+      "conceptSummary": "Bond dissociation energy follows MO bond order: higher bond order, stronger bond.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves chemical-bonding."
+          "title": "Bond orders",
+          "bodyLatex": "$\\text{N}_{2}$ (14 e): $(10 - 4)/2 = 3$. $\\text{O}_{2}$ (16 e): $(10 - 6)/2 = 2$. $\\text{O}_{2}^{-}$ (17 e): $(10 - 7)/2 = 1.5$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Order of bond energies",
+          "bodyLatex": "$3 > 2 > 1.5$, so $\\text{N}_{2} > \\text{O}_{2} > \\text{O}_{2}^{-}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\text{N}_2 > \\text{O}_2 > \\text{O}_2^{-}$."
+          "title": "Answer",
+          "bodyLatex": "The extra electron of $\\text{O}_{2}^{-}$ enters an antibonding $\\pi^{*}$ orbital and weakens the bond. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "MO filling (sigma2s, sigma*2s, sigma2p/pi2p, pi*2p, sigma*2p) gives bond orders 3, 2, 3/2 -> N2 > O2 > O2- -> option C."
       }
     },
     "jelet-2023-q077": {
-      "conceptSummary": "Solve using chemical-bonding for JELET 2023 Q77.",
+      "conceptSummary": "Count bonds from the Lewis structures: every bond has one $\\sigma$; each extra bond in a double/triple bond is $\\pi$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves chemical-bonding."
+          "title": "$\\text{HCO}_{3}^{-}$ and $\\text{CH}_{2}(\\text{CN})_{2}$",
+          "bodyLatex": "$\\text{HO–C(=O)–O}^{-}$: 4 $\\sigma$, 1 $\\pi$. $\\text{NC–CH}_{2}\\text{–CN}$: 2 C–H + 2 C–C + 2 C$\\equiv$N gives 6 $\\sigma$ and 4 $\\pi$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "$(\\text{CN})_{2}$",
+          "bodyLatex": "$\\text{N}\\equiv\\text{C–C}\\equiv\\text{N}$: 3 $\\sigma$ and 4 $\\pi$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $\\text{XeO}_4$."
+          "title": "$\\text{XeO}_{4}$",
+          "bodyLatex": "Tetrahedral $\\text{XeO}_{4}$ has four Xe=O bonds: 4 $\\sigma$ and 4 $\\pi$ ($p\\pi$–$d\\pi$). Equal counts only here. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "Structure bond lists: HCO3- (4, 1), CH2(CN)2 (6, 4), (CN)2 (3, 4), XeO4 (4, 4); formulas re-derived from the bond lists match the printed species -> option D."
       }
     },
     "jelet-2023-q078": {
-      "conceptSummary": "Solve using solutions for JELET 2023 Q78.",
+      "conceptSummary": "Strong acid dilution: $[\\text{H}^{+}]V$ (moles of $\\text{H}^{+}$) is conserved.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves solutions."
+          "title": "Initial and final $[\\text{H}^{+}]$",
+          "bodyLatex": "pH 1 means $[\\text{H}^{+}] = 10^{-1}$ M; pH 2 means $[\\text{H}^{+}] = 10^{-2}$ M."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Final volume",
+          "bodyLatex": "$10^{-1} \\times 1 = 10^{-2} \\times V_{f}$, so $V_{f} = 10$ L."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $9\\,\\text{L}$."
+          "title": "Water added",
+          "bodyLatex": "$10 - 1 = 9$ L of water must be added (10 L is the final volume, not the volume added). Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: 10^-1 * 1 = 10^-2 * Vf -> Vf = 10 L; added = 9 L -> option C."
       }
     },
     "jelet-2023-q079": {
-      "conceptSummary": "Solve using stoichiometry for JELET 2023 Q79.",
+      "conceptSummary": "Molarity = moles of solute per litre of solution; moles = molecules / $N_{A}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves stoichiometry."
+          "title": "Moles of glucose",
+          "bodyLatex": "$n = \\dfrac{6.02 \\times 10^{20}}{6.02 \\times 10^{23}} = 10^{-3}$ mol."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Volume",
+          "bodyLatex": "$100$ ml $= 0.1$ L."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $0.01\\,\\text{M}$."
+          "title": "Molarity",
+          "bodyLatex": "$M = \\dfrac{10^{-3}}{0.1} = 0.01$ M. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: (6.02e20/6.02e23)/0.1 = 1/100 M -> option A."
       }
     },
     "jelet-2023-q080": {
-      "conceptSummary": "Solve using equilibrium for JELET 2023 Q80.",
+      "conceptSummary": "$\\text{HA} + \\text{OH}^{-} \\rightleftharpoons \\text{A}^{-} + \\text{H}_{2}\\text{O}$ is the acid dissociation combined with the reverse of water autoionisation.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves equilibrium."
+          "title": "Combine the equilibria",
+          "bodyLatex": "$\\text{HA} \\rightleftharpoons \\text{H}^{+} + \\text{A}^{-}$ ($K_{a}$) plus $\\text{H}^{+} + \\text{OH}^{-} \\rightleftharpoons \\text{H}_{2}\\text{O}$ ($1/K_{w}$)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Equilibrium constant",
+          "bodyLatex": "$K = \\dfrac{[\\text{A}^{-}]}{[\\text{HA}][\\text{OH}^{-}]} = \\dfrac{K_{a}}{K_{w}}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $10^{9}$."
+          "title": "Numerical value",
+          "bodyLatex": "$K = \\dfrac{1.0 \\times 10^{-5}}{1.0 \\times 10^{-14}} = 10^{9}$ (at 25 °C). Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: K = Ka/Kw = 10^-5/10^-14 = 10^9 -> option C."
       }
     },
     "jelet-2023-q081": {
-      "conceptSummary": "Solve using chemical-bonding for JELET 2023 Q81.",
+      "conceptSummary": "Fajans' rules: covalent character rises with the polarising power (charge/size) of the cation.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves chemical-bonding."
+          "title": "Cation charge and size",
+          "bodyLatex": "$\\text{Li}^{+}$ ($+1$, 76 pm), $\\text{Be}^{2+}$ ($+2$, 45 pm), $\\text{B}^{3+}$ ($+3$, about 27 pm), $\\text{C}^{4+}$ ($+4$, about 16 pm, formal)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Polarising power",
+          "bodyLatex": "$z/r$ increases steadily Li $<$ Be $<$ B $<$ C, so the chloride anion is increasingly polarised."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\text{LiCl} < \\text{BeCl}_2 < \\text{BCl}_3 < \\text{CCl}_4$."
+          "title": "Order",
+          "bodyLatex": "$\\text{LiCl} < \\text{BeCl}_{2} < \\text{BCl}_{3} < \\text{CCl}_{4}$ ($\\text{CCl}_{4}$ is a fully covalent molecule). Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "Ionic potential z/r for Li+, Be2+, B3+, C4+ (76, 45, 27, 16 pm) strictly increases; only option C has '<' everywhere."
       }
     },
     "jelet-2023-q082": {
-      "conceptSummary": "Solve using equilibrium for JELET 2023 Q82.",
+      "conceptSummary": "$K_{p} = K_{c}(RT)^{\\Delta n_{g}}$ with $\\Delta n_{g}$ = moles of gaseous products minus reactants.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves equilibrium."
+          "title": "Find $\\Delta n_{g}$",
+          "bodyLatex": "Products: 1 mol $\\text{CO}_{2}$. Reactants: $1 + \\tfrac12 = \\tfrac32$ mol. $\\Delta n_{g} = 1 - \\tfrac32 = -\\tfrac12$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Ratio",
+          "bodyLatex": "$\\dfrac{K_{p}}{K_{c}} = (RT)^{-1/2} = \\dfrac{1}{\\sqrt{RT}}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $(RT)^{1/2}$."
+          "title": "Answer",
+          "bodyLatex": "$(RT)^{1/2}$ has the sign of $\\Delta n_{g}$ reversed. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: dn = 1 - 3/2 = -1/2; Kp/Kc = (RT)^(-1/2) matches option A symbolically."
       }
     },
     "jelet-2023-q083": {
-      "conceptSummary": "Solve using chemical-bonding for JELET 2023 Q83.",
+      "conceptSummary": "VSEPR: shape is fixed by bond pairs and lone pairs on the central atom.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves chemical-bonding."
+          "title": "Electron pairs",
+          "bodyLatex": "$\\text{BF}_{3}$ (3, 0) trigonal planar vs $\\text{PF}_{3}$ (3, 1) pyramidal. $\\text{CF}_{4}$ (4, 0) tetrahedral vs $\\text{SF}_{4}$ (4, 1) see-saw."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Remaining pairs",
+          "bodyLatex": "$\\text{XeF}_{2}$ (2 bond pairs, 3 lone pairs, equatorial) is linear; $\\text{CO}_{2}$ (two double bonds, no lone pair) is linear. $\\text{PF}_{5}$ (5, 0) is trigonal bipyramidal vs $\\text{BrF}_{5}$ (5, 1) square pyramidal."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\text{XeF}_2, \\text{CO}_2$."
+          "title": "Answer",
+          "bodyLatex": "Only $\\text{XeF}_{2}$ and $\\text{CO}_{2}$ share a shape (linear). Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "VSEPR counts (bond pairs, lone pairs): BF3 (3,0) PF3 (3,1); CF4 (4,0) SF4 (4,1); XeF2 (2,3) CO2 (2,0) both linear; PF5 (5,0) BrF5 (5,1) -> option C."
       }
     },
     "jelet-2023-q084": {
-      "conceptSummary": "Solve using organic for JELET 2023 Q84.",
+      "conceptSummary": "A tertiary ($3^{\\circ}$) carbon is bonded to exactly three other carbon atoms.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves organic."
+          "title": "Carbon neighbours",
+          "bodyLatex": "In $\\text{H}_{3}\\text{C–C(CH}_{3})_{2}\\text{–CH}_{2}\\text{–CH(CH}_{3})\\text{–CH}_{3}$ (2,2,4-trimethylpentane): the second carbon has 4 carbon neighbours (quaternary), $\\text{CH}_{2}$ has 2 (secondary), $\\text{CH}$ has 3 ($\\text{CH}_{2}$ and two $\\text{CH}_{3}$), every $\\text{CH}_{3}$ has 1 (primary)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Count",
+          "bodyLatex": "Exactly one carbon (the CH) is tertiary; the C bearing two methyls is quaternary, not tertiary."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $1$."
+          "title": "Answer",
+          "bodyLatex": "1 tertiary carbon. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "Graph rebuilt from the Q84 SVG (labels + bond lines): 8 C, valences all 4, carbon degrees -> 1 quaternary, 1 tertiary, 1 secondary, 5 primary -> option A."
       }
     },
     "jelet-2023-q085": {
-      "conceptSummary": "Solve using organic for JELET 2023 Q85.",
+      "conceptSummary": "Lucas reagent (conc. HCl + $\\text{ZnCl}_{2}$) reacts via a carbocation: $3^{\\circ} > 2^{\\circ} > 1^{\\circ}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves organic."
+          "title": "Classify each alcohol",
+          "bodyLatex": "Pentanol (pentan-1-ol): $1^{\\circ}$. 2-Methylbutanol (2-methylbutan-1-ol): $1^{\\circ}$. 2-Pentanol: $2^{\\circ}$. 2-Methylbutan-2-ol: $3^{\\circ}$ (the carbinol carbon carries three carbons)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Rate",
+          "bodyLatex": "The tertiary alcohol forms the most stable carbocation and turns turbid immediately."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $2$-methylbutan-$2$-ol."
+          "title": "Answer",
+          "bodyLatex": "2-methylbutan-2-ol reacts fastest. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "Name -> carbon graph: carbinol carbon degree 1, 1, 2, 3 for options A-D; fastest Lucas reaction = tertiary -> option D."
       }
     },
     "jelet-2023-q086": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q86.",
+      "conceptSummary": "The Lyman series ends on $n_{1} = 1$ (ultraviolet); Balmer ends on $n_{1} = 2$, Paschen on $n_{1} = 3$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "(A) and (C)",
+          "bodyLatex": "$2 \\rightarrow 1$ and $4 \\rightarrow 1$ both end on $n_{1} = 1$: Lyman lines. True."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "(B)",
+          "bodyLatex": "$3 \\rightarrow 2$ ends on $n_{1} = 2$: Balmer ($H_{\\alpha}$). False."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $n_2 = 2, n_1 = 1$, (C) $n_2 = 4, n_1 = 1$."
+          "title": "(D)",
+          "bodyLatex": "$4 \\rightarrow 3$ ends on $n_{1} = 3$: Paschen. False. Answer: (A), (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: AC."
+        "note": "All four options evaluated: Lyman iff n1 = 1 and n2 > n1 -> {A, C}."
       }
     },
     "jelet-2023-q087": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2023 Q87.",
+      "conceptSummary": "Valid set $(n, l, m, s)$: $l < n$, $|m| \\le l$, $s = \\pm\\tfrac12$; a p electron has $l = 1$. The printed condition $n + 1 \\le 4$ is read as $n + l \\le 4$ (both readings give the same answer).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "(A) and (D)",
+          "bodyLatex": "(A) $(3, 1, +2, -\\tfrac12)$ and (D) $(2, 1, -2, +\\tfrac12)$ have $|m| = 2 > l = 1$: impossible."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "(B)",
+          "bodyLatex": "$(2, 1, -1, +\\tfrac12)$: $l = 1$ (p), $|m| \\le 1$, $n + l = 3 \\le 4$ (and $n + 1 = 3 \\le 4$). Valid."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $2, 1, -1, +\\frac{1}{2}$, (C) $3, 1, 0, -\\frac{1}{2}$."
+          "title": "(C)",
+          "bodyLatex": "$(3, 1, 0, -\\tfrac12)$: $l = 1$, $n + l = 4 \\le 4$ (and $n + 1 = 4 \\le 4$). Valid. Answer: (B), (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: BC."
+        "note": "All four options evaluated against l = 1, l < n, |m| <= l, s = +-1/2 and n + l <= 4; the literal n + 1 <= 4 gives the same set {B, C}."
       }
     },
     "jelet-2023-q088": {
-      "conceptSummary": "Solve using equilibrium for JELET 2023 Q88.",
+      "conceptSummary": "Ice is less dense than water, so melting decreases volume; by Le Chatelier (Clausius–Clapeyron) higher pressure favours the liquid. The item was withdrawn by WBJEEB.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves equilibrium."
+          "title": "Volume change and Le Chatelier",
+          "bodyLatex": "$\\rho_{\\text{ice}} \\approx 0.917$ g/cm³ $< \\rho_{\\text{water}} \\approx 1.000$ g/cm³, so $\\Delta V_{\\text{fus}} < 0$. Raising the pressure shifts ice $\\rightleftharpoons$ water towards water: (A) is true, (B) and (C) are false. Clapeyron: $\\dfrac{dT}{dP} = \\dfrac{T\\Delta V_{\\text{fus}}}{\\Delta H_{\\text{fus}}} < 0$, i.e. the melting point falls with pressure."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Statement (D)",
+          "bodyLatex": "Pressure is not a catalyst and the stem gives no kinetic information, so whether pressure 'can shorten the time to reach the equilibrium' cannot be decided from the question. The stem also asks for 'the correct statement' (singular) in a multiple-correct section."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is question is voided."
+          "title": "Why the item was withdrawn",
+          "bodyLatex": "The official key JEEB/Reg-267/23 marks Q88 W without stating a reason. With (D) undecidable, the answer set is ambiguous between {A} and {A, D}, which is consistent with the withdrawal."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Marking",
+          "bodyLatex": "Q88 is a Category-II item marked W (withdrawn). It awards the full $+2$ marks ($+24$ twelfths) to every candidate, whatever they marked."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: W."
+        "note": "Clapeyron with densities 0.917/1.000 g/cm3: dV_fus < 0 -> dT/dP < 0 -> A true, B/C false, D undecidable -> W, +2 marks (+24 twelfths) to all."
       }
     },
     "jelet-2023-q089": {
-      "conceptSummary": "Solve using metallurgy for JELET 2023 Q89.",
+      "conceptSummary": "Flux combines with gangue (earthy impurity) to form fusible slag: flux + gangue $\\rightarrow$ slag, e.g. CaO (basic flux) + $\\text{SiO}_{2}$ (acidic gangue) $\\rightarrow \\text{CaSiO}_{3}$ (slag).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves metallurgy."
+          "title": "(A) and (B)",
+          "bodyLatex": "(A) 'slag + flux = gangue' and (B) 'slag + gangue = flux' put the product slag on the reactant side. False."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "(C)",
+          "bodyLatex": "$\\text{SiO}_{2} + \\text{CaO} \\rightarrow \\text{CaSiO}_{3}$ is balanced (Ca 1, Si 1, O 3 on each side) and is the standard slag-forming reaction in the blast furnace. True."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\text{SiO}_2 + \\text{CaO} = \\text{CaSiO}_3$, (D) flux + gangue = slag."
+          "title": "(D)",
+          "bodyLatex": "'flux + gangue = slag' is exactly the definition. True. Answer: (C), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: CD."
+        "note": "Role check (flux, gangue -> slag) for A, B, D; SymPy nullspace balances SiO2 + CaO -> CaSiO3 with coefficients (1, 1, 1) -> {C, D}."
       }
     },
     "jelet-2023-q090": {
-      "conceptSummary": "Solve using acids-bases for JELET 2023 Q90.",
+      "conceptSummary": "EDTA, $(\\text{HOOCCH}_{2})_{2}\\text{N–CH}_{2}\\text{CH}_{2}\\text{–N(CH}_{2}\\text{COOH)}_{2}$, has four acidic COOH protons and two N lone pairs (plus carboxylate O donors).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves acids-bases."
+          "title": "Arrhenius and Brønsted acid",
+          "bodyLatex": "In water the COOH groups release $\\text{H}^{+}$ (Arrhenius acid), i.e. EDTA donates protons (Brønsted acid). (A) and (B) are true."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Lewis base",
+          "bodyLatex": "The two N lone pairs and the carboxylate O atoms donate electron pairs to metal ions (hexadentate chelation, e.g. $[\\text{Ca(EDTA)}]^{2-}$). (C) is true."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) Arrhenius acid, (B) Bronsted acid, (C) Lewis base."
+          "title": "Arrhenius base",
+          "bodyLatex": "EDTA does not release $\\text{OH}^{-}$ in water, so (D) is false. Answer: (A), (B), (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: ABC."
+        "note": "Structure graph of EDTA (C10H16N2O8): 4 acidic O-H, 2 N lone pairs, 0 OH- releasing groups -> {A, B, C}."
       }
     },
     "jelet-2023-q091": {
-      "conceptSummary": "Solve using ac-circuits for JELET 2023 Q91.",
+      "conceptSummary": "In a series circuit driven by a current source, the resistor carries the source current: $v_{R}(t) = R\\,i(t)$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ac-circuits."
+          "title": "Read the waveform",
+          "bodyLatex": "From the graph, $i(t)$ ranges between $+5$ A (1–2 ms) and $-5$ A (4–5 ms), so $|i|_{\\max} = 5$ A."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Resistor voltage",
+          "bodyLatex": "$|v_{R}|_{\\max} = R\\,|i|_{\\max} = 3 \\times 5 = 15$ V."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $15\\,\\text{V}$."
+          "title": "Check the distractors",
+          "bodyLatex": "The inductor gives $|v_{L}| = L|di/dt| = 2 \\times 10^{-3} \\times 5\\ \\text{A/ms} = 10$ V (option A), which is not asked. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SVG netlist: I, R, L, C in one series loop; waveform read back from the polyline (max |i| = 5 A); v_R max = 3 * 5 = 15 V -> option B."
       }
     },
     "jelet-2023-q092": {
-      "conceptSummary": "Solve using ac-circuits for JELET 2023 Q92.",
+      "conceptSummary": "Series capacitors carry the same charge: $Q = C_{eq}V$ and $V_{k} = Q/C_{k}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ac-circuits."
+          "title": "Equivalent capacitance",
+          "bodyLatex": "$C_{eq} = \\dfrac{C_{1}C_{2}}{C_{1} + C_{2}} = \\dfrac{5 \\times 10}{15} = \\dfrac{10}{3}\\ \\mu\\text{F}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Charge",
+          "bodyLatex": "$Q = C_{eq} \\times 5 = \\dfrac{50}{3}\\ \\mu\\text{C}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $V_1 = 10,\\; V_2 = \\dfrac{10}{3}$."
+          "title": "Voltages",
+          "bodyLatex": "$V_{1} = \\dfrac{Q}{C_{1}} = \\dfrac{10}{3}$ V and $V_{2} = \\dfrac{Q}{C_{2}} = \\dfrac{5}{3}$ V (sum 5 V; the smaller capacitor takes the larger share). Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SVG netlist: source + C1 + C2 in a single loop; capacitor-admittance nodal solve gives V1 = 10/3 V, V2 = 5/3 V -> option B."
       }
     },
     "jelet-2023-q093": {
-      "conceptSummary": "Solve using ac-circuits for JELET 2023 Q93.",
+      "conceptSummary": "$V_{\\text{rms}} = \\sqrt{\\overline{v^{2}}}$; the DC term and the sinusoid are orthogonal over a period.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ac-circuits."
+          "title": "Mean square",
+          "bodyLatex": "$\\overline{(10 + 10\\sin\\omega t)^{2}} = 100 + 2 \\cdot 100\\,\\overline{\\sin\\omega t} + 100\\,\\overline{\\sin^{2}\\omega t} = 100 + 0 + 50 = 150$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "RMS",
+          "bodyLatex": "$V_{\\text{rms}} = \\sqrt{150} = 5\\sqrt{6} \\approx 12.25$ V."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $12.25\\,\\text{V}$."
+          "title": "Answer",
+          "bodyLatex": "Equivalently $\\sqrt{V_{DC}^{2} + (V_{m}/\\sqrt2)^{2}} = \\sqrt{100 + 50}$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: sqrt(50 * integral_0^(1/50) (10 + 10 sin 100 pi t)^2 dt) = sqrt(150) = 12.247 -> option A."
       }
     },
     "jelet-2023-q094": {
-      "conceptSummary": "Solve using dc-circuits for JELET 2023 Q94.",
+      "conceptSummary": "Three source branches and the 2 Ω resistor all connect A to B: Millman's theorem gives $V_{AB} = \\dfrac{\\sum E_{k}/R_{k}}{\\sum 1/R_{k}}$. The correct value is not among the options, and WBJEEB withdrew the item.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves dc-circuits."
+          "title": "Millman with the 2 Ω load",
+          "bodyLatex": "$\\sum E/R = \\dfrac{50}{5} + \\dfrac{40}{4} + \\dfrac{30}{3} = 30$ A and $\\sum 1/R = \\dfrac15 + \\dfrac14 + \\dfrac13 + \\dfrac12 = \\dfrac{77}{60}$ S, so $V_{AB} = \\dfrac{1800}{77} \\approx 23.4$ V (A positive, the long cell plates face A)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Other readings",
+          "bodyLatex": "Without the 2 Ω resistor, $V_{AB} = 30 \\big/ \\dfrac{47}{60} = \\dfrac{1800}{47} \\approx 38.3$ V, which is option (C). If the printed wire crossings (no junction dots) are read as unconnected, the 50 V and 30 V branches form an isolated loop and $V_{AB} = 40 \\times \\dfrac{2}{4 + 2} \\approx 13.3$ V. None of the printed options 35, 28.2, 38.3, 42.6 V matches the circuit as drawn."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is question is voided."
+          "title": "Why the item was withdrawn",
+          "bodyLatex": "Option (C) apparently ignores the 2 Ω resistor that the figure draws between A and B, so the single-correct item has no valid answer; the WBJEEB final key JEEB/Reg-267/23 marks Q94 W (withdrawn)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Marking",
+          "bodyLatex": "Q94 is a Category-I item marked W (withdrawn). It awards the full $+1$ mark ($+12$ twelfths) to every candidate, whatever they marked."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: W."
+        "note": "MNA on the SVG netlist: 23.38 V with the crossings joined, 13.33 V with them open; 38.30 V = option C only if the 2 ohm is removed -> no option correct -> W, +1 mark (+12 twelfths) to all."
       }
     },
     "jelet-2023-q095": {
-      "conceptSummary": "Solve using dc-circuits for JELET 2023 Q95.",
+      "conceptSummary": "Capacitors in parallel add; in series the reciprocals add.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves dc-circuits."
+          "title": "Lower branch",
+          "bodyLatex": "Two 2 μF in series: $\\dfrac{2 \\times 2}{2 + 2} = 1\\ \\mu\\text{F}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Parallel block",
+          "bodyLatex": "Upper 2 μF in parallel with the 1 μF lower branch: $2 + 1 = 3\\ \\mu\\text{F}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $4\\,\\mu\\text{F}$."
+          "title": "Series with 1 μF",
+          "bodyLatex": "$C_{XY} = \\dfrac{3 \\times 1}{3 + 1} = \\dfrac{3}{4}\\ \\mu\\text{F}$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SVG netlist: capacitor-admittance Laplacian between X and Y gives 3/4 uF -> option A."
       }
     },
     "jelet-2023-q096": {
-      "conceptSummary": "Solve using transformers for JELET 2023 Q96.",
+      "conceptSummary": "EMF equation $E_{2} = 4.44\\,f N_{2}\\Phi_{m}$. The official key reads the question with the peak flux held fixed; with a fixed supply voltage the ideal secondary voltage is frequency-independent.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves transformers."
+          "title": "Official (constant-flux) reading",
+          "bodyLatex": "With $\\Phi_{m}$ (core flux density) held constant, $E_{2} = 4.44\\,fN_{2}\\Phi_{m} \\propto f$: the secondary voltage increases with frequency. This is the official answer (A)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Constant-supply-voltage reading",
+          "bodyLatex": "If the applied voltage $V_{1}$ is fixed, $\\Phi_{m} = \\dfrac{V_{1}}{4.44\\,fN_{1}}$ falls as $f$ rises, and $V_{2} = V_{1}\\dfrac{N_{2}}{N_{1}}$ is unchanged (C) for an ideal transformer."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) increases."
+          "title": "Key dispute",
+          "bodyLatex": "The stem does not say which quantity is held constant. The official key JEEB/Reg-267/23 lists (A), which requires the constant-flux reading; under the usual fixed-supply-voltage condition (C) would be correct. The official key (A) is kept. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: E2 = 4.44 f N2 Phi; d/df at constant Phi > 0 (A); with Phi = V1/(4.44 f N1), V2 = V1 N2/N1 independent of f (C) -> documented dispute, official A kept."
       }
     },
     "jelet-2023-q097": {
-      "conceptSummary": "Solve using transformers for JELET 2023 Q97.",
+      "conceptSummary": "A transformer works by mutual induction from a changing flux; on DC the flux is steady and the only opposition is the winding resistance.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves transformers."
+          "title": "No induced EMF on DC",
+          "bodyLatex": "$f = 0$ gives $X_{L} = 2\\pi fL = 0$ and $d\\Phi/dt = 0$ in steady state, so no back EMF and no secondary voltage."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Primary current",
+          "bodyLatex": "$I = V/R_{1}$ with a winding resistance of a fraction of an ohm, e.g. $230/0.5 = 460$ A, far above the rated (magnetising) current."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) damage of the transformer."
+          "title": "Result",
+          "bodyLatex": "The winding overheats and the core saturates: the transformer is damaged. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: |Z| = sqrt(R^2 + (2 pi f L)^2) -> R at f = 0; current ratio I_dc/I_ac = |Z(50)|/R >> 1 for R = 0.5 ohm, L = 1 H -> damage -> option A."
       }
     },
     "jelet-2023-q098": {
-      "conceptSummary": "Solve using electrical-machines for JELET 2023 Q98.",
+      "conceptSummary": "With the motor delivering the same mechanical power, $P = T\\omega$ is constant, so $T \\propto 1/n$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electrical-machines."
+          "title": "Power at 20 rps",
+          "bodyLatex": "$P = T\\omega = 120 \\times 2\\pi \\times 20 = 4800\\pi$ W."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Torque at 30 rps",
+          "bodyLatex": "$T_{2} = \\dfrac{P}{2\\pi \\times 30} = 120 \\times \\dfrac{20}{30} = 80$ Nm."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $80\\,\\text{Nm}$."
+          "title": "Assumption",
+          "bodyLatex": "The stem gives no load or field data; the intended reading is constant output power (the official key). At constant torque the answer would be 120 Nm. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SymPy: T2 = T1 n1/n2 at constant P = T*omega -> 80 Nm -> option C (interpretation note: constant power)."
       }
     },
     "jelet-2023-q099": {
-      "conceptSummary": "Solve using electrical-machines for JELET 2023 Q99.",
+      "conceptSummary": "DC shunt motor: $T = k\\Phi I_{a}$, $N \\propto E_{b}/\\Phi$, $P = E_{b}I_{a}$. Changing the field (excitation) at the same armature current is the constant-power speed-control method.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electrical-machines."
+          "title": "Torque",
+          "bodyLatex": "$T = k\\Phi I_{a}$: with $I_{a}$ unchanged, torque changes in proportion to $\\Phi$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Power and speed",
+          "bodyLatex": "$E_{b} = V - I_{a}R_{a}$ is unchanged, so $P = E_{b}I_{a}$ stays constant, while $N \\propto E_{b}/\\Phi$ changes inversely with the flux."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) torque will change but power will remain constant.."
+          "title": "Answer",
+          "bodyLatex": "Torque changes but power remains constant (field control is a constant-power drive). Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: with Ia fixed, T = k*Phi*Ia varies, omega = Eb/(k*Phi) varies, P = T*omega = Eb*Ia independent of Phi -> option B (interpretation note: constant armature current)."
       }
     },
     "jelet-2023-q100": {
-      "conceptSummary": "Solve using ac-circuits for JELET 2023 Q100.",
+      "conceptSummary": "Average power in an impedance $Z = R + jX$: $P = \\tfrac12 I_{m}^{2}R$; the reactance and the phase angle of the current do not matter.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ac-circuits."
+          "title": "Peak current and resistance",
+          "bodyLatex": "$I_{m} = 5$ A (the printed $5\\cos(100\\pi + 100^{\\circ})$ omits $t$; it is read as $5\\cos(100\\pi t + 100^{\\circ})$). $R = \\text{Re}(4 - j3) = 4\\ \\Omega$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Average power",
+          "bodyLatex": "$P = \\tfrac12 \\times 5^{2} \\times 4 = 50$ W."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $50\\,\\text{W}$."
+          "title": "Check",
+          "bodyLatex": "Equivalently $P = I_{\\text{rms}}^{2}R = (5/\\sqrt2)^{2} \\times 4 = 50$ W; 62.5 W uses $|Z| = 5$ and 125 W uses $|Z|$ without the factor ½. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: P = (1/2) Re(V I*) with V = Z I over one period = 50 W for any phase -> option B."
       }
     }
   }

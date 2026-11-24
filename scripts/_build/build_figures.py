@@ -1715,79 +1715,137 @@ def fig_2023_q70():
     body += mlabel(152, y1 - 6, "d", 13) + mlabel(244, y1 + 5, "P", 13, anchor="start") + mlabel(234, 16, "screen", 13, anchor="start")
     return svg_plain(290, 172, body, "2023 Q70: " + "Young's double slit; slits S1 above S2 separated by b in a vertical barrier; a screen at distance d; point P on the screen level with S1; dashed lines S1P and S2P")
 
+# ---------------------------------------------------------------------------
+# JELET 2023 Batch C (Chemistry Q71–Q90 + FEEE Q91–Q100): faithful redraws of the Set-A booklet
+# figures (PDF pages 20, 22, 23 read at 180 DPI, figures cropped at 400 DPI).  No captions (the
+# booklet prints none).  Circuit parts are <g data-comp> groups whose internals are <path>/<polyline>
+# (never var(--fig-line) <line>s), so scripts/verify_solutions_sympy.py can rebuild the wire netlist;
+# the Q84 structure keeps every bond as a data-role="bond" line between its two group labels.
+# Colours: var(--fig-*) tokens only.
+# ---------------------------------------------------------------------------
+def _c23_group_text(x, y, grp, size=14):
+    """Condensed-formula group label ('H3C', 'CH2', ...) with the digits as subscripts (booklet style)."""
+    body, sub = "", False
+    for ch in grp:
+        if ch.isdigit() and not sub:
+            body += f'<tspan dy="4" font-size="{int(size*0.72)}">{ch}</tspan>'; sub = True
+        elif not ch.isdigit() and sub:
+            body += f'<tspan dy="-4">{ch}</tspan>'; sub = False
+        else:
+            body += ch
+    # Start-anchored at the computed left edge (as chem() does): renderers disagree on middle-anchoring
+    # text that contains baseline-shifted tspans (the subscript then collides with the next letter).
+    x0 = round(x - chem_w(grp, size)/2, 2)
+    return (f'  <text data-group="{grp}" data-cx="{x}" x="{x0}" y="{y}" font-family="Times New Roman, serif" font-size="{size}" '
+            f'fill="var(--fig-text)" text-anchor="start">{body}</text>\n')
+
+def fig_2023_q84():
+    """Q84 as printed: H3C–C–CH2–CH–CH3 on one line; CH3 above and below C, CH3 above CH."""
+    yc = 76
+    g = {"H3C": (34, yc), "C": (104, yc), "CH2": (170, yc), "CH": (246, yc), "CH3": (318, yc),
+         "CH3up1": (104, 24), "CH3dn": (104, 130), "CH3up2": (246, 24)}
+    name = lambda k: "CH3" if k.startswith("CH3") else k
+    b = '  <g data-struct="q84">\n'
+    for k, (x, y) in g.items():
+        b += _c23_group_text(x, y + 5, name(k))
+    bond = lambda p, q: _p24_role(line(p[0], p[1], q[0], q[1], stroke="var(--fig-line)", sw=1.2), "bond")
+    b += bond((54, yc), (93, yc)) + bond((115, yc), (148, yc)) + bond((193, yc), (229, yc)) + bond((264, yc), (296, yc))
+    b += bond((104, 36), (104, 64)) + bond((104, 88), (104, 116)) + bond((246, 36), (246, 64))
+    b += '  </g>\n'
+    return svg_plain(352, 146, b, "2023 Q84: condensed structural formula H3C–C(CH3)2–CH2–CH(CH3)–CH3 drawn as in the booklet")
+
+def _c23_cap(p, q, half=11):
+    """Capacitor on the straight wire p→q: two equal plates (paths) at the pins; pins are the plate centres."""
+    L = _m.hypot(q[0] - p[0], q[1] - p[1]); d = ((q[0] - p[0])/L, (q[1] - p[1])/L)
+    return (f'  <g data-comp="C" data-pins="{p[0]},{p[1]} {q[0]},{q[1]}">\n'
+            + _c24_plate(p, d, half) + _c24_plate(q, d, half) + '  </g>\n')
+
 def fig_2023_q91():
-    """RLC series circuit with current source."""
-    body = ""
-    body += label(40, 25, "RLC circuit", 10)
-    # loop
-    body += line(60, 50, 180, 50, stroke="var(--fig-primary)", sw=2)
-    body += line(180, 50, 180, 150, stroke="var(--fig-primary)", sw=2)
-    body += line(180, 150, 60, 150, stroke="var(--fig-primary)", sw=2)
-    body += line(60, 150, 60, 50, stroke="var(--fig-primary)", sw=2)
-    # resistor (top)
-    body += rect_(80, 42, 30, 16, "var(--fig-accent)")
-    body += label(95, 35, "R", 10, "var(--fig-accent-tint)", "middle")
-    # inductor (right)
-    body += path("M 180 70 Q 170 80, 180 90 Q 170 100, 180 110 Q 170 120, 180 130", stroke="var(--fig-secondary)", sw=2)
-    body += label(190, 100, "L", 10, "var(--fig-secondary-soft)")
-    # capacitor (bottom)
-    body += line(100, 150, 100, 158, stroke="var(--fig-primary)", sw=3)
-    body += line(100, 162, 100, 170, stroke="var(--fig-primary)", sw=3)
-    body += label(90, 165, "C", 10, "var(--fig-secondary)")
-    # current source (left)
-    body += circle(60, 100, 10, stroke="var(--fig-danger)", sw=2)
-    body += label(60, 103, "i(t)", 7, "var(--fig-danger-soft)", "middle")
-    return svg_wrap(240, 200, body, "2023 Q91: RLC circuit")
+    """Q91 as printed. Left: current source i(t) (arrow up) → node dot → 3 Ω → 2 mH (top wire) → 500 μF (right
+    side) → bottom wire back to the source.  Right: i(t)–t(ms) graph, trapezoid 0→5 A (0–1 ms), 5 A (1–2 ms),
+    linear fall through 0 at 3 ms to –5 A (4 ms), –5 A (4–5 ms), back to 0 at 6 ms; dashed levels and guides."""
+    W = _c24_w
+    xs, xr, yt, yb = 46, 262, 70, 168
+    b = W((xs, 133), (xs, yb)) + W((xs, 107), (xs, yt))
+    b += (f'  <g data-comp="I" data-pins="{xs},133 {xs},107">\n'
+          + circle(xs, 120, 13, stroke="var(--fig-line)", sw=1.4) +
+          f'  <path d="M {xs},128 L {xs},113" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n'
+          + _arrowhead(xs, 111, -90, 6) + '  </g>\n')
+    b += dot(xs, yt, r=3) + W((xs, yt), (96, yt)) + _c24_res((96, yt), (140, yt)) + W((140, yt), (160, yt))
+    b += f'  <g data-comp="L" data-pins="160,{yt} 212,{yt}">\n{_coil(160, 212, yt - 4, loops=4)}  </g>\n'
+    b += W((212, yt), (xr, yt)) + W((xr, yt), (xr, 114)) + _c23_cap((xr, 114), (xr, 122), 13) + W((xr, 122), (xr, yb))
+    b += W((xr, yb), (xs, yb))
+    b += mlabel(118, 54, "3 Ω", 13) + mlabel(186, 54, "2 mH", 13) + mlabel(280, 123, "500 μF", 13, anchor="start")
+    b += mlabel(28, 125, "i(t)", 13, anchor="end")
+    # waveform panel
+    ox, oy, ts, ia = 366, 112, 30, 9.0                       # origin, px per ms, px per A
+    T = lambda t: round(ox + t*ts, 1); I = lambda a: round(oy - a*ia, 1)
+    b += _p24_role(arrow(ox, 182, ox, 20, stroke="var(--fig-axis)", sw=1.2), "axis-i")
+    b += _p24_role(arrow(ox, oy, ox + 210, oy, stroke="var(--fig-axis)", sw=1.2), "axis-t")
+    b += _p23_dash(ox, I(5), T(7.2), I(5), "level-5A") + _p23_dash(ox, I(-5), T(7.2), I(-5), "level-m5A")
+    for t, a in ((1, 5), (2, 5), (4, -5), (5, -5)):
+        b += _p23_dash(T(t), I(a), T(t), oy, f"guide-t{t}")
+    b += _p24_poly([(T(t), I(a)) for t, a in ((0, 0), (1, 5), (2, 5), (4, -5), (5, -5), (6, 0))], "i-wave", stroke="var(--fig-line)", sw=1.5)
+    for t, dx, dy in ((1, 0, 16), (2, 0, 16), (3, 0, 16), (4, 0, 16), (5, 0, 16), (6, 8, 16)):
+        b += f'  <text data-tick="{t}" x="{T(t) + dx}" y="{oy + dy}" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">{t}</text>\n'
+    b += mlabel(ox - 8, I(5) + 5, "5A", 12, anchor="end") + mlabel(ox - 6, oy + 4, "0", 12, anchor="end")
+    b += mlabel(ox - 8, I(-5) + 5, "– 5A", 12, anchor="end") + mlabel(ox, 14, "i(t)", 12)
+    b += mlabel(ox + 214, oy + 4, "t (ms)", 12, anchor="start")
+    return svg_plain(620, 196, b, "2023 Q91: current source i(t) driving a series 3 Ω – 2 mH – 500 μF loop, with the trapezoidal i(t) waveform between 5A and – 5A over 0–6 ms")
+
+def fig_2023_q92():
+    """Q92 as printed: 5 V source (+ up) on the left, C1 = 5 μF on the top wire, C2 = 10 μF on the right, bottom wire."""
+    W = _c24_w
+    xl, xr, yt, yb = 64, 254, 30, 140
+    b = W((xl, 69), (xl, yt)) + W((xl, yt), (150, yt)) + _c23_cap((150, yt), (157, yt), 10) + W((157, yt), (xr, yt))
+    b += W((xr, yt), (xr, 81)) + _c23_cap((xr, 81), (xr, 89), 14) + W((xr, 89), (xr, yb)) + W((xr, yb), (xl, yb)) + W((xl, yb), (xl, 101))
+    b += (f'  <g data-comp="V" data-pins="{xl},69 {xl},101" data-plus="{xl},69">\n'
+          + circle(xl, 85, 16, stroke="var(--fig-line)", sw=1.4)
+          + f'  <path d="M {xl - 5},{78} L {xl + 5},{78}" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n'
+          + f'  <path d="M {xl},{73} L {xl},{83}" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n'
+          + f'  <path d="M {xl - 6},{93} L {xl + 6},{93}" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n  </g>\n')
+    b += mlabel(40, 90, "5 V", 13, anchor="end")
+    b += (f'  <text x="124" y="16" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">'
+          f'C<tspan dy="3" font-size="9">1</tspan><tspan dy="-3"> = 5 μF</tspan></text>\n')
+    b += (f'  <text x="272" y="90" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">'
+          f'C<tspan dy="3" font-size="9">2</tspan><tspan dy="-3"> = 10 μF</tspan></text>\n')
+    return svg_plain(370, 156, b, "2023 Q92: 5 V source in series with C1 = 5 μF and C2 = 10 μF")
 
 def fig_2023_q94():
-    """Multi-source DC circuit for V_AB."""
-    body = ""
-    body += label(40, 25, "DC circuit", 10)
-    # main loop
-    body += line(60, 50, 180, 50, stroke="var(--fig-primary)", sw=2)
-    body += line(180, 50, 180, 150, stroke="var(--fig-primary)", sw=2)
-    body += line(180, 150, 60, 150, stroke="var(--fig-primary)", sw=2)
-    body += line(60, 150, 60, 50, stroke="var(--fig-primary)", sw=2)
-    # sources and resistors on top
-    body += circle(80, 50, 8, stroke="var(--fig-danger)", sw=2)
-    body += label(80, 53, "50V", 7, "var(--fig-danger-soft)", "middle")
-    body += rect_(100, 42, 20, 16, "var(--fig-accent)")
-    body += label(110, 35, "5Ω", 7, "var(--fig-accent-tint)", "middle")
-    body += circle(140, 50, 8, stroke="var(--fig-secondary)", sw=2)
-    body += label(140, 53, "40V", 7, "var(--fig-secondary-soft)", "middle")
-    body += rect_(155, 42, 20, 16, "var(--fig-accent)")
-    body += label(165, 35, "4Ω", 7, "var(--fig-accent-tint)", "middle")
-    # bottom resistors
-    body += rect_(80, 142, 20, 16, "var(--fig-accent)")
-    body += label(90, 165, "30V", 7, "var(--fig-accent-tint)", "middle")
-    body += rect_(120, 142, 20, 16, "var(--fig-accent)")
-    body += label(130, 165, "3Ω", 7, "var(--fig-accent-tint)", "middle")
-    body += label(120, 180, "Find V_AB", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 210, body, "2023 Q94: DC circuit")
+    """Q94 as printed (400-DPI crop): three cell + resistor branches (50 V/5 Ω, 40 V/4 Ω, 30 V/3 Ω; long plate = +
+    on the left) between a left and a right vertical wire; the A wire runs straight into the 40 V branch and the
+    40 V branch runs straight on to B, crossing the vertical wires WITHOUT junction dots, exactly as printed;
+    a 2 Ω resistor on the bottom wire joins A to B."""
+    W = _c24_w
+    xA, xB, xl, xr = 22, 306, 62, 254
+    y1, y2, y3, yb = 40, 88, 136, 178
+    b = ""
+    for y, ex in ((y1, "q"), (y3, "q")):
+        b += W((xl, y), (88, y)) + _c24_cell((88, y), (100, y), "p") + W((100, y), (150, y)) + _c24_res((150, y), (198, y)) + W((198, y), (xr, y))
+    b += W((xA, y2), (88, y2)) + _c24_cell((88, y2), (100, y2), "p") + W((100, y2), (150, y2)) + _c24_res((150, y2), (198, y2)) + W((198, y2), (xB, y2))
+    b += W((xl, y1), (xl, y3)) + W((xr, y1), (xr, y3))
+    b += W((xA, y2), (xA, yb)) + W((xA, yb), (140, yb)) + _c24_res((140, yb), (188, yb)) + W((188, yb), (xB, yb)) + W((xB, yb), (xB, y2))
+    b += dot(xA, y2, r=3.4) + dot(xB, y2, r=3.4)
+    b += mlabel(xA - 8, y2 + 5, "A", 14, anchor="end") + mlabel(xB + 8, y2 + 5, "B", 14, anchor="start")
+    b += mlabel(94, y1 - 14, "50 V", 13) + mlabel(174, y1 - 12, "5 Ω", 13)
+    b += mlabel(94, y2 - 14, "40 V", 13) + mlabel(174, y2 - 12, "4 Ω", 13)
+    b += mlabel(94, y3 - 14, "30 V", 13) + mlabel(174, y3 - 12, "3 Ω", 13)
+    b += mlabel(164, yb + 22, "2 Ω", 13)
+    return svg_plain(340, 206, b, "2023 Q94: three cell–resistor branches 50 V/5 Ω, 40 V/4 Ω, 30 V/3 Ω between A and B, with 2 Ω from A to B")
 
 def fig_2023_q95():
-    """Capacitor combination network across X-Y."""
-    body = ""
-    body += label(40, 25, "Capacitor network", 10)
-    # nodes X and Y
-    body += dot(50, 80, 5, fill="var(--fig-danger)")
-    body += label(42, 70, "X", 10, "var(--fig-danger-soft)")
-    body += dot(50, 160, 5, fill="var(--fig-secondary)")
-    body += label(42, 175, "Y", 10, "var(--fig-secondary-soft)")
-    # capacitors
-    body += line(50, 80, 120, 80, stroke="var(--fig-primary)", sw=1.5)
-    body += line(120, 80, 120, 100, stroke="var(--fig-primary)", sw=3)
-    body += line(120, 110, 120, 130, stroke="var(--fig-primary)", sw=3)
-    body += line(120, 130, 120, 160, stroke="var(--fig-primary)", sw=1.5)
-    body += line(50, 160, 120, 160, stroke="var(--fig-primary)", sw=1.5)
-    body += label(135, 100, "C₁", 9, "var(--fig-axis)")
-    body += label(135, 145, "C₂", 9, "var(--fig-axis)")
-    # parallel caps
-    body += line(150, 80, 200, 80, stroke="var(--fig-primary)", sw=1.5)
-    body += line(150, 160, 200, 160, stroke="var(--fig-primary)", sw=1.5)
-    body += line(200, 80, 200, 160, stroke="var(--fig-primary)", sw=3)
-    body += label(210, 120, "C₃", 9, "var(--fig-axis)")
-    return svg_wrap(240, 200, body, "2023 Q95: Capacitor network")
+    """Q95 as printed: X → [2 μF (top) ∥ (2 μF + 2 μF in series, bottom)] → 1 μF → Y."""
+    W = _c24_w
+    xX, xl, xr, xY, ym, yt, yb = 22, 64, 236, 322, 62, 30, 94
+    b = W((xX, ym), (xl, ym)) + W((xl, yt), (xl, yb)) + W((xr, yt), (xr, yb))
+    b += W((xl, yt), (146, yt)) + _c23_cap((146, yt), (153, yt), 10) + W((153, yt), (xr, yt))
+    b += W((xl, yb), (100, yb)) + _c23_cap((100, yb), (107, yb), 10) + W((107, yb), (176, yb)) + _c23_cap((176, yb), (183, yb), 10) + W((183, yb), (xr, yb))
+    b += W((xr, ym), (268, ym)) + _c23_cap((268, ym), (275, ym), 10) + W((275, ym), (xY, ym))
+    b += dot(xX, ym, r=3.4) + dot(xY, ym, r=3.4)
+    b += mlabel(xX - 8, ym + 5, "X", 14, anchor="end") + mlabel(xY + 8, ym + 5, "Y", 14, anchor="start")
+    b += mlabel(150, 14, "2 μF", 13) + mlabel(272, 42, "1 μF", 13)
+    b += mlabel(104, 118, "2 μF", 13) + mlabel(180, 118, "2 μF", 13)
+    return svg_plain(350, 126, b, "2023 Q95: 2 μF in parallel with two 2 μF in series, followed by 1 μF in series, between X and Y")
 
 def main():
     outdir_base = "_data/figures"
@@ -1817,7 +1875,9 @@ def main():
             "fig-2023-q66": fig_2023_q66,
             "fig-2023-q68": fig_2023_q68,
             "fig-2023-q70": fig_2023_q70,
+            "fig-2023-q84": fig_2023_q84,
             "fig-2023-q91": fig_2023_q91,
+            "fig-2023-q92": fig_2023_q92,
             "fig-2023-q94": fig_2023_q94,
             "fig-2023-q95": fig_2023_q95,
         },
