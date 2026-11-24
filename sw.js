@@ -44,6 +44,8 @@ const SHELL_ASSETS = [
   "./assets/js/core/ai-vault.js",
   "./assets/js/db/indexeddb.js",
   "./assets/js/db/backup.js",
+  "./assets/js/db/sync.js",
+  "./assets/js/db/sync-crypto.js",
   "./assets/js/views/today.js",
   "./assets/js/views/learn.js",
   "./assets/js/views/practice.js",
