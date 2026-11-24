@@ -56,6 +56,31 @@
 }
 
 /* ------------------------------------------------------------------ *
+ * Storage-availability notice (in-memory fallback / quota events)
+ * ------------------------------------------------------------------ */
+.storage-notice {
+  position: relative;
+  z-index: var(--z-topbar);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  flex-wrap: wrap;
+  margin: var(--space-xs) var(--space-s) 0;
+  padding: var(--space-xs) var(--space-s);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-worked-example);
+  color: var(--text-primary);
+  font-size: var(--fs-caption);
+}
+
+.storage-notice span {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ------------------------------------------------------------------ *
  * Top bar (sticky, compact phone header)
  * ------------------------------------------------------------------ */
 .topbar {

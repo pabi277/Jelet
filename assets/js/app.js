@@ -7,8 +7,32 @@
  * (0 and — on a fresh device) — never faked.
  */
 
-import { openDB, getMeta, setMeta, onSync } from "./db/indexeddb.js";
+import { openDB, getMeta, setMeta, onSync, isMemoryMode, storageStatus } from "./db/indexeddb.js";
 import { $, el, icon, showToast } from "./core/ui.js";
+
+/**
+ * Storage-availability notice. When IndexedDB is blocked/unavailable the
+ * app keeps working on an in-memory session; this banner tells the user
+ * their progress will not persist until storage is available again.
+ */
+function showStorageNotice() {
+  if ($("#storageNotice")) return;
+  const status = storageStatus();
+  if (!isMemoryMode() && !status.quotaExceeded) return;
+
+  const notice = el(`
+    <div class="storage-notice" id="storageNotice" role="status" aria-live="polite">
+      <span>${
+        status.quotaExceeded
+          ? "Storage is full — your recent progress may not be saved until you clear space."
+          : "Storage is unavailable — running in an in-memory session. Progress will not persist across reloads."
+      }</span>
+      <button type="button" class="btn btn--ghost btn--sm" id="storageNoticeClose" aria-label="Dismiss storage notice">Dismiss</button>
+    </div>
+  `);
+  document.body.insertBefore(notice, document.querySelector(".app-shell"));
+  $("#storageNoticeClose")?.addEventListener("click", () => notice.remove());
+}
 
 /**
  * Register the offline Service Worker (sw.js) once the shell is ready.
@@ -327,10 +351,17 @@ async function init() {
     applyTheme("light");
   }
 
+  // Show the storage notice when running in the in-memory fallback.
+  showStorageNotice();
+
   // Cross-tab sync: only re-render on external BroadcastChannel messages, not active exam ticks
   onSync((payload) => {
     if (payload?.store === "meta") {
       getMeta().then((m) => applyTheme(m.theme)).catch(() => {});
+    }
+    if (payload?.type === "quota-exceeded") {
+      showStorageNotice();
+      showToast("Storage quota exceeded — some progress may not have been saved.");
     }
   });
 

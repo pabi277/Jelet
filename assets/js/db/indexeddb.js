@@ -15,6 +15,17 @@
  *
  * BYOK AI keys NEVER touch this DB (they live in isolated `jelet_ai_vault_v1`
  * local storage) so backup exports can never leak an API key.
+ *
+ * PHASES-05 HARDENING:
+ *   - `openDB()` never rejects: if IndexedDB is unavailable (private mode,
+ *     storage blocked) or the open is blocked by another tab, the module
+ *     transparently falls back to an in-memory session so the app keeps
+ *     working. Callers can query `isMemoryMode()` / `storageStatus()`.
+ *   - `onupgradeneeded` is defensive: stores/indexes are created only when
+ *     missing and creation errors degrade to memory mode instead of hanging.
+ *   - `QuotaExceededError` on writes sets a quota flag, notifies listeners,
+ *     and rejects with a typed `StorageQuotaError` so views can react
+ *     (clear toast + re-enable controls) instead of silently corrupting state.
  */
 
 export const DB_NAME = "jelet_hub_v1";
@@ -36,44 +47,186 @@ export const STORE_SCHEMA = {
 
 export const STORES = Object.keys(STORE_SCHEMA);
 
+/** Typed error surfaced when a write exceeds available storage quota. */
+export class StorageQuotaError extends Error {
+  constructor(message = "Storage quota exceeded") {
+    super(message);
+    this.name = "StorageQuotaError";
+    this.code = "QUOTA_EXCEEDED";
+  }
+}
+
 let _db = null;
 let _channel = null;
 const _listeners = new Set();
 
-/** Open (and upgrade if needed) the database. Returns a Promise<IDBDatabase>. */
+/* ------------------------------------------------------------------ *
+ * Memory-mode fallback (private mode / blocked storage)
+ * ------------------------------------------------------------------ */
+
+let _memoryMode = false;
+let _memoryReason = "";
+let _quotaExceeded = false;
+const _memory = new Map(); // storeName -> Map(key -> record)
+
+function enterMemoryMode(reason) {
+  if (_memoryMode) return;
+  _memoryMode = true;
+  _memoryReason = reason || "IndexedDB unavailable";
+  _db = null;
+  _channel = null;
+  for (const store of STORES) {
+    if (!_memory.has(store)) _memory.set(store, new Map());
+  }
+  notify({ store: "all", type: "memory-mode", reason: _memoryReason });
+}
+
+/** True when storage is running on the in-memory fallback. */
+export function isMemoryMode() {
+  return _memoryMode;
+}
+
+/** Human-readable storage status for UI notices. */
+export function storageStatus() {
+  return {
+    mode: _memoryMode ? "memory" : "indexeddb",
+    reason: _memoryReason,
+    quotaExceeded: _quotaExceeded,
+  };
+}
+
+/** Minimal object-store adapter over an in-memory Map (same API surface). */
+class MemObjectStore {
+  constructor(map) {
+    this._map = map;
+  }
+  get(key) {
+    return this._map.get(key);
+  }
+  put(value) {
+    const { keyPath } = STORE_SCHEMA[this._name];
+    this._map.set(value[keyPath], value);
+    return value;
+  }
+  delete(key) {
+    this._map.delete(key);
+  }
+  getAll() {
+    return [...this._map.values()];
+  }
+  clear() {
+    this._map.clear();
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Open (and upgrade if needed) the database — never rejects
+ * ------------------------------------------------------------------ */
+
+/**
+ * Open (and upgrade if needed) the database. Resolves to the IDBDatabase,
+ * or to a memory-mode sentinel when IndexedDB is blocked/unavailable.
+ * Never rejects: callers always get a usable store layer.
+ */
 export function openDB() {
+  if (_memoryMode) return Promise.resolve(_memorySentinel);
   if (_db) return Promise.resolve(_db);
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB_NAME, DB_VERSION);
+
+  if (typeof indexedDB === "undefined") {
+    enterMemoryMode("IndexedDB API unavailable in this environment");
+    return Promise.resolve(_memorySentinel);
+  }
+
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = (fn, arg) => {
+      if (settled) return;
+      settled = true;
+      fn(arg);
+    };
+
+    let req;
+    try {
+      req = indexedDB.open(DB_NAME, DB_VERSION);
+    } catch (err) {
+      enterMemoryMode(`IndexedDB open threw: ${err?.message || err}`);
+      finish(resolve, _memorySentinel);
+      return;
+    }
+
     req.onupgradeneeded = (event) => {
-      const db = req.result;
-      for (const store of STORES) {
-        if (!db.objectStoreNames.contains(store)) {
-          const { keyPath, indexes } = STORE_SCHEMA[store];
-          const os = db.createObjectStore(store, { keyPath });
-          for (const idx of indexes) os.createIndex(idx, idx);
+      try {
+        const db = req.result;
+        for (const store of STORES) {
+          if (!db.objectStoreNames.contains(store)) {
+            const { keyPath, indexes } = STORE_SCHEMA[store];
+            const os = db.createObjectStore(store, { keyPath });
+            for (const idx of indexes) os.createIndex(idx, idx);
+          }
         }
-      }
-      // Ensure a default meta record exists on first creation.
-      if (event.oldVersion < 1 && !db.objectStoreNames.contains("meta")) {
-        db.createObjectStore("meta", { keyPath: "key" });
+      } catch (err) {
+        // Defensive upgrade failure: degrade to memory mode rather than hang.
+        enterMemoryMode(`IndexedDB upgrade failed: ${err?.message || err}`);
       }
     };
+
     req.onsuccess = (event) => {
+      if (_memoryMode) {
+        finish(resolve, _memorySentinel);
+        return;
+      }
       _db = req.result;
-      _db.onversionchange = () => { _db.close(); _db = null; };
-      _channel = new BroadcastChannel(SYNC_CHANNEL);
-      _channel.onmessage = (ev) => notify(ev.data);
-      resolve(_db);
+      _db.onversionchange = () => {
+        try {
+          _db.close();
+        } catch {
+          /* ignore */
+        }
+        _db = null;
+      };
+      try {
+        _channel = new BroadcastChannel(SYNC_CHANNEL);
+        _channel.onmessage = (ev) => notify(ev.data);
+      } catch {
+        _channel = null; // BroadcastChannel unsupported — local listeners still work
+      }
+      finish(resolve, _db);
     };
-    req.onerror = () => reject(req.error);
+
+    req.onerror = () => {
+      // Private mode / storage blocked / quota-zero at open: never crash.
+      enterMemoryMode(
+        `IndexedDB open failed: ${req.error?.message || req.error || "unknown error"}`
+      );
+      finish(resolve, _memorySentinel);
+    };
+
+    req.onblocked = () => {
+      // Another tab holds an older connection. Wait briefly for it to
+      // upgrade; if it does not, degrade to memory mode for this tab.
+      setTimeout(() => {
+        if (_db) {
+          finish(resolve, _db);
+          return;
+        }
+        enterMemoryMode("IndexedDB open blocked by another tab");
+        finish(resolve, _memorySentinel);
+      }, 1500);
+    };
   });
 }
+
+/** Sentinel resolved by openDB() in memory mode (opaque to callers). */
+const _memorySentinel = { __memoryMode: true };
 
 /** Broadcast a mutation hint to sibling tabs and local listeners. */
 function notify(payload) {
   for (const fn of _listeners) {
-    try { fn(payload); } catch (_) { /* listener errors must not break sync */ }
+    try {
+      fn(payload);
+    } catch (_) {
+      /* listener errors must not break sync */
+    }
   }
 }
 
@@ -83,8 +236,35 @@ export function onSync(fn) {
   return () => _listeners.delete(fn);
 }
 
-/** Run a read/write transaction over a single store. */
+/** True when the error is a quota-exceeded failure. */
+function isQuotaError(err) {
+  if (!err) return false;
+  if (err.name === "QuotaExceededError") return true;
+  if (err.code === 22) return true; // Safari/older engines
+  return err.name === "StorageQuotaError";
+}
+
+/**
+ * Run a read/write transaction over a single store.
+ * In memory mode this runs synchronously against the in-memory adapter.
+ */
 async function withStore(store, mode, fn) {
+  if (_memoryMode) {
+    const map = _memory.get(store);
+    const adapter = new MemObjectStore(map);
+    adapter._name = store;
+    const result = fn(adapter);
+    if (mode !== "readonly") {
+      notify({ store, type: "mutate", memory: true });
+      try {
+        _channel?.postMessage({ store, type: "mutate" });
+      } catch {
+        /* ignore */
+      }
+    }
+    return result && result.__req ? result.__req.result : result;
+  }
+
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(store, mode);
@@ -100,12 +280,34 @@ async function withStore(store, mode, fn) {
       if (mode !== "readonly") {
         const msg = { store, type: "mutate" };
         notify(msg);
-        try { _channel?.postMessage(msg); } catch (_) { /* ignore */ }
+        try {
+          _channel?.postMessage(msg);
+        } catch {
+          /* ignore */
+        }
       }
       resolve(result && result.__req ? result.__req.result : result);
     };
-    tx.onerror = () => reject(tx.error);
-    tx.onabort = () => reject(tx.error);
+    tx.onerror = () => {
+      const err = tx.error;
+      if (isQuotaError(err)) {
+        _quotaExceeded = true;
+        notify({ store, type: "quota-exceeded" });
+        reject(new StorageQuotaError(`Storage quota exceeded while writing "${store}"`));
+        return;
+      }
+      reject(err);
+    };
+    tx.onabort = () => {
+      const err = tx.error;
+      if (isQuotaError(err)) {
+        _quotaExceeded = true;
+        notify({ store, type: "quota-exceeded" });
+        reject(new StorageQuotaError(`Storage quota exceeded while writing "${store}"`));
+        return;
+      }
+      reject(err);
+    };
   });
 }
 
@@ -128,12 +330,8 @@ export const DEFAULT_META = {
 };
 
 export async function getMeta() {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const req = db.transaction("meta", "readonly").objectStore("meta").get("app");
-    req.onsuccess = () => resolve(req.result || { ...DEFAULT_META });
-    req.onerror = () => reject(req.error);
-  });
+  const rec = await get("meta", "app");
+  return rec || { ...DEFAULT_META };
 }
 
 export async function setMeta(patch) {
@@ -173,6 +371,19 @@ export async function collectStores() {
 
 /** Replace every store's records from a backup object (for import). */
 export async function replaceStores(stores) {
+  if (_memoryMode) {
+    for (const store of STORES) {
+      const map = _memory.get(store);
+      map.clear();
+      for (const rec of stores[store] || []) {
+        const { keyPath } = STORE_SCHEMA[store];
+        if (rec && rec[keyPath] !== undefined) map.set(rec[keyPath], rec);
+      }
+    }
+    notify({ store: "all", type: "replace", memory: true });
+    return true;
+  }
+
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORES, "readwrite");
@@ -185,12 +396,30 @@ export async function replaceStores(stores) {
       notify({ store: "all", type: "replace" });
       resolve(true);
     };
-    tx.onerror = () => reject(tx.error);
-    tx.onabort = () => reject(tx.error);
+    tx.onerror = () => {
+      const err = tx.error;
+      if (isQuotaError(err)) {
+        _quotaExceeded = true;
+        notify({ store: "all", type: "quota-exceeded" });
+        reject(new StorageQuotaError("Storage quota exceeded during backup import"));
+        return;
+      }
+      reject(err);
+    };
+    tx.onabort = () => {
+      const err = tx.error;
+      if (isQuotaError(err)) {
+        _quotaExceeded = true;
+        notify({ store: "all", type: "quota-exceeded" });
+        reject(new StorageQuotaError("Storage quota exceeded during backup import"));
+        return;
+      }
+      reject(err);
+    };
   });
 }
 
 /** Human-friendly test hook: true when IndexedDB is available in this env. */
 export function isSupported() {
-  return typeof indexedDB !== "undefined" && typeof BroadcastChannel !== "undefined";
+  return typeof indexedDB !== "undefined";
 }
