@@ -58,6 +58,7 @@ export class StorageQuotaError extends Error {
 
 let _db = null;
 let _channel = null;
+let _storageFallbackAttached = false;
 const _listeners = new Set();
 
 /* ------------------------------------------------------------------ *
@@ -219,7 +220,7 @@ export function openDB() {
 /** Sentinel resolved by openDB() in memory mode (opaque to callers). */
 const _memorySentinel = { __memoryMode: true };
 
-/** Broadcast a mutation hint to sibling tabs and local listeners. */
+/** Deliver a mutation hint to local listeners only. */
 function notify(payload) {
   for (const fn of _listeners) {
     try {
@@ -227,6 +228,66 @@ function notify(payload) {
     } catch (_) {
       /* listener errors must not break sync */
     }
+  }
+}
+
+/**
+ * `storage`-event fallback (Phase 09): used when BroadcastChannel is
+ * unavailable so a sibling tab still learns about local mutations. The ping
+ * value embeds a nonce so identical payloads always produce a real change.
+ */
+function storagePing(payload) {
+  try {
+    if (typeof localStorage === "undefined" || !localStorage) return;
+    localStorage.setItem(
+      SYNC_CHANNEL,
+      JSON.stringify({ ...payload, __ping: Math.random(), __ts: Date.now() })
+    );
+  } catch {
+    /* storage blocked — local listeners already notified */
+  }
+}
+
+function attachStorageFallback() {
+  if (_storageFallbackAttached) return;
+  if (typeof window === "undefined" || !window || typeof window.addEventListener !== "function") {
+    return;
+  }
+  _storageFallbackAttached = true;
+  window.addEventListener("storage", (ev) => {
+    if (ev.key !== SYNC_CHANNEL || !ev.newValue) return;
+    try {
+      const data = JSON.parse(ev.newValue);
+      if (data && typeof data === "object") notify(data);
+    } catch {
+      /* ignore malformed pings */
+    }
+  });
+}
+
+/**
+ * Broadcast a mutation hint to sibling tabs AND local listeners.
+ * Primary channel: BroadcastChannel. Fallback (unsupported/blocked/closed):
+ * a `localStorage` ping picked up via the `storage` event in other tabs.
+ */
+export function broadcast(payload) {
+  notify(payload);
+  // `quiet` payloads are same-tab only: used by sync-merge writes so sibling
+  // tabs reconcile once via the explicit `sync-applied` notice instead of
+  // treating the merge itself as fresh local mutations (prevents sync loops).
+  if (payload && payload.quiet) return;
+  let sent = false;
+  if (_channel) {
+    try {
+      _channel.postMessage(payload);
+      sent = true;
+    } catch {
+      /* channel closed — fall through to storage ping */
+    }
+  }
+  if (!sent) {
+    attachStorageFallback();
+    storagePing(payload);
   }
 }
 
@@ -247,20 +308,17 @@ function isQuotaError(err) {
 /**
  * Run a read/write transaction over a single store.
  * In memory mode this runs synchronously against the in-memory adapter.
+ * `extra` fields (e.g. `key`, `keys`, `op`) ride the mutation notice so
+ * listeners (sync outbox) know exactly which records changed.
  */
-async function withStore(store, mode, fn) {
+async function withStore(store, mode, fn, extra = {}) {
   if (_memoryMode) {
     const map = _memory.get(store);
     const adapter = new MemObjectStore(map);
     adapter._name = store;
     const result = fn(adapter);
     if (mode !== "readonly") {
-      notify({ store, type: "mutate", memory: true });
-      try {
-        _channel?.postMessage({ store, type: "mutate" });
-      } catch {
-        /* ignore */
-      }
+      broadcast({ store, type: "mutate", memory: true, ...extra });
     }
     return result && result.__req ? result.__req.result : result;
   }
@@ -278,13 +336,7 @@ async function withStore(store, mode, fn) {
     }
     tx.oncomplete = () => {
       if (mode !== "readonly") {
-        const msg = { store, type: "mutate" };
-        notify(msg);
-        try {
-          _channel?.postMessage(msg);
-        } catch {
-          /* ignore */
-        }
+        broadcast({ store, type: "mutate", ...extra });
       }
       resolve(result && result.__req ? result.__req.result : result);
     };
@@ -337,7 +389,7 @@ export async function getMeta() {
 export async function setMeta(patch) {
   const current = await getMeta();
   const next = { ...current, ...patch };
-  await withStore("meta", "readwrite", (os) => os.put(next));
+  await withStore("meta", "readwrite", (os) => os.put(next), { key: next.key || "app" });
   return next;
 }
 
@@ -351,15 +403,24 @@ export async function get(store, key) {
   return withStore(store, "readonly", (os) => ({ __req: os.get(key) }));
 }
 export async function put(store, value) {
-  await withStore(store, "readwrite", (os) => os.put(value));
+  const keyPath = STORE_SCHEMA[store]?.keyPath;
+  const key = value && keyPath ? value[keyPath] : undefined;
+  await withStore(store, "readwrite", (os) => os.put(value), { key });
 }
-export async function bulkPut(store, values) {
-  await withStore(store, "readwrite", (os) => {
-    for (const v of values) os.put(v);
-  });
+export async function bulkPut(store, values, { quiet = false } = {}) {
+  const keyPath = STORE_SCHEMA[store]?.keyPath;
+  const keys = (values || []).map((v) => (v && keyPath ? v[keyPath] : undefined));
+  await withStore(
+    store,
+    "readwrite",
+    (os) => {
+      for (const v of values) os.put(v);
+    },
+    { keys, ...(quiet ? { quiet: true } : {}) }
+  );
 }
 export async function deleteRecord(store, key) {
-  await withStore(store, "readwrite", (os) => os.delete(key));
+  await withStore(store, "readwrite", (os) => os.delete(key), { key, op: "delete" });
 }
 
 /** Collect every store's records into a plain object (for backup export). */
@@ -380,7 +441,7 @@ export async function replaceStores(stores) {
         if (rec && rec[keyPath] !== undefined) map.set(rec[keyPath], rec);
       }
     }
-    notify({ store: "all", type: "replace", memory: true });
+    broadcast({ store: "all", type: "replace", memory: true });
     return true;
   }
 
@@ -393,7 +454,7 @@ export async function replaceStores(stores) {
       for (const rec of stores[store] || []) os.put(rec);
     }
     tx.oncomplete = () => {
-      notify({ store: "all", type: "replace" });
+      broadcast({ store: "all", type: "replace" });
       resolve(true);
     };
     tx.onerror = () => {

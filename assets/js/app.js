@@ -8,6 +8,7 @@
  */
 
 import { openDB, getMeta, setMeta, onSync, isMemoryMode, storageStatus } from "./db/indexeddb.js";
+import { initSyncEngine } from "./db/sync.js";
 import { $, el, icon, showToast } from "./core/ui.js";
 
 /**
@@ -383,10 +384,34 @@ async function init() {
   // Show the storage notice when running in the in-memory fallback.
   showStorageNotice();
 
+  // Phase 09: optional encrypted-cloud-sync engine — queues offline
+  // mutations in the outbox and flushes on reconnect (`online` event).
+  initSyncEngine();
+
   // Cross-tab sync: only re-render on external BroadcastChannel messages, not active exam ticks
+  let syncReconcileTimer = null;
+  const scheduleSyncReconcile = () => {
+    // A sibling tab (or this tab after sync) merged cloud state — refresh the
+    // current view so tabs never diverge. Never interrupt an active runner
+    // or a focused form field.
+    if (syncReconcileTimer) clearTimeout(syncReconcileTimer);
+    syncReconcileTimer = setTimeout(() => {
+      syncReconcileTimer = null;
+      const route = parseRoute(location.hash);
+      if (route.view === "exam" || route.view === "practice-run") return;
+      const active = document.activeElement;
+      const tag = active && active.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+      render();
+    }, 400);
+  };
+
   onSync((payload) => {
     if (payload?.store === "meta") {
       getMeta().then((m) => applyTheme(m.theme)).catch(() => {});
+    }
+    if (payload?.type === "sync-applied" || payload?.type === "replace") {
+      scheduleSyncReconcile();
     }
     if (payload?.type === "quota-exceeded") {
       showStorageNotice();

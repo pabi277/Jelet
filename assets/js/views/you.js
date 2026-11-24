@@ -33,6 +33,13 @@ import {
   verifyEnvelope,
   importBackup,
 } from "../db/backup.js";
+import {
+  getSyncStatus,
+  enableSync,
+  disableSync,
+  syncNow,
+  setSessionPassphrase,
+} from "../db/sync.js";
 import { $, el, icon, showToast, formatDurationClock } from "../core/ui.js";
 
 export async function renderYouHub(main, { onThemeToggle } = {}) {
@@ -460,6 +467,68 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
           </div>
         </details>
       </section>
+
+      <!-- Card 5: Optional Encrypted Cloud Sync (Phase 09 — opt-in, local-first default) -->
+      <section class="card stack-s" id="youSyncSection" aria-label="Encrypted cloud sync">
+        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+          <div>
+            <h3 class="card__title" style="margin:0">${icon("icon-lock")} Encrypted Cloud Sync (optional)</h3>
+            <p class="card__meta" id="syncSubtitle">Carry your study state across devices — fully offline-capable without it.</p>
+          </div>
+          <span class="pill" id="syncStatusPill">Off</span>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <strong>Sync my study state</strong>
+            <div class="card__meta" id="syncToggleHint">Sync is off — your data stays on this device.</div>
+          </div>
+          <button type="button" class="switch-btn" id="syncToggleBtn" role="switch" aria-checked="false" aria-label="Enable encrypted cloud sync">
+            <span class="switch-btn__thumb"></span>
+          </button>
+        </div>
+
+        <div id="syncConfigFields" hidden>
+          <div class="form-grid-2">
+            <label class="form-field">
+              <span class="form-label">Sync endpoint base URL</span>
+              <input type="url" class="input-field mono" id="syncBaseUrlInput" placeholder="https://your-endpoint.example/api" autocomplete="off" spellcheck="false" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">Encryption passphrase (min 8 chars · never stored)</span>
+              <input type="password" class="input-field mono" id="syncPassphraseInput" placeholder="Type passphrase to encrypt/decrypt…" autocomplete="new-password" />
+            </label>
+          </div>
+
+          <div class="cluster-xs">
+            <button type="button" class="btn btn--primary btn--sm" id="syncSaveBtn">${icon("icon-lock")} Save &amp; Enable</button>
+            <button type="button" class="btn btn--ghost btn--sm" id="syncNowBtn">${icon("icon-refresh")} Sync now</button>
+            <button type="button" class="btn btn--ghost btn--sm" id="syncUnlockBtn" hidden>Unlock for this session</button>
+          </div>
+          <div id="syncDiagnostic" class="card__meta" aria-live="polite"></div>
+
+          <div class="readiness-grid" id="syncStatusGrid" style="margin-top:var(--space-xs)"></div>
+          <div id="syncErrorLine" class="card__meta" style="color:var(--text-muted)"></div>
+
+          <details class="tiebreak-details">
+            <summary>${icon("icon-info")} What syncs · what NEVER syncs · encryption model</summary>
+            <div class="stack-xs card__meta" style="margin-top:var(--space-s)">
+              <div>• <strong>Synced (study state only):</strong> sessions, attempt history, per-question stats, unit progress, bookmarks &amp; notes, profile and settings.</div>
+              <div>• <strong>Never synced:</strong> your AI provider API keys — they stay in the isolated <span class="mono">jelet_ai_vault_v1</span> vault on this device and never enter IndexedDB, backups, or sync payloads.</div>
+              <div>• <strong>Encryption:</strong> every payload is encrypted on this device with PBKDF2-SHA-256 (250k iterations) → AES-GCM-256 before any network request. Your passphrase lives in this tab's memory only — never written to disk. Honest standard browser crypto, not “military grade”: pick a long passphrase.</div>
+              <div>• <strong>Endpoint:</strong> any provider that can store one JSON document behind <span class="mono">GET/PUT {base}/sync</span> — full contract in <span class="mono">DEPLOY.md</span>.</div>
+              <div>• <strong>Merge:</strong> last-write-wins per record (newest timestamp; ties keep this device) with a merge log — unsynced local changes are never silently overwritten.</div>
+            </div>
+          </details>
+
+          <details class="tiebreak-details" id="syncLogDetails" hidden>
+            <summary>${icon("icon-layers")} Merge log</summary>
+            <div class="stack-xs" id="syncLogBody" style="margin-top:var(--space-s)"></div>
+          </details>
+        </div>
+
+        <p class="card__meta" id="syncOffNote" style="margin:0">Sync is off — your data stays on this device.</p>
+      </section>
     </div>
   `);
 
@@ -795,6 +864,205 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
     }
   });
 
+  // ---------------------------------------------------------------- *
+  // Encrypted Cloud Sync (Phase 09 — opt-in, local-first default)
+  // ---------------------------------------------------------------- *
+  let syncBusy = false;
+  let syncFieldsRevealed = false;
+
+  const fmtWhen = (iso) => {
+    try {
+      return new Date(iso).toLocaleString(undefined, {
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch {
+      return "—";
+    }
+  };
+
+  async function renderSyncStatus() {
+    const st = await getSyncStatus();
+    const pill = $("#syncStatusPill", root);
+    if (!st.enabled) {
+      pill.className = "pill";
+      pill.textContent = "Off";
+    } else if (st.locked) {
+      pill.className = "badge badge--partial";
+      pill.textContent = "Locked";
+    } else if (st.lastError) {
+      pill.className = "badge badge--wrong";
+      pill.textContent = st.pending > 0 ? "Sync pending" : "Error";
+    } else if (st.pending > 0) {
+      pill.className = "badge badge--partial";
+      pill.textContent = `Pending ${st.pending}`;
+    } else {
+      pill.className = "badge badge--correct";
+      pill.textContent = "Up to date";
+    }
+
+    $("#syncOffNote", root).hidden = st.enabled;
+    $("#syncConfigFields", root).hidden = !(st.enabled || syncFieldsRevealed);
+    $("#syncToggleBtn", root).setAttribute("aria-checked", String(st.enabled));
+    $("#syncToggleHint", root).textContent = st.enabled
+      ? st.locked
+        ? "Sync is on — enter your passphrase to unlock this session."
+        : `Encrypted sync active · ${st.baseUrl || "endpoint not set"}`
+      : "Sync is off — your data stays on this device.";
+
+    const urlInput = $("#syncBaseUrlInput", root);
+    if (st.baseUrl && document.activeElement !== urlInput && !urlInput.value) {
+      urlInput.value = st.baseUrl;
+    }
+    $("#syncUnlockBtn", root).hidden = !(st.enabled && st.locked);
+
+    const tiles = [
+      {
+        label: "Last synced",
+        value: st.lastSyncedAt ? fmtWhen(st.lastSyncedAt) : "Never",
+        sub: st.lastSyncedAt ? "" : "No successful sync yet",
+      },
+      {
+        label: "Pending changes",
+        value: String(st.pending),
+        sub: st.pending > 0 ? "Queued offline — will flush on reconnect" : "Outbox empty",
+      },
+      {
+        label: "Connection",
+        value: st.online ? "Online" : "Offline",
+        sub: st.online ? "Endpoint reachable check on next sync" : "Mutations queue until reconnected",
+      },
+      {
+        label: "Session key",
+        value: !st.enabled ? "—" : st.unlocked ? "Unlocked" : "Locked",
+        sub: st.enabled ? "Passphrase held in memory only" : "Sync disabled",
+      },
+    ];
+    $("#syncStatusGrid", root).innerHTML = tiles
+      .map(
+        (t) => `
+        <div class="readiness-metric">
+          <span class="readiness-metric__label">${t.label}</span>
+          <strong class="readiness-metric__val mono">${escapeHtml(t.value)}</strong>
+          <span class="card__meta">${escapeHtml(t.sub)}</span>
+        </div>`
+      )
+      .join("");
+
+    $("#syncErrorLine", root).textContent = st.lastError
+      ? `Last error: ${st.lastError}`
+      : "";
+
+    const logDetails = $("#syncLogDetails", root);
+    const log = st.mergeLog || [];
+    logDetails.hidden = log.length === 0;
+    if (log.length) {
+      $("#syncLogBody", root).innerHTML = log
+        .slice()
+        .reverse()
+        .slice(0, 20)
+        .map((e) => {
+          const tone =
+            e.action === "took-remote" || e.action === "added-remote"
+              ? "badge--brand"
+              : e.action === "dropped-tombstoned"
+              ? "badge--partial"
+              : "badge--correct";
+          return `
+            <div class="row-between" style="padding:var(--space-3xs) 0;border-bottom:1px solid var(--border-subtle)">
+              <span class="mono card__meta">${escapeHtml(e.store)}/${escapeHtml(String(e.key))}</span>
+              <span class="badge ${tone} mono">${escapeHtml(e.action)}</span>
+            </div>`;
+        })
+        .join("");
+    }
+  }
+
+  async function runSyncNow() {
+    if (syncBusy) return;
+    syncBusy = true;
+    const diag = $("#syncDiagnostic", root);
+    const passInput = $("#syncPassphraseInput", root);
+    const typed = passInput.value;
+    diag.textContent = "Syncing — pull → merge → push…";
+    try {
+      const res = await syncNow(typed ? { passphrase: typed } : {});
+      passInput.value = "";
+      const n = res.stats.merged;
+      diag.textContent =
+        n > 0
+          ? `Merged ${n} record${n === 1 ? "" : "s"} from cloud · ${res.stats.keptLocal} local record${res.stats.keptLocal === 1 ? "" : "s"} kept (newer here).`
+          : "Up to date — no remote changes to merge.";
+      showToast(
+        n > 0
+          ? `Synced — merged ${n} record${n === 1 ? "" : "s"}`
+          : "Synced — up to date"
+      );
+    } catch (err) {
+      diag.textContent = `✗ ${err.message || "Sync failed."}`;
+    } finally {
+      syncBusy = false;
+      renderSyncStatus().catch(() => {});
+    }
+  }
+
+  $("#syncToggleBtn", root).addEventListener("click", async () => {
+    const st = await getSyncStatus();
+    if (st.enabled) {
+      try {
+        await disableSync();
+      } catch {
+        /* ignore */
+      }
+      syncFieldsRevealed = false;
+      $("#syncPassphraseInput", root).value = "";
+      $("#syncDiagnostic", root).textContent = "";
+      showToast("Sync is off — your data stays on this device.");
+      renderSyncStatus();
+      return;
+    }
+    syncFieldsRevealed = true;
+    renderSyncStatus();
+    $("#syncBaseUrlInput", root).focus();
+  });
+
+  $("#syncSaveBtn", root).addEventListener("click", async () => {
+    if (syncBusy) return;
+    const diag = $("#syncDiagnostic", root);
+    try {
+      await enableSync({
+        baseUrl: $("#syncBaseUrlInput", root).value,
+        passphrase: $("#syncPassphraseInput", root).value,
+      });
+      $("#syncPassphraseInput", root).value = "";
+      diag.textContent = "Sync enabled — passphrase held in memory for this session.";
+      showToast("Sync enabled — your study state can now sync, encrypted");
+      await renderSyncStatus();
+      await runSyncNow();
+    } catch (err) {
+      diag.textContent = `✗ ${err.message || "Could not enable sync."}`;
+    }
+  });
+
+  $("#syncUnlockBtn", root).addEventListener("click", () => {
+    const ok = setSessionPassphrase($("#syncPassphraseInput", root).value);
+    if (!ok) {
+      $("#syncDiagnostic", root).textContent =
+        "✗ Enter your encryption passphrase first (min 8 characters).";
+      return;
+    }
+    $("#syncPassphraseInput", root).value = "";
+    $("#syncDiagnostic", root).textContent =
+      "Unlocked for this session — the passphrase stays in memory only.";
+    showToast("Sync unlocked for this session");
+    renderSyncStatus();
+  });
+
+  $("#syncNowBtn", root).addEventListener("click", () => runSyncNow());
+
+  renderSyncStatus().catch(() => {});
   renderCgpaStatus();
   syncAiVaultDom();
 }
