@@ -290,7 +290,14 @@ export function outboxEnqueue(
   const list = Array.isArray(entries) ? entries.slice() : [];
   const idx = list.findIndex((e) => e && e.store === store && e.key === key);
   if (idx >= 0) {
-    list[idx] = { ...list[idx], op, at };
+    // Coalesce: keep first-dirty order and timestamp; only a delete escalates
+    // the op. Never churn the record — repeated identical enqueues must be
+    // no-ops so notify→enqueue→write loops terminate.
+    const prev = list[idx];
+    list[idx] =
+      prev.op === "delete" || op !== "delete"
+        ? prev
+        : { ...prev, op };
     return list;
   }
   list.push({ store, key, op, at });
@@ -543,7 +550,9 @@ async function applyMergedStores(merged) {
   for (const store of SYNC_SCOPE_STORES) {
     const rows = merged[store];
     if (Array.isArray(rows) && rows.length) {
-      await db.bulkPut(store, rows);
+      // quiet: sibling tabs reconcile via the explicit `sync-applied` notice —
+      // they must not treat merge writes as brand-new local mutations.
+      await db.bulkPut(store, rows, { quiet: true });
     }
   }
 }
@@ -558,17 +567,17 @@ export async function syncNow({ passphrase } = {}) {
   if (!cfg.enabled) {
     throw new SyncError(SYNC_OFF_HINT, "DISABLED");
   }
-  const baseUrl = assertSyncBaseUrl(cfg.baseUrl);
-  const pass = passphrase || _sessionPassphrase;
-  if (!pass || String(pass).length < SYNC_PASSPHRASE_MIN_LENGTH) {
-    throw new SyncError(
-      `Enter your sync passphrase (min ${SYNC_PASSPHRASE_MIN_LENGTH} characters) — it is used ephemerally and never stored.`,
-      "LOCKED"
-    );
-  }
 
   _syncing = true;
   try {
+    const baseUrl = assertSyncBaseUrl(cfg.baseUrl);
+    const pass = passphrase || _sessionPassphrase;
+    if (!pass || String(pass).length < SYNC_PASSPHRASE_MIN_LENGTH) {
+      throw new SyncError(
+        `Enter your sync passphrase (min ${SYNC_PASSPHRASE_MIN_LENGTH} characters) — it is used ephemerally and never stored.`,
+        "LOCKED"
+      );
+    }
     const localStores = await db.collectStores();
     const { merged, log, stats, envelope } = await runSyncCycle({
       localStores,
@@ -613,7 +622,9 @@ export function scheduleFlush(delayMs = 3000) {
     _flushTimer = null;
     if (!isOnline()) return;
     getSyncConfig()
-      .then((c) => (c.enabled ? syncNow().catch(() => {})) )
+      .then((c) =>
+        c.enabled && hasSessionPassphrase() ? syncNow().catch(() => {}) : null
+      )
       .catch(() => {});
   }, delayMs);
 }
@@ -685,18 +696,34 @@ let _engineStarted = false;
 async function enqueueMarker(payload) {
   const store = payload?.store;
   if (!store || !SYNC_SCOPE_STORES.includes(store)) return;
-  const key = payload.key ?? "*";
-  if (store === "meta" && SYNC_LOCAL_META_KEYS.includes(key)) return;
-  if (store === "meta" && key === SYNC_TOMB_KEY) return; // rides with its delete
+  const rawKeys = Array.isArray(payload.keys) && payload.keys.length
+    ? payload.keys
+    : [payload.key ?? "*"];
+  // Device-local meta records (sync config / outbox / tombstones) never ride
+  // the outbox — tombstones travel with the payload map itself.
+  const keys = (store === "meta"
+    ? rawKeys.filter(
+        (k) => k && !SYNC_LOCAL_META_KEYS.includes(k) && k !== SYNC_TOMB_KEY
+      )
+    : rawKeys
+  ).map((k) => k ?? "*");
+  if (!keys.length) return;
   try {
     const cfg = await db.get("meta", "sync");
     if (!cfg?.enabled || _syncing) return;
     const rec = await db.get("meta", "syncOutbox");
-    const entries = outboxEnqueue(Array.isArray(rec?.entries) ? rec.entries : [], {
-      store,
-      key,
-      op: payload.op === "delete" ? "delete" : "mutate",
-    });
+    let entries = Array.isArray(rec?.entries) ? rec.entries : [];
+    let changed = false;
+    for (const key of keys) {
+      const before = JSON.stringify(entries);
+      entries = outboxEnqueue(entries, {
+        store,
+        key,
+        op: payload.op === "delete" ? "delete" : "mutate",
+      });
+      if (JSON.stringify(entries) !== before) changed = true;
+    }
+    if (!changed) return; // identical queue → no write → no notify loop
     await writeOutbox(entries);
     if (isOnline()) scheduleFlush();
   } catch {
@@ -730,8 +757,12 @@ export function initSyncEngine() {
   _engineStarted = true;
   const unsub = db.onSync(handleEngineEvent);
   const onOnline = () => {
+    // Reconnect: flush the outbox (only when unlocked — a locked session
+    // waits for the user to re-enter the passphrase via Sync now).
     getSyncConfig()
-      .then((c) => (c.enabled ? syncNow().catch(() => {}) : null))
+      .then((c) =>
+        c.enabled && hasSessionPassphrase() ? syncNow().catch(() => {}) : null
+      )
       .catch(() => {});
   };
   window.addEventListener("online", onOnline);

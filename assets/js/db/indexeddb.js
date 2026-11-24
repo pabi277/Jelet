@@ -272,6 +272,10 @@ function attachStorageFallback() {
  */
 export function broadcast(payload) {
   notify(payload);
+  // `quiet` payloads are same-tab only: used by sync-merge writes so sibling
+  // tabs reconcile once via the explicit `sync-applied` notice instead of
+  // treating the merge itself as fresh local mutations (prevents sync loops).
+  if (payload && payload.quiet) return;
   let sent = false;
   if (_channel) {
     try {
@@ -403,7 +407,7 @@ export async function put(store, value) {
   const key = value && keyPath ? value[keyPath] : undefined;
   await withStore(store, "readwrite", (os) => os.put(value), { key });
 }
-export async function bulkPut(store, values) {
+export async function bulkPut(store, values, { quiet = false } = {}) {
   const keyPath = STORE_SCHEMA[store]?.keyPath;
   const keys = (values || []).map((v) => (v && keyPath ? v[keyPath] : undefined));
   await withStore(
@@ -412,7 +416,7 @@ export async function bulkPut(store, values) {
     (os) => {
       for (const v of values) os.put(v);
     },
-    { keys }
+    { keys, ...(quiet ? { quiet: true } : {}) }
   );
 }
 export async function deleteRecord(store, key) {
