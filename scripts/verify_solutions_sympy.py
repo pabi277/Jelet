@@ -2797,6 +2797,797 @@ def _b24_q70():
 B_TESTS_2024 = [(f"2024 Q{n}", f"jelet-2024-q{n:03d}", globals()[f"_b24_q{n}"]) for n in range(41, 71)]
 
 
+# ===========================================================================
+# JELET 2024 Batch C (Chemistry Q71–Q90, FEEE Q91–Q100): independent checks.
+# Chemistry: SymPy arithmetic, atom-balance stoichiometry (nullspace), VSEPR / MO electron
+# counting, and molecular graphs rebuilt *from the option SVG geometry* (bond lines clustered
+# into orders, vertices = implicit carbons, formula labels expanded) or from the printed
+# condensed formulae / IUPAC names.  FEEE: phasors with SymPy, and circuit netlists rebuilt
+# from the figure SVGs (wires = <line>s, cells' polarity from plate lengths, diode direction
+# from the triangle apex) solved by modified nodal analysis or evaluated as truth tables.
+# ===========================================================================
+
+LAYOUT_2024_C = {78: (False, 4), 79: (False, 3), 89: (False, 2), 94: (True, 0), 96: (True, 0), 97: (True, 0), 98: (True, 0)}
+LAYOUT_2024_B.update(LAYOUT_2024_C)
+
+INTERPRETATION_NOTES_2024.update({
+    93: "With identical main and auxiliary windings, a series capacitor in EITHER winding creates the phase split; "
+        "(A) and (B) differ only in naming. The key B follows the convention that the main (running) winding stays "
+        "directly across the supply and the capacitor sits in the auxiliary branch. Official key B kept.",
+    100: "The torque at a new speed is not fixed by speed alone; the key 80 N m assumes constant developed power "
+         "(T ∝ 1/n). Under constant flux and armature current the torque would stay 120 N m (B). Official key C kept.",
+})
+
+def _c24_first_math(latex):
+    m = re.search(r"\$([^$]*)\$", latex)
+    return _physval("$" + m.group(1).replace("^{\\circ}", "") + "$") if m else None
+
+def _c24_res(qnum, stem_fps, opt_fps, matched, detail, enc=None, tol=0, extra_ok=True, extra_why=""):
+    if not extra_ok:
+        return False, f"figure/structure fidelity check failed: {extra_why}"
+    q = _paper_2024()[qnum]
+    if enc:
+        olatex = {o["id"]: o["latex"] for o in q["options"]}
+        bad = [k for k, v in enc.items() if (lambda pv: pv is None or abs(float(pv - v)) > max(tol, 1e-9*abs(float(v))))(_c24_first_math(olatex[k]))]
+        if bad:
+            return False, f"option(s) {bad} in the paper do not encode the values evaluated by the check ({ {k: olatex[k] for k in bad} })"
+    return _b24_result(qnum, stem_fps, opt_fps, matched, detail)
+
+# ---------------- chemistry helpers ----------------
+def _c24_formula(s):
+    """'Ca(OH)2' / 'CH3CHO' / 'C6H6O' -> Counter of elements."""
+    from collections import Counter
+    def parse(i):
+        c = Counter()
+        while i < len(s):
+            if s[i] == "(":
+                sub, i = parse(i + 1)
+                m = re.match(r"\d*", s[i:]); n = int(m.group() or 1); i += len(m.group())
+                for k, v in sub.items():
+                    c[k] += v*n
+            elif s[i] == ")":
+                return c, i + 1
+            else:
+                m = re.match(r"([A-Z][a-z]?)(\d*)", s[i:])
+                c[m.group(1)] += int(m.group(2) or 1); i += len(m.group())
+        return c, i
+    return parse(0)[0]
+
+def _c24_plain(latex):
+    """'$\\text{C}_{2}\\text{H}_{5}\\text{OH}$' -> 'C2H5OH'."""
+    t = latex.replace("$", "")
+    t = re.sub(r"\\text\{([^{}]*)\}", r"\1", t)
+    t = re.sub(r"_\{(\d+)\}", r"\1", t)
+    return t.replace(" ", "")
+
+def _c24_balance(reactants, products):
+    """Smallest positive integer coefficients balancing reactants -> products (SymPy nullspace)."""
+    species = [(_c24_formula(f), 1) for f in reactants] + [(_c24_formula(f), -1) for f in products]
+    els = sorted({e for f, _ in species for e in f})
+    M = Matrix([[sgn*f.get(e, 0) for f, sgn in species] for e in els])
+    ns = M.nullspace()
+    if len(ns) != 1:
+        return None
+    v = ns[0]
+    v = v * sympy.ilcm(*[x.q for x in v])
+    if v[0] < 0:
+        v = -v
+    return [int(x) for x in v] if all(x > 0 for x in v) else None
+
+_C24_TPL = {"OH": ([("O", 1)], []), "COOH": ([("C", 0), ("O", 0), ("O", 1)], [(0, 1, 2), (0, 2, 1)]),
+            "CH3": ([("C", 3)], []), "H3C": ([("C", 3)], []), "CH2": ([("C", 2)], []), "CH": ([("C", 1)], []),
+            "HC": ([("C", 1)], []), "C": ([("C", 0)], []), "O": ([("O", 0)], []),
+            "NO2": ([("N", 0), ("O", 0), ("O", 0)], [(0, 1, 2), (0, 2, 1)]), "O2N": ([("N", 0), ("O", 0), ("O", 0)], [(0, 1, 2), (0, 2, 1)]),
+            "OCH3": ([("O", 0), ("C", 3)], [(0, 1, 1)]), "Br": ([("Br", 0)], [])}
+
+class _C24Mol:
+    def __init__(self):
+        self.el, self.h, self.adj = [], [], {}
+    def add(self, e, h=0):
+        self.el.append(e); self.h.append(h); self.adj[len(self.el) - 1] = {}; return len(self.el) - 1
+    def bond(self, a, b, o=1):
+        self.adj[a][b] = o; self.adj[b][a] = o
+    def group(self, label):
+        atoms, bonds = _C24_TPL[label]
+        ids = [self.add(e, h) for e, h in atoms]
+        for i, j, o in bonds:
+            self.bond(ids[i], ids[j], o)
+        return ids[0]
+    def valence_ok(self):
+        for i, e in enumerate(self.el):
+            s = sum(self.adj[i].values()) + self.h[i]
+            nitro_o = e == "O" and s == 1 and any(self.el[b] == "N" for b in self.adj[i])   # N+–O− of a nitro group
+            if (e == "C" and s != 4) or (e == "O" and s != 2 and not nitro_o) or (e == "Br" and s != 1):
+                return False
+        return True
+    def formula(self):
+        from collections import Counter
+        c = Counter(self.el); c["H"] += sum(self.h)
+        return {k: v for k, v in c.items() if v}
+
+def _c24_svg_mol(qnum, opt):
+    """Rebuild a molecule from an option SVG: parallel offset lines -> one bond of that order; vertices ->
+    implicit carbons (H = 4 - valence used); labels -> expanded groups attached at the nearest bond end."""
+    q = _paper_2024()[qnum]
+    f = next(o for o in q["options"] if o["id"] == opt)["figure"]
+    svg = open(os.path.join(ROOT, f["src"][2:]), encoding="utf-8").read()
+    g = re.search(r'<g data-struct="[^"]+">(.*?)</g>', svg, re.S).group(1)
+    L = [tuple(map(float, m)) for m in re.findall(r'<line x1="([-0-9.]+)" y1="([-0-9.]+)" x2="([-0-9.]+)" y2="([-0-9.]+)"', g)]
+    n = len(L); par = list(range(n))
+    def fnd(i):
+        while par[i] != i:
+            par[i] = par[par[i]]; i = par[i]
+        return i
+    def u(l):
+        d = math.hypot(l[2] - l[0], l[3] - l[1]); return (l[2] - l[0])/d, (l[3] - l[1])/d, d
+    for i in range(n):
+        ux, uy, li = u(L[i])
+        for j in range(i + 1, n):
+            vx, vy, lj = u(L[j])
+            if abs(ux*vy - uy*vx) > 0.03:
+                continue
+            mid = ((L[j][0] + L[j][2])/2, (L[j][1] + L[j][3])/2)
+            off = _pt_line_dist(mid, L[i])
+            if not 0.8 <= off <= 7:
+                continue
+            pr = sorted(((L[j][0] - L[i][0])*ux + (L[j][1] - L[i][1])*uy, (L[j][2] - L[i][0])*ux + (L[j][3] - L[i][1])*uy))
+            if min(li, pr[1]) - max(0, pr[0]) > 0.3*min(li, lj):
+                par[fnd(i)] = fnd(j)
+    clusters = {}
+    for i in range(n):
+        clusters.setdefault(fnd(i), []).append(i)
+    bonds = []
+    for mem in clusters.values():
+        lens = [u(L[i])[2] for i in mem]
+        top = max(lens)
+        cand = [i for i in mem if abs(u(L[i])[2] - top) < 0.5]
+        if len(cand) > 1:                                    # equal lines (triple): take the median offset
+            r0 = L[cand[0]]; ux, uy, _ = u(r0); nx, ny = -uy, ux
+            cand = sorted(cand, key=lambda i: (L[i][0] - r0[0])*nx + (L[i][1] - r0[1])*ny)
+            if len(cand) % 2 == 0:
+                return None
+            rep = cand[len(cand)//2]
+        else:
+            rep = cand[0]
+        bonds.append(((L[rep][0], L[rep][1]), (L[rep][2], L[rep][3]), len(mem)))
+    verts = []
+    def vid(p):
+        for k, v in enumerate(verts):
+            if math.hypot(v[0] - p[0], v[1] - p[1]) < 1.5:
+                return k
+        verts.append(p); return len(verts) - 1
+    eb = [(vid(a), vid(b), o) for a, b, o in bonds]
+    labels = []
+    for attrs, body in re.findall(r"<text\b([^>]*)>(.*?)</text>", g):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs)); t = re.sub(r"<[^>]+>", "", body)
+        x, y, s = float(a["x"]), float(a["y"]), float(a["font-size"])
+        w = sum(_W_EM.get(c, .5)*(0.72 if c.isdigit() else 1) for c in t)*s
+        labels.append((t, (x, y - 0.7*s, x + w, y + 0.3*s)))
+    def dbox(p, b):
+        dx = max(b[0] - p[0], 0, p[0] - b[2]); dy = max(b[1] - p[1], 0, p[1] - b[3]); return math.hypot(dx, dy)
+    mol = _C24Mol(); vmap = {}; used = set()
+    for k, p in enumerate(verts):
+        near = [(dbox(p, b), i) for i, (t, b) in enumerate(labels) if dbox(p, b) <= 6]
+        if near:
+            i = min(near)[1]
+            if i in used:
+                return None
+            used.add(i); vmap[k] = mol.group(labels[i][0])
+        else:
+            vmap[k] = mol.add("C", None)
+    if len(used) != len(labels):
+        return None
+    for a, b, o in eb:
+        mol.bond(vmap[a], vmap[b], o)
+    for i, e in enumerate(mol.el):
+        if mol.h[i] is None:
+            mol.h[i] = 4 - sum(mol.adj[i].values())
+    mol.verts = verts; mol.vmap = vmap
+    return mol if mol.valence_ok() else None
+
+def _c24_condensed(latex):
+    """Linear condensed formula ('H3C-HC=C=CH-CH3', 'CH3CH2OH', 'CH3CH2COOCH3') -> molecule."""
+    t = _c24_plain(latex).replace("\\equiv", "#")
+    toks = re.findall(r"COOH|COO|H3C|OCH3|CH3|CH2|CH|HC|OH|C|O|[-=#]", t)
+    if "".join(toks) != t:
+        return None
+    mol = _C24Mol(); prev = None; order = 1
+    for tk in toks:
+        if tk in "-=#":
+            order = {"-": 1, "=": 2, "#": 3}[tk]; continue
+        if tk == "COO":
+            c = mol.add("C", 0); o1 = mol.add("O", 0); o2 = mol.add("O", 0)
+            mol.bond(c, o1, 2); mol.bond(c, o2, 1); head, tail = c, o2
+        else:
+            head = tail = mol.group(tk)
+        if prev is not None:
+            mol.bond(prev, head, order)
+        prev, order = tail, 1
+    return mol if mol.valence_ok() else None
+
+def _c24_from_name(name):
+    """'3-methyl-2-butanol', '2,3-dibromobutane' -> molecule (saturated chain + substituents)."""
+    name = re.sub(r"[\s$\\,]", "", name).replace(",", "")
+    m = re.fullmatch(r"(?:(\d)-methyl-)?(\d)-(but|pent)anol", name)
+    chain = {"but": 4, "pent": 5}
+    mol = _C24Mol()
+    if m:
+        n = chain[m.group(3)]; cs = [mol.add("C") for _ in range(n)]
+        for a, b in zip(cs, cs[1:]):
+            mol.bond(a, b)
+        if m.group(1):
+            mol.bond(cs[int(m.group(1)) - 1], mol.add("C"))
+        mol.bond(cs[int(m.group(2)) - 1], mol.add("O", 1))
+    else:
+        m = re.fullmatch(r"(\d)(\d)-dibromobutane", name)
+        if not m:
+            return None
+        cs = [mol.add("C") for _ in range(4)]
+        for a, b in zip(cs, cs[1:]):
+            mol.bond(a, b)
+        for k in (m.group(1), m.group(2)):
+            mol.bond(cs[int(k) - 1], mol.add("Br"))
+    for i, e in enumerate(mol.el):
+        if e == "C":
+            mol.h[i] = 4 - sum(mol.adj[i].values())
+    return mol if mol.valence_ok() else None
+
+def _c24_code(mol, a, frm):
+    """Canonical code of the branch rooted at a (coming from frm) — for stereocentre detection."""
+    kids = sorted(_c24_code(mol, b, a) + str(o) for b, o in mol.adj[a].items() if b != frm)
+    return f"{mol.el[a]}{mol.h[a]}(" + ",".join(kids) + ")"
+
+def _c24_stereocentres(mol):
+    out = []
+    for i, e in enumerate(mol.el):
+        if e != "C" or any(o != 1 for o in mol.adj[i].values()) or mol.h[i] > 1:
+            continue
+        codes = [_c24_code(mol, b, i) for b in mol.adj[i]] + ["H"]*mol.h[i]
+        if len(codes) == 4 and len(set(codes)) == 4:
+            out.append(i)
+    return out
+
+def _c24_automorphisms(mol):
+    import itertools
+    n = len(mol.el)
+    for p in itertools.permutations(range(n)):
+        if all(mol.el[i] == mol.el[p[i]] and mol.h[i] == mol.h[p[i]] for i in range(n)) and \
+           all(mol.adj[p[i]].get(p[j]) == o for i in range(n) for j, o in mol.adj[i].items()):
+            yield p
+
+# VSEPR electron counting: central-atom valence electrons and ligand contributions
+_C24_VAL = {"S": 6, "Xe": 8, "Si": 4, "O": 6, "N": 5, "I": 7, "C": 4, "Be": 2, "B": 3}
+_C24_LIG = {"H": 1, "F": 1, "Cl": 1, "I": 1, "O": 0, "S": 0, "N": -1}
+
+def _c24_vsepr(latex):
+    """'$\\text{SO}_{2}$' -> (steric number, ligands, lone pairs) on the central atom."""
+    t = latex.replace("$", "")
+    charge = -1 if ("\\ominus" in t or "^{-}" in t) else (1 if "^{+}" in t else 0)
+    t = re.sub(r"\^\{[^{}]*\}", "", t)
+    f = _c24_formula(_c24_plain(t))
+    if len(f) == 1:                                      # X3 homonuclear: central X with two X ligands
+        (x, k), = f.items(); centre, ligs = x, [x]*(k - 1)
+    else:
+        centre = next(e for e, k in f.items() if k == 1 and e != "H") if any(k == 1 and e != "H" for e, k in f.items()) else None
+        ligs = [e for e, k in f.items() if e != centre for _ in range(k)]
+    sn = sympy.Rational(_C24_VAL[centre] + sum(_C24_LIG[l] for l in ligs) - charge, 2)
+    return sn, len(ligs), sn - len(ligs)
+
+# ---------------- Q71–Q90 ----------------
+def _c24_q71():
+    NA = sympy.Float("6.022e23")
+    N = sympy.Rational(52, 4) * NA
+    opts = {"A": sympy.Float("78.299e24"), "B": sympy.Float("7.82e23"), "C": sympy.Float("7.829e24"), "D": sympy.Float("7.829e22")}
+    m = _pick(opts, lambda v: abs(v - N)/N < 1e-3)
+    return _c24_res(71, ["52$ gm of ‘He’"], [], m, f"n = 52/4 = 13 mol, N = {sympy.N(N, 6)}", enc=opts)
+
+def _c24_q72():
+    order = sorted(((n, l) for n in range(1, 6) for l in range(n)), key=lambda p: (p[0] + p[1], p[0]))
+    seq = [f"{n}{'spdfg'[l]}" for n, l in order][:9]
+    defines = {"A": "filling order by increasing (n+l, n)", "B": "max two electrons per orbital", "C": "spin multiplicity in degenerate orbitals"}
+    truth = {"A": seq[:7] == ["1s", "2s", "2p", "3s", "3p", "4s", "3d"], "B": False, "C": False}
+    truth["D"] = all(truth[k] for k in "ABC")
+    return _c24_res(72, ["sequence of filling the electrons"], ["A:Aufbau principle", "D:All of these"], _true(truth),
+                    f"Madelung order {seq}; only the Aufbau rule produces an ordering ({defines})")
+
+def _c24_q73():
+    r, Z, a0 = sympy.symbols("r Z a0", positive=True)
+    P = r**2*sympy.exp(-2*Z*r/a0)
+    rmp = sympy.solve(sympy.diff(P, r), r)[0]
+    val = rmp.subs({Z: 2, a0: sympy.Rational(529, 10)})           # a0 = 0.529 Å = 52.9 pm
+    opts = {"A": sympy.Rational(265, 10000), "B": sympy.Rational(529, 10), "C": sympy.Rational(265, 10), "D": sympy.Rational(1058, 10)}
+    m = _pick(opts, lambda v: abs(v - val) <= sympy.Rational(1, 10))
+    return _c24_res(73, ["0.529\\,\\text{\\AA}", "\\text{He}^{+}"], [], m, f"dP/dr = 0 -> r = {rmp}; He+: {sympy.N(val)} pm", enc=opts)
+
+def _c24_q74():
+    r = sympy.symbols("r", positive=True)
+    rc = sympy.solve(sympy.Eq(2*(110 + r), 508), r)[0]
+    opts = {"A": 288, "B": 398, "C": 144, "D": 618}
+    m = _pick(opts, lambda v: v == rc)
+    return _c24_res(74, ["508$ pm", "110$ pm"], [], m, f"rock salt a = 2(r+ + r-) -> r(Cl-) = {rc} pm", enc=opts)
+
+def _c24_q75():
+    N = sympy.Integer(1)*600/sympy.Rational(16, 10)/sympy.Integer(10)**(-19)
+    opts = {"A": sympy.Rational(375, 100)*10**21, "B": sympy.Rational(375, 100)*10**20, "C": sympy.Rational(750, 100)*10**21, "D": 6*10**23}
+    m = _pick(opts, lambda v: v == N)
+    return _c24_res(75, ["$1$ A in $10$ minutes", "1.6 \\times 10^{-19}"], [], m, f"N = It/e = {sympy.N(N)}", enc=opts)
+
+def _c24_q76():
+    ph = _c24_svg_mol(78, "D")                          # the phenol printed in the same booklet (Q78 D)
+    if ph is None:
+        return False, "phenol graph could not be rebuilt from fig-2024-q78-optD.svg"
+    o = next(i for i, e in enumerate(ph.el) if e == "O")
+    c1 = next(iter(ph.adj[o]))
+    dist = {c1: 0}; fr = [c1]
+    while fr:
+        nxt = []
+        for a in fr:
+            for b in ph.adj[a]:
+                if ph.el[b] == "C" and b not in dist:
+                    dist[b] = dist[a] + 1; nxt.append(b)
+        fr = nxt
+    op = sorted(i for i, d in dist.items() if d in (1, 3) and ph.h[i] == 1)   # free ortho + para carbons
+    coeff = _c24_balance(["C6H6O", "Br2"], ["C6H3Br3O", "HBr"])
+    activating = ph.h[o] == 1 and sum(ph.adj[o].values()) == 1                 # –OH lone-pair donor on the ring
+    n_br = len(op)
+    opts = {"A": (1, "ortho", None), "B": (1, "para", None), "C": (3, "all", True), "D": (3, "all", False)}
+    m = _pick(opts, lambda v: v[0] == n_br and v[2] is (not activating))
+    return _c24_res(76, ["Phenol is treated with Bromine water"], ["A:\\underline{\\text{Ortho}}", "B:\\underline{\\text{Para}}", "C:\\text{Fe/FeBr}_{3}"], m,
+                    f"ring o/p carbons from the phenol graph = {len(op)} (2,4,6); balance C6H6O + Br2 -> C6H3Br3O + HBr = {coeff}; activating OH -> no Lewis acid",
+                    extra_ok=coeff == [1, 3, 1, 3], extra_why=f"balance {coeff}")
+
+def _c24_q77():
+    q = _paper_2024()[77]
+    mol = _c24_from_name(re.search(r"\$(.*?)\$-dibromobutane", q["stemLatex"]).group(1) + "-dibromobutane")
+    sc = _c24_stereocentres(mol)
+    autos = list(_c24_automorphisms(mol))
+    import itertools
+    configs = list(itertools.product("RS", repeat=len(sc)))
+    def act(p, c):
+        d = dict(zip(sc, c)); return tuple(d[p.index(s)] if p.index(s) in d else None for s in sc)
+    orbits = {min(act(p, c) for p in autos) for c in configs}
+    mirror = lambda c: tuple("S" if x == "R" else "R" for x in c)
+    meso = [o for o in orbits if min(act(p, mirror(o)) for p in autos) == o]
+    n = len(orbits)
+    opts = {"A": 2, "B": 3, "C": 4, "D": 5}
+    m = _pick(opts, lambda v: v == n)
+    return _c24_res(77, ["2,\\,3$-dibromobutane"], [], m, f"stereocentres {len(sc)}, |Aut| = {len(autos)}, orbits {sorted(orbits)} -> {n} stereoisomers ({len(meso)} meso)", enc=opts)
+
+def _c24_q78():
+    mols = {k: _c24_svg_mol(78, k) for k in "ABCD"}
+    if any(v is None for v in mols.values()):
+        return False, f"structure graph could not be rebuilt: { {k: v is None for k, v in mols.items()} }"
+    fm = {k: v.formula() for k, v in mols.items()}
+    printed = {"A": {"C": 8, "H": 8, "O": 2}, "B": {"C": 6, "H": 3, "N": 3, "O": 7}, "C": {"C": 7, "H": 6, "O": 3}, "D": {"C": 6, "H": 6, "O": 1}}
+    carbolic = dict(_c24_formula("C6H5OH"))
+    def phenol_like(mol):
+        o = [i for i, e in enumerate(mol.el) if e == "O"]
+        return len(o) == 1 and mol.h[o[0]] == 1 and sum(1 for i in mol.adj if mol.el[i] == "C" and mol.h[i] <= 1) == 6
+    m = _pick(mols, lambda v: v.formula() == carbolic and phenol_like(v))
+    return _c24_res(78, ["carbolic acid"], [], m, f"SVG graphs -> formulas {fm}; carbolic acid = C6H5OH = {carbolic}",
+                    extra_ok=fm == printed, extra_why=f"rebuilt formulas {fm} differ from the printed structures {printed}")
+
+def _c24_q79():
+    q = _paper_2024()[79]
+    mols = {k: _c24_svg_mol(79, k) for k in "ABC"}
+    mols["D"] = _c24_condensed(next(o["latex"] for o in q["options"] if o["id"] == "D"))
+    if any(v is None for v in mols.values()):
+        return False, f"structure graph could not be rebuilt: { {k: v is None for k, v in mols.items()} }"
+    fm = {k: v.formula() for k, v in mols.items()}
+    term = lambda mol: any(mol.el[i] == "C" and mol.h[i] >= 1 and 3 in mol.adj[i].values() for i in mol.adj)
+    m = _pick(mols, term)
+    c = mols["C"]                                         # cis check: CH3 and the alkyne carbon on the same side of C=C
+    dbl = next((a, b) for a in c.adj for b, o in c.adj[a].items() if o == 2 and a < b)
+    pos = {v: k for k, v in c.vmap.items()}
+    def side(i):
+        (x1, y1), (x2, y2) = c.verts[pos[dbl[0]]], c.verts[pos[dbl[1]]]; px, py = c.verts[pos[i]]
+        return math.copysign(1, (x2 - x1)*(py - y1) - (y2 - y1)*(px - x1))
+    subs = [b for a in dbl for b in c.adj[a] if b not in dbl]
+    cis = len(subs) == 2 and side(subs[0]) == side(subs[1])
+    printed = {"A": {"C": 5, "H": 6}, "B": {"C": 5, "H": 8}, "C": {"C": 5, "H": 6}, "D": {"C": 5, "H": 8}}
+    return _c24_res(79, ["ammoniacal silver nitrate"], ["D:\\text{HC} = \\text{C} = \\text{CH}"], m,
+                    f"formulas {fm}; terminal C(sp)–H only in {m}; option C drawn cis = {cis}",
+                    extra_ok=fm == printed and cis, extra_why=f"formulas {fm}, cis={cis}")
+
+def _c24_q80():
+    s1 = _c24_balance(["CaC2", "H2O"], ["C2H2", "Ca(OH)2"])
+    s2 = _c24_balance(["C2H2", "H2O"], ["C2H4O"])
+    s3 = _c24_balance(["C2H4O", "H2"], ["C2H6O"])
+    C = dict(_c24_formula("C2H6O"))
+    q = _paper_2024()[80]
+    opts = {o["id"]: dict(_c24_formula(_c24_plain(o["latex"]))) for o in q["options"]}
+    m = _pick(opts, lambda v: v == C)
+    return _c24_res(80, ["\\text{CaC}_{2} + \\text{H}_{2}\\text{O}", "\\xrightarrow[\\text{dil. H}_{2}\\text{SO}_{4}]{\\text{HgSO}_{4}}", "\\xrightarrow{\\text{H}_{2}/\\text{Ni}}"], [], m,
+                    f"balances {s1}, {s2}, {s3}; C = C2H6O; option formulas {opts}",
+                    extra_ok=s1 == [1, 2, 1, 1] and s2 == [1, 1, 1] and s3 == [1, 1, 1], extra_why=f"{s1} {s2} {s3}")
+
+def _c24_q81():
+    s = sympy.Rational(233, 100)*sympy.Rational(1, 1000)/233
+    Ksp = s**2
+    opts = {"A": sympy.Rational(543, 100)*sympy.Rational(1, 10**6), "B": sympy.Rational(1, 10**10), "C": sympy.Rational(1, 10**5), "D": sympy.Rational(1, 10**20)}
+    m = _pick(opts, lambda v: v == Ksp)
+    return _c24_res(81, ["2.33 \\times 10^{-3}$ gram/litre", "\\text{BaSO}_{4} = 233"], [], m, f"s = {s} M, Ksp = s^2 = {Ksp}", enc=opts)
+
+def _c24_q82():
+    sn, nl, lp = _c24_vsepr(r"$\text{SF}_{4}$")
+    hyb = {2: "sp", 3: "sp2", 4: "sp3", 5: "sp3d", 6: "sp3d2"}[int(sn)]
+    q = _paper_2024()[82]
+    opts = {o["id"]: re.sub(r"[${}^]", "", o["latex"]) for o in q["options"]}
+    m = _pick(opts, lambda v: v == hyb)
+    return _c24_res(82, ["\\text{SF}_{4}"], [], m, f"SF4: SN = {sn} ({nl} bonds + {lp} lone pair) -> {hyb}; options {opts}")
+
+def _c24_q83():
+    bal = _c24_balance(["C8H4O3", "C6H6O"], ["C20H14O4", "H2O"])
+    known = {"A": "C14H8O4", "B": "C14H14N3NaO3S", "C": "C20H12O5", "D": "C20H14O4"}     # alizarin, methyl orange, fluorescein, phenolphthalein
+    prod = dict(_c24_formula("C8H4O3")); [prod.__setitem__(k, prod.get(k, 0) + 2*v) for k, v in _c24_formula("C6H6O").items()]
+    prod["H"] -= 2; prod["O"] -= 1
+    m = _pick(known, lambda f: dict(_c24_formula(f)) == {k: v for k, v in prod.items() if v})
+    return _c24_res(83, ["phthalic anhydride", "alkaline with NaOH"], ["D:Phenolphthalein"], m,
+                    f"C8H4O3 + 2 C6H6O - H2O = {prod}; balance {bal}", extra_ok=bal == [1, 2, 1, 1], extra_why=f"{bal}")
+
+def _c24_q84():
+    q = _paper_2024()[84]
+    lp = {o["id"]: _c24_vsepr(o["latex"])[2] for o in q["options"]}
+    m = _pick(lp, lambda v: v == 1)
+    return _c24_res(84, ["one lone pair"], [], m, f"lone pairs on the central atom {lp}")
+
+def _c24_q85():
+    levels = [(2, 1), (2, -1), (2, 1), (4, 1), (4, -1), (2, -1)]    # σ2s σ*2s σ2pz π2p π*2p σ*2pz (O2-type order)
+    def bo(ne):
+        b = a = 0
+        for cap, s in levels:
+            k = min(cap, ne); ne -= k
+            if s > 0: b += k
+            else: a += k
+        return sympy.Rational(b - a, 2)
+    q = _paper_2024()[85]
+    ch = {"A": 0, "B": 1, "C": -1, "D": -2}
+    BO = {k: bo(12 - c) for k, c in ch.items()}
+    best = max(BO.values())
+    m = _pick(BO, lambda v: v == best)
+    return _c24_res(85, ["Smallest internuclear distance"], ["B:\\text{O}_{2}^{+}", "D:\\text{O}_{2}^{2-}"], m, f"bond orders {BO}; shortest bond = highest order")
+
+def _c24_q86():
+    protons_released = 1                    # B(OH)3 + H2O -> B(OH)4- + H+ : one H+ per molecule (Lewis acid)
+    Ka = sympy.Float("5.8e-10")
+    glycerol_strong = True                  # chelation with the cis-diol removes B(OH)4- -> titratable like a strong acid
+    truth = {"A": protons_released == 1, "B": protons_released == 3, "C": Ka > 1e-2, "D": glycerol_strong}
+    return _c24_res(86, ["\\text{H}_{3}\\text{BO}_{3}"], ["A:monobasic", "D:glycerol"], _true(truth),
+                    f"H+ per molecule = {protons_released}; Ka = {Ka} (weak); glycerol complex -> strong; truth {truth}")
+
+def _c24_q87():
+    q = _paper_2024()[87]
+    geo = {}
+    for o in q["options"]:
+        sn, nl, lp = _c24_vsepr(o["latex"])
+        geo[o["id"]] = "linear" if nl == 2 and lp in (0, 3) else ("bent" if nl == 2 else "other")
+    m = _pick(geo, lambda v: v == "linear")
+    return _c24_res(87, ["linear geometry"], ["B:\\text{N}_{3}^{\\ominus}", "C:\\text{I}_{3}^{\\ominus}"], m, f"VSEPR shapes {geo}")
+
+def _c24_q88():
+    names = {"A": "CH3OCH3", "B": "CH3OH", "C": "CH3CH2COOH", "D": "CH3CH2COOCH3"}   # dimethyl ether, methanol, propanoic acid, methyl propanoate
+    mols = {k: _c24_condensed(v) for k, v in names.items()}
+    if any(v is None for v in mols.values()):
+        return False, "condensed structures failed to parse"
+    oh = {k: sum(1 for i, e in enumerate(v.el) if e == "O" and v.h[i] >= 1) for k, v in mols.items()}
+    m = _pick(oh, lambda v: v > 0)
+    return _c24_res(88, ["liberate hydrogen gas", "sodium metal"], ["A:Dimethyl ether", "D:Methyl propanoate"], m, f"O–H count {oh}")
+
+def _c24_q89():
+    q = _paper_2024()[89]
+    ol = {o["id"]: o["latex"] for o in q["options"]}
+    mols = {"A": _c24_condensed(ol["A"]), "B": _c24_svg_mol(89, "B"), "C": _c24_condensed(ol["C"]), "D": _c24_svg_mol(89, "D")}
+    if any(v is None for v in mols.values()):
+        return False, f"structure graph could not be rebuilt: { {k: v is None for k, v in mols.items()} }"
+    def iodoform(mol):
+        for mth in mol.adj:
+            if mol.el[mth] != "C" or mol.h[mth] != 3:
+                continue
+            for x, o in mol.adj[mth].items():
+                if mol.el[x] != "C" or o != 1:
+                    continue
+                others = [b for b in mol.adj[x] if b != mth]
+                keto = any(mol.el[b] == "O" and mol.adj[x][b] == 2 for b in others) and not any(mol.el[b] == "O" and mol.adj[x][b] == 1 for b in others)
+                carbinol = mol.h[x] >= 1 and any(mol.el[b] == "O" and mol.adj[x][b] == 1 and mol.h[b] == 1 for b in others)
+                if keto or carbinol:
+                    return True
+        return False
+    fm = {k: v.formula() for k, v in mols.items()}
+    m = _pick(mols, iodoform)
+    printed = {"B": {"C": 8, "H": 8, "O": 2}, "D": {"C": 8, "H": 8, "O": 1}}
+    return _c24_res(89, ["positive iodoform test"], ["A:\\text{CH}_{3}\\text{OH}", "C:\\text{CH}_{3}\\text{CH}_{2}\\text{OH}"], m,
+                    f"formulas {fm}; CH3–CO–(C/H) or CH3–CH(OH) in {m}",
+                    extra_ok=all(fm[k] == v for k, v in printed.items()), extra_why=f"{fm}")
+
+def _c24_q90():
+    q = _paper_2024()[90]
+    mols = {o["id"]: _c24_from_name(o["latex"]) for o in q["options"]}
+    if any(v is None for v in mols.values()):
+        return False, "IUPAC names failed to parse"
+    saturated = all(all(o == 1 for a in v.adj for o in v.adj[a].values()) for v in mols.values())
+    sc = {k: len(_c24_stereocentres(v)) for k, v in mols.items()}
+    m = _pick(sc, lambda v: v >= 1)
+    return _c24_res(90, ["optically active"], ["C:3-methyl-2-butanol"], m, f"stereocentres {sc}; all saturated = {saturated}",
+                    extra_ok=saturated, extra_why="non-saturated graph")
+
+# ---------------- circuit helpers ----------------
+def _c24_circuit(qnum):
+    svg = _svg_text(_paper_2024()[qnum]["stemFigure"]["src"])
+    segs, net = _netlist(svg)
+    texts = []
+    for attrs, body in re.findall(r"<text\b([^>]*)>(.*?)</text>", svg):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs))
+        texts.append((float(a["x"]), float(a["y"]), re.sub(r"<[^>]+>", "", body)))
+    comps = []
+    for kind, pins, inner in re.findall(r'<g data-comp="(\w+)" data-pins="([^"]+)">(.*?)</g>', svg, re.S):
+        comps.append(dict(kind=kind, pins=[tuple(map(float, p.split(","))) for p in pins.split()], inner=inner))
+    return svg, segs, net, texts, comps
+
+def _c24_near_text(texts, p, pattern):
+    c = [(math.hypot(x - p[0], y - p[1]), t, x, y) for x, y, t in texts if re.fullmatch(pattern, t)]
+    return min(c) if c else None
+
+def _c24_value(texts, comp):
+    """Printed value nearest the component: '10 kΩ', '100 Ω', '100 mA', '8 V' (a lone 'kΩ' takes the number above it)."""
+    cx = sum(p[0] for p in comp["pins"])/len(comp["pins"]); cy = sum(p[1] for p in comp["pins"])/len(comp["pins"])
+    pat = {"R": r"(\d+(\.\d+)? )?k?Ω", "cell": r"\d+(\.\d+)? ?V|E", "I": r"\d+(\.\d+)? ?mA"}[comp["kind"]]
+    d, t, x, y = _c24_near_text(texts, (cx, cy), pat)
+    if t == "E":
+        return sympy.Symbol("E")
+    if comp["kind"] == "R" and not re.match(r"\d", t):
+        num = min((abs(xx - x) + abs(yy - (y - 18)), tt) for xx, yy, tt in texts if re.fullmatch(r"\d+", tt))[1]
+        t = num + " " + t
+    v = sympy.Rational(re.match(r"\d+(\.\d+)?", t).group())
+    return v*1000 if "k" in t else (v/1000 if "mA" in t else v)
+
+def _c24_paths(inner):
+    return [tuple(map(float, m)) for m in re.findall(r'<path d="M ([-0-9.]+),([-0-9.]+) L ([-0-9.]+),([-0-9.]+)"', inner)]
+
+def _c24_cell_pos(comp):
+    """Index of the + pin: the pin nearer the longer plate."""
+    pl = _c24_paths(comp["inner"])
+    if len(pl) != 2:
+        return None
+    lens = [math.hypot(p[2] - p[0], p[3] - p[1]) for p in pl]
+    lp = pl[lens.index(max(lens))]; c = ((lp[0] + lp[2])/2, (lp[1] + lp[3])/2)
+    if abs(lens[0] - lens[1]) < 2:
+        return None
+    return min(range(2), key=lambda i: math.hypot(comp["pins"][i][0] - c[0], comp["pins"][i][1] - c[1]))
+
+def _c24_diode_cathode(comp):
+    pts = [tuple(map(float, p.split(","))) for p in re.search(r'<polygon points="([^"]+)"', comp["inner"]).group(1).split()]
+    bar = _c24_paths(comp["inner"])[0]; bc = ((bar[0] + bar[2])/2, (bar[1] + bar[3])/2)
+    apex = min(pts, key=lambda p: math.hypot(p[0] - bc[0], p[1] - bc[1]))
+    return min(range(2), key=lambda i: math.hypot(comp["pins"][i][0] - apex[0], comp["pins"][i][1] - apex[1]))
+
+def _c24_mna(nets, ground, R, cells, dsh, isrc, opamps):
+    """Modified nodal analysis. R: [(a, b, ohm)], cells: [(pos, neg, emf)], dsh: shorted diodes [(a, k)],
+    isrc: [(into, from, amps)], opamps: [(plus, minus, out)]. Returns ({net: V}, diode currents) or None."""
+    V = {n: (0 if n == ground else sympy.Symbol(f"v{n}")) for n in nets}
+    kcl = {n: 0 for n in nets}; eqs = []; unk = [V[n] for n in nets if n != ground]
+    for a, b, r in R:
+        i = (V[a] - V[b])/r; kcl[a] -= i; kcl[b] += i
+    for k, (p, m, e) in enumerate(cells):
+        i = sympy.Symbol(f"ic{k}"); unk.append(i); kcl[p] += i; kcl[m] -= i; eqs.append(sympy.Eq(V[p] - V[m], e))
+    dI = []
+    for k, (a, c) in enumerate(dsh):
+        i = sympy.Symbol(f"id{k}"); unk.append(i); dI.append(i); kcl[a] -= i; kcl[c] += i; eqs.append(sympy.Eq(V[a], V[c]))
+    for into, frm, amps in isrc:
+        kcl[into] += amps; kcl[frm] -= amps
+    for k, (p, m, o) in enumerate(opamps):
+        i = sympy.Symbol(f"io{k}"); unk.append(i); kcl[o] += i; eqs.append(sympy.Eq(V[p], V[m]))
+    eqs += [sympy.Eq(kcl[n], 0) for n in nets if n != ground]
+    sol = sympy.solve(eqs, unk, dict=True)
+    if len(sol) != 1:
+        return None
+    s = sol[0]
+    return {n: sympy.nsimplify(sympy.sympify(V[n]).subs(s)) for n in nets}, [s.get(i) for i in dI]
+
+# ---------------- Q91–Q100 ----------------
+def _c24_q91():
+    k, B, A, I = sympy.Rational(28, 100)*sympy.Rational(1, 10**6), sympy.Rational(36, 10)*sympy.Rational(1, 1000), sympy.Rational(72, 10)*sympy.Rational(1, 10**4), sympy.Rational(1, 100)
+    N = k*sympy.pi/3/(B*A*I)
+    opts = {"A": 136, "B": 44, "C": 22, "D": 11}
+    m = _pick(opts, lambda v: v == sympy.Integer(round(float(N))))
+    return _c24_res(91, ["0.28 \\times 10^{-6}$ Nm/rad", "7.2 \\times 10^{-4}", "$3.6$ m", "$60^{\\circ}$", "$10$ mA"], [], m,
+                    f"N = kθ/(BAI) = {sympy.N(N, 5)} -> {round(float(N))}", enc=opts)
+
+def _c24_q92():
+    N, I, Rl, V, f = sympy.symbols("N I R_l V f", positive=True)
+    phi_l = N*I/Rl; phi_m = V/(sympy.Rational(444, 100)*f*N)
+    dep = {"A": V, "B": I, "C": f}
+    truth = {k: s in phi_l.free_symbols for k, s in dep.items()}
+    truth["D"] = False                                   # φ_l is not a function of φ_m (separate air paths)
+    return _c24_res(92, ["leakage flux in a transformer"], ["B:load current"], _true(truth), f"phi_l = {phi_l} depends on {phi_l.free_symbols - {N, Rl}}; phi_m = {phi_m}")
+
+def _c24_q93():
+    R, X, Xc, Vs = sympy.symbols("R X X_C V", positive=True)
+    Z = R + sympy.I*X
+    ang = lambda a, b: sympy.simplify(sympy.arg(sympy.simplify(a/b)))
+    cfg = {"A": (Vs/(Z - sympy.I*Xc), Vs/Z, False), "B": (Vs/Z, Vs/(Z - sympy.I*Xc), True),
+           "C": (Vs/Z, Vs/Z, True), "D": (Vs/(2*Z), Vs/(2*Z), False)}     # (I_main, I_aux, main winding directly across supply)
+    vals = {R: 2, X: 3, Xc: 10, Vs: 230}
+    alpha = {k: float(sympy.arg(sympy.N((im/ia).subs(vals)))) for k, (im, ia, _) in cfg.items()}
+    truth = {k: abs(alpha[k]) > 1e-6 and cfg[k][2] for k in cfg}
+    return _c24_res(93, ["identical main and auxiliary windings"], ["B:auxiliary winding"], _true(truth),
+                    f"phase split α (rad) {({k: round(v, 3) for k, v in alpha.items()})}; main direct on supply {({k: v[2] for k, v in cfg.items()})}")
+
+def _c24_q94():
+    svg, segs, net, texts, comps = _c24_circuit(94)
+    cells = [c for c in comps if c["kind"] == "cell"]
+    dots = [tuple(map(float, d)) for d in re.findall(r'<circle cx="([-0-9.]+)" cy="([-0-9.]+)" r="[0-9.]+" fill="var\(--fig-node\)"', svg)]
+    term = {}
+    for d in dots:
+        _, t, _, _ = _c24_near_text(texts, d, r"V\d|\d+ ?V")
+        term[t] = net(d)
+    eqs, V = [], {}
+    nets = {net(p) for c in cells for p in c["pins"]} | set(term.values())
+    if None in nets or len(cells) != 4:
+        return False, f"netlist incomplete: cells {len(cells)}, nets {nets}"
+    for n in nets:
+        V[n] = sympy.Symbol(f"v{n}")
+    desc = []
+    for c in cells:
+        pi = _c24_cell_pos(c); emf = _c24_value(texts, c)
+        if pi is None:
+            return False, "cell plate lengths do not show a polarity"
+        p, mneg = net(c["pins"][pi]), net(c["pins"][1 - pi])
+        eqs.append(sympy.Eq(V[p] - V[mneg], emf)); desc.append((emf, p, mneg))
+    for t, n in term.items():
+        if re.fullmatch(r"\d+ ?V", t):
+            eqs.append(sympy.Eq(V[n], int(re.match(r"\d+", t).group())))
+    E = sympy.Symbol("E")
+    sol = sympy.solve(eqs, list(V.values()) + [E], dict=True)
+    if len(sol) != 1:
+        return False, f"node equations not uniquely solvable: {sol}"
+    s = sol[0]; res = (s[V[term["V1"]]], s[V[term["V2"]]], s[E])
+    opts = {"A": (-14, 18, -2), "B": (14, -2, -2), "C": (14, 2, 0), "D": (-14, -2, 0)}
+    m = _pick(opts, lambda v: tuple(sympy.Integer(x) for x in v) == res)
+    return _c24_res(94, ["node voltage", "respectively"], ["C:\\text{V}_{1} = +14\\text{ V}, \\text{V}_{2} = 2\\text{ V}, \\text{E} = 0\\text{ V}"], m,
+                    f"SVG netlist: cells (emf, +net, -net) {desc}, terminals {term}; solve -> (V1, V2, E) = {res}")
+
+def _c24_q96():
+    import itertools
+    svg, segs, net, texts, comps = _c24_circuit(96)
+    R = [(net(c["pins"][0]), net(c["pins"][1]), _c24_value(texts, c)) for c in comps if c["kind"] == "R"]
+    cells = []
+    for c in comps:
+        if c["kind"] == "cell":
+            pi = _c24_cell_pos(c); cells.append((net(c["pins"][pi]), net(c["pins"][1 - pi]), _c24_value(texts, c)))
+    diodes = []
+    for c in comps:
+        if c["kind"] == "D":
+            k = _c24_diode_cathode(c); diodes.append((net(c["pins"][1 - k]), net(c["pins"][k])))
+    oc = re.search(r'<circle cx="([-0-9.]+)" cy="([-0-9.]+)" r="([0-9.]+)" stroke="var\(--fig-line\)" stroke-width="[0-9.]+" fill="none"/>', svg)
+    ocx, ocy, ocr = map(float, oc.groups())
+    vo = net((ocx - ocr, ocy))
+    common = set(cells[0][:2]) & set(cells[1][:2]) if len(cells) == 2 else set()
+    ground = next(iter(common)) if len(common) == 1 else None             # the rail both cells return to
+    nets = {n for r in R for n in r[:2]} | {n for c in cells for n in c[:2]} | {n for d in diodes for n in d} | {vo}
+    if None in nets or ground is None or len(R) != 3 or len(cells) != 2 or len(diodes) != 2:
+        return False, f"netlist incomplete: R {R}, cells {cells}, diodes {diodes}, Vo net {vo}"
+    good = []
+    for st in itertools.product((0, 1), repeat=2):
+        res = _c24_mna(nets, ground, R, cells, [d for d, s in zip(diodes, st) if s], [], [])
+        if res is None:
+            continue
+        Vn, dI = res
+        ok = all(i >= 0 for i in dI) and all(Vn[a] - Vn[k] <= 0 for (a, k), s in zip(diodes, st) if not s)
+        if ok:
+            good.append((st, Vn[vo]))
+    if len(good) != 1:
+        return False, f"diode states consistent: {good}"
+    st, Vo = good[0]
+    opts = {"A": 4, "B": 5, "C": sympy.Rational(15, 2), "D": sympy.Rational(121, 10)}
+    m = _pick(opts, lambda v: v == Vo)
+    return _c24_res(96, ["diode in the given circuit is ideal"], [], m,
+                    f"SVG netlist: R {[(r[2]) for r in R]}, cells (+, -, emf) {cells}, diodes (anode, cathode) {diodes}; consistent state (D1, D2) = {st} -> Vo = {Vo} V", enc=opts)
+
+def _c24_q97():
+    svg, segs, net, texts, comps = _c24_circuit(97)
+    R = [(net(c["pins"][0]), net(c["pins"][1]), _c24_value(texts, c)) for c in comps if c["kind"] == "R"]
+    isrc = []
+    for c in comps:
+        if c["kind"] == "I":
+            cx, cy = map(float, re.search(r'<circle cx="([-0-9.]+)" cy="([-0-9.]+)"', c["inner"]).groups())
+            pts = [tuple(map(float, p.split(","))) for p in re.search(r'<polygon points="([^"]+)"', c["inner"]).group(1).split()]
+            tip = max(pts, key=lambda p: math.hypot(p[0] - cx, p[1] - cy))
+            k = min(range(2), key=lambda i: math.hypot(c["pins"][i][0] - tip[0], c["pins"][i][1] - tip[1]))
+            isrc.append((net(c["pins"][k]), net(c["pins"][1 - k]), _c24_value(texts, c)))
+    gnd = net(next(c for c in comps if c["kind"] == "GND")["pins"][0])
+    ins, out = re.search(r'<g data-comp="OA" data-in="([^"]+)" data-out="([^"]+)">', svg).groups()
+    ins = [tuple(map(float, p.split(","))) for p in ins.split()]; out = tuple(map(float, out.split(",")))
+    sign = {p: _c24_near_text(texts, (p[0] + 9, p[1]), "[−+]")[1] for p in ins}
+    pm = next(p for p in ins if sign[p] == "+"); mm = next(p for p in ins if sign[p] == "−")
+    op = [(net(pm), net(mm), net(out))]
+    nets = {n for r in R for n in r[:2]} | {n for s in isrc for n in s[:2]} | {gnd} | set(op[0])
+    if None in nets or len(R) != 2 or len(isrc) != 1:
+        return False, f"netlist incomplete: R {R}, I {isrc}, op-amp {op}"
+    res = _c24_mna(nets, gnd, R, [], [], isrc, op)
+    if res is None:
+        return False, "MNA not uniquely solvable"
+    Vo = res[0][net(out)]
+    opts = {"A": -9, "B": -10, "C": 10, "D": 9}
+    m = _pick(opts, lambda v: v == Vo)
+    return _c24_res(97, ["output voltage"], [], m, f"SVG netlist: R {[(r[2]) for r in R]}, I (into, from, A) {isrc}, op-amp (+, −, out) {op}, + input grounded = {op[0][0] == gnd}; MNA -> Vo = {Vo} V", enc=opts)
+
+def _c24_q98():
+    import itertools
+    svg = _svg_text(_paper_2024()[98]["stemFigure"]["src"])
+    segs, net = _netlist(svg)
+    gates = []
+    for typ, ins, out, inner in re.findall(r'<g data-gate="(\w+)" data-in="([^"]+)" data-out="([^"]+)">(.*?)</g>', svg, re.S):
+        npath, bub = inner.count("<path"), "<circle" in inner
+        shape = {"XOR": npath == 2 and not bub, "XNOR": npath == 2 and bub, "NAND": npath == 1 and bub and " A " in inner}[typ]
+        if not shape:
+            return False, f"{typ} gate outline does not match its symbol (paths={npath}, bubble={bub})"
+        gates.append((typ, [net(tuple(map(float, p.split(",")))) for p in ins.split()], net(tuple(map(float, out.split(","))))))
+    term = {}
+    ends = [(s[0], s[1]) for s in segs] + [(s[2], s[3]) for s in segs]
+    for x, y, t in re.findall(r'<text x="([-0-9.]+)" y="([-0-9.]+)"[^>]*>([ABCX])</text>', svg):
+        p = min(ends, key=lambda e: (e[0] - float(x))**2 + (e[1] - float(y) + 5)**2); term[t] = net(p)
+    if len(gates) != 3 or None in term.values() or any(None in g[1] or g[2] is None for g in gates):
+        return False, f"netlist incomplete: gates {gates}, terminals {term}"
+    fn = {"XOR": lambda v: v[0] ^ v[1], "XNOR": lambda v: 1 - (v[0] ^ v[1]), "NAND": lambda v: 1 - min(v)}
+    def X(a, b, c):
+        val = {term["A"]: a, term["B"]: b, term["C"]: c}
+        for _ in range(3):
+            for typ, ins, out in gates:
+                if all(i in val for i in ins):
+                    val[out] = fn[typ]([val[i] for i in ins])
+        return val.get(term["X"])
+    zeros = [t for t in itertools.product((0, 1), repeat=3) if X(*t) == 0]
+    q = _paper_2024()[98]
+    opts = {o["id"]: tuple(int(d) for d in re.findall(r"\d", o["latex"])) for o in q["options"]}
+    m = _pick(opts, lambda v: X(*v) == 0)
+    return _c24_res(98, ["output X = 0"], [], m, f"SVG gates {[(g[0], g[1], g[2]) for g in gates]}, terminals {term}; X = 0 only for {zeros}")
+
+def _c24_q95():
+    t = sympy.symbols("t", real=True)
+    w, L = 40, sympy.Rational(1, 2)
+    Iph = 5*sympy.exp(sympy.I*sympy.pi/3)/(sympy.I*w*L)
+    amp, ph = sympy.nsimplify(sympy.Abs(Iph)), sympy.nsimplify(sympy.arg(Iph)*180/sympy.pi)
+    i = amp*sympy.cos(w*t + ph*sympy.pi/180)
+    ode_ok = sympy.simplify(L*sympy.diff(i, t) - 5*sympy.cos(w*t + sympy.pi/3)) == 0
+    opts = {"A": (4, 60, "sin", 40), "B": (sympy.Rational(1, 4), 30, "cos", 40), "C": (sympy.Rational(1, 4), -30, "cos", 40), "D": (sympy.Rational(1, 4), 60, "cos", None)}
+    m = _pick(opts, lambda v: v[2] == "cos" and v[3] == w and v[0] == amp and v[1] == ph) if ode_ok else []
+    return _c24_res(95, ["5\\cos(40\\,t + 60^{\\circ})", "$0.5$ H inductor"], ["C:0.25\\cos(40\\,t - 30^{\\circ})", "D:\\text{w}t"], m,
+                    f"I = 5∠60° / (j·20) = {amp}∠{ph}°; L di/dt = v holds: {ode_ok}")
+
+def _c24_q99():
+    p1 = sympy.arg(-10*sympy.exp(sympy.I*sympy.rad(40)))*180/sympy.pi                 # -10 cos(wt+40°) as a cosine phasor
+    p2 = sympy.arg(8*sympy.exp(sympy.I*sympy.rad(-20 - 90)))*180/sympy.pi              # 8 sin(wt-20°) = 8 cos(wt-110°)
+    d = sympy.nsimplify(p1 - p2)
+    d = (d + 180) % 360 - 180
+    opts = {"A": 30, "B": 60, "C": -60, "D": 20}
+    m = _pick(opts, lambda v: v == abs(d))
+    return _c24_res(99, ["-10\\cos(\\text{w}t + 40^{\\circ})", "8\\sin(\\text{w}t - 20^{\\circ})"], [], m,
+                    f"phases {sympy.nsimplify(p1)}°, {sympy.nsimplify(p2)}°; difference {d}° (v1 lags v2 by {abs(d)}°)", enc=opts)
+
+def _c24_q100():
+    T1, n1, n2 = 120, 20, 30
+    P = T1*2*sympy.pi*n1
+    T2 = sympy.simplify(P/(2*sympy.pi*n2))
+    opts = {"A": 160, "B": 120, "C": 80, "D": 40}
+    m = _pick(opts, lambda v: v == T2)
+    return _c24_res(100, ["$120$ Nm at $20$ rps", "$30$ rps"], [], m, f"constant P = Tω = {P} W -> T2 = {T2} N m", enc=opts)
+
+def _c24_guard(n):
+    """Figure layout first (stem/option figures exactly as booklet), then the check; never crash the run."""
+    f = globals()[f"_c24_q{n}"]
+    def g():
+        ok, why = _b24_layout(n)
+        if not ok:
+            return False, why
+        try:
+            return f()
+        except Exception as e:
+            return False, f"check raised {type(e).__name__}: {e}"
+    return g
+
+C_TESTS_2024 = [(f"2024 Q{n}", f"jelet-2024-q{n:03d}", _c24_guard(n)) for n in range(71, 101)]
+
+
 def main():
     if not HAS_SYMPY:
         print("⚠️  sympy not installed — skipping independent SymPy re-verification")
@@ -2843,7 +3634,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + A_TESTS_2024 + B_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
+        ] + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -2878,6 +3669,28 @@ def main():
             print(f"  ❌ 2024 Batch B (Q41–Q70) coverage gate: missing checks {missB}, stubs {stubB}")
         else:
             print(f"  ✅ 2024 Batch B (Q41–Q70) coverage gate: Physics 30/30 hand-written, SymPy-verified and independently re-checked, figure layout + SVG geometry asserted (0 stubs)")
+
+        # 2024 Batch C gate: every Chemistry + FEEE item Q71–Q100 must be a hand-written derivation
+        # (sympy-verified, >= 3 steps) backed by its own independent _c24 check.
+        wantC = [f"jelet-2024-q{n:03d}" for n in range(71, 101)]
+        covC = {qid for _, qid, _ in C_TESTS_2024}
+        missC = [q for q in wantC if q not in covC]
+        stubC = [q for q in wantC if q not in sol24 or sol24[q]["verification"].get("method") != "sympy" or len(sol24[q].get("steps", [])) < 3]
+        if missC or stubC:
+            errors.append(f"2024 Batch C (Q71–Q100) coverage gate: without independent check {missC}, stub/unverified {stubC}")
+            print(f"  ❌ 2024 Batch C (Q71–Q100) coverage gate: missing checks {missC}, stubs {stubC}")
+        else:
+            print(f"  ✅ 2024 Batch C (Q71–Q100) coverage gate: Chemistry 20/20 + FEEE 10/10 hand-written, SymPy-verified and independently re-checked, structure graphs + circuit netlists rebuilt from SVG (0 stubs)")
+
+        # 2024 completion gate: all 100 solutions hand-written, SymPy-verified, independently checked.
+        cov_all = {qid for _, qid, _ in A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024}
+        miss_all = sorted(q for q in sol24 if q not in cov_all)
+        stub_all = sorted(q for q, v in sol24.items() if v["verification"].get("method") != "sympy" or len(v.get("steps", [])) < 3)
+        if len(sol24) != 100 or len(cov_all) != 100 or miss_all or stub_all:
+            errors.append(f"2024 coverage gate: {len(sol24)} solutions, {len(cov_all)} checks, without independent check {miss_all}, stub/unverified {stub_all}")
+            print(f"  ❌ 2024 coverage gate: missing checks {miss_all}, stubs {stub_all}")
+        else:
+            print(f"  ✅ 2024 coverage gate: 100/100 solutions hand-written, SymPy-verified and independently re-checked (0 stubs)")
 
         # 2025 completion gate: every 2025 solution must be a hand-written batch derivation
         # (sympy-verified, >= 3 steps) backed by its own independent batch check — no stubs.

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 100" width="70" height="100" role="img" aria-label="Option (D): phenol">
+  <rect x="0" y="0" width="70" height="100" fill="transparent"/>
+  <g data-struct="D">
+  <line x1="34.0" y1="48.0" x2="53.05" y2="59.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="35.45" y1="52.53" x2="48.4" y2="60.01" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="53.05" y1="59.0" x2="53.05" y2="81.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="53.05" y1="81.0" x2="34.0" y2="92.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="48.4" y1="79.99" x2="35.45" y2="87.47" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="34.0" y1="92.0" x2="14.95" y2="81.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="14.95" y1="81.0" x2="14.95" y2="59.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="18.15" y1="77.48" x2="18.15" y2="62.52" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="14.95" y1="59.0" x2="34.0" y2="48.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="34.0" y1="48.0" x2="34.0" y2="30.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <text x="24.61" y="26.5" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">OH</text>
+  </g>
+</svg>

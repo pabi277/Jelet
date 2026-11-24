@@ -2059,590 +2059,175 @@
       }
     },
     "jelet-2024-q071": {
-      "conceptSummary": "Quantum numbers and orbital designation.",
+      "conceptSummary": "Number of atoms $=$ (mass $\\div$ molar mass) $\\times N_{A}$. Helium is monatomic, so one mole of He contains $N_{A}$ atoms.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Given",
-          "bodyLatex": "$n=5$, $l=3 \\Rightarrow f$ orbital."
+          "title": "Moles of He",
+          "bodyLatex": "Molar mass of He $= 4\\ \\text{g mol}^{-1}$, so $n = \\dfrac{52}{4} = 13$ mol."
         },
         {
           "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "$5f$. Answer: (D)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Quantum numbers."
-      }
-    },
-    "jelet-2024-q072": {
-      "conceptSummary": "VSEPR: bond types in PCl5.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Geometry",
-          "bodyLatex": "Trigonal bipyramidal: 2 axial + 3 equatorial bonds."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "2 types. Answer: (B)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "VSEPR."
-      }
-    },
-    "jelet-2024-q073": {
-      "conceptSummary": "Semiconductor doping.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Doping",
-          "bodyLatex": "Electron-rich (pentavalent) impurity donates electrons."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "$n$-type. Answer: (C)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Doping."
-      }
-    },
-    "jelet-2024-q074": {
-      "conceptSummary": "Redox classification: NO + N2O4 → NO2.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "N from +2 and +4 both go to +4 — comproportionation."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (C)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key C."
-      }
-    },
-    "jelet-2024-q075": {
-      "conceptSummary": "pH comparison and acidity.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "pH",
-          "bodyLatex": "$[H^+]_X = 10^{-6}$, $[H^+]_Y = 10^{-7}$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "$X$ is 10 times more acidic. Answer: (B)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "pH calculation."
-      }
-    },
-    "jelet-2024-q076": {
-      "conceptSummary": "Nernst equation for cell EMF.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Nernst",
-          "bodyLatex": "$E = E^\\circ - (0.0592/2)\\log Q$. $Q = 0.1/0.1 = 1$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Result",
-          "bodyLatex": "$E = 1.10 - 0 = 1.10$ V."
+          "title": "Atoms",
+          "bodyLatex": "He exists as single atoms, so $N = 13 \\times 6.022 \\times 10^{23} = 78.29 \\times 10^{23} = 7.829 \\times 10^{24}$."
         },
         {
           "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (A)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Nernst equation."
-      }
-    },
-    "jelet-2024-q077": {
-      "conceptSummary": "Le Chatelier's principle and volume change.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "Decrease in volume favors fewer gas moles."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Check options",
-          "bodyLatex": "Only (C) has fewer gas moles on product side."
-        },
-        {
-          "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (C)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Le Chatelier."
-      }
-    },
-    "jelet-2024-q078": {
-      "conceptSummary": "Salt hydrolysis and pH.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "$Na_2CO_3$ is salt of strong base + weak acid → basic."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Highest pH. Answer: (C)."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Salt hydrolysis."
-      }
-    },
-    "jelet-2024-q079": {
-      "conceptSummary": "Electrolysis of aqueous salt solutions.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analysis",
-          "bodyLatex": "Active metals (Na, Mg, Ca, Al) cannot be obtained from aqueous solutions — water is reduced instead."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Voided question. Answer: (W)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Voided question."
-      }
-    },
-    "jelet-2024-q080": {
-      "conceptSummary": "Electron count in redox: N2 → NH3.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Oxidation states",
-          "bodyLatex": "N: 0 → -3. Each N gains 3 electrons. Two N atoms."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "6 electrons. Answer: (D) $6$."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Redox counting."
-      }
-    },
-    "jelet-2024-q081": {
-      "conceptSummary": "IUPAC nomenclature.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Naming",
-          "bodyLatex": "Longest chain with both double and triple bond, lowest locants."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (B). Answer: (B)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key B."
-      }
-    },
-    "jelet-2024-q082": {
-      "conceptSummary": "Structural isomerism identification.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analysis",
-          "bodyLatex": "Identify isomerism type from given pairs."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Given key (B). Answer: (B)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key B."
-      }
-    },
-    "jelet-2024-q083": {
-      "conceptSummary": "Grignard reagent reaction with acid.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Reaction",
-          "bodyLatex": "$CH_3MgCl + CH_3COOH \\to CH_4 + CH_3COOMgCl$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (A) $CH_4$."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Grignard reaction."
-      }
-    },
-    "jelet-2024-q084": {
-      "conceptSummary": "Hybridization of carbanion.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analysis",
-          "bodyLatex": "Carbanion $CH_3^-$: 3 bonds + 1 lone pair = 4 domains $\\Rightarrow sp^3$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Voided question. Answer: (W)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Voided question."
-      }
-    },
-    "jelet-2024-q085": {
-      "conceptSummary": "Acetylene alkylation with excess ethyl bromide.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Step 1",
-          "bodyLatex": "$HC\\equiv CH \\xrightarrow{NaNH_2} HC\\equiv C^- Na^+$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Step 2",
-          "bodyLatex": "$HC\\equiv C^- + EtBr \\to HC\\equiv C-Et$."
-        },
-        {
-          "stepNumber": 3,
-          "title": "Step 3",
-          "bodyLatex": "Excess EtBr: $HC\\equiv C-Et \\xrightarrow{NaNH_2} Et-C\\equiv C^- \\xrightarrow{EtBr} Et-C\\equiv C-Et$."
+          "title": "Check the options",
+          "bodyLatex": "(A) is $10\\times$ too large, (B) and (D) are $10\\times$ and $100\\times$ too small. Only (C) matches."
         },
         {
           "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B) $CH_3CH_2-C\\equiv C-CH_2CH_3$."
+          "bodyLatex": "Answer: (C) $7.829 \\times 10^{24}$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Acetylene alkylation."
+        "note": "SymPy: 52/4 * 6.022e23 = 7.829e24 atoms."
       }
     },
-    "jelet-2024-q086": {
-      "conceptSummary": "Rutherford scattering.",
+    "jelet-2024-q072": {
+      "conceptSummary": "The order in which sub-shells are filled (lowest energy first, by the $(n + l)$ rule) is the Aufbau principle. Pauli’s principle limits each orbital to two electrons, and Hund’s rule fixes the spins within degenerate orbitals.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Force",
-          "bodyLatex": "Coulombic (electrostatic) force between $\\alpha$-particle and nucleus."
+          "title": "What each rule decides",
+          "bodyLatex": "Aufbau: electrons enter orbitals in increasing energy, i.e. increasing $(n + l)$ and, for equal $(n + l)$, increasing $n$. Pauli: at most 2 electrons (opposite spins) per orbital. Hund: in degenerate orbitals, electrons stay unpaired with parallel spins first."
         },
         {
           "stepNumber": 2,
-          "title": "Path",
-          "bodyLatex": "Hyperbolic (central force orbit)."
+          "title": "Sequence of filling",
+          "bodyLatex": "The $(n + l)$ rule gives $1s < 2s < 2p < 3s < 3p < 4s < 3d < 4p < 5s \\ldots$, which is the filling sequence. Pauli and Hund do not decide this order."
         },
         {
           "stepNumber": 3,
+          "title": "Eliminate (D)",
+          "bodyLatex": "Since (B) and (C) do not explain the sequence, “All of these” is wrong."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A,D)."
+          "bodyLatex": "Answer: (A) Aufbau principle."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Rutherford experiment."
+        "note": "Madelung (n+l, n) ordering generated and compared with the filling sequence; only the Aufbau rule defines an order."
       }
     },
-    "jelet-2024-q087": {
-      "conceptSummary": "Effect of dilution on ionic solutions.",
+    "jelet-2024-q073": {
+      "conceptSummary": "For a hydrogen-like $1s$ electron, the radial probability $P(r) = 4\\pi r^{2}|\\psi_{1s}|^{2}$ peaks at $r = a_{0}/Z$, which equals the first Bohr radius $a_{0}/Z$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Concentration",
-          "bodyLatex": "Decreases upon adding water (dilution)."
+          "title": "Radial probability",
+          "bodyLatex": "$\\psi_{1s} \\propto e^{-Zr/a_{0}}$, so $P(r) \\propto r^{2}e^{-2Zr/a_{0}}$. Setting $\\dfrac{dP}{dr} = 0$: $2r - \\dfrac{2Z}{a_{0}}r^{2} = 0 \\Rightarrow r_{mp} = \\dfrac{a_{0}}{Z}$."
         },
         {
           "stepNumber": 2,
-          "title": "Ionization",
-          "bodyLatex": "May increase (Le Chatelier shifts dissociation equilibrium)."
+          "title": "Apply to $\\text{He}^{+}$ ($Z = 2$)",
+          "bodyLatex": "$a_{0} = 0.529\\ \\text{\\AA} = 52.9$ pm, so $r_{mp} = \\dfrac{52.9}{2} = 26.45 \\approx 26.5$ pm."
         },
         {
           "stepNumber": 3,
+          "title": "Check the options",
+          "bodyLatex": "(A) $0.0265$ is in nm, not pm. (B) is the H value and (D) is $2a_{0}$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (C,D)."
+          "bodyLatex": "Answer: (C) $26.5$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Dilution effects."
+        "note": "SymPy: dP/dr = 0 for r^2 exp(-2Zr/a0) -> r = a0/Z = 26.45 pm."
       }
     },
-    "jelet-2024-q088": {
-      "conceptSummary": "HBr addition to propene.",
+    "jelet-2024-q074": {
+      "conceptSummary": "In the rock-salt (NaCl) structure the ions touch along the cube edge, so the edge length is $a = 2(r_{+} + r_{-})$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Markovnikov",
-          "bodyLatex": "$CH_3CH=CH_2 + HBr \\to CH_3CHBrCH_3$ (major)."
+          "title": "Geometry",
+          "bodyLatex": "Along each edge the sequence is $\\text{Cl}^{-}$–$\\text{Na}^{+}$–$\\text{Cl}^{-}$, so $a = 2r_{\\text{Na}^{+}} + 2r_{\\text{Cl}^{-}}$."
         },
         {
           "stepNumber": 2,
-          "title": "Anti-Markovnikov",
-          "bodyLatex": "$\\to CH_3CH_2CH_2Br$ (minor)."
+          "title": "Solve",
+          "bodyLatex": "$r_{+} + r_{-} = \\dfrac{508}{2} = 254$ pm, so $r_{\\text{Cl}^{-}} = 254 - 110 = 144$ pm."
         },
         {
           "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Both products form. Answer: (A,B,C)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key A,B,C."
-      }
-    },
-    "jelet-2024-q089": {
-      "conceptSummary": "Forward vs reverse rate constants.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analysis",
-          "bodyLatex": "$k_f < k_e$ means reverse is faster."
+          "title": "Check",
+          "bodyLatex": "(A) $288 = 398 - 110$ uses $a - 2r_{+}$; (B) $398 = 508 - 110$ and (D) $618 = 508 + 110$ ignore the geometry."
         },
         {
-          "stepNumber": 2,
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B). Answer: (B)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key B."
-      }
-    },
-    "jelet-2024-q090": {
-      "conceptSummary": "Properties of HNO3.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Classification",
-          "bodyLatex": "Oxoacid of nitrogen. Strong oxidizing agent."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (B,D)."
+          "bodyLatex": "Answer: (C) $144$ pm."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "HNO3 properties."
+        "note": "SymPy: solve 2(110 + r) = 508 -> r = 144 pm."
       }
     },
-    "jelet-2024-q091": {
-      "conceptSummary": "PMMC ammeter: reads average value.",
+    "jelet-2024-q075": {
+      "conceptSummary": "Charge passed $Q = It$. Each electron carries $1.6 \\times 10^{-19}$ C, so the number of electrons is $Q/e$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "PMMC",
-          "bodyLatex": "Reads average (mean) value of current."
+          "title": "Charge",
+          "bodyLatex": "$t = 10\\ \\text{min} = 600$ s, so $Q = 1 \\times 600 = 600$ C."
         },
         {
           "stepNumber": 2,
-          "title": "Average",
-          "bodyLatex": "$\\langle 5+5\\sin 100\\pi t\\rangle = 5$ A."
+          "title": "Number of electrons",
+          "bodyLatex": "$N = \\dfrac{600}{1.6 \\times 10^{-19}} = 3.75 \\times 10^{21}$."
         },
         {
           "stepNumber": 3,
+          "title": "Check",
+          "bodyLatex": "(B) is $10\\times$ too small; (C) doubles it; (D) is about one mole of electrons ($\\approx 96500$ C), far more than 600 C."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (A) $5$ A."
+          "bodyLatex": "Answer: (A) $3.75 \\times 10^{21}$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "PMMC averaging."
+        "note": "SymPy: 1*600/1.6e-19 = 3.75e21."
       }
     },
-    "jelet-2024-q092": {
-      "conceptSummary": "Ideal transformer current calculation.",
+    "jelet-2024-q076": {
+      "conceptSummary": "The –OH group strongly activates the ring (+R effect). In polar bromine water, phenol is brominated at all free ortho and para positions at once, with no Lewis-acid catalyst.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Power",
-          "bodyLatex": "$P_{in} = P_{out} = 100$ W."
+          "title": "Activation",
+          "bodyLatex": "The lone pair on O is delocalised into the ring, raising the electron density at C-2, C-4 and C-6 (the two ortho positions and the para position). In water, phenol is also partly ionised to the even more reactive phenoxide."
         },
         {
           "stepNumber": 2,
-          "title": "Current",
-          "bodyLatex": "$I_{in} = 100/200 = 0.5$ A."
+          "title": "Product",
+          "bodyLatex": "All three activated positions are substituted: $\\text{C}_{6}\\text{H}_{5}\\text{OH} + 3\\text{Br}_{2} \\longrightarrow 2,4,6\\text{-tribromophenol}\\downarrow + 3\\text{HBr}$ (a white precipitate)."
         },
         {
           "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (B) $0.5$ A."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Transformer power."
-      }
-    },
-    "jelet-2024-q093": {
-      "conceptSummary": "Efficiency of electrical machines.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Transformer",
-          "bodyLatex": "Highest efficiency (95-99%) among electrical machines."
+          "title": "Catalyst",
+          "bodyLatex": "$\\text{Fe/FeBr}_{3}$ is needed only for unactivated rings such as benzene. Mono-bromophenols (o or p) form only in a non-polar solvent such as $\\text{CS}_{2}$ at low temperature, not with bromine water."
         },
         {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (D) Transformer."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Efficiency."
-      }
-    },
-    "jelet-2024-q094": {
-      "conceptSummary": "Voltage regulation.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Definition",
-          "bodyLatex": "Regulation $= (V_{nl} - V_{fl})/V_{fl}$."
-        },
-        {
-          "stepNumber": 2,
-          "title": "0% case",
-          "bodyLatex": "$V_{nl} = V_{fl} = 10$ V."
-        },
-        {
-          "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (A) $10$ V."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Voltage regulation."
-      }
-    },
-    "jelet-2024-q095": {
-      "conceptSummary": "AC circuit phase condition.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Analysis",
-          "bodyLatex": "For $I_1, I_2, I$ in phase, circuit must be balanced."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Condition",
-          "bodyLatex": "Given key (B): $R_1/R_2 = L_1/L_2$."
-        },
-        {
-          "stepNumber": 3,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (B)."
-        }
-      ],
-      "verification": {
-        "method": "manual",
-        "verifiedAt": "2026-11-23",
-        "note": "Key B; circuit-dependent."
-      }
-    },
-    "jelet-2024-q096": {
-      "conceptSummary": "BJT current relationship.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Formula",
-          "bodyLatex": "$I_c = I_e - I_b = 10 - 0.1 = 9.9$ mA."
-        },
-        {
-          "stepNumber": 2,
-          "title": "Conclusion",
-          "bodyLatex": "Answer: (A) $9.9$ mA."
-        }
-      ],
-      "verification": {
-        "method": "sympy",
-        "verifiedAt": "2026-11-23",
-        "note": "Transistor currents."
-      }
-    },
-    "jelet-2024-q097": {
-      "conceptSummary": "CMOS technology.",
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "CMOS",
-          "bodyLatex": "Complementary MOS: uses both NMOS and PMOS. Low static power."
-        },
-        {
-          "stepNumber": 2,
+          "stepNumber": 4,
           "title": "Conclusion",
           "bodyLatex": "Answer: (D)."
         }
@@ -2650,67 +2235,727 @@
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "CMOS."
+        "note": "Ring graph: positions at ring distance 1 and 3 from C–OH = {2, 4, 6}; activating group -> no catalyst; 3 Br2 + C6H6O -> C6H3Br3O + 3 HBr atom-balanced."
+      }
+    },
+    "jelet-2024-q077": {
+      "conceptSummary": "$\\text{CH}_{3}\\text{–CHBr–CHBr–CH}_{3}$ has two identical stereocentres, so instead of $2^{2} = 4$ there are only 3 stereoisomers: one pair of enantiomers and one meso form.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Stereocentres",
+          "bodyLatex": "C-2 and C-3 each carry H, Br, $\\text{CH}_{3}$ and $\\text{CHBrCH}_{3}$: four different groups, so both are stereocentres."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Configurations",
+          "bodyLatex": "Possible combinations: $(2R,3R)$, $(2S,3S)$, $(2R,3S)$ and $(2S,3R)$. The two ends of the molecule are identical, so $(2R,3S) \\equiv (2S,3R)$, the meso compound (it has an internal mirror plane)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Count",
+          "bodyLatex": "$(R,R)$ and $(S,S)$ are a pair of enantiomers, plus one meso form, giving $3$ stereoisomers."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $3$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Graph: 2 stereocentres; orbits of {R,S}^2 under the C2<->C3 automorphism = {RR, SS, RS} -> 3 (1 meso)."
+      }
+    },
+    "jelet-2024-q078": {
+      "conceptSummary": "Carbolic acid is the old name for phenol, $\\text{C}_{6}\\text{H}_{5}\\text{OH}$: an –OH group bonded directly to a benzene ring.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Identify each structure",
+          "bodyLatex": "(A) $\\text{C}_{6}\\text{H}_{5}\\text{CH}_{2}\\text{COOH}$, phenylacetic acid. (B) 2,4,6-trinitrophenol, picric acid. (C) 2-hydroxybenzoic acid, salicylic acid. (D) $\\text{C}_{6}\\text{H}_{5}\\text{OH}$, phenol."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Molecular formulae",
+          "bodyLatex": "(A) $\\text{C}_{8}\\text{H}_{8}\\text{O}_{2}$, (B) $\\text{C}_{6}\\text{H}_{3}\\text{N}_{3}\\text{O}_{7}$, (C) $\\text{C}_{7}\\text{H}_{6}\\text{O}_{3}$, (D) $\\text{C}_{6}\\text{H}_{6}\\text{O}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Match",
+          "bodyLatex": "Carbolic acid $= \\text{C}_{6}\\text{H}_{6}\\text{O}$, only (D). Picric acid is also acidic but it is a trinitro derivative, not carbolic acid itself."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Molecular graphs rebuilt from fig-2024-q78-opt*.svg: formulas C8H8O2, C6H3N3O7, C7H6O3, C6H6O -> only D is phenol."
+      }
+    },
+    "jelet-2024-q079": {
+      "conceptSummary": "Ammoniacal $\\text{AgNO}_{3}$ (Tollens’ reagent) gives a white precipitate of silver acetylide only with a terminal alkyne $\\text{R–C}\\equiv\\text{C–H}$, which has an acidic $sp$ C–H.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Read each structure",
+          "bodyLatex": "(A) $\\text{CH}_{3}\\text{–C}\\equiv\\text{C–CH=CH}_{2}$: internal triple bond. (B) $\\text{CH}_{3}\\text{–C}\\equiv\\text{C–CH}_{2}\\text{–CH}_{3}$: internal. (C) $\\text{CH}_{3}\\text{–CH=CH–C}\\equiv\\text{CH}$ (cis): terminal $\\equiv$C–H. (D) $\\text{CH}_{3}\\text{–CH=C=CH–CH}_{3}$: an allene, with no triple bond."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Reaction",
+          "bodyLatex": "$\\text{R–C}\\equiv\\text{C–H} + [\\text{Ag(NH}_{3})_{2}]^{+} \\longrightarrow \\text{R–C}\\equiv\\text{C–Ag}\\downarrow$ (white) $+ \\text{NH}_{4}^{+} + \\text{NH}_{3}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Select",
+          "bodyLatex": "Only (C) has a hydrogen on an $sp$ carbon. Alkene and allene C–H bonds are not acidic enough."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Graphs from fig-2024-q79-opt{A,B,C}.svg + condensed (D): only C has a C(sp) with an H -> terminal alkyne."
+      }
+    },
+    "jelet-2024-q080": {
+      "conceptSummary": "Calcium carbide gives acetylene; Kucherov hydration ($\\text{HgSO}_{4}$/dil. $\\text{H}_{2}\\text{SO}_{4}$) gives acetaldehyde; catalytic hydrogenation reduces it to ethanol.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Step 1",
+          "bodyLatex": "$\\text{CaC}_{2} + 2\\text{H}_{2}\\text{O} \\longrightarrow \\text{HC}\\equiv\\text{CH}\\,(\\text{A}) + \\text{Ca(OH)}_{2}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Step 2",
+          "bodyLatex": "$\\text{HC}\\equiv\\text{CH} + \\text{H}_{2}\\text{O} \\xrightarrow{\\text{Hg}^{2+}/\\text{H}^{+}} [\\text{CH}_{2}\\text{=CHOH}] \\longrightarrow \\text{CH}_{3}\\text{CHO}\\,(\\text{B})$, via keto–enol tautomerism."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Step 3",
+          "bodyLatex": "$\\text{CH}_{3}\\text{CHO} + \\text{H}_{2} \\xrightarrow{\\text{Ni}} \\text{CH}_{3}\\text{CH}_{2}\\text{OH}\\,(\\text{C})$, i.e. $\\text{C}_{2}\\text{H}_{6}\\text{O}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) $\\text{C}_{2}\\text{H}_{5}\\text{OH}$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Atom balance solved with SymPy for each step; C = C2H6O = option D."
+      }
+    },
+    "jelet-2024-q081": {
+      "conceptSummary": "For $\\text{BaSO}_{4} \\rightleftharpoons \\text{Ba}^{2+} + \\text{SO}_{4}^{2-}$ the molar solubility is $s$, so $K_{sp} = s^{2}$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Molar solubility",
+          "bodyLatex": "$s = \\dfrac{2.33 \\times 10^{-3}\\ \\text{g L}^{-1}}{233\\ \\text{g mol}^{-1}} = 1 \\times 10^{-5}\\ \\text{mol L}^{-1}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Solubility product",
+          "bodyLatex": "$[\\text{Ba}^{2+}] = [\\text{SO}_{4}^{2-}] = s$, so $K_{sp} = s^{2} = (10^{-5})^{2} = 1 \\times 10^{-10}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Check",
+          "bodyLatex": "(C) is $s$ itself, not $K_{sp}$; (D) would be $s^{4}$; (A) has no basis."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $1 \\times 10^{-10}$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: s = 2.33e-3/233 = 1e-5; Ksp = s^2 = 1e-10."
+      }
+    },
+    "jelet-2024-q082": {
+      "conceptSummary": "Steric number of S $=$ bonded atoms $+$ lone pairs. A steric number of 5 means $sp^{3}d$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Electron count",
+          "bodyLatex": "S has 6 valence electrons. Four go into the S–F bonds, leaving $6 - 4 = 2$ electrons, i.e. one lone pair."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Steric number",
+          "bodyLatex": "$\\text{SN} = 4 + 1 = 5$, or by formula $\\tfrac{1}{2}(6 + 4) = 5$. That is a trigonal-bipyramidal electron arrangement (see-saw shape)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Hybridization",
+          "bodyLatex": "SN 5 means $sp^{3}d$. ($sp^{3}$ = 4, $sp^{3}d^{2}$ = 6, $sp^{2}$ = 3.)"
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $sp^{3}d$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "VSEPR count: SN = (6 + 4)/2 = 5 -> sp3d (option B)."
+      }
+    },
+    "jelet-2024-q083": {
+      "conceptSummary": "Friedel–Crafts condensation of two phenols with phthalic anhydride (conc. $\\text{H}_{2}\\text{SO}_{4}$) gives phenolphthalein. In NaOH it forms the pink dianion.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Condensation",
+          "bodyLatex": "$\\text{C}_{8}\\text{H}_{4}\\text{O}_{3}$ (phthalic anhydride) $+ 2\\,\\text{C}_{6}\\text{H}_{5}\\text{OH} \\xrightarrow{\\text{H}_{2}\\text{SO}_{4}} \\text{C}_{20}\\text{H}_{14}\\text{O}_{4} + \\text{H}_{2}\\text{O}$. Both phenols are attacked at their para positions."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Alkali",
+          "bodyLatex": "In NaOH the lactone opens to the quinonoid dianion, which is pink: this is the indicator phenolphthalein."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Others",
+          "bodyLatex": "Fluorescein ($\\text{C}_{20}\\text{H}_{12}\\text{O}_{5}$) needs resorcinol; alizarin is an anthraquinone dye; methyl orange is an azo dye."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) Phenolphthalein."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Atom balance C8H4O3 + 2 C6H6O - H2O = C20H14O4 = phenolphthalein (fluorescein C20H12O5 does not match)."
+      }
+    },
+    "jelet-2024-q084": {
+      "conceptSummary": "Lone pairs on the central atom $= \\tfrac{1}{2}(\\text{valence electrons} - \\text{electrons used in bonds})$, counting O as a double-bonded (divalent) ligand and H/F as monovalent.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Count each",
+          "bodyLatex": "$\\text{SO}_{2}$: S has 6, uses 4 for two S=O, so 1 lone pair. $\\text{XeF}_{2}$: Xe has 8, uses 2, so 3 lone pairs. $\\text{SiF}_{4}$: Si has 4, uses 4, so 0. $\\text{H}_{2}\\text{S}$: S has 6, uses 2, so 2 lone pairs."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Shapes as a check",
+          "bodyLatex": "$\\text{SO}_{2}$ bent (SN 3), $\\text{XeF}_{2}$ linear (SN 5), $\\text{SiF}_{4}$ tetrahedral (SN 4), $\\text{H}_{2}\\text{S}$ bent (SN 4)."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Select",
+          "bodyLatex": "Only $\\text{SO}_{2}$ has exactly one lone pair on the central atom."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A) $\\text{SO}_{2}$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "VSEPR count: lone pairs = 1, 3, 0, 2 -> only A."
+      }
+    },
+    "jelet-2024-q085": {
+      "conceptSummary": "Bond length falls as MO bond order rises. Bond order $= \\tfrac{1}{2}(N_{b} - N_{a})$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Electron counts",
+          "bodyLatex": "Valence electrons: $\\text{O}_{2}$ 12, $\\text{O}_{2}^{+}$ 11, $\\text{O}_{2}^{-}$ 13, $\\text{O}_{2}^{2-}$ 14. Filling order: $\\sigma_{2s}, \\sigma^{*}_{2s}, \\sigma_{2p_{z}}, \\pi_{2p}, \\pi^{*}_{2p}, \\sigma^{*}_{2p_{z}}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Bond orders",
+          "bodyLatex": "$\\text{O}_{2}$: $(8 - 4)/2 = 2$. $\\text{O}_{2}^{+}$: $(8 - 3)/2 = 2.5$. $\\text{O}_{2}^{-}$: $(8 - 5)/2 = 1.5$. $\\text{O}_{2}^{2-}$: $(8 - 6)/2 = 1$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Bond length",
+          "bodyLatex": "Highest bond order means shortest bond: $\\text{O}_{2}^{+}$ (112 pm) $< \\text{O}_{2}$ (121 pm) $< \\text{O}_{2}^{-}$ (128 pm) $< \\text{O}_{2}^{2-}$ (149 pm)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $\\text{O}_{2}^{+}$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "MO aufbau: bond orders 2, 5/2, 3/2, 1 -> max at O2+ (B)."
+      }
+    },
+    "jelet-2024-q086": {
+      "conceptSummary": "Boric acid is a weak monobasic Lewis acid: $\\text{B(OH)}_{3} + \\text{H}_{2}\\text{O} \\rightleftharpoons [\\text{B(OH)}_{4}]^{-} + \\text{H}^{+}$. A cis-diol such as glycerol binds the borate, so it behaves as a strong acid.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Basicity",
+          "bodyLatex": "Boric acid does not release its own protons. It accepts $\\text{OH}^{-}$ from water, freeing one $\\text{H}^{+}$ per molecule. So it is monobasic: (A) true, (B) false."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Strength",
+          "bodyLatex": "$K_{a} \\approx 5.8 \\times 10^{-10}$ ($\\text{p}K_{a} \\approx 9.2$), so it is a very weak acid: (C) false."
+        },
+        {
+          "stepNumber": 3,
+          "title": "With glycerol",
+          "bodyLatex": "Glycerol (a polyol) forms a stable chelate with $[\\text{B(OH)}_{4}]^{-}$, pulling the equilibrium to the right. The acid then titrates sharply against NaOH (phenolphthalein), like a strong acid: (D) true."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A), (D). All four options evaluated; the true set equals the key AD."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "One H+ per B(OH)3 (Lewis); Ka = 5.8e-10 << 1e-4 (weak); glycerol complex titratable -> {A, D}."
+      }
+    },
+    "jelet-2024-q087": {
+      "conceptSummary": "VSEPR: a central atom with 2 bonded atoms is linear when its steric number is 2 (no lone pairs) or 5 (three equatorial lone pairs).",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Steric numbers",
+          "bodyLatex": "$\\text{O}_{3}$: central O has 2 bonded atoms + 1 lone pair, SN 3, so bent ($\\approx 117^{\\circ}$). $\\text{N}_{3}^{-}$: $[\\text{N=N=N}]^{-}$, central N has 2 bonded atoms + 0 lone pairs, SN 2, so linear. $\\text{I}_{3}^{-}$: central I has 2 bonded atoms + 3 lone pairs, SN 5, so linear. $\\text{CO}_{2}$: O=C=O, SN 2, so linear."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Why $\\text{I}_{3}^{-}$ is linear",
+          "bodyLatex": "The three lone pairs occupy the equatorial positions of the trigonal bipyramid, and the two I atoms sit axially at $180^{\\circ}$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Evaluate all options",
+          "bodyLatex": "(A) bent, false. (B) linear, true. (C) linear, true. (D) linear, true."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B), (C), (D)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "VSEPR SN = 3, 2, 5, 2 with 2 ligands -> bent, linear, linear, linear -> {B, C, D}."
+      }
+    },
+    "jelet-2024-q088": {
+      "conceptSummary": "Sodium liberates $\\text{H}_{2}$ only from compounds with an acidic O–H hydrogen: $2\\text{R–OH} + 2\\text{Na} \\longrightarrow 2\\text{R–ONa} + \\text{H}_{2}$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Structures",
+          "bodyLatex": "Dimethyl ether $\\text{CH}_{3}\\text{OCH}_{3}$: no O–H. Methanol $\\text{CH}_{3}\\text{OH}$: one O–H. Propanoic acid $\\text{CH}_{3}\\text{CH}_{2}\\text{COOH}$: one O–H. Methyl propanoate $\\text{CH}_{3}\\text{CH}_{2}\\text{COOCH}_{3}$: no O–H."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Reactions",
+          "bodyLatex": "$2\\text{CH}_{3}\\text{OH} + 2\\text{Na} \\to 2\\text{CH}_{3}\\text{ONa} + \\text{H}_{2}\\uparrow$; $2\\text{C}_{2}\\text{H}_{5}\\text{COOH} + 2\\text{Na} \\to 2\\text{C}_{2}\\text{H}_{5}\\text{COONa} + \\text{H}_{2}\\uparrow$. The ether and the ester have only C–H bonds, which do not react."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Evaluate all options",
+          "bodyLatex": "(A) false, (B) true, (C) true, (D) false."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B), (C)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Graphs: O–H count 0, 1, 1, 0 -> {B, C}."
+      }
+    },
+    "jelet-2024-q089": {
+      "conceptSummary": "The iodoform test ($\\text{I}_{2}$/NaOH gives yellow $\\text{CHI}_{3}$) is positive for $\\text{CH}_{3}\\text{–CO–R}$ (R = H or C) and for $\\text{CH}_{3}\\text{–CH(OH)–R}$, which is oxidised to such a carbonyl.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "(A) and (C)",
+          "bodyLatex": "$\\text{CH}_{3}\\text{OH}$ has no $\\text{CH}_{3}$–C unit, so negative. $\\text{CH}_{3}\\text{CH}_{2}\\text{OH}$ is $\\text{CH}_{3}\\text{–CH(OH)–H}$, which is oxidised to $\\text{CH}_{3}\\text{CHO}$, so positive."
+        },
+        {
+          "stepNumber": 2,
+          "title": "(B) and (D)",
+          "bodyLatex": "(B) is methyl benzoate, $\\text{C}_{6}\\text{H}_{5}\\text{–CO–OCH}_{3}$: its $\\text{CH}_{3}$ is on O, not on the carbonyl carbon (an ester), so negative. (D) is acetophenone, $\\text{C}_{6}\\text{H}_{5}\\text{–CO–CH}_{3}$, a methyl ketone, so positive."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Reaction",
+          "bodyLatex": "$\\text{C}_{6}\\text{H}_{5}\\text{COCH}_{3} + 3\\text{I}_{2} + 4\\text{NaOH} \\to \\text{C}_{6}\\text{H}_{5}\\text{COONa} + \\text{CHI}_{3}\\downarrow + 3\\text{NaI} + 3\\text{H}_{2}\\text{O}$."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C), (D). All four options evaluated; the true set equals the key CD."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Graphs (SVG for B, D; condensed for A, C): CH3–C(=O)–(C/H) or CH3–CH(OH) present only in C, D."
+      }
+    },
+    "jelet-2024-q090": {
+      "conceptSummary": "An alcohol is optically active when it has a carbon with four different groups (a chiral centre) and no internal mirror plane.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Draw each",
+          "bodyLatex": "(A) 2-butanol $\\text{CH}_{3}\\text{–CH(OH)–CH}_{2}\\text{CH}_{3}$. (B) 2-methyl-2-butanol $(\\text{CH}_{3})_{2}\\text{C(OH)–CH}_{2}\\text{CH}_{3}$. (C) 3-methyl-2-butanol $\\text{CH}_{3}\\text{–CH(OH)–CH(CH}_{3})_{2}$. (D) 3-pentanol $\\text{CH}_{3}\\text{CH}_{2}\\text{–CH(OH)–CH}_{2}\\text{CH}_{3}$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Chiral centres",
+          "bodyLatex": "(A) C-2: H, OH, $\\text{CH}_{3}$, $\\text{C}_{2}\\text{H}_{5}$, all different, so chiral. (B) C-2 carries two $\\text{CH}_{3}$, so not chiral. (C) C-2: H, OH, $\\text{CH}_{3}$, $\\text{CH(CH}_{3})_{2}$, so chiral (C-3 carries two $\\text{CH}_{3}$). (D) C-3 carries two $\\text{C}_{2}\\text{H}_{5}$, so not chiral."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Evaluate all options",
+          "bodyLatex": "(A) true, (B) false, (C) true, (D) false. All four are saturated alcohols."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A), (C)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Graphs built from the IUPAC names; canonical branch codes give a 4-distinct-group carbon only in A and C."
+      }
+    },
+    "jelet-2024-q091": {
+      "conceptSummary": "At steady deflection the deflecting torque equals the spring torque: $NBAI = k\\theta$, so $N = \\dfrac{k\\theta}{BAI}$ with $\\theta$ in radians.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Data in SI",
+          "bodyLatex": "$k = 0.28 \\times 10^{-6}$ N m/rad, $\\theta = 60^{\\circ} = \\pi/3$ rad, $B = 3.6 \\times 10^{-3}$ Wb/m$^{2}$, $A = 7.2 \\times 10^{-4}$ m$^{2}$, $I = 10^{-2}$ A."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Compute",
+          "bodyLatex": "$N = \\dfrac{0.28 \\times 10^{-6} \\times 1.0472}{3.6 \\times 10^{-3} \\times 7.2 \\times 10^{-4} \\times 10^{-2}} = \\dfrac{2.932 \\times 10^{-7}}{2.592 \\times 10^{-8}} = 11.3$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Round",
+          "bodyLatex": "The number of turns is an integer, so $N \\approx 11$. Using $\\theta = 60$ in degrees would wrongly give about 648."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (D) $11$."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: N = k(pi/3)/(BAI) = 11.31 -> 11."
+      }
+    },
+    "jelet-2024-q092": {
+      "conceptSummary": "Leakage flux is set up by each winding’s own mmf, $NI$, acting over the air (leakage) paths, so it is proportional to the winding current, i.e. to the load current.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Mutual flux",
+          "bodyLatex": "$\\phi_{m} \\approx \\dfrac{V}{4.44 f N}$: fixed by the applied voltage and frequency, and nearly independent of load."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Leakage flux",
+          "bodyLatex": "$\\phi_{\\ell} = \\dfrac{N I}{\\mathcal{R}_{\\ell}}$, where $\\mathcal{R}_{\\ell}$ is the (constant, air-path) leakage reluctance. It rises in proportion to $I$, which follows the load."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Eliminate",
+          "bodyLatex": "(A), (C) and (D) govern the mutual (core) flux, not the leakage flux."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) load current."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: free symbols of phi_l = N I / R_l -> {I} (load current); phi_m depends on V, f only."
+      }
+    },
+    "jelet-2024-q093": {
+      "conceptSummary": "A single-phase motor needs two time-displaced currents in space-displaced windings. With identical windings this time displacement must come from a capacitor in the starting (auxiliary) branch, while the main winding stays directly across the supply.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "No phase split",
+          "bodyLatex": "Identical windings across the same supply draw identical, in-phase currents, so $T_{st} \\propto I_{m}I_{a}\\sin\\alpha = 0$. (C), a capacitor across the supply, changes the line current but not the winding currents, so $\\alpha = 0$. (D), the windings in series, carry the same current, so $\\alpha = 0$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Capacitor in series with one winding",
+          "bodyLatex": "$Z_{a} = R + jX - jX_{C}$ makes $I_{a}$ lead $I_{m}$ by $\\alpha \\ne 0$, giving a rotating field and starting torque."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Which winding",
+          "bodyLatex": "The main (running) winding must carry the full running current directly from the supply, so the capacitor goes in series with the auxiliary winding. That is the capacitor-start or capacitor-run motor."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) a capacitor in series with the auxiliary winding."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "Phasors: alpha = 0 for C, D; alpha != 0 with a series capacitor; main winding direct on supply -> B (interpretation note logged)."
+      }
+    },
+    "jelet-2024-q094": {
+      "conceptSummary": "Each cell fixes the voltage difference across it (no current flows, since V$_{1}$ and V$_{2}$ are open terminals). Walk from the known terminals 10 V and 2 V through the cells.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Lower junction",
+          "bodyLatex": "The 10 V terminal is wired straight to the lower junction, so $V_{L} = 10$ V."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Upper junction and E",
+          "bodyLatex": "The 8 V cell from the 2 V terminal has its $+$ (long) plate towards the junction, so $V_{U} = 2 + 8 = 10$ V. Cell E ($+$ on top) gives $E = V_{U} - V_{L} = 10 - 10 = 0$ V."
+        },
+        {
+          "stepNumber": 3,
+          "title": "V$_{1}$ and V$_{2}$",
+          "bodyLatex": "The 4 V cell has $+$ towards V$_{1}$: $V_{1} = V_{U} + 4 = +14$ V. The lower 8 V cell has $+$ towards the junction: $V_{2} = V_{L} - 8 = 2$ V."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C) $V_{1} = +14$ V, $V_{2} = 2$ V, $E = 0$ V."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SVG netlist: 4 cells (polarity from plate lengths) + terminals 2 V, 10 V; SymPy linear solve -> V1 = 14, V2 = 2, E = 0."
+      }
+    },
+    "jelet-2024-q095": {
+      "conceptSummary": "In phasor form $\\mathbf{I} = \\mathbf{V}/(j\\omega L)$: the current lags the voltage by $90^{\\circ}$ and has amplitude $V_{m}/(\\omega L)$.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Reactance",
+          "bodyLatex": "$\\omega = 40$ rad/s, so $X_{L} = \\omega L = 40 \\times 0.5 = 20\\ \\Omega$."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Phasor",
+          "bodyLatex": "$\\mathbf{I} = \\dfrac{5\\angle 60^{\\circ}}{20\\angle 90^{\\circ}} = 0.25\\angle -30^{\\circ}$ A."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Time domain",
+          "bodyLatex": "$i(t) = 0.25\\cos(40t - 30^{\\circ})$ A. (B) has the wrong sign of the lag, (A) uses $V\\omega L$ instead of $V/(\\omega L)$, and (D) has no lag."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C)."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SymPy: 5 e^{j60°}/(j·20) = 0.25 e^{-j30°}; also L di/dt = v checked symbolically."
+      }
+    },
+    "jelet-2024-q096": {
+      "conceptSummary": "Assume a state for each ideal diode (on = short, off = open), solve the circuit, and keep the only state consistent with $I_{D} \\ge 0$ for on diodes and $V_{AK} \\le 0$ for off diodes.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Read the circuit",
+          "bodyLatex": "Take the bottom rail as 0 V. The 10 V cell ($+$ up) holds the left top node at $+10$ V. The 15 V cell has its $+$ plate at the bottom, so the right top node is at $-15$ V. D$_{2}$ points left: its anode is at the $-15$ V node, its cathode on the 10 k$\\Omega$ from node X."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Test D$_{1}$ on, D$_{2}$ off",
+          "bodyLatex": "Then $V_{X} = 10$ V and the 20 k$\\Omega$ divider carries $10/20\\text{k} = 0.5$ mA $> 0$ through D$_{1}$, which is consistent. D$_{2}$: $V_{AK} = -15 - 10 = -25$ V $< 0$, so it is off. Consistent."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Other states fail",
+          "bodyLatex": "With D$_{2}$ on, its cathode would sit at $-15$ V, so current would flow from node X through the 10 k$\\Omega$ into the cathode, i.e. in reverse through D$_{2}$, which is impossible. With D$_{1}$ off, $V_{X} \\le 0$ makes $V_{AK1} = 10 - V_{X} > 0$, a contradiction. So $V_{o} = 10 \\times \\dfrac{10}{10 + 10} = 5$ V."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $5$ V."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SVG netlist: 4 diode states solved by MNA; unique consistent state D1 on, D2 off -> Vo = 5 V."
+      }
+    },
+    "jelet-2024-q097": {
+      "conceptSummary": "Ideal op-amp with negative feedback: $V_{-} = V_{+} = 0$ (virtual ground) and no input current, so the source current must flow through the feedback resistor.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Virtual ground",
+          "bodyLatex": "The $+$ input is grounded, so $V_{-} = 0$. The 1 k$\\Omega$ then has 0 V across it and carries no current."
+        },
+        {
+          "stepNumber": 2,
+          "title": "KCL at the $-$ input",
+          "bodyLatex": "The 100 mA source pushes $0.1$ A into the node, and all of it leaves through the 100 $\\Omega$ towards $V_{o}$: $\\dfrac{0 - V_{o}}{100} = 0.1$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Output",
+          "bodyLatex": "$V_{o} = -0.1 \\times 100 = -10$ V. (A) would follow if the 1 k$\\Omega$ were wrongly given 10 mA."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (B) $-10$ V."
+        }
+      ],
+      "verification": {
+        "method": "sympy",
+        "verifiedAt": "2026-11-23",
+        "note": "SVG netlist + MNA with ideal op-amp (V+ = V-): Vo = -10 V."
       }
     },
     "jelet-2024-q098": {
-      "conceptSummary": "OP-AMP configurations and phase.",
+      "conceptSummary": "A NAND output is 0 only when every input is 1. So we need XNOR(A, B) = 1, XOR(B, C) = 1 and C = 1.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Non-inverting",
-          "bodyLatex": "Output in phase with input (0° difference)."
+          "title": "Conditions",
+          "bodyLatex": "$C = 1$. $B \\oplus C = 1 \\Rightarrow B = 0$. $\\overline{A \\oplus B} = 1 \\Rightarrow A = B = 0$."
         },
         {
           "stepNumber": 2,
+          "title": "Truth-table check",
+          "bodyLatex": "$X = \\overline{\\overline{(A \\oplus B)}\\,(B \\oplus C)\\,C}$. Over all 8 inputs, $X = 0$ only at $(A, B, C) = (0, 0, 1)$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Options",
+          "bodyLatex": "(A) $1,1,1$: $B \\oplus C = 0$, so $X = 1$. (B) $1,0,1$: XNOR$(1,0) = 0$, so $X = 1$. (C) $0,1,1$: XNOR $= 0$, so $X = 1$. (D) $0,0,1$: $X = 0$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B) Non-inverting amplifier."
+          "bodyLatex": "Answer: (D) $0, 0, 1$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "OP-AMP."
+        "note": "SVG gate netlist evaluated over 8 inputs: X = 0 only for (0,0,1)."
       }
     },
     "jelet-2024-q099": {
-      "conceptSummary": "Boolean algebra simplification.",
+      "conceptSummary": "Write both as cosines with positive amplitude, then subtract the phase angles.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Expand",
-          "bodyLatex": "$(A+B)(A+B') + A' = A + AB' + BA + BB' + A' = A + A' + A(B'+B) + 0 = 1 + A = 1$."
+          "title": "Convert $v_{1}$",
+          "bodyLatex": "$v_{1} = -10\\cos(\\omega t + 40^{\\circ}) = 10\\cos(\\omega t + 40^{\\circ} - 180^{\\circ}) = 10\\cos(\\omega t - 140^{\\circ})$."
         },
         {
           "stepNumber": 2,
+          "title": "Convert $v_{2}$",
+          "bodyLatex": "$v_{2} = 8\\sin(\\omega t - 20^{\\circ}) = 8\\cos(\\omega t - 20^{\\circ} - 90^{\\circ}) = 8\\cos(\\omega t - 110^{\\circ})$."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Phase difference",
+          "bodyLatex": "$\\theta_{1} - \\theta_{2} = -140^{\\circ} - (-110^{\\circ}) = -30^{\\circ}$: $v_{1}$ lags $v_{2}$ by $30^{\\circ}$, so the phase angle between them is $30^{\\circ}$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Answer: (B) $1$."
+          "bodyLatex": "Answer: (A) $30^{\\circ}$."
         }
       ],
       "verification": {
         "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Boolean algebra verified."
+        "note": "SymPy: phasors 10∠-140°, 8∠-110°; angle difference = -30° (|30°|)."
       }
     },
     "jelet-2024-q100": {
-      "conceptSummary": "Logic gate combination analysis.",
+      "conceptSummary": "With the motor delivering constant power (the textbook reading of this item), $P = T\\omega$ is fixed, so the torque varies inversely with speed.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Analyze",
-          "bodyLatex": "NAND + NOT combination."
+          "title": "Power",
+          "bodyLatex": "$P = T\\omega = 120 \\times 2\\pi \\times 20 = 4800\\pi \\approx 15.08$ kW."
         },
         {
           "stepNumber": 2,
+          "title": "Torque at 30 rps",
+          "bodyLatex": "$T_{2} = \\dfrac{P}{2\\pi \\times 30} = 120 \\times \\dfrac{20}{30} = 80$ N m."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Note",
+          "bodyLatex": "Torque would stay at 120 N m only with constant flux and current. The key assumes constant power, so $T \\propto 1/N$."
+        },
+        {
+          "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): AND Gate. Answer: (B)."
+          "bodyLatex": "Answer: (C) $80$ N m."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Key B."
+        "note": "SymPy: T2 = T1·n1/n2 = 80 under constant P = Tω (interpretation note logged)."
       }
     }
   }

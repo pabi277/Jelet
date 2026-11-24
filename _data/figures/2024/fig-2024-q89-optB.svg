@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 96" width="130" height="96" role="img" aria-label="Option (B): methyl benzoate, C6H5–CO–OCH3">
+  <rect x="0" y="0" width="130" height="96" fill="transparent"/>
+  <g data-struct="OCH3">
+  <line x1="32.0" y1="42.0" x2="51.05" y2="53.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="51.05" y1="53.0" x2="51.05" y2="75.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="47.85" y1="56.52" x2="47.85" y2="71.48" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="51.05" y1="75.0" x2="32.0" y2="86.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="32.0" y1="86.0" x2="12.95" y2="75.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="30.55" y1="81.47" x2="17.6" y2="73.99" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="12.95" y1="75.0" x2="12.95" y2="53.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="12.95" y1="53.0" x2="32.0" y2="42.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="17.6" y1="54.01" x2="30.55" y2="46.53" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="51.05" y1="53.0" x2="70.1" y2="42.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="70.1" y1="42.0" x2="70.1" y2="24.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="73.5" y1="40.2" x2="73.5" y2="25.8" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <line x1="70.1" y1="42.0" x2="85.69" y2="51.0" stroke="var(--fig-line)" stroke-width="1.1"/>
+  <text x="65.41" y="20.5" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">O</text>
+  <text x="87.69" y="59.5" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">OCH<tspan dy="3.9" font-size="9.4">3</tspan></text>
+  </g>
+</svg>

@@ -398,68 +398,6 @@ def fig_2024_q70():
     return svg_plain(220, 140, body, "2024 Q70: " + "P–V diagram; two adiabatic curves from the same point, gas 1 falling more steeply than gas 2")
 
 
-def fig_2024_q94():
-    """power supply block diagram."""
-    body = ""
-    body += label(40, 30, "Power supply", 10)
-    body += f'  <rect x="40" y="60" width="160" height="70" fill="none" stroke="var(--fig-primary)" stroke-width="2" rx="5"/>\n'
-    body += label(120, 95, "Power Supply", 12, "var(--fig-text)", "middle")
-    body += arrow(100, 130, 100, 160, stroke="var(--fig-axis)", sw=1.5)
-    body += arrow(140, 160, 140, 130, stroke="var(--fig-axis)", sw=1.5)
-    body += label(100, 175, "load", 9, "var(--fig-axis)", "middle")
-    body += label(140, 175, "input", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 180, body, "2024 Q94: Power supply")
-
-def fig_2024_q96():
-    """series-parallel resistor/AC circuit."""
-    body = ""
-    body += label(40, 30, "AC circuit", 10)
-    body += circle(60, 100, 12, stroke="var(--fig-primary)", sw=2)
-    body += label(60, 105, "R₁", 9, "var(--fig-text)", "middle")
-    body += circle(110, 100, 12, stroke="var(--fig-primary)", sw=2)
-    body += label(110, 105, "L₁", 9, "var(--fig-text)", "middle")
-    body += circle(160, 100, 12, stroke="var(--fig-primary)", sw=2)
-    body += label(160, 105, "R₂", 9, "var(--fig-text)", "middle")
-    body += line(40, 100, 50, 100); body += line(70, 100, 95, 100); body += line(120, 100, 145, 100); body += line(170, 100, 190, 100)
-    body += label(40, 90, "I₁", 9, "var(--fig-text)", "middle")
-    body += label(105, 90, "I₂", 9, "var(--fig-text)", "middle")
-    body += label(195, 100, "I", 10, "var(--fig-text)")
-    return svg_wrap(240, 140, body, "2024 Q96: AC circuit")
-
-def fig_2024_q97():
-    """transistor symbol."""
-    body = ""
-    body += label(40, 30, "PNP Transistor", 10)
-    # base vertical
-    body += line(100, 60, 100, 140, stroke="var(--fig-primary)", sw=2)
-    # emitter arrow pointing in
-    body += line(100, 80, 60, 60, stroke="var(--fig-danger)", sw=2)
-    body += f'  <polygon points="60,60 72,55 72,65" fill="var(--fig-danger)"/>\n'
-    body += line(100, 110, 60, 120, stroke="var(--fig-danger)", sw=2)
-    body += f'  <polygon points="60,120 72,115 72,125" fill="var(--fig-danger)"/>\n'
-    # collector
-    body += line(100, 70, 140, 50, stroke="var(--fig-secondary)", sw=2)
-    body += line(100, 130, 140, 150, stroke="var(--fig-secondary)", sw=2)
-    body += label(55, 75, "E", 10, "var(--fig-danger)")
-    body += label(55, 135, "E", 10, "var(--fig-danger)")
-    body += label(105, 50, "B", 10, "var(--fig-text)")
-    body += label(145, 50, "C", 10, "var(--fig-secondary)")
-    return svg_wrap(240, 170, body, "2024 Q97: PNP transistor")
-
-def fig_2024_q98():
-    """op-amp triangle."""
-    body = ""
-    body += label(40, 30, "Op-Amp", 10)
-    body += polyline("40,100 150,100 190,70 190,130 150,100", stroke="var(--fig-primary)", sw=2)
-    body += label(150, 95, "−", 14, "var(--fig-text)", "middle")
-    body += label(150, 120, "+", 14, "var(--fig-text)", "middle")
-    body += label(160, 115, "op-amp", 9, "var(--fig-axis)", "middle")
-    body += line(20, 100, 40, 100, stroke="var(--fig-axis)")
-    body += line(190, 100, 210, 100, stroke="var(--fig-axis)")
-    body += label(20, 90, "in", 9, "var(--fig-axis)", "middle")
-    body += label(215, 90, "out", 9, "var(--fig-axis)", "middle")
-    return svg_wrap(240, 150, body, "2024 Q98: Op-Amp")
-
 # ---- 2025 figures ----
 
 def mlabel(x, y, text, size=12, italic=False, anchor="middle", color="var(--fig-text)"):
@@ -1085,6 +1023,260 @@ def fig_2025_q100():
     return svg_plain(380, 180, b, "2025 Q100: three-NAND logic circuit with inputs A, B and output Y")
 
 
+
+# ---------------------------------------------------------------------------
+# JELET 2024 Batch C (Chemistry Q71–Q90, FEEE Q91–Q100): faithful redraws of the Set-A booklet
+# figures (pp. 20–23, read at 180 DPI with 300/600-DPI crops).  Chemistry option structures are
+# skeletal/Kekulé drawings: every bond is one or more <line>s (an inner shorter line for a
+# double bond, three parallel lines for a triple bond) and hetero groups are formula labels, so
+# scripts/verify_solutions_sympy.py can rebuild the molecular graph from geometry alone.
+# Circuits: wires are <line>s; component bodies (cell plates, diode bars, resistor zig-zags,
+# op-amp/gate outlines) are <path>/<polyline>/<polygon> inside <g data-comp/data-gate> groups
+# with their pin coordinates, so the verifier can rebuild the netlist and solve it.
+# Helpers carry a _c24 prefix (flat namespace).  Colours: var(--fig-*) tokens only.
+# ---------------------------------------------------------------------------
+
+def _c24_ln(p, q, sw=1.1):
+    return line(round(p[0], 2), round(p[1], 2), round(q[0], 2), round(q[1], 2), stroke="var(--fig-line)", sw=sw)
+
+def _c24_bond(p, q, order=1, side=1, trim=0.16, gap=3.2):
+    """Skeletal bond p–q: 1 = one line; 2 = main line + shorter inner line on `side`; 3 = three parallel lines."""
+    if order == 1:
+        return _c24_ln(p, q)
+    if order == 2:
+        return _skel_db((round(p[0], 2), round(p[1], 2)), (round(q[0], 2), round(q[1], 2)), side=side, gap=gap, trim=trim)
+    L = _m.hypot(q[0] - p[0], q[1] - p[1]); nx, ny = -(q[1] - p[1])/L, (q[0] - p[0])/L
+    return "".join(_c24_ln((p[0] + o*nx, p[1] + o*ny), (q[0] + o*nx, q[1] + o*ny)) for o in (-2.8, 0, 2.8))
+
+def _c24_ring(cx, cy, r, doubles):
+    """Benzene ring, vertex at top. Vertices v0 (top) clockwise; edge k joins v_k–v_(k+1).
+    `doubles` lists the edges carrying the inner (Kekulé) line, drawn towards the centre."""
+    v = [(round(cx + r*_m.sin(_m.radians(60*k)), 2), round(cy - r*_m.cos(_m.radians(60*k)), 2)) for k in range(6)]
+    b = "".join(_c24_bond(v[k], v[(k + 1) % 6], 2 if k in doubles else 1, side=1) for k in range(6))
+    return b, v
+
+def _c24_dir(p, ang, L=22):
+    """Point at distance L from p in screen direction `ang` degrees (0 = right, 90 = up)."""
+    return (round(p[0] + L*_m.cos(_m.radians(ang)), 2), round(p[1] - L*_m.sin(_m.radians(ang)), 2))
+
+def _c24_struct(tag, body, w, h, aria):
+    return svg_plain(w, h, f'  <g data-struct="{tag}">\n{body}  </g>\n', aria)
+
+KEK_78 = (0, 2, 4)
+
+def fig_2024_q78_optA():
+    """Phenylacetic acid as printed: ring, vertical bond up to CH2 vertex, then up-right to COOH."""
+    b, v = _c24_ring(40, 80, 22, KEK_78)
+    c = _c24_dir(v[0], 90, 20); e = _c24_dir(c, 30, 20)
+    b += _c24_bond(v[0], c) + _c24_bond(c, e) + chem(e[0] + 2.5, e[1] + 4.3, "COOH", 13, anchor="start")
+    return _c24_struct("A", b, 104, 108, "Option (A): phenylacetic acid, ring–CH2–COOH")
+
+def fig_2024_q78_optB():
+    """Picric acid as printed: OH on top, O2N upper-left, NO2 upper-right, NO2 at the bottom."""
+    b, v = _c24_ring(70, 72, 22, KEK_78)
+    o = _c24_dir(v[0], 90, 18); l = _c24_dir(v[5], 150, 18); r = _c24_dir(v[1], 30, 18); d = _c24_dir(v[3], -90, 18)
+    b += _c24_bond(v[0], o) + _c24_bond(v[5], l) + _c24_bond(v[1], r) + _c24_bond(v[3], d)
+    b += chem(o[0], o[1] - 3.5, "OH", 13) + chem(l[0] - 2.5, l[1] + 4.3, "O2N", 13, anchor="end")
+    b += chem(r[0] + 2.5, r[1] + 4.3, "NO2", 13, anchor="start") + chem(d[0], d[1] + 13.5, "NO2", 13)
+    return _c24_struct("B", b, 140, 132, "Option (B): picric acid, 2,4,6-trinitrophenol")
+
+def fig_2024_q78_optC():
+    """Salicylic acid as printed: OH on top, COOH on the adjacent upper-right carbon."""
+    b, v = _c24_ring(40, 74, 22, KEK_78)
+    o = _c24_dir(v[0], 90, 18); r = _c24_dir(v[1], 30, 18)
+    b += _c24_bond(v[0], o) + _c24_bond(v[1], r)
+    b += chem(o[0], o[1] - 3.5, "OH", 13) + chem(r[0] + 2.5, r[1] + 4.3, "COOH", 13, anchor="start")
+    return _c24_struct("C", b, 116, 104, "Option (C): salicylic acid, 2-hydroxybenzoic acid")
+
+def fig_2024_q78_optD():
+    """Phenol as printed: OH on the top carbon."""
+    b, v = _c24_ring(34, 70, 22, KEK_78)
+    o = _c24_dir(v[0], 90, 18)
+    b += _c24_bond(v[0], o) + chem(o[0], o[1] - 3.5, "OH", 13)
+    return _c24_struct("D", b, 70, 100, "Option (D): phenol")
+
+def _c24_q79_chain(tail):
+    """H3C–C≡C– drawn as one straight line (sp carbons are collinear), then the printed tail."""
+    y = 21.7
+    b = chem(6, 26, "H3C", 13, anchor="start")
+    p0, c1, c2, c3 = (31.5, y), (58, y), (98, y), (124, y)
+    b += _c24_bond(p0, c1) + _c24_bond(c1, c2, 3) + _c24_bond(c2, c3)
+    c4 = _c24_dir(c3, -60, 22)
+    if tail == "ene":
+        b += _c24_bond(c3, c4, 2, side=1, trim=0.1)
+    else:
+        b += _c24_bond(c3, c4) + chem(c4[0] - 3, c4[1] + 13.5, "CH3", 13, anchor="start")
+    return b
+
+def fig_2024_q79_optA():
+    return _c24_struct("A", _c24_q79_chain("ene"), 150, 50, "Option (A): H3C–C≡C–CH=CH2 (pent-1-en-3-yne), skeletal")
+
+def fig_2024_q79_optB():
+    return _c24_struct("B", _c24_q79_chain("ane"), 160, 62, "Option (B): H3C–C≡C–CH2–CH3 (pent-2-yne), skeletal")
+
+def fig_2024_q79_optC():
+    """cis CH3–CH=CH–C≡CH as printed: CH3 below the first alkene carbon; the C–C≡C run is one straight line."""
+    v1 = (16, 46); v2 = _c24_dir(v1, 30, 22); c4 = _c24_dir(v2, -30, 22); c5 = _c24_dir(c4, -30, 24)
+    b = chem(16, 80, "CH3", 13) + _c24_bond((16, 68.5), v1)
+    b += _c24_bond(v1, v2, 2, side=-1, trim=0.12) + _c24_bond(v2, c4) + _c24_bond(c4, c5, 3)
+    return _c24_struct("C", b, 86, 88, "Option (C): cis CH3–CH=CH–C≡CH (pent-3-en-1-yne), skeletal")
+
+KEK_89 = (1, 3, 5)
+
+def _c24_q89(group, aria):
+    b, v = _c24_ring(32, 64, 22, KEK_89)
+    c = _c24_dir(v[1], 30, 22); o = _c24_dir(c, 90, 18); e = _c24_dir(c, -30, 18)
+    b += _c24_bond(v[1], c) + _c24_bond(c, o, 2, side=1, trim=0.1, gap=3.4) + _c24_bond(c, e)
+    b += chem(o[0], o[1] - 3.5, "O", 13) + chem(e[0] + 2, e[1] + 8.5, group, 13, anchor="start")
+    return _c24_struct(group, b, 130, 96, aria)
+
+def fig_2024_q89_optB():
+    return _c24_q89("OCH3", "Option (B): methyl benzoate, C6H5–CO–OCH3")
+
+def fig_2024_q89_optD():
+    return _c24_q89("CH3", "Option (D): acetophenone, C6H5–CO–CH3")
+
+# ---- circuits ----
+def _c24_w(p, q):
+    return line(round(p[0], 2), round(p[1], 2), round(q[0], 2), round(q[1], 2), stroke="var(--fig-line)", sw=1.4)
+
+def _c24_plate(c, d, half):
+    """Cell plate: a <path> segment of half-length `half` through c, perpendicular to unit direction d."""
+    nx, ny = -d[1], d[0]
+    return (f'  <path d="M {round(c[0] - half*nx, 2)},{round(c[1] - half*ny, 2)} L {round(c[0] + half*nx, 2)},{round(c[1] + half*ny, 2)}" '
+            f'stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>\n')
+
+def _c24_cell(p, q, pos, gap=6, long=11, short=6):
+    """Cell on the wire p→q, centred at the midpoint: long plate (+) on the `pos` side ('p' or 'q').
+    Pins are the two plate centres; wires run from p and q to them."""
+    L = _m.hypot(q[0] - p[0], q[1] - p[1]); d = ((q[0] - p[0])/L, (q[1] - p[1])/L)
+    m = ((p[0] + q[0])/2, (p[1] + q[1])/2)
+    a = (round(m[0] - d[0]*gap/2, 2), round(m[1] - d[1]*gap/2, 2)); z = (round(m[0] + d[0]*gap/2, 2), round(m[1] + d[1]*gap/2, 2))
+    la, lz = (long, short) if pos == "p" else (short, long)
+    g = (f'  <g data-comp="cell" data-pins="{a[0]},{a[1]} {z[0]},{z[1]}">\n'
+         + _c24_plate(a, d, la) + _c24_plate(z, d, lz) + '  </g>\n')
+    return _c24_w(p, a) + g + _c24_w(z, q)
+
+def fig_2024_q94():
+    """Y network of cells exactly as printed (polarity from the 600-DPI plate crops: long plate = +)."""
+    U, Lo = (150, 112), (150, 176)
+    V1, T2, V2, T10 = (86, 46), (226, 34), (70, 236), (222, 236)
+    b = _c24_cell(V1, U, "p") + _c24_cell(U, T2, "p") + _c24_cell(U, Lo, "p") + _c24_cell(V2, Lo, "q") + _c24_w(Lo, T10)
+    b += dot(*V1, r=3.2) + dot(*T2, r=3.2) + dot(*V2, r=3.2) + dot(*T10, r=3.2)
+    b += _p24_sub(76, 34, "V", "1", 14, italic=False) + mlabel(234, 38, "2V", 14, anchor="start")
+    b += mlabel(102, 98, "4 V", 14, anchor="end") + mlabel(207, 74, "8 V", 14, anchor="start")
+    b += mlabel(162, 149, "E", 14, anchor="start") + mlabel(98, 196, "8 V", 14, anchor="end")
+    b += _p24_sub(62, 258, "V", "2", 14, italic=False) + mlabel(230, 241, "10 V", 14, anchor="start")
+    return svg_plain(290, 266, b, "2024 Q94: Y network of cells 4 V, 8 V, E and 8 V between terminals V1, 2V, V2 and 10 V")
+
+def _c24_diode(p, q):
+    """Diode on a horizontal wire p→q with the triangle pointing from p (anode) to q (cathode)."""
+    x1, x2, y = p[0], q[0], p[1]
+    s = 1 if x2 > x1 else -1
+    bx, tx = (x1 + x2)/2 - s*7, (x1 + x2)/2 + s*7
+    return (f'  <g data-comp="D" data-pins="{x1},{y} {x2},{y}">\n'
+            f'  <polygon points="{bx},{y - 8} {bx},{y + 8} {tx},{y}" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n'
+            f'  <path d="M {tx},{y - 8} L {tx},{y + 8}" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>\n  </g>\n')
+
+def _c24_res(p, q, n=4, amp=5):
+    """Resistor group between pins p, q (horizontal or vertical zig-zag polyline)."""
+    if p[1] == q[1]:
+        z = _resistor(p[0], q[0], p[1], n, amp)
+    else:
+        step = (q[1] - p[1])/(2*n); pts = [p]
+        for k in range(2*n):
+            pts.append((p[0] + (amp if k % 2 == 0 else -amp), round(p[1] + step*(k + 0.5), 2)))
+        pts.append(q)
+        z = polyline(" ".join(f"{a},{b}" for a, b in pts), stroke="var(--fig-line)", sw=1.3)
+    return f'  <g data-comp="R" data-pins="{p[0]},{p[1]} {q[0]},{q[1]}">\n{z}  </g>\n'
+
+def fig_2024_q96():
+    """Two-diode circuit as printed: 10 V (+ up) → D1 (→) → node X → 10 kΩ → D2 (←) → 15 V (+ down);
+    X → 10 kΩ → Vo tap → 10 kΩ → bottom rail."""
+    xl, xr, yt, yb, xX = 40, 330, 40, 214, 170
+    W = _c24_w
+    b = _c24_cell((xl, yb), (xl, yt), "q")                                   # + plate towards the top wire
+    b += W((xl, yt), (104, yt)) + _c24_diode((104, yt), (126, yt)) + W((126, yt), (xX, yt))
+    b += W((xX, yt), (194, yt)) + _c24_res((194, yt), (242, yt)) + W((242, yt), (264, yt))
+    b += _c24_diode((286, yt), (264, yt)) + W((286, yt), (xr, yt))
+    b += W((xr, yt), (xr, 96)) + _c24_cell((xr, 96), (xr, 112), "q") + W((xr, 112), (xr, yb))
+    b += W((xX, yt), (xX, 62)) + _c24_res((xX, 62), (xX, 112)) + W((xX, 112), (xX, 132))
+    b += W((xX, 132), (xX, 156)) + _c24_res((xX, 156), (xX, 204)) + W((xX, 204), (xX, yb))
+    b += W((xX, 132), (246, 132)) + circle(249.5, 132, 3.5, stroke="var(--fig-line)", sw=1.3, fill="none")
+    b += W((xl, yb), (xr, yb))
+    b += _p24_sub(108, 24, "D", "1", 14, italic=False) + _p24_sub(266, 24, "D", "2", 14, italic=False)
+    b += mlabel(218, 25, "10 kΩ", 13) + mlabel(184, 92, "10 kΩ", 13, anchor="start") + mlabel(184, 186, "10 kΩ", 13, anchor="start")
+    b += mlabel(54, 132, "10 V", 13, anchor="start") + mlabel(344, 108, "15 V", 13, anchor="start")
+    b += _p24_sub(258, 137, "V", "o", 14, italic=False)
+    return svg_plain(390, 230, b, "2024 Q96: 10 V cell, D1, 10 kΩ, D2 and 15 V cell in a loop, with a 10 kΩ + 10 kΩ divider from the D1 node giving Vo")
+
+def _c24_ground(x, y):
+    g = f'  <g data-comp="GND" data-pins="{x},{y}">\n'
+    for k, half in enumerate((10, 6.5, 3)):
+        g += f'  <path d="M {x - half},{y + 4*k} L {x + half},{y + 4*k}" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n'
+    return g + '  </g>\n'
+
+def fig_2024_q97():
+    """Op-amp circuit as printed: + input grounded; − input node fed by a 100 mA source (arrow up) and
+    a 1 kΩ resistor to ground; 100 Ω feedback from Vo to the − input."""
+    W = _c24_w
+    xs, xr1, xp, ytop, ybot = 60, 108, 154, 96, 236
+    b = W((xs, ytop), (200, ytop)) + W((xs, ytop), (xs, 149)) + W((xs, 171), (xs, ybot))
+    b += (f'  <g data-comp="I" data-pins="{xs},171 {xs},149">\n'
+          + circle(xs, 160, 11, stroke="var(--fig-line)", sw=1.4) +
+          f'  <path d="M {xs},167 L {xs},154" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n'
+          + _arrowhead(xs, 152, -90, 6) + '  </g>\n')
+    b += W((xr1, ytop), (xr1, 142)) + _c24_res((xr1, 142), (xr1, 190)) + W((xr1, 190), (xr1, ybot))
+    b += W((xs, ybot), (xp, ybot)) + W((xp, ybot), (xp, 136)) + W((xp, 136), (200, 136))
+    b += W((168, ytop), (168, 40)) + W((168, 40), (218, 40)) + _c24_res((218, 40), (268, 40)) + W((268, 40), (334, 40)) + W((334, 40), (334, 116))
+    b += (f'  <g data-comp="OA" data-in="200,{ytop} 200,136" data-out="270,116">\n'
+          f'  <path d="M 200,76 L 270,116 L 200,156 Z" stroke="var(--fig-line)" stroke-width="1.5" fill="none"/>\n'
+          + mlabel(209, ytop + 5, "−", 15) + mlabel(209, 141, "+", 14) + '  </g>\n')
+    b += W((270, 116), (334, 116)) + dot(334, 116, r=3.2)
+    b += _c24_ground(xs, ybot)
+    b += mlabel(243, 26, "100 Ω", 13) + mlabel(44, 165, "100 mA", 13, anchor="end")
+    b += mlabel(118, 162, "1", 13, anchor="start") + mlabel(116, 180, "kΩ", 13, anchor="start")
+    b += _p24_sub(342, 121, "V", "o", 14, italic=False)
+    return svg_plain(370, 256, b, "2024 Q97: inverting op-amp stage; 100 mA source and 1 kΩ from the − input to ground, 100 Ω feedback, + input grounded")
+
+def _c24_xor(x, yc, bubble, r=17):
+    """IEEE distinctive XOR/XNOR: extra back curve (the inputs end on it), shield body, optional bubble."""
+    body = f"M {x + 6},{yc - r} Q {x + 6 + 0.55*r},{yc} {x + 6},{yc + r} Q {x + 6 + 1.5*r},{yc + r} {x + 6 + 2.3*r},{yc} Q {x + 6 + 1.5*r},{yc - r} {x + 6},{yc - r} Z"
+    back = f"M {x},{yc - r} Q {x + 0.55*r},{yc} {x},{yc + r}"
+    def on_back(dy):
+        t = (dy + r)/(2*r); return round(x + 2*t*(1 - t)*0.55*r, 2)
+    ins = f"{on_back(-8)},{yc - 8} {on_back(8)},{yc + 8}"
+    xo = x + 6 + 2.3*r
+    out = round(xo + 7, 2) if bubble else round(xo, 2)
+    g = (f'  <g data-gate="{"XNOR" if bubble else "XOR"}" data-in="{ins}" data-out="{out},{yc}">\n'
+         f'  <path d="{body}" stroke="var(--fig-line)" stroke-width="1.6" fill="none"/>\n'
+         f'  <path d="{back}" stroke="var(--fig-line)" stroke-width="1.6" fill="none"/>\n')
+    if bubble:
+        g += f'  <circle cx="{round(xo + 3.5, 2)}" cy="{yc}" r="3.5" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n'
+    return g + '  </g>\n', [tuple(map(float, p.split(","))) for p in ins.split()], (out, yc)
+
+def _c24_nand3(x, yc, r=21):
+    d = f"M {x},{yc - r} H {x + r} A {r} {r} 0 0 1 {x + r},{yc + r} H {x} Z"
+    return (f'  <g data-gate="NAND" data-in="{x},{yc - 12} {x},{yc} {x},{yc + 12}" data-out="{x + 2*r + 7},{yc}">\n'
+            f'  <path d="{d}" stroke="var(--fig-line)" stroke-width="1.6" fill="none"/>\n'
+            f'  <circle cx="{x + 2*r + 3.5}" cy="{yc}" r="3.5" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n  </g>\n')
+
+def fig_2024_q98():
+    """Logic circuit as printed: XNOR(A, B), XOR(B, C) and C (looped round below) into a 3-input NAND → X."""
+    W = _c24_w
+    g1, i1, o1 = _c24_xor(120, 50, True)
+    g2, i2, o2 = _c24_xor(120, 105, False)
+    b = g1 + g2 + _c24_nand3(272, 100)
+    b += W((34, i1[0][1]), i1[0]) + W((34, i1[1][1]), i1[1])                  # A, B
+    b += W((84, i1[1][1]), (84, i2[0][1])) + W((84, i2[0][1]), i2[0])          # B tap → XOR
+    b += W((34, i2[1][1]), i2[1])                                              # C → XOR
+    b += W((66, i2[1][1]), (66, 150)) + W((66, 150), (248, 150)) + W((248, 150), (248, 112)) + W((248, 112), (272, 112))
+    b += W(o1, (222, o1[1])) + W((222, o1[1]), (222, 88)) + W((222, 88), (272, 88))
+    b += W(o2, (234, o2[1])) + W((234, o2[1]), (234, 100)) + W((234, 100), (272, 100))
+    b += W((321, 100), (350, 100))
+    b += mlabel(24, i1[0][1] + 5, "A", 14) + mlabel(24, i1[1][1] + 5, "B", 14) + mlabel(24, i2[1][1] + 5, "C", 14) + mlabel(362, 105, "X", 14)
+    return svg_plain(380, 162, b, "2024 Q98: XNOR(A, B), XOR(B, C) and C feed a three-input NAND with output X")
+
 # ---- 2022 figures ----
 
 def fig_2022_q42():
@@ -1631,6 +1823,15 @@ def main():
             "fig-2024-q67": fig_2024_q67,
             "fig-2024-q68": fig_2024_q68,
             "fig-2024-q70": fig_2024_q70,
+            "fig-2024-q78-optA": fig_2024_q78_optA,
+            "fig-2024-q78-optB": fig_2024_q78_optB,
+            "fig-2024-q78-optC": fig_2024_q78_optC,
+            "fig-2024-q78-optD": fig_2024_q78_optD,
+            "fig-2024-q79-optA": fig_2024_q79_optA,
+            "fig-2024-q79-optB": fig_2024_q79_optB,
+            "fig-2024-q79-optC": fig_2024_q79_optC,
+            "fig-2024-q89-optB": fig_2024_q89_optB,
+            "fig-2024-q89-optD": fig_2024_q89_optD,
             "fig-2024-q94": fig_2024_q94,
             "fig-2024-q96": fig_2024_q96,
             "fig-2024-q97": fig_2024_q97,

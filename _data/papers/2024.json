@@ -3580,7 +3580,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "The number of atoms in $52\\,\\text{gm}$ of $'He'$ are",
+      "stemLatex": "The number of atoms in $52$ gm of ‘He’ are",
       "stemFigure": null,
       "options": [
         {
@@ -3612,10 +3612,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q71)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "mole-concept",
-        "avogadro",
+        "avogadro-number",
         "atoms"
       ]
     },
@@ -3628,7 +3628,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "Which principle/rule decides the distribution of electrons in different shells ?",
+      "stemLatex": "Which of the following explains the sequence of filling the electrons in different shells ?",
       "stemFigure": null,
       "options": [
         {
@@ -3638,12 +3638,12 @@
         },
         {
           "id": "B",
-          "latex": "Pauli's exclusion principle",
+          "latex": "Pauli’s exclusion principle",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "Hund's rule",
+          "latex": "Hund’s rule",
           "figure": null
         },
         {
@@ -3662,9 +3662,8 @@
       },
       "difficulty": "easy",
       "tags": [
-        "atomic-structure",
-        "aufbau",
-        "electronic-config"
+        "aufbau-principle",
+        "electronic-configuration"
       ]
     },
     {
@@ -3676,7 +3675,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "Radius of 1st Bohr orbit of $H$ is $0.529\\,\\text{\\AA}$. The most probable radius (in $\\text{pm}$) for finding the electron in $He^{+}$ is",
+      "stemLatex": "Radius of $1^{\\text{st}}$ Bohr orbit of ‘H’ is $0.529\\,\\text{\\AA}$. The most probable radius (in pm) for finding the electron in $\\text{He}^{+}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -3708,11 +3707,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q73)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "atomic-structure",
         "bohr-radius",
-        "he-ion"
+        "hydrogen-like-ion",
+        "most-probable-radius"
       ]
     },
     {
@@ -3724,27 +3723,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "The edge length of NaCl crystal unit cell is $508\\,\\text{pm}$. If radius of $Na^{+}$ is $110\\,\\text{pm}$, the radius of $Cl^{-}$ is",
+      "stemLatex": "The edge length of $\\text{NaC}\\mathit{l}$ crystal unit cell is $508$ pm. If radius of $\\text{Na}^{+}$ is $110$ pm, the radius of $\\text{C}\\mathit{l}^{-}$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$288\\,\\text{pm}$",
+          "latex": "$288$ pm",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$398\\,\\text{pm}$",
+          "latex": "$398$ pm",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$144\\,\\text{pm}$",
+          "latex": "$144$ pm",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$618\\,\\text{pm}$",
+          "latex": "$618$ pm",
           "figure": null
         }
       ],
@@ -3756,10 +3755,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q74)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
-        "crystal",
+        "ionic-crystal",
+        "rock-salt",
         "ionic-radius"
       ]
     },
@@ -3772,7 +3771,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "How many electrons are delivered at the cathode during electrolysis by a current of $1\\,\\text{A}$ in $10$ minutes ? (charge of electron $= 1.6 \\times 10^{-19}\\,\\text{C}$)",
+      "stemLatex": "How many electrons are delivered at the cathode during electrolysis by a current of $1$ A in $10$ minutes. (charge of electron $= 1.6 \\times 10^{-19}$ C)",
       "stemFigure": null,
       "options": [
         {
@@ -3804,11 +3803,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q75)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "electrochemistry",
-        "faraday",
-        "electrons"
+        "electrolysis",
+        "charge",
+        "electron-count"
       ]
     },
     {
@@ -3819,28 +3818,28 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 20,
-      "stemLatex": "Phenol is treated with Bromine water. Choose the correct statement.",
+      "pdfPage": 19,
+      "stemLatex": "Phenol is treated with Bromine water : Choose the correct statement.",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "Ortho-bromophenol is produced as major product.",
+          "latex": "$\\underline{\\text{Ortho}}$-bromophenol is produced as major product.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "Para-bromophenol is produced as major product.",
+          "latex": "$\\underline{\\text{Para}}$-bromophenol is produced as major product.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$2,4,6$-tribromophenol is precipitated and reaction requires $Fe/FeBr_{3}$ as catalyst.",
+          "latex": "$2,\\,4,\\,6$ – tribromophenol is precipitated and reaction requires $\\text{Fe/FeBr}_{3}$ as catalyst.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$2,4,6$-tribromophenol is precipitated and reaction does not require any catalyst.",
+          "latex": "$2,\\,4,\\,6$ – tribromophenol is precipitated and reaction does not require any catalyst.",
           "figure": null
         }
       ],
@@ -3852,11 +3851,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q76)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "organic",
         "phenol",
-        "bromination"
+        "electrophilic-substitution",
+        "bromine-water"
       ]
     },
     {
@@ -3867,8 +3866,8 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 20,
-      "stemLatex": "Number of stereoisomers of $2,3$-dibromobutane is",
+      "pdfPage": 19,
+      "stemLatex": "Number of stereoisomers of $2,\\,3$-dibromobutane is",
       "stemFigure": null,
       "options": [
         {
@@ -3900,11 +3899,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q77)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "organic",
-        "stereoisomer",
-        "dibromobutane"
+        "stereoisomerism",
+        "meso-compound",
+        "chirality"
       ]
     },
     {
@@ -3916,28 +3915,52 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Chemical formula of carbolic acid is",
+      "stemLatex": "Chemical formula of carbolic acid is –",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{OH}$",
-          "figure": null
+          "latex": "Structure (A)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q78-optA.svg",
+            "alt": "Structure (A): benzene ring whose top carbon carries a CH2 group bonded to COOH (phenylacetic acid)",
+            "width": 104,
+            "height": 108,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "$\\text{COOH}$",
-          "figure": null
+          "latex": "Structure (B)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q78-optB.svg",
+            "alt": "Structure (B): benzene ring with OH at the top carbon, NO2 groups on both neighbouring carbons (O2N on the left, NO2 on the right) and NO2 on the bottom carbon (picric acid)",
+            "width": 140,
+            "height": 132,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "$\\text{NO}_{2}$",
-          "figure": null
+          "latex": "Structure (C)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q78-optC.svg",
+            "alt": "Structure (C): benzene ring with OH at the top carbon and COOH on the adjacent upper-right carbon (salicylic acid)",
+            "width": 116,
+            "height": 104,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "$\\text{C}_{6}\\text{H}_{5}\\text{OH}$",
-          "figure": null
+          "latex": "Structure (D)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q78-optD.svg",
+            "alt": "Structure (D): benzene ring with OH at the top carbon (phenol)",
+            "width": 70,
+            "height": 100,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -3950,9 +3973,9 @@
       },
       "difficulty": "easy",
       "tags": [
-        "organic",
+        "phenol",
         "carbolic-acid",
-        "phenol"
+        "aromatic-compounds"
       ]
     },
     {
@@ -3969,22 +3992,40 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{HgCl}_{2}$",
-          "figure": null
+          "latex": "Structure (A)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q79-optA.svg",
+            "alt": "Structure (A): H3C bonded to a C≡C triple bond drawn as a straight line, whose far carbon bonds to a CH that is doubly bonded to a terminal CH2",
+            "width": 150,
+            "height": 50,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "$\\text{Hg}_{2}\\text{Cl}_{2}$",
-          "figure": null
+          "latex": "Structure (B)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q79-optB.svg",
+            "alt": "Structure (B): H3C bonded to a C≡C triple bond drawn as a straight line, whose far carbon bonds to a CH2 that bonds down to CH3",
+            "width": 160,
+            "height": 62,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
-          "latex": "$\\text{CH}_{3}\\text{COOH}$",
-          "figure": null
+          "latex": "Structure (C)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q79-optC.svg",
+            "alt": "Structure (C): CH3 at the lower left on a cis C=C double bond, whose upper carbon bonds in a straight line to a terminal C≡C triple bond",
+            "width": 86,
+            "height": 88,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
-          "latex": "$\\text{HC}\\equiv\\text{C}-\\text{CH}=\\text{CH}-\\text{CH}_{3}$",
+          "latex": "$\\text{H}_{3}\\text{C} - \\text{HC} = \\text{C} = \\text{CH} - \\text{CH}_{3}$",
           "figure": null
         }
       ],
@@ -3998,9 +4039,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "organic",
-        "tollens",
-        "alkyne"
+        "terminal-alkyne",
+        "acidic-hydrogen",
+        "silver-acetylide"
       ]
     },
     {
@@ -4012,7 +4053,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "In the reaction sequence: $\\text{CaC}_{2} + \\text{H}_{2}\\text{O} \\xrightarrow{} A \\xrightarrow{\\text{HgSO}_{4}} B \\xrightarrow{\\text{H}_{2}/\\text{Ni}} C \\xrightarrow{\\text{dil. H}_{2}\\text{SO}_{4}} C'$, '$C'$ is",
+      "stemLatex": "In the reaction sequence : $\\text{CaC}_{2} + \\text{H}_{2}\\text{O} \\longrightarrow \\text{A} \\xrightarrow[\\text{dil. H}_{2}\\text{SO}_{4}]{\\text{HgSO}_{4}} \\text{B} \\xrightarrow{\\text{H}_{2}/\\text{Ni}} \\text{C}$ ‘C’ is –",
       "stemFigure": null,
       "options": [
         {
@@ -4044,23 +4085,23 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q80)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "organic",
-        "reaction-sequence",
-        "alcohol"
+        "calcium-carbide",
+        "alkyne-hydration",
+        "reduction"
       ]
     },
     {
       "id": "jelet-2024-q081",
       "qNumber": 81,
       "subjectId": "CHEM",
-      "unitId": "C03",
+      "unitId": "C05",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The solubility of $BaSO_{4}$ in water is $2.33 \\times 10^{-3}\\,\\text{gram/litre}$. Its solubility product will be (Mol. wt. of $BaSO_{4} = 233$)",
+      "stemLatex": "The solubility of $\\text{BaSO}_{4}$ in water is $2.33 \\times 10^{-3}$ gram/litre. Its solubility product will be (Mol. wt. of $\\text{BaSO}_{4} = 233$)",
       "stemFigure": null,
       "options": [
         {
@@ -4092,11 +4133,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q81)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "solubility-product",
-        "ksp",
-        "baSO4"
+        "ionic-equilibrium",
+        "molar-solubility"
       ]
     },
     {
@@ -4108,7 +4149,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "What is the hybridization of $S$ in $SF_{4}$ ?",
+      "stemLatex": "What is the hybridization of S in $\\text{SF}_{4}$ ?",
       "stemFigure": null,
       "options": [
         {
@@ -4123,12 +4164,12 @@
         },
         {
           "id": "C",
-          "latex": "$sp^{2}$",
+          "latex": "$sp^{3}d^{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$sp^{3}d^{2}$",
+          "latex": "$sp^{2}$",
           "figure": null
         }
       ],
@@ -4140,11 +4181,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q82)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "hybridization",
-        "sf4",
-        "vsepr"
+        "vsepr",
+        "steric-number"
       ]
     },
     {
@@ -4155,8 +4196,8 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 21,
-      "stemLatex": "Phenol is allowed to react with phthalic anhydride in presence of $H_{2}SO_{4}$ and finally the reaction mixture is made alkaline with $NaOH$. The product formed is",
+      "pdfPage": 20,
+      "stemLatex": "Phenol is allowed to react with phthalic anhydride in presence of $\\text{H}_{2}\\text{SO}_{4}$ and finally the reaction mixture is made alkaline with NaOH. The product formed is –",
       "stemFigure": null,
       "options": [
         {
@@ -4188,10 +4229,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q83)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "organic",
-        "phenolphthalein",
+        "phenol",
+        "phthalic-anhydride",
         "indicator"
       ]
     },
@@ -4209,22 +4250,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$SO_{2}$",
+          "latex": "$\\text{SO}_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$XeF_{2}$",
+          "latex": "$\\text{XeF}_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$SiF_{4}$",
+          "latex": "$\\text{SiF}_{4}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$H_{2}S$",
+          "latex": "$\\text{H}_{2}\\text{S}$",
           "figure": null
         }
       ],
@@ -4238,9 +4279,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "chemical-bonding",
-        "lone-pair",
-        "molecule"
+        "lone-pairs",
+        "vsepr",
+        "valence-electrons"
       ]
     },
     {
@@ -4257,22 +4298,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$O_{2}$",
+          "latex": "$\\text{O}_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$O_{2}^{+}$",
+          "latex": "$\\text{O}_{2}^{+}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$O_{2}^{-}$",
+          "latex": "$\\text{O}_{2}^{-}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$O_{2}^{2-}$",
+          "latex": "$\\text{O}_{2}^{2-}$",
           "figure": null
         }
       ],
@@ -4284,11 +4325,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q85)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "chemical-bonding",
+        "molecular-orbital-theory",
         "bond-order",
-        "internuclear-distance"
+        "bond-length"
       ]
     },
     {
@@ -4300,7 +4341,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Correct statement(s) w.r.t. $H_{3}BO_{3}$ is/are",
+      "stemLatex": "Correct statement(s) w.r.t. $\\text{H}_{3}\\text{BO}_{3}$ is/are",
       "stemFigure": null,
       "options": [
         {
@@ -4335,9 +4376,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "acids-bases",
-        "h3bo3",
-        "monobasic"
+        "boric-acid",
+        "lewis-acid",
+        "glycerol-complex"
       ]
     },
     {
@@ -4354,22 +4395,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{NH}_{3}$",
+          "latex": "$\\text{O}_{3}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\text{H}_{2}\\text{O}$",
+          "latex": "$\\text{N}_{3}^{\\ominus}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\text{CO}_{2}$",
+          "latex": "$\\text{I}_{3}^{\\ominus}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\text{BeCl}_{2}$",
+          "latex": "$\\text{CO}_{2}$",
           "figure": null
         }
       ],
@@ -4385,9 +4426,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "chemical-bonding",
-        "linear-geometry",
-        "vsepr"
+        "vsepr",
+        "molecular-geometry",
+        "linear-species"
       ]
     },
     {
@@ -4432,11 +4473,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q88)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "organic",
+        "active-hydrogen",
         "sodium",
-        "hydrogen-gas"
+        "alcohols-acids"
       ]
     },
     {
@@ -4458,8 +4499,14 @@
         },
         {
           "id": "B",
-          "latex": "$\\text{CH}_{3}\\text{COCH}_{3}$",
-          "figure": null
+          "latex": "Structure (B)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q89-optB.svg",
+            "alt": "Structure (B): benzene ring bonded to a carbonyl carbon that has a C=O drawn upwards and an OCH3 group (methyl benzoate)",
+            "width": 130,
+            "height": 96,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
@@ -4468,8 +4515,14 @@
         },
         {
           "id": "D",
-          "latex": "$\\text{C}_{6}\\text{H}_{5}\\text{OCH}_{3}$",
-          "figure": null
+          "latex": "Structure (D)",
+          "figure": {
+            "src": "./_data/figures/2024/fig-2024-q89-optD.svg",
+            "alt": "Structure (D): benzene ring bonded to a carbonyl carbon that has a C=O drawn upwards and a CH3 group (acetophenone)",
+            "width": 130,
+            "height": 96,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -4483,9 +4536,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "organic",
-        "iodoform",
-        "ketone-alcohol"
+        "iodoform-test",
+        "methyl-ketone",
+        "haloform"
       ]
     },
     {
@@ -4530,11 +4583,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q90)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "organic",
         "optical-activity",
-        "iupac"
+        "chiral-carbon",
+        "iupac-nomenclature"
       ]
     },
     {
@@ -4546,7 +4599,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "The cross-sectional area of the coil of a PMMC instrument with a spring constant of $0.28 \\times 10^{-6}\\,\\text{Nm/rad}$ is $7.2 \\times 10^{-4}\\,\\text{m}^{2}$. The air gap flux density is $3.6\\,\\text{mWb/m}^{2}$. The number of turns required to produce a deflection of $60^{\\circ}$ when a current of $10\\,\\text{mA}$ flows through the coil would be",
+      "stemLatex": "The cross-sectional area of the coil of a PMMC instrument with a spring constant of $0.28 \\times 10^{-6}$ Nm/rad is $7.2 \\times 10^{-4}\\,\\text{m}^{2}$. The air gap flux density is $3.6$ m $\\text{Wb/m}^{2}$. The number of turns required to produce a deflection of $60^{\\circ}$ when a current of $10$ mA flows through the coil would be",
       "stemFigure": null,
       "options": [
         {
@@ -4578,11 +4631,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q91)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "pmmc",
-        "instrument",
-        "turns"
+        "deflecting-torque",
+        "controlling-torque"
       ]
     },
     {
@@ -4626,11 +4679,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q92)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "transformer",
         "leakage-flux",
-        "load"
+        "load-current"
       ]
     },
     {
@@ -4642,7 +4695,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "A single phase IM with identical main and auxiliary windings can be made self-starting by connecting",
+      "stemLatex": "A single phase IM with identical main and auxiliary windings can be made self-starting by connecting.",
       "stemFigure": null,
       "options": [
         {
@@ -4676,9 +4729,9 @@
       },
       "difficulty": "medium",
       "tags": [
-        "induction-motor",
-        "capacitor-start",
-        "self-starting"
+        "single-phase-induction-motor",
+        "split-phase",
+        "capacitor-start"
       ]
     },
     {
@@ -4690,33 +4743,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "Consider the following circuit: The node voltage $V_{1}$, $V_{2}$ and $E$ are respectively",
+      "stemLatex": "Consider the following circuit : The node voltage $\\text{V}_{1}$, $\\text{V}_{2}$ and E are respectively :",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q94.svg",
-        "alt": "Figure for JELET 2024 Q94",
-        "width": 420,
-        "height": 220,
+        "alt": "Y-shaped network. Terminal V1 at the upper left connects through a 4 V cell to an upper junction; terminal 2V at the upper right connects through an 8 V cell to the same junction. A cell E joins the upper junction to a lower junction directly below. Terminal V2 at the lower left connects through an 8 V cell to the lower junction, and the 10 V terminal at the lower right is wired straight to it",
+        "width": 290,
+        "height": 266,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$V_{1} = -14\\,\\text{V}, V_{2} = 18\\,\\text{V}, E = -2\\,\\text{V}$",
+          "latex": "$\\text{V}_{1} = -14\\text{ V}, \\text{V}_{2} = 18\\text{ V}, \\text{E} = -2\\text{ V}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$V_{1} = +14\\,\\text{V}, V_{2} = -2\\,\\text{V}, E = -2\\,\\text{V}$",
+          "latex": "$\\text{V}_{1} = +14\\text{ V}, \\text{V}_{2} = -2\\text{ V}, \\text{E} = -2\\text{ V}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$V_{1} = +14\\,\\text{V}, V_{2} = 2\\,\\text{V}, E = 0\\,\\text{V}$",
+          "latex": "$\\text{V}_{1} = +14\\text{ V}, \\text{V}_{2} = 2\\text{ V}, \\text{E} = 0\\text{ V}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$V_{1} = -14\\,\\text{V}, V_{2} = -2\\,\\text{V}, E = 0\\,\\text{V}$",
+          "latex": "$\\text{V}_{1} = -14\\text{ V}, \\text{V}_{2} = -2\\text{ V}, \\text{E} = 0\\text{ V}$",
           "figure": null
         }
       ],
@@ -4728,11 +4781,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q94)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "dc-circuit",
         "node-voltage",
-        "kcl"
+        "kvl"
       ]
     },
     {
@@ -4744,27 +4797,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "The voltage $V = 5\\cos(40t + 60^{\\circ})$ is applied to a $0.5\\,\\text{H}$ inductor. The steady state current through the inductor is",
+      "stemLatex": "The voltage $\\text{V} = 5\\cos(40\\,t + 60^{\\circ})$, is applied to a $0.5$ H inductor. The steady state current through the inductor is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$i(t) = 4\\sin(40t + 60^{\\circ})\\,\\text{A}$",
+          "latex": "$\\text{i}(t) = 4\\sin(40\\,t + 60^{\\circ})\\text{A}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$i(t) = 0.25\\cos(40t + 30^{\\circ})\\,\\text{A}$",
+          "latex": "$\\text{i}(t) = 0.25\\cos(40\\,t + 30^{\\circ})\\text{A}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$i(t) = 0.25\\cos(40t - 30^{\\circ})\\,\\text{A}$",
+          "latex": "$\\text{i}(t) = 0.25\\cos(40\\,t - 30^{\\circ})\\text{A}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$i(t) = 0.25\\cos(40t + 60^{\\circ})\\,\\text{A}$",
+          "latex": "$\\text{i}(t) = 0.25\\cos(\\text{w}t + 60^{\\circ})\\text{A}$",
           "figure": null
         }
       ],
@@ -4776,49 +4829,49 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q95)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuit",
-        "inductor",
-        "phase"
+        "phasor",
+        "inductive-reactance",
+        "ac-steady-state"
       ]
     },
     {
       "id": "jelet-2024-q096",
       "qNumber": 96,
       "subjectId": "FEEE",
-      "unitId": "E04",
+      "unitId": "E06",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "Assuming that the diode in the given circuit is ideal, the voltage $V$ is",
+      "stemLatex": "Assuming that the diode in the given circuit is ideal, the voltage $\\text{V}_{\\text{o}}$ is",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q96.svg",
-        "alt": "Figure for JELET 2024 Q96",
-        "width": 420,
-        "height": 220,
+        "alt": "A 10 V cell on the left (positive plate up) feeds diode D1, pointing right, into a node; from that node a 10 kΩ resistor goes right to diode D2, which points left, and then down through a 15 V cell (positive plate down) to the bottom rail. From the node, two 10 kΩ resistors in series go down to the bottom rail; the output Vo is taken at their junction",
+        "width": 390,
+        "height": 230,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$4\\,\\text{V}$",
+          "latex": "$4$ V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$5\\,\\text{V}$",
+          "latex": "$5$ V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$7.5\\,\\text{V}$",
+          "latex": "$7.5$ V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$12.1\\,\\text{V}$",
+          "latex": "$12.1$ V",
           "figure": null
         }
       ],
@@ -4832,47 +4885,47 @@
       },
       "difficulty": "medium",
       "tags": [
-        "diode",
-        "circuit",
-        "ideal-diode"
+        "ideal-diode",
+        "diode-circuit",
+        "voltage-divider"
       ]
     },
     {
       "id": "jelet-2024-q097",
       "qNumber": 97,
       "subjectId": "FEEE",
-      "unitId": "E04",
+      "unitId": "E07",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "In the circuit shown, the output voltage $V_{0}$ is",
+      "stemLatex": "In the circuit shown, the output voltage $\\text{V}_{\\text{o}}$ is",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q97.svg",
-        "alt": "Figure for JELET 2024 Q97",
-        "width": 420,
-        "height": 220,
+        "alt": "Op-amp with its + input wired to ground and a 100 Ω feedback resistor from the output Vo to the − input. The − input node is also connected to a 100 mA current source (arrow pointing up into the node) and a 1 kΩ resistor, both returning to ground",
+        "width": 370,
+        "height": 256,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$-9\\,\\text{V}$",
+          "latex": "$-9$ V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$-10\\,\\text{V}$",
+          "latex": "$-10$ V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$+10\\,\\text{V}$",
+          "latex": "$+10$ V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$+9\\,\\text{V}$",
+          "latex": "$+9$ V",
           "figure": null
         }
       ],
@@ -4884,11 +4937,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q97)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "circuit",
-        "output-voltage",
-        "transistor"
+        "op-amp",
+        "virtual-ground",
+        "current-to-voltage"
       ]
     },
     {
@@ -4900,33 +4953,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "For the logic circuit shown, the required input condition $(A, B, C)$ to make the output $X = 0$ is",
+      "stemLatex": "For the logic circuit shown, the required input condition (A, B, C) to make the output X = 0 is ?",
       "stemFigure": {
         "src": "./_data/figures/2024/fig-2024-q98.svg",
-        "alt": "Figure for JELET 2024 Q98",
-        "width": 420,
-        "height": 220,
+        "alt": "Logic circuit: inputs A and B drive an XNOR gate; B and C drive an XOR gate; the XNOR output, the XOR output and C itself are the three inputs of a NAND gate whose output is X",
+        "width": 380,
+        "height": 162,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$1, 1, 1$",
+          "latex": "$1,\\ 1,\\ 1$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$1, 0, 1$",
+          "latex": "$1,\\ 0,\\ 1$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$0, 1, 1$",
+          "latex": "$0,\\ 1,\\ 1$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0, 0, 1$",
+          "latex": "$0,\\ 0,\\ 1$",
           "figure": null
         }
       ],
@@ -4938,11 +4991,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q98)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "digital",
-        "logic-gate",
-        "output"
+        "logic-gates",
+        "xor-xnor",
+        "nand"
       ]
     },
     {
@@ -4954,7 +5007,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "The phase angle between $v_{1} = -10\\cos(\\omega t + 40^{\\circ})$ and $v_{2} = 8\\sin(\\omega t - 20^{\\circ})$ is",
+      "stemLatex": "The phase angle between $v_{1} = -10\\cos(\\text{w}t + 40^{\\circ})$ and $v_{2} = 8\\sin(\\text{w}t - 20^{\\circ})$ is",
       "stemFigure": null,
       "options": [
         {
@@ -4986,10 +5039,10 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q99)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuit",
-        "phase-angle",
+        "phase-difference",
+        "sinusoids",
         "phasor"
       ]
     },
@@ -5002,27 +5055,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "A DC motor develops a torque of $120\\,\\text{Nm}$ at $20\\,\\text{rps}$. At $30\\,\\text{rps}$, the torque developed by the motor is",
+      "stemLatex": "A DC motor develops a torque of $120$ Nm at $20$ rps. At $30$ rps, the torque developed by the motor is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$160\\,\\text{Nm}$",
+          "latex": "$160$ Nm",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$120\\,\\text{Nm}$",
+          "latex": "$120$ Nm",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$80\\,\\text{Nm}$",
+          "latex": "$80$ Nm",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$40\\,\\text{Nm}$",
+          "latex": "$40$ Nm",
           "figure": null
         }
       ],
@@ -5034,11 +5087,11 @@
         "keyTier": "official",
         "sourceRef": "WBE/Ex-71 (01-08-2024) (Set A, Q100)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "dc-motor",
-        "torque",
-        "speed"
+        "torque-speed",
+        "constant-power"
       ]
     }
   ]

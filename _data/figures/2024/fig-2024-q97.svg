@@ -1,16 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 170" width="240" height="170" role="img" aria-label="2024 Q97: PNP transistor">
-  <rect x="0" y="0" width="240" height="170" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-axis)">2024 Q97: PNP transistor</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">PNP Transistor</text>
-  <line x1="100" y1="60" x2="100" y2="140" stroke="var(--fig-primary)" stroke-width="2"/>
-  <line x1="100" y1="80" x2="60" y2="60" stroke="var(--fig-danger)" stroke-width="2"/>
-  <polygon points="60,60 72,55 72,65" fill="var(--fig-danger)"/>
-  <line x1="100" y1="110" x2="60" y2="120" stroke="var(--fig-danger)" stroke-width="2"/>
-  <polygon points="60,120 72,115 72,125" fill="var(--fig-danger)"/>
-  <line x1="100" y1="70" x2="140" y2="50" stroke="var(--fig-secondary)" stroke-width="2"/>
-  <line x1="100" y1="130" x2="140" y2="150" stroke="var(--fig-secondary)" stroke-width="2"/>
-  <text x="55" y="75" font-family="monospace" font-size="10" fill="var(--fig-danger)" text-anchor="start">E</text>
-  <text x="55" y="135" font-family="monospace" font-size="10" fill="var(--fig-danger)" text-anchor="start">E</text>
-  <text x="105" y="50" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">B</text>
-  <text x="145" y="50" font-family="monospace" font-size="10" fill="var(--fig-secondary)" text-anchor="start">C</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370 256" width="370" height="256" role="img" aria-label="2024 Q97: inverting op-amp stage; 100 mA source and 1 kΩ from the − input to ground, 100 Ω feedback, + input grounded">
+  <rect x="0" y="0" width="370" height="256" fill="transparent"/>
+  <line x1="60" y1="96" x2="200" y2="96" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="60" y1="96" x2="60" y2="149" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="60" y1="171" x2="60" y2="236" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="I" data-pins="60,171 60,149">
+  <circle cx="60" cy="160" r="11" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <path d="M 60,167 L 60,154" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  <polygon points="60.0,152.0 57.0,158.0 63.0,158.0" fill="var(--fig-line)"/>
+  </g>
+  <line x1="108" y1="96" x2="108" y2="142" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="R" data-pins="108,142 108,190">
+  <polyline points="108,142 113,145.0 103,151.0 113,157.0 103,163.0 113,169.0 103,175.0 113,181.0 103,187.0 108,190" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="108" y1="190" x2="108" y2="236" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="60" y1="236" x2="154" y2="236" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="154" y1="236" x2="154" y2="136" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="154" y1="136" x2="200" y2="136" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="168" y1="96" x2="168" y2="40" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="168" y1="40" x2="218" y2="40" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="R" data-pins="218,40 268,40">
+  <polyline points="218,40 221.12,35 227.38,45 233.62,35 239.88,45 246.12,35 252.38,45 258.62,35 264.88,45 268,40" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="268" y1="40" x2="334" y2="40" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="334" y1="40" x2="334" y2="116" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="OA" data-in="200,96 200,136" data-out="270,116">
+  <path d="M 200,76 L 270,116 L 200,156 Z" stroke="var(--fig-line)" stroke-width="1.5" fill="none"/>
+  <text x="209" y="101" font-family="Times New Roman, serif" font-size="15" fill="var(--fig-text)" text-anchor="middle">−</text>
+  <text x="209" y="141" font-family="Times New Roman, serif" font-size="14" fill="var(--fig-text)" text-anchor="middle">+</text>
+  </g>
+  <line x1="270" y1="116" x2="334" y2="116" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <circle cx="334" cy="116" r="3.2" fill="var(--fig-node)"/>
+  <g data-comp="GND" data-pins="60,236">
+  <path d="M 50,236 L 70,236" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <path d="M 53.5,240 L 66.5,240" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <path d="M 57,244 L 63,244" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  </g>
+  <text x="243" y="26" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">100 Ω</text>
+  <text x="44" y="165" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="end">100 mA</text>
+  <text x="118" y="162" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">1</text>
+  <text x="116" y="180" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">kΩ</text>
+  <text x="342" y="121" font-family="Times New Roman, serif" font-size="14" fill="var(--fig-text)" text-anchor="start">V<tspan dy="3" font-size="10">o</tspan></text>
 </svg>
