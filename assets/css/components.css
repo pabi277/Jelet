@@ -140,19 +140,32 @@
   border-color: var(--brand-primary);
 }
 
-/* Horizontal snap-scroll filter row.
-   Phase 06 audit: INTENTIONAL internal containment scroller (AGENTS.md §3.2
-   phone-first snap-scroll pills). Its overflow never propagates to the page. */
+/* Filter & tab pill row (Phase 06 §1: wraps cleanly on <=360px phones
+   with zero horizontal scrollbars or clipped off-screen pills). */
 .chip-row {
   display: flex;
-  gap: var(--space-s);
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: var(--space-xs);
-  scrollbar-width: none;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  overflow-x: hidden;
+  padding-bottom: var(--space-2xs);
 }
-.chip-row::-webkit-scrollbar { display: none; }
+.chip-row .chip {
+  min-height: 38px;
+  padding: var(--space-2xs) var(--space-m);
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+@media (min-width: 480px) {
+  .chip-row {
+    gap: var(--space-s);
+  }
+  .chip-row .chip {
+    min-height: var(--tap-min);
+    padding: var(--space-xs) var(--space-l);
+    white-space: nowrap;
+  }
+}
 
 /* Segmented toggle (Independent vs With assistance) */
 .segmented {
@@ -293,17 +306,42 @@
 }
 
 /* ------------------------------------------------------------------ *
- * Math blocks (KaTeX containment — never page-level horizontal scroll)
+ * Math blocks (Phase 06 §1: responsive KaTeX wrapping & scaling on
+ * narrow <=360px screens — zero horizontal scrollbars anywhere)
  * ------------------------------------------------------------------ */
 .math-scroll {
-  overflow-x: auto;
+  overflow-x: hidden;
   max-width: 100%;
-  -webkit-overflow-scrolling: touch;
+  overflow-wrap: anywhere;
   background: var(--bg-surface-subtle);
   border-radius: var(--radius-m);
-  padding: var(--space-s) var(--space-m);
+  padding: var(--space-s);
 }
-.math-scroll .katex { font-size: 1.05em; }
+.math-scroll .katex {
+  font-size: 0.94em;
+  white-space: normal;
+}
+.math-scroll .katex-display {
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: var(--space-2xs) 0;
+}
+@media (min-width: 480px) {
+  .math-scroll {
+    padding: var(--space-s) var(--space-m);
+  }
+  .math-scroll .katex {
+    font-size: 1.05em;
+  }
+}
+/* Keep atomic KaTeX sub-structures intact while allowing line breaks between top-level terms */
+.katex .mfrac,
+.katex .mtable,
+.katex .msqrt,
+.katex .msupsub,
+.katex .accent {
+  white-space: nowrap;
+}
 
 /* Worked example callout */
 .worked-example {
@@ -753,10 +791,19 @@
   font-size: var(--fs-question);
   line-height: var(--lh-prose);
   color: var(--text-primary);
-  /* Phase 06 audit: internal containment scroller (prevents page-level
-     sideways scroll from rare nowrap KaTeX spans) — never a page scroller. */
   max-width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+}
+.question-stem .katex,
+.reader-opt__body .katex,
+.worked-example .katex {
+  white-space: normal;
+}
+.question-stem .katex-display,
+.worked-example .katex-display {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 .reader-opt {
   display: flex;
@@ -817,9 +864,16 @@
 .solution-step__body {
   font-size: var(--fs-body);
   line-height: var(--lh-prose);
-  /* Phase 06 audit: internal containment scroller — never a page scroller. */
   max-width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+}
+.solution-step__body .katex {
+  white-space: normal;
+}
+.solution-step__body .katex-display {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 .solution-verify {
   display: flex;
@@ -914,18 +968,17 @@
   top: 52px;
   z-index: var(--z-sticky);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-xs);
   min-height: 44px;
   padding: var(--space-2xs) var(--space-m);
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border-subtle);
-  overflow-x: auto;
-  scrollbar-width: none;
+  overflow-x: hidden;
 }
-.exam-subject-strip::-webkit-scrollbar { display: none; }
 .exam-subject-strip .chip {
-  min-height: 36px;
+  min-height: 34px;
   padding: var(--space-2xs) var(--space-s);
 }
 .exam-subj-count {

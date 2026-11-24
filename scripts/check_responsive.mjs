@@ -332,6 +332,126 @@ async function main() {
         await page.close();
       }
     }
+
+    // Phase 06 Interactive 360px & AMOLED Dark Mode Checks
+    {
+      const page = await browser.newPage();
+      await page.setViewport({ width: 360, height: 800, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+      const consoleErrors = [];
+      page.on("console", (msg) => {
+        if (msg.type() === "error") consoleErrors.push(msg.text());
+      });
+      page.on("pageerror", (err) => consoleErrors.push(`pageerror: ${err.message}`));
+
+      const shotDir = process.env.JELET_SAVE_SHOTS || "";
+
+      // 1. Free-text target college + Custom AI model reveal & persistence on #/you
+      await page.goto(base + "#/you", { waitUntil: "networkidle0", timeout: 30000 });
+      await page.addStyleTag({ content: "html, body { overflow-x: visible !important; }" });
+      await page.waitForSelector("#profTargetInput");
+      await page.$eval("#profTargetInput", (el) => {
+        el.value = "Kalyani Govt. Engg. College CSE (2027)";
+        el.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+      await page.select("#aiModelModeSelect", "custom");
+      const customVisible = await page.$eval("#aiCustomModelWrap", (el) => !el.hidden);
+      await page.$eval("#aiCustomModelInput", (el) => {
+        el.value = "gemini-2.5-pro";
+        el.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+      await new Promise((r) => setTimeout(r, 250));
+      const youOverflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth
+      );
+      if (shotDir) await page.screenshot({ path: path.join(shotDir, "shot-you-360.png") });
+
+      await page.reload({ waitUntil: "networkidle0", timeout: 30000 });
+      await page.waitForSelector("#profTargetInput");
+      const savedCollege = await page.$eval("#profTargetInput", (el) => el.value);
+      const savedModel = await page.$eval("#aiCustomModelInput", (el) => el.value);
+      const okYou =
+        customVisible &&
+        youOverflow <= TOLERANCE_PX &&
+        savedCollege === "Kalyani Govt. Engg. College CSE (2027)" &&
+        savedModel === "gemini-2.5-pro" &&
+        consoleErrors.length === 0;
+      results.push({ vp: "360 interactive", route: "#/you (college + custom model)", ok: okYou });
+      if (!okYou) {
+        failures.push(
+          `  ✗ [360 interactive] #/you: customVisible=${customVisible}, overflow=${youOverflow}, savedCollege="${savedCollege}", savedModel="${savedModel}", errors=${consoleErrors.join("; ")}`
+        );
+      }
+
+      // Switch to AMOLED Dark Mode
+      await page.click("#youDarkSwitchBtn");
+      await new Promise((r) => setTimeout(r, 150));
+
+      // 2. Per-unit Formulas tab + Videos click-to-load facade in AMOLED Dark Mode at 360px
+      await page.goto(base + "#/learn/P02?tab=formulas", { waitUntil: "networkidle0", timeout: 30000 });
+      await page.addStyleTag({ content: "html, body { overflow-x: visible !important; }" });
+      await new Promise((r) => setTimeout(r, SETTLE_MS));
+      const p02Metrics = await page.evaluate(() => ({
+        cards: document.querySelectorAll(".unit-formula-sheet .lesson-formula-card").length,
+        katexErrors: document.querySelectorAll(".katex-error").length,
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      }));
+      if (shotDir) await page.screenshot({ path: path.join(shotDir, "shot-p02-formulas-dark-360.png") });
+
+      await page.click('button[data-tab="videos"]');
+      await new Promise((r) => setTimeout(r, 250));
+      const videoMetrics = await page.evaluate(() => ({
+        facades: document.querySelectorAll(".js-mount-yt").length,
+        preloadedIframes: document.querySelectorAll("iframe").length,
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      }));
+      if (shotDir) await page.screenshot({ path: path.join(shotDir, "shot-p02-videos-dark-360.png") });
+
+      const okP02 =
+        p02Metrics.cards >= 3 &&
+        p02Metrics.katexErrors === 0 &&
+        p02Metrics.overflow <= TOLERANCE_PX &&
+        videoMetrics.facades >= 1 &&
+        videoMetrics.preloadedIframes === 0 &&
+        videoMetrics.overflow <= TOLERANCE_PX &&
+        consoleErrors.length === 0;
+      results.push({ vp: "360 AMOLED", route: "#/learn/P02 (formulas + videos)", ok: okP02 });
+      if (!okP02) {
+        failures.push(
+          `  ✗ [360 AMOLED] #/learn/P02: formulas=${JSON.stringify(p02Metrics)}, videos=${JSON.stringify(videoMetrics)}, errors=${consoleErrors.join("; ")}`
+        );
+      }
+
+      // 3. Paper Reader grouped action bar at 360px in AMOLED Dark Mode
+      await page.goto(base + "#/papers/jelet-2025", { waitUntil: "networkidle0", timeout: 30000 });
+      await page.addStyleTag({ content: "html, body { overflow-x: visible !important; }" });
+      await new Promise((r) => setTimeout(r, SETTLE_MS));
+      const readerMetrics = await page.evaluate(() => {
+        const bar = document.querySelector(".reader-action-bar");
+        const items = bar ? Array.from(bar.querySelectorAll(".reader-action-bar__item")).map((n) => n.textContent.trim()) : [];
+        return {
+          hasBar: Boolean(bar),
+          items,
+          overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        };
+      });
+      if (shotDir) await page.screenshot({ path: path.join(shotDir, "shot-reader-dark-360.png") });
+      const okReader =
+        readerMetrics.hasBar &&
+        readerMetrics.items.length === 3 &&
+        readerMetrics.items[0].includes("Read & Keys") &&
+        readerMetrics.items[1].includes("Print OMR") &&
+        readerMetrics.items[2].includes("Start 2h Mock") &&
+        readerMetrics.overflow <= TOLERANCE_PX &&
+        consoleErrors.length === 0;
+      results.push({ vp: "360 AMOLED", route: "#/papers/jelet-2025 (action bar)", ok: okReader });
+      if (!okReader) {
+        failures.push(
+          `  ✗ [360 AMOLED] #/papers/jelet-2025: reader=${JSON.stringify(readerMetrics)}, errors=${consoleErrors.join("; ")}`
+        );
+      }
+
+      await page.close();
+    }
   } finally {
     await keeper.close().catch(() => {});
     await browser.close();

@@ -205,7 +205,21 @@ test("Phone-first CSS & SVG icon sprite integrity across all views", () => {
       false,
       `Forbidden desktop-first max-width query in ${cssFile}`
     );
+    assert.equal(
+      /overflow-x\s*:\s*auto/i.test(css),
+      false,
+      `Horizontal scrollbar rule overflow-x: auto must be replaced in ${cssFile}`
+    );
   }
+
+  // Phase 06 UI invariants: free-text target college, custom AI model input, unified paper reader action bar
+  const youSrc = fs.readFileSync("./assets/js/views/you.js", "utf8");
+  assert.equal(youSrc.includes('id="profTargetSelect"'), false, "profTargetSelect dropdown must be replaced");
+  assert.equal(youSrc.includes('id="profTargetInput"'), true, "profTargetInput free-text input must exist");
+  assert.equal(youSrc.includes('id="aiCustomModelInput"'), true, "aiCustomModelInput free-text input must exist");
+
+  const papersSrc = fs.readFileSync("./assets/js/views/papers.js", "utf8");
+  assert.equal(papersSrc.includes('id="readerReadKeysBtn"'), true, "Reader action bar must include Read & Keys");
 
   const sprite = fs.readFileSync("./assets/icons/icons.svg", "utf8");
   const definedIcons = new Set([...sprite.matchAll(/id="(icon-[^"]+)"/g)].map((m) => m[1]));

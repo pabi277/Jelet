@@ -22,6 +22,7 @@ import {
   writeAiVault,
   clearAiVault,
   maskApiKey,
+  resolveEffectiveModel,
   testAiConnection,
 } from "../core/ai-vault.js";
 import { getMeta, setMeta } from "../db/indexeddb.js";
@@ -43,13 +44,21 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
   let pendingImportEnvelope = null;
   let activityDrawer = null; // "bookmarks" | "recent" | null
 
+  // Migrate/preserve any previously saved dropdown or free-text target college string
+  const savedTargetText =
+    meta.profile?.targetBranch ||
+    meta.profile?.targetCollege ||
+    "Jadavpur Univ. CSE";
+
   const profile = {
     name: meta.profile?.name || "",
     targetYear: meta.profile?.targetYear || 2028,
-    targetBranch: meta.profile?.targetBranch || "Jadavpur Univ. CSE",
+    targetBranch: savedTargetText,
     category: meta.profile?.category || "General",
     diplomaCgpa: meta.profile?.diplomaCgpa ?? "",
   };
+
+  const activeProviderCfg = AI_PROVIDERS[vault.provider] || AI_PROVIDERS.gemini;
 
   const root = el(`
     <div class="view stack-m you-view">
@@ -70,22 +79,8 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
             <input type="text" class="input-field" id="profNameInput" placeholder="e.g. Pabitra" value="${escapeHtml(profile.name)}" />
           </label>
           <label class="form-field">
-            <span class="form-label">Target Exam &amp; Department</span>
-            <select class="input-select" id="profTargetSelect">
-              ${[
-                "Jadavpur Univ. CSE (2028)",
-                "Jadavpur Univ. IT (2028)",
-                "Jadavpur Univ. ETCE (2028)",
-                "Jadavpur Univ. EE (2028)",
-                "Jadavpur Univ. CSE (2027)",
-                "Jadavpur Univ. Core (2028)",
-              ]
-                .map(
-                  (opt) =>
-                    `<option value="${escapeHtml(opt)}" ${profile.targetBranch === opt ? "selected" : ""}>${escapeHtml(opt)}</option>`
-                )
-                .join("")}
-            </select>
+            <span class="form-label">Target College &amp; Department</span>
+            <input type="text" class="input-field" id="profTargetInput" placeholder="e.g. Jadavpur Univ. CSE, KGEC IT, JGEC EE…" value="${escapeHtml(profile.targetBranch)}" />
           </label>
           <label class="form-field">
             <span class="form-label">Diploma CGPA (10-point scale)</span>
@@ -142,16 +137,29 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
               ${Object.values(AI_PROVIDERS)
                 .map(
                   (p) =>
-                    `<option value="${p.id}" ${vault.provider === p.id ? "selected" : ""}>${escapeHtml(p.label)} (${escapeHtml(p.defaultModel)})</option>`
+                    `<option value="${p.id}" ${vault.provider === p.id ? "selected" : ""}>${escapeHtml(p.label)}</option>`
                 )
                 .join("")}
             </select>
           </label>
           <label class="form-field">
-            <span class="form-label">Personal API Key (stored only on this device)</span>
-            <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
+            <span class="form-label">Model</span>
+            <select class="input-select" id="aiModelModeSelect">
+              <option value="default" id="aiDefaultModelOpt" ${!vault.useCustomModel ? "selected" : ""}>Default (${escapeHtml(activeProviderCfg.defaultModel)})</option>
+              <option value="custom" ${vault.useCustomModel ? "selected" : ""}>Custom model</option>
+            </select>
           </label>
         </div>
+
+        <div class="form-field" id="aiCustomModelWrap" ${vault.useCustomModel ? "" : "hidden"}>
+          <label class="form-label" for="aiCustomModelInput">Custom Model Name (blank falls back to provider default)</label>
+          <input type="text" class="input-field mono" id="aiCustomModelInput" placeholder="e.g. gemini-2.5-pro, llama-3.1-8b-instant, deepseek/deepseek-chat…" value="${escapeHtml(vault.customModel || "")}" autocomplete="off" />
+        </div>
+
+        <label class="form-field">
+          <span class="form-label">Personal API Key (stored only on this device)</span>
+          <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
+        </label>
 
         <div class="cluster-xs">
           <button type="button" class="btn btn--primary btn--sm" id="saveAiKeyBtn">Save Key</button>
@@ -299,11 +307,12 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
   $("#profNameInput", root).addEventListener("change", (e) =>
     saveProfilePatch({ name: e.target.value.trim() })
   );
-  $("#profTargetSelect", root).addEventListener("change", (e) => {
-    const val = e.target.value;
-    const yr = val.includes("2027") ? 2027 : 2028;
-    saveProfilePatch({ targetBranch: val, targetYear: yr });
-    showToast("JU target updated");
+  $("#profTargetInput", root).addEventListener("change", (e) => {
+    const val = e.target.value.trim();
+    const yearMatch = val.match(/\b(202[6-9]|203[0-5])\b/);
+    const yr = yearMatch ? Number(yearMatch[1]) : profile.targetYear || 2028;
+    saveProfilePatch({ targetBranch: val || "Jadavpur Univ. CSE", targetYear: yr });
+    showToast("Target college saved");
   });
   $("#profCgpaInput", root).addEventListener("input", (e) =>
     saveProfilePatch({ diplomaCgpa: e.target.value })
@@ -316,40 +325,88 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
   function syncAiVaultDom() {
     vault = readAiVault();
     const hasKey = Boolean(vault.apiKey && vault.apiKey.trim());
-    const pLabel = AI_PROVIDERS[vault.provider]?.label || "Google Gemini";
+    const pCfg = AI_PROVIDERS[vault.provider] || AI_PROVIDERS.gemini;
+    const effectiveModel = resolveEffectiveModel(vault);
     const pill = $("#aiVaultStatusPill", root);
     pill.className = hasKey ? "badge badge--correct" : "pill";
-    pill.textContent = hasKey ? `${pLabel} · Key Saved` : "Offline Corpus Mode";
-    $("#aiMaskedKeyLine", root).textContent = `Key: ${maskApiKey(vault.apiKey)}`;
+    pill.textContent = hasKey ? `${pCfg.label} · Key Saved` : "Offline Corpus Mode";
+    $("#aiMaskedKeyLine", root).textContent = `Key: ${maskApiKey(vault.apiKey)} · Model: ${effectiveModel}`;
+    const defaultOpt = $("#aiDefaultModelOpt", root);
+    if (defaultOpt) {
+      defaultOpt.textContent = `Default (${pCfg.defaultModel})`;
+    }
+    const modeSelect = $("#aiModelModeSelect", root);
+    if (modeSelect) {
+      modeSelect.value = vault.useCustomModel ? "custom" : "default";
+    }
+    const customWrap = $("#aiCustomModelWrap", root);
+    if (customWrap) {
+      customWrap.hidden = !vault.useCustomModel;
+    }
     $("#aiPreviewToggleBtn", root).setAttribute("aria-checked", String(Boolean(vault.previewPrompt)));
   }
 
-  $("#aiProviderSelect", root).addEventListener("change", (e) => {
-    const p = e.target.value;
-    writeAiVault({ provider: p, model: AI_PROVIDERS[p]?.defaultModel });
+  function persistModelControls() {
+    const p = $("#aiProviderSelect", root).value;
+    const useCustomModel = $("#aiModelModeSelect", root).value === "custom";
+    const customModel = $("#aiCustomModelInput", root).value.trim();
+    const defaultModel = AI_PROVIDERS[p]?.defaultModel || AI_PROVIDERS.gemini.defaultModel;
+    writeAiVault({
+      provider: p,
+      useCustomModel,
+      customModel,
+      model: useCustomModel ? customModel || defaultModel : defaultModel,
+    });
     syncAiVaultDom();
+  }
+
+  $("#aiProviderSelect", root).addEventListener("change", () => {
+    persistModelControls();
+  });
+
+  $("#aiModelModeSelect", root).addEventListener("change", () => {
+    persistModelControls();
+    if ($("#aiModelModeSelect", root).value === "custom") {
+      $("#aiCustomModelInput", root)?.focus();
+    }
+  });
+
+  $("#aiCustomModelInput", root).addEventListener("change", () => {
+    persistModelControls();
+    showToast("AI model preference saved");
   });
 
   $("#saveAiKeyBtn", root).addEventListener("click", () => {
     const val = $("#aiKeyInput", root).value.trim();
-    if (!val) {
-      showToast("Paste an API key first");
+    const p = $("#aiProviderSelect", root).value;
+    const useCustomModel = $("#aiModelModeSelect", root).value === "custom";
+    const customModel = $("#aiCustomModelInput", root).value.trim();
+    if (!AI_PROVIDERS[p]) {
+      $("#aiConnDiagnostic", root).textContent = `✗ Unknown provider "${p}". Choose Google Gemini, Groq, or OpenRouter.`;
       return;
     }
-    const p = $("#aiProviderSelect", root).value;
-    writeAiVault({
+    if (!val && !readAiVault().apiKey) {
+      persistModelControls();
+      showToast("Paste an API key first (model preference saved)");
+      return;
+    }
+    const patch = {
       provider: p,
-      model: AI_PROVIDERS[p]?.defaultModel,
-      apiKey: val,
-    });
+      useCustomModel,
+      customModel,
+      model: useCustomModel ? customModel || AI_PROVIDERS[p].defaultModel : AI_PROVIDERS[p].defaultModel,
+    };
+    if (val) patch.apiKey = val;
+    writeAiVault(patch);
     $("#aiKeyInput", root).value = "";
     syncAiVaultDom();
-    showToast("API key saved in isolated local vault");
+    showToast(val ? "API key & model saved in isolated local vault" : "AI model preference saved");
   });
 
   $("#clearAiKeyBtn", root).addEventListener("click", () => {
     clearAiVault();
     $("#aiKeyInput", root).value = "";
+    $("#aiCustomModelInput", root).value = "";
     $("#aiConnDiagnostic", root).textContent = "API key cleared. Offline Corpus Tutor remains active.";
     syncAiVaultDom();
     showToast("Isolated AI vault cleared");
@@ -358,11 +415,21 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
   $("#testAiConnBtn", root).addEventListener("click", async () => {
     const diag = $("#aiConnDiagnostic", root);
     const typed = $("#aiKeyInput", root).value.trim();
-    const testVault = typed ? { ...readAiVault(), apiKey: typed } : readAiVault();
-    diag.textContent = `Testing direct browser connection to ${AI_PROVIDERS[testVault.provider]?.label}…`;
+    const p = $("#aiProviderSelect", root).value;
+    const useCustomModel = $("#aiModelModeSelect", root).value === "custom";
+    const customModel = $("#aiCustomModelInput", root).value.trim();
+    const base = readAiVault();
+    const testVault = {
+      ...base,
+      provider: p,
+      useCustomModel,
+      customModel,
+      apiKey: typed || base.apiKey,
+    };
+    diag.textContent = `Testing direct browser connection to ${AI_PROVIDERS[p]?.label || p}…`;
     try {
       const res = await testAiConnection(testVault);
-      diag.textContent = `✔ Connected (${res.latencyMs} ms) — zero study data sent.`;
+      diag.textContent = `✔ Connected to ${res.model} (${res.latencyMs} ms) — zero study data sent.`;
     } catch (err) {
       diag.textContent = `✗ Connection failed: ${err.message}`;
     }
@@ -434,9 +501,10 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
 
   // AMOLED Dark Mode switch
   $("#youDarkSwitchBtn", root).addEventListener("click", async (ev) => {
+    const btn = ev.currentTarget;
     if (onThemeToggle) {
       const next = await onThemeToggle();
-      ev.currentTarget.setAttribute("aria-checked", String(next === "dark"));
+      btn.setAttribute("aria-checked", String(next === "dark"));
     }
   });
 
