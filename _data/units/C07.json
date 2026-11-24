@@ -5,10 +5,7 @@
   "title": "Water",
   "estimatedMinutes": 20,
   "examFrequency": "low",
-  "pyqIds": [
-    "jelet-2022-q079",
-    "jelet-2022-q083"
-  ],
+  "pyqIds": [],
   "sections": [
     {
       "anchor": "hardness",

@@ -1513,113 +1513,134 @@ def fig_2022_q69():
     body += mlabel((xs["O"] + xs["lens"])/2, yd + 16, "30 cm", 12) + mlabel((xs["lens"] + xs["mirror"])/2, yd + 16, "10 cm", 12)
     return svg_plain(356, 148, body, "2022 Q69: " + "principal axis with object O, points I2 and IF, a biconvex lens, a plane mirror 10 cm to the right of the lens and I1 beyond the mirror; O is 30 cm to the left of the lens")
 
+# ---------------------------------------------------------------------------
+# JELET 2022 Batch C (FEEE Q93, Q96–Q99): faithful redraws of the Set-A booklet figures (pages 22–23,
+# 180 DPI + 300-DPI crops).  The previous q93/q96–q99 drawings were placeholders that did not match
+# the paper (no diode/resistor in Q96, no op-amp in Q97, logic boxes instead of the switch network
+# in Q98, a non-booklet transistor sketch in Q99, a monotonic curve in Q93).  No captions.
+# Circuits carry data-comp / data-pins groups and plain var(--fig-line) <line> wires so that
+# scripts/verify_solutions_sympy.py (_c22_qN) can rebuild the netlist; Q93 carries data-role
+# geometry.  Colours: var(--fig-*) tokens only.
+# ---------------------------------------------------------------------------
+_P22_Q93 = dict(ox=74, oy=164, ns=230, a=0.3, tmax=120, Nmin=-0.24, Nmax=1.045,
+                pts={"W": -0.2, "X": 0.42, "Y": 0.86, "Z": 1.03})
+
+def _p22_q93_T(N):
+    """Induction-motor torque (per unit of T_max) at speed N (per unit of N_s): T = 2 a s / (a^2 + s^2)."""
+    a = _P22_Q93["a"]; s = 1 - N
+    return 2*a*s/(a*a + s*s)
+
 def fig_2022_q93():
-    """Torque-speed curve with operating points W, X, Y, Z."""
-    body = ""
-    body += label(40, 25, "Torque-Speed curve", 10)
-    body += line(40, 160, 200, 160, stroke="var(--fig-line)", sw=1.5)
-    body += line(40, 40, 40, 160, stroke="var(--fig-line)", sw=1.5)
-    # torque-speed curve (hyperbolic-like)
-    body += path("M 40 150 C 60 150, 80 100, 100 70 C 120 50, 140 45, 180 40", stroke="var(--fig-primary)", sw=2)
-    # operating points
-    for x, y, name in [(60, 130, "W"), (100, 80, "X"), (140, 55, "Y"), (180, 42, "Z")]:
-        body += dot(x, y, 4, fill="var(--fig-danger)")
-        body += label(x+8, y-5, name, 10, "var(--fig-danger-soft)")
-    body += label(30, 165, "Speed", 9, "var(--fig-axis)")
-    body += label(20, 50, "Torque", 9, "var(--fig-axis)")
-    return svg_wrap(240, 200, body, "2022 Q93: Torque-speed curve")
+    g = _P22_Q93; ox, oy, ns, tm = g["ox"], g["oy"], g["ns"], g["tmax"]
+    P = lambda N: (round(ox + N*ns, 1), round(oy - _p22_q93_T(N)*tm, 1))
+    pts = [P(g["Nmin"] + (g["Nmax"] - g["Nmin"])*k/120) for k in range(121)]
+    body = _b22_axes(ox, oy, ox + 272, 28, yb=oy)
+    body += mlabel(ox, 20, "T", 13) + mlabel(ox + 280, oy + 4, "N", 13, anchor="start")
+    body += _p24_poly(pts, "T-N", stroke="var(--fig-line)", sw=1.4)
+    for k, N in g["pts"].items():
+        x, y = P(N)
+        body += _b22_dot(x, y, k, r=3.6)
+    lab = {"W": (-4, -10, "end"), "X": (-6, -6, "end"), "Y": (8, 4, "start"), "Z": (5, -6, "start")}
+    for k, N in g["pts"].items():
+        x, y = P(N); dx, dy, an = lab[k]
+        body += mlabel(round(x + dx, 1), round(y + dy, 1), k, 13, anchor=an)
+    return svg_plain(370, 216, body, "2022 Q93: torque T versus speed N of an induction motor; the curve starts left of the T-axis at W, rises through X to the peak, falls through Y, crosses the N-axis and ends below it at Z")
 
-def fig_2022_q96():
-    """Circuit with voltage source and output v0(t)."""
-    body = ""
-    body += label(40, 25, "Circuit diagram", 10)
-    # voltage source (circle with sine)
-    body += circle(80, 100, 25, stroke="var(--fig-primary)", sw=2)
-    body += label(80, 100, "Vm sin ωt", 7, "var(--fig-text)", "middle")
-    # wires
-    body += line(80, 75, 80, 50, stroke="var(--fig-primary)", sw=1.5)
-    body += line(80, 50, 160, 50, stroke="var(--fig-primary)", sw=1.5)
-    body += line(160, 50, 160, 75, stroke="var(--fig-primary)", sw=1.5)
-    body += line(160, 75, 160, 125, stroke="var(--fig-primary)", sw=1.5)
-    body += line(160, 125, 80, 125, stroke="var(--fig-primary)", sw=1.5)
-    body += line(80, 125, 80, 100, stroke="var(--fig-primary)", sw=1.5)
-    # output marker
-    body += label(160, 40, "v₀(t)", 9, "var(--fig-danger)", "middle")
-    return svg_wrap(240, 180, body, "2022 Q96: Circuit diagram")
-
-def fig_2022_q97():
-    """Comparator with sinusoidal input and reference 3V."""
-    body = ""
-    body += label(40, 25, "Comparator circuit", 10)
-    # comparator symbol (triangle)
-    polygon_points = "120,70 160,100 120,130"
-    body += f'  <polygon points="{polygon_points}" fill="none" stroke="var(--fig-primary)" stroke-width="2"/>\n'
-    body += label(140, 150, "Comparator", 9, "var(--fig-axis)", "middle")
-    # input sine wave
-    body += path("M 30 100 Q 50 70, 70 100 T 110 100", stroke="var(--fig-danger)", sw=1.5)
-    body += label(25, 95, "vᵢ", 9, "var(--fig-danger-soft)")
-    # reference line at 3V
-    body += line(30, 115, 110, 115, stroke="var(--fig-secondary)", sw=1.5, dash="3,3")
-    body += label(30, 128, "3V ref", 8, "var(--fig-secondary-soft)")
-    # output
-    body += arrow(160, 100, 210, 100, stroke="var(--fig-accent)", label="v₀", label_pos=(215, 95))
-    return svg_wrap(240, 180, body, "2022 Q97: Comparator")
+def _c22_switch(x1, x2, y, lab):
+    """Booklet-style switch on a horizontal wire: left stub, slanted open blade, right stub (pins = stub ends)."""
+    return (f'  <g data-comp="SW" data-label="{lab}" data-pins="{x1},{y} {x2},{y}">\n'
+            f'  <path d="M {x1},{y} L {x1 + 9},{y}" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n'
+            f'  <path d="M {x1 + 9},{y} L {x2 - 7},{y - 9}" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n'
+            f'  <path d="M {x2 - 7},{y} L {x2},{y}" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n'
+            f'  </g>\n' + mlabel(round((x1 + x2)/2 - 2, 1), y - 12, lab, 13))
 
 def fig_2022_q98():
-    """Boolean circuit with inputs A,B,C,D,E,F,G."""
-    body = ""
-    body += label(40, 25, "Boolean circuit", 10)
-    # input labels
-    inputs = [("A", 50), ("B", 80), ("C", 110), ("D", 140), ("E", 170), ("F", 200), ("G", 230)]
-    for name, x in inputs:
-        body += line(x, 50, x, 80, stroke="var(--fig-primary)", sw=1.5)
-        body += dot(x, 50, 3, fill="var(--fig-primary)")
-        body += label(x, 42, name, 10, "var(--fig-text)", "middle")
-    # gate boxes
-    body += line(50, 80, 50, 120, stroke="var(--fig-primary)", sw=1.5)
-    body += line(80, 80, 80, 120, stroke="var(--fig-primary)", sw=1.5)
-    body += line(110, 80, 110, 120, stroke="var(--fig-primary)", sw=1.5)
-    body += rect_(50, 120, 60, 25, "var(--fig-secondary)")
-    body += label(80, 133, "+", 10, "var(--fig-secondary-soft)", "middle")
-    body += line(110, 80, 140, 80, stroke="var(--fig-primary)", sw=1.5)
-    body += line(140, 80, 140, 120, stroke="var(--fig-primary)", sw=1.5)
-    body += line(170, 80, 170, 120, stroke="var(--fig-primary)", sw=1.5)
-    body += rect_(140, 120, 60, 25, "var(--fig-accent)")
-    body += label(170, 133, "·", 10, "var(--fig-accent-tint)", "middle")
-    body += line(200, 80, 200, 120, stroke="var(--fig-primary)", sw=1.5)
-    body += line(230, 80, 230, 120, stroke="var(--fig-primary)", sw=1.5)
-    body += rect_(200, 120, 60, 25, "var(--fig-danger)")
-    body += label(230, 133, "+", 10, "var(--fig-danger-soft)", "middle")
-    # output
-    body += line(80, 145, 80, 160, stroke="var(--fig-primary)", sw=1.5)
-    body += line(170, 145, 170, 160, stroke="var(--fig-primary)", sw=1.5)
-    body += line(80, 160, 170, 160, stroke="var(--fig-primary)", sw=1.5)
-    body += arrow(170, 160, 210, 160, stroke="var(--fig-accent)", label="out", label_pos=(215, 155))
-    return svg_wrap(260, 200, body, "2022 Q98: Boolean circuit")
+    """Switch network exactly as printed: A in series; then (B ∥ C) in parallel with ((D ∥ E) in series with F); then G -> Y."""
+    W = _c24_w
+    ym, yt, yb, xn, xj = 80, 38, 122, 112, 296
+    b = W((14, ym), (52, ym)) + _c22_switch(52, 92, ym, "A") + W((92, ym), (xn, ym))
+    b += W((xn, yt), (xn, yb))
+    for yc, (u, l) in ((yt, ("B", "C")), (yb, ("D", "E"))):
+        b += W((xn, yc), (140, yc)) + W((140, yc - 12), (140, yc + 12))
+        b += _c22_switch(140, 192, yc - 12, u) + _c22_switch(140, 192, yc + 12, l)
+        b += W((192, yc - 12), (192, yc + 12))
+    b += W((192, yt), (xj, yt))
+    b += W((192, yb), (228, yb)) + _c22_switch(228, 268, yb, "F") + W((268, yb), (xj, yb))
+    b += W((xj, yt), (xj, yb)) + W((xj, ym), (312, ym)) + _c22_switch(312, 352, ym, "G") + W((352, ym), (372, ym))
+    b += mlabel(377, ym + 5, "Y", 13, anchor="start")
+    return svg_plain(394, 150, b, "2022 Q98: switch A in series; then two parallel paths — switches B and C in parallel, and switches D and E in parallel followed by switch F; then switch G to the output Y")
+
+def _c22_source(cx, cy, r=14):
+    """AC source (circle with ~) between pins on its top and bottom."""
+    return (f'  <g data-comp="VS" data-pins="{cx},{cy - r} {cx},{cy + r}">\n' + circle(cx, cy, r, stroke="var(--fig-line)", sw=1.4)
+            + f'  <path d="M {cx - 8},{cy + 1} C {cx - 5},{cy - 6} {cx - 1},{cy - 6} {cx},{cy} S {cx + 5},{cy + 6} {cx + 8},{cy - 1}" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>\n  </g>\n')
+
+def fig_2022_q96():
+    """Half-wave circuit as printed: source (top) -> diode with its cathode towards the source -> + terminal;
+    resistor from the top rail to the bottom rail; − terminal on the bottom rail."""
+    W = _c24_w
+    xs, xd1, xd2, xr, xt, yt, yb = 46, 118, 142, 228, 292, 34, 150
+    b = W((xs, yt), (xs, 78)) + _c22_source(xs, 92) + W((xs, 106), (xs, yb))
+    b += W((xs, yt), (xd1, yt)) + _c24_diode((xd2, yt), (xd1, yt)) + W((xd2, yt), (xt, yt))
+    b += W((xr, yt), (xr, 66)) + _c24_res((xr, 66), (xr, 118)) + W((xr, 118), (xr, yb))
+    b += W((xs, yb), (xt, yb))
+    b += _b22_dot(xt, yt, "out+", r=3.4) + _b22_dot(xt, yb, "out-", r=3.4)
+    b += mlabel(xt + 10, yt + 5, "+", 14, anchor="start") + mlabel(xt + 10, yb + 5, "−", 14, anchor="start")
+    b += (f'  <text x="{xs + 20}" y="96" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)">V'
+          f'<tspan dy="3" font-size="9">m</tspan><tspan dy="-3"> sin ωt</tspan></text>\n')
+    b += (f'  <text x="{xr + 34}" y="96" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)">V'
+          f'<tspan dy="3" font-size="9">0</tspan><tspan dy="-3">(t)</tspan></text>\n')
+    return svg_plain(318, 170, b, "2022 Q96: an AC source Vm sin ωt; a diode in the top wire with its cathode towards the source; a resistor across the output terminals + (top) and − (bottom) giving V0(t)")
+
+def _c22_opamp(x, yp, ym, w=66):
+    """Op-amp triangle; + input at yp, − input at ym (pins on the left edge), output at the apex."""
+    top, bot = min(yp, ym) - 14, max(yp, ym) + 14; yc = (top + bot)/2
+    return (f'  <g data-comp="OA" data-pins="{x},{yp} {x},{ym} {x + w},{yc}">\n'
+            f'  <polygon points="{x},{top} {x},{bot} {x + w},{yc}" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n'
+            f'  </g>\n' + mlabel(x + 7, yp + 4, "+", 12) + mlabel(x + 7, ym + 4, "−", 12)), (x + w, yc)
+
+def _c22_hatch_ground(x, y, half=22):
+    g = f'  <g data-comp="GND" data-pins="{x},{y}">\n  <path d="M {x - half},{y} L {x + half},{y}" stroke="var(--fig-line)" stroke-width="1.6" fill="none"/>\n'
+    for k in range(9):
+        xx = x - half + 2 + k*5
+        g += f'  <path d="M {xx},{y + 1} L {xx + 5},{y + 8}" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>\n'
+    return g + '  </g>\n'
+
+def fig_2022_q97():
+    """Comparator as printed: v_i -> + input; − input -> 3 V cell (long plate up, towards the − input) -> hatched ground."""
+    W = _c24_w
+    xo, yp, ym = 150, 40, 76
+    oa, (ax, ay) = _c22_opamp(xo, yp, ym)
+    b = _b22_dot(70, yp, "vi", r=3.6) + W((70, yp), (xo, yp))
+    b += W((xo, ym), (98, ym)) + W((98, ym), (98, 92)) + _c24_cell((98, 92), (98, 108), "p", gap=7, long=13, short=7) + W((98, 108), (98, 128))
+    b += _c22_hatch_ground(98, 128)
+    b += oa + W((ax, ay), (262, ay)) + _b22_dot(266, ay, "vo", r=3.6)
+    b += _p24_sub(52, yp + 4, "v", "i", 13, italic=False) + mlabel(76, 99, "3V", 13, anchor="end")
+    b += _p24_sub(276, ay + 4, "V", "0", 13, italic=False)
+    return svg_plain(306, 146, b, "2022 Q97: comparator; vi feeds the + input of an op-amp; the − input is held by a 3 V cell (positive plate towards the − input) to a hatched ground; output V0")
 
 def fig_2022_q99():
-    """Transistor circuit with Vcc, Ic, Vcb, 100Ω."""
-    body = ""
-    body += label(40, 25, "Transistor circuit", 10)
-    # Vcc top
-    body += line(60, 40, 180, 40, stroke="var(--fig-primary)", sw=2)
-    body += label(55, 32, "Vcc", 10, "var(--fig-text)")
-    # resistor 100Ω
-    body += line(80, 40, 80, 70, stroke="var(--fig-primary)", sw=1.5)
-    body += rect_(75, 70, 10, 20, "var(--fig-accent)")
-    body += label(70, 88, "100Ω", 8, "var(--fig-accent-tint)", "middle")
-    body += line(80, 90, 80, 120, stroke="var(--fig-primary)", sw=1.5)
-    # transistor (circle)
-    body += circle(120, 110, 25, stroke="var(--fig-primary)", sw=2)
-    body += label(120, 110, "Q", 10, "var(--fig-text)", "middle")
-    # collector, base, emitter
-    body += line(80, 90, 120, 90, stroke="var(--fig-primary)", sw=1.5)
-    body += line(145, 110, 180, 110, stroke="var(--fig-primary)", sw=1.5)
-    body += label(150, 100, "Ic", 9, "var(--fig-danger)")
-    body += label(150, 122, "Vcb", 9, "var(--fig-secondary)")
-    body += line(120, 135, 120, 160, stroke="var(--fig-primary)", sw=1.5)
-    body += label(125, 170, "Emitter", 8, "var(--fig-axis)")
-    return svg_wrap(240, 200, body, "2022 Q99: Transistor circuit")
+    """Common-base n-p-n circuit as printed: V_EB (− to emitter, + to base rail); collector -> I_C arrow (towards
+    the collector) -> 100 Ω -> V_CC (+ right, − left) -> base rail; V_CB marked + at collector, − at base."""
+    W = _c24_w
+    xl, xr, yt, yb, xb, ybar = 40, 300, 34, 184, 166, 72
+    xe, xc = 132, 200                                     # emitter / collector wire ends on the top rail
+    b = W((xl, yt), (xe, yt)) + _c24_cell((xl, yb), (xl, yt), "p", gap=7, long=13, short=7)
+    b += (f'  <g data-comp="NPN" data-pins="{xe},{yt} {xb},{ybar} {xc},{yt}">\n'
+          f'  <path d="M {xb - 22},{ybar} L {xb + 22},{ybar}" stroke="var(--fig-line)" stroke-width="2.4" fill="none"/>\n'
+          f'  <path d="M {xb - 12},{ybar} L {xe},{yt}" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n'
+          f'  <path d="M {xb + 12},{ybar} L {xc},{yt}" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>\n'
+          + _arrowhead(xe + 0.25*(xb - 12 - xe), yt + 0.25*(ybar - yt), _m.degrees(_m.atan2(yt - ybar, xe - (xb - 12))), 8)
+          + '  </g>\n')
+    b += W((xc, yt), (xr, yt)) + _p24_role(_arrowhead(246, yt, 180, 8), "Ic-arrow")
+    b += W((xr, yt), (xr, 84)) + _c24_res((xr, 84), (xr, 134)) + W((xr, 134), (xr, yb))
+    b += W((xb, ybar), (xb, yb)) + W((xl, yb), (232, yb)) + _c24_cell((232, yb), (244, yb), "q", gap=10, long=24, short=11) + W((244, yb), (xr, yb))
+    b += _p24_sub(246, 26, "I", "C", 12, italic=False)
+    b += mlabel(xc - 4, 52, "+", 13) + mlabel(xb + 2, 90, "−", 14) + _p24_sub(xb + 30, 92, "V", "CB", 12, italic=False)
+    b += _p24_sub(4, 104, "V", "EB", 12, italic=False) + mlabel(xl - 10, 96, "−", 13) + mlabel(xl - 10, 128, "+", 12)
+    b += mlabel(xr + 14, 113, "100 Ω", 13, anchor="start")
+    b += _p24_sub(214, 158, "V", "CC", 12, italic=False) + mlabel(222, 178, "−", 13) + mlabel(256, 178, "+", 12)
+    return svg_plain(370, 204, b, "2022 Q99: common-base n-p-n transistor; VEB with − to the emitter and + to the base rail; collector current IC flows through 100 Ω from VCC (+ right, − left to the base rail); VCB is + at the collector and − at the base")
 
 def rect_(x, y, w, h, color="var(--fig-primary)"):
     return f'  <rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="{color}" stroke-width="1.5"/>\n'

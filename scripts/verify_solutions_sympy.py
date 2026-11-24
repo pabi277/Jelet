@@ -66,7 +66,19 @@ Checks:
      INTERPRETATION_NOTES_2022 for Q42, Q48, Q59, Q62, Q69. A 2022 Batch B gate
      requires 30/30 checks, method sympy, >= 3 steps, 0 stubs, verified-derived,
      19/19 figures, 0 orphan 2022 SVGs, var(--fig-*) colours only.
- 14. Report coverage statistics
+ 14. 2022 Q71–Q100 (Batch C, Chemistry + FEEE): 30 independent checks (_c22_qN)
+     from the verbatim Set A stems (pages 19–23; Chem Cat-I Q71–Q85, Cat-II
+     Q86–Q90, FEEE Cat-I Q91–Q100). Layout (page, category, twelfths, subject/unit,
+     stem figures exactly for Q93/96/97/98/99, keyTier/sourceRef) asserted; all four
+     options judged by stoichiometry/dimensional algebra, an aufbau engine, an
+     oxidation-number solver, C4H9Cl structure-graph enumeration, VSEPR, Gibbs and
+     van 't Hoff sign analysis and phasors; figure items rebuilt from the SVG
+     (Q93 torque–speed slip, Q96 diode-state MNA, Q97 comparator threshold, Q98
+     7-switch graph over all 128 states, Q99 common-base KVL). INTERPRETATION_NOTES
+     for Q82, Q90, Q100. A 2022 Batch C gate (30/30, 5/5 figures) and a 2022
+     coverage gate (100/100 solutions + checks, 12 stem figures exactly as printed,
+     0 orphan SVGs, 0 stubs) close the year.
+ 15. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -6931,6 +6943,610 @@ def _c23_guard(n):
 
 C_TESTS_2023 = [(f"2023 Q{n}", f"jelet-2023-q{n:03d}", _c23_guard(n)) for n in range(71, 101)]
 
+# ---------------------------------------------------------------------------
+# JELET 2022 Batch C — Chemistry Q71–Q90 + FEEE Q91–Q100 (Set-A booklet pages 19–23). Same contract as Batch A/B:
+# (a) booklet layout (page, category, twelfths, subject/unit, stem figures exactly for Q93/96/97/98/99, no option
+# figures, per-question keyTier "verified-derived" naming _c22_qN), (b) stem/option fingerprints of the verbatim
+# LaTeX, (c) an independent re-derivation judging ALL FOUR options — stoichiometry / dimensional SymPy algebra,
+# aufbau engine, oxidation-number solver, structure-graph isomer enumeration, VSEPR, van 't Hoff and Gibbs sign
+# analysis, phasors — and, for the figure items, the answer rebuilt from the SVG (torque–speed geometry, circuit
+# netlists with diode/cell polarity, the op-amp comparator, the 7-switch graph over all 128 states, the CB loop),
+# (d) true option set == key.correct. No Q71–Q100 item is withdrawn.
+# ---------------------------------------------------------------------------
+_C22_PAGE = {**{n: 19 for n in range(71, 77)}, **{n: 20 for n in range(77, 86)}, **{n: 21 for n in range(86, 91)},
+             **{n: 22 for n in range(91, 96)}, **{n: 23 for n in range(96, 101)}}
+_C22_UNIT = {71: "C03", 72: "C03", 73: "C01", 74: "C01", 75: "C04", 76: "C05", 77: "C01", 78: "C03", 79: "C03", 80: "C03",
+             81: "C02", 82: "C08", 83: "C06", 84: "C05", 85: "C06", 86: "C03", 87: "C04", 88: "C05", 89: "C05", 90: "C02",
+             91: "E01", 92: "E02", 93: "E03", 94: "E05", 95: "E04", 96: "E06", 97: "E07", 98: "E08", 99: "E06", 100: "E03"}
+STEM_FIG_2022_C = {93, 96, 97, 98, 99}
+
+INTERPRETATION_NOTES_2022.update({
+    82: "'isomers possible with molecular formula C4H9Cl' is read as constitutional (structural) isomers = 4 (B); "
+        "2-chlorobutane has one stereocentre, so counting its two enantiomers separately gives 5 (D).",
+    90: "CaCO3 is an ionic compound, but the C–O bonds inside CO3^2− are covalent; the stem asks which compounds "
+        "HAVE covalent bonds, so (D) is included with H2O and CH4.",
+    100: "a loaded start is assumed: with only residual flux the torque kφ_r·I_a cannot overcome the load, so the "
+         "motor stays at standstill drawing a large current (B); a completely unloaded rotor could instead creep up "
+         "towards the dangerous speed V/(kφ_r).",
+})
+
+def _c22_layout(qnum):
+    q = _paper_2022().get(qnum)
+    if q is None:
+        return False, f"2022 Q{qnum} missing from the paper"
+    cat = 2 if 86 <= qnum <= 90 else 1
+    subj = "CHEM" if qnum <= 90 else "FEEE"
+    probs = []
+    if q.get("pdfPage") != _C22_PAGE[qnum]:
+        probs.append(f"pdfPage {q.get('pdfPage')} != booklet page {_C22_PAGE[qnum]}")
+    if q.get("category") != cat or q.get("fullTwelfths") != (12 if cat == 1 else 24) or q.get("negativeTwelfths") != (3 if cat == 1 else 0):
+        probs.append(f"category/twelfths {q.get('category')}/{q.get('fullTwelfths')}/{q.get('negativeTwelfths')} != Cat-{cat}")
+    if q.get("unitId") != _C22_UNIT[qnum] or q.get("subjectId") != subj:
+        probs.append(f"subject/unit {q.get('subjectId')}/{q.get('unitId')} != {subj}/{_C22_UNIT[qnum]}")
+    if [o.get("id") for o in q.get("options", [])] != ["A", "B", "C", "D"]:
+        probs.append("options are not A–D")
+    sf = q.get("stemFigure"); fn = f"fig-2022-q{qnum:02d}.svg"
+    if qnum in STEM_FIG_2022_C:
+        if not sf or sf.get("src") != f"./_data/figures/2022/{fn}":
+            probs.append(f"stem figure must be ./_data/figures/2022/{fn} (booklet prints one), got {sf and sf.get('src')}")
+        elif not os.path.exists(os.path.join(ROOT, sf["src"][2:])):
+            probs.append(f"figure file missing: {sf['src']}")
+        elif sf.get("alt", "").startswith("Figure for JELET"):
+            probs.append("generic alt text — describe the printed figure")
+    else:
+        if sf:
+            probs.append("booklet prints no stem figure for this item — stemFigure must be null")
+        if os.path.exists(os.path.join(DATA, "figures", "2022", fn)):
+            probs.append(f"orphan/spoiler SVG {fn} exists")
+    if any(o.get("figure") for o in q.get("options", [])):
+        probs.append(f"booklet prints no option figures for Q{qnum}")
+    k = q.get("key", {})
+    if k.get("keyTier") != "verified-derived" or f"_c22_q{qnum}" not in k.get("sourceRef", ""):
+        probs.append(f"keyTier/sourceRef {k.get('keyTier')}/{k.get('sourceRef')} — expected verified-derived via _c22_q{qnum}")
+    return (not probs), "; ".join(probs)
+
+def _c22_result(qnum, stem_fps, opt_fps, matched, detail):
+    q = _paper_2022()[qnum]
+    missing = [fp for fp in stem_fps if fp not in q["stemLatex"]]
+    if missing:
+        return False, f"stem fingerprint(s) {missing} not found in stemLatex"
+    olatex = _b22_opts(qnum)
+    omissing = [fp for fp in opt_fps if fp.split(":", 1)[1] not in olatex.get(fp.split(":", 1)[0], "")]
+    if omissing:
+        return False, f"option fingerprint(s) {omissing} not found in option latex"
+    if len(set(olatex.values())) != 4:
+        return False, f"options are not four distinct printed choices: {olatex}"
+    if q["key"]["status"] != "active":
+        return False, f"key status {q['key']['status']} — no 2022 Q71–Q100 item is withdrawn"
+    key = sorted(q["key"]["correct"])
+    if q["category"] == 1 and len(matched) > 1:
+        return False, f"{detail}; Cat-I item but the check finds several true options {matched}"
+    if qnum in INTERPRETATION_NOTES_2022 and matched == key:
+        KEY_DISPUTE_LOG.append(f"2022 Q{qnum} (interpretation): {INTERPRETATION_NOTES_2022[qnum]}")
+    return matched == key, f"{detail}; true option(s) {matched} vs key {key}"
+
+def _c22_signed(tex):
+    m = re.match(r"\$(-?\d+(?:\.\d+)?)\$", tex.strip())
+    return sympy.Rational(m.group(1)) if m else None
+
+def _c22_pos(e):
+    return e.subs({s: sympy.Symbol(s.name, positive=True) for s in e.free_symbols})
+
+def _c22_eq(e, target):
+    return e is not None and sympy.simplify(_c22_pos(sympy.nsimplify(e, rational=True)) - _c22_pos(target)) == 0
+
+# ---------------- Chemistry Cat-I (Q71–Q85) ----------------
+def _c22_q71():
+    x, y, M1, M2 = sympy.symbols("x y M1 M2", positive=True)
+    nA, nB = x*M1/1000, y*M2/1000
+    truth = sympy.expand(3*nA - 2*nB)                          # n_A / n_B = 2 / 3
+    Ms = {"1": M1, "2": M2}; m = []
+    for k, t in _b22_opts(71).items():
+        mm = re.fullmatch(r"\$(\d)x\\text\{M\}_\{(\d)\} = (\d)y\\text\{M\}_\{(\d)\}\$", t)
+        if not mm:
+            continue
+        a, i, b, j = mm.groups()
+        r = sympy.simplify((int(a)*x*Ms[i] - int(b)*y*Ms[j])/truth)
+        if r.free_symbols == set() and r != 0:
+            m.append(k)
+    return _c22_result(71, [r"$2\text{A} + 3\text{B} \rightarrow \text{products}$", r"$(\text{M}_{1})$ and $(\text{M}_{2})$"], [], m,
+                       f"n_A : n_B = 2 : 3 with n_A = x M1/1000, n_B = y M2/1000 -> {truth} = 0")
+
+def _c22_q72():
+    x, y, z = sympy.symbols("x y z", positive=True)
+    solvent_kg = (1000*z - x*y)/1000                           # 1 L: solution 1000z g, solute x*y g
+    molal = sympy.simplify(x/solvent_kg)
+    vals = {k: _b23_expr(t) for k, t in _b22_opts(72).items()}
+    m = [k for k, e in vals.items() if _c22_eq(e, molal)]
+    spot = {k: (float(e.subs({x: 2, y: sympy.Rational(585, 10), z: sympy.Rational(11, 10)})) if e is not None else None) for k, e in vals.items()}
+    return _c22_result(72, [r"$z\ \text{gcm}^{-3}$", "gram molecular mass", "molality of the $x$ (M) solution"], [], m,
+                       f"molality = x / ((1000z - xy)/1000) = {molal}; at x = 2, y = 58.5, z = 1.1: exact {float(molal.subs({x: 2, y: sympy.Rational(585, 10), z: sympy.Rational(11, 10)})):.4f}, options {spot}")
+
+def _c22_q73():
+    h, mm, e, V, p = sympy.symbols("h m e V p", positive=True)
+    pv = sympy.solve(sympy.Eq(p**2/(2*mm), e*V), p)[0]
+    lam = h/pv
+    m = [k for k, t in _b22_opts(73).items() if _c22_eq(_b23_expr(t), lam)]
+    return _c22_result(73, ["potential difference of $V$ volts", "de Broglie wavelength", "$e$ = charge of an electron"], [], m,
+                       f"p^2/(2m) = eV -> p = {pv}; lambda = h/p = {lam}")
+
+def _c22_q74():
+    order = sorted(((n, l) for n in range(1, 8) for l in range(0, min(n, 4))), key=lambda t: (t[0] + t[1], t[0]))
+    L = "spdf"
+    def ground(Z):
+        cfg, left = {}, Z
+        for n, l in order:
+            if left == 0:
+                break
+            c = min(left, 2*(2*l + 1)); cfg[f"{n}{L[l]}"] = c; left -= c
+        if Z in (24, 29):                                       # half-/fully-filled 3d exceptions (Cr, Cu)
+            cfg["4s"] -= 1; cfg["3d"] += 1
+        return {k: v for k, v in cfg.items() if v}
+    def ionise(cfg, q):
+        cfg = dict(cfg)
+        for _ in range(q):
+            sub = max(cfg, key=lambda s: (int(s[0]), L.index(s[1])))
+            cfg[sub] -= 1
+            if not cfg[sub]:
+                del cfg[sub]
+        return cfg
+    Z = int(re.search(r"Atomic number of Cu is \$(\d+)\$", _paper_2022()[74]["stemLatex"]).group(1))
+    want = ionise(ground(Z), 1)
+    ar = {"1s": 2, "2s": 2, "2p": 6, "3s": 2, "3p": 6}
+    def parse(t):
+        cfg = dict(ar) if r"[\text{Ar}]" in t else {}
+        for n, l, c in re.findall(r"(\d)([spdf])\^\{(\d+)\}", t):
+            cfg[f"{n}{l}"] = int(c)
+        return cfg
+    cfgs = {k: parse(t) for k, t in _b22_opts(74).items()}
+    m = [k for k, c in cfgs.items() if c == want]
+    counts = {k: sum(c.values()) for k, c in cfgs.items()}
+    return _c22_result(74, [r"$\text{Cu}^{+}$", "Atomic number of Cu is $29$"], [r"D:3s^{1}"], m,
+                       f"Cu ground state {ground(Z)} -> Cu+ {want}; electrons per option {counts} (all 28: only the arrangement decides)")
+
+def _c22_q75():
+    K, C, n, z = sympy.symbols("K C n z", positive=True)        # kappa, molar conc., nu_+, z_+
+    Lm, Leq = K/C, K/(n*z*C)                                     # C_eq = nu_+ z_+ C
+    rep = lambda s: s.replace(r"\Lambda_{eq}", " Q ").replace(r"\Lambda_{m}", " M ").replace(r"\nu_{+}", " n ").replace("z_{+}", " z ")
+    Q, M = sympy.symbols("Q M", positive=True)
+    truth = {}
+    for k, t in _b22_opts(75).items():
+        lhs, rhs = rep(t.strip("$")).split("=")
+        a, b = _b23_expr(lhs), _b23_expr(rhs)
+        truth[k] = a is not None and b is not None and sympy.simplify((a - b).subs({Q: Leq, M: Lm})) == 0
+    return _c22_result(75, [r"$\text{M}^{z+}$ and $\text{A}^{z-}$", r"$(\Lambda_{eq})$", r"$(\Lambda_{m})$"], [], _true(truth),
+                       f"Lambda_m = kappa/C, Lambda_eq = kappa/(nu+ z+ C) -> Lambda_eq = Lambda_m/(nu+ z+)")
+
+def _c22_q76():
+    Ka, Kb, C, al = sympy.symbols("K P C alpha", positive=True)
+    exact = lambda k: (-k + sympy.sqrt(k**2 + 4*k*C))/(2*C)     # root of k = C alpha^2/(1 - alpha)
+    lim = sympy.limit((exact(Ka)/exact(Kb))**2, C, sympy.oo)    # weak-acid (alpha << 1) limit
+    a, B = sympy.sqrt(Ka/C), sympy.sqrt(Kb/C)
+    rep = lambda s: s.replace(r"\kappa_{a'}", " P ").replace(r"\kappa_{a}", " K ").replace(r"\alpha'", " B ").replace(r"\alpha", " a ")
+    sa, sB = sympy.symbols("a B", positive=True)
+    truth = {}
+    for k, t in _b22_opts(76).items():
+        lhs, rhs = rep(t.strip("$")).split("=")
+        l_, r_ = _b23_expr(lhs), _b23_expr(rhs)
+        truth[k] = l_ is not None and r_ is not None and sympy.simplify((l_ - r_).subs({sa: a, sB: B})) == 0
+    return _c22_result(76, ["two monobasic acids HA and HA'", r"$\kappa_{a}$ and $\kappa_{a'}$", r"$\alpha$ and $\alpha'$"], [], _true(truth),
+                       f"kappa = C alpha^2/(1 - alpha); (alpha/alpha')^2 -> {lim} as C -> oo; alpha = sqrt(kappa/C)")
+
+def _c22_q77():
+    Z = {"H": 1, "He": 2, "Li": 3}
+    def electrons(t):
+        mm = re.fullmatch(r"\$\\text\{(\w+)\}\^\{(\d*)\+\}\$", t)
+        return Z[mm.group(1)] - int(mm.group(2) or 1) if mm else None
+    ne = {k: electrons(t) for k, t in _b22_opts(77).items()}
+    m = [k for k, v in ne.items() if v == 1]
+    return _c22_result(77, ["Bohr model is applicable"], [r"C:\text{Li}^{2+}"], m, f"electrons = Z - charge: {ne}; Bohr model needs exactly one")
+
+_C22_OH = {"Be": (True, False), "Mg": (False, False), "Al": (True, False), "Zn": (True, True)}   # (dissolves in OH-, aqueous ammine complex)
+
+def _c22_q78():
+    metal = {k: re.match(r"([A-Z][a-z]?)", _c24_plain(t)).group(1) for k, t in _b22_opts(78).items()}
+    m = [k for k, e in metal.items() if all(_C22_OH[e])]
+    return _c22_result(78, ["aqueous KOH and ammonia"], [], m, f"(amphoteric, ammine complex): { {metal[k]: _C22_OH[metal[k]] for k in metal} }")
+
+def _c22_q79():
+    from collections import Counter
+    thio = Counter(_c24_formula("H2SO4")); thio["O"] -= 1; thio["S"] += 1
+    f = {k: dict(_c24_formula(_c24_plain(t))) for k, t in _b22_opts(79).items()}
+    m = [k for k, c in f.items() if c == dict(thio)]
+    return _c22_result(79, ["Thiosulphuric acid"], [], m, f"H2SO4 with one O -> S = {dict(thio)}; options {f}")
+
+def _c22_q80():
+    x = sympy.Symbol("x")
+    def ox(nO):
+        return sympy.solve(sympy.Eq(1 + x - 2*nO, 0), x)[0]      # H(+1) + Cl(x) + nO * O(-2) = 0
+    truth, desc = {}, {}
+    for k, t in _b22_opts(80).items():
+        seq = [int(n or 1) for n in re.findall(r"\\text\{HClO\}(?:_\{(\d)\})?", t)]
+        st = [ox(n) for n in seq]
+        desc[k] = st
+        truth[k] = len(seq) == 4 and sorted(seq) == [1, 2, 3, 4] and all(a > b for a, b in zip(st, st[1:]))
+    return _c22_result(80, ["correct order of the acidity"], [], _true(truth), f"Cl oxidation states along each printed order {desc} (acidity rises with it)")
+
+def _c22_q81():
+    stem = _paper_2022()[81]["stemLatex"]
+    sn, lig, lp = _c24_vsepr(re.search(r"\$\\text\{NH\}_\{3\}\$", stem).group(0))
+    shapes = {(4, 3, 1): "pyramidal", (4, 4, 0): "tetrahedral", (3, 3, 0): "triangular planar", (5, 4, 1): "see-saw"}
+    m = [k for k, t in _b22_opts(81).items() if t.strip() == shapes.get((sn, lig, lp))]
+    return _c22_result(81, [r"$\text{NH}_{3}$"], [], m, f"NH3: steric number {sn}, {lig} bond pairs, {lp} lone pair -> {shapes.get((sn, lig, lp))}")
+
+def _c22_q82():
+    import itertools
+    iso = {}
+    E_all = list(itertools.combinations(range(4), 2))
+    for E in itertools.combinations(E_all, 3):
+        par = list(range(4))
+        def fnd(i):
+            while par[i] != i:
+                i = par[i]
+            return i
+        for a, b in E:
+            par[fnd(a)] = fnd(b)
+        if len({fnd(i) for i in range(4)}) != 1:
+            continue
+        for cpos in range(4):
+            code = min((tuple(sorted(tuple(sorted((p[a], p[b]))) for a, b in E)), p[cpos]) for p in itertools.permutations(range(4)))
+            if code in iso:
+                continue
+            mol = _C24Mol(); cs = [mol.add("C") for _ in range(4)]
+            for a, b in E:
+                mol.bond(cs[a], cs[b])
+            mol.bond(cs[cpos], mol.add("Cl"))
+            for i in cs:
+                mol.h[i] = 4 - sum(mol.adj[i].values())
+            iso[code] = mol
+    formula_ok = all(m_.formula() == {"C": 4, "H": 9, "Cl": 1} and all(h >= 0 for h in m_.h) for m_ in iso.values())
+    n_struct = len(iso)
+    chiral = sum(1 for m_ in iso.values() if _c24_stereocentres(m_))
+    n_stereo = n_struct + chiral
+    vals = {k: _b22_num(t) for k, t in _b22_opts(82).items()}
+    m = [k for k, v in vals.items() if v == n_struct] if formula_ok else []
+    return _c22_result(82, [r"$\text{C}_{4}\text{H}_{9}\text{Cl}$"], [], m,
+                       f"structure-graph enumeration: {n_struct} constitutional isomers (formula C4H9Cl: {formula_ok}); {chiral} with a stereocentre -> {n_stereo} counting enantiomers; options {vals}")
+
+_C22_COLOUR = {"ZnO": "white", "HgO": "red/yellow", "CuO": "black", "NiO": "green"}
+
+def _c22_q83():
+    f = {k: _c24_plain(t) for k, t in _b22_opts(83).items()}
+    m = [k for k, s in f.items() if _C22_COLOUR.get(s) == "white"]
+    return _c22_result(83, ["white pigment"], [], m, f"colours { {s: _C22_COLOUR.get(s) for s in f.values()} }")
+
+def _c22_q84():
+    q, w = sympy.Integer(120), -sympy.Integer(30)               # heat absorbed; work done ON the system = -(work by it)
+    dU = q + w
+    vals = {k: _c22_signed(t.replace(" J", "")) for k, t in _b22_opts(84).items()}
+    m = [k for k, v in vals.items() if v == dU]
+    return _c22_result(84, ["$120$ J and $30$ J", "work done by the system"], [], m, f"dU = q + w = 120 + (-30) = {dU}; options {vals}")
+
+_C22_R_PLUS = {"Li": 0.76, "Na": 1.02, "K": 1.38, "Cs": 1.67}  # Shannon ionic radii (Å)
+_C22_DIRECT_NITRIDE = {"Li": True, "Na": False, "K": False, "Cs": False}
+
+def _c22_q85():
+    coef = _c24_balance(["Li", "N2"], ["Li3N"])
+    el = {k: _c24_plain(t) for k, t in _b22_opts(85).items()}
+    smallest = min(el.values(), key=lambda e: _C22_R_PLUS[e])
+    m = [k for k, e in el.items() if _C22_DIRECT_NITRIDE[e] and e == smallest and coef == [6, 1, 2]]
+    return _c22_result(85, [r"$\text{N}_{2}$", "nitride"], [], m, f"6Li + N2 -> 2Li3N balances {coef}; smallest cation (highest lattice energy) {smallest}")
+
+# ---------------- Chemistry Cat-II (Q86–Q90) ----------------
+_C22_CATION = {"Al": (3, 0.535, False), "Be": (2, 0.45, False), "Ba": (2, 1.35, True), "Rb": (1, 1.52, True)}   # charge, r (Å), strong-base hydroxide
+
+def _c22_q86():
+    el = {k: re.match(r"([A-Z][a-z]?)", _c24_plain(t)).group(1) for k, t in _b22_opts(86).items()}
+    zr = {e: round(_C22_CATION[e][0]/_C22_CATION[e][1], 2) for e in el.values()}
+    m = sorted(k for k, e in el.items() if _C22_CATION[e][2] and zr[e] < 2)
+    return _c22_result(86, ["aqueous solutions of metal chlorides is neutral"], [], m, f"cation z/r (per Å) {zr}; strong-base parents {[e for e in el.values() if _C22_CATION[e][2]]}")
+
+_C22_NAMES = {"Phosphoric acid": "H3PO4", "phosphine": "PH3", "Nitric acid": "HNO3", "molecular nitrogen": "N2",
+              "Sulphuric acid": "H2SO4", "elemental sulphur": "S", "Borax": "Na2B4O7", "diborane": "B2H6"}
+_C22_H_MINUS = {"B", "Li", "Na", "K", "Ca", "Al"}                 # hydrides where H is the more electronegative partner
+
+def _c22_oxnum(formula, el):
+    c = _c24_formula(formula)
+    if set(c) == {el}:
+        return sympy.Integer(0)
+    x = sympy.Symbol("x")
+    fixed = {"O": -2, "Na": 1, "H": (-1 if any(e in _C22_H_MINUS for e in c if e != "H") else 1)}
+    return sympy.solve(sympy.Eq(sum(n*(x if e == el else fixed[e]) for e, n in c.items()), 0), x)[0]
+
+def _c22_q87():
+    ch, desc = {}, {}
+    for k, t in _b22_opts(87).items():
+        mm = re.fullmatch(r"(.+?) to (.+?)\.?", t.strip())
+        a, b = _C22_NAMES[mm.group(1)], _C22_NAMES[mm.group(2)]
+        el = next(e for e in _c24_formula(b) if e not in ("H", "O", "Na"))
+        o1, o2 = _c22_oxnum(a, el), _c22_oxnum(b, el)
+        ch[k] = abs(o1 - o2); desc[k] = f"{el} {o1} -> {o2}"
+    top = max(ch.values())
+    m = sorted(k for k, v in ch.items() if v == top)
+    return _c22_result(87, ["highest degree of redox change"], [], m, f"oxidation numbers {desc}; |change| {ch}")
+
+def _c22_q88():
+    a, b, d = sympy.symbols("a b d", positive=True)
+    truth, desc = {}, {}
+    for k, t in _b22_opts(88).items():
+        mm = re.search(r"\\Delta H = ([+-])\\text\{ve\}.*?\\Delta S = ([+-])\\text\{ve\}.*?\|\\Delta H\| ([<>=]) \|T\\Delta S\|", t)
+        sH, sS, rel = (1 if mm.group(1) == "+" else -1), (1 if mm.group(2) == "+" else -1), mm.group(3)
+        sub = {">": {a: b + d}, "<": {b: a + d}, "=": {a: b}}[rel]         # a = |dH|, b = |T dS|
+        dG = sympy.simplify((sH*a - sS*b).subs(sub))
+        desc[k] = dG; truth[k] = sympy.sign(dG) == -1
+    return _c22_result(88, ["spontaneous at constant pressure and temperature"], [], _true(truth), f"dG = dH - T dS under each set: {desc}")
+
+def _c22_q89():
+    T, R, A, hh = sympy.symbols("T R A h", positive=True)
+    truth, desc = {}, {}
+    for k, t in _b22_opts(89).items():
+        mm = re.search(r"(increases|decreases|decrease) with (increase|decrease) in temperature for an (exothermic|endothermic)", t)
+        dH = -hh if mm.group(3) == "exothermic" else hh
+        dKdT = sympy.diff(A*sympy.exp(-dH/(R*T)), T)
+        sgn = sympy.sign(sympy.simplify(dKdT))*(1 if mm.group(2) == "increase" else -1)
+        claim = 1 if mm.group(1) == "increases" else -1
+        truth[k] = "K_{p}" in t and sgn == claim; desc[k] = (mm.group(3), int(sgn))
+    return _c22_result(89, ["statement (s) is / are true"], [r"D:decrease with decrease"], _true(truth), f"van 't Hoff: sign of the change of K_p under each stated temperature change {desc}")
+
+_C22_EN = {"Na": 0.93, "Cl": 3.16, "H": 2.20, "O": 3.44, "C": 2.55, "Ca": 1.00}
+_C22_BONDS = {"NaCl": [("Na", "Cl")], "H2O": [("O", "H")]*2, "CH4": [("C", "H")]*4,
+              "CaCO3": [("Ca", "O")]*2 + [("C", "O")]*3}
+
+def _c22_q90():
+    truth, desc = {}, {}
+    for k, t in _b22_opts(90).items():
+        f = _c24_plain(t); bonds = _C22_BONDS[f]
+        cov = [(a, b) for a, b in bonds if abs(_C22_EN[a] - _C22_EN[b]) < 1.7]
+        truth[k] = bool(cov); desc[k] = sorted({f"{a}-{b} {abs(_C22_EN[a] - _C22_EN[b]):.2f}" for a, b in bonds})
+    return _c22_result(90, ["have covalent bonds"], [r"D:\text{CaCO}_{3}"], _true(truth), f"bond electronegativity differences (covalent < 1.7) {desc}")
+
+# ---------------- FEEE Cat-I (Q91–Q100) ----------------
+def _c22_q91():
+    V, mm, th = sympy.Symbol("V", positive=True), sympy.Symbol("m", positive=True), sympy.Symbol("theta")
+    Vm = V*mm                                                    # _b23_expr reads V_{m} as V*m
+    rms = sympy.sqrt(sympy.integrate((Vm*sympy.sin(th))**2, (th, 0, 2*sympy.pi))/(2*sympy.pi))
+    m = [k for k, t in _b22_opts(91).items() if _c22_eq(_b23_expr(t), sympy.simplify(rms))]
+    return _c22_result(91, [r"$v(t) = V_{m}\sin\omega t$", "moving Iron instrument"], [], m, f"moving iron reads RMS: {sympy.simplify(rms)} (with V_m = V*m)")
+
+def _c22_q92():
+    st = _paper_2022()[92]["stemLatex"]
+    a = int(re.search(r"N_\{1\}/N_\{2\} = (\d+)", st).group(1))
+    cpx = lambda s: sympy.Rational(s[0]) + sympy.I*sympy.Rational(s[1])
+    Z1 = cpx(re.search(r"primary winding is \$(\d+(?:\.\d+)?) \+ j(\d+(?:\.\d+)?)", st).groups())
+    Z2 = cpx(re.search(r"secondary windings is \$(\d+(?:\.\d+)?) \+ j(\d+(?:\.\d+)?)", st).groups())
+    Zeq = sympy.expand(Z1 + a**2*Z2)
+    vals = {k: cpx(re.search(r"(\d+(?:\.\d+)?) \+ [jJ](\d+(?:\.\d+)?)", t).groups()) for k, t in _b22_opts(92).items()}
+    m = [k for k, v in vals.items() if sympy.simplify(v - Zeq) == 0]
+    return _c22_result(92, ["$N_{1}/N_{2} = 10$", r"$2 + j5\ \Omega$", r"$0.5 + j0.8\ \Omega$", "referred to primary"], [r"D:J0.508"], m,
+                       f"Z1 + a^2 Z2 = {Z1} + {a**2}*({Z2}) = {Zeq}; options {vals}")
+
+def _c22_q93():
+    G = _svg22(93); ox, oy = G["origin"]
+    pts = sorted(_pts_of(G["roles"]["T-N"][0]))
+    cross = [pts[i][0] + (pts[i + 1][0] - pts[i][0])*(oy - pts[i][1])/(pts[i + 1][1] - pts[i][1])
+             for i in range(len(pts) - 1) if (pts[i][1] - oy)*(pts[i + 1][1] - oy) < 0]
+    def on_curve(p):                                             # distance to the polyline segments, not just its vertices
+        def d(a, b):
+            vx, vy = b[0] - a[0], b[1] - a[1]
+            u = max(0.0, min(1.0, ((p[0] - a[0])*vx + (p[1] - a[1])*vy)/(vx*vx + vy*vy)))
+            return math.hypot(p[0] - a[0] - u*vx, p[1] - a[1] - u*vy)
+        return min(d(pts[i], pts[i + 1]) for i in range(len(pts) - 1)) < 1.5
+    dots = {k: _b22_pt(G, k) for k in "WXYZ"}
+    y_at_axis = min(pts, key=lambda q: abs(q[0] - ox))[1]
+    fig_ok = len(cross) == 1 and cross[0] > ox and y_at_axis < oy and all(on_curve(p) for p in dots.values())
+    Ns = cross[0] if cross else None
+    slip = {k: (1 - sympy.nsimplify(round((p[0] - ox)/(Ns - ox), 3))) if Ns else None for k, p in dots.items()}
+    m = [k for k, opt in _b22_opts(93).items() if fig_ok and slip.get(opt.strip("$")) is not None and slip[opt.strip("$")] > 1]
+    return _c22_result(93, ["Torque -Speed curve of the Induction motor", "slip greater than $1$"], [], m,
+                       f"SVG: N-axis crossing (T = 0, s = 0) once beyond the T-axis, positive standstill torque, dots on the curve ({fig_ok}); "
+                       f"s = 1 - N/N_s at the dots {slip}")
+
+def _c22_circuit(qnum):
+    svg = _svg_text(_paper_2022()[qnum]["stemFigure"]["src"])
+    segs, net = _netlist(svg)
+    texts = []
+    for attrs, body in re.findall(r"<text\b([^>]*)>(.*?)</text>", svg):
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs))
+        texts.append((float(a["x"]), float(a["y"]), re.sub(r"<[^>]+>", "", body)))
+    comps = []
+    for kind, lab, pins, inner in re.findall(r'<g data-comp="(\w+)"(?: data-label="(\w+)")? data-pins="([^"]+)">(.*?)</g>', svg, re.S):
+        comps.append(dict(kind=kind, label=lab, pins=[tuple(map(float, p.split(","))) for p in pins.split()], inner=inner))
+    return svg, segs, net, texts, comps
+
+def _c22_q94():
+    st = _paper_2022()[94]["stemLatex"]
+    Im, w, pi_ = re.search(r"i = (\d+)\\cos\((\d+)t \+ (\d+(?:\.\d+)?)\^\{\\circ\}\)", st).groups()
+    Vmx, w2, pv = re.search(r"v = (\d+)\\sin\((\d+)t \+ (\d+(?:\.\d+)?)\^\{\\circ\}\)", st).groups()
+    phi_i = sympy.Rational(pi_) + 90                            # cos(x) = sin(x + 90 deg)
+    lead = phi_i - sympy.Rational(pv)                            # current leads voltage by this angle
+    Z = sympy.Rational(Vmx)/sympy.Rational(Im)
+    R = sympy.N(Z*sympy.cos(sympy.rad(lead))); X = sympy.N(-Z*sympy.sin(sympy.rad(lead)))
+    elems = ({"R"} if R > 1e-9 else set()) | ({"C"} if X < -1e-9 else ({"L"} if X > 1e-9 else set()))
+    names = {"Resistance": "R", "Capacitance": "C", "Inductance": "L"}
+    def parse(t):
+        return {"R"} if t.strip() == "Both resistances" else {names[w_] for w_ in re.findall(r"Resistance|Capacitance|Inductance", t)}
+    m = [k for k, t in _b22_opts(94).items() if parse(t) == elems and w == w2]
+    return _c22_result(94, [r"$i = 4\cos(2000t + 11.32^{\circ})$", r"$v = 200\sin(2000t + 50^{\circ})$"], [], m,
+                       f"current leads voltage by {lead} deg; |Z| = {Z}, R = {float(R):.2f}, X = {float(X):.2f} -> elements {sorted(elems)}")
+
+def _c22_q95():
+    st = _paper_2022()[95]["stemLatex"]
+    P1, P2 = (int(v) for v in re.search(r"\$(\d+)\$W and \$(\d+)\$ W", st).groups())
+    V = sympy.Symbol("V", positive=True)
+    R1, R2 = V**2/P1, V**2/P2
+    I = V/(R1 + R2)
+    p1, p2 = sympy.simplify(I**2*R1), sympy.simplify(I**2*R2)
+    total = sympy.simplify(p1 + p2)
+    brighter = P1 if p1 > p2 else P2
+    truth = {}
+    for k, t in _b22_opts(95).items():
+        mc = re.search(r"consume \$(\d+)\$ W", t); mb = re.search(r"the \$(\d+)\$ W bulb glows brighter", t)
+        truth[k] = (mc is not None and sympy.Integer(mc.group(1)) == total) or (mb is not None and int(mb.group(1)) == brighter)
+    return _c22_result(95, ["$40$W and $60$ W", "connected in series"], [], _true(truth),
+                       f"R = V^2/P; series: P_{P1} = {p1}, P_{P2} = {p2}, total {total} W -> brighter: {brighter} W bulb")
+
+def _c22_q96():
+    svg, segs, net, texts, comps = _c22_circuit(96)
+    vs = [c for c in comps if c["kind"] == "VS"]; ds = [c for c in comps if c["kind"] == "D"]; rs = [c for c in comps if c["kind"] == "R"]
+    G = _svg22(96)
+    out_p, out_m = net(_b22_pt(G, "out+")), net(_b22_pt(G, "out-"))
+    if len(vs) != 1 or len(ds) != 1 or len(rs) != 1:
+        return False, f"netlist incomplete: sources {len(vs)}, diodes {len(ds)}, resistors {len(rs)}"
+    top, bot = net(vs[0]["pins"][0]), net(vs[0]["pins"][1])
+    k = _c24_diode_cathode(ds[0]); an, ca = net(ds[0]["pins"][1 - k]), net(ds[0]["pins"][k])
+    R = (net(rs[0]["pins"][0]), net(rs[0]["pins"][1]), sympy.Integer(1000))
+    nets = {top, bot, an, ca, out_p, out_m, R[0], R[1]}
+    if None in nets:
+        return False, f"floating pin in the Q96 netlist {nets}"
+    on_for = {}
+    for s in (1, -1):                                             # source top at +1 V / -1 V
+        good = []
+        for st_ in (0, 1):
+            res = _c24_mna(nets, bot, [R], [(top, bot, s)], [(an, ca)] if st_ else [], [], [])
+            if res is None:
+                continue
+            Vn, dI = res
+            if (st_ and dI[0] >= 0) or (not st_ and Vn[an] - Vn[ca] <= 0):
+                good.append((st_, Vn[out_p] - Vn[out_m]))
+        on_for[s] = good
+    consistent = all(len(g) == 1 for g in on_for.values())
+    V, mm, th = sympy.Symbol("V", positive=True), sympy.Symbol("m", positive=True), sympy.Symbol("theta")
+    Vm = V*mm
+    gain = {s: g[0][1]/s for s, g in on_for.items()} if consistent else {}       # v0 = gain * vs in each half-cycle
+    avg = (sympy.integrate(gain[1]*Vm*sympy.sin(th), (th, 0, sympy.pi)) + sympy.integrate(gain[-1]*Vm*sympy.sin(th), (th, sympy.pi, 2*sympy.pi)))/(2*sympy.pi) if consistent else None
+    m = [kk for kk, t in _b22_opts(96).items() if consistent and _c22_eq(_b23_expr(t), sympy.simplify(avg))]
+    return _c22_result(96, ["average value of $v_{0}(t)$"], [], m,
+                       f"SVG netlist: diode anode on the + output net ({an == out_p}), cathode on the source top ({ca == top}); "
+                       f"consistent (state, v0) for vs = +1 / -1: {on_for}; average = {avg} (V_m = V*m)")
+
+def _c22_q97():
+    svg, segs, net, texts, comps = _c22_circuit(97)
+    G = _svg22(97)
+    oa = [c for c in comps if c["kind"] == "OA"]; cells = [c for c in comps if c["kind"] == "cell"]; gnd = [c for c in comps if c["kind"] == "GND"]
+    if len(oa) != 1 or len(cells) != 1 or len(gnd) != 1:
+        return False, f"netlist incomplete: op-amps {len(oa)}, cells {len(cells)}, grounds {len(gnd)}"
+    vp, vmn = net(oa[0]["pins"][0]), net(oa[0]["pins"][1])
+    vi = net(_b22_pt(G, "vi")); g = net(gnd[0]["pins"][0])
+    c = cells[0]; pi = _c24_cell_pos(c)
+    if pi is None:
+        return False, "Q97 cell plate lengths do not show a polarity"
+    cp, cn = net(c["pins"][pi]), net(c["pins"][1 - pi])
+    emf = _c24_value(texts, c)
+    topo = vp == vi and {cp, cn} == {vmn, g} and None not in (vp, vmn, g)
+    vref = (emf if cp == vmn else -emf) if topo else None
+    peak = sympy.Integer(re.search(r"peak value \$(\d+)\$V", _paper_2022()[97]["stemLatex"]).group(1))
+    th = sympy.Symbol("theta", real=True)
+    high = sympy.solveset(peak*sympy.sin(th) - vref > 0, th, sympy.Interval(0, 2*sympy.pi)) if topo else sympy.EmptySet
+    deg = sympy.simplify(high.measure*180/sympy.pi) if topo else None
+    vals = {k: sympy.Integer(re.search(r"(\d+)\^\{\\circ\}", t).group(1)) for k, t in _b22_opts(97).items()}
+    m = [k for k, v in vals.items() if topo and v == deg]
+    return _c22_result(97, ["comparator shown", "peak value $6$V", "output will be high"], [], m,
+                       f"SVG netlist: vi on the + input ({vp == vi}), cell between the - input and ground ({topo}), + plate on the - input -> v- = {vref} V; "
+                       f"high while {peak} sin(theta) > {vref}: {high} = {deg} deg")
+
+def _c22_q98():
+    import itertools
+    svg, segs, net, texts, comps = _c22_circuit(98)
+    sw = [c for c in comps if c["kind"] == "SW"]
+    labels = sorted(c["label"] for c in sw)
+    ends = [(s[0], s[1]) for s in segs] + [(s[2], s[3]) for s in segs]
+    nin, nout = net(min(ends)), net(max(ends))
+    vis_ok = all(min(texts, key=lambda tt: math.hypot(tt[0] - (c["pins"][0][0] + c["pins"][1][0])/2, tt[1] - (c["pins"][0][1] - 12)))[2] == c["label"] for c in sw)
+    edges = [(net(c["pins"][0]), net(c["pins"][1]), c["label"]) for c in sw]
+    nodes = {n for e in edges for n in e[:2]} | {nin, nout}
+    if None in nodes or labels != list("ABCDEFG"):
+        return False, f"switch graph incomplete: labels {labels}, nets {nodes}"
+    def conducts(state):
+        par = {n: n for n in nodes}
+        def f(x):
+            while par[x] != x:
+                x = par[x]
+            return x
+        for a, b, l in edges:
+            if state[l]:
+                par[f(a)] = f(b)
+        return f(nin) == f(nout)
+    syms = {l: sympy.Symbol(l) for l in labels}
+    def boolexpr(t):
+        s = t.strip("$").replace("[", "(").replace("]", ")").replace(".", "&").replace("+", "|")
+        s = re.sub(r"(?<=[A-Z)])(?=[A-Z(])", "&", s)
+        return sympy.sympify(s, locals=syms)
+    exprs = {k: boolexpr(t) for k, t in _b22_opts(98).items()}
+    truth = {k: True for k in exprs}
+    for bits in itertools.product((False, True), repeat=7):
+        state = dict(zip(labels, bits))
+        y = conducts(state)
+        for k, e in exprs.items():
+            if bool(e.subs({syms[l]: state[l] for l in labels})) != y:
+                truth[k] = False
+    m = _true(truth) if vis_ok else []
+    return _c22_result(98, ["Boolean function", "circuit represents"], [r"C:A[(B+C)+F(D+E)]G"], m,
+                       f"SVG switch graph: 7 switches {labels}, printed letters match the data-labels ({vis_ok}); "
+                       f"options equal to input-output connectivity on all 128 states: {_true(truth)}")
+
+def _c22_q99():
+    svg, segs, net, texts, comps = _c22_circuit(99)
+    tr = [c for c in comps if c["kind"] == "NPN"]; rs = [c for c in comps if c["kind"] == "R"]; cells = [c for c in comps if c["kind"] == "cell"]
+    if len(tr) != 1 or len(rs) != 1 or len(cells) != 2:
+        return False, f"netlist incomplete: transistors {len(tr)}, resistors {len(rs)}, cells {len(cells)}"
+    E, B, C = (net(p) for p in tr[0]["pins"])
+    r = rs[0]; rn = {net(r["pins"][0]), net(r["pins"][1])}
+    pol = []
+    for c in cells:
+        pi = _c24_cell_pos(c); pol.append((net(c["pins"][pi]), net(c["pins"][1 - pi])))
+    vcc = next((p for p in pol if p[0] in rn), None); veb = next((p for p in pol if p is not vcc), None)
+    G = _svg22(99)
+    tip_poly = [tuple(map(float, q.split(","))) for q in G["roles"]["Ic-arrow"][0]["points"].split()]
+    tip = tip_poly[0]; cen = (sum(q[0] for q in tip_poly[1:])/2, sum(q[1] for q in tip_poly[1:])/2)
+    cpin = tr[0]["pins"][2]
+    into_c = net(tip) == C and ((cpin[0] - tip[0])*(tip[0] - cen[0]) + (cpin[1] - tip[1])*(tip[1] - cen[1])) > 0
+    near = lambda p, s: min((math.hypot(x - p[0], y - p[1]) for x, y, t in texts if t == s), default=99)
+    vcb_marks = near(cpin, "+") < near(cpin, "−") and near(tr[0]["pins"][1], "−") < 25
+    topo = (vcc is not None and veb is not None and rn == {vcc[0], C} and vcc[1] == B and veb == (B, E) and into_c and vcb_marks)
+    Rv = _c24_value(texts, r)
+    st = _paper_2022()[99]["stemLatex"]
+    Ic = sympy.Rational(re.search(r"I_\{C\} = (\d+)\$ mA", st).group(1))/1000
+    Vcb = sympy.Rational(re.search(r"V_\{CB\} = (\d+)\$ V", st).group(1))
+    Vp, Vc, Vb, Vcc = sympy.symbols("Vp Vc Vb Vcc")
+    sol = sympy.solve([sympy.Eq(Vp - Vc, Ic*Rv), sympy.Eq(Vc - Vb, Vcb), sympy.Eq(Vb, 0), sympy.Eq(Vcc, Vp - Vb)], [Vp, Vc, Vb, Vcc], dict=True)[0] if topo else {}
+    val = sol.get(Vcc)
+    vals = {k: _b22_num(t) for k, t in _b22_opts(99).items()}
+    m = [k for k, v in vals.items() if val is not None and v == val]
+    return _c22_result(99, [r"$I_{C} = 15$ mA", r"$V_{CB} = 3$ V", r"$V_{CC}$ required"], [], m,
+                       f"SVG netlist: R {Rv} Ω between VCC+ and the collector, VCC- on the base rail, VEB forward (+ base, - emitter), "
+                       f"IC arrow into the collector, VCB + at C ({topo}); KVL VCC = IC R + VCB = {val} V; options {vals}")
+
+def _c22_q100():
+    V, Ra, k, N, phi, TL = sympy.symbols("V R_a k N phi T_L", positive=True)
+    Ia = (V - k*phi*N)/Ra
+    T0 = (k*phi*Ia).subs(N, 0)
+    I_start = sympy.limit(Ia.subs(N, 0), phi, 0)
+    T_lim = sympy.limit(T0, phi, 0)
+    speeds_up = (T_lim - TL).is_positive is True                         # loaded start: residual torque -> 0, never exceeds T_L > 0
+    large = sympy.simplify(I_start - V/Ra) == 0                          # no back-emf: only Ra limits the current
+    truth = {}
+    for key_, t in _b22_opts(100).items():
+        up = "does not pick up" not in t
+        big = "large current" in t
+        truth[key_] = (up == speeds_up) and (big == large)
+    return _c22_result(100, ["DC shunt motor", "open circuited field"], [], _true(truth),
+                       f"phi -> residual (0): starting torque k phi V/Ra -> {T_lim} < T_L (no acceleration), Ia -> {I_start} (large, Eb ~ 0)")
+
+def _c22_guard(n):
+    """Booklet layout first, then the chemistry / circuit check; exceptions count as FAIL (never crash the run)."""
+    f = globals()[f"_c22_q{n}"]
+    def g():
+        ok, why = _c22_layout(n)
+        if not ok:
+            return False, why
+        try:
+            return f()
+        except Exception as e:
+            return False, f"check raised {type(e).__name__}: {e}"
+    return g
+
+C_TESTS_2022 = [(f"2022 Q{n}", f"jelet-2022-q{n:03d}", _c22_guard(n)) for n in range(71, 101)]
+
 
 
 
@@ -6980,7 +7596,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + A_TESTS_2022 + B_TESTS_2022 + A_TESTS_2023 + B_TESTS_2023 + C_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
+        ] + A_TESTS_2022 + B_TESTS_2022 + C_TESTS_2022 + A_TESTS_2023 + B_TESTS_2023 + C_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -7040,6 +7656,52 @@ def main():
         else:
             print(f"  ✅ 2022 Batch B (Q41–Q70) coverage gate: Physics 30/30 hand-written, SymPy-verified and independently re-checked "
                   f"(0 stubs; keyTier verified-derived; 0 withdrawn; 19/19 booklet figures, SVG geometry asserted, 0 orphan 2022 SVGs, var(--fig-*) only)")
+
+        # 2022 Batch C gate: every Chemistry/FEEE item Q71–Q100 must be a hand-written derivation (sympy-verified,
+        # >= 3 steps, no stub text) backed by its own independent _c22 check, keyTier "verified-derived", no
+        # withdrawals, and exactly the five printed stem figures (Q93/96/97/98/99) present.
+        wantC22 = [f"jelet-2022-q{n:03d}" for n in range(71, 101)]
+        covC22 = {qid for _, qid, _ in C_TESTS_2022}
+        missC22 = [q for q in wantC22 if q not in covC22]
+        stubC22 = [q for q in wantC22 if q not in sol22 or sol22[q]["verification"].get("method") != "sympy"
+                   or len(sol22[q].get("steps", [])) < 3 or "Auto-generated" in sol22[q]["verification"].get("note", "")
+                   or any(st.get("title") == "Identify the problem type" for st in sol22[q].get("steps", []))]
+        tierC22 = [n for n in range(71, 101) if pap22[n]["key"].get("keyTier") != "verified-derived"]
+        wdC22 = [n for n in range(71, 101) if pap22[n]["key"]["status"] != "active"]
+        figC22 = sorted(fn for fn in refs22 if re.match(r"fig-2022-q(7\d|8\d|9\d|100)", fn))
+        figC22_want = sorted(f"fig-2022-q{n:02d}.svg" for n in STEM_FIG_2022_C)
+        if missC22 or stubC22 or tierC22 or wdC22 or figC22 != figC22_want or len(C_TESTS_2022) != 30:
+            errors.append(f"2022 Batch C (Q71–Q100) coverage gate: without independent check {missC22}, stub/unverified {stubC22}, "
+                          f"tiers {tierC22}, withdrawn {wdC22}, figures {figC22} (want {figC22_want})")
+            print(f"  ❌ 2022 Batch C (Q71–Q100) coverage gate: missing checks {missC22}, stubs {stubC22}, tiers {tierC22}, "
+                  f"withdrawn {wdC22}, figures {figC22}")
+        else:
+            print(f"  ✅ 2022 Batch C (Q71–Q100) coverage gate: Chemistry 20/20 + FEEE 10/10 hand-written, SymPy-verified and "
+                  f"independently re-checked (0 stubs; keyTier verified-derived; 0 withdrawn; 5/5 stem figures, netlists + "
+                  f"switch graph + torque–speed geometry rebuilt from SVG)")
+
+        # 2022 completion gate: all 100 solutions hand-written, SymPy-verified, independently checked; paper-level
+        # keyTier "verified-derived"; stem figures exactly as printed (12), 0 orphan / missing SVGs, only Q7 withdrawn.
+        cov_all22 = {qid for _, qid, _ in A_TESTS_2022 + B_TESTS_2022 + C_TESTS_2022}
+        miss_all22 = sorted(q for q in sol22 if q not in cov_all22)
+        stub_all22 = sorted(q for q, v in sol22.items() if v["verification"].get("method") != "sympy" or len(v.get("steps", [])) < 3
+                            or "Auto-generated" in v["verification"].get("note", "")
+                            or any(st.get("title") == "Identify the problem type" for st in v.get("steps", [])))
+        figs22 = STEM_FIG_2022_B | STEM_FIG_2022_C
+        fig_bad22 = sorted(n for n, q in pap22.items() if bool(q.get("stemFigure")) != (n in figs22))
+        tier_all22 = sorted(n for n, q in pap22.items() if q["key"].get("keyTier") != "verified-derived")
+        paper_tier22 = load_json(os.path.join(DATA, "solutions", "2022.solutions.json")).get("keyTier")   # tracked paper-level tier
+        wd_all22 = sorted(n for n, q in pap22.items() if q["key"]["status"] != "active")
+        if (len(sol22) != 100 or len(cov_all22) != 100 or len(pap22) != 100 or miss_all22 or stub_all22 or orphB22 or missfigB22
+                or fig_bad22 or len(figs22) != 12 or tier_all22 or paper_tier22 != "verified-derived" or wd_all22 != sorted(WITHDRAWN_2022)):
+            errors.append(f"2022 coverage gate: {len(sol22)} solutions, {len(cov_all22)} checks, without independent check {miss_all22}, "
+                          f"stub/unverified {stub_all22}, orphan SVGs {orphB22}, missing SVGs {missfigB22}, stem-figure mismatches {fig_bad22}, "
+                          f"tiers {tier_all22}, paper keyTier {paper_tier22}, withdrawn {wd_all22}")
+            print(f"  ❌ 2022 coverage gate: missing checks {miss_all22}, stubs {stub_all22}, orphans {orphB22}, figure mismatches {fig_bad22}, "
+                  f"paper keyTier {paper_tier22}")
+        else:
+            print(f"  ✅ 2022 coverage gate: 100/100 solutions hand-written, SymPy-verified and independently re-checked, "
+                  f"keyTier verified-derived, {len(figs22)} stem figures exactly as printed, 0 orphan 2022 SVGs (0 stubs; withdrawn {wd_all22})")
 
         # 2023 Batch A gate: every Mathematics item Q1–Q40 must be a hand-written derivation
         # (sympy-verified, >= 3 steps, no auto-generated stub text) backed by its own independent _a23 check.

@@ -3549,27 +3549,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "Let $x$ ml of a solution of a substance $A$ reacts with $y$ ml of a solution of a substance $B$ according to the reaction $2A + 3B \\rightarrow \\text{products}$. If molar concentrations of the solutions of $A$ and $B$ are $M_{1}$ and $M_{2}$ respectively, then",
+      "stemLatex": "Let $x$ ml of a solution of a substance A reacts with $y$ ml of a solution of a substance B according to the reaction $2\\text{A} + 3\\text{B} \\rightarrow \\text{products}$. If molar concentrations of the solutions of A and B are $(\\text{M}_{1})$ and $(\\text{M}_{2})$ respectively, then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$2xM_{1} = 3yM_{2}$",
+          "latex": "$2x\\text{M}_{1} = 3y\\text{M}_{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$3xM_{1} = 2yM_{2}$",
+          "latex": "$3x\\text{M}_{1} = 2y\\text{M}_{2}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$2xM_{2} = 3yM_{1}$",
+          "latex": "$2x\\text{M}_{2} = 3y\\text{M}_{1}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$3xM_{2} = 2yM_{1}$",
+          "latex": "$3x\\text{M}_{2} = 2y\\text{M}_{1}$",
           "figure": null
         }
       ],
@@ -3578,14 +3578,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q71)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q71 (Set A, Q71)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
         "stoichiometry",
-        "concentration",
-        "reactions"
+        "molarity",
+        "titration"
       ]
     },
     {
@@ -3597,7 +3597,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "If the density of a solution of a substance is $z\\,\\text{gcm}^{-3}$ and gram molecular mass of the substance is $y\\,\\text{g}$, then the molality of the $x$ ($M$) solution is",
+      "stemLatex": "If the density of a solution of a substance is $z\\ \\text{gcm}^{-3}$ and gram molecular mass of the substance is $y$ g, then the molality of the $x$ (M) solution is",
       "stemFigure": null,
       "options": [
         {
@@ -3612,27 +3612,27 @@
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{0.01x}{z - xy}$",
+          "latex": "$\\dfrac{x}{1000z - xy}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{1000x}{1000z - xy}$",
+          "latex": "$\\dfrac{0.01x}{1000z - xy}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q72)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q72 (Set A, Q72)"
       },
       "difficulty": "hard",
       "tags": [
-        "solutions",
         "molality",
+        "molarity",
         "density"
       ]
     },
@@ -3645,7 +3645,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "If an electron is passed through a potential difference of $V$ volts, then de Broglie wavelength of the moving electron is [ $h$ = Planck's constant, $m$ = mass of electron, $e$ = charge of an electron]",
+      "stemLatex": "If an electron is passed through a potential difference of $V$ volts, then de Broglie wavelength of the moving electron is [$h$ = Planck's constant, $m$ = mass of electron, $e$ = charge of an electron]",
       "stemFigure": null,
       "options": [
         {
@@ -3660,12 +3660,12 @@
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{h}{\\sqrt{mveV}}$",
+          "latex": "$\\dfrac{h}{m\\sqrt{eV}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{h}{\\sqrt{m}}$",
+          "latex": "$\\dfrac{heV}{\\sqrt{m}}$",
           "figure": null
         }
       ],
@@ -3674,14 +3674,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q73)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q73 (Set A, Q73)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "de-broglie",
-        "wavelength"
+        "wave-particle-duality",
+        "electron"
       ]
     },
     {
@@ -3698,12 +3698,12 @@
       "options": [
         {
           "id": "A",
-          "latex": "$[\\text{Ar}]3d^{8}4s^{2}$",
+          "latex": "$[\\text{Ar}]3d^{8}\\,4s^{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$[\\text{Ar}]3d^{9}4s^{1}$",
+          "latex": "$[\\text{Ar}]3d^{9}\\,4s^{1}$",
           "figure": null
         },
         {
@@ -3713,7 +3713,7 @@
         },
         {
           "id": "D",
-          "latex": "$1s^{2}2s^{2}2p^{6}3s^{2}3p^{6}3d^{10}4s^{1}$",
+          "latex": "$1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{1}\\,3p^{6}\\,3d^{10}\\,4s^{1}$",
           "figure": null
         }
       ],
@@ -3722,14 +3722,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q74)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q74 (Set A, Q74)"
       },
       "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "electronic-configuration",
-        "cu+"
+        "transition-metals",
+        "ions"
       ]
     },
     {
@@ -3741,27 +3741,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 19,
-      "stemLatex": "A strong electrolyte $M_{\\nu_{+}}A_{\\nu_{-}}$ yielding the ions $M^{z+}$ and $A^{z-}$ in solution, the relation between equivalent conductivity ($\\Lambda_{eq}$) and molar conductivity ($\\Lambda_{m}$) is",
+      "stemLatex": "A strong electrolyte $\\text{M}_{\\nu_{+}}\\text{A}_{\\nu_{-}}$ yielding the ions $\\text{M}^{z+}$ and $\\text{A}^{z-}$ in solution, the relation between equivalent conductivity $(\\Lambda_{eq})$ and molar conductivity $(\\Lambda_{m})$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$",
+          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+}z_{+}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$",
+          "latex": "$\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\Lambda_{eq} = \\Lambda_{m}(\\nu_{+} + \\nu_{-})$",
+          "latex": "$\\Lambda_{m} = \\dfrac{\\Lambda_{eq}}{\\nu_{+}z_{+}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\Lambda_{eq} = \\dfrac{\\nu_{+}\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$",
+          "latex": "$\\Lambda_{m} = \\dfrac{\\Lambda_{eq}}{\\nu_{+}}$",
           "figure": null
         }
       ],
@@ -3770,14 +3770,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q75)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q75 (Set A, Q75)"
       },
       "difficulty": "medium",
       "tags": [
-        "electrochemistry",
-        "conductivity",
-        "electrolytes"
+        "conductance",
+        "equivalent-conductivity",
+        "molar-conductivity"
       ]
     },
     {
@@ -3788,28 +3788,28 @@
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
-      "pdfPage": 20,
-      "stemLatex": "At a definite temperature the molar concentrations of two monobasic acids $HA$ and $HA'$ in their individual solutions are same. At that temperature if ionization constants of the acids are $K_{a}$ and $K_{a}'$ and $\\alpha$ and $\\alpha'$ are the degrees of ionization respectively, then",
+      "pdfPage": 19,
+      "stemLatex": "At a definite temperature the molar concentrations of two monobasic acids HA and HA' in their individual solutions are same. At that temperature if ionization constants of the acids HA and HA' are $\\kappa_{a}$ and $\\kappa_{a'}$ respectively and degrees of ionization of HA and HA' are $\\alpha$ and $\\alpha'$ respectively, then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{K_{a}}{\\alpha} = \\dfrac{K_{a}'}{\\alpha'}$",
+          "latex": "$\\dfrac{\\alpha}{\\alpha'} = \\sqrt{\\dfrac{\\kappa_{a}}{\\kappa_{a'}}}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{K_{a}}{\\alpha'} = \\dfrac{K_{a}'}{\\alpha}$",
+          "latex": "$\\dfrac{\\alpha}{\\alpha'} = \\sqrt{\\kappa_{a}\\kappa_{a'}}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{K_{a}K_{a}'}{\\alpha} = \\dfrac{\\alpha'}{1}$",
+          "latex": "$\\dfrac{\\alpha}{\\alpha'} = \\sqrt{\\dfrac{\\kappa_{a'}}{\\kappa_{a}}}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{K_{a}}{\\alpha'} = \\dfrac{K_{a}'}{\\alpha'}$",
+          "latex": "$\\dfrac{\\alpha'}{\\alpha} = \\sqrt{\\kappa_{a}\\kappa_{a'}}$",
           "figure": null
         }
       ],
@@ -3818,14 +3818,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q76)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q76 (Set A, Q76)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "equilibrium",
-        "ionization",
-        "acids"
+        "ostwald-dilution-law",
+        "weak-acids",
+        "degree-of-ionization"
       ]
     },
     {
@@ -3837,7 +3837,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "To which of the following ions, Bohr model is applicable?",
+      "stemLatex": "To which of the following ions, Bohr model is applicable ?",
       "stemFigure": null,
       "options": [
         {
@@ -3864,29 +3864,28 @@
       "key": {
         "status": "active",
         "correct": [
-          "C",
-          "D"
+          "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q77)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q77 (Set A, Q77)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "atomic-structure",
         "bohr-model",
-        "hydrogen-like"
+        "hydrogen-like-species",
+        "electron-count"
       ]
     },
     {
       "id": "jelet-2022-q078",
       "qNumber": 78,
       "subjectId": "CHEM",
-      "unitId": "C06",
+      "unitId": "C03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The metal hydroxide that dissolves both in aqueous $\\text{KOH}$ and ammonia, is:",
+      "stemLatex": "The metal hydroxide that dissolves both in aqueous KOH and ammonia, is :",
       "stemFigure": null,
       "options": [
         {
@@ -3915,26 +3914,26 @@
         "correct": [
           "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q78)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q78 (Set A, Q78)"
       },
       "difficulty": "medium",
       "tags": [
-        "acids-bases",
-        "amphoteric",
-        "complexes"
+        "amphoteric-hydroxides",
+        "ammine-complexes",
+        "zinc"
       ]
     },
     {
       "id": "jelet-2022-q079",
       "qNumber": 79,
       "subjectId": "CHEM",
-      "unitId": "C07",
+      "unitId": "C03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Thiosulphuric acid is:",
+      "stemLatex": "Thiosulphuric acid is :",
       "stemFigure": null,
       "options": [
         {
@@ -3963,26 +3962,26 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q79)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q79 (Set A, Q79)"
       },
       "difficulty": "easy",
       "tags": [
-        "inorganic-chemistry",
-        "acids",
-        "sulphur"
+        "oxoacids",
+        "sulphur",
+        "nomenclature"
       ]
     },
     {
       "id": "jelet-2022-q080",
       "qNumber": 80,
       "subjectId": "CHEM",
-      "unitId": "C05",
+      "unitId": "C03",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The correct order of the acidity is:",
+      "stemLatex": "The correct order of the acidity is :",
       "stemFigure": null,
       "options": [
         {
@@ -4011,14 +4010,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q80)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q80 (Set A, Q80)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "acids-bases",
-        "acidity",
-        "oxoacids"
+        "oxoacids",
+        "acid-strength",
+        "chlorine"
       ]
     },
     {
@@ -4030,7 +4029,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The shape of the $\\text{NH}_{3}$ molecules is:",
+      "stemLatex": "The shape of the $\\text{NH}_{3}$ molecules is :",
       "stemFigure": null,
       "options": [
         {
@@ -4045,12 +4044,12 @@
         },
         {
           "id": "C",
-          "latex": "see-saw",
+          "latex": "triangular planar",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "triangular planar",
+          "latex": "see-saw",
           "figure": null
         }
       ],
@@ -4059,14 +4058,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q81)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q81 (Set A, Q81)"
       },
       "difficulty": "easy",
       "tags": [
-        "chemical-bonding",
         "vsepr",
-        "molecular-shape"
+        "molecular-shape",
+        "ammonia"
       ]
     },
     {
@@ -4078,7 +4077,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "How many isomers are possible with molecular formula $\\text{C}_{4}\\text{H}_{9}\\text{Cl}$?",
+      "stemLatex": "How many isomers are possible with molecular formula $\\text{C}_{4}\\text{H}_{9}\\text{Cl}$ ?",
       "stemFigure": null,
       "options": [
         {
@@ -4107,26 +4106,26 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q82)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q82 (Set A, Q82)"
       },
       "difficulty": "medium",
       "tags": [
-        "organic",
-        "isomers",
-        "structural"
+        "structural-isomerism",
+        "haloalkanes",
+        "isomer-count"
       ]
     },
     {
       "id": "jelet-2022-q083",
       "qNumber": 83,
       "subjectId": "CHEM",
-      "unitId": "C07",
+      "unitId": "C06",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "Which of the following oxides is used as a white pigment?",
+      "stemLatex": "Which of the following oxides is used as a white pigment ?",
       "stemFigure": null,
       "options": [
         {
@@ -4155,14 +4154,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q83)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q83 (Set A, Q83)"
       },
       "difficulty": "easy",
       "tags": [
-        "inorganic-chemistry",
         "oxides",
-        "pigments"
+        "pigments",
+        "uses-of-compounds"
       ]
     },
     {
@@ -4174,27 +4173,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "If heat absorbed by a system and work done by the system are $120\\,\\text{J}$ and $30\\,\\text{J}$ respectively by a process, then change of internal energy of the system is",
+      "stemLatex": "If heat absorbed by a system and work done by the system are $120$ J and $30$ J respectively by a process, then change of internal energy of the system is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$150\\,\\text{J}$",
+          "latex": "$150$ J",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$90\\,\\text{J}$",
+          "latex": "$90$ J",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$-150\\,\\text{J}$",
+          "latex": "$-150$ J",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$-90\\,\\text{J}$",
+          "latex": "$-90$ J",
           "figure": null
         }
       ],
@@ -4203,14 +4202,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q84)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q84 (Set A, Q84)"
       },
       "difficulty": "easy",
       "tags": [
-        "thermodynamics",
         "first-law",
-        "internal-energy"
+        "internal-energy",
+        "thermodynamics"
       ]
     },
     {
@@ -4222,7 +4221,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "The element of the following that reacts with $\\text{N}_{2}$ to form a nitride is:",
+      "stemLatex": "The element of the following that reacts with $\\text{N}_{2}$ to form a nitride is :",
       "stemFigure": null,
       "options": [
         {
@@ -4251,26 +4250,26 @@
         "correct": [
           "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q85)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q85 (Set A, Q85)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "inorganic-chemistry",
+        "alkali-metals",
         "nitrides",
-        "alkali-metals"
+        "anomalous-lithium"
       ]
     },
     {
       "id": "jelet-2022-q086",
       "qNumber": 86,
       "subjectId": "CHEM",
-      "unitId": "C05",
+      "unitId": "C03",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Which of the following aqueous solutions of metal chlorides is neutral?",
+      "stemLatex": "Which of the following aqueous solutions of metal chlorides is neutral ?",
       "stemFigure": null,
       "options": [
         {
@@ -4300,26 +4299,26 @@
           "C",
           "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q86)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q86 (Set A, Q86)"
       },
       "difficulty": "medium",
       "tags": [
-        "solutions",
-        "hydrolysis",
-        "neutral"
+        "salt-hydrolysis",
+        "neutral-salts",
+        "chlorides"
       ]
     },
     {
       "id": "jelet-2022-q087",
       "qNumber": 87,
       "subjectId": "CHEM",
-      "unitId": "C03",
+      "unitId": "C04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Which of the chemical conversion(s) as given below show(s) the highest degree of redox change?",
+      "stemLatex": "Which of the chemical conversion(s) as given below show(s) the highest degree of redox change ?",
       "stemFigure": null,
       "options": [
         {
@@ -4348,14 +4347,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q87)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q87 (Set A, Q87)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
+        "oxidation-number",
         "redox",
-        "oxidation-state",
-        "conversions"
+        "change-in-oxidation-state"
       ]
     },
     {
@@ -4372,22 +4371,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\Delta H = -ve$, $\\Delta S = -ve$, $|\\Delta H| > |T\\Delta S|$",
+          "latex": "$\\Delta H = -\\text{ve}$, $\\Delta S = -\\text{ve}$, $|\\Delta H| > |T\\Delta S|$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\Delta H = +ve$, $\\Delta S = +ve$, $|\\Delta H| < |T\\Delta S|$",
+          "latex": "$\\Delta H = +\\text{ve}$, $\\Delta S = +\\text{ve}$, $|\\Delta H| < |T\\Delta S|$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\Delta H = -ve$, $\\Delta S = -ve$, $|\\Delta H| = |T\\Delta S|$",
+          "latex": "$\\Delta H = -\\text{ve}$, $\\Delta S = -\\text{ve}$, $|\\Delta H| = |T\\Delta S|$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\Delta H = +ve$, $\\Delta S = +ve$, $|\\Delta H| > |T\\Delta S|$",
+          "latex": "$\\Delta H = +\\text{ve}$, $\\Delta S = +\\text{ve}$, $|\\Delta H| > |T\\Delta S|$",
           "figure": null
         }
       ],
@@ -4397,14 +4396,14 @@
           "A",
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q88)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q88 (Set A, Q88)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "thermodynamics",
+        "gibbs-energy",
         "spontaneity",
-        "gibbs-free-energy"
+        "thermodynamics"
       ]
     },
     {
@@ -4416,12 +4415,12 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Which of the following statement(s) is / are true?",
+      "stemLatex": "Which of the following statement (s) is / are true ?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$K_{c}$ of a chemical reaction increases with increase in temperature for an exothermic reaction.",
+          "latex": "$K_{p}$ of a chemical reaction increases with increase in temperature for an exothermic reaction.",
           "figure": null
         },
         {
@@ -4431,12 +4430,12 @@
         },
         {
           "id": "C",
-          "latex": "$K_{c}$ of a chemical reaction increases with decrease in temperature for an exothermic reaction.",
+          "latex": "$K_{p}$ of a chemical reaction increases with decrease in temperature for an exothermic reaction.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$K_{c}$ of a chemical reaction decreases with decrease in temperature for an endothermic reaction.",
+          "latex": "$K_{p}$ of a chemical reaction decrease with decrease in temperature for an endothermic reaction.",
           "figure": null
         }
       ],
@@ -4446,14 +4445,14 @@
           "C",
           "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q89)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q89 (Set A, Q89)"
       },
       "difficulty": "medium",
       "tags": [
-        "equilibrium",
-        "temperature-dependence",
-        "van't-hoff"
+        "van-t-hoff",
+        "equilibrium-constant",
+        "temperature-dependence"
       ]
     },
     {
@@ -4465,7 +4464,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 21,
-      "stemLatex": "Which of the following compounds have covalent bonds?",
+      "stemLatex": "Which of the following compounds have covalent bonds ?",
       "stemFigure": null,
       "options": [
         {
@@ -4493,23 +4492,24 @@
         "status": "active",
         "correct": [
           "B",
-          "C"
+          "C",
+          "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q90)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q90 (Set A, Q90)"
       },
       "difficulty": "medium",
       "tags": [
-        "chemical-bonding",
-        "covalent",
-        "ionic"
+        "covalent-bond",
+        "ionic-bond",
+        "polyatomic-ions"
       ]
     },
     {
       "id": "jelet-2022-q091",
       "qNumber": 91,
       "subjectId": "FEEE",
-      "unitId": "E04",
+      "unitId": "E01",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -4524,7 +4524,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{2V_{m}}{\\pi}$",
+          "latex": "$\\dfrac{V_{m}}{\\sqrt{2}}$",
           "figure": null
         },
         {
@@ -4534,23 +4534,23 @@
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{V_{m}}{\\sqrt{2}}$",
+          "latex": "$\\dfrac{2V_{m}}{\\pi}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q91)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q91 (Set A, Q91)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "ac-circuits",
+        "moving-iron",
         "rms-value",
-        "instruments"
+        "measuring-instruments"
       ]
     },
     {
@@ -4562,27 +4562,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "A $25\\,\\text{KVA}$ transformer is constructed to a turn ratio of $N_{1}/N_{2} = 10$. The impedance of the primary winding is $2 + j5\\,\\Omega$ and of the secondary windings is $0.5 + j0.8\\,\\Omega$. What will be the impedance when referred to primary?",
+      "stemLatex": "A $25$ KVA transformer is constructed to a turn ratio of $N_{1}/N_{2} = 10$. The impedance of the primary winding is $2 + j5\\ \\Omega$ and of the secondary windings is $0.5 + j0.8\\ \\Omega$. What will be the impedance when referred to primary?",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$52 + j85\\,\\Omega$",
+          "latex": "$52 + j85\\ \\Omega$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$2.5 + j5.8\\,\\Omega$",
+          "latex": "$2.5 + j5.8\\ \\Omega$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$50 + j80\\,\\Omega$",
+          "latex": "$50 + j80\\ \\Omega$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$0.025 + j0.508\\,\\Omega$",
+          "latex": "$0.025 + J0.508\\ \\Omega$",
           "figure": null
         }
       ],
@@ -4591,13 +4591,13 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q92)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q92 (Set A, Q92)"
       },
       "difficulty": "medium",
       "tags": [
-        "transformers",
-        "impedance",
+        "transformer",
+        "equivalent-impedance",
         "referred-to-primary"
       ]
     },
@@ -4610,12 +4610,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "On the Torque - Speed curve of the Induction motor shown in the figure, four points of operation are marked, as $W$, $X$, $Y$ and $Z$. Which one represents the operation at a slip greater than $1$?",
+      "stemLatex": "On the Torque -Speed curve of the Induction motor shown in the figure, four points of operation are marked, as $W$, $X$, $Y$ and $Z$. Which one represents the operation at a slip greater than $1$ ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q93.svg",
-        "alt": "Figure for JELET 2022 Q93",
-        "width": 420,
-        "height": 220,
+        "alt": "Torque T (vertical axis) versus speed N (horizontal axis) of an induction motor: the curve begins left of the T-axis at W, rises through X to a peak, falls through Y, crosses the N-axis and ends just below it at Z",
+        "width": 370,
+        "height": 216,
         "themeAdaptive": true
       },
       "options": [
@@ -4643,28 +4643,28 @@
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q93)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q93 (Set A, Q93)"
       },
       "difficulty": "medium",
       "tags": [
-        "electrical-machines",
         "induction-motor",
-        "slip"
+        "slip",
+        "torque-speed-characteristic"
       ]
     },
     {
       "id": "jelet-2022-q094",
       "qNumber": 94,
       "subjectId": "FEEE",
-      "unitId": "E04",
+      "unitId": "E05",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "A series circuit consists of two elements has the following current and applied voltage $i = 4\\cos(2000t + 11.32^{\\circ})\\,\\text{A}$ and $v = 200\\sin(2000t + 50^{\\circ})\\,\\text{V}$. The circuit elements are",
+      "stemLatex": "A series circuit consists of two elements has the following current and applied voltage $i = 4\\cos(2000t + 11.32^{\\circ})$ A and $v = 200\\sin(2000t + 50^{\\circ})$ V. The circuit elements are",
       "stemFigure": null,
       "options": [
         {
@@ -4693,46 +4693,46 @@
         "correct": [
           "A"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q94)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q94 (Set A, Q94)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ac-circuits",
-        "phase",
-        "impedance"
+        "phasors",
+        "series-rc",
+        "phase-angle"
       ]
     },
     {
       "id": "jelet-2022-q095",
       "qNumber": 95,
       "subjectId": "FEEE",
-      "unitId": "E03",
+      "unitId": "E04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 22,
-      "stemLatex": "Two incandescent light bulbs of $40\\,\\text{W}$ and $60\\,\\text{W}$ rating are connected in series across the mains. Then",
+      "stemLatex": "Two incandescent light bulbs of $40$W and $60$ W rating are connected in series across the mains. Then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "the bulbs together consume $100\\,\\text{W}$",
+          "latex": "the bulbs together consume $100$ W",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "the bulbs together consume $50\\,\\text{W}$",
+          "latex": "the bulbs together consume $50$ W",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "the $60\\,\\text{W}$ bulb glows brighter",
+          "latex": "the $60$ W bulb glows brighter",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "the $40\\,\\text{W}$ bulb glows brighter",
+          "latex": "the $40$ W bulb glows brighter",
           "figure": null
         }
       ],
@@ -4741,21 +4741,21 @@
         "correct": [
           "D"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q95)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q95 (Set A, Q95)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "circuits",
         "power",
-        "series-connection"
+        "series-circuit",
+        "bulbs"
       ]
     },
     {
       "id": "jelet-2022-q096",
       "qNumber": 96,
       "subjectId": "FEEE",
-      "unitId": "E04",
+      "unitId": "E06",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -4763,9 +4763,9 @@
       "stemLatex": "The average value of $v_{0}(t)$ in the given circuit will be",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q96.svg",
-        "alt": "Figure for JELET 2022 Q96",
-        "width": 420,
-        "height": 220,
+        "alt": "An AC source Vm sin ωt on the left; the top wire carries a diode whose cathode bar faces the source; a resistor joins the top and bottom wires; output terminals + (top) and − (bottom) give V0(t)",
+        "width": 318,
+        "height": 170,
         "themeAdaptive": true
       },
       "options": [
@@ -4776,12 +4776,12 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{V_{m}}{\\pi}$",
+          "latex": "$\\dfrac{-V_{m}}{\\pi}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{2V_{m}}{\\pi}$",
+          "latex": "$\\dfrac{-V_{m}}{\\sqrt{2}}$",
           "figure": null
         },
         {
@@ -4795,31 +4795,31 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q96)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q96 (Set A, Q96)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ac-circuits",
-        "average-value",
-        "rectifier"
+        "half-wave-rectifier",
+        "diode",
+        "average-value"
       ]
     },
     {
       "id": "jelet-2022-q097",
       "qNumber": 97,
       "subjectId": "FEEE",
-      "unitId": "E05",
+      "unitId": "E07",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "In the comparator shown, $v_{i}$ is a sinusoidal input of peak value $6\\,\\text{V}$. The period (in degrees) for which the output will be high is",
+      "stemLatex": "In the comparator shown, $v_{i}$ is a sinusoidal input of peak value $6$V. The period (in degrees) for which the output will be high is",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q97.svg",
-        "alt": "Figure for JELET 2022 Q97",
-        "width": 420,
-        "height": 220,
+        "alt": "Op-amp comparator: vi to the + input; the − input to a 3 V cell (longer, positive plate towards the input) whose other plate goes to a hatched ground; output V0",
+        "width": 306,
+        "height": 146,
         "themeAdaptive": true
       },
       "options": [
@@ -4849,31 +4849,31 @@
         "correct": [
           "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q97)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q97 (Set A, Q97)"
       },
       "difficulty": "medium",
       "tags": [
-        "digital-electronics",
+        "op-amp",
         "comparator",
-        "duty-cycle"
+        "conduction-angle"
       ]
     },
     {
       "id": "jelet-2022-q098",
       "qNumber": 98,
       "subjectId": "FEEE",
-      "unitId": "E07",
+      "unitId": "E08",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "What Boolean function does the following circuit represents?",
+      "stemLatex": "What Boolean function does the following circuit represents ?",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q98.svg",
-        "alt": "Figure for JELET 2022 Q98",
-        "width": 420,
-        "height": 220,
+        "alt": "Switch network from input to Y: switch A, then two parallel paths — switches B and C in parallel (upper path), and switches D and E in parallel followed by switch F (lower path) — then switch G to Y",
+        "width": 394,
+        "height": 150,
         "themeAdaptive": true
       },
       "options": [
@@ -4901,16 +4901,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "C"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q98)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q98 (Set A, Q98)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "digital-electronics",
+        "switching-circuits",
         "boolean-algebra",
-        "circuits"
+        "series-parallel"
       ]
     },
     {
@@ -4922,33 +4922,33 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 23,
-      "stemLatex": "If $I_{c} = 15\\,\\text{mA}$ and $V_{CB} = 3\\,\\text{V}$, then the value of $V_{CC}$ required is",
+      "stemLatex": "If $I_{C} = 15$ mA and $V_{CB} = 3$ V, then the value of $V_{CC}$ required is",
       "stemFigure": {
         "src": "./_data/figures/2022/fig-2022-q99.svg",
-        "alt": "Figure for JELET 2022 Q99",
-        "width": 420,
-        "height": 220,
+        "alt": "Common-base transistor circuit: VEB on the left (− towards the emitter, + towards the base rail); the base goes straight down to the bottom rail; the collector wire carries IC (arrow towards the collector) through a 100 Ω resistor to VCC (+ on the right, − on the left to the base rail); VCB is marked + at the collector and − at the base",
+        "width": 370,
+        "height": 204,
         "themeAdaptive": true
       },
       "options": [
         {
           "id": "A",
-          "latex": "$4\\,\\text{V}$",
+          "latex": "$4$ V",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$4.5\\,\\text{V}$",
+          "latex": "$4.5$ V",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$3.15\\,\\text{V}$",
+          "latex": "$3.15$ V",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$18\\,\\text{V}$",
+          "latex": "$18$ V",
           "figure": null
         }
       ],
@@ -4957,14 +4957,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q99)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q99 (Set A, Q99)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "electronic-devices",
-        "transistor",
-        "biasing"
+        "bjt",
+        "common-base",
+        "kvl"
       ]
     },
     {
@@ -5003,16 +5003,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "B"
         ],
-        "keyTier": "derived",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q100)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _c22_q100 (Set A, Q100)"
       },
       "difficulty": "medium",
       "tags": [
-        "electrical-machines",
         "dc-shunt-motor",
-        "field-open"
+        "field-failure",
+        "starting"
       ]
     }
   ]

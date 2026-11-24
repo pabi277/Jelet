@@ -22,8 +22,8 @@
       "voidedQuestions": [
         7
       ],
-      "keyTier": "derived",
-      "keyDocumentRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive)",
+      "keyTier": "verified-derived",
+      "keyDocumentRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation of all 100 items (_a22/_b22/_c22); no WBJEEB 2022 key archived",
       "bookletSeries": "A",
       "officialPdfSha256": null,
       "dataFile": "./_data/papers/2022.json",

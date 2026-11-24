@@ -19,6 +19,7 @@ from s2023_batchB import S2023_B
 from s2023_batchC import S2023_C
 from s2022_batchA import S2022_A
 from s2022_batchB import S2022_B
+from s2022_batchC import S2022_C
 
 # Solution data: {qNumber: (conceptSummary, steps[list of (title, bodyLatex)], verified, note)}
 S2024 = {
@@ -47,6 +48,7 @@ S2022 = {
 
 S2022.update(S2022_A)
 S2022.update(S2022_B)
+S2022.update(S2022_C)
 
 S2025 = {
 # Q1–Q25: hand-written, SymPy-verified derivations live in s2025_batch1.py (merged below).
@@ -98,7 +100,7 @@ def build(year, data, sols):
     return {
         "paperId": f"jelet-{year}",
         "year": int(year),
-        "keyTier": "derived" if year == "2022" else "official",   # no archived WBJEEB 2022 key (AGENTS.md §2.4)
+        "keyTier": "verified-derived" if year == "2022" else "official",   # no archived WBJEEB 2022 key: all 100 items independently re-derived (AGENTS.md §2.4)
         "solutions": solutions,
     }
 

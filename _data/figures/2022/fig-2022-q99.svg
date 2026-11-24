@@ -1,19 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" width="240" height="200" role="img" aria-label="2022 Q99: Transistor circuit">
-  <rect x="0" y="0" width="240" height="200" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-axis)">2022 Q99: Transistor circuit</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">Transistor circuit</text>
-  <line x1="60" y1="40" x2="180" y2="40" stroke="var(--fig-primary)" stroke-width="2"/>
-  <text x="55" y="32" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">Vcc</text>
-  <line x1="80" y1="40" x2="80" y2="70" stroke="var(--fig-primary)" stroke-width="1.5"/>
-  <rect x="75" y="70" width="10" height="20" fill="none" stroke="var(--fig-accent)" stroke-width="1.5"/>
-  <text x="70" y="88" font-family="monospace" font-size="8" fill="var(--fig-accent-tint)" text-anchor="middle">100Ω</text>
-  <line x1="80" y1="90" x2="80" y2="120" stroke="var(--fig-primary)" stroke-width="1.5"/>
-  <circle cx="120" cy="110" r="25" stroke="var(--fig-primary)" stroke-width="2" fill="none"/>
-  <text x="120" y="110" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="middle">Q</text>
-  <line x1="80" y1="90" x2="120" y2="90" stroke="var(--fig-primary)" stroke-width="1.5"/>
-  <line x1="145" y1="110" x2="180" y2="110" stroke="var(--fig-primary)" stroke-width="1.5"/>
-  <text x="150" y="100" font-family="monospace" font-size="9" fill="var(--fig-danger)" text-anchor="start">Ic</text>
-  <text x="150" y="122" font-family="monospace" font-size="9" fill="var(--fig-secondary)" text-anchor="start">Vcb</text>
-  <line x1="120" y1="135" x2="120" y2="160" stroke="var(--fig-primary)" stroke-width="1.5"/>
-  <text x="125" y="170" font-family="monospace" font-size="8" fill="var(--fig-axis)" text-anchor="start">Emitter</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370 204" width="370" height="204" role="img" aria-label="2022 Q99: common-base n-p-n transistor; VEB with − to the emitter and + to the base rail; collector current IC flows through 100 Ω from VCC (+ right, − left to the base rail); VCB is + at the collector and − at the base">
+  <rect x="0" y="0" width="370" height="204" fill="transparent"/>
+  <line x1="40" y1="34" x2="132" y2="34" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="40" y1="184" x2="40.0" y2="112.5" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="cell" data-pins="40.0,112.5 40.0,105.5">
+  <path d="M 27.0,112.5 L 53.0,112.5" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  <path d="M 33.0,105.5 L 47.0,105.5" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  </g>
+  <line x1="40.0" y1="105.5" x2="40" y2="34" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="NPN" data-pins="132,34 166,72 200,34">
+  <path d="M 144,72 L 188,72" stroke="var(--fig-line)" stroke-width="2.4" fill="none"/>
+  <path d="M 154,72 L 132,34" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <path d="M 178,72 L 200,34" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  <polygon points="137.5,43.5 138.0,52.4 145.0,48.4" fill="var(--fig-line)"/>
+  </g>
+  <line x1="200" y1="34" x2="300" y2="34" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <polygon data-role="Ic-arrow" points="246.0,34.0 254.0,38.0 254.0,30.0" fill="var(--fig-line)"/>
+  <line x1="300" y1="34" x2="300" y2="84" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="R" data-pins="300,84 300,134">
+  <polyline points="300,84 305,87.12 295,93.38 305,99.62 295,105.88 305,112.12 295,118.38 305,124.62 295,130.88 300,134" stroke="var(--fig-line)" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="300" y1="134" x2="300" y2="184" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="166" y1="72" x2="166" y2="184" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="40" y1="184" x2="232" y2="184" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="232" y1="184" x2="233.0" y2="184.0" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="cell" data-pins="233.0,184.0 243.0,184.0">
+  <path d="M 233.0,173.0 L 233.0,195.0" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  <path d="M 243.0,160.0 L 243.0,208.0" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  </g>
+  <line x1="243.0" y1="184.0" x2="244" y2="184" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="244" y1="184" x2="300" y2="184" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <text x="246" y="26" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">I<tspan dy="3" font-size="8">C</tspan></text>
+  <text x="196" y="52" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">+</text>
+  <text x="168" y="90" font-family="Times New Roman, serif" font-size="14" fill="var(--fig-text)" text-anchor="middle">−</text>
+  <text x="196" y="92" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">V<tspan dy="3" font-size="8">CB</tspan></text>
+  <text x="4" y="104" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">V<tspan dy="3" font-size="8">EB</tspan></text>
+  <text x="30" y="96" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">−</text>
+  <text x="30" y="128" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">+</text>
+  <text x="314" y="113" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">100 Ω</text>
+  <text x="214" y="158" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="start">V<tspan dy="3" font-size="8">CC</tspan></text>
+  <text x="222" y="178" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="middle">−</text>
+  <text x="256" y="178" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">+</text>
 </svg>

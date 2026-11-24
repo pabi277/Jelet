@@ -1,14 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" role="img" aria-label="2022 Q97: Comparator">
-  <rect x="0" y="0" width="240" height="180" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="var(--fig-axis)">2022 Q97: Comparator</text>
-  <text x="40" y="25" font-family="monospace" font-size="10" fill="var(--fig-text)" text-anchor="start">Comparator circuit</text>
-  <polygon points="120,70 160,100 120,130" fill="none" stroke="var(--fig-primary)" stroke-width="2"/>
-  <text x="140" y="150" font-family="monospace" font-size="9" fill="var(--fig-axis)" text-anchor="middle">Comparator</text>
-  <path d="M 30 100 Q 50 70, 70 100 T 110 100" stroke="var(--fig-danger)" stroke-width="1.5" fill="none"/>
-  <text x="25" y="95" font-family="monospace" font-size="9" fill="var(--fig-danger-soft)" text-anchor="start">vᵢ</text>
-  <line x1="30" y1="115" x2="110" y2="115" stroke="var(--fig-secondary)" stroke-width="1.5" stroke-dasharray="3,3"/>
-  <text x="30" y="128" font-family="monospace" font-size="8" fill="var(--fig-secondary-soft)" text-anchor="start">3V ref</text>
-  <line x1="160" y1="100" x2="210" y2="100" stroke="var(--fig-accent)" stroke-width="1.8"/>
-  <polygon points="210,100 203.1,104.0 203.1,96.0" fill="var(--fig-accent)"/>
-  <text x="215" y="95" font-family="monospace" font-size="12" fill="var(--fig-text)">v₀</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 306 146" width="306" height="146" role="img" aria-label="2022 Q97: comparator; vi feeds the + input of an op-amp; the − input is held by a 3 V cell (positive plate towards the − input) to a hatched ground; output V0">
+  <rect x="0" y="0" width="306" height="146" fill="transparent"/>
+  <circle data-role="vi" cx="70" cy="40" r="3.6" fill="var(--fig-node)" stroke="var(--fig-node)" stroke-width="1.2"/>
+  <line x1="70" y1="40" x2="150" y2="40" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="150" y1="76" x2="98" y2="76" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="98" y1="76" x2="98" y2="92" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="98" y1="92" x2="98.0" y2="96.5" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="cell" data-pins="98.0,96.5 98.0,103.5">
+  <path d="M 111.0,96.5 L 85.0,96.5" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  <path d="M 105.0,103.5 L 91.0,103.5" stroke="var(--fig-line)" stroke-width="1.7" fill="none"/>
+  </g>
+  <line x1="98.0" y1="103.5" x2="98" y2="108" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <line x1="98" y1="108" x2="98" y2="128" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <g data-comp="GND" data-pins="98,128">
+  <path d="M 76,128 L 120,128" stroke="var(--fig-line)" stroke-width="1.6" fill="none"/>
+  <path d="M 78,129 L 83,136" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>
+  <path d="M 83,129 L 88,136" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>
+  <path d="M 88,129 L 93,136" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>
+  <path d="M 93,129 L 98,136" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>
+  <path d="M 98,129 L 103,136" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>
+  <path d="M 103,129 L 108,136" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>
+  <path d="M 108,129 L 113,136" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>
+  <path d="M 113,129 L 118,136" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>
+  <path d="M 118,129 L 123,136" stroke="var(--fig-line)" stroke-width="1.0" fill="none"/>
+  </g>
+  <g data-comp="OA" data-pins="150,40 150,76 216,58.0">
+  <polygon points="150,26 150,90 216,58.0" stroke="var(--fig-line)" stroke-width="1.4" fill="none"/>
+  </g>
+  <text x="157" y="44" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">+</text>
+  <text x="157" y="80" font-family="Times New Roman, serif" font-size="12" fill="var(--fig-text)" text-anchor="middle">−</text>
+  <line x1="216" y1="58.0" x2="262" y2="58.0" stroke="var(--fig-line)" stroke-width="1.4"/>
+  <circle data-role="vo" cx="266" cy="58.0" r="3.6" fill="var(--fig-node)" stroke="var(--fig-node)" stroke-width="1.2"/>
+  <text x="52" y="44" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">v<tspan dy="3" font-size="9">i</tspan></text>
+  <text x="76" y="99" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="end">3V</text>
+  <text x="276" y="62.0" font-family="Times New Roman, serif" font-size="13" fill="var(--fig-text)" text-anchor="start">V<tspan dy="3" font-size="9">0</tspan></text>
 </svg>

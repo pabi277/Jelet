@@ -1,7 +1,7 @@
 {
   "paperId": "jelet-2022",
   "year": 2022,
-  "keyTier": "derived",
+  "keyTier": "verified-derived",
   "solutions": {
     "jelet-2022-q001": {
       "conceptSummary": "The columns of $Q$ are orthonormal eigenvectors of the symmetric matrix $A$, so $Q^{T}AQ$ is the diagonal matrix of eigenvalues.",
@@ -1794,753 +1794,768 @@
       }
     },
     "jelet-2022-q071": {
-      "conceptSummary": "Solve using stoichiometry for JELET 2022 Q71.",
+      "conceptSummary": "At the equivalence point the moles consumed are in the stoichiometric ratio $n_{A} : n_{B} = 2 : 3$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves stoichiometry."
+          "title": "Moles taken",
+          "bodyLatex": "$n_{A} = \\dfrac{x\\,M_{1}}{1000}$ and $n_{B} = \\dfrac{y\\,M_{2}}{1000}$ (volumes in ml, concentrations in mol L$^{-1}$)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Stoichiometric ratio",
+          "bodyLatex": "$\\dfrac{n_{A}}{n_{B}} = \\dfrac{2}{3} \\Rightarrow \\dfrac{xM_{1}}{yM_{2}} = \\dfrac{2}{3}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $3xM_{1} = 2yM_{2}$."
+          "title": "Cross-multiply",
+          "bodyLatex": "$3xM_{1} = 2yM_{2}$. Option (A) inverts the coefficients and (C), (D) swap $M_{1}$, $M_{2}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: n_A/n_B = 2/3 with n_A = x M1, n_B = y M2 gives 3 x M1 - 2 y M2 = 0; only (B) is equivalent."
       }
     },
     "jelet-2022-q072": {
-      "conceptSummary": "Solve using solutions for JELET 2022 Q72.",
+      "conceptSummary": "Molality = moles of solute per kg of solvent; take 1 L of the $x$ M solution and subtract the solute mass from the solution mass.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves solutions."
+          "title": "Basis: 1 L of solution",
+          "bodyLatex": "Moles of solute $= x$; mass of solute $= xy$ g; mass of solution $= 1000z$ g (density $z$ g cm$^{-3}$)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Mass of solvent",
+          "bodyLatex": "$1000z - xy$ g $= \\dfrac{1000z - xy}{1000}$ kg."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $\\dfrac{1000x}{1000z - xy}$."
+          "title": "Molality",
+          "bodyLatex": "$m = \\dfrac{x}{(1000z - xy)/1000} = \\dfrac{1000x}{1000z - xy} = \\dfrac{x}{z - 0.001xy}$. (C) is smaller by a factor of 1000, (B) treats $xy$ as kg, (D) has a stray $0.01$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: m = 1000x/(1000z - xy) simplifies to x/(z - 0.001xy) (A); B, C, D differ symbolically."
       }
     },
     "jelet-2022-q073": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2022 Q73.",
+      "conceptSummary": "The electron gains kinetic energy $eV$; de Broglie wavelength $\\lambda = h/p$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "Kinetic energy",
+          "bodyLatex": "$\\dfrac{p^{2}}{2m} = eV \\Rightarrow p = \\sqrt{2meV}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Wavelength",
+          "bodyLatex": "$\\lambda = \\dfrac{h}{p} = \\dfrac{h}{\\sqrt{2meV}}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{h}{\\sqrt{2meV}}$."
+          "title": "Check the options",
+          "bodyLatex": "(B) drops the factor 2, (C) has dimensions of $h/(m\\sqrt{eV})$ (not a length), (D) is not even inversely proportional to momentum. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: p = sqrt(2 m e V) from p^2/(2m) = eV; lambda = h/p matches (A) only."
       }
     },
     "jelet-2022-q074": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2022 Q74.",
+      "conceptSummary": "Copper is the half-/full-$d$ exception $[\\text{Ar}]3d^{10}4s^{1}$; a cation loses its outermost ($4s$) electron first.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "Neutral copper",
+          "bodyLatex": "Aufbau would give $[\\text{Ar}]3d^{9}4s^{2}$, but the completely filled $3d$ subshell is more stable, so Cu is $[\\text{Ar}]3d^{10}4s^{1}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Ionisation",
+          "bodyLatex": "$\\text{Cu} \\to \\text{Cu}^{+} + e^{-}$ removes the $4s$ electron: $\\text{Cu}^{+} = [\\text{Ar}]3d^{10}$ (28 electrons)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $[\\text{Ar}]3d^{10}$."
+          "title": "Check the options",
+          "bodyLatex": "All four printed options contain 28 electrons, but (A) $3d^{8}4s^{2}$ and (B) $3d^{9}4s^{1}$ keep $4s$ electrons that are removed first, and (D) has $3s^{1}$ with $3p^{6}$ filled above it (not a ground state). Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "Check: Madelung filling for Z = 29 + the Cu (d10 s1) exception, remove one electron from the highest n -> [Ar]3d10; all options have 28 e-, only (C) equals the ground-state multiset."
       }
     },
     "jelet-2022-q075": {
-      "conceptSummary": "Solve using electrochemistry for JELET 2022 Q75.",
+      "conceptSummary": "One mole of $\\text{M}_{\\nu_{+}}\\text{A}_{\\nu_{-}}$ carries $\\nu_{+}z_{+}$ equivalents of charge.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electrochemistry."
+          "title": "Definitions",
+          "bodyLatex": "$\\Lambda_{m} = \\dfrac{\\kappa}{C}$ (per mole) and $\\Lambda_{eq} = \\dfrac{\\kappa}{C_{eq}}$ (per equivalent), with $C_{eq} = \\nu_{+}z_{+}\\,C$ (electroneutrality: $\\nu_{+}z_{+} = \\nu_{-}|z_{-}|$)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Relation",
+          "bodyLatex": "$\\Lambda_{eq} = \\dfrac{\\kappa}{\\nu_{+}z_{+}C} = \\dfrac{\\Lambda_{m}}{\\nu_{+}z_{+}}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\Lambda_{eq} = \\dfrac{\\Lambda_{m}}{\\nu_{+} + \\nu_{-}}$."
+          "title": "Check the options",
+          "bodyLatex": "(B) and (D) ignore the ionic charge; (C) inverts the relation. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: with kappa, C symbolic, Lambda_eq = kappa/(nu z C) = Lambda_m/(nu z) -> (A); B, C, D differ."
       }
     },
     "jelet-2022-q076": {
-      "conceptSummary": "Solve using equilibrium for JELET 2022 Q76.",
+      "conceptSummary": "Ostwald's dilution law for a weak monobasic acid: $\\kappa_{a} = \\dfrac{C\\alpha^{2}}{1 - \\alpha} \\approx C\\alpha^{2}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves equilibrium."
+          "title": "Degree of ionisation",
+          "bodyLatex": "For $\\alpha \\ll 1$: $\\alpha = \\sqrt{\\kappa_{a}/C}$ and $\\alpha' = \\sqrt{\\kappa_{a'}/C}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Same concentration",
+          "bodyLatex": "$\\dfrac{\\alpha}{\\alpha'} = \\sqrt{\\dfrac{\\kappa_{a}/C}{\\kappa_{a'}/C}} = \\sqrt{\\dfrac{\\kappa_{a}}{\\kappa_{a'}}}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\dfrac{K_{a}}{\\alpha} = \\dfrac{K_{a}'}{\\alpha'}$."
+          "title": "Check the options",
+          "bodyLatex": "(C) is the reciprocal; (B) and (D) contain the product $\\kappa_{a}\\kappa_{a'}$, which is not even dimensionless. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: exact alpha from K = C a^2/(1-a); (alpha/alpha')^2 -> Ka/Ka' as C -> oo (weak-acid limit) -> (A)."
       }
     },
     "jelet-2022-q077": {
-      "conceptSummary": "Solve using atomic-structure for JELET 2022 Q77.",
+      "conceptSummary": "Bohr's model applies only to one-electron (hydrogen-like) species.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves atomic-structure."
+          "title": "Count the electrons",
+          "bodyLatex": "$\\text{H}^{+}$: $1 - 1 = 0$; $\\text{Li}^{+}$: $3 - 1 = 2$; $\\text{Li}^{2+}$: $3 - 2 = 1$; $\\text{He}^{2+}$: $2 - 2 = 0$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Apply the condition",
+          "bodyLatex": "Species with no electron ($\\text{H}^{+}$, $\\text{He}^{2+}$) have no orbit to describe, and $\\text{Li}^{+}$ has two interacting electrons."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\text{Li}^{2+}$, (D) $\\text{He}^{2+}$."
+          "title": "Conclusion",
+          "bodyLatex": "Only $\\text{Li}^{2+}$ is hydrogen-like ($Z = 3$, one electron). Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: CD."
+        "note": "Check: electrons = Z - charge -> H+ 0, Li+ 2, Li2+ 1, He2+ 0; exactly one electron only for (C)."
       }
     },
     "jelet-2022-q078": {
-      "conceptSummary": "Solve using acids-bases for JELET 2022 Q78.",
+      "conceptSummary": "The hydroxide must be amphoteric (dissolves in KOH) and must form an ammine complex (dissolves in $\\text{NH}_{3}$).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves acids-bases."
+          "title": "In KOH",
+          "bodyLatex": "Amphoteric hydroxides dissolve: $\\text{Zn(OH)}_{2} + 2\\text{OH}^{-} \\to [\\text{Zn(OH)}_{4}]^{2-}$; likewise $\\text{Be(OH)}_{2}$ and $\\text{Al(OH)}_{3}$. $\\text{Mg(OH)}_{2}$ is basic and does not dissolve."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "In ammonia",
+          "bodyLatex": "$\\text{Zn(OH)}_{2} + 4\\text{NH}_{3} \\to [\\text{Zn(NH}_{3})_{4}]^{2+} + 2\\text{OH}^{-}$. $\\text{Be}^{2+}$, $\\text{Al}^{3+}$ and $\\text{Mg}^{2+}$ form no stable ammine complexes in water, so their hydroxides stay undissolved."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $\\text{Zn(OH)}_{2}$."
+          "title": "Both conditions",
+          "bodyLatex": "Only $\\text{Zn(OH)}_{2}$ satisfies both. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "Check: property table {amphoteric, forms aqueous ammine complex}: Be (T, F), Mg (F, F), Al (T, F), Zn (T, T) -> (D) only."
       }
     },
     "jelet-2022-q079": {
-      "conceptSummary": "Solve using inorganic-chemistry for JELET 2022 Q79.",
+      "conceptSummary": "The prefix thio- means one oxygen atom of the parent oxoacid is replaced by sulphur.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves inorganic-chemistry."
+          "title": "Parent acid",
+          "bodyLatex": "Sulphuric acid is $\\text{H}_{2}\\text{SO}_{4}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Replace one O by S",
+          "bodyLatex": "$\\text{H}_{2}\\text{SO}_{4} - \\text{O} + \\text{S} = \\text{H}_{2}\\text{S}_{2}\\text{O}_{3}$ (thiosulphuric acid; its salts are thiosulphates such as $\\text{Na}_{2}\\text{S}_{2}\\text{O}_{3}$)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\text{H}_{2}\\text{S}_{2}\\text{O}_{3}$."
+          "title": "Identify the others",
+          "bodyLatex": "$\\text{H}_{2}\\text{SO}_{3}$ is sulphurous acid, $\\text{H}_{2}\\text{S}_{2}\\text{O}_{6}$ is dithionic acid and $\\text{H}_{2}\\text{SO}_{4}$ is sulphuric acid. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "Check: element counts of H2SO4 with one O -> S give {H:2, S:2, O:3}; only option (A) has that formula."
       }
     },
     "jelet-2022-q080": {
-      "conceptSummary": "Solve using acids-bases for JELET 2022 Q80.",
+      "conceptSummary": "For oxoacids of the same element, acidity rises with the oxidation state of the central atom (number of terminal O atoms).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves acids-bases."
+          "title": "Oxidation states of Cl",
+          "bodyLatex": "$\\text{HClO}$: $+1$; $\\text{HClO}_{2}$: $+3$; $\\text{HClO}_{3}$: $+5$; $\\text{HClO}_{4}$: $+7$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Conjugate-base stability",
+          "bodyLatex": "More terminal oxygens delocalise the negative charge of $\\text{ClO}_{n}^{-}$ over more atoms, so the anion is more stable and the acid stronger."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\text{HClO}_{4} > \\text{HClO}_{3} > \\text{HClO}_{2} > \\text{HClO}$."
+          "title": "Order",
+          "bodyLatex": "$\\text{HClO}_{4} > \\text{HClO}_{3} > \\text{HClO}_{2} > \\text{HClO}$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "Check: Cl oxidation state from H(+1), O(-2): 1, 3, 5, 7; the order sorted by it (Pauling's terminal-O rule) is option (A)."
       }
     },
     "jelet-2022-q081": {
-      "conceptSummary": "Solve using chemical-bonding for JELET 2022 Q81.",
+      "conceptSummary": "VSEPR: count the bonding and lone pairs on nitrogen.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves chemical-bonding."
+          "title": "Electron pairs",
+          "bodyLatex": "N has 5 valence electrons; three form N–H bonds, leaving one lone pair. Steric number $= 3 + 1 = 4$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Electron geometry",
+          "bodyLatex": "Four electron pairs are arranged tetrahedrally ($sp^{3}$)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) pyramidal."
+          "title": "Molecular shape",
+          "bodyLatex": "With one position occupied by a lone pair, the atoms form a trigonal pyramid (H–N–H ≈ 107°). 'Tetrahedral' describes the electron pairs, not the shape. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "Check: VSEPR steric number (5 + 3)/2 = 4 with 3 ligands, 1 lone pair -> trigonal pyramidal (A)."
       }
     },
     "jelet-2022-q082": {
-      "conceptSummary": "Solve using organic for JELET 2022 Q82.",
+      "conceptSummary": "Enumerate the distinct carbon skeletons of $\\text{C}_{4}$ and the distinct positions for Cl on each.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves organic."
+          "title": "Carbon skeletons",
+          "bodyLatex": "Butane (straight chain) and 2-methylpropane (isobutane)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Positions of Cl",
+          "bodyLatex": "Butane: C1 or C2 → 1-chlorobutane, 2-chlorobutane. 2-Methylpropane: a CH$_{3}$ carbon or the central carbon → 1-chloro-2-methylpropane, 2-chloro-2-methylpropane."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $4$."
+          "title": "Count",
+          "bodyLatex": "There are 4 structural isomers. Answer: (B)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Interpretation note",
+          "bodyLatex": "2-Chlorobutane has a stereocentre (C2 carries H, Cl, CH$_{3}$ and C$_{2}$H$_{5}$), so if its two enantiomers are counted separately the total becomes 5, which is option (D). The stem asks for isomers of the molecular formula without mentioning stereoisomers, and the conventional count is the 4 structural isomers."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "Check: structure-graph enumeration of C4 trees x Cl positions modulo automorphisms gives 4 constitutional isomers (B); stereocentres = 1 (2-chlorobutane) -> 5 with enantiomers (D, noted)."
       }
     },
     "jelet-2022-q083": {
-      "conceptSummary": "Solve using inorganic-chemistry for JELET 2022 Q83.",
+      "conceptSummary": "Recall the colours and uses of the four oxides.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves inorganic-chemistry."
+          "title": "Colours",
+          "bodyLatex": "ZnO is white; HgO is red (or yellow when finely divided); CuO is black; NiO is green."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Use as a pigment",
+          "bodyLatex": "ZnO ('zinc white', 'Chinese white') is used as a white pigment in paints, cosmetics and rubber."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\text{ZnO}$."
+          "title": "Conclusion",
+          "bodyLatex": "Only ZnO is white. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "Check: colour table ZnO white, HgO red/yellow, CuO black, NiO green -> only (A) is white."
       }
     },
     "jelet-2022-q084": {
-      "conceptSummary": "Solve using thermodynamics for JELET 2022 Q84.",
+      "conceptSummary": "First law of thermodynamics: $\\Delta U = q + w$, where $w$ is the work done on the system.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves thermodynamics."
+          "title": "Signs",
+          "bodyLatex": "Heat absorbed: $q = +120$ J. Work done by the system: $w = -30$ J."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Apply the first law",
+          "bodyLatex": "$\\Delta U = 120 + (-30) = 90$ J."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $90\\,\\text{J}$."
+          "title": "Check the options",
+          "bodyLatex": "$150$ J adds the work instead of subtracting it; the negative values reverse the signs. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SymPy: dU = q + w with q = 120, w = -30 -> 90 J (B)."
       }
     },
     "jelet-2022-q085": {
-      "conceptSummary": "Solve using inorganic-chemistry for JELET 2022 Q85.",
+      "conceptSummary": "Lithium is the only alkali metal that combines directly with dinitrogen.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves inorganic-chemistry."
+          "title": "Reaction",
+          "bodyLatex": "$6\\text{Li} + \\text{N}_{2} \\to 2\\text{Li}_{3}\\text{N}$ (even at room temperature)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Reason",
+          "bodyLatex": "The very small $\\text{Li}^{+}$ ion gives $\\text{Li}_{3}\\text{N}$ a high lattice energy, which compensates for breaking the N≡N bond and forming $\\text{N}^{3-}$. The larger Na$^{+}$, K$^{+}$ and Cs$^{+}$ give too little lattice energy."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $\\text{Li}$."
+          "title": "Conclusion",
+          "bodyLatex": "Na, K and Cs do not form nitrides directly. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "Check: 6Li + N2 -> 2Li3N balances (SymPy nullspace); direct nitride formation is listed only for Li among the alkali metals -> (D)."
       }
     },
     "jelet-2022-q086": {
-      "conceptSummary": "Solve using solutions for JELET 2022 Q86.",
+      "conceptSummary": "A chloride solution is neutral when the cation does not hydrolyse, i.e. it comes from a strong base.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves solutions."
+          "title": "Acidic solutions",
+          "bodyLatex": "$\\text{Al}^{3+}$ and $\\text{Be}^{2+}$ are small, highly charged cations: $[\\text{Al(H}_{2}\\text{O)}_{6}]^{3+} \\rightleftharpoons [\\text{Al(OH)(H}_{2}\\text{O)}_{5}]^{2+} + \\text{H}^{+}$, and similarly for Be$^{2+}$. So AlCl$_{3}$ and BeCl$_{2}$ are acidic."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Neutral solutions",
+          "bodyLatex": "$\\text{Ba(OH)}_{2}$ and RbOH are strong bases, and HCl is a strong acid. Neither $\\text{Ba}^{2+}$ nor $\\text{Rb}^{+}$ nor $\\text{Cl}^{-}$ hydrolyses, so the solutions stay at pH 7."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $\\text{BaCl}_{2}$, (D) $\\text{RbCl}$."
+          "title": "Judge all options",
+          "bodyLatex": "(A) acidic, (B) acidic, (C) neutral, (D) neutral. Answer: (C), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: CD."
+        "note": "Check: cation charge density z/r (Al3+ 5.6, Be2+ 4.4 >> Ba2+ 1.5, Rb+ 0.7 per Å) and parent-hydroxide strength -> neutral only for C, D."
       }
     },
     "jelet-2022-q087": {
-      "conceptSummary": "Solve using redox for JELET 2022 Q87.",
+      "conceptSummary": "Compare the change in oxidation number of the central element in each conversion.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves redox."
+          "title": "Phosphorus and nitrogen",
+          "bodyLatex": "$\\text{H}_{3}\\overset{+5}{\\text{P}}\\text{O}_{4} \\to \\overset{-3}{\\text{P}}\\text{H}_{3}$: change $= 8$. $\\text{H}\\overset{+5}{\\text{N}}\\text{O}_{3} \\to \\overset{0}{\\text{N}}_{2}$: change $= 5$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Sulphur and boron",
+          "bodyLatex": "$\\text{H}_{2}\\overset{+6}{\\text{S}}\\text{O}_{4} \\to \\overset{0}{\\text{S}}$: change $= 6$. Borax $\\text{Na}_{2}\\overset{+3}{\\text{B}}_{4}\\text{O}_{7} \\to \\overset{+3}{\\text{B}}_{2}\\text{H}_{6}$: change $= 0$, because H is the more electronegative partner in diborane ($\\text{H}^{-1}$)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) Phosphoric acid to phosphine.."
+          "title": "Highest change",
+          "bodyLatex": "$8 > 6 > 5 > 0$, so only phosphoric acid → phosphine shows the highest degree of redox change. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: solve sum of oxidation numbers = 0 per formula (H +1, or -1 when bonded to the less electronegative B): P 5 -> -3, N 5 -> 0, S 6 -> 0, B 3 -> 3; max |change| 8 -> (A) only."
       }
     },
     "jelet-2022-q088": {
-      "conceptSummary": "Solve using thermodynamics for JELET 2022 Q88.",
+      "conceptSummary": "At constant $T$ and $P$ a change is spontaneous when $\\Delta G = \\Delta H - T\\Delta S < 0$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves thermodynamics."
+          "title": "Options (A) and (C)",
+          "bodyLatex": "$\\Delta H = -a$, $T\\Delta S = -b$ ($a, b > 0$): $\\Delta G = -a + b$. (A) $a > b \\Rightarrow \\Delta G < 0$, spontaneous. (C) $a = b \\Rightarrow \\Delta G = 0$, equilibrium, not spontaneous."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Options (B) and (D)",
+          "bodyLatex": "$\\Delta H = +a$, $T\\Delta S = +b$: $\\Delta G = a - b$. (B) $a < b \\Rightarrow \\Delta G < 0$, spontaneous. (D) $a > b \\Rightarrow \\Delta G > 0$, non-spontaneous."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $\\Delta H = -ve$, $\\Delta S = -ve$, $|\\Delta H| > |T\\Delta S|$, (B) $\\Delta H = +ve$, $\\Delta S = +ve$, $|\\Delta H| < |T\\Delta S|$."
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (A), (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: AB."
+        "note": "SymPy: dG = dH - T dS with sign/magnitude assumptions; sign(dG) is -1 for A, B; 0 for C; +1 for D -> AB."
       }
     },
     "jelet-2022-q089": {
-      "conceptSummary": "Solve using equilibrium for JELET 2022 Q89.",
+      "conceptSummary": "van 't Hoff equation: $\\dfrac{d\\ln K_{p}}{dT} = \\dfrac{\\Delta H^{\\circ}}{RT^{2}}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves equilibrium."
+          "title": "Exothermic ($\\Delta H^{\\circ} < 0$)",
+          "bodyLatex": "$\\ln K_{p}$ decreases as $T$ rises, so $K_{p}$ increases when $T$ decreases. (A) false, (C) true."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Endothermic ($\\Delta H^{\\circ} > 0$)",
+          "bodyLatex": "$K_{p}$ increases with $T$, so it decreases when $T$ decreases. (B) false, (D) true (the printed 'decrease' means decreases)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $K_{c}$ of a chemical reaction increases with decrease in temperature for an exothermic reaction., (D) $K_{c}$ of a chemical reaction decreases with decrease in temperature for an endothermic reaction.."
+          "title": "Conclusion",
+          "bodyLatex": "Answer: (C), (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: CD."
+        "note": "SymPy: K(T) = A exp(-dH/(RT)); sign of dK/dT = sign(dH) -> exo: K up on cooling (C), endo: K down on cooling (D) -> CD."
       }
     },
     "jelet-2022-q090": {
-      "conceptSummary": "Solve using chemical-bonding for JELET 2022 Q90.",
+      "conceptSummary": "Look for electron-pair (shared) bonds anywhere in the compound, including inside polyatomic ions.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves chemical-bonding."
+          "title": "NaCl",
+          "bodyLatex": "$\\text{Na}^{+}\\text{Cl}^{-}$: purely ionic lattice; no covalent bond."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "H$_{2}$O and CH$_{4}$",
+          "bodyLatex": "Both are molecular: two O–H and four C–H covalent bonds respectively."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\text{H}_{2}\\text{O}$, (C) $\\text{CH}_{4}$."
+          "title": "CaCO$_{3}$",
+          "bodyLatex": "Ionic between $\\text{Ca}^{2+}$ and $\\text{CO}_{3}^{2-}$, but the carbonate ion is held together by covalent C–O bonds (one C=O and two C–O$^{-}$ resonance forms). So CaCO$_{3}$ also has covalent bonds. Answer: (B), (C), (D)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Interpretation note",
+          "bodyLatex": "CaCO$_{3}$ is classed as an ionic compound, but the question asks which compounds have covalent bonds, not which are covalent compounds, so it is included."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: BC."
+        "note": "Check: bond graph per formula with electronegativity difference < 1.7 marked covalent: NaCl 2.23 (ionic only); H2O O-H 1.24, CH4 C-H 0.35, CO3 C-O 0.89 -> B, C, D."
       }
     },
     "jelet-2022-q091": {
-      "conceptSummary": "Solve using ac-circuits for JELET 2022 Q91.",
+      "conceptSummary": "A moving-iron instrument's deflecting torque is proportional to $i^{2}$, so it reads the RMS value.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ac-circuits."
+          "title": "Deflection",
+          "bodyLatex": "$\\theta \\propto \\overline{v^{2}} = \\dfrac{1}{T}\\int_{0}^{T} V_{m}^{2}\\sin^{2}\\omega t\\,dt = \\dfrac{V_{m}^{2}}{2}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Scale calibration",
+          "bodyLatex": "The scale is calibrated to read $\\sqrt{\\overline{v^{2}}} = \\dfrac{V_{m}}{\\sqrt{2}}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $\\dfrac{V_{m}}{\\sqrt{2}}$."
+          "title": "Check the options",
+          "bodyLatex": "$2V_{m}/\\pi$ is the full-wave average (what a rectifier-type PMMC senses), $V_{m}/\\pi$ the half-wave average, and $V_{m}$ the peak. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: sqrt((1/2pi) * integral(Vm^2 sin^2)) = Vm/sqrt(2) -> (B); averages 2Vm/pi, Vm/pi and peak Vm rejected."
       }
     },
     "jelet-2022-q092": {
-      "conceptSummary": "Solve using transformers for JELET 2022 Q92.",
+      "conceptSummary": "Refer the secondary impedance to the primary by multiplying by $(N_{1}/N_{2})^{2}$ and add the primary impedance.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves transformers."
+          "title": "Turns ratio",
+          "bodyLatex": "$a = N_{1}/N_{2} = 10 \\Rightarrow a^{2} = 100$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Secondary referred to primary",
+          "bodyLatex": "$Z_{2}' = a^{2}Z_{2} = 100(0.5 + j0.8) = 50 + j80\\ \\Omega$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $52 + j85\\,\\Omega$."
+          "title": "Equivalent impedance",
+          "bodyLatex": "$Z_{eq,1} = Z_{1} + Z_{2}' = (2 + j5) + (50 + j80) = 52 + j85\\ \\Omega$. (C) is $Z_{2}'$ alone and (B) adds $Z_{1} + Z_{2}$ without referring. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: Z1 + (N1/N2)^2 Z2 = 52 + 85j -> (A); B = Z1 + Z2, C = a^2 Z2, D unrelated."
       }
     },
     "jelet-2022-q093": {
-      "conceptSummary": "Solve using electrical-machines for JELET 2022 Q93.",
+      "conceptSummary": "Slip $s = \\dfrac{N_{s} - N}{N_{s}}$; $s > 1$ requires $N < 0$ (rotor turning against the field: braking / plugging).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electrical-machines."
+          "title": "Landmarks on the curve",
+          "bodyLatex": "The T-axis is $N = 0$ ($s = 1$, standstill). The curve meets the N-axis where $T = 0$, at synchronous speed $N_{s}$ ($s = 0$)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Locate the points",
+          "bodyLatex": "X and Y lie between $N = 0$ and $N_{s}$ (motoring, $0 < s < 1$). Z lies beyond $N_{s}$ with negative torque ($s < 0$, generating). W lies to the left of the T-axis, so $N < 0$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) $Z$."
+          "title": "Slip at W",
+          "bodyLatex": "$N < 0 \\Rightarrow s = 1 - N/N_{s} > 1$. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SVG check: N_s read where the T-N polyline crosses the N-axis, N = 0 at the T-axis; s = 1 - N/N_s at each dot: W > 1, X and Y in (0, 1), Z < 0 -> (A)."
       }
     },
     "jelet-2022-q094": {
-      "conceptSummary": "Solve using ac-circuits for JELET 2022 Q94.",
+      "conceptSummary": "Write both waves as sines and compare phases; current leading voltage by an angle between $0^{\\circ}$ and $90^{\\circ}$ means an R–C circuit.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ac-circuits."
+          "title": "Current as a sine",
+          "bodyLatex": "$i = 4\\cos(2000t + 11.32^{\\circ}) = 4\\sin(2000t + 101.32^{\\circ})$ A."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Phase difference",
+          "bodyLatex": "$v = 200\\sin(2000t + 50^{\\circ})$, so the current leads the voltage by $101.32^{\\circ} - 50^{\\circ} = 51.32^{\\circ}$ ($0 < 51.32^{\\circ} < 90^{\\circ}$)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) Resistance and Capacitance."
+          "title": "Element values",
+          "bodyLatex": "$|Z| = 200/4 = 50\\ \\Omega$, $R = 50\\cos 51.32^{\\circ} \\approx 31.2\\ \\Omega$, $X_{C} = 50\\sin 51.32^{\\circ} \\approx 39.0\\ \\Omega$ ($C \\approx 12.8\\ \\mu$F). A leading current needs capacitance, and a phase below $90^{\\circ}$ needs resistance. Answer: (A)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: phase(i) - phase(v) = 51.32 deg (lead) -> Z = 50 at -51.32 deg: R = 31.24, Xc = 39.04 -> R and C (A)."
       }
     },
     "jelet-2022-q095": {
-      "conceptSummary": "Solve using circuits for JELET 2022 Q95.",
+      "conceptSummary": "Rated power fixes each resistance $R = V^{2}/P$; in series the same current flows, so $P = I^{2}R$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves circuits."
+          "title": "Resistances",
+          "bodyLatex": "$R_{40} = V^{2}/40$ and $R_{60} = V^{2}/60$, so $R_{40} = 1.5\\,R_{60}$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Brightness",
+          "bodyLatex": "Same current: $P_{40}/P_{60} = R_{40}/R_{60} = 3/2$, so the 40 W bulb dissipates more and glows brighter."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (D) the $40\\,\\text{W}$ bulb glows brighter."
+          "title": "Total power",
+          "bodyLatex": "$P = \\dfrac{V^{2}}{R_{40} + R_{60}} = \\dfrac{1}{1/40 + 1/60} = 24$ W, not 100 W or 50 W. Answer: (D)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: D."
+        "note": "SymPy: R = V^2/P, series I = V/(R40 + R60): P40/P60 = 3/2, total 24 W -> only (D)."
       }
     },
     "jelet-2022-q096": {
-      "conceptSummary": "Solve using ac-circuits for JELET 2022 Q96.",
+      "conceptSummary": "The diode's cathode faces the source, so it conducts only when the source's upper terminal is negative.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves ac-circuits."
+          "title": "Conduction condition",
+          "bodyLatex": "With the diode off, the output node sits at the bottom-rail potential (through $R$), while the cathode is at $V_{m}\\sin\\omega t$. The diode is forward-biased when $V_{m}\\sin\\omega t < 0$, i.e. for $\\pi < \\omega t < 2\\pi$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Output waveform",
+          "bodyLatex": "$v_{0} = V_{m}\\sin\\omega t$ during the negative half-cycle and $0$ otherwise (negative half-wave rectifier)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $\\dfrac{V_{m}}{\\pi}$."
+          "title": "Average value",
+          "bodyLatex": "$\\bar{v}_{0} = \\dfrac{1}{2\\pi}\\int_{\\pi}^{2\\pi}V_{m}\\sin\\theta\\,d\\theta = -\\dfrac{V_{m}}{\\pi}$. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SVG netlist check: diode anode on the output node, cathode on the source's top net -> conducts for vs < 0; (1/2pi) integral = -Vm/pi -> (B)."
       }
     },
     "jelet-2022-q097": {
-      "conceptSummary": "Solve using digital-electronics for JELET 2022 Q97.",
+      "conceptSummary": "An open-loop comparator's output is high whenever $v_{+} > v_{-}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves digital-electronics."
+          "title": "Inputs",
+          "bodyLatex": "$v_{+} = v_{i} = 6\\sin\\theta$ V; $v_{-} = +3$ V (the cell's positive plate faces the inverting input, the other plate is grounded)."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Switching angles",
+          "bodyLatex": "$6\\sin\\theta > 3 \\Leftrightarrow \\sin\\theta > \\tfrac{1}{2} \\Leftrightarrow 30^{\\circ} < \\theta < 150^{\\circ}$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (C) $120^{\\circ}$."
+          "title": "Duration",
+          "bodyLatex": "$150^{\\circ} - 30^{\\circ} = 120^{\\circ}$ per cycle. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: C."
+        "note": "SVG netlist check: vi on the + pin, 3 V cell (+ plate to the - pin, - plate to ground); measure{6 sin t > 3} = 2pi/3 = 120 deg -> (C)."
       }
     },
     "jelet-2022-q098": {
-      "conceptSummary": "Solve using digital-electronics for JELET 2022 Q98.",
+      "conceptSummary": "Series switches are AND (product), parallel switches are OR (sum).",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves digital-electronics."
+          "title": "Upper path",
+          "bodyLatex": "B and C are in parallel: $B + C$."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Lower path",
+          "bodyLatex": "D and E are in parallel, and this pair is in series with F: $(D + E)F$."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) $A[F+(B+C).(D+E)]G$."
+          "title": "Whole network",
+          "bodyLatex": "The two paths are in parallel, between A and G in series: $Y = A\\,[(B + C) + F(D + E)]\\,G$. Answer: (C)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SVG switch-graph check: input-output connectivity for all 128 switch states equals (C) exactly; A, B, D each disagree on some state."
       }
     },
     "jelet-2022-q099": {
-      "conceptSummary": "Solve using electronic-devices for JELET 2022 Q99.",
+      "conceptSummary": "KVL around the collector loop of the common-base circuit: $V_{CC} = I_{C}R_{C} + V_{CB}$.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electronic-devices."
+          "title": "Loop",
+          "bodyLatex": "From the $V_{CC}$ positive plate through the 100 Ω resistor to the collector, across C–B to the base rail, which returns to the $V_{CC}$ negative plate."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Drops",
+          "bodyLatex": "$I_{C}R_{C} = 15\\ \\text{mA} \\times 100\\ \\Omega = 1.5$ V and $V_{CB} = 3$ V (+ at the collector)."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (B) $4.5\\,\\text{V}$."
+          "title": "Supply",
+          "bodyLatex": "$V_{CC} = 1.5 + 3 = 4.5$ V. Answer: (B)."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: B."
+        "note": "SVG netlist check: R between the VCC + net and the collector net, VCC - net = base net, IC arrow into the collector; VCC = 0.015*100 + 3 = 4.5 V -> (B)."
       }
     },
     "jelet-2022-q100": {
-      "conceptSummary": "Solve using electrical-machines for JELET 2022 Q100.",
+      "conceptSummary": "With the field open only the residual flux $\\phi_{r}$ remains, so the back emf and the torque per ampere are tiny.",
       "steps": [
         {
           "stepNumber": 1,
-          "title": "Identify the problem type",
-          "bodyLatex": "Question involves electrical-machines."
+          "title": "Starting current",
+          "bodyLatex": "At start $E_{b} = k\\phi_{r}N = 0$, and $E_{b}$ stays small because $\\phi_{r}$ is small, so $I_{a} = \\dfrac{V - E_{b}}{R_{a} + R_{st}}$ remains large."
         },
         {
           "stepNumber": 2,
-          "title": "Apply the method",
-          "bodyLatex": "Use the appropriate technique to evaluate the expression and compare with the given options."
+          "title": "Torque",
+          "bodyLatex": "$T = k\\phi_{r}I_{a}$. Even with large $I_{a}$, the tiny $\\phi_{r}$ gives a torque that cannot overcome the load, so the motor does not pick up speed."
         },
         {
           "stepNumber": 3,
-          "title": "Determine the answer",
-          "bodyLatex": "The correct answer is (A) The motor picks up fast and acquires full speed while drawing large current.."
+          "title": "Conclusion",
+          "bodyLatex": "The motor does not pick up speed but draws a large current (which is why starters include a no-field release). Answer: (B)."
+        },
+        {
+          "stepNumber": 4,
+          "title": "Interpretation note",
+          "bodyLatex": "If the shaft were completely unloaded, the small residual torque could slowly accelerate the rotor towards the dangerous speed $V/(k\\phi_{r})$. The options describe a normal (loaded) start, and only (B) combines 'no speed' with the large current."
         }
       ],
       "verification": {
-        "method": "manual",
+        "method": "sympy",
         "verifiedAt": "2026-11-23",
-        "note": "Auto-generated from question data; answer key: A."
+        "note": "SymPy: Ia = (V - k phi N)/Ra, T = k phi Ia; as phi -> 0, Ia -> V/Ra (large) and T -> 0 < T_load -> N stays 0 -> (B)."
       }
     }
   }
