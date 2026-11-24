@@ -8,7 +8,36 @@
  */
 
 import { openDB, getMeta, setMeta, onSync } from "./db/indexeddb.js";
-import { $, el, icon } from "./core/ui.js";
+import { $, el, icon, showToast } from "./core/ui.js";
+
+/**
+ * Register the offline Service Worker (sw.js) once the shell is ready.
+ * Fails silently when SW support is missing (private mode, file://, old
+ * webviews) — the app remains fully functional online without it.
+ */
+async function registerServiceWorker() {
+  try {
+    if (!("serviceWorker" in navigator)) return;
+    // Only register over http(s); file:// and unusual schemes must not
+    // throw or spam console errors.
+    if (!/^https?:$/i.test(location.protocol)) return;
+    const reg = await navigator.serviceWorker.register("./sw.js", {
+      scope: "./",
+    });
+    // Notify when a new SW version is waiting so the user can reload.
+    reg.addEventListener("updatefound", () => {
+      const nw = reg.installing;
+      if (!nw) return;
+      nw.addEventListener("statechange", () => {
+        if (nw.state === "installed" && navigator.serviceWorker.controller) {
+          showToast("JELET Hub updated — reload to apply.");
+        }
+      });
+    });
+  } catch {
+    /* SW registration is best-effort; never block the app */
+  }
+}
 import { renderPapersLibrary, renderPaperReader } from "./views/papers.js";
 import { renderLiveExam, renderPrintableOmr } from "./views/exam.js";
 import { renderPracticeArena, renderPracticeRunner } from "./views/practice.js";
@@ -307,6 +336,9 @@ async function init() {
 
   window.addEventListener("hashchange", () => render());
   await render();
+
+  // Offline PWA: register the Service Worker after first paint.
+  registerServiceWorker();
 }
 
 if (document.readyState === "loading") {

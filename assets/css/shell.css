@@ -29,6 +29,33 @@
 }
 
 /* ------------------------------------------------------------------ *
+ * Skip-to-content link (a11y): hidden until keyboard focus
+ * ------------------------------------------------------------------ */
+.skip-link {
+  position: absolute;
+  left: var(--space-s);
+  top: -100px;
+  z-index: var(--z-toast);
+  padding: var(--space-xs) var(--space-s);
+  border-radius: var(--radius-s);
+  background: var(--bg-surface);
+  color: var(--brand-primary);
+  font-weight: var(--fw-semibold);
+  box-shadow: var(--shadow-m);
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  top: var(--space-s);
+}
+
+/* Visible, consistent focus ring for keyboard users across the shell */
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ *
  * Top bar (sticky, compact phone header)
  * ------------------------------------------------------------------ */
 .topbar {
