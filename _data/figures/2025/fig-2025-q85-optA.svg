@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" width="200" height="120" role="img" aria-label="JELET 2025 Q85 Option A: 3-methylpent-2-yne">
+  <rect x="0" y="0" width="200" height="120" fill="transparent"/>
+  <!-- CH3-CH2-C≡C-CH(CH3)-CH3 (branched alkyne) -->
+  <polyline points="20,60 60,60 90,60 120,60" stroke="var(--fig-curve-a)" stroke-width="2.5" fill="none"/>
+  <!-- Triple bond between C3 and C4 -->
+  <line x1="90" y1="50" x2="120" y2="50" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <line x1="98" y1="50" x2="98" y2="70" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <line x1="103" y1="50" x2="103" y2="70" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <line x1="108" y1="50" x2="108" y2="70" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <!-- Methyl branch on C5 -->
+  <line x1="120" y1="60" x2="120" y2="30" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <line x1="120" y1="30" x2="140" y2="30" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <line x1="120" y1="60" x2="140" y2="90" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <text x="100" y="110" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)" text-anchor="middle">Option A (branched)</text>
+</svg>

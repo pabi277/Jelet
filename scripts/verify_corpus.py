@@ -13,7 +13,7 @@ Checks:
 
 Exit code 0 = all gates pass, 1 = failure.
 """
-import json, os, sys
+import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "_data")
@@ -157,6 +157,57 @@ def main():
             check("steps" in s, f"{qid}: missing steps")
             check("verification" in s, f"{qid}: missing verification")
         print(f"✓ {year} solutions: {len(sols)} entries")
+
+    # 4b. Control-char gate: recursively walk parsed JSON, reject control chars
+    ctrl_re = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1f\t]')
+    def check_ctrl(obj, path=''):
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                check_ctrl(v, f'{path}.{k}')
+        elif isinstance(obj, list):
+            for i, v in enumerate(obj):
+                check_ctrl(v, f'{path}[{i}]')
+        elif isinstance(obj, str):
+            m = ctrl_re.search(obj)
+            if m:
+                check(False, f"{path}: control char {repr(m.group())} in string")
+    for paper_entry in manifest.get("papers", []):
+        year = str(paper_entry["year"])
+        paper_path = os.path.join(ROOT, paper_entry["dataFile"])
+        if os.path.exists(paper_path):
+            check_ctrl(load_json(paper_path), paper_entry["dataFile"])
+        sol_path = os.path.join(ROOT, paper_entry["solutionsFile"])
+        if os.path.exists(sol_path):
+            check_ctrl(load_json(sol_path), paper_entry["solutionsFile"])
+    print("✓ Control-char gate: 0 issues across all papers and solutions")
+
+    # 4c. Duplicate-sentence gate: no two solutions share identical sentence >50 chars; no forbidden filler
+    FORBIDDEN = ["Given key", "relevant mathematical principle", "Evaluating the expression from the previous steps"]
+    all_sentences = {}
+    for paper_entry in manifest.get("papers", []):
+        year = str(paper_entry["year"])
+        sol_path = os.path.join(ROOT, paper_entry["solutionsFile"])
+        if not os.path.exists(sol_path):
+            continue
+        sol = load_json(sol_path)
+        for qid, s in sol.get("solutions", {}).items():
+            full_text = s.get("conceptSummary", "")
+            for step in s.get("steps", []):
+                full_text += " " + step.get("bodyLatex", "")
+            # Check forbidden phrases
+            for phrase in FORBIDDEN:
+                if phrase in full_text:
+                    check(False, f"{year}/{qid}: forbidden filler phrase '{phrase}'")
+            # Extract sentences (split on period+space or $...$ boundaries, keep >50 char)
+            sentences = re.split(r'(?<=[.!?])\s+', full_text)
+            for sent in sentences:
+                sent = sent.strip()
+                if len(sent) > 50:
+                    if sent in all_sentences:
+                        check(False, f"{year}/{qid}: duplicate sentence (>{50} chars) with {all_sentences[sent]}: '{sent[:60]}...'")
+                    else:
+                        all_sentences[sent] = f"{year}/{qid}"
+    print(f"✓ Duplicate-sentence gate: {len(all_sentences)} unique sentences checked, no duplicates >50 chars")
 
     # 5. Figure count
     fig_count = 0

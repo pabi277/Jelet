@@ -37,7 +37,7 @@
         {
           "formulaId": "P05-F02",
           "label": "Orbital Energy",
-          "latex": "$E = -\frac{GMm}{2r},\\; U = -\frac{GMm}{r},\\; K = \\frac{GMm}{2r}$",
+          "latex": "$E = -\\frac{GMm}{2r},\\; U = -\\frac{GMm}{r},\\; K = \\frac{GMm}{2r}$",
           "aiExplainContext": "Energy relations for circular orbits."
         }
       ]

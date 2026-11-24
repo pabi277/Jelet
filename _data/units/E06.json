@@ -49,7 +49,7 @@
     }
   ],
   "wbjeebTraps": [
-    "$\\alpha = I_C/I_E$, $\\beta = I_C/I_B$, $\\beta = \\alpha/(1-\u0007lpha)$.",
+    "$\\alpha = I_C/I_E$, $\\beta = I_C/I_B$, $\\beta = \\alpha/(1-\\alpha)$.",
     "CMOS uses complementary NMOS and PMOS for low static power."
   ],
   "videoLectures": [],

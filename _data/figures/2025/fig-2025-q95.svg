@@ -1,18 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 140" width="240" height="140" role="img" aria-label="2025 Q95: AC circuit">
-  <rect x="0" y="0" width="240" height="140" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2025 Q95: AC circuit</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">AC circuit</text>
-  <circle cx="60" cy="100" r="12" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <text x="60" y="105" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">R₁</text>
-  <circle cx="110" cy="100" r="12" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <text x="110" y="105" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">L₁</text>
-  <circle cx="160" cy="100" r="12" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <text x="160" y="105" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">R₂</text>
-  <line x1="40" y1="100" x2="50" y2="100" stroke="#475569" stroke-width="1.5"/>
-  <line x1="70" y1="100" x2="95" y2="100" stroke="#475569" stroke-width="1.5"/>
-  <line x1="120" y1="100" x2="145" y2="100" stroke="#475569" stroke-width="1.5"/>
-  <line x1="170" y1="100" x2="190" y2="100" stroke="#475569" stroke-width="1.5"/>
-  <text x="40" y="90" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">I₁</text>
-  <text x="105" y="90" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">I₂</text>
-  <text x="195" y="100" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">I</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" width="420" height="220" role="img" aria-label="JELET 2025 Q95: AC circuit with R and L branches">
+  <rect x="0" y="0" width="420" height="220" fill="transparent"/>
+  <text x="20" y="22" font-family="var(--font-mono)" font-size="12" fill="var(--fig-text)">Q95: Circuit with R₁,L₁ and R₂,L₂ branches</text>
+  <!-- Circuit: source on left, two parallel branches -->
+  <!-- Source -->
+  <circle cx="60" cy="110" r="20" stroke="var(--fig-axis)" stroke-width="2" fill="none"/>
+  <line x1="50" y1="110" x2="70" y2="110" stroke="var(--fig-curve-a)" stroke-width="2"/>
+  <text x="60" y="145" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)" text-anchor="middle">AC</text>
+  <!-- Top wire -->
+  <line x1="80" y1="70" x2="340" y2="70" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <!-- Bottom wire -->
+  <line x1="80" y1="150" x2="340" y2="150" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <!-- Branch 1: R1 and L1 in series -->
+  <line x1="150" y1="70" x2="150" y2="90" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <rect x="135" y="90" width="30" height="15" rx="2" stroke="var(--fig-curve-a)" stroke-width="2" fill="none"/>
+  <text x="150" y="102" font-family="var(--font-mono)" font-size="9" fill="var(--fig-curve-a)" text-anchor="middle">R₁</text>
+  <line x1="150" y1="105" x2="150" y2="125" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <!-- Inductor L1 (coil) -->
+  <path d="M 140,125 q 5,-8 10,0 q 5,-8 10,0 q 5,-8 10,0" stroke="var(--fig-curve-a)" stroke-width="2" fill="none"/>
+  <line x1="150" y1="130" x2="150" y2="150" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <text x="120" y="75" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">I₁</text>
+  <!-- Branch 2: R2 and L2 in series -->
+  <line x1="250" y1="70" x2="250" y2="90" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <rect x="235" y="90" width="30" height="15" rx="2" stroke="var(--fig-curve-b)" stroke-width="2" fill="none"/>
+  <text x="250" y="102" font-family="var(--font-mono)" font-size="9" fill="var(--fig-curve-b)" text-anchor="middle">R₂</text>
+  <line x1="250" y1="105" x2="250" y2="125" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <path d="M 240,125 q 5,-8 10,0 q 5,-8 10,0 q 5,-8 10,0" stroke="var(--fig-curve-b)" stroke-width="2" fill="none"/>
+  <line x1="250" y1="130" x2="250" y2="150" stroke="var(--fig-axis)" stroke-width="1.5"/>
+  <text x="220" y="75" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">I₂</text>
+  <!-- Main current I -->
+  <text x="85" y="60" font-family="var(--font-mono)" font-size="10" fill="var(--fig-label)">I</text>
 </svg>

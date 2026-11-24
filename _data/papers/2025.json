@@ -119,7 +119,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 2,
-      "stemLatex": "If $\\omega (\\neq 1)$ be a cube root of unity and $A = \\begin{bmatrix} 0 & 0 \\\\ 0 & 0 \\end{bmatrix}$, then $A^{2025}$ is equal to",
+      "stemLatex": "If $\\omega (\\neq 1)$ be a cube root of unity and $A = \\begin{bmatrix} 0 & -1 \\\\ 1 & -1 \\end{bmatrix}$, then $A^{2025}$ is equal to",
       "stemFigure": null,
       "options": [
         {
@@ -561,7 +561,7 @@
         },
         {
           "id": "B",
-          "latex": "$\u000bec{a}$",
+          "latex": "$\\vec{a}$",
           "figure": null
         },
         {
@@ -935,7 +935,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "Let $\u000bec{a} = \\lambda(\\hat{i} + \\hat{j} - \\hat{k})$ and $\u000bec{b} = \\mu(\\hat{i} - \\hat{j} + \\hat{k})$ be two given vectors. $\\hat{c}$ is a unit vector perpendicular to $\\vec{a}$ but coplanar with $\\vec{a}$ and $\u000bec{b}$. Then the unit vector $\u000bec{d}$ perpendicular to both $\u000bec{a}$ and $\u000bec{c}$ is",
+      "stemLatex": "Let $\\vec{a} = \\lambda(\\hat{i} + \\hat{j} - \\hat{k})$ and $\\vec{b} = \\mu(\\hat{i} - \\hat{j} + \\hat{k})$ be two given vectors. $\\hat{c}$ is a unit vector perpendicular to $\\vec{a}$ but coplanar with $\\vec{a}$ and $\\vec{b}$. Then the unit vector $\\vec{d}$ perpendicular to both $\\vec{a}$ and $\\vec{c}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1957,7 +1957,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "The value of $\\displaystyle\\int \\dfrac{\tan x}{x}\\,dx$ is",
+      "stemLatex": "The value of $\\displaystyle\\int \\dfrac{\\tan x}{x}\\,dx$ is",
       "stemFigure": null,
       "options": [
         {
@@ -2005,7 +2005,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 10,
-      "stemLatex": "The equation of state of some gases can be expressed as $\\left(P + \\dfrac{a}{V^{2}}\right)(V - b) = RT$ where $P$ is pressure, $V$ is volume, $T$ is absolute temperature and $a, b, R$ are constants. The dimension of $'a'$ is",
+      "stemLatex": "The equation of state of some gases can be expressed as $\\left(P + \\dfrac{a}{V^{2}}\\right)(V - b) = RT$ where $P$ is pressure, $V$ is volume, $T$ is absolute temperature and $a, b, R$ are constants. The dimension of $'a'$ is",
       "stemFigure": null,
       "options": [
         {
@@ -2107,22 +2107,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\u000bec{C}$",
+          "latex": "$\\vec{C}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\u000bec{B}$",
+          "latex": "$\\vec{B}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\u000bec{B} \\times \\vec{C}$",
+          "latex": "$\\vec{B} \\times \\vec{C}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\u000bec{B} \\cdot \\vec{C}$",
+          "latex": "$\\vec{B} \\cdot \\vec{C}$",
           "figure": null
         }
       ],
@@ -2162,22 +2162,46 @@
         {
           "id": "A",
           "latex": "$v$ increases linearly then constant",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q44-optA.svg",
+            "alt": "Option A for JELET 2025 Q44",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
           "latex": "$v$ increases then decreases",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q44-optB.svg",
+            "alt": "Option B for JELET 2025 Q44",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
           "latex": "$v$ constant then increases",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q44-optC.svg",
+            "alt": "Option C for JELET 2025 Q44",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
           "latex": "$v$ decreases linearly",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q44-optD.svg",
+            "alt": "Option D for JELET 2025 Q44",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -2499,33 +2523,51 @@
       "negativeTwelfths": 3,
       "pdfPage": 12,
       "stemLatex": "Which of the graphs shown in figures represents the velocity-time ($v$-$t$) graph of a small spherical body falling in a viscous fluid? (Body just dropped on the surface of the viscous fluid)",
-      "stemFigure": {
-        "src": "./_data/figures/2025/fig-2025-q51.svg",
-        "alt": "Figure for JELET 2025 Q51",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
           "latex": "$v$ increases then becomes constant",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q51-optA.svg",
+            "alt": "Option A for JELET 2025 Q51",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
           "latex": "$v$ constant from start",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q51-optB.svg",
+            "alt": "Option B for JELET 2025 Q51",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
           "latex": "$v$ decreases then constant",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q51-optC.svg",
+            "alt": "Option C for JELET 2025 Q51",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
           "latex": "$v$ increases linearly forever",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q51-optD.svg",
+            "alt": "Option D for JELET 2025 Q51",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -2853,33 +2895,51 @@
       "negativeTwelfths": 3,
       "pdfPage": 14,
       "stemLatex": "One mole of an ideal gas goes from an initial state $A$ to final state $B$ via two processes. It firstly undergoes isothermal expansion from volume $V$ to $3V$ and then its volume is reduced from $3V$ to $V$ at constant pressure. The correct $P$-$V$ diagram representing the two processes is",
-      "stemFigure": {
-        "src": "./_data/figures/2025/fig-2025-q58.svg",
-        "alt": "Figure for JELET 2025 Q58",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
           "latex": "isothermal expansion then isobaric compression",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q58-optA.svg",
+            "alt": "Option A for JELET 2025 Q58",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
           "latex": "isobaric expansion then isothermal compression",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q58-optB.svg",
+            "alt": "Option B for JELET 2025 Q58",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
           "latex": "isothermal then isochoric",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q58-optC.svg",
+            "alt": "Option C for JELET 2025 Q58",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
           "latex": "isobaric then isochoric",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q58-optD.svg",
+            "alt": "Option D for JELET 2025 Q58",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -3255,33 +3315,51 @@
       "negativeTwelfths": 0,
       "pdfPage": 17,
       "stemLatex": "A car starts from rest and accelerates uniformly for $4\\,\\text{sec}$ and then moves with uniform velocity. Which of the following displacement ($x$) - time ($t$) graph represents the motion of the car ?",
-      "stemFigure": {
-        "src": "./_data/figures/2025/fig-2025-q66.svg",
-        "alt": "Figure for JELET 2025 Q66",
-        "width": 420,
-        "height": 220,
-        "themeAdaptive": true
-      },
+      "stemFigure": null,
       "options": [
         {
           "id": "A",
           "latex": "parabolic then linear",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q66-optA.svg",
+            "alt": "Option A for JELET 2025 Q66",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
           "latex": "linear then parabolic",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q66-optB.svg",
+            "alt": "Option B for JELET 2025 Q66",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",
           "latex": "linear throughout",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q66-optC.svg",
+            "alt": "Option C for JELET 2025 Q66",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "D",
           "latex": "parabolic throughout",
-          "figure": null
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q66-optD.svg",
+            "alt": "Option D for JELET 2025 Q66",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         }
       ],
       "key": {
@@ -3467,22 +3545,22 @@
       "options": [
         {
           "id": "A",
-          "latex": "Vector $\u000bec{P}$ is perpendicular to the plane containing $\u000bec{A}$ and $\u000bec{B}$.",
+          "latex": "Vector $\\vec{P}$ is perpendicular to the plane containing $\\vec{A}$ and $\\vec{B}$.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\u000bec{P}$ resides in a plane containing $\u000bec{A}$ and $\u000bec{B}$.",
+          "latex": "$\\vec{P}$ resides in a plane containing $\\vec{A}$ and $\\vec{B}$.",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\u000bec{P}$ resides in a plane containing $\u000bec{C}$ and $\u000bec{D}$.",
+          "latex": "$\\vec{P}$ resides in a plane containing $\\vec{C}$ and $\\vec{D}$.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\u000bec{P}$ is parallel to the line of intersection of two planes containing $\u000bec{A}, \\vec{B}$ and $\u000bec{C}, \\vec{D}$ respectively.",
+          "latex": "$\\vec{P}$ is parallel to the line of intersection of two planes containing $\\vec{A}, \\vec{B}$ and $\\vec{C}, \\vec{D}$ respectively.",
           "figure": null
         }
       ],
@@ -4212,13 +4290,25 @@
       "options": [
         {
           "id": "A",
-          "latex": "$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$",
-          "figure": null
+          "latex": null,
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q85-optA.svg",
+            "alt": "Option A for JELET 2025 Q85",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "B",
-          "latex": "$\\text{CH}_{3}\\text{CH}_{2}-\\text{C}\\equiv\\text{C}-\\text{CH}_{2}\\text{CH}_{3}$",
-          "figure": null
+          "latex": null,
+          "figure": {
+            "src": "./_data/figures/2025/fig-2025-q85-optB.svg",
+            "alt": "Option B for JELET 2025 Q85",
+            "width": 200,
+            "height": 120,
+            "themeAdaptive": true
+          }
         },
         {
           "id": "C",

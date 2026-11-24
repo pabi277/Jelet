@@ -1,14 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 130" width="240" height="130" role="img" aria-label="2025 Q88: Propene + HBr">
-  <rect x="0" y="0" width="240" height="130" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2025 Q88: Propene + HBr</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Reaction</text>
-  <rect x="25" y="55" width="55" height="35" fill="none" stroke="#60a5fa" stroke-width="1.5"/>
-  <text x="52" y="78" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">CH₃CH=CH₂</text>
-  <line x1="85" y1="72" x2="130" y2="72" stroke="#f87171" stroke-width="2"/>
-  <polygon points="130,72 123.1,76.0 123.1,68.0" fill="#f87171"/>
-  <text x="95" y="65" font-family="monospace" font-size="12" fill="#cbd5e1">HBr</text>
-  <rect x="135" y="45" width="50" height="25" fill="none" stroke="#34d399" stroke-width="1.5"/>
-  <text x="160" y="62" font-family="monospace" font-size="8" fill="#cbd5e1" text-anchor="middle">CH₃CHBrCH₃</text>
-  <rect x="135" y="80" width="50" height="25" fill="none" stroke="#34d399" stroke-width="1.5"/>
-  <text x="160" y="97" font-family="monospace" font-size="8" fill="#cbd5e1" text-anchor="middle">CH₃CH₂CH₂Br</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" width="420" height="220" role="img" aria-label="JELET 2025 Q88: propene + HBr reaction">
+  <rect x="0" y="0" width="420" height="220" fill="transparent"/>
+  <text x="20" y="22" font-family="var(--font-mono)" font-size="12" fill="var(--fig-text)">Q88: CH₃CH=CH₂ + HBr → products</text>
+  <!-- Reactant: propene -->
+  <polyline points="40,100 80,100 80,130 120,130" stroke="var(--fig-curve-a)" stroke-width="2.5" fill="none"/>
+  <line x1="80" y1="100" x2="100" y2="100" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <line x1="85" y1="92" x2="95" y2="92" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <line x1="85" y1="108" x2="95" y2="108" stroke="var(--fig-curve-a)" stroke-width="2.5"/>
+  <text x="80" y="85" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)" text-anchor="middle">CH₃</text>
+  <text x="60" y="145" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)" text-anchor="middle">CH=CH₂</text>
+  <!-- + HBr -->
+  <text x="150" y="115" font-family="var(--font-mono)" font-size="11" fill="var(--fig-label)">+ HBr</text>
+  <!-- Arrow -->
+  <line x1="200" y1="110" x2="260" y2="110" stroke="var(--fig-axis)" stroke-width="2" marker-end="url(#arrowhead88)"/>
+  <defs>
+    <marker id="arrowhead88" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="var(--fig-axis)"/>
+    </marker>
+  </defs>
+  <!-- Product I: 2-bromopropane -->
+  <polyline points="280,90 320,90 320,120" stroke="var(--fig-curve-b)" stroke-width="2" fill="none"/>
+  <text x="275" y="85" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">CH₃</text>
+  <text x="315" y="135" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">Br</text>
+  <text x="300" y="75" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)" text-anchor="middle">(I)</text>
 </svg>

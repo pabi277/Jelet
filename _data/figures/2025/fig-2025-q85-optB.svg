@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" width="200" height="120" role="img" aria-label="JELET 2025 Q85 Option B: hex-3-yne">
+  <rect x="0" y="0" width="200" height="120" fill="transparent"/>
+  <!-- CH3-CH2-C≡C-CH2-CH3 (straight chain, 3-hexyne) -->
+  <polyline points="20,60 50,60 80,60 110,60 140,60 170,60" stroke="var(--fig-curve-b)" stroke-width="2.5" fill="none"/>
+  <!-- Triple bond between C3 and C4 -->
+  <line x1="80" y1="50" x2="110" y2="50" stroke="var(--fig-curve-b)" stroke-width="2.5"/>
+  <line x1="87" y1="50" x2="87" y2="70" stroke="var(--fig-curve-b)" stroke-width="2.5"/>
+  <line x1="93" y1="50" x2="93" y2="70" stroke="var(--fig-curve-b)" stroke-width="2.5"/>
+  <line x1="99" y1="50" x2="99" y2="70" stroke="var(--fig-curve-b)" stroke-width="2.5"/>
+  <text x="100" y="110" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)" text-anchor="middle">Option B (3-hexyne)</text>
+</svg>

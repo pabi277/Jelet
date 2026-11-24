@@ -1,9 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 170" width="240" height="170" role="img" aria-label="2025 Q82: Isomer structures">
-  <rect x="0" y="0" width="240" height="170" fill="transparent"/>
-  <text x="15" y="20" font-family="monospace" font-size="11" fill="#94a3b8">2025 Q82: Isomer structures</text>
-  <text x="40" y="30" font-family="monospace" font-size="10" fill="#cbd5e1" text-anchor="start">Isomer pairs</text>
-  <polyline points="40,70 70,70 90,50 120,50" stroke="#60a5fa" stroke-width="2" fill="none"/>
-  <text x="80" y="65" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">(I)</text>
-  <polyline points="40,130 70,130 90,150 120,150" stroke="#34d399" stroke-width="2" fill="none"/>
-  <text x="80" y="125" font-family="monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">(II)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" width="420" height="220" role="img" aria-label="JELET 2025 Q82: structural isomerism pairs">
+  <rect x="0" y="0" width="420" height="220" fill="transparent"/>
+  <text x="20" y="22" font-family="var(--font-mono)" font-size="12" fill="var(--fig-text)">Q82: Isomerism pairs</text>
+  <!-- Pair 1: alcohol vs ether (functional isomers) -->
+  <text x="60" y="50" font-family="var(--font-mono)" font-size="10" fill="var(--fig-label)">Pair 1:</text>
+  <!-- CH3-CH2-OH -->
+  <polyline points="60,90 100,90 100,110" stroke="var(--fig-curve-a)" stroke-width="2" fill="none"/>
+  <text x="55" y="85" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">CH₃</text>
+  <text x="95" y="125" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">OH</text>
+  <!-- CH3-O-CH3 -->
+  <polyline points="180,90 220,90" stroke="var(--fig-curve-b)" stroke-width="2" fill="none"/>
+  <text x="175" y="85" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">CH₃</text>
+  <text x="215" y="85" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">CH₃</text>
+  <text x="200" y="105" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)" text-anchor="middle">O</text>
+  <text x="120" y="95" font-family="var(--font-mono)" font-size="10" fill="var(--fig-label)">↔</text>
+  <text x="200" y="140" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)" text-anchor="middle">functional isomers</text>
+  <!-- Pair 2: positional isomers -->
+  <text x="60" y="170" font-family="var(--font-mono)" font-size="10" fill="var(--fig-label)">Pair 2:</text>
+  <!-- 1-ol and 2-ol -->
+  <polyline points="60,190 100,190 100,170" stroke="var(--fig-curve-c)" stroke-width="2" fill="none"/>
+  <text x="55" y="185" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">CH₃</text>
+  <text x="95" y="165" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">OH</text>
+  <polyline points="180,190 220,190 220,170" stroke="var(--fig-curve-d)" stroke-width="2" fill="none"/>
+  <text x="175" y="185" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">CH₃</text>
+  <text x="215" y="185" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">CH₂</text>
+  <text x="215" y="165" font-family="var(--font-mono)" font-size="9" fill="var(--fig-label)">OH</text>
 </svg>

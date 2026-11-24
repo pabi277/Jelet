@@ -19,7 +19,7 @@
     {
       "anchor": "values",
       "heading": "1. Peak, Average & RMS Values",
-      "proseLatex": "RMS $= V_m/\\sqrt{2}$ for sine. Form factor $= \\text{RMS}/\text{average}$. Peak factor $= V_m/V_{rms}$.",
+      "proseLatex": "RMS $= V_m/\\sqrt{2}$ for sine. Form factor $= \\text{RMS}/\\text{average}$. Peak factor $= V_m/V_{rms}$.",
       "keyFormulas": [
         {
           "formulaId": "E05-F01",

@@ -106,7 +106,22 @@
   --shadow-sheet: 0 -8px 30px rgba(15, 23, 42, 0.18);
 
   /* ------------------------------------------------------------------ *
-   * 2.7  z-index scale
+   * 2.7  Figure tokens (SVG diagrams use these via var(--fig-*))
+   * ------------------------------------------------------------------ */
+  --fig-axis:        #64748B;
+  --fig-axis-light:  #94A3B8;
+  --fig-grid:        #E2EBEA;
+  --fig-curve-a:     #0284C7;
+  --fig-curve-b:     #10B981;
+  --fig-curve-c:     #D97706;
+  --fig-curve-d:     #7C3AED;
+  --fig-label:       #475569;
+  --fig-text:        #0F172A;
+  --fig-accent:      #0F6E66;
+  --fig-highlight:   #EF4444;
+
+  /* ------------------------------------------------------------------ *
+   * 2.8  z-index scale
    * ------------------------------------------------------------------ */
   --z-base:      0;
   --z-sticky:    100;

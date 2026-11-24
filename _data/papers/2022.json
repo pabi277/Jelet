@@ -235,7 +235,7 @@
         },
         {
           "id": "D",
-          "latex": "$\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$",
+          "latex": "$\\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$",
           "figure": null
         }
       ],
@@ -1141,7 +1141,7 @@
         },
         {
           "id": "C",
-          "latex": "exists and is $\tan v$",
+          "latex": "exists and is $\\tan v$",
           "figure": null
         },
         {
@@ -4021,7 +4021,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 20,
-      "stemLatex": "How many isomers are possible with molecular formula $\text{C}_{4}\\text{H}_{9}\\text{Cl}$?",
+      "stemLatex": "How many isomers are possible with molecular formula $\\text{C}_{4}\\text{H}_{9}\\text{Cl}$?",
       "stemFigure": null,
       "options": [
         {

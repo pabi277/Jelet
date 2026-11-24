@@ -30,7 +30,7 @@
         {
           "formulaId": "M05-F01",
           "label": "BAC-CAB Rule",
-          "latex": "$\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = \\vec{b}(\u000bec{a}\\cdot\\vec{c}) - \\vec{c}(\u000bec{a}\\cdot\\vec{b})$",
+          "latex": "$\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = \\vec{b}(\\vec{a}\\cdot\\vec{c}) - \\vec{c}(\\vec{a}\\cdot\\vec{b})$",
           "aiExplainContext": "Expand triple cross products."
         }
       ]

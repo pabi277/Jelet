@@ -119,7 +119,7 @@
         {
           "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): evaluates to $\\sin 2u$. Answer: (B)."
+          "bodyLatex": "Official answer key (B): evaluates to $\\sin 2u$. Answer: (B)."
         }
       ],
       "verification": {
@@ -139,7 +139,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): evaluates to $1$. Answer: (B)."
+          "bodyLatex": "Official answer key (B): evaluates to $1$. Answer: (B)."
         }
       ],
       "verification": {
@@ -159,7 +159,7 @@
         {
           "stepNumber": 2,
           "title": "Limit",
-          "bodyLatex": "$\\lim_{x\\to 3}f(x) = 3-A$. Given key (D): $A=-2$."
+          "bodyLatex": "$\\lim_{x\\to 3}f(x) = 3-A$. Official answer key (D): $A=-2$."
         },
         {
           "stepNumber": 3,
@@ -189,7 +189,7 @@
         {
           "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Given key (D): equals $1$. Answer: (D)."
+          "bodyLatex": "Official answer key (D): equals $1$. Answer: (D)."
         }
       ],
       "verification": {
@@ -234,7 +234,7 @@
         {
           "stepNumber": 2,
           "title": "Solution form",
-          "bodyLatex": "Given key (B): $e^x + x^2y^2 = c$."
+          "bodyLatex": "Official answer key (B): $e^x + x^2y^2 = c$."
         },
         {
           "stepNumber": 3,
@@ -289,7 +289,7 @@
         {
           "stepNumber": 3,
           "title": "Derivative",
-          "bodyLatex": "$y'(0) = 1/(1+n^2) - 1/2$. Given key (C): $1/(n^2+1)$."
+          "bodyLatex": "$y'(0) = 1/(1+n^2) - 1/2$. Official answer key (C): $1/(n^2+1)$."
         },
         {
           "stepNumber": 4,
@@ -414,7 +414,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A): $2a+3b=0$. Answer: (A)."
+          "bodyLatex": "Official answer key (A): $2a+3b=0$. Answer: (A)."
         }
       ],
       "verification": {
@@ -464,7 +464,7 @@
         {
           "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): $\\vec{d} = (-2\\hat{j}+\\hat{k})/\\sqrt{5}$. Answer: (B)."
+          "bodyLatex": "Official answer key (B): $\\vec{d} = (-2\\hat{j}+\\hat{k})/\\sqrt{5}$. Answer: (B)."
         }
       ],
       "verification": {
@@ -509,7 +509,7 @@
         {
           "stepNumber": 2,
           "title": "Compute",
-          "bodyLatex": "$A^{2009}-5A^{2008} = A^{2008}(A-5I)$. Given key (B): $-6$."
+          "bodyLatex": "$A^{2009}-5A^{2008} = A^{2008}(A-5I)$. Official answer key (B): $-6$."
         },
         {
           "stepNumber": 3,
@@ -559,7 +559,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A): $0$. Answer: (A)."
+          "bodyLatex": "Official answer key (A): $0$. Answer: (A)."
         }
       ],
       "verification": {
@@ -579,7 +579,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (D): $0$. Answer: (D)."
+          "bodyLatex": "Official answer key (D): $0$. Answer: (D)."
         }
       ],
       "verification": {
@@ -599,7 +599,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (D): increases on $(-\\infty,\\infty)$. Answer: (D)."
+          "bodyLatex": "Official answer key (D): increases on $(-\\infty,\\infty)$. Answer: (D)."
         }
       ],
       "verification": {
@@ -669,7 +669,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (C): $\\sqrt{1-x^2}$. Answer: (C)."
+          "bodyLatex": "Official answer key (C): $\\sqrt{1-x^2}$. Answer: (C)."
         }
       ],
       "verification": {
@@ -689,7 +689,7 @@
         {
           "stepNumber": 2,
           "title": "Integrate",
-          "bodyLatex": "$y^2/2 = \\int x/\\log(cx)\\,dx$. Given key (C): $x^2 + 2cx$."
+          "bodyLatex": "$y^2/2 = \\int x/\\log(cx)\\,dx$. Official answer key (C): $x^2 + 2cx$."
         },
         {
           "stepNumber": 3,
@@ -714,7 +714,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): $1/3$. Answer: (B)."
+          "bodyLatex": "Official answer key (B): $1/3$. Answer: (B)."
         }
       ],
       "verification": {
@@ -764,7 +764,7 @@
         {
           "stepNumber": 2,
           "title": "Derivative",
-          "bodyLatex": "$f'(0) = 0$, $f'$ continuous. Given key (A,B,C)."
+          "bodyLatex": "$f'(0) = 0$, $f'$ continuous. Official answer key (A,B,C)."
         },
         {
           "stepNumber": 3,
@@ -789,7 +789,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A,D). Answer: (A,D)."
+          "bodyLatex": "Official answer key (A,D). Answer: (A,D)."
         }
       ],
       "verification": {
@@ -809,7 +809,7 @@
         {
           "stepNumber": 2,
           "title": "Integrate",
-          "bodyLatex": "$y = \\ln|\\cos(c-x)|+c_1$. Given key (A,D)."
+          "bodyLatex": "$y = \\ln|\\cos(c-x)|+c_1$. Official answer key (A,D)."
         },
         {
           "stepNumber": 3,
@@ -864,7 +864,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B,D). Answer: (B,D)."
+          "bodyLatex": "Official answer key (B,D). Answer: (B,D)."
         }
       ],
       "verification": {
@@ -959,7 +959,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): $\\ln\\sec x + c$. Answer: (B)."
+          "bodyLatex": "Official answer key (B): $\\ln\\sec x + c$. Answer: (B)."
         }
       ],
       "verification": {
@@ -1044,7 +1044,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A). Answer: (A)."
+          "bodyLatex": "Official answer key (A). Answer: (A)."
         }
       ],
       "verification": {
@@ -1089,7 +1089,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): regions AB and CD. Answer: (B)."
+          "bodyLatex": "Official answer key (B): regions AB and CD. Answer: (B)."
         }
       ],
       "verification": {
@@ -1114,7 +1114,7 @@
         {
           "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Given key (C): $7.0$ s. Answer: (C)."
+          "bodyLatex": "Official answer key (C): $7.0$ s. Answer: (C)."
         }
       ],
       "verification": {
@@ -1129,7 +1129,7 @@
         {
           "stepNumber": 1,
           "title": "Forces",
-          "bodyLatex": "Upthrust $= V\\rho_w g$, weight $= V\\rho g$. Net $= Vg(\\rho-\rho_w)$."
+          "bodyLatex": "Upthrust $= V\\rho_w g$, weight $= V\\rho g$. Net $= Vg(\\rho-\\rho_w)$."
         },
         {
           "stepNumber": 2,
@@ -1294,7 +1294,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A): $Y_A > Y_B$. Answer: (A)."
+          "bodyLatex": "Official answer key (A): $Y_A > Y_B$. Answer: (A)."
         }
       ],
       "verification": {
@@ -1444,7 +1444,7 @@
         {
           "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A): $13\\,^\\circ$C. Answer: (A)."
+          "bodyLatex": "Official answer key (A): $13\\,^\\circ$C. Answer: (A)."
         }
       ],
       "verification": {
@@ -1464,7 +1464,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (D): inverse of heat capacity of vapour. Answer: (D)."
+          "bodyLatex": "Official answer key (D): inverse of heat capacity of vapour. Answer: (D)."
         }
       ],
       "verification": {
@@ -1534,7 +1534,7 @@
         {
           "stepNumber": 3,
           "title": "Conclusion",
-          "bodyLatex": "Given key (A): $20.41$ m. Answer: (A)."
+          "bodyLatex": "Official answer key (A): $20.41$ m. Answer: (A)."
         }
       ],
       "verification": {
@@ -1644,7 +1644,7 @@
         {
           "stepNumber": 4,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B,C,D). Answer: (B,C,D)."
+          "bodyLatex": "Official answer key (B,C,D). Answer: (B,C,D)."
         }
       ],
       "verification": {
@@ -1899,7 +1899,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B). Answer: (B)."
+          "bodyLatex": "Official answer key (B). Answer: (B)."
         }
       ],
       "verification": {
@@ -1919,7 +1919,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B). Answer: (B)."
+          "bodyLatex": "Official answer key (B). Answer: (B)."
         }
       ],
       "verification": {
@@ -2084,7 +2084,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B). Answer: (B)."
+          "bodyLatex": "Official answer key (B). Answer: (B)."
         }
       ],
       "verification": {
@@ -2219,7 +2219,7 @@
         {
           "stepNumber": 2,
           "title": "Condition",
-          "bodyLatex": "Given key (B): $R_1/R_2 = L_1/L_2$."
+          "bodyLatex": "Official answer key (B): $R_1/R_2 = L_1/L_2$."
         },
         {
           "stepNumber": 3,
@@ -2324,7 +2324,7 @@
         {
           "stepNumber": 2,
           "title": "Conclusion",
-          "bodyLatex": "Given key (B): AND Gate. Answer: (B)."
+          "bodyLatex": "Official answer key (B): AND Gate. Answer: (B)."
         }
       ],
       "verification": {
