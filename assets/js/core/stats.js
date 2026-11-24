@@ -82,6 +82,7 @@ export async function createSession({
     currentIndex: 0,
     responses: {}, // qId -> string[]
     markedForReview: [], // qId[]
+    questionTimes: {}, // qId -> ms spent on that question (mock time analytics)
     assistedQuestionIds: [], // qIds where hint/AI was opened
     revealedQuestionIds: [], // qIds already checked in assisted drill
     mistakeContext: mistakeContext || null, // qId -> prior mistake attempt metadata

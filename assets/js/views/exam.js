@@ -73,11 +73,33 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
   let currentIndex = Math.min(Math.max(0, session.currentIndex || 0), questions.length - 1);
   const responses = { ...(session.responses || {}) };
   const reviewSet = new Set(session.markedForReview || []);
+  // Per-question time-on-question accumulator (ms) — feeds mock time analytics.
+  const questionTimes = { ...(session.questionTimes || {}) };
+  let lastVisitIndex = currentIndex;
+  let visitStartMs = Date.now();
   let remainingMs =
     session.remainingMs != null ? session.remainingMs : 120 * 60 * 1000;
   let lastTick = Date.now();
   let submitting = false;
   let confirmModalOpen = false;
+
+  /** Accumulate elapsed ms spent on the currently-viewed question into `questionTimes`. */
+  function flushVisitTime() {
+    if (lastVisitIndex == null) return;
+    const q = questions[lastVisitIndex];
+    if (!q) return;
+    const spent = Math.max(0, Date.now() - visitStartMs);
+    questionTimes[q.id] = (questionTimes[q.id] || 0) + spent;
+  }
+
+  /** Navigate to a new question index, flushing time spent on the previous one first. */
+  function goToIndex(idx) {
+    if (idx === currentIndex) return;
+    flushVisitTime();
+    currentIndex = idx;
+    visitStartMs = Date.now();
+    lastVisitIndex = idx;
+  }
 
   // Compute subject jump ranges dynamically from `questions`
   const subjectTabs = [];
@@ -100,6 +122,7 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
     session.currentIndex = currentIndex;
     session.responses = responses;
     session.markedForReview = [...reviewSet];
+    session.questionTimes = { ...questionTimes };
     session.remainingMs = Math.max(0, Math.round(remainingMs));
     session.lastTickAt = Date.now();
     try {
@@ -227,7 +250,7 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
         </button>
       `);
       btn.addEventListener("click", () => {
-        currentIndex = tab.firstIndex;
+        goToIndex(tab.firstIndex);
         persistNow();
         renderQuestionAndPalettes();
       });
@@ -261,7 +284,7 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
         `<button class="omr-cell ${idx === currentIndex ? "is-current" : ""}" type="button" data-q="${idx + 1}" ${st !== "unvisited" ? `data-state="${st}"` : ""} aria-label="Question ${q.qNumber || idx + 1}, ${stateText}">${q.qNumber || idx + 1}</button>`
       );
       cell.addEventListener("click", () => {
-        currentIndex = idx;
+        goToIndex(idx);
         persistNow();
         renderQuestionAndPalettes();
         if (closeOnTap && omrSheet) closeSheet(omrSheet);
@@ -313,11 +336,13 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
       else set.add(optId);
       responses[q.id] = ["A", "B", "C", "D"].filter((x) => set.has(x));
     } else {
-      // Category-I radio: tapping an already-selected option clears it cleanly!
-      if (prev.length === 1 && prev[0] === optId) {
-        responses[q.id] = [];
+      // Category-I OMR bubble: tap darkens, re-tap clears (multi-bubble fidelity).
+      // Marks are stored in tap order so the first-marked bubble is the primary
+      // selection; scoring.js penalises multi-bubble Cat-I as incorrect (-1/4).
+      if (prev.includes(optId)) {
+        responses[q.id] = prev.filter((x) => x !== optId);
       } else {
-        responses[q.id] = [optId];
+        responses[q.id] = [...prev, optId];
       }
     }
     persistNow();
@@ -346,6 +371,7 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
     const qCard = $("#examQuestionCard", root);
     const selected = new Set(responses[q.id] || []);
     const isCat2 = q.category === 2;
+    const isMultiBubble = !isCat2 && selected.size > 1;
     const isReviewed = reviewSet.has(q.id);
     const unitTitle = unitTitleMap.get(q.unitId) || q.unitId;
     const keyTierBadge =
@@ -388,8 +414,19 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
       <div class="cluster-xs" style="margin-top:var(--space-xs)">
         <span class="badge badge--brand">${escapeHtml(q.unitId)} · ${escapeHtml(unitTitle)}</span>
         <span class="badge ${isCat2 ? "badge--partial" : "badge--correct"}">${escapeHtml(categoryLabel(q))}</span>
+        ${
+          selected.size > 0
+            ? `<span class="badge badge--correct">${icon("icon-check")} Answered</span>`
+            : `<span class="badge badge--review">Not answered</span>`
+        }
         <span class="pill">${icon("icon-lock")} ${escapeHtml(keyTierBadge)}</span>
       </div>
+
+      ${
+        isMultiBubble
+          ? `<div class="exam-trap" style="margin-top:var(--space-xs)">${icon("icon-alert")} <strong>Multiple bubbles darkened</strong> — Category I marks the first bubble as primary, but multiple darkened bubbles are scored as <strong>incorrect (−0.25)</strong> per WBJEEB rules. Tap a bubble again to clear it.</div>`
+          : ""
+      }
 
       ${
         isCat2
@@ -409,8 +446,12 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
 
       ${
         selected.size > 0
-          ? `<div style="margin-top:var(--space-s);display:flex;justify-content:space-between;align-items:center">
-               <span class="card__meta">Selected: <strong class="mono">${[...selected].join(", ")}</strong></span>
+          ? `<div style="margin-top:var(--space-s);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-xs)">
+               <span class="card__meta">${
+                 isMultiBubble
+                   ? `Primary (first marked): <strong class="mono">${[...selected][0]}</strong> · all marked: <strong class="mono">${[...selected].join(", ")}</strong>`
+                   : `Selected: <strong class="mono">${[...selected].join(", ")}</strong>`
+               }</span>
                <button type="button" class="btn btn--ghost btn--sm" id="examInlineClearBtn">Clear choice</button>
              </div>`
           : ""
@@ -472,9 +513,11 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
     if (submitting) return; // double-submit guard
     submitting = true;
     clearInterval(timerInterval);
+    flushVisitTime();
     session.currentIndex = currentIndex;
     session.responses = responses;
     session.markedForReview = [...reviewSet];
+    session.questionTimes = { ...questionTimes };
     session.remainingMs = Math.max(0, Math.round(remainingMs));
     try {
       const attempt = await submitSessionToAttempt({ session, questions });
@@ -498,6 +541,7 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
 
   // Controls wiring
   $("#examPauseExitBtn", root).addEventListener("click", async () => {
+    flushVisitTime();
     await persistNow();
     showToast("Exam paused & saved locally — resume anytime");
     location.hash = "#/papers";
@@ -517,14 +561,14 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
   $("#examMarkReviewBtn", root).addEventListener("click", toggleReviewCurrent);
   $("#examPrevBtn", root).addEventListener("click", () => {
     if (currentIndex > 0) {
-      currentIndex -= 1;
+      goToIndex(currentIndex - 1);
       persistNow();
       renderQuestionAndPalettes();
     }
   });
   $("#examNextBtn", root).addEventListener("click", () => {
     if (currentIndex < questions.length - 1) {
-      currentIndex += 1;
+      goToIndex(currentIndex + 1);
       persistNow();
       renderQuestionAndPalettes();
     } else {
@@ -556,14 +600,14 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
     } else if (key === "ArrowRight") {
       if (currentIndex < questions.length - 1) {
         ev.preventDefault();
-        currentIndex += 1;
+        goToIndex(currentIndex + 1);
         persistNow();
         renderQuestionAndPalettes();
       }
     } else if (key === "ArrowLeft") {
       if (currentIndex > 0) {
         ev.preventDefault();
-        currentIndex -= 1;
+        goToIndex(currentIndex - 1);
         persistNow();
         renderQuestionAndPalettes();
       }
@@ -613,6 +657,7 @@ export async function renderLiveExam(main, sessionId, { openSheet, closeSheet })
     clearInterval(timerInterval);
     document.removeEventListener("keydown", onKeyDown);
     document.removeEventListener("visibilitychange", onVisibilityChange);
+    flushVisitTime();
     persistNow();
   };
 }
