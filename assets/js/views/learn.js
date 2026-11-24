@@ -252,7 +252,7 @@ export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
 /**
  * Screen 3: `Unit Lesson, Video Lectures & Workbook` (`#/learn/:unitId`, ref `05-lesson.png`)
  */
-export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) {
+export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query } = {}) {
   const unitId = String(unitIdParam || "M01").toUpperCase();
   main.innerHTML = `<div class="view" style="padding:var(--space-l)"><p class="view__placeholder">Opening Unit ${escapeHtml(unitId)}…</p></div>`;
 
@@ -295,8 +295,19 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
     .filter((q) => q && !isVoidedQuestion(q));
   const noteSections =
     Array.isArray(unit.notes) && unit.notes.length ? unit.notes : unit.sections || [];
+  const formulaSourceSections =
+    Array.isArray(unit.sections) && unit.sections.length ? unit.sections : noteSections;
+  const unitFormulas = formulaSourceSections.flatMap((sec) =>
+    (sec.keyFormulas || []).map((kf) => ({
+      ...kf,
+      sectionHeading: sec.heading || "",
+      sectionAnchor: sec.anchor || "",
+    }))
+  );
   let solutionsCache = null;
-  let activeTab = "workbook"; // "workbook" | "pyqs" | "videos"
+  const requestedTab = String(query?.get?.("tab") || "").toLowerCase();
+  const validTabs = new Set(["workbook", "formulas", "pyqs", "videos"]);
+  let activeTab = validTabs.has(requestedTab) ? requestedTab : "workbook";
 
   const isBookmarkedInit = Boolean(bookmarksMap.get(unit.unitId)?.bookmarked);
 
@@ -424,12 +435,13 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
     row.innerHTML = "";
     const tabs = [
       { id: "workbook", label: "Workbook" },
+      { id: "formulas", label: `Formulas (${unitFormulas.length})` },
       { id: "pyqs", label: `Verified PYQs (${unitPyqs.length})` },
       { id: "videos", label: `Videos (${(unit.videoLectures || []).length})` },
     ];
     for (const t of tabs) {
       const b = el(
-        `<button type="button" class="chip ${activeTab === t.id ? "chip--active" : ""}">${escapeHtml(t.label)}</button>`
+        `<button type="button" class="chip ${activeTab === t.id ? "chip--active" : ""}" data-tab="${escapeHtml(t.id)}">${escapeHtml(t.label)}</button>`
       );
       b.addEventListener("click", () => {
         activeTab = t.id;
@@ -566,6 +578,96 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor } = {}) 
         showToast("Unit note saved locally");
       });
       slot.appendChild(noteCard);
+      return;
+    }
+
+    if (activeTab === "formulas") {
+      const headerCard = el(`
+        <section class="card stack-xs unit-formula-sheet">
+          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+            <div class="cluster-xs">
+              ${icon("icon-formula")}
+              <strong>${escapeHtml(unit.unitId)} Formula Sheet (${unitFormulas.length})</strong>
+            </div>
+            <a class="btn btn--ghost btn--sm" href="#/formulas">All 42 Units →</a>
+          </div>
+          <p class="unit-formula-sheet__meta" style="margin:0">
+            High-yield equations for ${escapeHtml(unit.title)} (${escapeHtml(unit.officialCode)}), rendered offline with KaTeX.
+          </p>
+        </section>
+      `);
+      slot.appendChild(headerCard);
+
+      if (!unitFormulas.length) {
+        slot.appendChild(
+          el(`<div class="card"><p class="card__meta">No key formulas listed for ${escapeHtml(unit.unitId)}.</p></div>`)
+        );
+        return;
+      }
+
+      const listCard = el(`
+        <section class="card stack-s unit-formula-sheet">
+          ${unitFormulas
+            .map(
+              (kf) => `
+              <div class="lesson-formula-card">
+                <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+                  <div class="cluster-xs">
+                    ${kf.formulaId ? `<span class="mono pill">${escapeHtml(kf.formulaId)}</span>` : ""}
+                    <span class="solution-step__head" style="margin:0">${escapeHtml(kf.label)}</span>
+                  </div>
+                  ${
+                    openAiTutor
+                      ? `<button type="button" class="explain-step-btn js-unit-formula-ai" data-fid="${escapeHtml(kf.formulaId || "")}">
+                          ${icon("icon-spark")} Explain
+                        </button>`
+                      : ""
+                  }
+                </div>
+                ${
+                  kf.sectionHeading
+                    ? `<div class="unit-formula-sheet__meta" style="margin-top:var(--space-3xs)">${escapeHtml(kf.sectionHeading)}</div>`
+                    : ""
+                }
+                <div class="math-scroll" style="margin-top:var(--space-xs)">
+                  ${renderLatex(kf.latex)}
+                </div>
+                ${
+                  kf.aiExplainContext
+                    ? `<p class="lesson-formula-card__note">${escapeHtml(kf.aiExplainContext)}</p>`
+                    : ""
+                }
+              </div>
+            `
+            )
+            .join("")}
+        </section>
+      `);
+
+      listCard.querySelectorAll(".js-unit-formula-ai").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const kf = unitFormulas.find((f) => f.formulaId === btn.dataset.fid);
+          if (openAiTutor && kf) {
+            openAiTutor({ mode: "lesson", unit, formula: kf });
+          }
+        });
+      });
+      slot.appendChild(listCard);
+
+      if ((unit.wbjeebTraps || []).length) {
+        slot.appendChild(
+          el(`
+            <section class="exam-trap stack-xs">
+              <strong style="display:flex;align-items:center;gap:var(--space-xs);font-size:var(--fs-body)">
+                ${icon("icon-alert")} Quick Formula Sign &amp; Unit Checks (${escapeHtml(unit.unitId)})
+              </strong>
+              <ul style="margin:0;padding-left:var(--space-l)">
+                ${unit.wbjeebTraps.map((t) => `<li style="margin-top:var(--space-2xs)">${renderLatex(t)}</li>`).join("")}
+              </ul>
+            </section>
+          `)
+        );
+      }
       return;
     }
 
@@ -858,12 +960,15 @@ export async function renderFormulaSheet(main, { openAiTutor } = {}) {
 
       const card = el(`
         <section class="card stack-s">
-          <div class="row-between">
+          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
             <div class="cluster-xs">
               <span class="mono badge badge--brand">${escapeHtml(u.unitId)}</span>
               <strong>${escapeHtml(u.title)}</strong>
             </div>
-            <a class="btn btn--ghost btn--sm" href="#/learn/${escapeHtml(u.unitId)}">Open Unit</a>
+            <div class="cluster-xs">
+              <a class="btn btn--ghost btn--sm" href="#/learn/${escapeHtml(u.unitId)}?tab=formulas">Unit Formulas</a>
+              <a class="btn btn--ghost btn--sm" href="#/learn/${escapeHtml(u.unitId)}">Workbook</a>
+            </div>
           </div>
           ${formulas
             .map(

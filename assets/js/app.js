@@ -334,7 +334,7 @@ export async function render() {
     } else if (route.view === "learn") {
       await renderLearnExplorer(main, route.query, { openAiTutor: openAiTutorContext });
     } else if (route.view === "lesson") {
-      await renderUnitLesson(main, route.param, { openAiTutor: openAiTutorContext });
+      await renderUnitLesson(main, route.param, { openAiTutor: openAiTutorContext, query: route.query });
     } else if (route.view === "formulas") {
       await renderFormulaSheet(main, { openAiTutor: openAiTutorContext });
     } else if (route.view === "today") {

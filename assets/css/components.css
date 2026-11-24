@@ -1593,9 +1593,23 @@
 }
 .lesson-formula-card {
   border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--fig-secondary);
   border-radius: var(--radius-m);
   padding: var(--space-s);
   background: var(--bg-surface);
+  color: var(--fig-node);
+}
+.lesson-formula-card .katex {
+  color: var(--fig-node);
+}
+.lesson-formula-card__note {
+  margin: var(--space-2xs) 0 0;
+  font-size: var(--fs-caption);
+  color: var(--fig-text);
+}
+.unit-formula-sheet__meta {
+  font-size: var(--fs-caption);
+  color: var(--fig-axis);
 }
 .explain-step-btn {
   display: inline-flex;

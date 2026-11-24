@@ -68,6 +68,10 @@ test("Router parseRoute resolves all 12 parameterized & top-level routes cleanly
     { view: parseRoute("#/learn/M01").view, param: parseRoute("#/learn/M01").param },
     { view: "lesson", param: "M01" }
   );
+  const lessonFormulaRoute = parseRoute("#/learn/P02?tab=formulas");
+  assert.equal(lessonFormulaRoute.view, "lesson");
+  assert.equal(lessonFormulaRoute.param, "P02");
+  assert.equal(lessonFormulaRoute.query.get("tab"), "formulas");
   assert.equal(parseRoute("#/practice").view, "practice");
   assert.equal(parseRoute("#/practice-run/sess-1").view, "practice-run");
   assert.equal(parseRoute("#/results/att-1").view, "results");

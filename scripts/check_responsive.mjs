@@ -50,6 +50,8 @@ const ROUTES = [
   { name: "Papers library", hash: "#/papers" },
   { name: "You & AI", hash: "#/you" },
   { name: "Unit lesson P02", hash: "#/learn/P02" },
+  { name: "Unit formulas P02", hash: "#/learn/P02?tab=formulas" },
+  { name: "Unit videos P02", hash: "#/learn/P02?tab=videos" },
   { name: "Paper reader 2025", hash: "#/papers/jelet-2025" },
   { name: "Formula sheet", hash: "#/formulas" },
 ];
