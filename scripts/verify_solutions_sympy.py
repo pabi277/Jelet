@@ -48,7 +48,15 @@ Checks:
      option and state the +1 rule; Q54 dispute (no option correct, key D kept).
      A 2023 Batch B gate requires 30/30 checks, method sympy, >= 3 steps, 0 stubs
      and 0 orphan 2023 SVGs.
- 12. Report coverage statistics
+ 12. 2022 Q1–Q40 (Batch A, Mathematics): 40 independent checks (_a22_qN) from the
+     verbatim official Set A booklet stems (pages 3–10). No WBJEEB 2022 key is
+     archived, so keys are "verified-derived": layout (page, category, twelfths,
+     unitId, no figures, per-question keyTier/sourceRef) asserted, stem + option
+     fingerprints and option value encodings, all four options judged for every
+     item; Q7 (no correct option) must be withdrawn and state the +1 (+12 twelfths)
+     rule; INTERPRETATION_NOTES_2022 printed. A 2022 Batch A gate requires 40/40
+     checks, method sympy, >= 3 steps, 0 stubs, keyTier verified-derived, 0 SVGs.
+ 13. Report coverage statistics
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -3604,6 +3612,641 @@ def _c24_guard(n):
 C_TESTS_2024 = [(f"2024 Q{n}", f"jelet-2024-q{n:03d}", _c24_guard(n)) for n in range(71, 101)]
 
 # ---------------------------------------------------------------------------
+# 2022 Batch A (Mathematics, Q1–Q40): independent SymPy re-derivation from the
+# verbatim stems transcribed visually from booklet pages 3–10 (official Set A).
+# WBJEEB's 2022 final key is not archived, so 2022 keys are "verified-derived"
+# (AGENTS.md §2.4). Each check (a) asserts the booklet layout (pdfPage, category,
+# twelfths, unitId, no figures — the Mathematics section prints none — and the
+# per-question keyTier "verified-derived"), (b) asserts stem and option
+# fingerprints of the exact LaTeX in _data/papers/2022.json, (c) recomputes the
+# mathematics from scratch and evaluates ALL FOUR options (Cat-II Q31–Q40 judge
+# each option independently), and (d) requires the true option set to equal
+# key.correct. Q7 has no correct option -> withdrawn (W) by owner decision.
+# INTERPRETATION_NOTES_2022 are printed with the run.
+# ---------------------------------------------------------------------------
+
+def _paper_2022():
+    if not hasattr(_paper_2022, "cache"):
+        paper = load_json(os.path.join(DATA, "papers", "2022.json"))
+        _paper_2022.cache = {q["qNumber"]: q for q in paper["questions"]}
+    return _paper_2022.cache
+
+# Booklet layout of Q1–Q40 (page = PDF page of the Set A booklet) and the unit each item really tests.
+_A22_PAGE = {**{n: 3 for n in range(1, 5)}, **{n: 4 for n in range(5, 10)}, **{n: 5 for n in range(10, 15)},
+             **{n: 6 for n in range(15, 21)}, **{n: 7 for n in range(21, 26)}, **{n: 8 for n in range(26, 31)},
+             **{n: 9 for n in range(31, 36)}, **{n: 10 for n in range(36, 41)}}
+_A22_UNIT = {1: "M01", 2: "M01", 3: "M01", 4: "M01", 5: "M02", 6: "M02", 7: "M03", 8: "M03", 9: "M04", 10: "M04",
+             11: "M04", 12: "M05", 13: "M05", 14: "M06", 15: "M06", 16: "M06", 17: "M06", 18: "M06", 19: "M07",
+             20: "M04", 21: "M07", 22: "M08", 23: "M08", 24: "M09", 25: "M09", 26: "M09", 27: "M10", 28: "M10",
+             29: "M11", 30: "M11", 31: "M01", 32: "M02", 33: "M03", 34: "M04", 35: "M05", 36: "M06", 37: "M04",
+             38: "M08", 39: "M09", 40: "M10"}
+WITHDRAWN_2022 = {7}
+KEY_DISPUTES_2022 = {}   # derived key = SymPy truth set; no board key to dispute
+INTERPRETATION_NOTES_2022 = {
+    18: "x = -1 also has slope 3, but it is the end point A and its tangent IS the chord line y = 3x + 2 (not a "
+        "distinct parallel line); only x = 1 (the MVT point) gives a parallel tangent, so (C) 'two points' is false "
+        "and the unconditionally true (A) is the single Cat-I answer.",
+    32: "(D) a²+b²+c² = 0 forces a = b = c = 0 (real), the trivial all-zero system — the degenerate case of (B); "
+        "read as a distractor, not a separate condition (owner decision 2026-11-24). Key A, B.",
+    33: "x = cosθ + i sinθ, y = cosφ + i sinφ (conventional roots of t + 1/t = 2cos); choosing the conjugate root for "
+        "y swaps θ+φ and θ−φ, which would make (D) true instead of (A), (C).",
+    34: "the stem's 'eccentricity of the ellipse' is a misprint for the hyperbola in the stem (e = (1+√5)/2 > 1).",
+    37: "printed x²/16 + y/9 = 1 is a misprint for x²/16 + y²/9 = 1; the literal parabola has the single slope-1 "
+        "tangent y = x + 85/9, which matches no option.",
+    39: "(B) −√2 cos⁻¹(sin x − cos x) = √2 sin⁻¹(sin x − cos x) − π/√2 differs from (A) by a constant, so both are "
+        "valid f(x) in ∫ … dx = f(x) + c.",
+    40: "(1, 1) is the turning point (dx/dy = 0) of x = 2y − y², so both branches y = 1 ± √(1 − x) satisfy y(1) = 1 "
+        "and y(−3) ∈ {3, −1}.",
+}
+
+def _a22_num(latex):
+    """_numval plus the unit suffixes printed in 2022 Mathematics options (unit, km/h)."""
+    t = re.sub(r"\$\s*(unit|km/h)$", "$", latex.strip())
+    return _numval(t)
+
+def _a22_layout(qnum):
+    q = _paper_2022().get(qnum)
+    if q is None:
+        return False, f"2022 Q{qnum} missing from the paper"
+    cat = 1 if qnum <= 30 else 2
+    probs = []
+    if q.get("pdfPage") != _A22_PAGE[qnum]:
+        probs.append(f"pdfPage {q.get('pdfPage')} != booklet page {_A22_PAGE[qnum]}")
+    if q.get("category") != cat or q.get("fullTwelfths") != (12 if cat == 1 else 24) or q.get("negativeTwelfths") != (3 if cat == 1 else 0):
+        probs.append(f"category/twelfths {q.get('category')}/{q.get('fullTwelfths')}/{q.get('negativeTwelfths')} != Cat-{cat}")
+    if q.get("unitId") != _A22_UNIT[qnum] or q.get("subjectId") != "MATH":
+        probs.append(f"unitId {q.get('unitId')} != {_A22_UNIT[qnum]}")
+    if q.get("stemFigure") or any(o.get("figure") for o in q.get("options", [])):
+        probs.append("Mathematics Q1–Q40 print no figures — stemFigure/option figures must be null")
+    if [o.get("id") for o in q.get("options", [])] != ["A", "B", "C", "D"]:
+        probs.append("options are not A–D")
+    if os.path.exists(os.path.join(DATA, "figures", "2022", f"fig-2022-q{qnum:02d}.svg")):
+        probs.append(f"orphan/spoiler SVG fig-2022-q{qnum:02d}.svg exists")
+    k = q.get("key", {})
+    if k.get("keyTier") != "verified-derived" or f"_a22_q{qnum}" not in k.get("sourceRef", ""):
+        probs.append(f"keyTier/sourceRef {k.get('keyTier')}/{k.get('sourceRef')} — expected verified-derived via _a22_q{qnum}")
+    return (not probs), "; ".join(probs)
+
+def _a22_result(qnum, stem_fps, opt_fps, matched, detail, enc=None):
+    q = _paper_2022()[qnum]
+    stem = q["stemLatex"]
+    missing = [fp for fp in stem_fps if fp not in stem]
+    if missing:
+        return False, f"stem fingerprint(s) {missing} not found in stemLatex"
+    olatex = {o["id"]: o["latex"] for o in q["options"]}
+    omissing = [fp for fp in opt_fps if fp.split(":", 1)[1] not in olatex.get(fp.split(":", 1)[0], "")]
+    if omissing:
+        return False, f"option fingerprint(s) {omissing} not found in option latex"
+    if len(set(olatex.values())) != 4:
+        return False, f"options are not four distinct printed choices: {olatex}"
+    if enc:
+        def _bad(k, v):
+            pv = _a22_num(olatex[k])
+            return pv is None or abs(complex(sympy.N(pv - v))) > 1e-12
+        bad = [k for k, v in enc.items() if _bad(k, v)]
+        if bad:
+            return False, f"option(s) {bad} in the paper do not encode the values evaluated by the check ({ {k: olatex[k] for k in bad} })"
+    key = sorted(q["key"]["correct"])
+    if q["key"]["status"] != "active":
+        return False, f"key status {q['key']['status']} — only Q7 is withdrawn in 2022 Q1–Q40"
+    if qnum in INTERPRETATION_NOTES_2022 and matched == key:
+        KEY_DISPUTE_LOG.append(f"2022 Q{qnum} (interpretation): {INTERPRETATION_NOTES_2022[qnum]}")
+    return matched == key, f"{detail}; SymPy-true option(s) {matched} vs key {key}"
+
+def _a22_withdrawn(qnum, stem_fps, matched, must, detail):
+    q = _paper_2022()[qnum]
+    missing = [fp for fp in stem_fps if fp not in q["stemLatex"]]
+    if missing:
+        return False, f"stem fingerprint(s) {missing} not found in stemLatex"
+    withdrawn = q["key"]["status"] == "voided" and q["key"]["correct"] == ["W"] and qnum in WITHDRAWN_2022
+    full = q["fullTwelfths"] == 12 and q["category"] == 1
+    sol = load_json(os.path.join(DATA, "solutions", "2022.solutions.json"))["solutions"][f"jelet-2022-q{qnum:03d}"]
+    text = " ".join(s["bodyLatex"] for s in sol["steps"])
+    sol_ok = all(m in text for m in must) and "+12" in text and "+1" in text and "0 marks" not in text
+    return (matched == [] and withdrawn and full and sol_ok), (f"{detail}; options satisfying the stem {matched} (none) -> key W; "
+                                                              f"withdrawn={withdrawn}, Cat-I 12 twelfths={full}, solution states analysis + '+1 mark (+12 twelfths)'={sol_ok}")
+
+def _a22_q1():
+    r2 = sympy.sqrt(2)
+    A = sympy.Matrix([[5, 0, 1], [0, -2, 0], [1, 0, 5]])
+    Q = sympy.Matrix([[0, 1/r2, 1/r2], [-1, 0, 0], [0, -1/r2, 1/r2]])
+    orth = (Q.T * Q).applyfunc(sympy.simplify) == sympy.eye(3)
+    D = (Q.T * A * Q).applyfunc(sympy.simplify)
+    diag = all(D[i, j] == 0 for i in range(3) for j in range(3) if i != j)
+    props = {"A": diag, "B": not diag, "C": (D.T * D).applyfunc(sympy.simplify) == sympy.eye(3), "D": D == sympy.zeros(3)}
+    return _a22_result(1, [r"5 & 0 & 1 \\ 0 & -2 & 0 \\ 1 & 0 & 5", r"-1 & 0 & 0 \\ 0 & -\dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}", r"$Q^{T}AQ$"],
+                       ["A:a diagonal matrix", "B:not a diagonal matrix", "C:an orthogonal matrix", "D:a null matrix"],
+                       _true(props) if orth else [], f"Q^T Q = I: {orth}; Q^T A Q = {D.tolist()}")
+
+def _a22_q2():
+    A, I = sympy.Matrix([[2, -1], [-1, 2]]), sympy.eye(2)
+    A2 = A * A
+    cand = {"A": 4*A - 3*I, "B": 3*A - 4*I, "C": A - I, "D": A + I}
+    m = _pick(cand, lambda M: M == A2)
+    return _a22_result(2, [r"2 & -1 \\ -1 & 2", "unit matrix of order $2$", "$A^{2}$ equal to"],
+                       ["A:$4A - 3I$", "B:$3A - 4I$", "C:$A - I$", "D:$A + I$"], m, f"A^2 = {A2.tolist()}; charpoly {A.charpoly().as_expr()}")
+
+def _a22_q3():
+    A = sympy.Matrix([[1, 2], [3, 2]])
+    ev = A.eigenvals()
+    props = {"A": not A.is_diagonalizable(), "B": A.det() == 0, "C": A.is_diagonalizable(), "D": A.T * A == sympy.eye(2)}
+    return _a22_result(3, [r"Let $A = \begin{pmatrix} 1 & 2 \\ 3 & 2 \end{pmatrix}$"],
+                       ["A:non-diagonalizable", "B:singular matrix", "C:$A$ is diagonalizable", "D:$A^{T}A = I_{2}$"], _true(props),
+                       f"eigenvalues {ev}; det = {A.det()}; A^T A = {(A.T*A).tolist()}")
+
+def _a22_q4():
+    A = sympy.Matrix([[1, 0, 0], [1, 0, 1], [0, 1, 0]])
+    E = A**3 - A**2 - A + sympy.eye(3)
+    lam = sympy.Symbol("lam")
+    cp = sympy.expand(A.charpoly(lam).as_expr())
+    props = {"A": E == sympy.eye(3), "B": E == sympy.zeros(3), "C": E != sympy.zeros(3), "D": E == sympy.diag(1, 1, 0)}
+    return _a22_result(4, [r"1 & 0 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0", r"A^{3} - A^{2} - A + I_{3}"],
+                       ["A:Identity matrix of order $3$", "B:null matrix of order $3$", "C:non-null matrix of order $3$", r"D:0 & 0 & 0 \end{pmatrix}"],
+                       _true(props), f"charpoly = {cp}; A^3 - A^2 - A + I = {E.tolist()}")
+
+def _a22_q5():
+    a, b, c, f, g, h = sympy.symbols("a b c f g h")
+    M = sympy.Matrix([[a, h, g], [h, b, f], [g, f, c]])
+    Dl = M.det()
+    B, C, F = M.cofactor(1, 1), M.cofactor(2, 2), M.cofactor(1, 2)           # co-factors of b, c, f
+    X = B * C - F**2
+    props = {"A": _zero(sympy.expand(X - a * Dl**2)), "B": _zero(sympy.expand(X - a * Dl)),
+             "C": _zero(sympy.expand(2 * X - a * Dl)), "D": _zero(sympy.expand(X - a**2 * Dl))}
+    return _a22_result(5, [r"a & h & g \\ h & b & f \\ g & f & c", "co-factors of $b$, $c$, $f$ to $\\Delta$"],
+                       [r"A:{a} = \Delta^{2}", r"B:\dfrac{BC - F^{2}}{a} = \Delta$", r"C:= \dfrac{\Delta}{2}", r"D:{a^{2}} = \Delta"], _true(props),
+                       f"B C - F^2 = {sympy.factor(X)} (= a·Δ)")
+
+def _a22_q6():
+    a, b, c = sympy.symbols("a b c", nonzero=True)
+    M = sympy.Matrix([[a**2, -a*b, -a*c], [-a*b, b**2, -b*c], [c*a, b*c, -c**2]])
+    K = sympy.simplify(M.det() / (a**2 * b**2 * c**2))
+    opts = {"A": 1, "B": 2, "C": 3, "D": 4}
+    m = _pick(opts, lambda v: K == v)
+    return _a22_result(6, [r"a^{2} & -ab & -ac \\ -ab & b^{2} & -bc \\ ca & bc & -c^{2}", r"= Ka^{2}b^{2}c^{2}"], [], m,
+                       f"det = {sympy.factor(M.det())} -> K = {K}", enc=opts)
+
+def _a22_q7():
+    al = 3 * sympy.pi / 5
+    z = 1 + sympy.I * sympy.tan(al)
+    mod, arg = sympy.Abs(z), sympy.arg(z)
+    mod_ok = _zero(mod + sympy.sec(al))                      # |z| = -sec(3π/5)
+    arg_ok = _zero(arg + 2 * sympy.pi / 5)                   # principal arg = -2π/5
+    olatex = {o["id"]: o["latex"] for o in _paper_2022()[7]["options"]}
+    def _opt_ok(lx):
+        mm = re.fullmatch(r"\$\|z\| = (-?)\\sec\\dfrac\{3\\pi\}\{5\}\$, \$\\arg z = (-?)\\dfrac\{(\d+)\\pi\}\{5\}\$", lx)
+        if not mm:
+            return None
+        om = -sympy.sec(al) if mm.group(1) else sympy.sec(al)
+        oa = (-1 if mm.group(2) else 1) * int(mm.group(3)) * sympy.pi / 5
+        turns = sympy.nsimplify(sympy.N((oa - arg) / (2 * sympy.pi), 30), rational=True)
+        return _zero(om - mod) and turns.is_integer
+    parsed = {k: _opt_ok(v) for k, v in olatex.items()}
+    if any(v is None for v in parsed.values()):
+        return False, f"option(s) do not have the printed |z|/arg form: {parsed}"
+    m = _true(parsed)
+    return _a22_withdrawn(7, [r"z = 1 + i\tan\dfrac{3\pi}{5}", ",Then"], m if (mod_ok and arg_ok) else ["?"],
+                          [r"-\tfrac{2\pi}{5}", "withdrawn"],
+                          f"|z| = -sec(3π/5) ≈ {sympy.N(mod, 6)} ({mod_ok}); arg z = {arg} ({arg_ok}); option arguments 3π/5, -7π/5, 2π/5, 4π/5 "
+                          f"are not ≡ -2π/5 (mod 2π)")
+
+def _a22_q8():
+    z = sympy.Symbol("z")
+    p = sympy.I*z**3 + z**2 - z + sympy.I
+    roots = sympy.roots(sympy.Poly(p, z))
+    mods = {sympy.simplify(sympy.Abs(r)) for r in roots}
+    fact_ok = sympy.expand((z - sympy.I) * (sympy.I*z**2 - 1) - p) == 0
+    opts = {"A": 1, "B": sympy.Rational(1, 2), "C": 2, "D": sympy.Rational(1, 3)}
+    m = _pick(opts, lambda v: fact_ok and mods == {v})
+    return _a22_result(8, [r"iz^{3} + z^{2} - z + i = 0", "$|z| =$"], [], m, f"roots {list(roots)}; |roots| = {mods}; (z-i)(iz^2-1) = p: {fact_ok}", enc=opts)
+
+def _a22_q9():
+    x, y = sympy.symbols("x y", real=True)
+    S1, S2, d = (3, 0), (9, 0), 4
+    a = sympy.Rational(d, 2)
+    cfoc = sympy.Rational(S2[0] - S1[0], 2)
+    e = cfoc / a
+    b2 = a**2 * (e**2 - 1)
+    # point on the derived hyperbola really has |PS1 - PS2| = 4
+    cx = sympy.Rational(S1[0] + S2[0], 2)
+    P = (cx + a * sympy.cosh(sympy.Rational(7, 10)), sympy.sqrt(b2) * sympy.sinh(sympy.Rational(7, 10)))
+    dist = lambda U, V: sympy.sqrt((U[0] - V[0])**2 + (U[1] - V[1])**2)
+    locus_ok = abs(sympy.N(sympy.Abs(dist(P, S1) - dist(P, S2)) - d, 30)) < 1e-20
+    opts = {"A": 2, "B": sympy.Rational(5, 2), "C": sympy.Rational(3, 2), "D": sympy.Rational(4, 3)}
+    m = _pick(opts, lambda v: locus_ok and b2 > 0 and e == v)
+    return _a22_result(9, ["$(3, 0)$ and $(9, 0)$", "is $4$ units", "eccentricity"], [], m, f"2a = 4, 2ae = 6 -> e = {e}, b^2 = {b2}; locus check {locus_ok}", enc=opts)
+
+def _a22_q10():
+    a, t1, Dl = sympy.symbols("a t1 Delta", positive=True)
+    t2 = -1 / t1                                               # focal chord through (a, 0)
+    B, C = (a*t1**2, 2*a*t1), (a*t2**2, 2*a*t2)
+    focal = _zero((B[1] - 0) * (C[0] - a) - (C[1] - 0) * (B[0] - a))
+    area = sympy.Abs(B[0]*C[1] - C[0]*B[1]) / 2
+    dy = sympy.Abs(B[1] - C[1])
+    vals = {"A": Dl / a, "B": 2*Dl / a, "C": Dl / (2*a), "D": 3*Dl / (2*a)}
+    smp = [{a: 3, t1: 2}, {a: sympy.Rational(1, 2), t1: sympy.Rational(1, 3)}, {a: 5, t1: 7}]
+    def ok(expr):
+        return focal and all(_zero((expr.subs(Dl, area) - dy).subs(s)) for s in smp)
+    m = _pick(vals, ok)
+    return _a22_result(10, [r"y^{2} = 4ax", "focal chord", "vertex of the parabola is at $A$", "differences of ordinates"],
+                       [r"A:\dfrac{\Delta}{a}", r"B:\dfrac{2\Delta}{a}", r"C:\dfrac{\Delta}{2a}", r"D:\dfrac{3\Delta}{2a}"], m,
+                       f"t1 t2 = -1 (focal: {focal}); area/|y_B - y_C| at samples = a/2")
+
+def _a22_q11():
+    x, y = sympy.symbols("x y")
+    r2 = sympy.sqrt(2)
+    printed = x**2 - 2*y**2 - 2*r2*x - 4*r2*y - 6
+    std_ok = sympy.expand((x - r2)**2 - 2*(y + r2)**2 - 4 - printed) == 0     # (X^2)/4 - (Y^2)/2 = 1
+    a, b2 = 2, 2
+    e = sympy.sqrt(1 + sympy.Rational(b2, a**2))
+    h, k = r2, -r2
+    A = (h + a, k); C = (h + a*e, k); B = (h + a*e, k + sympy.Rational(b2, a))
+    on_curve = _zero(printed.subs({x: A[0], y: A[1]})) and _zero(printed.subs({x: B[0], y: B[1]}))
+    area = sympy.simplify(sympy.Abs((B[0]-A[0])*(C[1]-A[1]) - (C[0]-A[0])*(B[1]-A[1])) / 2)
+    opts = {"A": 1 - sympy.sqrt(sympy.Rational(2, 3)), "B": sympy.sqrt(sympy.Rational(3, 2)) - 1,
+            "C": 1 + sympy.sqrt(sympy.Rational(2, 3)), "D": sympy.sqrt(sympy.Rational(3, 2)) + 1}
+    m = _pick(opts, lambda v: std_ok and on_curve and _zero(area - v))
+    return _a22_result(11, [r"x^{2} - 2y^{2} - 2\sqrt{2}\,x - 4\sqrt{2}\,y - 6 = 0", "latus rectum", "nearer to $A$"], [], m,
+                       f"standard form ok {std_ok}; e = {e}; A, B on curve {on_curve}; area = {area}", enc=opts)
+
+def _a22_q12():
+    al = sympy.Matrix([1, 2, 2])
+    area = sympy.Rational(1, 2) * al.norm() * 5 * sympy.sin(sympy.pi / 6)
+    opts = {"A": sympy.Rational(15, 4), "B": 15, "C": 15*sympy.sqrt(3)/4, "D": 15*sympy.sqrt(3)}
+    m = _pick(opts, lambda v: _zero(area - v))
+    return _a22_result(12, [r"\hat{i} + 2\hat{j} + 2\hat{k}", r"|\vec{\beta}| = 5", r"\dfrac{\pi}{6}", "triangle"], [], m,
+                       f"|α| = {al.norm()}; area = ½·{al.norm()}·5·sin(π/6) = {area}", enc=opts)
+
+def _a22_q13():
+    A, B = sympy.Matrix([2, -1, 1]), sympy.Matrix([3, 1, 2])
+    d = B - A
+    F = sympy.sqrt(6) * d / d.norm()
+    W = sympy.simplify(F.dot(d))
+    opts = {"A": sympy.sqrt(6), "B": 6, "C": 6*sympy.sqrt(6), "D": 36}
+    m = _pick(opts, lambda v: _zero(W - v))
+    return _a22_result(13, [r"magnitude $\sqrt{6}$", r"A\,(2, -1, 1)", r"B\,(3, 1, 2)"], [], m, f"d = {list(d)}, F = {list(F)}, W = {W}", enc=opts)
+
+def _a22_q14():
+    x = sympy.Symbol("x")
+    f = sympy.Function("f")
+    sol = sympy.dsolve(f(x).diff(x, 2) + f(x), f(x)).rhs
+    g = sympy.diff(sol, x)
+    hx = sympy.simplify(sympy.trigsimp(sympy.expand(sol**2 + g**2)))
+    const = sympy.diff(hx, x) == 0
+    h10 = 11 if const else None                              # h constant and h(5) = 11
+    opts = {"A": 22, "B": 0, "C": 11, "D": 4}
+    m = _pick(opts, lambda v: h10 == v)
+    return _a22_result(14, [r"f''(x) = -f(x)", r"f'(x) = g(x)", r"h(5) = 11", r"h(10)"], [], m, f"f = {sol}; h = {hx} (constant: {const})", enc=opts)
+
+def _a22_q15():
+    x = sympy.Symbol("x", real=True)
+    F = lambda v: 10**v + 5**v - 8**v - 7**v
+    roots_int = [k for k in range(-6, 7) if F(sympy.Integer(k)) == 0]
+    props = {"A": len(roots_int) == 0,
+             "B": roots_int == [0],
+             "C": any(k != 0 for k in roots_int),
+             "D": all(F(sympy.Integer(k)) == 0 for k in range(1, 7))}
+    return _a22_result(15, [r"10^{x} + 5^{x} = 8^{x} + 7^{x}"],
+                       [r"A:no solution in $\mathbb{R}$", "B:only solution at $x = 0$", "C:has non-zero integral solution", "D:all positive integers as solution"],
+                       _true(props), f"integer roots in [-6, 6]: {roots_int}; F(2) = {F(2)}")
+
+def _a22_q16():
+    x = sympy.Symbol("x")
+    ex = (sympy.exp(x) + x)**(1/x)
+    Lp, Lm = sympy.limit(ex, x, 0, "+"), sympy.limit(ex, x, 0, "-")
+    exists = Lp == Lm and Lp.is_finite
+    props = {"A": not exists, "B": exists and Lp == 0, "C": exists and _zero(Lp - sympy.exp(2)), "D": exists and _zero(Lp - sympy.exp(sympy.Rational(1, 2)))}
+    return _a22_result(16, [r"\lim\limits_{x \to 0} \left(e^{x} + x\right)^{1/x}"],
+                       ["A:does not exists", "B:is $0$", "C:is $e^{2}$", "D:is $e^{1/2}$"], _true(props), f"one-sided limits {Lp}, {Lm}")
+
+def _a22_q17():
+    x, h = sympy.symbols("x h", real=True)
+    f = sympy.Abs(x)
+    dl = sympy.limit((f.subs(x, h) - 0) / h, h, 0, "-")
+    dr = sympy.limit((f.subs(x, h) - 0) / h, h, 0, "+")
+    def rolle(a, b):                                         # continuous everywhere; need f(a) = f(b) and differentiable on (a, b)
+        return f.subs(x, a) == f.subs(x, b) and not (a < 0 < b and dl != dr)
+    grid = [sympy.Rational(k, 2) for k in range(-8, 9)]
+    pairs = [(a, b) for a in grid for b in grid if a < b]
+    ok_any = any(rolle(a, b) for a, b in pairs)
+    props = {"A": all(rolle(a, b) for a, b in pairs),
+             "B": all(rolle(a, b) for a, b in pairs if 0 < a),
+             "C": all(rolle(a, b) for a, b in pairs if b < 0),
+             "D": not ok_any}
+    return _a22_result(17, [r"f(x) = |x|", r"x \in \mathbb{R}"],
+                       ["A:always applicable", "B:when $0 < a < b$", "C:if $a < b < 0$", "D:never applicable"], _true(props),
+                       f"one-sided derivatives at 0: {dl}, {dr}; Rolle applicable on any of {len(pairs)} grid intervals: {ok_any}")
+
+def _a22_q18():
+    x = sympy.Symbol("x", real=True)
+    y = x**3
+    A, B = (-1, -1), (2, 8)
+    ok_pts = y.subs(x, A[0]) == A[1] and y.subs(x, B[0]) == B[1]
+    m_ch = sympy.Rational(B[1] - A[1], B[0] - A[0])
+    xs = sympy.solve(sympy.Eq(sympy.diff(y, x), m_ch), x)
+    chord_c = A[1] - m_ch * A[0]
+    distinct_par = [p for p in xs if (y.subs(x, p) - m_ch * p) != chord_c]        # tangent parallel AND not the chord line itself
+    perp_all = False                                           # y' = 3x^2 >= 0 never equals -1/3
+    props = {"A": len(distinct_par) >= 1, "B": len(distinct_par) == 0, "C": len(distinct_par) == 2, "D": perp_all}
+    return _a22_result(18, [r"y = x^{3}", r"A\,(-1, -1)", r"B\,(2, 8)"],
+                       ["A:a point on the curve", "B:no point satisfying", "C:two points on the curve", "D:perpendicular to $AB$"],
+                       _true(props) if ok_pts else [], f"chord slope {m_ch}; y' = slope at x = {xs}; distinct parallel tangents at {distinct_par} (x = -1 tangent is the chord line)")
+
+def _a22_q19():
+    a, b, x = sympy.symbols("a b x", positive=True)
+    S = x * b * (1 - x / a)
+    crit = sympy.solve(sympy.diff(S, x), x)
+    xm = crit[0]
+    is_max = sympy.diff(S, x, 2).subs(x, xm) < 0
+    corner = (xm, b * (1 - xm / a))
+    mid = (a / 2, b / 2)
+    two_one = (2 * a / 3, b / 3)                                # divides hypotenuse 2:1
+    centroid = (a / 3, b / 3)
+    props = {"A": is_max and all(_zero(u - v) for u, v in zip(corner, mid)),
+             "B": all(_zero(u - v) for u, v in zip(corner, two_one)),
+             "C": all(_zero(u - v) for u, v in zip(corner, centroid)),
+             "D": not is_max}
+    return _a22_result(19, ["rectangle is inscribed in a right-angle triangle", "coincident with the right angle"],
+                       ["A:bisects the hypotenuse", "B:ratio $2:1$", "C:centroid", "D:not maximum anywhere"], _true(props),
+                       f"S'(x) = 0 at x = {xm}; S'' < 0: {is_max}; max area {sympy.simplify(S.subs(x, xm))}")
+
+def _a22_q20():
+    a, t = sympy.symbols("a t", positive=True)
+    P = sympy.Matrix([a*t**2, 2*a*t])
+    K = sympy.Matrix([-a, (a*t**2 - a) / t])                   # tangent t y = x + a t^2 meets x = -a
+    tan_ok = _zero(t * K[1] - (K[0] + a*t**2))
+    S = sympy.Matrix([a, 0])
+    dot = sympy.simplify((P - S).dot(K - S))
+    ang = 90 if (tan_ok and dot == 0) else None
+    opts = {"A": 30, "B": 45, "C": 60, "D": 90}
+    m = _pick(opts, lambda v: ang == v)
+    return _a22_result(20, [r"y^{2} = 4ax", "directrix", "subtends at the focus"],
+                       [r"A:$30^{\circ}$", r"B:$45^{\circ}$", r"C:$60^{\circ}$", r"D:$90^{\circ}$"], m, f"SP·SK = {dot} -> angle {ang}°")
+
+def _a22_q21():
+    x, s, t = sympy.symbols("x s t", positive=True)
+    ssol = sympy.solve(sympy.Eq(6 / (x + s), 2 / s), s)[0]
+    X = sympy.Function("X")(t)
+    rate = sympy.diff(ssol.subs(x, X), t).subs(sympy.Derivative(X, t), 6)
+    opts = {"A": 2, "B": 1, "C": 6, "D": 3}
+    m = _pick(opts, lambda v: _zero(rate - v))
+    return _a22_result(21, ["$2$ m height", "$6$ km/h", "lamp post of $6$ m"], [], m, f"s = {ssol}; ds/dt = {rate} km/h", enc=opts)
+
+def _a22_q22():
+    x, y, a, b = sympy.symbols("x y a b", nonzero=True)
+    f = sympy.Function("f")
+    u = x / a + f(a*y - b*x)
+    E = sympy.simplify(a * sympy.diff(u, x) + b * sympy.diff(u, y))
+    vals = {"A": a, "B": sympy.Integer(1), "C": b, "D": a / b}
+    m = _pick(vals, lambda v: _zero(E - v))
+    return _a22_result(22, [r"u = \dfrac{x}{a} + f(ay - bx)", r"a\dfrac{\partial u}{\partial x} + b\dfrac{\partial u}{\partial y}"],
+                       ["A:$a$", "B:$1$", "C:$b$", "D:$a/b$"], m, f"a u_x + b u_y = {E}")
+
+def _a22_q23():
+    x, y = sympy.symbols("x y", positive=True)
+    v = sympy.asin(sympy.sqrt(x**2 + y**2))
+    E = x * sympy.diff(v, x) + y * sympy.diff(v, y)
+    pts = [(sympy.Rational(1, 5), sympy.Rational(3, 10)), (sympy.Rational(1, 2), sympy.Rational(1, 3)), (sympy.Rational(3, 10), sympy.Rational(3, 5))]
+    def agrees(g):
+        return all(abs(complex(sympy.N((E - g).subs({x: p, y: q}), 30))) < 1e-20 for p, q in pts)
+    finite = all(sympy.N(E.subs({x: p, y: q})).is_finite for p, q in pts)
+    props = {"A": not finite, "B": finite and agrees(0), "C": finite and agrees(sympy.tan(v)), "D": finite and agrees(sympy.cot(v))}
+    return _a22_result(23, [r"\sin^{-1}\left(\sqrt{x^{2} + y^{2}}\right)", r"x\dfrac{\partial v}{\partial x} + y\dfrac{\partial v}{\partial y}"],
+                       ["A:does not exist", "B:exists and is $0$", r"C:exists and is $\tan v$", r"D:exists and is $\cot v$"], _true(props),
+                       f"x v_x + y v_y = {sympy.simplify(E)} = tan v at sample points")
+
+def _a22_q24():
+    x, n = sympy.symbols("x n", positive=True)
+    vals = {"A": 1 / n, "B": -1 / n, "C": 1 / (n - 1), "D": -1 / (n - 1)}
+    def ok(Kexpr):
+        for nv in (2, 3, 5):
+            K = Kexpr.subs(n, nv)
+            F = K * ((x**nv + 1) / x**nv)**sympy.Rational(nv - 1, nv)
+            integrand = 1 / (x**nv * (1 + x**nv)**sympy.Rational(1, nv))
+            for xv in (sympy.Rational(7, 10), sympy.Rational(13, 10), 2):
+                if abs(sympy.N((sympy.diff(F, x) - integrand).subs(x, xv), 30)) > 1e-20:
+                    return False
+        return True
+    m = _pick(vals, ok)
+    return _a22_result(24, [r"\dfrac{dx}{x^{n}(1 + x^{n})^{1/n}}", r"K\left(\dfrac{x^{n} + 1}{x^{n}}\right)^{\frac{n-1}{n}}"],
+                       [r"A:$\dfrac{1}{n}$", r"B:$-\dfrac{1}{n}$", r"C:$\dfrac{1}{n-1}$", r"D:$-\dfrac{1}{n-1}$"], m,
+                       "d/dx[K((x^n+1)/x^n)^((n-1)/n)] = integrand only for K = -1/(n-1) (n = 2, 3, 5)")
+
+def _a22_q25():
+    x = sympy.Symbol("x", real=True)
+    p1, p2 = x**2 - x, x - 2
+    cuts = sorted({0, 3} | {r for r in sympy.solve(p1, x) + sympy.solve(p2, x) if 0 < r < 3})
+    total = 0
+    for lo, hi in zip(cuts, cuts[1:]):
+        mid = (lo + hi) / 2
+        s1, s2 = sympy.sign(p1.subs(x, mid)), sympy.sign(p2.subs(x, mid))
+        total += sympy.integrate(s1 * p1 + s2 * p2, (x, lo, hi))
+    opts = {"A": sympy.Rational(21, 4), "B": sympy.Rational(19, 3), "C": sympy.Rational(26, 3), "D": sympy.Rational(22, 3)}
+    m = _pick(opts, lambda v: total == v)
+    return _a22_result(25, [r"f(x) = |x^{2} - x| + |x - 2|", r"\displaystyle\int_{0}^{3} f(x)\,dx"], [], m, f"cuts {cuts}; integral = {total}", enc=opts)
+
+def _a22_q26():
+    x = sympy.Symbol("x", positive=True)
+    integrand = 1 / ((1 + sympy.sqrt(x)) * sympy.sqrt(x - x**2))
+    cand = {"A": (sympy.sqrt(x) + 1) / (sympy.sqrt(x) - 1), "B": (1 - sympy.sqrt(x)) / (1 + sympy.sqrt(x)),
+            "C": 2 * (sympy.sqrt(x) - 1) / sympy.sqrt(1 - x), "D": 2 * sympy.sqrt(1 + x) / sympy.sqrt(1 - x)}
+    def ok(F):
+        return all(abs(sympy.N((sympy.diff(F, x) - integrand).subs(x, xv), 30)) < 1e-20
+                   for xv in (sympy.Rational(1, 10), sympy.Rational(3, 10), sympy.Rational(7, 10)))
+    m = _pick(cand, ok)
+    return _a22_result(26, [r"\dfrac{dx}{\left(1 + \sqrt{x}\right)\left(\sqrt{x - x^{2}}\right)}"],
+                       [r"A:\dfrac{\sqrt{x} + 1}{\sqrt{x} - 1}", r"B:\dfrac{1 - \sqrt{x}}{1 + \sqrt{x}}", r"C:\dfrac{2\left(\sqrt{x} - 1\right)}{\sqrt{(1 - x)}}",
+                        r"D:\sqrt{1 + x)}"], m, "derivative of each option vs integrand at x = 0.1, 0.3, 0.7")
+
+def _a22_q27():
+    x, y = sympy.symbols("x y", positive=True)
+    slope = y / x - sympy.cos(y / x)**2
+    cand = {"A": (1, y / x), "B": (-1, y / x), "C": (1, x / y), "D": (-1, x / y)}   # x = e^{1 ± tan(arg)}
+    def ok(sa):
+        s, argm = sa
+        G = sympy.log(x) - 1 - s * sympy.tan(argm)            # G = 0 on the curve
+        yp = -sympy.diff(G, x) / sympy.diff(G, y)
+        through = _zero(G.subs({x: 1, y: sympy.pi / 4}))
+        pts = [(sympy.Rational(6, 5), sympy.Rational(1, 2)), (2, sympy.Rational(7, 10)), (sympy.Rational(1, 2), sympy.Rational(1, 5))]
+        slope_ok = all(abs(sympy.N((yp - slope).subs({x: p, y: q}), 30)) < 1e-20 for p, q in pts)
+        return through and slope_ok
+    m = _pick(cand, ok)
+    return _a22_result(27, [r"\left(1, \dfrac{\pi}{4}\right)", r"\dfrac{y}{x} - \cos^{2}\left(\dfrac{y}{x}\right)"],
+                       [r"A:e^{1 + \tan\left(\frac{y}{x}\right)}", r"B:e^{1 - \tan\left(\frac{y}{x}\right)}", r"C:e^{1 + \tan\left(\frac{x}{y}\right)}",
+                        r"D:e^{1 - \tan\left(\frac{x}{y}\right)}"], m, "implicit slope of each option vs y/x - cos²(y/x) and passage through (1, π/4)")
+
+def _a22_q28():
+    x, A, B, c1, c2 = sympy.symbols("x A B c1 c2")
+    L = lambda yy: sympy.simplify(sympy.diff(yy, x, 2) + 2 * sympy.diff(yy, x) + yy - 2 * sympy.exp(2*x))
+    cand = {"A": c1*sympy.exp(x) + c2*sympy.exp(-x) + sympy.exp(2*x), "B": (A + B*x)*sympy.exp(-x) + sympy.exp(2*x)/9,
+            "C": (A + B*x)*sympy.exp(-x) + 2*sympy.exp(2*x)/9, "D": A*sympy.cos(x) + B*sympy.sin(x) + sympy.exp(2*x)/9}
+    m = _pick(cand, lambda yy: L(yy) == 0)
+    return _a22_result(28, [r"\dfrac{d^{2}y}{dx^{2}} + 2\dfrac{dy}{dx} + y = 2e^{2x}"],
+                       [r"A:c_{1}e^{x} + c_{2}e^{-x} + e^{2x}", r"B:(A + Bx)e^{-x} + \dfrac{1}{9}e^{2x}", r"C:(A + Bx)e^{-x} + \dfrac{2}{9}e^{2x}",
+                        r"D:A\cos x + B\sin x + \dfrac{e^{2x}}{9}"], m, f"residuals: { {k: L(v) for k, v in cand.items()} }")
+
+def _a22_q29():
+    import itertools
+    digit_sum_ok = sum(range(1, 10)) % 9 == 0
+    good = sum(1 for p in itertools.permutations(range(1, 10), 2) if (10*p[0] + p[1]) % 4 == 0)
+    P = sympy.Rational(good, 72) if digit_sum_ok else None
+    opts = {"A": sympy.Rational(2, 9), "B": sympy.Rational(1, 9), "C": sympy.Rational(1, 3), "D": sympy.Rational(4, 9)}
+    m = _pick(opts, lambda v: P == v)
+    return _a22_result(29, [r"$1, 2, 3, \ldots, 9$", "nine digit number", "divisible by $36$"], [], m, f"digit sum 45 ≡ 0 (mod 9); {good}/72 endings divisible by 4 -> {P}", enc=opts)
+
+def _a22_q30():
+    union, inter = sympy.Rational(6, 10), sympy.Rational(3, 10)
+    val = 2 - (union + inter)
+    opts = {"A": sympy.Rational(9, 10), "B": sympy.Rational(15, 100), "C": sympy.Rational(11, 10), "D": sympy.Rational(12, 10)}
+    m = _pick(opts, lambda v: val == v)
+    return _a22_result(30, ["at least one of $A$ and $B$ occurs is $0.6$", "probability $0.3$", r"P(A') + P(B')"], [], m, f"P(A)+P(B) = {union + inter}; P(A')+P(B') = {val}", enc=opts)
+
+def _a22_q31():
+    lam = sympy.Symbol("lam")
+    A = sympy.Matrix([[lam, 1, 0], [3, lam - 2, 1], [3*(lam + 1), 0, lam + 1]])
+    det = sympy.factor(A.det())
+    sing = set(sympy.solve(det, lam))
+    rk = lambda v: A.subs(lam, v).rank()
+    props = {"A": rk(0) == 2, "B": sing == {0, 2, -1} and all(rk(v) == 3 for v in (1, 3, -2, sympy.Rational(1, 2))),
+             "C": rk(2) == 3, "D": rk(-1) == 3}
+    return _a22_result(31, [r"\lambda & 1 & 0 \\ 3 & \lambda - 2 & 1 \\ 3(\lambda + 1) & 0 & \lambda + 1", "Rank of $A$"],
+                       [r"A:$2$ for $\lambda = 0$", r"B:$3$ for $\lambda \neq 0, 2, -1$", r"C:$3$ for $\lambda = 2$", r"D:$3$ for $\lambda = -1$"], _true(props),
+                       f"det = {det}; ranks at 0, 2, -1: {rk(0)}, {rk(2)}, {rk(-1)}")
+
+def _a22_q32():
+    a, b, c = sympy.symbols("a b c", real=True)
+    det = sympy.factor(sympy.Matrix([[a, b, c], [b, c, a], [c, a, b]]).det())
+    real_zero_only = sympy.solve([a**2 + b**2 + c**2], [a, b, c], dict=True)
+    D_degenerate = all(all(v == 0 for v in s.values()) for s in real_zero_only) if real_zero_only else True
+    props = {"A": _zero(det.subs(c, -a - b)),
+             "B": _zero(det.subs({b: a, c: a})),
+             "C": det.subs({a: 2, b: 1, c: sympy.Rational(1, 2)}) == 0,          # abc = 1 but det != 0 -> not a sufficient condition
+             "D": False if D_degenerate else None}                              # only a = b = c = 0: degenerate case of (B) (interpretation note)
+    return _a22_result(32, [r"ax + by + cz = 0", r"bx + cy + az = 0", r"cx + ay + bz = 0", "non-zero solution"],
+                       ["A:$a + b + c = 0$", "B:$a = b = c$", "C:$abc = 1$", r"D:$a^{2} + b^{2} + c^{2} = 0$"], _true(props),
+                       f"det = {det}; abc = 1 sample (2, 1, 1/2) det = {det.subs({a: 2, b: 1, c: sympy.Rational(1, 2)})}; a²+b²+c² = 0 only at 0 (degenerate)")
+
+def _a22_q33():
+    th, ph = sympy.symbols("theta phi", real=True)
+    x, y = sympy.exp(sympy.I*th), sympy.exp(sympy.I*ph)
+    roots_ok = _zero(sympy.expand_complex(x + 1/x - 2*sympy.cos(th))) and _zero(sympy.expand_complex(y + 1/y - 2*sympy.cos(ph)))
+    def ident(lhs, rhs):
+        d = sympy.simplify(sympy.expand_complex(lhs - rhs))
+        return d == 0
+    props = {"A": ident(x/y + y/x, 2*sympy.cos(th - ph)), "B": ident(x/y + y/x, sympy.cos(th + ph)),
+             "C": ident(x*y + 1/(x*y), 2*sympy.cos(th + ph)), "D": ident(x*y + 1/(x*y), 2*sympy.cos(th - ph))}
+    return _a22_result(33, [r"2\cos\theta = x + \dfrac{1}{x}", r"2\cos\phi = y + \dfrac{1}{y}"],
+                       [r"A:\dfrac{x}{y} + \dfrac{y}{x} = 2\cos(\theta - \phi)", r"B:= \cos(\theta + \phi)", r"C:xy + \dfrac{1}{xy} = 2\cos(\theta + \phi)",
+                        r"D:xy + \dfrac{1}{xy} = 2\cos(\theta - \phi)"], _true(props) if roots_ok else [], "x = e^{iθ}, y = e^{iφ} (conventional roots)")
+
+def _a22_q34():
+    e = sympy.Symbol("e", positive=True)
+    a = sympy.Integer(1)
+    b2 = a**2 * (e**2 - 1)
+    # ends (ae, ±b²/a): right angle at the origin <=> (ae)² - (b²/a)² = 0
+    sols = [s for s in sympy.solve(sympy.Eq((a*e)**2, (b2/a)**2), e) if s > 1]
+    E = sols[0] if len(sols) == 1 else None
+    props = {"A": E is not None and _zero(E - (sympy.sqrt(5) + 1)/2), "B": E is not None and _zero(E - (sympy.sqrt(5) + 2)/2),
+             "C": E is not None and E < 2, "D": E is not None and E > 2}
+    return _a22_result(34, [r"\dfrac{x^{2}}{a^{2}} - \dfrac{y^{2}}{b^{2}} = 1", "right angle at the centre", "eccentricity of the ellipse"],
+                       [r"A:\dfrac{\sqrt{5} + 1}{2}", r"B:\dfrac{\sqrt{5} + 2}{2}", "C:less than $2$", "D:greater than $2$"], _true(props),
+                       f"e > 1 solutions {sols} ≈ {[sympy.N(s, 6) for s in sols]}")
+
+def _a22_q35():
+    av = sympy.Matrix(sympy.symbols("a1:4")); bv = sympy.Matrix(sympy.symbols("b1:4")); cv = sympy.Matrix(sympy.symbols("c1:4"))
+    v = av.cross(bv.cross(cv))
+    trip = lambda p, q, r: sympy.expand(sympy.Matrix.hstack(p, q, r).det())
+    props = {"A": trip(v, av, bv) == 0, "B": trip(v, bv, cv) == 0, "C": sympy.expand(v.dot(av)) == 0, "D": sympy.expand(v.dot(cv)) == 0}
+    return _a22_result(35, [r"\vec{a} \times \left(\vec{b} \times \vec{c}\right)"],
+                       [r"A:coplanar with $\vec{a}$ and $\vec{b}$", r"B:coplanar with $\vec{b}$ and $\vec{c}$", r"C:perpendicular to $\vec{a}$", r"D:perpendicular to $\vec{c}$"],
+                       _true(props), "identities in symbolic components (a1..c3)")
+
+def _a22_q36():
+    x, yv = sympy.symbols("x y", real=True)
+    def ys(xv):                                                # all real y with x + |y| = 2y
+        out = [s for s in sympy.solve(sympy.Eq(xv + yv, 2*yv), yv) if s >= 0]
+        out += [s for s in sympy.solve(sympy.Eq(xv - yv, 2*yv), yv) if s < 0]
+        return out
+    samples = [sympy.Rational(k, 3) for k in range(-9, 10)]
+    single = all(len(ys(s)) == 1 for s in samples)
+    yfun = sympy.Piecewise((x, x >= 0), (x / 3, True))
+    pw_ok = all(ys(s) == [yfun.subs(x, s)] for s in samples)
+    h = sympy.Symbol("h", positive=True)
+    cont = sympy.limit(yfun.subs(x, -h), h, 0) == sympy.limit(yfun.subs(x, h), h, 0) == yfun.subs(x, 0)
+    dl, dr = sympy.limit((yfun.subs(x, -h) - 0) / (-h), h, 0), sympy.limit((yfun.subs(x, h) - 0) / h, h, 0)
+    props = {"A": single, "B": cont, "C": dl == dr, "D": sympy.diff(x / 3, x) == sympy.Rational(1, 3) and pw_ok}
+    return _a22_result(36, [r"x + |y| = 2y"],
+                       [r"A:defined for all real $x$", r"B:continuous at $x = 0$", r"C:differentiable for all $x$", r"D:\dfrac{dy}{dx} = \dfrac{1}{3}$ for $x < 0$"],
+                       _true(props) if pw_ok else [], f"y = x (x >= 0), x/3 (x < 0); one-sided derivatives at 0: {dl}, {dr}")
+
+def _a22_q37():
+    x, c = sympy.symbols("x c", real=True)
+    disc = sympy.discriminant(sympy.expand((x**2/16 + (x + c)**2/9 - 1) * 144), x)
+    tang_c = set(sympy.solve(disc, c))
+    # literal printed curve x²/16 + y/9 = 1: slope-1 tangent intercept
+    xl = sympy.solve(sympy.Eq(sympy.diff(9*(1 - x**2/16), x), 1), x)[0]
+    lit_c = sympy.simplify(9*(1 - xl**2/16) - xl)
+    opts = {"A": 5, "B": 3, "C": -3, "D": -5}
+    m = _pick(opts, lambda v: v in tang_c and v != lit_c)
+    return _a22_result(37, [r"\dfrac{x^{2}}{16} + \dfrac{y}{9} = 1", "parallel to the line $y = x$"],
+                       ["A:$y = x + 5$", "B:$y = x + 3$", "C:$y = x - 3$", "D:$y = x - 5$"], m,
+                       f"ellipse x²/16 + y²/9 = 1: tangent intercepts {tang_c}; literal y/9 reading -> c = {lit_c} (no option)")
+
+def _a22_q38():
+    x, y, h, r, t = sympy.symbols("x y h r t", real=True)
+    f = (x*y**2 + x**2*y) / (x**2 + y**2)
+    fx = sympy.limit((f.subs({x: h, y: 0}) - 0) / h, h, 0)
+    fy = sympy.limit((f.subs({x: 0, y: h}) - 0) / h, h, 0)
+    polar = sympy.simplify(f.subs({x: r*sympy.cos(t), y: r*sympy.sin(t)}))
+    bound_ok = sympy.simplify(polar / r - sympy.cos(t)*sympy.sin(t)*(sympy.cos(t) + sympy.sin(t))) == 0      # |f| <= √2 r
+    cont = bound_ok and sympy.limit(r * sympy.Rational(3, 2), r, 0) == 0
+    props = {"A": not (fx.is_finite or fy.is_finite) and cont, "B": fx == 1 and not fy.is_finite,
+             "C": cont, "D": fx == 0 and fy == 0}
+    return _a22_result(38, [r"\dfrac{xy^{2} + x^{2}y}{x^{2} + y^{2}}", r"0, & x^{2} + y^{2} = 0"],
+                       ["A:neither $f_{x}$ nor $f_{y}$", "B:$f_{x}(0, 0) = 1$", "C:continuou at $(0, 0)$", "D:exist at $(0, 0)$ and both are $0$"],
+                       _true(props), f"f_x(0,0) = {fx}, f_y(0,0) = {fy}; polar f = {polar}")
+
+def _a22_q39():
+    x = sympy.Symbol("x", real=True)
+    integrand = (sympy.sin(x) + sympy.cos(x)) / sympy.sqrt(sympy.sin(x) * sympy.cos(x))
+    t = sympy.sin(x) - sympy.cos(x)
+    cand = {"A": sympy.sqrt(2) * sympy.asin(t), "B": -sympy.sqrt(2) * sympy.acos(t), "C": sympy.asin(t), "D": sympy.acos(t)}
+    def ok(F):
+        return all(abs(sympy.N((sympy.diff(F, x) - integrand).subs(x, xv), 30)) < 1e-20
+                   for xv in (sympy.Rational(2, 5), sympy.Rational(4, 5), sympy.Rational(6, 5)))
+    m = _pick(cand, ok)
+    return _a22_result(39, [r"\dfrac{\sin x + \cos x}{\sqrt{\sin x\cos x}}", "= f(x) + c"],
+                       [r"A:$\sqrt{2}\,\sin^{-1}(\sin x - \cos x)$", r"B:$-\sqrt{2}\,\cos^{-1}(\sin x - \cos x)$", r"C:$\sin^{-1}(\sin x - \cos x)$",
+                        r"D:$\cos^{-1}(\sin x - \cos x)$"], m, "derivative of each option vs integrand at x = 0.4, 0.8, 1.2")
+
+def _a22_q40():
+    y = sympy.Symbol("y")
+    xs = sympy.Function("X")(y)
+    # x dy = y (dx + y dy)  <=>  x = y dx/dy + y²  (x as a function of y)
+    ode = sympy.Eq(xs, y * xs.diff(y) + y**2)
+    gen = sympy.dsolve(ode, xs).rhs
+    C1 = sympy.Symbol("C1")
+    part = sympy.expand(gen.subs(C1, sympy.solve(sympy.Eq(gen.subs(y, 1), 1), C1)[0]))
+    yvals = set(sympy.solve(sympy.Eq(part, -3), y))
+    opts = {"A": 3, "B": 2, "C": -1, "D": 4}
+    m = _pick(opts, lambda v: v in yvals)
+    return _a22_result(40, [r"x\,dy = y(dx + y\,dy)", "$y(1) = 1$", "$y(-3)$"], [], m, f"x = {part} through (1, 1); x = -3 -> y ∈ {sorted(yvals)}", enc=opts)
+
+def _a22_guard(n):
+    """Booklet layout first, then the mathematical check; exceptions count as FAIL (never crash the run)."""
+    f = globals()[f"_a22_q{n}"]
+    def g():
+        ok, why = _a22_layout(n)
+        if not ok:
+            return False, why
+        try:
+            return f()
+        except Exception as e:
+            return False, f"check raised {type(e).__name__}: {e}"
+    return g
+
+A_TESTS_2022 = [(f"2022 Q{n}", f"jelet-2022-q{n:03d}", _a22_guard(n)) for n in range(1, 41)]
+
+# ---------------------------------------------------------------------------
 # 2023 Batch A (Mathematics, Q1–Q40): independent SymPy re-derivation from the
 # verbatim stems transcribed from booklet pages 3–9 (Set A). Each check
 # (a) asserts the booklet layout (pdfPage, category, twelfths, unitId, no
@@ -5686,7 +6329,7 @@ def main():
             ("2025 Q4", "jelet-2025-q004", sympy_verify_2025_q4),
             ("2025 Q22", "jelet-2025-q022", sympy_verify_2025_q22),
             ("2025 Q59", "jelet-2025-q059", sympy_verify_2025_q59),
-        ] + A_TESTS_2023 + B_TESTS_2023 + C_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
+        ] + A_TESTS_2022 + A_TESTS_2023 + B_TESTS_2023 + C_TESTS_2023 + A_TESTS_2024 + B_TESTS_2024 + C_TESTS_2024 + B1_TESTS_2025 + B2_TESTS_2025 + B3_TESTS_2025 + B4_TESTS_2025
         for label, qid, test_func in tests:
             result, note = test_func()
             if result is None:
@@ -5696,6 +6339,28 @@ def main():
             else:
                 print(f"  ❌ {label}: FAIL — {note}")
                 errors.append(f"{label}: SymPy re-verification failed — {note}")
+
+        # 2022 Batch A gate: every Mathematics item Q1–Q40 must be a hand-written derivation
+        # (sympy-verified, >= 3 steps, no auto-generated stub text) backed by its own independent _a22 check,
+        # the per-question key must be "verified-derived", and no 2022 Q1–Q40 SVG may exist (Mathematics prints none).
+        sol22 = load_json(os.path.join(DATA, "solutions", "2022.solutions.json"))["solutions"]
+        pap22 = _paper_2022()
+        want22 = [f"jelet-2022-q{n:03d}" for n in range(1, 41)]
+        cov22 = {qid for _, qid, _ in A_TESTS_2022}
+        miss22 = [q for q in want22 if q not in cov22]
+        stub22 = [q for q in want22 if q not in sol22 or sol22[q]["verification"].get("method") != "sympy"
+                  or len(sol22[q].get("steps", [])) < 3 or "Auto-generated" in sol22[q]["verification"].get("note", "")
+                  or any(st.get("title") == "Identify the problem type" for st in sol22[q].get("steps", []))]
+        tier22 = [n for n in range(1, 41) if pap22[n]["key"].get("keyTier") != "verified-derived"]
+        svg22 = [n for n in range(1, 41) if os.path.exists(os.path.join(DATA, "figures", "2022", f"fig-2022-q{n:02d}.svg"))]
+        wd22 = sorted(n for n in range(1, 41) if pap22[n]["key"]["status"] == "voided")
+        if miss22 or stub22 or tier22 or svg22 or wd22 != sorted(WITHDRAWN_2022) or len(A_TESTS_2022) != 40:
+            errors.append(f"2022 Batch A coverage gate: without independent check {miss22}, stub/unverified {stub22}, "
+                          f"non-verified-derived keys {tier22}, SVGs {svg22}, withdrawn {wd22}")
+            print(f"  ❌ 2022 Batch A coverage gate: missing checks {miss22}, stubs {stub22}, tiers {tier22}, SVGs {svg22}, withdrawn {wd22}")
+        else:
+            print(f"  ✅ 2022 Batch A coverage gate: Q1–Q40 (Mathematics) 40/40 hand-written, SymPy-verified and independently re-checked "
+                  f"(0 stubs; keyTier verified-derived; withdrawn {wd22})")
 
         # 2023 Batch A gate: every Mathematics item Q1–Q40 must be a hand-written derivation
         # (sympy-verified, >= 3 steps, no auto-generated stub text) backed by its own independent _a23 check.

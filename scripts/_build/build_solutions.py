@@ -17,6 +17,7 @@ from s2024_batchC import S2024_C
 from s2023_batchA import S2023_A
 from s2023_batchB import S2023_B
 from s2023_batchC import S2023_C
+from s2022_batchA import S2022_A
 
 # Solution data: {qNumber: (conceptSummary, steps[list of (title, bodyLatex)], verified, note)}
 S2024 = {
@@ -37,6 +38,13 @@ S2023 = {
 S2023.update(S2023_A)
 S2023.update(S2023_B)
 S2023.update(S2023_C)
+
+S2022 = {
+# Q1–Q40 (Mathematics): s2022_batchA.py — hand-written, SymPy-verified (merged below).
+# Q41–Q100: pending 2022 Batches B (Physics) and C (Chemistry + FEEE).
+}
+
+S2022.update(S2022_A)
 
 S2025 = {
 # Q1–Q25: hand-written, SymPy-verified derivations live in s2025_batch1.py (merged below).
@@ -88,13 +96,13 @@ def build(year, data, sols):
     return {
         "paperId": f"jelet-{year}",
         "year": int(year),
-        "keyTier": "official",
+        "keyTier": "derived" if year == "2022" else "official",   # no archived WBJEEB 2022 key (AGENTS.md §2.4)
         "solutions": solutions,
     }
 
 def main():
     outdir = "_data/solutions"
-    for year, data, sols in [("2022", Q2022, {}), ("2023", Q2023, S2023), ("2024", Q2024, S2024), ("2025", Q2025, S2025)]:
+    for year, data, sols in [("2022", Q2022, S2022), ("2023", Q2023, S2023), ("2024", Q2024, S2024), ("2025", Q2025, S2025)]:
         s = build(year, data, sols)
         path = os.path.join(outdir, f"{year}.solutions.json")
         with open(path, "w") as f:

@@ -8,7 +8,7 @@ KEY_REF = {
     "2024": {"keyTier": "official", "keyDocumentRef": "WBE/Ex-71 (01-08-2024)", "examDate": "2024-07-14"},
     "2025": {"keyTier": "official", "keyDocumentRef": "JEEB/Reg-171/25 (16-11-2025)", "examDate": "2025-10-18"},
 }
-VOIDED = {"2022": [], "2023": [6, 46, 88, 94], "2024": [49, 58], "2025": [41, 79, 84]}
+VOIDED = {"2022": [7], "2023": [6, 46, 88, 94], "2024": [49, 58], "2025": [41, 79, 84]}
 
 papers = []
 total_markable = 0

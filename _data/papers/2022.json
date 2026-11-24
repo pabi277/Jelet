@@ -71,7 +71,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $A = \\begin{bmatrix} 0 & \\sqrt{2} & 0 \\\\ \\sqrt{2} & 0 & 1 \\\\ 0 & 1 & 0 \\end{bmatrix}$ and $Q^{T}AQ$ is",
+      "stemLatex": "Let $A = \\begin{pmatrix} 5 & 0 & 1 \\\\ 0 & -2 & 0 \\\\ 1 & 0 & 5 \\end{pmatrix}$, $Q = \\begin{pmatrix} 0 & \\dfrac{1}{\\sqrt{2}} & \\dfrac{1}{\\sqrt{2}} \\\\ -1 & 0 & 0 \\\\ 0 & -\\dfrac{1}{\\sqrt{2}} & \\dfrac{1}{\\sqrt{2}} \\end{pmatrix}$. Then $Q^{T}AQ$ is",
       "stemFigure": null,
       "options": [
         {
@@ -100,14 +100,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q1)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q1 (Set A, Q1)"
       },
       "difficulty": "medium",
       "tags": [
-        "matrices",
-        "diagonalization",
-        "orthogonal-transformation"
+        "orthogonal-diagonalisation",
+        "eigenvectors",
+        "symmetric-matrix"
       ]
     },
     {
@@ -119,22 +119,22 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "If $A = \\begin{bmatrix} 2 & 2 \\\\ 2 & 4 \\end{bmatrix}$ and $I$ is the unit matrix of order $2$, then $A^{2}$ equals",
+      "stemLatex": "If $A = \\begin{pmatrix} 2 & -1 \\\\ -1 & 2 \\end{pmatrix}$ and $I$ is the unit matrix of order $2$ then $A^{2}$ equal to",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$A - I$",
-          "figure": null
-        },
-        {
-          "id": "B",
           "latex": "$4A - 3I$",
           "figure": null
         },
         {
-          "id": "C",
+          "id": "B",
           "latex": "$3A - 4I$",
+          "figure": null
+        },
+        {
+          "id": "C",
+          "latex": "$A - I$",
           "figure": null
         },
         {
@@ -146,16 +146,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q2)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q2 (Set A, Q2)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "matrices",
         "cayley-hamilton",
-        "matrix-power"
+        "matrix-square"
       ]
     },
     {
@@ -167,7 +166,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $A = \\begin{bmatrix} 3 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & -1 \\end{bmatrix}$. Then",
+      "stemLatex": "Let $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 2 \\end{pmatrix}$",
       "stemFigure": null,
       "options": [
         {
@@ -196,14 +195,13 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q3)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q3 (Set A, Q3)"
       },
       "difficulty": "easy",
       "tags": [
-        "matrices",
-        "diagonalizable",
-        "eigenvalues"
+        "eigenvalues",
+        "diagonalisability"
       ]
     },
     {
@@ -215,7 +213,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 3,
-      "stemLatex": "Let $A = \\begin{bmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 0 & 0 \\end{bmatrix}$. Then $A^{3} - A^{2} - A + I$, ($I$ is the identity matrix of order $3$) is",
+      "stemLatex": "Let $A = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$, then $A^{3} - A^{2} - A + I_{3}$ ($I_{3}$ is the identity matrix of order $3$) is",
       "stemFigure": null,
       "options": [
         {
@@ -235,7 +233,7 @@
         },
         {
           "id": "D",
-          "latex": "$\\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$",
+          "latex": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$",
           "figure": null
         }
       ],
@@ -244,14 +242,13 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q4)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q4 (Set A, Q4)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "matrices",
-        "nilpotent",
-        "matrix-power"
+        "cayley-hamilton",
+        "characteristic-polynomial"
       ]
     },
     {
@@ -263,43 +260,43 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "Let $\\Delta = \\begin{vmatrix} a & b & f \\\\ c & d & g \\\\ e & h & i \\end{vmatrix}$, then $\\dfrac{\\Delta}{a}$ is",
+      "stemLatex": "Let $\\Delta = \\begin{vmatrix} a & h & g \\\\ h & b & f \\\\ g & f & c \\end{vmatrix}$, then Where $B$, $C$, $F$ are respectively the co-factors of $b$, $c$, $f$ to $\\Delta$.",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{BC - F^{2}}{a^{2}}$",
+          "latex": "$\\dfrac{BC - F^{2}}{a} = \\Delta^{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{BC - F^{2}}{a}$",
+          "latex": "$\\dfrac{BC - F^{2}}{a} = \\Delta$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{BC - F^{2}}{2a^{2}}$",
+          "latex": "$\\dfrac{BC - F^{2}}{a} = \\dfrac{\\Delta}{2}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{BC - F^{2}}{2a}$",
+          "latex": "$\\dfrac{BC - F^{2}}{a^{2}} = \\Delta$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q5)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q5 (Set A, Q5)"
       },
       "difficulty": "hard",
       "tags": [
-        "determinants",
         "cofactors",
-        "expansion"
+        "symmetric-determinant",
+        "adjoint"
       ]
     },
     {
@@ -311,7 +308,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "If $\\begin{vmatrix} -ab & -ac \\\\ -bc & c^{2} \\\\ ca & bc \\end{vmatrix} = Ka^{2}b^{2}c^{2}$, then $K =$",
+      "stemLatex": "If $\\begin{vmatrix} a^{2} & -ab & -ac \\\\ -ab & b^{2} & -bc \\\\ ca & bc & -c^{2} \\end{vmatrix} = Ka^{2}b^{2}c^{2}$, then $K =$",
       "stemFigure": null,
       "options": [
         {
@@ -338,16 +335,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q6)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q6 (Set A, Q6)"
       },
       "difficulty": "medium",
       "tags": [
-        "determinants",
-        "matrix",
-        "expansion"
+        "determinant",
+        "factorisation"
       ]
     },
     {
@@ -359,43 +355,43 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "Let $z = 1 + i\\tan\\dfrac{3\\pi}{5}$. Then",
+      "stemLatex": "Let $z = 1 + i\\tan\\dfrac{3\\pi}{5}$,Then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{3\\pi}{5}$",
+          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5}$, $\\arg z = \\dfrac{3\\pi}{5}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{3\\pi}{5}$",
+          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5}$, $\\arg z = -\\dfrac{7\\pi}{5}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{2\\pi}{5}$",
+          "latex": "$|z| = -\\sec\\dfrac{3\\pi}{5}$, $\\arg z = \\dfrac{2\\pi}{5}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5},\\; \\arg z = \\dfrac{4\\pi}{5}$",
+          "latex": "$|z| = \\sec\\dfrac{3\\pi}{5}$, $\\arg z = \\dfrac{4\\pi}{5}$",
           "figure": null
         }
       ],
       "key": {
-        "status": "active",
+        "status": "voided",
         "correct": [
-          "B"
+          "W"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q7)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q7; W: no printed option is correct (true arg z = -2π/5); withdrawn by owner decision 2026-11-24 (Set A, Q7)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "modulus",
-        "argument"
+        "modulus-argument",
+        "principal-argument",
+        "withdrawn"
       ]
     },
     {
@@ -417,17 +413,17 @@
         },
         {
           "id": "B",
-          "latex": "$2$",
-          "figure": null
-        },
-        {
-          "id": "C",
           "latex": "$\\dfrac{1}{2}$",
           "figure": null
         },
         {
+          "id": "C",
+          "latex": "$2$",
+          "figure": null
+        },
+        {
           "id": "D",
-          "latex": "$3$",
+          "latex": "$\\dfrac{1}{3}$",
           "figure": null
         }
       ],
@@ -436,13 +432,13 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q8)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q8 (Set A, Q8)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "roots",
+        "complex-roots",
+        "factorisation",
         "modulus"
       ]
     },
@@ -455,42 +451,42 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 4,
-      "stemLatex": "The locus of the point which moves in such a way that the difference of its distance from the point $(3, 0)$ and $(9, 0)$ is $4$ units is a conic section whose eccentricity is",
+      "stemLatex": "The locus of the point which moves in such a way that the difference of its distance from the point $(3, 0)$ and $(9, 0)$ is $4$ units in a conic section whose eccentricity is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{5}{2}$",
-          "figure": null
-        },
-        {
-          "id": "B",
           "latex": "$2$",
           "figure": null
         },
         {
-          "id": "C",
+          "id": "B",
           "latex": "$\\dfrac{5}{2}$",
           "figure": null
         },
         {
-          "id": "D",
+          "id": "C",
           "latex": "$\\dfrac{3}{2}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{4}{3}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q9)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q9 (Set A, Q9)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "coordinate-geometry",
         "hyperbola",
+        "focal-distance",
         "eccentricity"
       ]
     },
@@ -503,7 +499,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "A triangle $ABC$ of area $\\Delta$ is inscribed in the parabola $y^{2} = 4ax$ ($a > 0$) such that the vertex of the parabola is at $A$, and the base $BC$ is a focal chord. The difference of ordinates of $B$ and $C$ is",
+      "stemLatex": "A triangle $ABC$ of area $\\Delta$ is inscribed in the parabola $y^{2} = 4ax$ $(a > 0)$ such that the vertex of the parabola is at $A$, and the base $BC$ is a focal chord. The differences of ordinates of $B$ and $C$ is",
       "stemFigure": null,
       "options": [
         {
@@ -532,14 +528,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q10)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q10 (Set A, Q10)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "parabola",
         "focal-chord",
-        "area"
+        "area-of-triangle"
       ]
     },
     {
@@ -551,43 +547,43 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "Consider a branch of the hyperbola $x^{2} - 2y^{2} - 2\\sqrt{2}x - 4\\sqrt{2}y - 6 = 0$ with vertex $A$. Let $B$ be one of the end points of its latus rectum. If $C$ is the focus of the hyperbola, nearer to $A$, then the area of the triangle $ABC$ is",
+      "stemLatex": "Consider a branch of the hyperbola $x^{2} - 2y^{2} - 2\\sqrt{2}\\,x - 4\\sqrt{2}\\,y - 6 = 0$ with vertex $A$. Let $B$ be one of the end points of its latus rectum. If $c$ is the focus of the hyperbola, nearer to $A$, then, the area of the triangle $ABC$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{2}{3}$ sq. unit",
+          "latex": "$1 - \\sqrt{\\dfrac{2}{3}}$ sq. unit",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{3\\sqrt{2}}{2} - 1$ sq. unit",
+          "latex": "$\\sqrt{\\dfrac{3}{2}} - 1$ sq. unit",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{\\sqrt{2}}{3}$ sq. unit",
+          "latex": "$1 + \\sqrt{\\dfrac{2}{3}}$ sq. unit",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{3\\sqrt{2}}{2} + 1$ sq. unit",
+          "latex": "$\\sqrt{\\dfrac{3}{2}} + 1$ sq. unit",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q11)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q11 (Set A, Q11)"
       },
       "difficulty": "hard",
       "tags": [
         "hyperbola",
         "latus-rectum",
-        "area"
+        "completing-the-square"
       ]
     },
     {
@@ -599,7 +595,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "If $\\vec{\\alpha} = \\hat{i} + 2\\hat{j} + 2\\hat{k}$, $|\\vec{\\beta}| = 5$ and the angle between $\\vec{\\alpha}$ and $\\vec{\\beta}$ is $\\dfrac{\\pi}{6}$, then the area of the triangle formed by $\\vec{\\alpha}$ and $\\vec{\\beta}$ as two sides is",
+      "stemLatex": "If $\\vec{\\alpha} = \\hat{i} + 2\\hat{j} + 2\\hat{k}$, $|\\vec{\\beta}| = 5$ and the angle between $\\vec{\\alpha}$ and $\\vec{\\beta}$ is $\\dfrac{\\pi}{6}$, then, the area of the triangle formed by $\\vec{\\alpha}$ and $\\vec{\\beta}$ as two sides is",
       "stemFigure": null,
       "options": [
         {
@@ -626,16 +622,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q12)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q12 (Set A, Q12)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
         "cross-product",
-        "area"
+        "area-of-triangle"
       ]
     },
     {
@@ -647,7 +642,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 5,
-      "stemLatex": "A force of magnitude $\\sqrt{6}$ acting along the line joining the points $A(2, -1, 1)$ and $B(3, 1, 2)$ displaces a particle from $A$ to $B$. The work done by the force is",
+      "stemLatex": "A force of magnitude $\\sqrt{6}$ acting along the line joining the points $A\\,(2, -1, 1)$ and $B\\,(3, 1, 2)$ displaces a particle from $A$ to $B$. The work done by the force is",
       "stemFigure": null,
       "options": [
         {
@@ -676,14 +671,14 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q13)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q13 (Set A, Q13)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
-        "work",
-        "dot-product"
+        "work-done",
+        "dot-product",
+        "unit-vector"
       ]
     },
     {
@@ -724,14 +719,14 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q14)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q14 (Set A, Q14)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "differentiation",
-        "ode",
-        "conservation"
+        "derivative",
+        "constant-function",
+        "chain-rule"
       ]
     },
     {
@@ -748,7 +743,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "no solution in $\\mathbb{R}$.",
+          "latex": "no solution in $\\mathbb{R}$",
           "figure": null
         },
         {
@@ -770,16 +765,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q15)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q15 (Set A, Q15)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "exponential",
-        "equations",
-        "analysis"
+        "exponential-equation",
+        "roots"
       ]
     },
     {
@@ -791,12 +785,12 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "$\\displaystyle\\lim_{x \\to 0} \\left(\\dfrac{1}{x}\\right)^{\\frac{1}{x}}$",
+      "stemLatex": "$\\lim\\limits_{x \\to 0} \\left(e^{x} + x\\right)^{1/x}$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "does not exist",
+          "latex": "does not exists",
           "figure": null
         },
         {
@@ -818,16 +812,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q16)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q16 (Set A, Q16)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
         "limit",
-        "exponential",
-        "l'hospital"
+        "one-power-infinity",
+        "lhopital"
       ]
     },
     {
@@ -844,7 +838,7 @@
       "options": [
         {
           "id": "A",
-          "latex": "Rolle's theorem is always applicable to $f$ in $[a, b]$ ($a < b$)",
+          "latex": "Rolle's theorem is always applicable to $f$ in $[a, b]$ $(\\subset \\mathbb{R})$",
           "figure": null
         },
         {
@@ -866,64 +860,63 @@
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q17)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q17 (Set A, Q17)"
       },
       "difficulty": "medium",
       "tags": [
         "rolle-theorem",
-        "differentiability",
-        "absolute-value"
+        "modulus-function",
+        "differentiability"
       ]
     },
     {
       "id": "jelet-2022-q018",
       "qNumber": 18,
       "subjectId": "MATH",
-      "unitId": "M07",
+      "unitId": "M06",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 6,
-      "stemLatex": "On the curve $y = x^{3}$, consider the chord joining $A(-1, -1)$ and $B(2, 8)$. Then",
+      "stemLatex": "On the curve $y = x^{3}$, consider the chord joining $A\\,(-1, -1)$ and $B\\,(2, 8)$. Then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "there is a point on the curve at which the tangent is parallel to chord $AB$.",
+          "latex": "$\\exists$ a point on the curve at which the tg (tangent) is parallel to chord $AB$.",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "there is no point satisfying the stipulation mentioned in (A).",
+          "latex": "$\\exists$ no point satisfying the stipulation mentioned in (A).",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "there are two points on the curve at which the tangents are parallel to chord $AB$.",
+          "latex": "$\\exists$ two points on the curve at which the tgs are parallel to chord $AB$.",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "tangents at every point on the curve is perpendicular to $AB$.",
+          "latex": "tgs at every point on the curve is perpendicular to $AB$.",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q18)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q18 (Set A, Q18)"
       },
       "difficulty": "medium",
       "tags": [
-        "mean-value-theorem",
-        "tangent",
-        "chord"
+        "lagrange-mvt",
+        "tangent-slope"
       ]
     },
     {
@@ -964,21 +957,20 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q19)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q19 (Set A, Q19)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "maxima-minima",
-        "rectangle",
-        "triangle"
+        "optimisation"
       ]
     },
     {
       "id": "jelet-2022-q020",
       "qNumber": 20,
       "subjectId": "MATH",
-      "unitId": "M07",
+      "unitId": "M04",
       "category": 1,
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
@@ -998,24 +990,24 @@
         },
         {
           "id": "C",
-          "latex": "$90^{\\circ}$",
+          "latex": "$60^{\\circ}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$60^{\\circ}$",
+          "latex": "$90^{\\circ}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "C"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q20)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q20 (Set A, Q20)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "parabola",
         "tangent",
@@ -1058,16 +1050,15 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q21)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q21 (Set A, Q21)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "rates",
-        "shadow",
-        "related-rates"
+        "rate-of-change",
+        "similar-triangles"
       ]
     },
     {
@@ -1079,7 +1070,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "If $u = \\dfrac{x}{y} + \\dfrac{y}{x}$, then $\\dfrac{\\partial u}{\\partial x}$ is",
+      "stemLatex": "If $u = \\dfrac{x}{a} + f(ay - bx)$, then $a\\dfrac{\\partial u}{\\partial x} + b\\dfrac{\\partial u}{\\partial y}$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1089,32 +1080,32 @@
         },
         {
           "id": "B",
-          "latex": "$b$",
+          "latex": "$1$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{a}{b}$",
+          "latex": "$b$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{b}{a}$",
+          "latex": "$a/b$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q22)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q22 (Set A, Q22)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "partial-differentiation",
-        "homogeneous"
+        "partial-derivative",
+        "chain-rule"
       ]
     },
     {
@@ -1126,7 +1117,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "Let $v(x, y) = \\sin^{-1}\\dfrac{y}{x}$. Then $x\\dfrac{\\partial v}{\\partial x} + y\\dfrac{\\partial v}{\\partial y}$",
+      "stemLatex": "Let $v(x, y) = \\sin^{-1}\\left(\\sqrt{x^{2} + y^{2}}\\right)$. Then $x\\dfrac{\\partial v}{\\partial x} + y\\dfrac{\\partial v}{\\partial y}$",
       "stemFigure": null,
       "options": [
         {
@@ -1153,15 +1144,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "D"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q23)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q23 (Set A, Q23)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "partial-differentiation",
-        "homogeneous-function"
+        "euler-theorem",
+        "homogeneous-function",
+        "partial-derivative"
       ]
     },
     {
@@ -1173,7 +1165,7 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 7,
-      "stemLatex": "$\\displaystyle\\int \\dfrac{dx}{x^{n}(1 + x^{m})^{1/n}} = \\dfrac{K}{x} + C$, where $C$ is an arbitrary constant. Then $K =$",
+      "stemLatex": "If $\\displaystyle\\int \\dfrac{dx}{x^{n}(1 + x^{n})^{1/n}} = K\\left(\\dfrac{x^{n} + 1}{x^{n}}\\right)^{\\frac{n-1}{n}} + C$, where $C$ is an arbitrary constant, then $K =$",
       "stemFigure": null,
       "options": [
         {
@@ -1183,7 +1175,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{1}{m}$",
+          "latex": "$-\\dfrac{1}{n}$",
           "figure": null
         },
         {
@@ -1193,23 +1185,22 @@
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{1}{m-1}$",
+          "latex": "$-\\dfrac{1}{n-1}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q24)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q24 (Set A, Q24)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "integration",
         "substitution",
-        "binomial"
+        "indefinite-integral"
       ]
     },
     {
@@ -1231,7 +1222,7 @@
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{19}{4}$",
+          "latex": "$\\dfrac{19}{3}$",
           "figure": null
         },
         {
@@ -1250,14 +1241,13 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q25)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q25 (Set A, Q25)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "definite-integral",
-        "absolute-value",
-        "piecewise"
+        "modulus-function"
       ]
     },
     {
@@ -1269,43 +1259,43 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 8,
-      "stemLatex": "$\\displaystyle\\int \\dfrac{dx}{\\sqrt{x+1} - \\sqrt{x-1}} =$",
+      "stemLatex": "$I = \\displaystyle\\int \\dfrac{dx}{\\left(1 + \\sqrt{x}\\right)\\left(\\sqrt{x - x^{2}}\\right)}$, then $I =$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{2(\\sqrt{x}-1)}{\\sqrt{1-x}} + C$",
+          "latex": "$\\dfrac{\\sqrt{x} + 1}{\\sqrt{x} - 1} + c$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{2(1+x)}{\\sqrt{1-x}} + C$",
+          "latex": "$\\dfrac{1 - \\sqrt{x}}{1 + \\sqrt{x}} + c$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{2(\\sqrt{x}+1)}{\\sqrt{1-x}} + C$",
+          "latex": "$\\dfrac{2\\left(\\sqrt{x} - 1\\right)}{\\sqrt{(1 - x)}} + c$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{2\\sqrt{x}}{\\sqrt{1-x}} + C$",
+          "latex": "$\\dfrac{2\\left(\\sqrt{1 + x)}\\right)}{\\sqrt{(1 - x)}} + c$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q26)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q26 (Set A, Q26)"
       },
       "difficulty": "hard",
       "tags": [
-        "integration",
-        "rationalization",
-        "substitution"
+        "substitution",
+        "indefinite-integral",
+        "differentiate-options"
       ]
     },
     {
@@ -1317,27 +1307,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 8,
-      "stemLatex": "The equation of curve passing through the point $(1, 1)$ and having slope at tangent at any point $(x, y)$ as $\\dfrac{-\\cos x}{x(1 + \\tan\\frac{x}{2})}$ is",
+      "stemLatex": "The equation of curve passing through the point $\\left(1, \\dfrac{\\pi}{4}\\right)$ and having slope at tangent at any point $(x, y)$ as $\\dfrac{y}{x} - \\cos^{2}\\left(\\dfrac{y}{x}\\right)$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$x = e^{\\sin^{-1}(\\tan\\frac{x}{2})}$",
+          "latex": "$x = e^{1 + \\tan\\left(\\frac{y}{x}\\right)}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$x = e^{\\sin^{-1}(\\cot\\frac{x}{2})}$",
+          "latex": "$x = e^{1 - \\tan\\left(\\frac{y}{x}\\right)}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$x = e^{\\cos^{-1}(\\tan\\frac{x}{2})}$",
+          "latex": "$x = e^{1 + \\tan\\left(\\frac{x}{y}\\right)}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$x = e^{\\tan^{-1}(\\cot\\frac{x}{2})}$",
+          "latex": "$x = e^{1 - \\tan\\left(\\frac{x}{y}\\right)}$",
           "figure": null
         }
       ],
@@ -1346,14 +1336,13 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q27)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q27 (Set A, Q27)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ode",
-        "curve",
-        "slope"
+        "homogeneous-ode",
+        "initial-value"
       ]
     },
     {
@@ -1365,42 +1354,41 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 8,
-      "stemLatex": "If $\\dfrac{dy}{dx} + y = 2e^{2x}$, then",
+      "stemLatex": "$\\dfrac{d^{2}y}{dx^{2}} + 2\\dfrac{dy}{dx} + y = 2e^{2x}$, then",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$y = (A + Bx)e^{x} + \\dfrac{2x}{9}$",
+          "latex": "$y = c_{1}e^{x} + c_{2}e^{-x} + e^{2x}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$y = (A + Bx)e^{2x} + \\dfrac{9}{2}$",
+          "latex": "$y = (A + Bx)e^{-x} + \\dfrac{1}{9}e^{2x}$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$y = (A + Bx)e^{-x} + \\dfrac{9}{2}$",
+          "latex": "$y = (A + Bx)e^{-x} + \\dfrac{2}{9}e^{2x}$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$y = A\\cos x + B\\sin x + \\dfrac{9}{2}$",
+          "latex": "$y = A\\cos x + B\\sin x + \\dfrac{e^{2x}}{9}$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q28)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q28 (Set A, Q28)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
-        "ode",
-        "linear",
+        "linear-ode-constant-coefficients",
         "particular-integral"
       ]
     },
@@ -1413,27 +1401,27 @@
       "fullTwelfths": 12,
       "negativeTwelfths": 3,
       "pdfPage": 8,
-      "stemLatex": "A number is chosen at random from the numbers $1, 2, 3, \\ldots, 36$. The probability that this number is divisible by $6$ is",
+      "stemLatex": "The digits $1, 2, 3, \\ldots, 9$ are written in random order to form a nine digit number. The probability that this number is divisible by $36$ is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{1}{6}$",
+          "latex": "$\\dfrac{2}{9}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{2}{6}$",
-          "figure": null
-        },
-        {
-          "id": "C",
           "latex": "$\\dfrac{1}{9}$",
           "figure": null
         },
         {
-          "id": "D",
+          "id": "C",
           "latex": "$\\dfrac{1}{3}$",
+          "figure": null
+        },
+        {
+          "id": "D",
+          "latex": "$\\dfrac{4}{9}$",
           "figure": null
         }
       ],
@@ -1442,14 +1430,14 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q29)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q29 (Set A, Q29)"
       },
       "difficulty": "medium",
       "tags": [
-        "probability",
         "divisibility",
-        "counting"
+        "permutations",
+        "classical-probability"
       ]
     },
     {
@@ -1490,14 +1478,13 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q30)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q30 (Set A, Q30)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "probability",
-        "complement",
-        "inclusion-exclusion"
+        "addition-theorem",
+        "complement"
       ]
     },
     {
@@ -1509,7 +1496,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "Let $A = \\begin{bmatrix} \\lambda & 1 & 0 \\\\ 3 & -2 & 1 \\\\ 0 & \\lambda+1 & 0 \\end{bmatrix}$. Rank of $A$ is",
+      "stemLatex": "Let $A = \\begin{pmatrix} \\lambda & 1 & 0 \\\\ 3 & \\lambda - 2 & 1 \\\\ 3(\\lambda + 1) & 0 & \\lambda + 1 \\end{pmatrix}$. Rank of $A$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1539,14 +1526,14 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q31)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q31 (Set A, Q31)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "matrices",
         "rank",
-        "determinant"
+        "determinant",
+        "parameter"
       ]
     },
     {
@@ -1558,7 +1545,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "Under which of the following conditions the system of equations $ax + by + cz = 0$, $bx + cy + az = 0$, $cx + ay + bz = 0$ has non-trivial solution?",
+      "stemLatex": "Under which of the following conditions the system of equations $ax + by + cz = 0$, $bx + cy + az = 0$, $cx + ay + bz = 0$ have a non-zero solution ?",
       "stemFigure": null,
       "options": [
         {
@@ -1588,14 +1575,14 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q32)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q32 (Set A, Q32)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "linear-system",
-        "determinant",
-        "homogeneous"
+        "homogeneous-system",
+        "circulant-determinant",
+        "interpretation-note"
       ]
     },
     {
@@ -1622,28 +1609,29 @@
         },
         {
           "id": "C",
-          "latex": "$\\dfrac{x}{y} - \\dfrac{y}{x} = 2\\cos(\\theta - \\phi)$",
+          "latex": "$xy + \\dfrac{1}{xy} = 2\\cos(\\theta + \\phi)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$\\dfrac{x}{y} - \\dfrac{y}{x} = \\cos(\\theta + \\phi)$",
+          "latex": "$xy + \\dfrac{1}{xy} = 2\\cos(\\theta - \\phi)$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "A",
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q33)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q33 (Set A, Q33)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "complex-numbers",
-        "trigonometry",
-        "roots"
+        "de-moivre",
+        "cis-form",
+        "interpretation-note"
       ]
     },
     {
@@ -1655,17 +1643,17 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "If the latus rectum of the hyperbola $\\dfrac{x^{2}}{a^{2}} - \\dfrac{y^{2}}{b^{2}} = 1$ subtend a right angle at the centre of the hyperbola, then eccentricity of the hyperbola is",
+      "stemLatex": "If the latus rectum of the hyperbola $\\dfrac{x^{2}}{a^{2}} - \\dfrac{y^{2}}{b^{2}} = 1$ subtend a right angle at the centre of the hyperbola, then eccentricity of the ellipse is",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\dfrac{\\sqrt{5}+1}{2}$",
+          "latex": "$\\dfrac{\\sqrt{5} + 1}{2}$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$\\dfrac{\\sqrt{5}+2}{2}$",
+          "latex": "$\\dfrac{\\sqrt{5} + 2}{2}$",
           "figure": null
         },
         {
@@ -1685,14 +1673,15 @@
           "A",
           "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q34)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q34 (Set A, Q34)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
         "hyperbola",
         "latus-rectum",
-        "eccentricity"
+        "eccentricity",
+        "misprint"
       ]
     },
     {
@@ -1704,7 +1693,7 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 9,
-      "stemLatex": "The vector $\\vec{a} \\times (\\vec{b} \\times \\vec{c})$ is",
+      "stemLatex": "The vector $\\vec{a} \\times \\left(\\vec{b} \\times \\vec{c}\\right)$ is",
       "stemFigure": null,
       "options": [
         {
@@ -1731,16 +1720,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "B"
+          "B",
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q35)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q35 (Set A, Q35)"
       },
-      "difficulty": "medium",
+      "difficulty": "easy",
       "tags": [
-        "vector-algebra",
-        "triple-product",
-        "identity"
+        "vector-triple-product",
+        "bac-cab"
       ]
     },
     {
@@ -1762,7 +1751,7 @@
         },
         {
           "id": "B",
-          "latex": "not defined for any real $x$",
+          "latex": "continuous at $x = 0$",
           "figure": null
         },
         {
@@ -1780,15 +1769,16 @@
         "status": "active",
         "correct": [
           "A",
+          "B",
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q36)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q36 (Set A, Q36)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "functions",
-        "absolute-value",
+        "piecewise-function",
+        "continuity",
         "differentiability"
       ]
     },
@@ -1796,12 +1786,12 @@
       "id": "jelet-2022-q037",
       "qNumber": 37,
       "subjectId": "MATH",
-      "unitId": "M07",
+      "unitId": "M04",
       "category": 2,
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 10,
-      "stemLatex": "The equation(s) of the tangents to the ellipse $\\dfrac{x^{2}}{16} + \\dfrac{y^{2}}{9} = 1$ parallel to the line $y = x$ is (are)",
+      "stemLatex": "The equation (s) of the tangents to the ellipse $\\dfrac{x^{2}}{16} + \\dfrac{y}{9} = 1$ parallel to the line $y = x$ is (are)",
       "stemFigure": null,
       "options": [
         {
@@ -1831,14 +1821,14 @@
           "A",
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q37)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q37 (Set A, Q37)"
       },
-      "difficulty": "hard",
+      "difficulty": "easy",
       "tags": [
         "ellipse",
-        "tangent",
-        "parallel-lines"
+        "tangent-condition",
+        "misprint"
       ]
     },
     {
@@ -1850,43 +1840,43 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 10,
-      "stemLatex": "Let $f(x, y) = \\begin{cases} \\dfrac{xy}{x^{2}+y^{2}}, & x^{2}+y^{2} \\neq 0 \\\\ 0, & x^{2}+y^{2} = 0 \\end{cases}$. Then",
+      "stemLatex": "Let $f(x, y) = \\begin{cases} \\dfrac{xy^{2} + x^{2}y}{x^{2} + y^{2}}, & x^{2} + y^{2} \\neq 0 \\\\ 0, & x^{2} + y^{2} = 0 \\end{cases}$",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "neither $f_x$ nor $f_y$ exists at $(0, 0)$ but $f$ is continuous at $(0, 0)$",
+          "latex": "neither $f_{x}$ nor $f_{y}$ exists at $(0, 0)$ but $f$ is continuous at $(0, 0)$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$f_x(0, 0) = 1$ but $f_y$ does not exist at $(0, 0)$",
+          "latex": "$f_{x}(0, 0) = 1$ but $f_{y}$ does not exist at $(0, 0)$",
           "figure": null
         },
         {
           "id": "C",
-          "latex": "$f$ is continuous at $(0, 0)$",
+          "latex": "$f$ is continuou at $(0, 0)$",
           "figure": null
         },
         {
           "id": "D",
-          "latex": "$f_x, f_y$ exist at $(0, 0)$ and both are $0$",
+          "latex": "$f_{x}$, $f_{y}$ exist at $(0, 0)$ and both are $0$",
           "figure": null
         }
       ],
       "key": {
         "status": "active",
         "correct": [
+          "C",
           "D"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q38)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q38 (Set A, Q38)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "partial-differentiation",
-        "continuity",
-        "limits"
+        "partial-derivative",
+        "continuity-two-variables"
       ]
     },
     {
@@ -1898,17 +1888,17 @@
       "fullTwelfths": 24,
       "negativeTwelfths": 0,
       "pdfPage": 10,
-      "stemLatex": "If $\\displaystyle\\int \\dfrac{\\sin x + \\cos x}{\\sqrt{\\sin x \\cos x}}\\,dx = f(x) + C$, then $f(x)$ equals",
+      "stemLatex": "If $\\displaystyle\\int \\dfrac{\\sin x + \\cos x}{\\sqrt{\\sin x\\cos x}}\\,dx = f(x) + c$, then $f(x)$ equals",
       "stemFigure": null,
       "options": [
         {
           "id": "A",
-          "latex": "$\\sqrt{2}\\sin^{-1}(\\sin x - \\cos x)$",
+          "latex": "$\\sqrt{2}\\,\\sin^{-1}(\\sin x - \\cos x)$",
           "figure": null
         },
         {
           "id": "B",
-          "latex": "$-\\sqrt{2}\\cos^{-1}(\\sin x - \\cos x)$",
+          "latex": "$-\\sqrt{2}\\,\\cos^{-1}(\\sin x - \\cos x)$",
           "figure": null
         },
         {
@@ -1925,16 +1915,16 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "A",
+          "B"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q39)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q39 (Set A, Q39)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "integration",
-        "trigonometric",
-        "substitution"
+        "substitution",
+        "antiderivative-up-to-constant"
       ]
     },
     {
@@ -1973,16 +1963,17 @@
       "key": {
         "status": "active",
         "correct": [
-          "A"
+          "A",
+          "C"
         ],
-        "keyTier": "official",
-        "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q40)"
+        "keyTier": "verified-derived",
+        "sourceRef": "Independent solve of the official 2022 Set-A booklet + SymPy re-derivation _a22_q40 (Set A, Q40)"
       },
-      "difficulty": "hard",
+      "difficulty": "medium",
       "tags": [
-        "ode",
-        "variable-separable",
-        "initial-condition"
+        "exact-differential",
+        "initial-value",
+        "implicit-solution"
       ]
     },
     {
@@ -2023,7 +2014,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q41)"
       },
       "difficulty": "easy",
@@ -2077,7 +2068,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q42)"
       },
       "difficulty": "medium",
@@ -2125,7 +2116,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q43)"
       },
       "difficulty": "medium",
@@ -2173,7 +2164,7 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q44)"
       },
       "difficulty": "hard",
@@ -2221,7 +2212,7 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q45)"
       },
       "difficulty": "hard",
@@ -2275,7 +2266,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q46)"
       },
       "difficulty": "medium",
@@ -2323,7 +2314,7 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q47)"
       },
       "difficulty": "hard",
@@ -2377,7 +2368,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q48)"
       },
       "difficulty": "hard",
@@ -2431,7 +2422,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q49)"
       },
       "difficulty": "medium",
@@ -2479,7 +2470,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q50)"
       },
       "difficulty": "medium",
@@ -2527,7 +2518,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q51)"
       },
       "difficulty": "hard",
@@ -2575,7 +2566,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q52)"
       },
       "difficulty": "hard",
@@ -2623,7 +2614,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q53)"
       },
       "difficulty": "hard",
@@ -2671,7 +2662,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q54)"
       },
       "difficulty": "medium",
@@ -2725,7 +2716,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q55)"
       },
       "difficulty": "medium",
@@ -2773,7 +2764,7 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q56)"
       },
       "difficulty": "hard",
@@ -2827,7 +2818,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q57)"
       },
       "difficulty": "medium",
@@ -2875,7 +2866,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q58)"
       },
       "difficulty": "hard",
@@ -2923,7 +2914,7 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q59)"
       },
       "difficulty": "hard",
@@ -2971,7 +2962,7 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q60)"
       },
       "difficulty": "hard",
@@ -3019,7 +3010,7 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q61)"
       },
       "difficulty": "hard",
@@ -3073,7 +3064,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q62)"
       },
       "difficulty": "medium",
@@ -3121,7 +3112,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q63)"
       },
       "difficulty": "medium",
@@ -3169,7 +3160,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q64)"
       },
       "difficulty": "hard",
@@ -3217,7 +3208,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q65)"
       },
       "difficulty": "hard",
@@ -3266,7 +3257,7 @@
           "B",
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q66)"
       },
       "difficulty": "hard",
@@ -3315,7 +3306,7 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q67)"
       },
       "difficulty": "hard",
@@ -3370,7 +3361,7 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q68)"
       },
       "difficulty": "hard",
@@ -3425,7 +3416,7 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q69)"
       },
       "difficulty": "hard",
@@ -3473,7 +3464,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q70)"
       },
       "difficulty": "medium",
@@ -3521,7 +3512,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q71)"
       },
       "difficulty": "medium",
@@ -3569,7 +3560,7 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q72)"
       },
       "difficulty": "hard",
@@ -3617,7 +3608,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q73)"
       },
       "difficulty": "medium",
@@ -3665,7 +3656,7 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q74)"
       },
       "difficulty": "easy",
@@ -3713,7 +3704,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q75)"
       },
       "difficulty": "medium",
@@ -3761,7 +3752,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q76)"
       },
       "difficulty": "hard",
@@ -3810,7 +3801,7 @@
           "C",
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q77)"
       },
       "difficulty": "medium",
@@ -3858,7 +3849,7 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q78)"
       },
       "difficulty": "medium",
@@ -3906,7 +3897,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q79)"
       },
       "difficulty": "easy",
@@ -3954,7 +3945,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q80)"
       },
       "difficulty": "medium",
@@ -4002,7 +3993,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q81)"
       },
       "difficulty": "easy",
@@ -4050,7 +4041,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q82)"
       },
       "difficulty": "medium",
@@ -4098,7 +4089,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q83)"
       },
       "difficulty": "easy",
@@ -4146,7 +4137,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q84)"
       },
       "difficulty": "easy",
@@ -4194,7 +4185,7 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q85)"
       },
       "difficulty": "medium",
@@ -4243,7 +4234,7 @@
           "C",
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q86)"
       },
       "difficulty": "medium",
@@ -4291,7 +4282,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q87)"
       },
       "difficulty": "hard",
@@ -4340,7 +4331,7 @@
           "A",
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q88)"
       },
       "difficulty": "hard",
@@ -4389,7 +4380,7 @@
           "C",
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q89)"
       },
       "difficulty": "medium",
@@ -4438,7 +4429,7 @@
           "B",
           "C"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q90)"
       },
       "difficulty": "medium",
@@ -4486,7 +4477,7 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q91)"
       },
       "difficulty": "medium",
@@ -4534,7 +4525,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q92)"
       },
       "difficulty": "medium",
@@ -4588,7 +4579,7 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q93)"
       },
       "difficulty": "medium",
@@ -4636,7 +4627,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q94)"
       },
       "difficulty": "hard",
@@ -4684,7 +4675,7 @@
         "correct": [
           "D"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q95)"
       },
       "difficulty": "medium",
@@ -4738,7 +4729,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q96)"
       },
       "difficulty": "hard",
@@ -4792,7 +4783,7 @@
         "correct": [
           "C"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q97)"
       },
       "difficulty": "medium",
@@ -4846,7 +4837,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q98)"
       },
       "difficulty": "hard",
@@ -4900,7 +4891,7 @@
         "correct": [
           "B"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q99)"
       },
       "difficulty": "medium",
@@ -4948,7 +4939,7 @@
         "correct": [
           "A"
         ],
-        "keyTier": "official",
+        "keyTier": "derived",
         "sourceRef": "Dual-solver + SymPy complete key (no official 2022 key in Drive) (Set A, Q100)"
       },
       "difficulty": "medium",
