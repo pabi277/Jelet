@@ -1,88 +1,105 @@
-# Phase 13 Batch Evidence — Pilot (`M01`, `C03`, `E05`)
+# Phase 13 Batch Evidence — Pilot v2 (`M01`, `C03`, `E05`)
 
 **Date:** 2026-11-25 (UTC)
 **Branch:** `arena/75454728-jelet`
-**Pipeline:** plan §3 steps ①–⑥ executed for the pilot batch (step ⑦ owner
-spot-check = **pending**; step ⑧ = this file).
-**Provenance state:** every shipped pack carries
-`reviewedBy: "pending — owner spot-check required before merge"` — the honest
-pre-sign-off chain. After owner review the loader drafts are updated to the
-reviewer name/date and the builder re-applied (byte-identical elsewhere).
+**Template:** Study Pack **v2** (plan Amendment B — owner-approved after v1 on-device
+review was judged too shallow). Pipeline §3 steps ①–⑥ executed for the pilot; step
+⑦ owner re-review **pending**; provenance honestly marked `pending`.
+**Supersedes:** `batch-M01-C03-E05.md` v1 record (git history).
 
 ---
 
-## ① Units picked
+## Owner decisions driving v2 (Amendment B, recorded in plan.md)
 
-Plan §3.4 pilot: `M01` (Matrices up to Order 3, 16 PYQs — highest traffic),
-`C03` (Acids, Bases & Salts, 15 PYQs), `E05` (AC Sources & Circuits, 7 PYQs,
-the UI reference lesson). One per major subject.
+1. Full anatomy: primers 5–6 with micro-examples · complete formula family 12–18 ·
+   key definitions · comparison tables · **10-MCQ self-test** · deeper hooks/
+   mistakes/checklist (8–12 each).
+2. MCQ reveal **per question**; self-test MCQs are inline reveal cards — never
+   scored, never stored, never routed into practice metrics.
+3. Pilot v2 first → owner re-review → batches 1–5 continue with the same template.
+
+## ① Units picked (unchanged)
+
+`M01` (Matrices up to Order 3, 16 PYQs) · `C03` (Acids, Bases & Salts, 15 PYQs) ·
+`E05` (AC Sources & Circuits, 7 PYQs — the UI reference lesson).
 
 ## ② What was read (Drive, `read_file_text` — PDFs only, zero downloads)
 
 | Unit | Reference read | Drive file ID | Verified title / scope |
 | :--- | :--- | :--- | :--- |
-| M01 | NCERT Class 12 Mathematics Part-I `lemh103.pdf` | `1rY7QTpt7I_vPmz5slOQDAjCaMtj1GS40` | Ch. 3 **Matrices** (Reprint 2026-27): matrix/order/elements, equality, types (column, row, square, diagonal, scalar, identity, zero) — facts only |
-| M01 | NCERT Class 12 Mathematics Part-I `lemh104.pdf` | `1wNvhtFB36WYhs0IRJSEuRiwCt92qEGRk` | Ch. 4 **Determinants**: det as a square-matrix function, minors/cofactors → adjoint/inverse applications (title page + intro verified live) |
-| C03 | NCERT Class 11 Chemistry Part-I `kech106.pdf` | `1CT2XBEPOLVvVCbZza8eLaThllcJO5uYR` | Unit 6 **Equilibrium** (Reprint 2026-27): dynamic equilibrium, Kc/Kp relations (reverse → 1/K, ×n → Kⁿ, Kp = Kc(RT)^Δn), Arrhenius/Brønsted/Lewis, ionization constants, common-ion, pH scale, Kw/pKw, buffers, Ksp (unit objectives list verified live) |
-| E05 | NCERT Class 12 Physics Part-I `leph107.pdf` | `1xu_IZqP0eJJrzoaa7XJG6Jyb5KynXjZu` | Ch. 7 **Alternating Current** (Reprint 2026-27): RMS = im/√2, household 220 V ↔ 311 V peak, phasors, X_L = ωL (current lags π/2), X_C, series RLC, resonance, P = VI cos φ, power-factor cases, wattless current |
+| M01 | NCERT Cl-12 Maths P-I `lemh103.pdf` + `lemh104.pdf` | `1rY7QTpt7I_vPmz5slOQDAjCaMtj1GS40` / `1wNvhtFB36WYhs0IRJSEuRiwCt92qEGRk` | Ch. 3 **Matrices** (order/types/equality/transpose) + Ch. 4 **Determinants** (det → minors/cofactors → adjoint/inverse) |
+| C03 | NCERT Cl-11 Chem P-I `kech106.pdf` | `1CT2XBEPOLVvVCbZza8eLaThllcJO5uYR` | Unit 6 **Equilibrium** — v2 scopes to the **ionic** half (acid-base theories, Kw/pH, Ka/Kb/Ostwald, common-ion, buffers, hydrolysis, indicators, Ksp); the chemical-equilibrium half is Unit **C05**'s territory (bridge line only) |
+| E05 | NCERT Cl-12 Phys P-I `leph107.pdf` | `1xu_IZqP0eJJrzoaa7XJG6Jyb5KynXjZu` | Ch. 7 **Alternating Current** (RMS/mean, phasors, X_L/X_C, series RLC, resonance, power factor, wattless current) |
 
-No `05E` guidebook was opened (scope-only law). No image-only scan (BS Grewal /
-HCV Vol-2 / VK Mehta) was used as a fact source. All shipped facts are standard
-relationships/scope from the agent-readable set; **zero book prose was copied**
-(every sentence is original — rule-of-thumb §3 ③ applied at draft time).
+Scope calibration against the 42-unit registry: `C05 = Chemical Equilibrium`,
+`M02 = Determinants` (M01 keeps only matrix-essential determinant laws with an
+M02 pointer). No `05E` guidebook opened; no image-only scan used as a fact source;
+**zero book prose copied** — every sentence original.
 
-## ③④ What was written and checked
+## ③④⑤ What was written and checked
 
-Per unit (`scripts/_build/study_packs/<unitId>.json` drafts → merged into
-`_data/units/<unitId>.json` by `scripts/_build/build_study_packs.py`):
+Per unit (`scripts/_build/study_packs/<unitId>.json` → `build_study_packs.py`):
 
-| Unit | Primer | Hooks | Mistakes | Checklist | Reading |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| M01 | 3 (PRD01–03) | 6 | 5 | 7 | 2 (NCERT Ch. 3, Ch. 4) |
-| C03 | 3 (PRD01–03) | 6 | 5 | 7 | 1 (NCERT Unit 6) |
-| E05 | 3 (PRD01–03) | 6 | 5 | 7 | 1 (NCERT Ch. 7) |
+| Block | M01 | C03 | E05 |
+| :--- | :--- | :--- | :--- |
+| conceptPrimer | 6 (PRD01–06) | 6 | 6 |
+| keyFormulas | 16 (SF01–16) | 15 | 15 |
+| keyDefinitions | 10 | 11 | 10 |
+| comparisons | 4 tables | 4 | 4 |
+| mcqSelfTest | 10 keyed MCQs | 10 | 10 |
+| memoryHooks / commonMistakes / examChecklist | 11 / 9 / 11 | 11 / 9 / 11 | 11 / 9 / 11 |
+| furtherReading | 2 | 1 | 1 |
 
-- Common mistakes are **distinct** from `wbjeebTraps[]` (each item checked
-  against the unit's existing traps; e.g. the 10⁻⁸ M HCl trap is NOT repeated in
-  C03 mistakes — α-vs-Ka confusion is used instead).
-- `furtherReading` carries titles/authors/chapter numbers only (gate-enforced:
-  URLs / file paths / Drive pointers rejected).
-- SymPy sanity (one-off, `/tmp/jelet-py/bin/python3`): 11/11 quantitative
-  claims verified — 1/√2 ≈ 0.707, 2/π ≈ 0.637, π/(2√2) ≈ 1.11, √2 ≈ 1.414,
-  220√2 ≈ 311 V, Cayley–Hamilton 2×2 identity (symbolic), Q = ω₀L/R =
-  1/(ω₀CR), Δf = (R/L)/2π, series-resonance V_L = Q·V_S, Ostwald weak limit
-  (lim u→0 of exact/√(Ka·C) − 1 = 0; the pack keeps the exact (1−α) form), and
-  Henderson–Hasselbalch 1:1 → pH = pKa.
+Content-span notes:
+- **M01** primers cover the full unit: matrix anatomy & non-commutativity,
+  transpose/symmetry split, determinant essentials, the adjoint–inverse engine,
+  special squares (orthogonal/involutory/idempotent/nilpotent), Cayley-Hamilton
+  & trace — each with a numeric micro-check.
+- **C03** primers cover the ionic span: three acid-base languages, Kw/pH, strong
+  vs weak ladder (Ostwald), common-ion & buffers (H-H), salt hydrolysis &
+  indicators, Ksp/Q & endpoint arithmetic.
+- **E05** primers cover: the sine & its four numbers, pure R/L/C, phasors &
+  impedance triangle, series RLC frequency sweep, Q & bandwidth magnification,
+  power triangle & wattless current.
+- Common mistakes remain **distinct** from `wbjeebTraps[]` (checked per unit).
 
-## ⑥ Gate results (final sweep)
+## Verification evidence
 
 | Gate | Command | Result |
 | --- | --- | --- |
-| Corpus (+ new studyPack gate) | `python3 scripts/verify_corpus.py` | **PASS** — 400 Qs, 42 units, `Study Packs: 3/42 validated (M01, C03, E05)` |
-| studyPack negative tests | corrupt → gate → restore (scripted) | **8/8 rejected** (unknown key, duplicate prdId, empty reviewedBy, URL leak, wrong prdId prefix, missing key, `.pdf` leak, orphan unit file with studyPack) — restored, gate green |
-| SymPy | `/tmp/jelet-py/bin/python3 scripts/verify_solutions_sympy.py` | **PASS** — 400/400 verified |
-| Tokens/paths/links/copyright | `node scripts/check_tokens_and_links.mjs` | **PASS** — 326 files, 0 hex outside tokens.css, 0 copyrighted files |
-| Unit tests | `node --test "tests/*.test.mjs"` | **129/129 PASS** (5 new phase-13 tests) |
-| Responsive browser gate | `JELET_PW_ROOT=/tmp/pwtool node scripts/check_responsive.mjs` | **43/43 PASS** — 360/390/414/1440, zero overflow/console errors |
-| Community browser gate | `JELET_PW_ROOT=/tmp/pwtool node scripts/check_community.mjs` | **23 checks PASS**, zero console errors |
-| Study Pack browser check | bespoke (360/390/414/1440/1024) | **27/27 PASS** — pilot blocks render (1/3/6/5/7/≥1), `?tab=study` chip active, provenance footnote, calm empty state on M02, hook grid 2-col at ≥768px, zero console errors |
+| Corpus (v2 studyPack gate) | `python3 scripts/verify_corpus.py` | **PASS** — 400 Qs, 42 units, `Study Packs: 3/42 validated (M01, C03, E05)` |
+| studyPack v2 negative tests | corrupt → gate → restore | **7/7 rejected** (MCQ key outside A-D, empty reason, comparison row mismatch, formula count <12, primer count <5, duplicate sfId, wrong-unit defId) |
+| MCQ/primer numerics | SymPy script (one-off, `/tmp/jelet-py`) | **28/28 verified** — every MCQ answer and primer micro-example numeric checked (incl. |2A|=24, |adj A|=25, |2A|=−8 for orthogonal |A|=−1, A²=3A−2I, pH 2.87 weak-acid, S=1.34×10⁻⁵, N=0.2, 311 V, 157 Ω, Z=100/0.6, 79.6 Hz, ω₀=1000/Q=100/BW=10, 460 W, XL 7.85 Ω, 159 Hz) |
+| SymPy solutions gate | `/tmp/jelet-py/bin/python3 scripts/verify_solutions_sympy.py` | **PASS** — 400/400 |
+| Tokens/paths/links/copyright | `node scripts/check_tokens_and_links.mjs` | **PASS** — 327 files, 0 copyrighted files |
+| Unit tests | `node --test "tests/*.test.mjs"` | **130/130 PASS** (phase-13 suite rewritten for v2) |
+| Responsive | `JELET_PW_ROOT=/tmp/pwtool node scripts/check_responsive.mjs` | **43/43 PASS** |
+| Community | `JELET_PW_ROOT=/tmp/pwtool node scripts/check_community.mjs` | **23 PASS**, zero console errors |
+| Study Pack v2 browser check | bespoke (360/390/414/1440/1024) | **46/46 PASS** — full anatomy renders (6 primers, 15–16 formulas, 10–11 defs, 4 tables, 10 MCQs each), MCQ reveal interaction verified end-to-end (keyed-only highlight, aria-expanded, hide/clear, zero console errors), calm empty state on M02, no overflow anywhere |
 
-## Builder notes (important for future batches)
+## Infrastructure shipped with v2
 
-- `scripts/_build/build_units.py` is **stale** vs shipped units (it would drop
-  `practiceQuestions[]`) — **do not re-run it**. Study packs ship only through
-  `build_study_packs.py`, which touches ONLY the `studyPack` key and is
-  idempotent (byte-identical re-run verified via sha256).
-- Browser-gate tooling in this sandbox: `puppeteer-core` + `@sparticuz/chromium`
-  at `/tmp/pwtool` (`JELET_PW_ROOT=/tmp/pwtool`); newer `@sparticuz/chromium`
-  blocks the `./package.json` subpath, so both check scripts now resolve the
-  package root by walking up from the entry (small robustness fix, this commit).
-- SW version bumped `jelet-v3-sw-13` → `jelet-v3-sw-14` (CSS/JS changed).
+- `scripts/verify_corpus.py` — v2 schema gate (10 keys, per-block shapes, id
+  conventions `<UNIT>-{PRD,SF,DEF,CMP,MCQ}nn` with uniqueness, comparison
+  row/column shape with `columns[0]` as the label column, honest A-D keys).
+- `assets/js/views/learn.js` — Study Pack tab renders the full v2 anatomy in
+  Diploma-model order; MCQ self-test is per-question reveal (zero storage/scoring).
+- `assets/css/components.css` — token-only v2 block identities (`.study-sf` amber
+  accent, `.study-defs` definition list, `.study-cmp` wrap-not-scroll tables per the
+  no-horizontal-scrollbar law, `.study-mcq` cards with keyed highlighting).
+- `tests/phase13-studypack.test.mjs` — v2 invariants (schema, order, wiring, data).
+- SW bumped `jelet-v3-sw-14` (kept; JS/CSS changed again).
+
+## Builder note (unchanged, important)
+
+`scripts/_build/build_units.py` is **stale** vs shipped units (drops
+`practiceQuestions[]`) — **do not re-run**. Unit truth changes go only through
+`build_study_packs.py` (idempotent, byte-identical re-runs).
 
 ## Owner actions pending (plan §4 step 5)
 
-1. Spot-check pilot content voice/depth (Workbooks → Study Pack tab on M01,
-   C03, E05) and the UI presentation.
-2. Sign off → `provenance.reviewedBy/reviewedAt` updated to reviewer name/date
-   in the drafts, builder re-applied, evidence updated.
-3. Approve continuing batches 1–5 (§3.4) or request template adjustments first.
+1. Re-review pilot v2 on device (`#/learn/M01|C03|E05?tab=study`) — depth, voice,
+   MCQ difficulty and reasons.
+2. Sign off → `provenance.reviewedBy/reviewedAt` stamped in the drafts and
+   re-applied; evidence updated.
+3. Approve batches 1–5 (39 units) with the same template.

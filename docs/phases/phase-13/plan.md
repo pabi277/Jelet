@@ -69,6 +69,33 @@ being executed in the current session** — only these research facts were refre
 
 ---
 
+## Amendment B — 2026-11-25 (owner-approved Study Pack v2 anatomy — supersedes part of Amendment A)
+
+After reviewing the v1 pilot on device, the owner judged it too shallow for exam
+preparation and approved a **fuller per-unit anatomy (Study Pack v2)**, adopting
+more of the Diploma-3rd-sem unit model (`docs/references/…UNIT-SYSTEM-REFERENCE.md`
+§3) than Amendment A §2 originally allowed:
+
+1. **v2 schema (replaces the Amendment-A §2 resolution "schema as proposed"):**
+   `studyPack` now carries **ten** blocks — `conceptPrimer` (5–6 topic-anchored
+   items with micro-examples), `keyFormulas` (12–18, the complete exam family,
+   `sfId` convention), `keyDefinitions` (6–12, `defId`), `comparisons` (3–4
+   side-by-side tables, `cmpId`), `mcqSelfTest` (8–10 original MCQs with keyed
+   answers + one-line reasons, `mcqId`), `memoryHooks`/`commonMistakes`/
+   `examChecklist` (8–12 each), `furtherReading`, `provenance` (unchanged).
+2. **MCQ behaviour (owner-selected):** reveal **per question** — tap
+   "Reveal answer + reason" under each card. Self-test MCQs are inline reveal
+   cards inside the Lesson tab: **never scored, never stored, never routed into
+   `practice-sets` or the `/500` metrics** (MCQ-only exam law preserved).
+3. **Pacing (owner-selected):** pilot `M01`/`C03`/`E05` rewritten to v2 → owner
+   re-reviews → batches 1–5 continue with the same template.
+4. Gate, authoring pipeline and UI laws unchanged; `verify_corpus.py` validates
+   every v2 block structurally (counts, id conventions/uniqueness, comparison
+   row/column shape, honest A-D keys) and `build_study_packs.py` remains the only
+   unit-writing path (`build_units.py` stays stale — do not re-run).
+
+---
+
 ## 0. The Goal in Plain Words
 
 You want the **Learn section** to carry *more study substance per unit* — deeper

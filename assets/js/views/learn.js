@@ -629,6 +629,98 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
         )
         .join("");
 
+      const sfHtml = (sp.keyFormulas || [])
+        .map(
+          (f) => `
+          <div class="lesson-formula-card study-sf">
+            <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+              <div class="cluster-xs">
+                ${f.sfId ? `<span class="mono pill">${escapeHtml(f.sfId)}</span>` : ""}
+                <span class="solution-step__head" style="margin:0">${escapeHtml(f.label || "")}</span>
+              </div>
+            </div>
+            <div class="math-scroll" style="margin-top:var(--space-xs)">${renderLatex(f.latex || "")}</div>
+            ${f.use ? `<p class="lesson-formula-card__note" style="margin-top:var(--space-3xs)">${escapeHtml(f.use)}</p>` : ""}
+          </div>
+        `
+        )
+        .join("");
+
+      const defsHtml = (sp.keyDefinitions || [])
+        .map(
+          (d) => `
+          <div class="study-def">
+            <dt>${escapeHtml(d.term || "")}</dt>
+            <dd>${renderLatex(d.definition || "")}</dd>
+          </div>
+        `
+        )
+        .join("");
+
+      const cmpHtml = (sp.comparisons || [])
+        .map(
+          (c) => `
+          <div class="stack-xs">
+            <div class="study-cmp-title">${escapeHtml(c.title || "")}</div>
+            <div class="study-cmp-scroll">
+              <table class="study-cmp">
+                <thead>
+                  <tr>${(c.columns || []).map((col) => `<th scope="col">${escapeHtml(col)}</th>`).join("")}</tr>
+                </thead>
+                <tbody>
+                  ${(c.rows || [])
+                    .map(
+                      (row) => `
+                      <tr>
+                        <th scope="row">${escapeHtml(row.label || "")}</th>
+                        ${(row.values || []).map((v) => `<td>${renderLatex(v)}</td>`).join("")}
+                      </tr>
+                    `
+                    )
+                    .join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `
+        )
+        .join("");
+
+      const mcqHtml = (sp.mcqSelfTest || [])
+        .map(
+          (q, i) => `
+          <article class="card stack-xs study-mcq" data-correct="${escapeHtml((q.correct || []).join(","))}">
+            <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+              ${q.mcqId ? `<span class="mono pill">${escapeHtml(q.mcqId)}</span>` : ""}
+              <span class="card__meta">Self-test Q${i + 1} / ${(sp.mcqSelfTest || []).length}</span>
+            </div>
+            <div class="lesson-prose">${renderLatex(q.stemLatex || "")}</div>
+            <div class="stack-xs">
+              ${(q.options || [])
+                .map(
+                  (opt) => `
+                  <div class="study-mcq-opt" data-opt="${escapeHtml(opt.id || "")}">
+                    <span class="study-mcq-opt__letter">${escapeHtml(opt.id || "")}</span>
+                    <div class="study-mcq-opt__body">${renderLatex(opt.latex || "")}</div>
+                  </div>
+                `
+                )
+                .join("")}
+            </div>
+            <button type="button" class="btn btn--ghost btn--sm js-mcq-reveal" aria-expanded="false" style="align-self:flex-start">
+              ${icon("icon-check")} Reveal answer + reason
+            </button>
+            <div class="study-mcq-answer" hidden>
+              <div class="study-mcq-answer__key">Correct:
+                ${(q.correct || []).map((c) => `<span class="badge badge--correct">${escapeHtml(c)}</span>`).join(" ")}
+              </div>
+              <div class="study-mcq-answer__why">${renderLatex(q.explanation || "")}</div>
+            </div>
+          </article>
+        `
+        )
+        .join("");
+
       const hooksHtml = (sp.memoryHooks || [])
         .map(
           (h, i) => `
@@ -690,6 +782,30 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
               ${primerHtml}
             </section>
 
+            ${sfHtml ? `
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-formula")} Key Formula Family <span class="study-block-title__meta">the complete exam set · ${escapeHtml(String((sp.keyFormulas || []).length))} identities</span></h3>
+              <div class="stack-xs">${sfHtml}</div>
+            </section>` : ""}
+
+            ${defsHtml ? `
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-layers")} Key Definitions <span class="study-block-title__meta">the terms the paper uses</span></h3>
+              <dl class="study-defs">${defsHtml}</dl>
+            </section>` : ""}
+
+            ${cmpHtml ? `
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-info")} Comparisons <span class="study-block-title__meta">side-by-side, never confused again</span></h3>
+              ${cmpHtml}
+            </section>` : ""}
+
+            ${mcqHtml ? `
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-check")} MCQ Self-Test <span class="study-block-title__meta">exam-true practice · tap to reveal · never scored</span></h3>
+              ${mcqHtml}
+            </section>` : ""}
+
             <section class="stack-xs">
               <h3 class="study-block-title">${icon("icon-bolt")} Memory Hooks <span class="study-block-title__meta">one-line recall aids</span></h3>
               <div class="study-hook-grid">${hooksHtml}</div>
@@ -713,6 +829,26 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
           </div>
         `)
       );
+
+      // MCQ self-test wiring: per-question reveal, zero storage, zero scoring.
+      slot.querySelectorAll(".js-mcq-reveal").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const card = btn.closest(".study-mcq");
+          if (!card) return;
+          const box = card.querySelector(".study-mcq-answer");
+          const revealed = !box.hidden;
+          box.hidden = revealed;
+          btn.setAttribute("aria-expanded", revealed ? "false" : "true");
+          btn.innerHTML = revealed
+            ? `${icon("icon-check")} Reveal answer + reason`
+            : `${icon("icon-close")} Hide answer`;
+          const correctSet = new Set(String(card.dataset.correct || "").split(",").filter(Boolean));
+          card.querySelectorAll(".study-mcq-opt").forEach((opt) => {
+            if (revealed) opt.removeAttribute("data-hit");
+            else if (correctSet.has(String(opt.dataset.opt))) opt.setAttribute("data-hit", "true");
+          });
+        });
+      });
       return;
     }
 

@@ -2890,3 +2890,152 @@
   padding-top: var(--space-2xs);
   border-top: 1px solid var(--border-subtle);
 }
+
+/* Study Pack v2 blocks — definitions, comparisons, MCQ self-test */
+.study-defs {
+  margin: 0;
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.study-def {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3xs);
+  padding: var(--space-2xs) 0;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+.study-def:last-child {
+  border-bottom: none;
+}
+
+.study-def dt {
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+
+.study-def dd {
+  margin: 0;
+  font-size: var(--fs-caption);
+  line-height: var(--lh-prose);
+  color: var(--text-secondary);
+}
+
+.study-cmp-title {
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: var(--space-2xs);
+}
+
+.study-cmp-scroll {
+  /* Repo law: no horizontal scrollbars — tables wrap like .math-scroll. */
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.study-cmp {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: var(--fs-caption);
+}
+
+.study-cmp th,
+.study-cmp td {
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-2xs) var(--space-xs);
+  text-align: left;
+  vertical-align: top;
+  line-height: var(--lh-prose);
+  overflow-wrap: anywhere;
+}
+
+.study-cmp thead th {
+  background: var(--brand-tint);
+  color: var(--brand-primary);
+  font-weight: 700;
+}
+
+.study-cmp tbody th {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.study-cmp td {
+  color: var(--text-secondary);
+}
+
+.study-sf {
+  border-left-color: var(--fig-accent);
+}
+
+.study-mcq {
+  border-left: 3px solid var(--border-strong);
+}
+
+.study-mcq-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--border-subtle);
+}
+
+.study-mcq-opt__letter {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-strong);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.study-mcq-opt__body {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-prose);
+  color: var(--text-primary);
+  min-width: 0;
+}
+
+.study-mcq-opt[data-hit="true"] {
+  background: var(--status-correct-bg);
+  border-color: var(--border-strong);
+}
+
+.study-mcq-opt[data-hit="true"] .study-mcq-opt__letter {
+  background: var(--status-correct-fg);
+  border-color: var(--status-correct-fg);
+  color: var(--status-correct-bg);
+}
+
+.study-mcq-answer {
+  border-left: 3px solid var(--status-correct-fg);
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-s);
+  padding: var(--space-xs) var(--space-s);
+}
+
+.study-mcq-answer__key {
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  color: var(--status-correct-fg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.study-mcq-answer__why {
+  margin-top: var(--space-2xs);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-prose);
+  color: var(--text-secondary);
+}

@@ -152,43 +152,669 @@
     "conceptPrimer": [
       {
         "prdId": "E05-PRD01",
-        "heading": "Why AC Needs an RMS — Heat Is the Referee",
-        "proseLatex": "A sinusoidal current is negative for half of every cycle, so its plain average over a full period is ZERO — yet it still lights lamps, because heating goes as $i^2$, which is always positive. The root-mean-square value is the DC current that would deliver the same heating: square it, average it, take the square root — hence $I_{\\text{rms}} = \\frac{i_m}{\\sqrt{2}} \\approx 0.707\\, i_m$ for a sine. Unless a question states otherwise, every AC meter reading and every power formula speaks RMS (mains '220 V' is an RMS value; its peak is $220\\sqrt{2} \\approx 311\\text{ V}$). The mean value is quoted over a HALF cycle for the same full-cycle-cancellation reason: $\\frac{2 i_m}{\\pi} \\approx 0.637\\, i_m$."
+        "heading": "The Sine & Its Four Numbers",
+        "proseLatex": "Every AC question starts from one sentence: $v = V_m \\sin(\\omega t)$ with $\\omega = 2\\pi f$ and $T = 1/f$. A pure sine then owns four characteristic numbers. RMS (root-mean-square): square, average, take the square root — $V_{\\text{rms}} = V_m/\\sqrt{2} \\approx 0.707\\,V_m$; it is the DC equivalent for heating, it is what every AC meter reads, and '220 V mains' is already an RMS value (its peak is $220\\sqrt{2} \\approx 311\\text{ V}$). Mean value: the full-cycle average of a sine is ZERO (equal positive and negative loops), so the quoted figure is the HALF-cycle average $\\frac{2V_m}{\\pi} \\approx 0.637\\,V_m$. Form factor $= \\frac{\\text{RMS}}{\\text{average}} = 1.11$ and peak (crest) factor $= \\frac{V_m}{V_{\\text{rms}}} = 1.414$. Micro-check: a 100 W bulb on 220 V draws $I = 100/220 = 0.454\\text{ A}$ (RMS) while its peak voltage is 311 V — two different 'voltages', one lamp."
       },
       {
         "prdId": "E05-PRD02",
-        "heading": "L and C Fight the Change — One Lags, One Leads",
-        "proseLatex": "An inductor opposes any change in current (its back-emf follows Lenz's law), so in a pure inductor the current LAGS the voltage by $90^{\\circ}$, and the opposition it offers is $X_L = \\omega L$, which GROWS with frequency. A capacitor opposes any change in voltage (the current must charge it first), so the current LEADS by $90^{\\circ}$, and its opposition $X_C = \\frac{1}{\\omega C}$ SHRINKS as frequency rises. Because those two phase shifts point in opposite directions, $X_L$ and $X_C$ partially cancel in a series circuit: $Z = \\sqrt{R^2 + (X_L - X_C)^2}$. This is also why series branch voltages must never be added arithmetically — they are out of phase, and only their phasor (Pythagorean) sum equals the source voltage."
+        "heading": "Pure R, L, C: One Resists, Two Oppose the Change",
+        "proseLatex": "A resistor fights current regardless of waveform — voltage and current stay IN PHASE and $P = I^2R$ always. An inductor opposes any CHANGE of current through its back-emf (Lenz's law), so in pure $L$ the current LAGS the voltage by $90^{\\circ}$, the opposition is $X_L = \\omega L$ which GROWS with frequency, and the average power over a cycle is zero — the energy borrowed while current builds is returned as it collapses. A capacitor opposes any CHANGE of voltage (the current must charge it first), so current LEADS by $90^{\\circ}$, the opposition is $X_C = 1/(\\omega C)$ which SHRINKS as frequency rises, and again no net power is consumed. Micro-check: $L = 25\\text{ mH}$ at $50\\text{ Hz}$ gives $X_L = 2\\pi(50)(0.025) \\approx 7.85\\,\\Omega$ and $I = 220/7.85 \\approx 28\\text{ A}$ — a pure inductor limits current like a resistor but bills nothing."
       },
       {
         "prdId": "E05-PRD03",
-        "heading": "Resonance and the Power Factor — AC Behaves Like DC",
-        "proseLatex": "At $\\omega_0 = \\frac{1}{\\sqrt{LC}}$ the two reactances match ($X_L = X_C$) and cancel completely: impedance collapses to its minimum $Z = R$, current peaks, and the power factor hits unity — for that one frequency the circuit behaves like a pure resistor. The price of the cancellation is voltage magnification: at resonance $V_L = V_C = Q V_S$, where $Q = \\frac{\\omega_0 L}{R}$ measures how sharply the circuit selects its frequency (higher $Q$, taller and narrower peak). Away from resonance, real power still flows only through the resistance: $P = V I \\cos\\phi$. A pure $L$ or $C$ draws 'wattless' current ($\\cos\\phi = 0$) — it borrows energy and hands it all back, net zero over a cycle."
+        "heading": "Phasors & the Impedance Triangle",
+        "proseLatex": "Because $V_L$ and $V_C$ are out of phase with everything else, series voltages must never be added arithmetically — the NCERT's own example shows $V_R + V_C = 311\\text{ V}$ across a 220 V source, resolved only by the Pythagorean sum. Phasors are rotating vectors whose projections give the instantaneous values; for steady-state AC they reduce the whole circuit to one right triangle: horizontal leg $R$, vertical leg $X_L - X_C$, hypotenuse $Z = \\sqrt{R^2 + (X_L - X_C)^2}$, and $\\tan\\phi = \\frac{X_L - X_C}{R}$. The SIGN of the net reactance decides the character: $X_L > X_C$ — net inductive, current lags; $X_C > X_L$ — net capacitive, current leads; $X_L = X_C$ — pure resistance, in phase. Micro-check: $R = 30\\,\\Omega$, $X_L = 40\\,\\Omega$ gives $Z = 50\\,\\Omega$ and $\\cos\\phi = 30/50 = 0.6$ — the 3-4-5 triangle in disguise."
+      },
+      {
+        "prdId": "E05-PRD04",
+        "heading": "Series RLC Swept Across Frequency",
+        "proseLatex": "Sweep the frequency of a series RLC and watch two reactances race in opposite directions: at low frequency $X_C$ dominates (circuit capacitive, current leads), at high frequency $X_L$ dominates (inductive, current lags), and exactly one frequency $f_0 = \\frac{1}{2\\pi\\sqrt{LC}}$ makes them meet and cancel. There $Z$ collapses to its minimum $Z = R$ — never below $R$, at any frequency — so the current peaks to $V/R$ and the power factor reaches unity. Below resonance the capacitor rules; above it the inductor rules; the phase angle $\\phi$ slides smoothly from negative (leading) through zero to positive (lagging). Micro-check: $L = 0.1\\text{ H}$, $C = 10\\,\\mu\\text{F}$ gives $\\sqrt{LC} = 10^{-3}\\text{ s}$, so $f_0 = \\frac{1}{2\\pi \\times 10^{-3}} \\approx 159\\text{ Hz}$ — a radio-tuner answer in one line."
+      },
+      {
+        "prdId": "E05-PRD05",
+        "heading": "Resonance Magnification: Q & Bandwidth",
+        "proseLatex": "Resonance does two opposite things at once: it MINIMIZES impedance (series circuit) and MAXIMIZES the voltage across the reactive elements — at $f_0$, $V_L = V_C = QV_S$ where $Q = \\frac{\\omega_0 L}{R} = \\frac{1}{\\omega_0 C R} = \\frac{1}{R}\\sqrt{\\frac{L}{C}}$ (all three forms agree at $\\omega_0$). High $Q$ means small $R$: a taller, narrower current peak — better selectivity, bigger magnified voltages (which is why $QV_S > V_S$ must be respected in component ratings). Bandwidth measures the peak's width between the half-power ($1/\\sqrt{2}$) points: $\\Delta\\omega = R/L$ in rad/s, or $\\Delta f = \\frac{R}{2\\pi L}$ in Hz, and $Q = \\frac{\\omega_0}{\\Delta\\omega} = \\frac{f_0}{\\Delta f}$ — selectivity and bandwidth are the same coin. Micro-check: $R = 10\\,\\Omega$, $L = 0.1\\text{ H}$ resonating at $\\omega_0 = 1000\\text{ rad/s}$ gives $Q = 10$ and $\\Delta\\omega = 100\\text{ rad/s}$."
+      },
+      {
+        "prdId": "E05-PRD06",
+        "heading": "Power, Power Factor & Wattless Current",
+        "proseLatex": "Only resistance burns power, so the average power is $P = VI\\cos\\phi = I^2R$ with RMS values throughout — the $\\cos\\phi$ (power factor) is the fraction of the apparent power $S = VI$ that does real work. The power triangle stacks them: real $P$ (watts), reactive $Q_{\\text{r}} = VI\\sin\\phi$ (VAR, sloshing between source and reactance), apparent $S = VI$ (VA) as the hypotenuse. A pure inductor or capacitor draws 'wattless' current — $\\cos\\phi = 0$, current flows, energy returns, net power zero — which is why an ideal $L$ or $C$ can never be the load that heats anything. Low power factor is expensive: for the same $P$, the current grows as $1/\\cos\\phi$, and transmission losses grow as its square — hence capacitors are added across inductive loads to pull $\\phi$ toward zero. Micro-check: $V = 230\\text{ V}$, $I = 5\\text{ A}$, $\\cos\\phi = 0.8$ gives $P = 920\\text{ W}$ while $S = 1150\\text{ VA}$ — the difference is reactive ballast. (Balanced 3-phase: $P = \\sqrt{3}\\,V_L I_L \\cos\\phi$.)"
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "E05-SF01",
+        "label": "Sine Wave & Angular Frequency",
+        "latex": "$v = V_m \\sin(\\omega t), \\quad \\omega = 2\\pi f, \\quad T = 1/f$",
+        "use": "Convert to angular form BEFORE computing any reactance."
+      },
+      {
+        "sfId": "E05-SF02",
+        "label": "RMS Value (Sine)",
+        "latex": "$V_{\\text{rms}} = \\dfrac{V_m}{\\sqrt{2}} \\approx 0.707\\,V_m$",
+        "use": "The heating-equivalent DC value; what AC meters read; mains 220 V is RMS."
+      },
+      {
+        "sfId": "E05-SF03",
+        "label": "Half-Cycle Mean Value",
+        "latex": "$V_{\\text{avg}} = \\dfrac{2V_m}{\\pi} \\approx 0.637\\,V_m$",
+        "use": "Full-cycle average is zero — the quoted mean is over half a cycle."
+      },
+      {
+        "sfId": "E05-SF04",
+        "label": "Form & Peak (Crest) Factors",
+        "latex": "$\\text{Form} = \\dfrac{V_{\\text{rms}}}{V_{\\text{avg}}} = 1.11, \\quad \\text{Peak} = \\dfrac{V_m}{V_{\\text{rms}}} = 1.414$",
+        "use": "Sine-wave shape numbers — quotable, one-mark answers."
+      },
+      {
+        "sfId": "E05-SF05",
+        "label": "Inductive Reactance",
+        "latex": "$X_L = \\omega L = 2\\pi f L$",
+        "use": "Grows with frequency; current LAGS voltage by $90^{\\circ}$ in pure $L$."
+      },
+      {
+        "sfId": "E05-SF06",
+        "label": "Capacitive Reactance",
+        "latex": "$X_C = \\dfrac{1}{\\omega C} = \\dfrac{1}{2\\pi f C}$",
+        "use": "Shrinks as frequency rises; current LEADS voltage by $90^{\\circ}$ in pure $C$."
+      },
+      {
+        "sfId": "E05-SF07",
+        "label": "Series RLC Impedance",
+        "latex": "$Z = \\sqrt{R^2 + (X_L - X_C)^2}$",
+        "use": "The impedance triangle hypotenuse; never below $R$."
+      },
+      {
+        "sfId": "E05-SF08",
+        "label": "Phase Angle & Power Factor",
+        "latex": "$\\tan\\phi = \\dfrac{X_L - X_C}{R}, \\quad \\cos\\phi = \\dfrac{R}{Z}$",
+        "use": "Sign of net reactance decides lag (positive) or lead (negative)."
+      },
+      {
+        "sfId": "E05-SF09",
+        "label": "Phasor Voltage Sum",
+        "latex": "$V_S = \\sqrt{V_R^2 + (V_L - V_C)^2}$",
+        "use": "Series branch voltages add phasor-wise, never arithmetically."
+      },
+      {
+        "sfId": "E05-SF10",
+        "label": "Resonant Frequency",
+        "latex": "$f_0 = \\dfrac{1}{2\\pi\\sqrt{LC}}, \\quad \\omega_0 = \\dfrac{1}{\\sqrt{LC}}$",
+        "use": "Where $X_L = X_C$; $Z_{\\min} = R$, current maximum, $\\cos\\phi = 1$."
+      },
+      {
+        "sfId": "E05-SF11",
+        "label": "Quality Factor (Three Equal Forms)",
+        "latex": "$Q = \\dfrac{\\omega_0 L}{R} = \\dfrac{1}{\\omega_0 C R} = \\dfrac{1}{R}\\sqrt{\\dfrac{L}{C}}$",
+        "use": "Sharpness of resonance; also $V_L = V_C = Q V_S$ at resonance."
+      },
+      {
+        "sfId": "E05-SF12",
+        "label": "Bandwidth",
+        "latex": "$\\Delta\\omega = \\dfrac{R}{L}\\;(\\text{rad/s}), \\quad \\Delta f = \\dfrac{R}{2\\pi L}\\;(\\text{Hz}), \\quad Q = \\dfrac{\\omega_0}{\\Delta\\omega}$",
+        "use": "Half-power width; quote the unit deliberately — rad/s vs Hz."
+      },
+      {
+        "sfId": "E05-SF13",
+        "label": "AC Real Power",
+        "latex": "$P = VI\\cos\\phi = I^2R = I^2 Z\\cos\\phi$",
+        "use": "RMS values only; real power lives in the resistance alone."
+      },
+      {
+        "sfId": "E05-SF14",
+        "label": "Power Triangle",
+        "latex": "$S = VI\\;(\\text{VA}), \\quad Q_r = VI\\sin\\phi\\;(\\text{VAR}), \\quad S^2 = P^2 + Q_r^2$",
+        "use": "Apparent, reactive and real power — the three sides of one triangle."
+      },
+      {
+        "sfId": "E05-SF15",
+        "label": "Balanced 3-Phase Power",
+        "latex": "$P = \\sqrt{3}\\,V_L I_L \\cos\\phi$",
+        "use": "Line quantities for balanced three-phase loads (star or delta)."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "E05-DEF01",
+        "term": "RMS (Effective) Value",
+        "definition": "The DC value that would deliver the same average heating in a resistor over a cycle; for a sine, $V_m/\\sqrt{2}$ — the value AC meters report."
+      },
+      {
+        "defId": "E05-DEF02",
+        "term": "Average (Mean) Value",
+        "definition": "The algebraic mean of the waveform over half a cycle for a sine ($2V_m/\\pi$); over a full cycle a pure sine averages to zero."
+      },
+      {
+        "defId": "E05-DEF03",
+        "term": "Form Factor",
+        "definition": "Ratio of RMS to mean value ($1.11$ for a sine); a shape descriptor of the waveform."
+      },
+      {
+        "defId": "E05-DEF04",
+        "term": "Peak (Crest) Factor",
+        "definition": "Ratio of peak to RMS value ($\\sqrt{2} = 1.414$ for a sine); measures how spiky the waveform is."
+      },
+      {
+        "defId": "E05-DEF05",
+        "term": "Reactance",
+        "definition": "Frequency-dependent opposition offered by an inductor ($X_L = \\omega L$) or capacitor ($X_C = 1/\\omega C$); the net series reactance is $X_L - X_C$."
+      },
+      {
+        "defId": "E05-DEF06",
+        "term": "Impedance",
+        "definition": "The total phasor opposition of a circuit, $Z = \\sqrt{R^2 + (X_L - X_C)^2}$; its angle is the phase difference between V and I."
+      },
+      {
+        "defId": "E05-DEF07",
+        "term": "Phase Angle ($\\phi$)",
+        "definition": "The angle by which the current leads ($X_C$ dominant) or lags ($X_L$ dominant) the voltage; zero at resonance and in pure resistive circuits."
+      },
+      {
+        "defId": "E05-DEF08",
+        "term": "Power Factor",
+        "definition": "$\\cos\\phi = R/Z$ — the fraction of apparent power doing real work; unity in pure resistance, zero in pure $L$ or $C$."
+      },
+      {
+        "defId": "E05-DEF09",
+        "term": "Wattless Current",
+        "definition": "Current through a pure inductor or capacitor: the circuit returns every joule it borrows, so average power is zero despite non-zero current."
+      },
+      {
+        "defId": "E05-DEF10",
+        "term": "Q-Factor & Bandwidth",
+        "definition": "Q measures resonance sharpness ($\\omega_0 L/R$) and equals the voltage magnification $V_L/V_S$; bandwidth is the half-power width $R/L$ rad/s — $Q = \\omega_0/\\Delta\\omega$."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "E05-CMP01",
+        "title": "Pure R vs Pure L vs Pure C",
+        "columns": [
+          "Aspect",
+          "Pure R",
+          "Pure L",
+          "Pure C"
+        ],
+        "rows": [
+          {
+            "label": "Phase of I vs V",
+            "values": [
+              "In phase ($\\phi = 0$)",
+              "I lags V by $90^{\\circ}$",
+              "I leads V by $90^{\\circ}$"
+            ]
+          },
+          {
+            "label": "Opposition",
+            "values": [
+              "$R$ (frequency-independent)",
+              "$X_L = \\omega L$ (grows with $f$)",
+              "$X_C = 1/\\omega C$ (falls with $f$)"
+            ]
+          },
+          {
+            "label": "Average power",
+            "values": [
+              "$I^2R$ dissipated",
+              "Zero (wattless)",
+              "Zero (wattless)"
+            ]
+          },
+          {
+            "label": "Cause",
+            "values": [
+              "Ohmic collisions",
+              "Back-emf resists change of current (Lenz)",
+              "Charging current precedes voltage"
+            ]
+          },
+          {
+            "label": "At $f = 0$ (DC)",
+            "values": [
+              "Ordinary resistance",
+              "Short circuit ($X_L = 0$)",
+              "Open circuit ($X_C = \\infty$)"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E05-CMP02",
+        "title": "Series vs Parallel Resonance",
+        "columns": [
+          "Feature",
+          "Series (RLC in series)",
+          "Parallel (LC tank)"
+        ],
+        "rows": [
+          {
+            "label": "Impedance at $f_0$",
+            "values": [
+              "MINIMUM ($Z = R$)",
+              "MAXIMUM (ideally infinite)"
+            ]
+          },
+          {
+            "label": "Current at $f_0$",
+            "values": [
+              "Maximum ($V/R$)",
+              "Minimum line current"
+            ]
+          },
+          {
+            "label": "Nickname",
+            "values": [
+              "Acceptor circuit — selects $f_0$",
+              "Rejector circuit — blocks $f_0$"
+            ]
+          },
+          {
+            "label": "Magnification",
+            "values": [
+              "Voltage magnified $Q\\times$ across L and C",
+              "Current circulates inside the tank, magnified $Q\\times$"
+            ]
+          },
+          {
+            "label": "Typical use",
+            "values": [
+              "Tuning/selectivity in series paths",
+              "Tank circuits of oscillators/filters"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E05-CMP03",
+        "title": "RL vs RC Series Circuit",
+        "columns": [
+          "Aspect",
+          "Series RL",
+          "Series RC"
+        ],
+        "rows": [
+          {
+            "label": "Net reactance sign",
+            "values": [
+              "$X_L > 0$ (inductive)",
+              "$-X_C$ (capacitive)"
+            ]
+          },
+          {
+            "label": "Current vs voltage",
+            "values": [
+              "I lags by $\\phi = \\tan^{-1}(X_L/R)$",
+              "I leads by $|\\phi| = \\tan^{-1}(X_C/R)$"
+            ]
+          },
+          {
+            "label": "Impedance",
+            "values": [
+              "$Z = \\sqrt{R^2 + X_L^2}$",
+              "$Z = \\sqrt{R^2 + X_C^2}$"
+            ]
+          },
+          {
+            "label": "Raising $f$ does…",
+            "values": [
+              "Grows $X_L$ → grows $Z$, shrinks I",
+              "Shrinks $X_C$ → shrinks Z, grows I"
+            ]
+          },
+          {
+            "label": "Power factor",
+            "values": [
+              "$R/\\sqrt{R^2 + X_L^2}$ (lagging)",
+              "$R/\\sqrt{R^2 + X_C^2}$ (leading)"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E05-CMP04",
+        "title": "RMS Value vs Average Value",
+        "columns": [
+          "Aspect",
+          "RMS (Effective)",
+          "Average (Mean)"
+        ],
+        "rows": [
+          {
+            "label": "Definition basis",
+            "values": [
+              "Heating ($i^2R$) equivalence — square, mean, root",
+              "Algebraic area under the curve"
+            ]
+          },
+          {
+            "label": "Sine value",
+            "values": [
+              "$V_m/\\sqrt{2} \\approx 0.707V_m$",
+              "$2V_m/\\pi \\approx 0.637V_m$ (half cycle); 0 over full cycle"
+            ]
+          },
+          {
+            "label": "What reads it",
+            "values": [
+              "AC ammeters/voltmeters, mains ratings",
+              "Moving-coil (PMMC) instruments read the DC-average content"
+            ]
+          },
+          {
+            "label": "Used in",
+            "values": [
+              "Power calculations ($P = VI\\cos\\phi$)",
+              "Rectifier output analysis (DC content)"
+            ]
+          },
+          {
+            "label": "Relation",
+            "values": [
+              "Form factor = RMS/Average = 1.11 for a sine",
+              "Peak factor = Peak/RMS = 1.414 for a sine"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "E05-MCQ01",
+        "stemLatex": "The peak value of the 220 V AC mains supply is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$220\\text{ V}$"
+          },
+          {
+            "id": "B",
+            "latex": "$311\\text{ V}$"
+          },
+          {
+            "id": "C",
+            "latex": "$156\\text{ V}$"
+          },
+          {
+            "id": "D",
+            "latex": "$440\\text{ V}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Mains ratings are RMS: $V_m = \\sqrt{2} \\times 220 \\approx 311\\text{ V}$. Insulation must survive the peak, not the RMS."
+      },
+      {
+        "mcqId": "E05-MCQ02",
+        "stemLatex": "The inductive reactance of a $0.5\\text{ H}$ inductor at $50\\text{ Hz}$ is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$25\\,\\Omega$"
+          },
+          {
+            "id": "B",
+            "latex": "$78.5\\,\\Omega$"
+          },
+          {
+            "id": "C",
+            "latex": "$157\\,\\Omega$"
+          },
+          {
+            "id": "D",
+            "latex": "$314\\,\\Omega$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$X_L = 2\\pi fL = 2\\pi(50)(0.5) \\approx 157\\,\\Omega$ — convert to angular form first, then multiply."
+      },
+      {
+        "mcqId": "E05-MCQ03",
+        "stemLatex": "In a purely capacitive AC circuit, the current:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "lags the voltage by $90^{\\circ}$"
+          },
+          {
+            "id": "B",
+            "latex": "leads the voltage by $90^{\\circ}$"
+          },
+          {
+            "id": "C",
+            "latex": "is in phase with the voltage"
+          },
+          {
+            "id": "D",
+            "latex": "lags the voltage by $45^{\\circ}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "The charging current must flow BEFORE the capacitor voltage builds — current leads by $90^{\\circ}$ (ELI the ICE man: ICE = C, I leads E)."
+      },
+      {
+        "mcqId": "E05-MCQ04",
+        "stemLatex": "A series circuit has $R = 60\\,\\Omega$ and $X_L = 80\\,\\Omega$. Its impedance and power factor are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$100\\,\\Omega$, $0.6$"
+          },
+          {
+            "id": "B",
+            "latex": "$140\\,\\Omega$, $0.43$"
+          },
+          {
+            "id": "C",
+            "latex": "$100\\,\\Omega$, $0.8$"
+          },
+          {
+            "id": "D",
+            "latex": "$20\\,\\Omega$, $3.0$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "3-4-5 triangle: $Z = \\sqrt{60^2 + 80^2} = 100\\,\\Omega$; $\\cos\\phi = R/Z = 60/100 = 0.6$. (Impedance is phasor addition, never $60 + 80$.)"
+      },
+      {
+        "mcqId": "E05-MCQ05",
+        "stemLatex": "The resonant frequency of a series circuit with $L = 0.5\\text{ H}$ and $C = 8\\,\\mu\\text{F}$ is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$7.96\\text{ Hz}$"
+          },
+          {
+            "id": "B",
+            "latex": "$79.6\\text{ Hz}$"
+          },
+          {
+            "id": "C",
+            "latex": "$159\\text{ Hz}$"
+          },
+          {
+            "id": "D",
+            "latex": "$796\\text{ Hz}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\sqrt{LC} = \\sqrt{0.5 \\times 8 \\times 10^{-6}} = \\sqrt{4 \\times 10^{-6}} = 2 \\times 10^{-3}\\text{ s}$; $f_0 = \\frac{1}{2\\pi \\times 2 \\times 10^{-3}} \\approx 79.6\\text{ Hz}$."
+      },
+      {
+        "mcqId": "E05-MCQ06",
+        "stemLatex": "At series resonance, the power factor of the circuit is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.5$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.707$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$X_L = X_C$ cancels the reactance, so $Z = R$ and $\\cos\\phi = R/R = 1$ — the circuit behaves as pure resistance (also $P = V I$, maximum for the given V)."
+      },
+      {
+        "mcqId": "E05-MCQ07",
+        "stemLatex": "A series RLC circuit has $R = 5\\,\\Omega$, $L = 0.5\\text{ H}$, $C = 2\\,\\mu\\text{F}$. At resonance, $Q$ and the bandwidth ($\\text{rad/s}$) are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$Q = 100$, $\\Delta\\omega = 10\\text{ rad/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$Q = 10$, $\\Delta\\omega = 100\\text{ rad/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$Q = 1000$, $\\Delta\\omega = 1\\text{ rad/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$Q = 50$, $\\Delta\\omega = 20\\text{ rad/s}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\omega_0 = 1/\\sqrt{LC} = 1/\\sqrt{10^{-6}} = 1000\\text{ rad/s}$; $Q = \\omega_0L/R = 1000 \\times 0.5/5 = 100$; $\\Delta\\omega = R/L = 5/0.5 = 10\\text{ rad/s}$ — and indeed $Q = \\omega_0/\\Delta\\omega$."
+      },
+      {
+        "mcqId": "E05-MCQ08",
+        "stemLatex": "Current in which circuit element can be 'wattless'?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "Pure resistor"
+          },
+          {
+            "id": "B",
+            "latex": "Pure inductor or pure capacitor"
+          },
+          {
+            "id": "C",
+            "latex": "Any series RLC at resonance"
+          },
+          {
+            "id": "D",
+            "latex": "No element — all AC current dissipates power"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "In pure L or C, $\\phi = \\pm 90^{\\circ}$ so $\\cos\\phi = 0$ and average power is zero — the element returns all borrowed energy each cycle."
+      },
+      {
+        "mcqId": "E05-MCQ09",
+        "stemLatex": "The form factor of a sinusoidal waveform is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1.414$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.11$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.637$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.707$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Form factor = RMS/average $= 0.707/0.637 \\approx 1.11$. (1.414 is the peak factor; 0.707 and 0.637 are the raw RMS and mean ratios.)"
+      },
+      {
+        "mcqId": "E05-MCQ10",
+        "stemLatex": "An AC load draws $4\\text{ A}$ (RMS) at $230\\text{ V}$ with a phase angle of $60^{\\circ}$. The average power consumed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$920\\text{ W}$"
+          },
+          {
+            "id": "B",
+            "latex": "$460\\text{ W}$"
+          },
+          {
+            "id": "C",
+            "latex": "$796\\text{ W}$"
+          },
+          {
+            "id": "D",
+            "latex": "$530\\text{ W}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$P = VI\\cos\\phi = 230 \\times 4 \\times \\cos 60^{\\circ} = 920 \\times 0.5 = 460\\text{ W}$. Option A forgot the power factor ($S = 920\\text{ VA}$ is apparent power)."
       }
     ],
     "memoryHooks": [
-      "The four sine numbers: RMS $= 0.707\\,V_m$, half-cycle average $= 0.637\\,V_m$, form factor $= 1.11$, peak factor $= 1.414$.",
-      "ELI the ICE man: in L (ELI), voltage E leads current I; in C (ICE), current I leads voltage E.",
-      "$X_L = \\omega L$ climbs with frequency; $X_C = \\frac{1}{\\omega C}$ dives — they cross at resonance.",
+      "The four sine numbers: RMS $0.707\\,V_m$, half-cycle mean $0.637\\,V_m$, form factor $1.11$, peak factor $1.414$.",
+      "ELI the ICE man: in L (ELI) E leads I; in C (ICE) I leads E.",
+      "$X_L = \\omega L$ climbs with frequency; $X_C = 1/\\omega C$ dives — they cross at resonance.",
       "Series resonance trio: $Z$ minimum $= R$, current maximum, power factor $= 1$.",
-      "$\\omega = 2\\pi f$ — convert to angular form BEFORE computing any reactance.",
-      "Real power lives in $R$ only: $P = VI\\cos\\phi = I^2 R$, with $\\cos\\phi = \\frac{R}{Z}$."
+      "At resonance the reactances magnify: $V_L = V_C = Q V_S$ — respect component ratings.",
+      "$\\omega = 2\\pi f$ — convert to angular form BEFORE any reactance.",
+      "Real power lives in $R$ only: $P = VI\\cos\\phi = I^2R$; pure L and C are wattless.",
+      "Power triangle: $S = VI$ (VA) hypotenuse, $P$ (W) horizontal, $Q_r$ (VAR) vertical.",
+      "High $Q$ = small $R$ = tall narrow peak = high selectivity = big bandwidth inverse.",
+      "Bandwidth units: $\\Delta\\omega = R/L$ rad/s vs $\\Delta f = R/(2\\pi L)$ Hz — never mix them.",
+      "$Z \\geq R$ always: any series-RLC answer below $R$ is a red flag, not a result."
     ],
     "commonMistakes": [
       "Mixing peak and RMS: inserting $V_m$ or $i_m$ into $P = VI\\cos\\phi$ — power formulas accept RMS values only.",
-      "Adding $X_L$ and $X_C$ as if both were positive: the net reactance is $X_L - X_C$, and its SIGN decides whether the circuit is net-inductive (current lags) or net-capacitive (current leads).",
-      "Reporting 'average value of AC is zero' and then refusing to compute the half-cycle mean when a question explicitly asks for the average (mean) value.",
-      "Treating an ideal inductor or capacitor as a power consumer — each returns every joule it borrows; the average power over a cycle is zero and only $R$ dissipates.",
-      "Quoting $Q = \\frac{\\omega_0 L}{R}$ while forgetting the same $R$ sits in the equivalent form $Q = \\frac{1}{\\omega_0 C R}$ — dropping $R$ (or using $L$ and $C$ inconsistently) inflates the factor."
+      "Adding $X_L$ and $X_C$ as if both were positive: the net reactance is $X_L - X_C$, and its SIGN decides lag vs lead.",
+      "Adding series branch voltages arithmetically ($V_R + V_C > V_S$ 'paradox') — phasor (Pythagorean) addition is mandatory.",
+      "Reporting 'average of AC is zero' and then refusing to compute the half-cycle mean when the question explicitly asks for the average value.",
+      "Treating an ideal inductor or capacitor as a power consumer — each returns every joule it borrows; only $R$ dissipates.",
+      "Quoting $Q = \\omega_0L/R$ while dropping $R$ or mixing $L$ and $C$ inconsistently with the equal form $Q = 1/(\\omega_0CR)$.",
+      "Slipping on unit prefixes: $\\mu F = 10^{-6}$ F, $\\text{mH} = 10^{-3}$ H — one slip scales $f_0$ or $X$ by thousands.",
+      "Mixing degrees and radians inside $\\phi$ (e.g. feeding degrees into $\\tan^{-1}$ outputs assumed in radians) — pick one convention per line.",
+      "Confusing series resonance (impedance minimum, acceptor) with parallel resonance (impedance maximum, rejector) — the flip that examiners love."
     ],
     "examChecklist": [
-      "Open every AC question by fixing the vocabulary: $v = V_m \\sin \\omega t$, $\\omega = 2\\pi f$, $T = \\frac{1}{f}$.",
-      "Know which factor is which: form factor $= \\frac{\\text{RMS}}{\\text{average}} = 1.11$, peak (crest) factor $= \\frac{V_m}{V_{\\text{rms}}} = 1.414$ for a sine.",
-      "For any series RLC: sketch the impedance triangle ($R$, $X_L - X_C$, hypotenuse $Z$) before computing $\\phi$ or the power factor.",
-      "State the resonance set together: $f_0 = \\frac{1}{2\\pi\\sqrt{LC}}$, $Z_{\\min} = R$, $Q = \\frac{\\omega_0 L}{R} = \\frac{1}{\\omega_0 C R}$.",
-      "Power questions: $P = VI\\cos\\phi$ with RMS magnitudes, where $\\phi$ is the angle between V and I phasors.",
-      "Quote units deliberately: reactances in $\\Omega$ after the $\\omega$ conversion; bandwidth flagged as rad/s ($\\Delta\\omega = \\frac{R}{L}$) or Hz ($\\Delta f = \\frac{R}{2\\pi L}$).",
-      "Reject any series-RLC answer with $Z < R$ — outside resonance $Z$ can never dip below $R$."
+      "Open every AC question by fixing the vocabulary: $v = V_m\\sin\\omega t$, $\\omega = 2\\pi f$, $T = 1/f$.",
+      "Know which factor is which: form factor 1.11 (RMS/mean), peak factor 1.414 (peak/RMS).",
+      "For any series RLC, sketch the impedance triangle ($R$, $X_L - X_C$, $Z$) before computing $\\phi$ or the power factor.",
+      "State the resonance set together: $f_0 = 1/(2\\pi\\sqrt{LC})$, $Z_{\\min} = R$, $Q = \\omega_0L/R = 1/(\\omega_0CR)$.",
+      "Check $V_L = V_C = QV_S$ claims against component ratings — magnified voltages are real.",
+      "Power questions: $P = VI\\cos\\phi$ with RMS magnitudes; $\\phi$ is the angle between V and I phasors.",
+      "Quote bandwidth units deliberately: rad/s ($\\Delta\\omega = R/L$) or Hz ($\\Delta f = R/2\\pi L$).",
+      "Reject any series-RLC answer with $Z < R$ — outside resonance it is impossible.",
+      "Sanity-check prefix arithmetic ($\\mu$F, mH) before trusting a resonant frequency.",
+      "For 3-phase power, name the system (balanced) before using $P = \\sqrt{3}V_LI_L\\cos\\phi$.",
+      "If a question says 'meter reading', default to RMS unless it names a PMMC/moving-coil instrument (average/DC content)."
     ],
     "furtherReading": [
       {

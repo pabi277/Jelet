@@ -49,12 +49,21 @@ REQUIRED_Q_FIELDS = {"id", "qNumber", "subjectId", "unitId", "category",
 
 # ---------------------------------------------------------------------------
 # Phase 13: optional per-unit `studyPack` schema (docs/phases/phase-13/plan.md
-# §2.1 / §2.2). Additive and backward compatible: absent = no checks; present =
-# strictly validated (never trust an unvalidated addition to _data/).
+# §2.1 + Amendment B owner-approved v2 anatomy). Additive and backward
+# compatible: absent = no checks; present = strictly validated (never trust an
+# unvalidated addition to _data/).
 # ---------------------------------------------------------------------------
-STUDY_PACK_KEYS = {"conceptPrimer", "memoryHooks", "commonMistakes",
-                   "examChecklist", "furtherReading", "provenance"}
+STUDY_PACK_KEYS = {"conceptPrimer", "keyFormulas", "keyDefinitions",
+                   "comparisons", "mcqSelfTest", "memoryHooks",
+                   "commonMistakes", "examChecklist", "furtherReading",
+                   "provenance"}
 STUDY_PACK_PRIMER_KEYS = {"prdId", "heading", "proseLatex"}
+STUDY_PACK_SF_KEYS = {"sfId", "label", "latex", "use"}
+STUDY_PACK_DEF_KEYS = {"defId", "term", "definition"}
+STUDY_PACK_CMP_KEYS = {"cmpId", "title", "columns", "rows"}
+STUDY_PACK_CMP_ROW_KEYS = {"label", "values"}
+STUDY_PACK_MCQ_KEYS = {"mcqId", "stemLatex", "options", "correct", "explanation"}
+STUDY_PACK_MCQ_OPT_KEYS = {"id", "latex"}
 STUDY_PACK_READING_KEYS = {"book", "author", "chapters", "note"}
 STUDY_PACK_PROVENANCE_KEYS = {"draftedBy", "reviewedBy", "reviewedAt"}
 # furtherReading must stay a title/chapter pointer only: no URLs, no Drive
@@ -64,6 +73,19 @@ STUDY_PACK_SOURCE_RE = re.compile(
     r"(?i)(https?://|www\.|drive\.google|docs\.google|\.pdf\b|\.zip\b|\.epub\b"
     r"|\.7z\b|[A-Za-z]:[\\/]|/[A-Za-z0-9_\-]+[\\/])"
 )
+
+
+def _id_check(items, id_key, prefix, label, unit_id):
+    """Validate <UNIT>-XXnn style ids: pattern + uniqueness across the unit."""
+    ids = []
+    for i, item in enumerate(items):
+        val = item.get(id_key)
+        check(isinstance(val, str) and bool(re.fullmatch(rf"{re.escape(unit_id)}-[A-Z]{{2,3}}\d{{2}}", val or "")),
+              f"{unit_id}: {label}[{i}].{id_key} {val!r} does not match the {unit_id}-XXnn convention")
+        if isinstance(val, str):
+            ids.append(val)
+    dupes = sorted({x for x in ids if ids.count(x) > 1})
+    check(not dupes, f"{unit_id}: duplicate studyPack {label} id(s) {dupes}")
 
 errors = []
 warnings = []
@@ -114,7 +136,7 @@ def _require_str(value, label, unit_id):
 
 
 def validate_study_pack(unit_id, unit):
-    """Gate 12 (Phase 13 §2.2): validate the optional per-unit studyPack block."""
+    """Gate 12 (Phase 13 §2.2 + Amendment B v2): validate the optional studyPack."""
     sp = unit.get("studyPack")
     if sp is None:
         return
@@ -126,34 +148,103 @@ def validate_study_pack(unit_id, unit):
     check(not unknown, f"{unit_id}: studyPack has unknown key(s) {unknown} (allowed: {sorted(STUDY_PACK_KEYS)})")
     check(not missing, f"{unit_id}: studyPack is missing key(s) {missing}")
 
-    # conceptPrimer: 2-4 items, exact key set, prdId obeys <unitId>-PRDnn and is
-    # unique across the unit (catches copy-paste drift between batch-authored packs).
+    # conceptPrimer: 5-6 topic-anchored items covering the unit span.
     primer = sp.get("conceptPrimer")
-    prd_ids = []
-    if isinstance(primer, list) and 2 <= len(primer) <= 4:
+    if isinstance(primer, list) and 5 <= len(primer) <= 6:
         for i, item in enumerate(primer):
             ok = isinstance(item, dict) and set(item) == STUDY_PACK_PRIMER_KEYS
             check(ok, f"{unit_id}: studyPack.conceptPrimer[{i}] must have exactly {sorted(STUDY_PACK_PRIMER_KEYS)}")
             if ok:
                 for field in ("prdId", "heading", "proseLatex"):
                     _require_str(item[field], f"conceptPrimer[{i}].{field}", unit_id)
-                prd = item.get("prdId")
-                if isinstance(prd, str):
-                    check(bool(re.fullmatch(rf"{re.escape(unit_id)}-PRD\d{{2}}", prd)),
-                          f"{unit_id}: primer prdId {prd!r} does not match the {unit_id}-PRDnn convention")
-                    prd_ids.append(prd)
+        _id_check(primer, "prdId", "PRD", "conceptPrimer", unit_id)
     else:
-        check(False, f"{unit_id}: studyPack.conceptPrimer must be a list of 2-4 primer items")
-    dupes = sorted({p for p in prd_ids if prd_ids.count(p) > 1})
-    check(not dupes, f"{unit_id}: duplicate studyPack prdId(s) {dupes}")
+        check(False, f"{unit_id}: studyPack.conceptPrimer must be a list of 5-6 primer items")
+
+    # keyFormulas: 12-18 unit-span formula family with one-line usage notes.
+    formulas = sp.get("keyFormulas")
+    if isinstance(formulas, list) and 12 <= len(formulas) <= 18:
+        for i, item in enumerate(formulas):
+            ok = isinstance(item, dict) and set(item) == STUDY_PACK_SF_KEYS
+            check(ok, f"{unit_id}: studyPack.keyFormulas[{i}] must have exactly {sorted(STUDY_PACK_SF_KEYS)}")
+            if ok:
+                for field in ("sfId", "label", "latex", "use"):
+                    _require_str(item[field], f"keyFormulas[{i}].{field}", unit_id)
+        _id_check(formulas, "sfId", "SF", "keyFormulas", unit_id)
+    else:
+        check(False, f"{unit_id}: studyPack.keyFormulas must be a list of 12-18 formulas")
+
+    # keyDefinitions: 6-12 one-line definitions of the terms the paper uses.
+    defs = sp.get("keyDefinitions")
+    if isinstance(defs, list) and 6 <= len(defs) <= 12:
+        for i, item in enumerate(defs):
+            ok = isinstance(item, dict) and set(item) == STUDY_PACK_DEF_KEYS
+            check(ok, f"{unit_id}: studyPack.keyDefinitions[{i}] must have exactly {sorted(STUDY_PACK_DEF_KEYS)}")
+            if ok:
+                for field in ("defId", "term", "definition"):
+                    _require_str(item[field], f"keyDefinitions[{i}].{field}", unit_id)
+        _id_check(defs, "defId", "DEF", "keyDefinitions", unit_id)
+    else:
+        check(False, f"{unit_id}: studyPack.keyDefinitions must be a list of 6-12 definitions")
+
+    # comparisons: 3-4 side-by-side tables (2-4 columns, 2-6 labelled rows).
+    cmps = sp.get("comparisons")
+    if isinstance(cmps, list) and 3 <= len(cmps) <= 4:
+        for i, item in enumerate(cmps):
+            ok = isinstance(item, dict) and set(item) == STUDY_PACK_CMP_KEYS
+            check(ok, f"{unit_id}: studyPack.comparisons[{i}] must have exactly {sorted(STUDY_PACK_CMP_KEYS)}")
+            if not ok:
+                continue
+            _require_str(item["title"], f"comparisons[{i}].title", unit_id)
+            cols = item["columns"]
+            check(isinstance(cols, list) and 2 <= len(cols) <= 4 and all(isinstance(c, str) and c.strip() for c in cols),
+                  f"{unit_id}: comparisons[{i}].columns must be 2-4 non-empty strings")
+            rows = item["rows"]
+            check(isinstance(rows, list) and 2 <= len(rows) <= 6,
+                  f"{unit_id}: comparisons[{i}].rows must be a list of 2-6 rows")
+            if isinstance(rows, list) and isinstance(cols, list):
+                for j, row in enumerate(rows):
+                    ok_row = isinstance(row, dict) and set(row) == STUDY_PACK_CMP_ROW_KEYS
+                    check(ok_row, f"{unit_id}: comparisons[{i}].rows[{j}] must have exactly {sorted(STUDY_PACK_CMP_ROW_KEYS)}")
+                    if ok_row:
+                        _require_str(row["label"], f"comparisons[{i}].rows[{j}].label", unit_id)
+                        check(isinstance(row["values"], list) and len(row["values"]) == len(cols) - 1
+                              and all(isinstance(v, str) and v.strip() for v in row["values"]),
+                              f"{unit_id}: comparisons[{i}].rows[{j}].values must be {len(cols) - 1} non-empty strings (cells for columns[1:], label carries columns[0])")
+        _id_check(cmps, "cmpId", "CMP", "comparisons", unit_id)
+    else:
+        check(False, f"{unit_id}: studyPack.comparisons must be a list of 3-4 comparison tables")
+
+    # mcqSelfTest: 8-10 original MCQs, keyed honestly, one-line explanations.
+    mcqs = sp.get("mcqSelfTest")
+    if isinstance(mcqs, list) and 8 <= len(mcqs) <= 10:
+        for i, item in enumerate(mcqs):
+            ok = isinstance(item, dict) and set(item) == STUDY_PACK_MCQ_KEYS
+            check(ok, f"{unit_id}: studyPack.mcqSelfTest[{i}] must have exactly {sorted(STUDY_PACK_MCQ_KEYS)}")
+            if not ok:
+                continue
+            _require_str(item["stemLatex"], f"mcqSelfTest[{i}].stemLatex", unit_id)
+            _require_str(item["explanation"], f"mcqSelfTest[{i}].explanation", unit_id)
+            opts = item["options"]
+            check(isinstance(opts, list) and len(opts) == 4
+                  and [o.get("id") for o in opts] == ["A", "B", "C", "D"]
+                  and all(isinstance(o, dict) and set(o) == STUDY_PACK_MCQ_OPT_KEYS and isinstance(o.get("latex"), str) and o["latex"].strip() for o in opts),
+                  f"{unit_id}: mcqSelfTest[{i}].options must be 4 keyed options A-D in order with non-empty latex")
+            correct = item["correct"]
+            check(isinstance(correct, list) and 1 <= len(correct) <= 2
+                  and all(c in {"A", "B", "C", "D"} for c in correct),
+                  f"{unit_id}: mcqSelfTest[{i}].correct must be 1-2 option ids within A-D")
+        _id_check(mcqs, "mcqId", "MCQ", "mcqSelfTest", unit_id)
+    else:
+        check(False, f"{unit_id}: studyPack.mcqSelfTest must be a list of 8-10 MCQs")
 
     # memoryHooks / commonMistakes / examChecklist: flat lists of short strings.
     for list_key in ("memoryHooks", "commonMistakes", "examChecklist"):
         value = sp.get(list_key)
-        ok = isinstance(value, list) and 2 <= len(value) <= 12 and all(
+        ok = isinstance(value, list) and 8 <= len(value) <= 12 and all(
             isinstance(v, str) and v.strip() for v in value
         )
-        check(ok, f"{unit_id}: studyPack.{list_key} must be a list of 2-12 non-empty strings")
+        check(ok, f"{unit_id}: studyPack.{list_key} must be a list of 8-12 non-empty strings")
 
     # furtherReading: 1-6 pointers, exact key set, no URL/path/Drive leakage.
     reading = sp.get("furtherReading")

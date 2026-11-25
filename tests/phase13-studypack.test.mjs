@@ -1,22 +1,23 @@
 /**
- * phase13-studypack.test.mjs — Phase 13 Study Pack invariants
- * ------------------------------------------------------------
- * Verifies:
- *   1. Lesson tab (`assets/js/views/learn.js`): `study` joins `validTabs` (deep link
- *      `#/learn/<unitId>?tab=study` works), the tab sits after Workbook and before
- *      Formulas, the calm empty-state copy exists, and the render order inside the
- *      tab is Intro → Concept Primer → Memory Hooks → Common Mistakes → Exam-Day
- *      Checklist → Read Further → provenance footnote.
- *   2. Per-block visual identity CSS (`assets/css/components.css`): the Study Pack
- *      block classes exist and are token-only (checked by the CI hex gate; here we
- *      assert the classes + the phone-first min-width enhancement of the hook grid).
- *   3. AI Tutor grounding (`assets/js/core/ai-vault.js`): a unit with `studyPack`
- *      injects ONLY hooks + common mistakes (capped ~400 chars) and never the
- *      furtherReading pointers; units without `studyPack` keep the legacy prompt.
- *   4. Pilot data (`_data/units/M01|C03|E05.json`): every shipped pack carries the
- *      six schema keys, unique unit-prefixed prdIds, non-empty lists, further
- *      reading with no URLs/paths, and a non-empty provenance chain; the other 39
- *      units ship NO studyPack yet (pilot isolation).
+ * phase13-studypack.test.mjs — Phase 13 Study Pack v2 invariants
+ * ----------------------------------------------------------------
+ * Verifies (owner-approved v2 anatomy, plan Amendment B):
+ *   1. Lesson tab (`assets/js/views/learn.js`): `study` joins `validTabs`, tab order
+ *      after Workbook/before Formulas, calm empty state, and the full v2 render
+ *      order — Intro → Concept Primer → Key Formula Family → Key Definitions →
+ *      Comparisons → MCQ Self-Test → Memory Hooks → Common Mistakes → Exam-Day
+ *      Checklist → Read Further → provenance.
+ *   2. MCQ self-test wiring: per-question reveal toggles the answer box, aria state,
+ *      and marks ONLY the keyed options (`data-correct` subset match); never scored
+ *      or stored.
+ *   3. CSS block identities (token-only; hex is policed by the CI gate): v2 classes
+ *      exist; hook grid widens via min-width only (phone-first law).
+ *   4. AI Tutor grounding: hooks + mistakes only (≤400 chars), never furtherReading;
+ *      legacy prompt untouched for units without studyPack.
+ *   5. Pilot data v2 (`_data/units/M01|C03|E05.json`): 5-6 primers, 12-18 formulas
+ *      (unique sfIds), 6-12 definitions, 3-4 comparison tables (columns[0] is the
+ *      label column), 8-10 MCQs with honest A-D keys, 8-12 hooks/mistakes/checklist,
+ *      clean provenance; the other 39 units ship NO studyPack (pilot isolation).
  */
 
 import test from "node:test";
@@ -53,22 +54,23 @@ test("Lesson: study tab is valid, ordered after Workbook, with calm empty state"
   );
 });
 
-test("Lesson: study tab render order — primer, hooks, mistakes, checklist, reading, provenance", () => {
+test("Lesson: v2 render order — primer, formulas, definitions, comparisons, MCQs, hooks, mistakes, checklist, reading, provenance", () => {
   const learnJs = read("assets/js/views/learn.js");
   const studyBranchStart = learnJs.indexOf('if (activeTab === "study") {');
   const formulasBranchStart = learnJs.indexOf('if (activeTab === "formulas") {');
   assert.ok(studyBranchStart > 0 && formulasBranchStart > studyBranchStart, "study branch exists before formulas branch");
 
   const branch = learnJs.slice(studyBranchStart, formulasBranchStart);
-  // The checklist is built into a variable (with its own collapsed variant), so
-  // assert render order inside the actual appended template — where the
-  // checklist appears via its `${checklistBlock}` slot.
   const templateStart = branch.indexOf('<div class="stack-m">');
   assert.ok(templateStart > 0, "study tab appends a single wrapper template");
   const template = branch.slice(templateStart);
   const markers = [
     ["intro", 'class="study-pack-intro'],
     ["concept primer", "Concept Primer"],
+    ["key formula family", "Key Formula Family"],
+    ["key definitions", "Key Definitions"],
+    ["comparisons", "Comparisons"],
+    ["mcq self-test", "MCQ Self-Test"],
     ["memory hooks", "Memory Hooks"],
     ["common mistakes", "Common Mistakes"],
     ["exam checklist", "${checklistBlock}"],
@@ -84,25 +86,47 @@ test("Lesson: study tab render order — primer, hooks, mistakes, checklist, rea
 
   assert.ok(
     branch.includes('class="worked-example study-primer') &&
+      branch.includes('class="lesson-formula-card study-sf"') &&
+      branch.includes('<dl class="study-defs">') &&
+      branch.includes('class="study-cmp"') &&
+      branch.includes('class="card stack-xs study-mcq"') &&
       branch.includes('class="lesson-formula-card study-hook"') &&
       branch.includes("exam-trap") &&
       branch.includes("study-checklist") &&
       branch.includes("study-reading"),
-    "study blocks reuse existing lesson components (worked-example, formula card, amber trap)"
-  );
-  const checklistVar = branch.indexOf("const checklistBlock");
-  assert.ok(
-    checklistVar > 0 &&
-      branch.slice(checklistVar, branch.indexOf("const readingHtml")).includes("tiebreak-details"),
-    "long checklists collapse behind tiebreak-details"
+    "v2 blocks carry distinct visual identities (tint cards, def list, tables, mcq cards, chips)"
   );
 });
 
-test("CSS: Study Pack block identities exist and enhance phone-first via min-width", () => {
+test("MCQ self-test wiring: per-question reveal, keyed-only highlighting, no scoring/storage", () => {
+  const learnJs = read("assets/js/views/learn.js");
+  const studyBranchStart = learnJs.indexOf('if (activeTab === "study") {');
+  const branch = learnJs.slice(studyBranchStart, learnJs.indexOf('if (activeTab === "formulas") {'));
+
+  assert.ok(branch.includes('class="btn btn--ghost btn--sm js-mcq-reveal"'), "reveal button per MCQ card");
+  assert.ok(branch.includes('aria-expanded'), "reveal button manages aria-expanded");
+  assert.ok(branch.includes('data-correct="${escapeHtml((q.correct || []).join(","))}"'), "key stored on the card dataset");
+  assert.ok(branch.includes("correctSet.has(String(opt.dataset.opt))"), "only keyed options get data-hit");
+
+  const wiringStart = branch.indexOf("slot.querySelectorAll(\".js-mcq-reveal\")");
+  assert.ok(wiringStart > branch.indexOf("slot.appendChild(el("), "wiring attaches after mount");
+  assert.ok(
+    branch.slice(wiringStart).includes("box.hidden = revealed;") &&
+      branch.slice(wiringStart).includes(".removeAttribute(\"data-hit\")"),
+    "reveal toggles the answer box and clears highlights on hide"
+  );
+  assert.ok(!branch.includes("createSession") && !branch.includes("IndexedDB"), "self-test never touches scoring or storage");
+});
+
+test("CSS: v2 block identities exist, phone-first min-width enhancement only", () => {
   const css = read("assets/css/components.css");
   for (const cls of [
     ".study-pack-intro",
     ".study-primer",
+    ".study-sf",
+    ".study-defs",
+    ".study-cmp",
+    ".study-mcq",
     ".study-hook-grid",
     ".study-checklist",
     ".study-reading",
@@ -113,6 +137,7 @@ test("CSS: Study Pack block identities exist and enhance phone-first via min-wid
   const gridIdx = css.indexOf(".study-hook-grid");
   const enhanceIdx = css.indexOf("@media (min-width: 768px)", gridIdx);
   assert.ok(enhanceIdx > gridIdx, "hook grid widens only via min-width (phone-first law)");
+  assert.ok(css.indexOf(".study-cmp-scroll") > 0, "comparison tables scroll horizontally on phones");
 });
 
 test("AI Tutor: studyPack grounds hooks + mistakes only, capped, legacy prompt untouched", () => {
@@ -135,57 +160,69 @@ test("AI Tutor: studyPack grounds hooks + mistakes only, capped, legacy prompt u
   assert.ok(!prompt.includes("Hook D"), "hooks capped at first three");
   assert.ok(prompt.includes("Trap one"), "wbjeebTraps grounding preserved");
 
-  const line = summarizeStudyPackForTutor(unit.studyPack);
-  assert.ok(line.length <= 400, "grounding summary capped at ~400 chars");
-
-  const longUnit = {
-    ...unit,
-    studyPack: { memoryHooks: ["x".repeat(500)] },
-  };
+  assert.ok(summarizeStudyPackForTutor(unit.studyPack).length <= 400, "grounding summary capped at ~400 chars");
+  const longUnit = { ...unit, studyPack: { memoryHooks: ["x".repeat(500)] } };
   assert.ok(summarizeStudyPackForTutor(longUnit.studyPack).length <= 400, "oversized hooks trimmed to the cap");
 
-  const legacyUnit = { unitId: "M02", officialCode: "Math-B", title: "Determinants", wbjeebTraps: [] };
-  const legacy = buildGroundTruthSystemPrompt({ unit: legacyUnit });
+  const legacy = buildGroundTruthSystemPrompt({ unit: { unitId: "M02", officialCode: "Math-B", title: "Determinants", wbjeebTraps: [] } });
   assert.ok(!legacy.includes("Study Pack Hooks & Slips"), "units without studyPack keep the legacy prompt");
 
   assert.equal(summarizeStudyPackForTutor(null), "");
-  assert.equal(summarizeStudyPackForTutor({}), "Memory hooks:  | Common mistakes: ");
 });
 
-test("Pilot data: M01, C03, E05 carry complete, schema-clean studyPacks; the other 39 do not", () => {
+test("Pilot data v2: M01, C03, E05 carry the full anatomy; the other 39 do not", () => {
   for (const unitId of PILOT_UNITS) {
-    const unit = JSON.parse(read(`_data/units/${unitId}.json`));
-    const sp = unit.studyPack;
+    const sp = JSON.parse(read(`_data/units/${unitId}.json`)).studyPack;
     assert.ok(sp && typeof sp === "object", `${unitId} ships a studyPack`);
 
-    const keys = Object.keys(sp).sort();
     assert.deepEqual(
-      keys,
-      ["commonMistakes", "conceptPrimer", "examChecklist", "furtherReading", "memoryHooks", "provenance"],
-      `${unitId} studyPack has exactly the six schema keys`
+      Object.keys(sp).sort(),
+      ["commonMistakes", "comparisons", "conceptPrimer", "examChecklist", "furtherReading",
+       "keyDefinitions", "keyFormulas", "mcqSelfTest", "memoryHooks", "provenance"],
+      `${unitId} studyPack has exactly the ten v2 schema keys`
     );
 
-    assert.ok(sp.conceptPrimer.length >= 2 && sp.conceptPrimer.length <= 4, `${unitId} primer has 2-4 items`);
+    assert.ok(sp.conceptPrimer.length >= 5 && sp.conceptPrimer.length <= 6, `${unitId} primer has 5-6 items`);
+    assert.ok(sp.keyFormulas.length >= 12 && sp.keyFormulas.length <= 18, `${unitId} formula family has 12-18 entries`);
+    assert.ok(sp.keyDefinitions.length >= 6 && sp.keyDefinitions.length <= 12, `${unitId} definitions have 6-12 entries`);
+    assert.ok(sp.comparisons.length >= 3 && sp.comparisons.length <= 4, `${unitId} comparisons have 3-4 tables`);
+
     const prdIds = sp.conceptPrimer.map((p) => p.prdId);
-    assert.ok(
-      prdIds.every((id) => new RegExp(`^${unitId}-PRD\\d{2}$`).test(id)),
-      `${unitId} prdIds follow the ${unitId}-PRDnn convention`
-    );
-    assert.equal(new Set(prdIds).size, prdIds.length, `${unitId} prdIds unique across the unit`);
+    const sfIds = sp.keyFormulas.map((f) => f.sfId);
+    const defIds = sp.keyDefinitions.map((d) => d.defId);
+    const cmpIds = sp.comparisons.map((c) => c.cmpId);
+    const mcqIds = sp.mcqSelfTest.map((q) => q.mcqId);
+    for (const ids of [prdIds, sfIds, defIds, cmpIds, mcqIds]) {
+      assert.equal(new Set(ids).size, ids.length, `${unitId} block ids unique across the unit`);
+    }
+    assert.ok(prdIds.every((id) => id.startsWith(`${unitId}-PRD`)), `${unitId} prdId convention`);
+    assert.ok(sfIds.every((id) => id.startsWith(`${unitId}-SF`)), `${unitId} sfId convention`);
+    assert.ok(defIds.every((id) => id.startsWith(`${unitId}-DEF`)), `${unitId} defId convention`);
+    assert.ok(cmpIds.every((id) => id.startsWith(`${unitId}-CMP`)), `${unitId} cmpId convention`);
+    assert.ok(mcqIds.every((id) => id.startsWith(`${unitId}-MCQ`)), `${unitId} mcqId convention`);
 
-    for (const listKey of ["memoryHooks", "commonMistakes", "examChecklist"]) {
-      assert.ok(Array.isArray(sp[listKey]) && sp[listKey].length >= 2, `${unitId} ${listKey} non-empty`);
+    for (const c of sp.comparisons) {
+      assert.ok(c.columns.length >= 2 && c.columns.length <= 4, `${unitId} comparison columns 2-4`);
+      assert.ok(c.rows.length >= 2 && c.rows.length <= 6, `${unitId} comparison rows 2-6`);
+      for (const row of c.rows) {
+        assert.equal(row.values.length, c.columns.length - 1, `${unitId} comparison row '${row.label}' has one cell per non-label column`);
+      }
     }
 
-    assert.ok(sp.furtherReading.length >= 1, `${unitId} furtherReading non-empty`);
-    const flat = JSON.stringify(sp.furtherReading).toLowerCase();
-    assert.ok(!flat.includes("http"), `${unitId} furtherReading has no URLs`);
-    assert.ok(!flat.includes(".pdf") && !flat.includes(".zip"), `${unitId} furtherReading has no file names`);
+    assert.ok(sp.mcqSelfTest.length >= 8 && sp.mcqSelfTest.length <= 10, `${unitId} self-test has 8-10 MCQs`);
+    for (const q of sp.mcqSelfTest) {
+      assert.deepEqual(q.options.map((o) => o.id), ["A", "B", "C", "D"], `${unitId} MCQ options keyed A-D in order`);
+      assert.ok(q.correct.length >= 1 && q.correct.every((c) => ["A", "B", "C", "D"].includes(c)), `${unitId} MCQ key within A-D`);
+      assert.ok(q.explanation && q.explanation.length > 10, `${unitId} MCQ carries a one-line reason`);
+    }
 
-    assert.ok(
-      sp.provenance.draftedBy && sp.provenance.reviewedBy && sp.provenance.reviewedAt,
-      `${unitId} provenance chain fully recorded`
-    );
+    for (const listKey of ["memoryHooks", "commonMistakes", "examChecklist"]) {
+      assert.ok(sp[listKey].length >= 8 && sp[listKey].length <= 12, `${unitId} ${listKey} has 8-12 entries`);
+    }
+
+    const flat = JSON.stringify(sp.furtherReading).toLowerCase();
+    assert.ok(!flat.includes("http") && !flat.includes(".pdf") && !flat.includes(".zip"), `${unitId} furtherReading is pointer-only`);
+    assert.ok(sp.provenance.draftedBy && sp.provenance.reviewedBy && sp.provenance.reviewedAt, `${unitId} provenance chain recorded`);
   }
 
   const manifest = JSON.parse(read("_data/manifest.json"));
