@@ -367,8 +367,12 @@ Batch scope unchanged: videos for batches 1–5 are enriched per-batch, not now.
   every front") — `provenance.reviewedBy/reviewedAt` stamped owner-approved in
   drafts + shipped units (2026-11-25). Evidence in
   `batch-M02-M03-M07-M11.md`.
-- **Batch 2 (P08/P12/P14/P15) shipped** with the full v2 anatomy + per-batch
-  video enrichment; evidence in `batch-P08-P12-P14-P15.md`; awaiting owner
-  sign-off. The SymPy sweep caught and fixed a real P14 MCQ error (equivalent
-  power) before ship. Study Packs validated: 11/42.
-- Next: Batch 3 = C01/C04/C06/C07 on owner approval.
+- **Batch 2 (P08/P12/P14/P15) shipped and owner-signed-off** ("Ok continue
+  next batch") — `provenance.reviewedBy/reviewedAt` stamped owner-approved in
+  drafts + shipped units (2026-11-25). Evidence in
+  `batch-P08-P12-P14-P15.md`.
+- **Batch 3 (C01/C04/C06/C07) shipped** with the full v2 anatomy + per-batch
+  video enrichment; evidence in `batch-C01-C04-C06-C07.md`; awaiting owner
+  sign-off. The SymPy sweep caught and fixed a real C04 MCQ explanation error
+  (Caro's-acid peroxo tally) before ship. Study Packs validated: 15/42.
+- Next: Batch 4 = E01–E04 + E06–E08 on owner approval.
