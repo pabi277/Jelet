@@ -54,9 +54,10 @@
       <div class="bottom-sheet__header">
         <div class="cluster-xs" style="flex:1;min-width:0">
           <h2 class="bottom-sheet__title" style="flex:0 1 auto">Codec AI Tutor</h2>
-          <span class="pill" id="aiSheetModeBadge">Corpus Verified</span>
+          <span class="pill" id="aiSheetModeBadge">Corpus Tutor · Offline</span>
         </div>
-        <button class="btn btn--ghost" id="aiHistoryBtn" type="button" aria-label="Conversation history" aria-expanded="false" aria-controls="aiSheetBody">
+        <button class="btn btn--ghost btn--sm ai-pin-btn" id="aiPinBtn" type="button" aria-pressed="false">Pin</button>
+        <button class="btn btn--ghost" id="aiHistoryBtn" type="button" aria-label="Conversation history" aria-expanded="false" aria-controls="aiHistoryDrawer">
           <svg class="ico" aria-hidden="true"><use href="./assets/icons/icons.svg#icon-layers"/></svg>
         </button>
         <button class="btn btn--ghost" id="closeAiSheetBtn" type="button" aria-label="Close AI Tutor">

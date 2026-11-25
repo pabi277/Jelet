@@ -2281,6 +2281,7 @@
 }
 .ai-msg__meta {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-3xs);
   font-size: var(--fs-micro);
@@ -2455,6 +2456,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2xs);
+}
+.ai-suggestions[hidden],
+.ai-chips-row[hidden],
+#aiJumpLatest[hidden] {
+  display: none;
 }
 .ai-suggestions-toggle {
   align-self: flex-start;
@@ -3039,3 +3045,50 @@
   line-height: var(--lh-prose);
   color: var(--text-secondary);
 }
+
+/* Conversation history overlays the live conversation without replacing it. */
+.ai-history-layer { position: absolute; inset: 0; z-index: var(--z-sticky); pointer-events: none; }
+.ai-history-scrim { position: absolute; inset: 0; border: 0; width: 100%; height: 100%; background: var(--text-primary); opacity: 0.55; pointer-events: auto; }
+.ai-history-drawer { position: absolute; inset: 0 auto 0 0; width: clamp(280px, 70%, 360px); max-width: 100%; background: var(--bg-surface); box-shadow: var(--shadow-sheet); pointer-events: auto; display: flex; padding: var(--space-m); }
+.ai-history-drawer .ai-history-panel { min-width: 0; min-height: 0; }
+.ai-history-row__main { border: 0; background: transparent; padding: 0; text-align: left; font: inherit; cursor: pointer; }
+.ai-history-row[hidden], #aiHistoryNoMatch[hidden] { display: none; }
+@media (min-width: 1024px) {
+  .ai-sheet.ai-history-open { width: 760px; }
+  .ai-sheet.ai-history-open > .bottom-sheet__header,
+  .ai-sheet.ai-history-open > .ai-sheet__body { margin-left: 360px; }
+  .ai-history-scrim { display: none; }
+  .ai-history-drawer { width: 360px; box-shadow: none; border-right: 1px solid var(--border-subtle); }
+}
+
+.ai-state-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-s);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-s);
+  background: var(--bg-surface-subtle);
+  color: var(--text-primary);
+  font-size: var(--fs-caption);
+}
+.ai-state-card[hidden] { display: none; }
+
+.ai-prompt-preview[hidden] { display: none; }
+.ai-history-drawer { animation: ai-history-enter 0.2s ease-out; }
+@keyframes ai-history-enter { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .ai-history-drawer { animation: none; } }
+
+.ai-pin-btn { display: none; }
+@media (min-width: 1024px) { .ai-pin-btn { display: inline-flex; } }
+.ai-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.ai-history-layer.is-closing { pointer-events: none; }
+.ai-history-layer.is-closing .ai-history-drawer { pointer-events: none; animation: ai-history-exit 0.2s ease-in both; }
+.ai-history-layer.is-closing .ai-history-scrim { pointer-events: none; }
+@keyframes ai-history-exit { to { transform: translateX(-100%); } }
+@media (prefers-reduced-motion: reduce) { .ai-history-layer.is-closing .ai-history-drawer { animation: none; } }
+
+/* Reserve the tutor grip for swipe-to-dismiss rather than page panning. */
+.ai-sheet > .bottom-sheet__handle { touch-action: none; }

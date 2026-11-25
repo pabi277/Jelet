@@ -14,11 +14,11 @@
 
 ## 2. Key Storage & Privacy Isolation (`jelet_ai_vault_v1`)
 
-1. **Isolated Storage Key:** Stored separately from `jelet_hub_v1` IndexedDB under `localStorage["jelet_ai_vault_v1"]` (optionally wrapped with Web Crypto AES-GCM session passphrase if the user is on a shared lab PC, plus a `"Remember on this personal device"` toggle).
+1. **Isolated Storage Key:** Stored separately from `jelet_hub_v1` IndexedDB under `localStorage["jelet_ai_vault_v1"]` (optionally protected with Web Crypto AES-GCM and a passphrase, using PBKDF2-SHA256; an unlocked key stays in the current tab's memory until locked or reloaded). Existing plaintext vaults remain unchanged until the user chooses Protect key. A forgotten passphrase cannot be recovered, and protection cannot prevent malicious same-origin code accessing a key while unlocked.
 2. **Strict Export Exclusion:** `exportStudyBackup()` is forbidden by unit test from ever reading `jelet_ai_vault_v1`. Sharing a `.json` study backup with a friend on Telegram will **never** expose the user's API key.
 3. **Setup Flow in `You & AI` (`/you`):**
    * **Provider Selector:**
-     * `Google Gemini` *(Recommended — Free tier via Google AI Studio: `https://aistudio.google.com/apikey`, default model `gemini-2.5-flash`)*
+     * `Google Gemini` *(Recommended — Free tier via Google AI Studio: `https://aistudio.google.com/apikey`, fresh-vault default model `gemini-3.1-flash-lite`)*
      * `Groq` *(Optional fast inference)*
      * `OpenRouter` *(Optional)*
    * **Save & Test Connection:** Clicking **`Test Connection`** sends a fixed minimal request (`maxOutputTokens: 8`, prompt `"Reply with OK"`, zero user study data) and displays exact HTTP status / latency (`Connected · 340 ms`) or human-readable quota/invalid-key diagnostics.
@@ -41,9 +41,9 @@ Button: **`I understand — open AI Tutor`**. Nothing is transmitted until the u
 
 ## 4. Transparent `"Check Prompt Before Sending"` Preview (`12-phone-codec-ai-tutor.png` & `10-codec-ai-tutor-and-results.png`)
 
-Every outgoing request builds a deterministic `AiPromptPreview` object shown in the collapsible **`▼ Check prompt before sending`** bar directly above the chat stream:
+Every outgoing request builds a deterministic request body. The collapsible **`▼ Check prompt before sending`** bar is OFF by default for fresh vaults and can be enabled in You & AI; saved vault choices are preserved (owner amendment, 2026-11-25). When enabled, it appears above the chat stream:
 
-* Displays: **Provider** (`Google Gemini`), **Model** (`gemini-2.5-flash`), **Context Attached** (`JELET 2025 Q16 · Official Key + SymPy Solution`), and the **exact JSON/text payload** that will leave the browser.
+* Displays: **Provider** (`Google Gemini`), **Model** (`gemini-3.1-flash-lite` for fresh vaults), **Context Attached** (`JELET 2025 Q16 · Official Key + SymPy Solution`), and the **exact JSON/text payload** that will leave the browser.
 * Invariant (enforced by test, identical to CodeC `GeminiRequest.body`): *The exact strings displayed in the preview box are byte-for-byte the strings sent over `fetch()`.*
 * **Streaming & Abort:** Uses `AbortController` wired to a visible **`Stop`** button—clicking `Stop` immediately aborts the underlying HTTP stream (not merely hiding UI output).
 * **Bounded Session Memory:** Retains up to **8 turns** in memory per active question/lesson context (`Clear Chat` resets immediately). If truncated by token cap, a **`Continue`** button builds a fresh preview rather than silently re-firing.
