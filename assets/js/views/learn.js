@@ -205,7 +205,7 @@ export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
             <span class="subject-icon-box" data-subject="${sid}">${icon(SUBJECT_ICONS[sid])}</span>
             <div class="subject-card__info">
               <h3 class="subject-card__title">${escapeHtml(sMeta.name)}</h3>
-              <p class="subject-card__count">${sMeta.qCount} Qs · ${sMeta.maxMarks} Marks · Units revised</p>
+              <p class="subject-card__count">${sMeta.qCount} Qs · ${sMeta.maxMarks} Marks · ${sMeta.unitCount} Units</p>
               <div class="row-between" style="margin-top:var(--space-xs);gap:var(--space-s)">
                 <div class="meter" style="flex:1"><div class="meter__fill" style="width:${pct}%"></div></div>
                 <span class="mono card__meta">${revisedCount} / ${allSubjUnits.length}</span>

@@ -24,7 +24,7 @@ Two kinds of documents live here:
 | 09 | Offline PWA + encrypted sync | ✅ Done | `phase-09/record.md` |
 | 10 | Accessibility, zoom, device QA, release | ✅ Done | `phase-10/record.md` |
 | **11** | **AI Tutor: Option Detection, Section Context & History** (+ 1 blocking bug fix) | ✅ Done | `phase-11/record.md` |
-| **12** | **Phone UI Compaction: Today & You/Settings (disclosure pattern)** | 📋 Researched — awaiting execution | **`phase-12/plan.md`** |
+| **12** | **Phone UI Compaction: Today & You/Settings (disclosure pattern)** | ✅ Done | **`phase-12/record.md`** |
 | **13** | **Learn Enrichment from Private Reference Books (AI-assisted, copyright-safe)** | 📋 Researched — awaiting execution | **`phase-13/plan.md`** |
 | 14+ | Practice-set content expansion (legacy "Phase 11+" row of `docs/05`) | ⏳ Not started | (owner renumbers on approval — see note below) |
 

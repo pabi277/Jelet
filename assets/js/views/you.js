@@ -132,6 +132,18 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
   const latestAcc = accVals.length ? accVals[accVals.length - 1] : null;
   const latestTime = timeVals.length ? timeVals[timeVals.length - 1] : null;
 
+  const readinessSummaryStatus = readiness.hasEnoughData
+    ? `${readiness.estimatePct}% · ${readiness.stageLabel}`
+    : "Need more attempts";
+  const mockSummaryStatus = mockHistory.empty
+    ? "No mocks yet"
+    : `${mockHistory.count} mock${mockHistory.count === 1 ? "" : "s"} · best ${
+        mockHistory.bests.bestScore
+          ? `${formatTwelfths(mockHistory.bests.bestScore.totalTwelfths)}/120`
+          : "—"
+      }`;
+  let offlinePackCached = false;
+
   const root = el(`
     <div class="view stack-m you-view">
       <!-- Top Mint Privacy Lock Banner (13-phone-you-ai-and-ju-hub.png & 01-settings.png) -->
@@ -140,426 +152,493 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
         <span>100% Local-First on Your Device · API key stays isolated and NEVER enters backups.</span>
       </div>
 
-      <!-- Readiness Snapshot (Phase 07 · Slice 4 — Explicitly-Labeled Estimate Only) -->
-      <section class="card stack-s readiness-card" id="youReadinessSection" aria-label="Study readiness estimate">
-        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
-          <div>
-            <h3 class="card__title" style="margin:0">Study readiness — estimate, not a prediction of your exam score</h3>
+      <!-- Readiness Snapshot (Phase 07 · Slice 4 — Explicitly-Labeled Estimate Only · Phase 12 disclosure) -->
+      <details class="disclose" id="discloseReadiness">
+        <summary class="disclose__summary">
+          <span class="disclose__title">Study readiness</span>
+          <span class="disclose__status" id="sumReadiness">${escapeHtml(readinessSummaryStatus)}</span>
+        </summary>
+        <section class="card stack-s readiness-card" id="youReadinessSection" aria-label="Study readiness estimate">
+          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+            <div>
+              <h3 class="card__title" style="margin:0">Study readiness — estimate, not a prediction of your exam score</h3>
+            </div>
+            ${
+              readiness.hasEnoughData
+                ? `<span class="badge badge--brand mono" id="readinessStageBadge">${readiness.estimatePct}% · ${escapeHtml(readiness.stageLabel)}</span>`
+                : `<span class="pill mono">Min ${readiness.minAttempts} Qs</span>`
+            }
           </div>
           ${
             readiness.hasEnoughData
-              ? `<span class="badge badge--brand mono" id="readinessStageBadge">${readiness.estimatePct}% · ${escapeHtml(readiness.stageLabel)}</span>`
-              : `<span class="pill mono">Min ${readiness.minAttempts} Qs</span>`
+              ? `
+                <p class="card__meta" style="margin:0">
+                  Rough local readiness snapshot from your independent attempt history across accuracy, 42-unit breadth, 400-PYQ depth, and recent trend — never a guaranteed WBJEEB score or rank.
+                </p>
+                <div class="meter"><div class="meter__fill" style="width:${readiness.estimatePct}%"></div></div>
+                <div class="readiness-grid" id="readinessBreakdownGrid">
+                  <div class="readiness-metric">
+                    <span class="readiness-metric__label">Attempts</span>
+                    <strong class="readiness-metric__val mono">${readiness.totalQuestionAttempts} Qs</strong>
+                    <span class="card__meta">${readiness.sessionCount} independent set${readiness.sessionCount === 1 ? "" : "s"}</span>
+                  </div>
+                  <div class="readiness-metric">
+                    <span class="readiness-metric__label">Avg Accuracy</span>
+                    <strong class="readiness-metric__val mono">${readiness.averageAccuracyPct}%</strong>
+                    <span class="card__meta">${readiness.totalCorrect}/${readiness.totalQuestionAttempts} correct</span>
+                  </div>
+                  <div class="readiness-metric">
+                    <span class="readiness-metric__label">Syllabus Coverage</span>
+                    <strong class="readiness-metric__val mono">${readiness.unitsCovered}/${readiness.totalUnits} units</strong>
+                    <span class="card__meta">${readiness.questionsCovered}/${readiness.totalQuestions} PYQs (${readiness.questionCoveragePct}%)</span>
+                  </div>
+                  <div class="readiness-metric">
+                    <span class="readiness-metric__label">Recent Trend</span>
+                    <div><span class="badge ${trendBadgeClass} mono">${escapeHtml(readiness.trendLabel)}</span></div>
+                    <span class="card__meta">Last independent sets</span>
+                  </div>
+                </div>
+                ${
+                  readiness.mockCount
+                    ? `<div class="readiness-mock-line">${icon("icon-timer")} <strong>Mock performance:</strong> ${readiness.mockCount} timed mock${readiness.mockCount === 1 ? "" : "s"} · Best <strong class="mono">${readiness.mockBestTwelfths != null ? formatTwelfths(readiness.mockBestTwelfths) + " / 120" : "—"}</strong> · Avg accuracy <strong class="mono">${readiness.mockAvgAccuracyPct != null ? readiness.mockAvgAccuracyPct + "%" : "—"}</strong>${readiness.mockTrend !== "insufficient" ? ` · Mock trend ${escapeHtml(readiness.mockTrend)}` : ""}</div>`
+                    : ""
+                }
+              `
+              : `
+                <div class="readiness-empty" id="readinessEmptyState">
+                  <p class="card__meta" style="margin:0">
+                    <strong>Practice more to generate your readiness estimate</strong> (${readiness.totalQuestionAttempts}/${readiness.minAttempts} independent question attempts recorded; ${readiness.unitsCovered}/${readiness.totalUnits} units &amp; ${readiness.questionsCovered}/${readiness.totalQuestions} PYQs touched).
+                  </p>
+                  <p class="card__meta" style="margin:0">
+                    What to do: complete an <strong>Independent</strong> Daily 10-Q sprint, Topic Drill, or 2-hour Timed Mock so the hub can compute local accuracy, 42-unit coverage, and recent trend.
+                  </p>
+                  <div class="cluster-xs">
+                    <a href="#/practice" class="btn btn--primary btn--sm" style="text-decoration:none">${icon("icon-practice")} Open Practice Arena</a>
+                    <a href="#/papers" class="btn btn--ghost btn--sm" style="text-decoration:none">${icon("icon-papers")} Browse Papers</a>
+                  </div>
+                </div>
+              `
           }
-        </div>
-        ${
-          readiness.hasEnoughData
-            ? `
-              <p class="card__meta" style="margin:0">
-                Rough local readiness snapshot from your independent attempt history across accuracy, 42-unit breadth, 400-PYQ depth, and recent trend — never a guaranteed WBJEEB score or rank.
-              </p>
-              <div class="meter"><div class="meter__fill" style="width:${readiness.estimatePct}%"></div></div>
-              <div class="readiness-grid" id="readinessBreakdownGrid">
-                <div class="readiness-metric">
-                  <span class="readiness-metric__label">Attempts</span>
-                  <strong class="readiness-metric__val mono">${readiness.totalQuestionAttempts} Qs</strong>
-                  <span class="card__meta">${readiness.sessionCount} independent set${readiness.sessionCount === 1 ? "" : "s"}</span>
-                </div>
-                <div class="readiness-metric">
-                  <span class="readiness-metric__label">Avg Accuracy</span>
-                  <strong class="readiness-metric__val mono">${readiness.averageAccuracyPct}%</strong>
-                  <span class="card__meta">${readiness.totalCorrect}/${readiness.totalQuestionAttempts} correct</span>
-                </div>
-                <div class="readiness-metric">
-                  <span class="readiness-metric__label">Syllabus Coverage</span>
-                  <strong class="readiness-metric__val mono">${readiness.unitsCovered}/${readiness.totalUnits} units</strong>
-                  <span class="card__meta">${readiness.questionsCovered}/${readiness.totalQuestions} PYQs (${readiness.questionCoveragePct}%)</span>
-                </div>
-                <div class="readiness-metric">
-                  <span class="readiness-metric__label">Recent Trend</span>
-                  <div><span class="badge ${trendBadgeClass} mono">${escapeHtml(readiness.trendLabel)}</span></div>
-                  <span class="card__meta">Last independent sets</span>
-                </div>
-              </div>
-              ${
-                readiness.mockCount
-                  ? `<div class="readiness-mock-line">${icon("icon-timer")} <strong>Mock performance:</strong> ${readiness.mockCount} timed mock${readiness.mockCount === 1 ? "" : "s"} · Best <strong class="mono">${readiness.mockBestTwelfths != null ? formatTwelfths(readiness.mockBestTwelfths) + " / 120" : "—"}</strong> · Avg accuracy <strong class="mono">${readiness.mockAvgAccuracyPct != null ? readiness.mockAvgAccuracyPct + "%" : "—"}</strong>${readiness.mockTrend !== "insufficient" ? ` · Mock trend ${escapeHtml(readiness.mockTrend)}` : ""}</div>`
-                  : ""
-              }
-            `
-            : `
-              <div class="readiness-empty" id="readinessEmptyState">
-                <p class="card__meta" style="margin:0">
-                  <strong>Practice more to generate your readiness estimate</strong> (${readiness.totalQuestionAttempts}/${readiness.minAttempts} independent question attempts recorded; ${readiness.unitsCovered}/${readiness.totalUnits} units &amp; ${readiness.questionsCovered}/${readiness.totalQuestions} PYQs touched).
-                </p>
-                <p class="card__meta" style="margin:0">
-                  What to do: complete an <strong>Independent</strong> Daily 10-Q sprint, Topic Drill, or 2-hour Timed Mock so the hub can compute local accuracy, 42-unit coverage, and recent trend.
-                </p>
-                <div class="cluster-xs">
-                  <a href="#/practice" class="btn btn--primary btn--sm" style="text-decoration:none">${icon("icon-practice")} Open Practice Arena</a>
-                  <a href="#/papers" class="btn btn--ghost btn--sm" style="text-decoration:none">${icon("icon-papers")} Browse Papers</a>
-                </div>
-              </div>
-            `
-        }
-      </section>
+        </section>
+      </details>
 
-      <!-- Mock History & Trends (Phase 08) -->
-      <section class="card stack-s" id="youMockHistorySection" aria-label="Mock history and trends">
-        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
-          <div>
-            <h3 class="card__title" style="margin:0">Mock History</h3>
-            <p class="card__meta">Timed 100-Q / 120-mark / 2-hour mocks — score, accuracy &amp; completion-time trends</p>
-          </div>
-          <span class="pill mono">${mockHistory.count} mock${mockHistory.count === 1 ? "" : "s"}</span>
-        </div>
-
-        ${
-          mockHistory.empty
-            ? `
-          <div class="mock-history-empty" id="mockHistoryEmptyState">
-            <div class="cluster-xs">${icon("icon-timer")} <strong>No mocks yet</strong></div>
-            <p class="card__meta">Start a 2-hour timed mock from the Papers library to begin tracking your score, accuracy and completion-time trends.</p>
-            <a href="#/papers" class="btn btn--primary btn--sm" style="text-decoration:none">${icon("icon-papers")} Browse Papers</a>
-          </div>`
-            : `
-          <div class="mock-trends-grid">
-            <div class="mock-trend-card">
-              <div class="row-between"><strong style="font-size:var(--fs-body)">Score</strong><span class="card__meta mono">${fmtMarks(latestScore)} / 120</span></div>
-              ${sparklineSvg(scoreVals, { width: 150, height: 40, ariaLabel: "Score over time" })}
-              <span class="card__meta mono">Best ${fmtMarks(mockHistory.bests.bestScore?.scoreMarks)} / 120</span>
+      <!-- Mock History & Trends (Phase 08 · Phase 12 disclosure) -->
+      <details class="disclose" id="discloseMockHistory">
+        <summary class="disclose__summary">
+          <span class="disclose__title">Mock history</span>
+          <span class="disclose__status" id="sumMockHistory">${escapeHtml(mockSummaryStatus)}</span>
+        </summary>
+        <section class="card stack-s" id="youMockHistorySection" aria-label="Mock history and trends">
+          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+            <div>
+              <h3 class="card__title" style="margin:0">Mock History</h3>
+              <p class="card__meta">Timed 100-Q / 120-mark / 2-hour mocks — score, accuracy &amp; completion-time trends</p>
             </div>
-            <div class="mock-trend-card">
-              <div class="row-between"><strong style="font-size:var(--fs-body)">Accuracy</strong><span class="card__meta mono">${fmtPct(latestAcc)}</span></div>
-              ${sparklineSvg(accVals, { width: 150, height: 40, stroke: "var(--fig-secondary)", fill: "var(--fig-secondary)", ariaLabel: "Accuracy over time" })}
-              <span class="card__meta mono">Best ${mockHistory.bests.bestAccuracy ? mockHistory.bests.bestAccuracy.accuracyPct + "%" : "—"}</span>
-            </div>
-            <div class="mock-trend-card">
-              <div class="row-between"><strong style="font-size:var(--fs-body)">Time taken</strong><span class="card__meta mono">${latestTime != null ? formatDurationClock(latestTime) : "—"}</span></div>
-              ${sparklineSvg(timeVals, { width: 150, height: 40, stroke: "var(--fig-accent)", fill: "var(--fig-accent)", ariaLabel: "Completion time over time" })}
-              <span class="card__meta mono">Fastest ${mockHistory.bests.fastestTime ? formatDurationClock(mockHistory.bests.fastestTime.elapsedMs) : "—"}</span>
-            </div>
+            <span class="pill mono">${mockHistory.count} mock${mockHistory.count === 1 ? "" : "s"}</span>
           </div>
 
-          <div class="mock-bests-grid">
-            <div class="mock-best-tile">
-              <span class="card__meta">${icon("icon-trophy")} Best Score</span>
-              <strong class="mono">${mockHistory.bests.bestScore ? fmtMarks(mockHistory.bests.bestScore.scoreMarks) + " / 120" : "—"}</strong>
-              <span class="card__meta">${mockHistory.bests.bestScore ? mockDate(mockHistory.bests.bestScore.submittedAt) : "—"}</span>
-            </div>
-            <div class="mock-best-tile">
-              <span class="card__meta">${icon("icon-check")} Best Accuracy</span>
-              <strong class="mono">${mockHistory.bests.bestAccuracy ? mockHistory.bests.bestAccuracy.accuracyPct + "%" : "—"}</strong>
-              <span class="card__meta">${mockHistory.bests.bestAccuracy ? mockDate(mockHistory.bests.bestAccuracy.submittedAt) : "—"}</span>
-            </div>
-            <div class="mock-best-tile">
-              <span class="card__meta">${icon("icon-timer")} Fastest Completion</span>
-              <strong class="mono">${mockHistory.bests.fastestTime ? formatDurationClock(mockHistory.bests.fastestTime.elapsedMs) : "—"}</strong>
-              <span class="card__meta">${mockHistory.bests.fastestTime ? mockDate(mockHistory.bests.fastestTime.submittedAt) : "—"}</span>
-            </div>
-          </div>
-
-          <div class="stack-xs">
-            ${mockHistory.mocks
-              .map(
-                (m) => `
-            <a class="mock-history-item" href="#/results/${escapeHtml(m.attemptId)}">
-              <div class="row-between">
-                <div class="cluster-xs">
-                  ${mockBestIds.has(m.attemptId) ? `<span class="badge badge--correct">${icon("icon-trophy")} PB</span>` : ""}
-                  <strong class="mono">${fmtMarks(m.scoreMarks)} / 120</strong>
-                  <span class="badge ${m.accuracyPct >= 75 ? "badge--correct" : m.accuracyPct >= 50 ? "badge--partial" : "badge--wrong"} mono">${m.accuracyPct}%</span>
-                </div>
-                <span class="card__meta mono">${escapeHtml(mockDate(m.submittedAt))}</span>
+          ${
+            mockHistory.empty
+              ? `
+            <div class="mock-history-empty" id="mockHistoryEmptyState">
+              <div class="cluster-xs">${icon("icon-timer")} <strong>No mocks yet</strong></div>
+              <p class="card__meta">Start a 2-hour timed mock from the Papers library to begin tracking your score, accuracy and completion-time trends.</p>
+              <a href="#/papers" class="btn btn--primary btn--sm" style="text-decoration:none">${icon("icon-papers")} Browse Papers</a>
+            </div>`
+              : `
+            <div class="mock-trends-grid">
+              <div class="mock-trend-card">
+                <div class="row-between"><strong style="font-size:var(--fs-body)">Score</strong><span class="card__meta mono">${fmtMarks(latestScore)} / 120</span></div>
+                ${sparklineSvg(scoreVals, { width: 150, height: 40, ariaLabel: "Score over time" })}
+                <span class="card__meta mono">Best ${fmtMarks(mockHistory.bests.bestScore?.scoreMarks)} / 120</span>
               </div>
-              <div class="row-between" style="margin-top:var(--space-2xs)">
-                <span class="card__meta">${escapeHtml(m.title)}</span>
-                <span class="card__meta mono">${m.elapsedMs != null ? formatDurationClock(m.elapsedMs) : "—"} / ${m.durationMs != null ? formatDurationClock(m.durationMs) : "—"}</span>
+              <div class="mock-trend-card">
+                <div class="row-between"><strong style="font-size:var(--fs-body)">Accuracy</strong><span class="card__meta mono">${fmtPct(latestAcc)}</span></div>
+                ${sparklineSvg(accVals, { width: 150, height: 40, stroke: "var(--fig-secondary)", fill: "var(--fig-secondary)", ariaLabel: "Accuracy over time" })}
+                <span class="card__meta mono">Best ${mockHistory.bests.bestAccuracy ? mockHistory.bests.bestAccuracy.accuracyPct + "%" : "—"}</span>
               </div>
-            </a>`
-              )
-              .join("")}
-          </div>`
-        }
-      </section>
+              <div class="mock-trend-card">
+                <div class="row-between"><strong style="font-size:var(--fs-body)">Time taken</strong><span class="card__meta mono">${latestTime != null ? formatDurationClock(latestTime) : "—"}</span></div>
+                ${sparklineSvg(timeVals, { width: 150, height: 40, stroke: "var(--fig-accent)", fill: "var(--fig-accent)", ariaLabel: "Completion time over time" })}
+                <span class="card__meta mono">Fastest ${mockHistory.bests.fastestTime ? formatDurationClock(mockHistory.bests.fastestTime.elapsedMs) : "—"}</span>
+              </div>
+            </div>
 
-      <!-- Card 1: JU Target & Diploma CGPA Check (13-phone-you-ai-and-ju-hub.png) -->
-      <section class="card stack-s">
-        <h3 class="card__title" style="margin:0">JU Target &amp; Diploma CGPA Check</h3>
-        <p class="card__meta">WBSCTE Diploma → WBJEEB Percentage &amp; Jadavpur University lateral-entry eligibility (§2.0 Notification).</p>
+            <div class="mock-bests-grid">
+              <div class="mock-best-tile">
+                <span class="card__meta">${icon("icon-trophy")} Best Score</span>
+                <strong class="mono">${mockHistory.bests.bestScore ? fmtMarks(mockHistory.bests.bestScore.scoreMarks) + " / 120" : "—"}</strong>
+                <span class="card__meta">${mockHistory.bests.bestScore ? mockDate(mockHistory.bests.bestScore.submittedAt) : "—"}</span>
+              </div>
+              <div class="mock-best-tile">
+                <span class="card__meta">${icon("icon-check")} Best Accuracy</span>
+                <strong class="mono">${mockHistory.bests.bestAccuracy ? mockHistory.bests.bestAccuracy.accuracyPct + "%" : "—"}</strong>
+                <span class="card__meta">${mockHistory.bests.bestAccuracy ? mockDate(mockHistory.bests.bestAccuracy.submittedAt) : "—"}</span>
+              </div>
+              <div class="mock-best-tile">
+                <span class="card__meta">${icon("icon-timer")} Fastest Completion</span>
+                <strong class="mono">${mockHistory.bests.fastestTime ? formatDurationClock(mockHistory.bests.fastestTime.elapsedMs) : "—"}</strong>
+                <span class="card__meta">${mockHistory.bests.fastestTime ? mockDate(mockHistory.bests.fastestTime.submittedAt) : "—"}</span>
+              </div>
+            </div>
 
-        <div class="form-grid-2">
-          <label class="form-field">
-            <span class="form-label">Your Name (optional)</span>
-            <input type="text" class="input-field" id="profNameInput" placeholder="e.g. Pabitra" value="${escapeHtml(profile.name)}" />
-          </label>
-          <label class="form-field">
-            <span class="form-label">Target College &amp; Department</span>
-            <input type="text" class="input-field" id="profTargetInput" placeholder="e.g. Jadavpur Univ. CSE, KGEC IT, JGEC EE…" value="${escapeHtml(profile.targetBranch)}" />
-          </label>
-          <label class="form-field">
-            <span class="form-label">Diploma CGPA (10-point scale)</span>
-            <input type="number" step="0.01" min="4" max="10" class="input-field mono" id="profCgpaInput" placeholder="e.g. 9.35" value="${escapeHtml(profile.diplomaCgpa)}" />
-          </label>
-          <label class="form-field">
-            <span class="form-label">Counselling Category</span>
-            <select class="input-select" id="profCategorySelect">
-              ${["General", "General-EWS", "OBC-A", "OBC-B", "SC", "ST", "PwD"]
+            <div class="stack-xs">
+              ${mockHistory.mocks
                 .map(
-                  (c) =>
-                    `<option value="${escapeHtml(c)}" ${profile.category === c ? "selected" : ""}>${escapeHtml(c)}</option>`
+                  (m) => `
+              <a class="mock-history-item" href="#/results/${escapeHtml(m.attemptId)}">
+                <div class="row-between">
+                  <div class="cluster-xs">
+                    ${mockBestIds.has(m.attemptId) ? `<span class="badge badge--correct">${icon("icon-trophy")} PB</span>` : ""}
+                    <strong class="mono">${fmtMarks(m.scoreMarks)} / 120</strong>
+                    <span class="badge ${m.accuracyPct >= 75 ? "badge--correct" : m.accuracyPct >= 50 ? "badge--partial" : "badge--wrong"} mono">${m.accuracyPct}%</span>
+                  </div>
+                  <span class="card__meta mono">${escapeHtml(mockDate(m.submittedAt))}</span>
+                </div>
+                <div class="row-between" style="margin-top:var(--space-2xs)">
+                  <span class="card__meta">${escapeHtml(m.title)}</span>
+                  <span class="card__meta mono">${m.elapsedMs != null ? formatDurationClock(m.elapsedMs) : "—"} / ${m.durationMs != null ? formatDurationClock(m.durationMs) : "—"}</span>
+                </div>
+              </a>`
                 )
                 .join("")}
-            </select>
-          </label>
-        </div>
+            </div>`
+          }
+        </section>
+      </details>
 
-        <div id="cgpaEligibilitySlot"></div>
+      <!-- Card 1: JU Target & Diploma CGPA Check (13-phone-you-ai-and-ju-hub.png · Phase 12 disclosure) -->
+      <details class="disclose" id="discloseJu">
+        <summary class="disclose__summary">
+          <span class="disclose__title">JU Target &amp; CGPA</span>
+          <span class="disclose__status" id="sumJU">Not set</span>
+        </summary>
+        <section class="card stack-s" id="youJuSection">
+          <h3 class="card__title" style="margin:0">JU Target &amp; Diploma CGPA Check</h3>
+          <p class="card__meta">WBSCTE Diploma → WBJEEB Percentage &amp; Jadavpur University lateral-entry eligibility (§2.0 Notification).</p>
 
-        <details class="tiebreak-details">
-          <summary>Historical JU Seat Matrix &amp; Safe Target Scores (2024–2026)</summary>
-          <div class="stack-xs" style="margin-top:var(--space-s)">
-            ${JU_BENCHMARKS.map(
-              (b) => `
-              <div class="row-between" style="flex-wrap:wrap;padding:var(--space-2xs) 0;border-bottom:1px solid var(--border-subtle)">
-                <div>
-                  <strong>${escapeHtml(b.branch)}</strong>
-                  <div class="card__meta">${escapeHtml(b.campus)} · ~${b.seats} seats · ${escapeHtml(b.openGmr)}</div>
-                </div>
-                <span class="mono badge badge--brand">${escapeHtml(b.safeRangeText)}</span>
-              </div>`
-            ).join("")}
-          </div>
-        </details>
-      </section>
-
-      <!-- Card 2: CodeC BYOK AI Tutor Vault (13-phone-you-ai-and-ju-hub.png) -->
-      <section class="card stack-s">
-        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
-          <div>
-            <h3 class="card__title" style="margin:0">Codec BYOK AI Tutor</h3>
-            <p class="card__meta">Optional — Offline Corpus Tutor works without any key.</p>
-          </div>
-          <span class="pill" id="aiVaultStatusPill"></span>
-        </div>
-
-        <div class="mono card__meta" id="aiMaskedKeyLine"></div>
-
-        <div class="form-grid-2">
-          <label class="form-field">
-            <span class="form-label">Provider</span>
-            <select class="input-select" id="aiProviderSelect">
-              ${Object.values(AI_PROVIDERS)
-                .map(
-                  (p) =>
-                    `<option value="${p.id}" ${vault.provider === p.id ? "selected" : ""}>${escapeHtml(p.label)}</option>`
-                )
-                .join("")}
-            </select>
-          </label>
-          <label class="form-field">
-            <span class="form-label">Model</span>
-            <select class="input-select" id="aiModelModeSelect">
-              <option value="default" id="aiDefaultModelOpt" ${!vault.useCustomModel ? "selected" : ""}>Default (${escapeHtml(activeProviderCfg.defaultModel)})</option>
-              <option value="custom" ${vault.useCustomModel ? "selected" : ""}>Custom model</option>
-            </select>
-          </label>
-        </div>
-
-        <div class="form-field" id="aiCustomModelWrap" ${vault.useCustomModel ? "" : "hidden"}>
-          <label class="form-label" for="aiCustomModelInput">Custom Model Name (blank falls back to provider default)</label>
-          <input type="text" class="input-field mono" id="aiCustomModelInput" placeholder="e.g. gemini-2.5-pro, llama-3.1-8b-instant, deepseek/deepseek-chat…" value="${escapeHtml(vault.customModel || "")}" autocomplete="off" />
-        </div>
-
-        <label class="form-field">
-          <span class="form-label">Personal API Key (stored only on this device)</span>
-          <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
-        </label>
-
-        <div class="cluster-xs">
-          <button type="button" class="btn btn--primary btn--sm" id="saveAiKeyBtn">Save Key</button>
-          <button type="button" class="btn btn--ghost btn--sm" id="testAiConnBtn">Test Connection</button>
-          <button type="button" class="btn btn--ghost btn--sm" id="clearAiKeyBtn">Clear Key</button>
-        </div>
-        <div id="aiConnDiagnostic" class="card__meta"></div>
-
-        <div class="toggle-row">
-          <div>
-            <strong>Preview prompt before sending</strong>
-            <div class="card__meta">Inspect exact model &amp; JSON payload in Codec AI Tutor</div>
-          </div>
-          <button type="button" class="switch-btn" id="aiPreviewToggleBtn" role="switch" aria-checked="${Boolean(vault.previewPrompt)}">
-            <span class="switch-btn__thumb"></span>
-          </button>
-        </div>
-      </section>
-
-      <!-- Card 3: My Activity (01-settings.png — real IndexedDB counts, 0 on fresh device) -->
-      <section class="stack-xs">
-        <h3 class="section-heading">My Activity</h3>
-        <div class="today-subjects-grid">
-          <button type="button" class="card activity-tile" id="openBookmarksTile">
-            <span class="quick-action-card__icon" data-tone="brand">${icon("icon-bookmark")}</span>
-            <span class="card__meta">Saved Bookmarks</span>
-            <div class="row-between" style="width:100%">
-              <strong class="mono stat-tile__value">${snapshot.savedBookmarks.length}</strong>
-              ${icon("icon-chevron")}
-            </div>
-          </button>
-          <button type="button" class="card activity-tile" id="openRecentTile">
-            <span class="quick-action-card__icon" data-tone="phys">${icon("icon-learn")}</span>
-            <span class="card__meta">Recently Studied Units</span>
-            <div class="row-between" style="width:100%">
-              <strong class="mono stat-tile__value">${snapshot.recentlyVisitedUnits.length}</strong>
-              ${icon("icon-chevron")}
-            </div>
-          </button>
-        </div>
-        <div id="activityListSlot"></div>
-      </section>
-
-      <!-- Card 4: Preferences, Offline Pack & Signed Backup (01 + 13) -->
-      <section class="card stack-s">
-        <h3 class="card__title" style="margin:0">Preferences, Offline Pack &amp; Backup</h3>
-
-        <div class="toggle-row">
-          <div>
-            <strong>AMOLED Dark Mode</strong>
-            <div class="card__meta">Battery-saving deep dark palette for late-night phone study</div>
-          </div>
-          <button type="button" class="switch-btn" id="youDarkSwitchBtn" role="switch" aria-checked="${meta.theme === "dark"}">
-            <span class="switch-btn__thumb"></span>
-          </button>
-        </div>
-
-        <hr style="border:none;border-top:1px solid var(--border-subtle);margin:0" />
-
-        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
-          <div>
-            <strong>Offline Corpus Pack (2022–2025)</strong>
-            <p class="card__meta" id="offlinePackStatusText">4 Papers · 400 Qs · 400 Solutions · 42 Units · 109 SVGs (~1.5 MB)</p>
-          </div>
-          <button type="button" class="btn btn--ghost btn--sm" id="warmOfflineBtn">
-            ${icon("icon-download")} Cache Offline Pack
-          </button>
-        </div>
-
-        <hr style="border:none;border-top:1px solid var(--border-subtle);margin:0" />
-
-        <div class="stack-xs">
-          <button type="button" class="action-list-row" id="exportBackupBtn">
-            <span class="cluster-xs">${icon("icon-download")} <strong>Export Signed Backup (.json)</strong></span>
-            ${icon("icon-chevron")}
-          </button>
-
-          <label class="action-list-row" for="importBackupFileInput" style="cursor:pointer">
-            <span class="cluster-xs">${icon("icon-upload")} <strong>Import Signed Backup (.json)</strong></span>
-            ${icon("icon-chevron")}
-          </label>
-          <input type="file" id="importBackupFileInput" accept="application/json,.json" hidden />
-        </div>
-
-        <div id="importPreviewSlot" hidden></div>
-
-        <details class="tiebreak-details">
-          <summary>${icon("icon-info")} About &amp; Official WBJEEB Corpus Sources</summary>
-          <div class="stack-xs card__meta" style="margin-top:var(--space-s)">
-            <div>• <strong>JELET 2025 Paper-I (Set A):</strong> Official Key Ref <span class="mono">JEEB/Reg-171/25</span> (100 Qs, 3 Withdrawn W)</div>
-            <div>• <strong>JELET 2024 Paper-I (Set A):</strong> Official Key Ref <span class="mono">WBE/Ex-71</span> (100 Qs, 2 Withdrawn W)</div>
-            <div>• <strong>JELET 2023 Paper-I (Set A):</strong> Official Key Ref <span class="mono">JEEB/Reg-267/23</span> (100 Qs, 4 Withdrawn W)</div>
-            <div>• <strong>JELET 2022 Paper-I (Set A):</strong> Complete Dual-Solver + SymPy Verified Key (100 Qs, 1 Withdrawn W)</div>
-            <div>• <strong>Zero Copyrighted Assets:</strong> 100% clean LaTeX transcriptions, 109 theme-adaptive SVGs, and 400 SymPy-verified solutions.</div>
-          </div>
-        </details>
-      </section>
-
-      <!-- Card 5: Optional Encrypted Cloud Sync (Phase 09 — opt-in, local-first default) -->
-      <section class="card stack-s" id="youSyncSection" aria-label="Encrypted cloud sync">
-        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
-          <div>
-            <h3 class="card__title" style="margin:0">${icon("icon-lock")} Encrypted Cloud Sync (optional)</h3>
-            <p class="card__meta" id="syncSubtitle">Carry your study state across devices — fully offline-capable without it.</p>
-          </div>
-          <span class="pill" id="syncStatusPill">Off</span>
-        </div>
-
-        <div class="toggle-row">
-          <div>
-            <strong>Sync my study state</strong>
-            <div class="card__meta" id="syncToggleHint">Sync is off — your data stays on this device.</div>
-          </div>
-          <button type="button" class="switch-btn" id="syncToggleBtn" role="switch" aria-checked="false" aria-label="Enable encrypted cloud sync">
-            <span class="switch-btn__thumb"></span>
-          </button>
-        </div>
-
-        <div id="syncConfigFields" hidden>
           <div class="form-grid-2">
             <label class="form-field">
-              <span class="form-label">Sync endpoint base URL</span>
-              <input type="url" class="input-field mono" id="syncBaseUrlInput" placeholder="https://your-endpoint.example/api" autocomplete="off" spellcheck="false" />
+              <span class="form-label">Your Name (optional)</span>
+              <input type="text" class="input-field" id="profNameInput" placeholder="e.g. Pabitra" value="${escapeHtml(profile.name)}" />
             </label>
             <label class="form-field">
-              <span class="form-label">Encryption passphrase (min 8 chars · never stored)</span>
-              <input type="password" class="input-field mono" id="syncPassphraseInput" placeholder="Type passphrase to encrypt/decrypt…" autocomplete="new-password" />
+              <span class="form-label">Target College &amp; Department</span>
+              <input type="text" class="input-field" id="profTargetInput" placeholder="e.g. Jadavpur Univ. CSE, KGEC IT, JGEC EE…" value="${escapeHtml(profile.targetBranch)}" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">Diploma CGPA (10-point scale)</span>
+              <input type="number" step="0.01" min="4" max="10" class="input-field mono" id="profCgpaInput" placeholder="e.g. 9.35" value="${escapeHtml(profile.diplomaCgpa)}" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">Counselling Category</span>
+              <select class="input-select" id="profCategorySelect">
+                ${["General", "General-EWS", "OBC-A", "OBC-B", "SC", "ST", "PwD"]
+                  .map(
+                    (c) =>
+                      `<option value="${escapeHtml(c)}" ${profile.category === c ? "selected" : ""}>${escapeHtml(c)}</option>`
+                  )
+                  .join("")}
+              </select>
             </label>
           </div>
 
-          <div class="cluster-xs">
-            <button type="button" class="btn btn--primary btn--sm" id="syncSaveBtn">${icon("icon-lock")} Save &amp; Enable</button>
-            <button type="button" class="btn btn--ghost btn--sm" id="syncNowBtn">${icon("icon-refresh")} Sync now</button>
-            <button type="button" class="btn btn--ghost btn--sm" id="syncUnlockBtn" hidden>Unlock for this session</button>
-          </div>
-          <div id="syncDiagnostic" class="card__meta" aria-live="polite"></div>
-
-          <div class="readiness-grid" id="syncStatusGrid" style="margin-top:var(--space-xs)"></div>
-          <div id="syncErrorLine" class="card__meta" style="color:var(--text-muted)"></div>
+          <div id="cgpaEligibilitySlot"></div>
 
           <details class="tiebreak-details">
-            <summary>${icon("icon-info")} What syncs · what NEVER syncs · encryption model</summary>
-            <div class="stack-xs card__meta" style="margin-top:var(--space-s)">
-              <div>• <strong>Synced (study state only):</strong> sessions, attempt history, per-question stats, unit progress, bookmarks &amp; notes, profile and settings.</div>
-              <div>• <strong>Never synced:</strong> your AI provider API keys — they stay in the isolated <span class="mono">jelet_ai_vault_v1</span> vault on this device and never enter IndexedDB, backups, or sync payloads.</div>
-              <div>• <strong>Encryption:</strong> every payload is encrypted on this device with PBKDF2-SHA-256 (250k iterations) → AES-GCM-256 before any network request. Your passphrase lives in this tab's memory only — never written to disk. Honest standard browser crypto, not “military grade”: pick a long passphrase.</div>
-              <div>• <strong>Endpoint:</strong> any provider that can store one JSON document behind <span class="mono">GET/PUT {base}/sync</span> — full contract in <span class="mono">DEPLOY.md</span>.</div>
-              <div>• <strong>Merge:</strong> last-write-wins per record (newest timestamp; ties keep this device) with a merge log — unsynced local changes are never silently overwritten.</div>
+            <summary>Historical JU Seat Matrix &amp; Safe Target Scores (2024–2026)</summary>
+            <div class="stack-xs" style="margin-top:var(--space-s)">
+              ${JU_BENCHMARKS.map(
+                (b) => `
+                <div class="row-between" style="flex-wrap:wrap;padding:var(--space-2xs) 0;border-bottom:1px solid var(--border-subtle)">
+                  <div>
+                    <strong>${escapeHtml(b.branch)}</strong>
+                    <div class="card__meta">${escapeHtml(b.campus)} · ~${b.seats} seats · ${escapeHtml(b.openGmr)}</div>
+                  </div>
+                  <span class="mono badge badge--brand">${escapeHtml(b.safeRangeText)}</span>
+                </div>`
+              ).join("")}
             </div>
           </details>
+        </section>
+      </details>
 
-          <details class="tiebreak-details" id="syncLogDetails" hidden>
-            <summary>${icon("icon-layers")} Merge log</summary>
-            <div class="stack-xs" id="syncLogBody" style="margin-top:var(--space-s)"></div>
+      <!-- Card 2: CodeC BYOK AI Tutor Vault (13-phone-you-ai-and-ju-hub.png · Phase 12 disclosure) -->
+      <details class="disclose" id="discloseAi">
+        <summary class="disclose__summary">
+          <span class="disclose__title">AI Tutor (BYOK)</span>
+          <span class="disclose__status" id="sumAI">Offline corpus mode</span>
+        </summary>
+        <section class="card stack-s" id="youAiSection">
+          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+            <div>
+              <h3 class="card__title" style="margin:0">Codec BYOK AI Tutor</h3>
+              <p class="card__meta">Optional — Offline Corpus Tutor works without any key.</p>
+            </div>
+            <span class="pill" id="aiVaultStatusPill"></span>
+          </div>
+
+          <div class="mono card__meta" id="aiMaskedKeyLine"></div>
+
+          <div class="form-grid-2">
+            <label class="form-field">
+              <span class="form-label">Provider</span>
+              <select class="input-select" id="aiProviderSelect">
+                ${Object.values(AI_PROVIDERS)
+                  .map(
+                    (p) =>
+                      `<option value="${p.id}" ${vault.provider === p.id ? "selected" : ""}>${escapeHtml(p.label)}</option>`
+                  )
+                  .join("")}
+              </select>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Model</span>
+              <select class="input-select" id="aiModelModeSelect">
+                <option value="default" id="aiDefaultModelOpt" ${!vault.useCustomModel ? "selected" : ""}>Default (${escapeHtml(activeProviderCfg.defaultModel)})</option>
+                <option value="custom" ${vault.useCustomModel ? "selected" : ""}>Custom model</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-field" id="aiCustomModelWrap" ${vault.useCustomModel ? "" : "hidden"}>
+            <label class="form-label" for="aiCustomModelInput">Custom Model Name (blank falls back to provider default)</label>
+            <input type="text" class="input-field mono" id="aiCustomModelInput" placeholder="e.g. gemini-2.5-pro, llama-3.1-8b-instant, deepseek/deepseek-chat…" value="${escapeHtml(vault.customModel || "")}" autocomplete="off" />
+          </div>
+
+          <label class="form-field">
+            <span class="form-label">Personal API Key (stored only on this device)</span>
+            <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
+          </label>
+
+          <div class="cluster-xs">
+            <button type="button" class="btn btn--primary btn--sm" id="saveAiKeyBtn">Save Key</button>
+            <button type="button" class="btn btn--ghost btn--sm" id="testAiConnBtn">Test Connection</button>
+            <button type="button" class="btn btn--ghost btn--sm" id="clearAiKeyBtn">Clear Key</button>
+          </div>
+          <div id="aiConnDiagnostic" class="card__meta"></div>
+
+          <div class="toggle-row">
+            <div>
+              <strong>Preview prompt before sending</strong>
+              <div class="card__meta">Inspect exact model &amp; JSON payload in Codec AI Tutor</div>
+            </div>
+            <button type="button" class="switch-btn" id="aiPreviewToggleBtn" role="switch" aria-checked="${Boolean(vault.previewPrompt)}">
+              <span class="switch-btn__thumb"></span>
+            </button>
+          </div>
+        </section>
+      </details>
+
+      <!-- Card 3: My Activity (01-settings.png — real IndexedDB counts, 0 on fresh device · Phase 12 disclosure) -->
+      <details class="disclose" id="discloseActivity">
+        <summary class="disclose__summary">
+          <span class="disclose__title">My Activity</span>
+          <span class="disclose__status" id="sumActivity">${snapshot.savedBookmarks.length} bookmark${snapshot.savedBookmarks.length === 1 ? "" : "s"} · ${snapshot.recentlyVisitedUnits.length} recent unit${snapshot.recentlyVisitedUnits.length === 1 ? "" : "s"}</span>
+        </summary>
+        <section class="stack-xs" id="youActivitySection">
+          <h3 class="section-heading">My Activity</h3>
+          <div class="today-subjects-grid">
+            <button type="button" class="card activity-tile" id="openBookmarksTile">
+              <span class="quick-action-card__icon" data-tone="brand">${icon("icon-bookmark")}</span>
+              <span class="card__meta">Saved Bookmarks</span>
+              <div class="row-between" style="width:100%">
+                <strong class="mono stat-tile__value">${snapshot.savedBookmarks.length}</strong>
+                ${icon("icon-chevron")}
+              </div>
+            </button>
+            <button type="button" class="card activity-tile" id="openRecentTile">
+              <span class="quick-action-card__icon" data-tone="phys">${icon("icon-learn")}</span>
+              <span class="card__meta">Recently Studied Units</span>
+              <div class="row-between" style="width:100%">
+                <strong class="mono stat-tile__value">${snapshot.recentlyVisitedUnits.length}</strong>
+                ${icon("icon-chevron")}
+              </div>
+            </button>
+          </div>
+          <div id="activityListSlot"></div>
+        </section>
+      </details>
+
+      <!-- Card 4: Preferences, Offline Pack & Signed Backup (01 + 13 · Phase 12 disclosure) -->
+      <details class="disclose" id="disclosePrefs">
+        <summary class="disclose__summary">
+          <span class="disclose__title">Preferences &amp; backup</span>
+          <span class="disclose__status" id="sumPrefs">${meta.theme === "dark" ? "AMOLED on" : "Light mode"}</span>
+        </summary>
+        <section class="card stack-s" id="youPrefsSection">
+          <h3 class="card__title" style="margin:0">Preferences, Offline Pack &amp; Backup</h3>
+
+          <div class="toggle-row">
+            <div>
+              <strong>AMOLED Dark Mode</strong>
+              <div class="card__meta">Battery-saving deep dark palette for late-night phone study</div>
+            </div>
+            <button type="button" class="switch-btn" id="youDarkSwitchBtn" role="switch" aria-checked="${meta.theme === "dark"}">
+              <span class="switch-btn__thumb"></span>
+            </button>
+          </div>
+
+          <hr style="border:none;border-top:1px solid var(--border-subtle);margin:0" />
+
+          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+            <div>
+              <strong>Offline Corpus Pack (2022–2025)</strong>
+              <p class="card__meta" id="offlinePackStatusText">4 Papers · 400 Qs · 400 Solutions · 42 Units · 109 SVGs (~1.5 MB)</p>
+            </div>
+            <button type="button" class="btn btn--ghost btn--sm" id="warmOfflineBtn">
+              ${icon("icon-download")} Cache Offline Pack
+            </button>
+          </div>
+
+          <hr style="border:none;border-top:1px solid var(--border-subtle);margin:0" />
+
+          <div class="stack-xs">
+            <button type="button" class="action-list-row" id="exportBackupBtn">
+              <span class="cluster-xs">${icon("icon-download")} <strong>Export Signed Backup (.json)</strong></span>
+              ${icon("icon-chevron")}
+            </button>
+
+            <label class="action-list-row" for="importBackupFileInput" style="cursor:pointer">
+              <span class="cluster-xs">${icon("icon-upload")} <strong>Import Signed Backup (.json)</strong></span>
+              ${icon("icon-chevron")}
+            </label>
+            <input type="file" id="importBackupFileInput" accept="application/json,.json" hidden />
+          </div>
+
+          <div id="importPreviewSlot" hidden></div>
+
+          <details class="tiebreak-details">
+            <summary>${icon("icon-info")} About &amp; Official WBJEEB Corpus Sources</summary>
+            <div class="stack-xs card__meta" style="margin-top:var(--space-s)">
+              <div>• <strong>JELET 2025 Paper-I (Set A):</strong> Official Key Ref <span class="mono">JEEB/Reg-171/25</span> (100 Qs, 3 Withdrawn W)</div>
+              <div>• <strong>JELET 2024 Paper-I (Set A):</strong> Official Key Ref <span class="mono">WBE/Ex-71</span> (100 Qs, 2 Withdrawn W)</div>
+              <div>• <strong>JELET 2023 Paper-I (Set A):</strong> Official Key Ref <span class="mono">JEEB/Reg-267/23</span> (100 Qs, 4 Withdrawn W)</div>
+              <div>• <strong>JELET 2022 Paper-I (Set A):</strong> Complete Dual-Solver + SymPy Verified Key (100 Qs, 1 Withdrawn W)</div>
+              <div>• <strong>Zero Copyrighted Assets:</strong> 100% clean LaTeX transcriptions, 109 theme-adaptive SVGs, and 400 SymPy-verified solutions.</div>
+            </div>
           </details>
+        </section>
+      </details>
+
+      <!-- Card 5: Optional Encrypted Cloud Sync (Phase 09 — opt-in, local-first default · Phase 12 disclosure) -->
+      <details class="disclose" id="discloseSync">
+        <summary class="disclose__summary">
+          <span class="disclose__title">Cloud sync</span>
+          <span class="disclose__status" id="sumSync">Off</span>
+        </summary>
+        <section class="card stack-s" id="youSyncSection" aria-label="Encrypted cloud sync">
+          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+            <div>
+              <h3 class="card__title" style="margin:0">${icon("icon-lock")} Encrypted Cloud Sync (optional)</h3>
+              <p class="card__meta" id="syncSubtitle">Carry your study state across devices — fully offline-capable without it.</p>
+            </div>
+            <span class="pill" id="syncStatusPill">Off</span>
+          </div>
+
+          <div class="toggle-row">
+            <div>
+              <strong>Sync my study state</strong>
+              <div class="card__meta" id="syncToggleHint">Sync is off — your data stays on this device.</div>
+            </div>
+            <button type="button" class="switch-btn" id="syncToggleBtn" role="switch" aria-checked="false" aria-label="Enable encrypted cloud sync">
+              <span class="switch-btn__thumb"></span>
+            </button>
+          </div>
+
+          <div id="syncConfigFields" hidden>
+            <div class="form-grid-2">
+              <label class="form-field">
+                <span class="form-label">Sync endpoint base URL</span>
+                <input type="url" class="input-field mono" id="syncBaseUrlInput" placeholder="https://your-endpoint.example/api" autocomplete="off" spellcheck="false" />
+              </label>
+              <label class="form-field">
+                <span class="form-label">Encryption passphrase (min 8 chars · never stored)</span>
+                <input type="password" class="input-field mono" id="syncPassphraseInput" placeholder="Type passphrase to encrypt/decrypt…" autocomplete="new-password" />
+              </label>
+            </div>
+
+            <div class="cluster-xs">
+              <button type="button" class="btn btn--primary btn--sm" id="syncSaveBtn">${icon("icon-lock")} Save &amp; Enable</button>
+              <button type="button" class="btn btn--ghost btn--sm" id="syncNowBtn">${icon("icon-refresh")} Sync now</button>
+              <button type="button" class="btn btn--ghost btn--sm" id="syncUnlockBtn" hidden>Unlock for this session</button>
+            </div>
+            <div id="syncDiagnostic" class="card__meta" aria-live="polite"></div>
+
+            <div class="readiness-grid" id="syncStatusGrid" style="margin-top:var(--space-xs)"></div>
+            <div id="syncErrorLine" class="card__meta" style="color:var(--text-muted)"></div>
+
+            <details class="tiebreak-details">
+              <summary>${icon("icon-info")} What syncs · what NEVER syncs · encryption model</summary>
+              <div class="stack-xs card__meta" style="margin-top:var(--space-s)">
+                <div>• <strong>Synced (study state only):</strong> sessions, attempt history, per-question stats, unit progress, bookmarks &amp; notes, profile and settings.</div>
+                <div>• <strong>Never synced:</strong> your AI provider API keys — they stay in the isolated <span class="mono">jelet_ai_vault_v1</span> vault on this device and never enter IndexedDB, backups, or sync payloads.</div>
+                <div>• <strong>Encryption:</strong> every payload is encrypted on this device with PBKDF2-SHA-256 (250k iterations) → AES-GCM-256 before any network request. Your passphrase lives in this tab's memory only — never written to disk. Honest standard browser crypto, not “military grade”: pick a long passphrase.</div>
+                <div>• <strong>Endpoint:</strong> any provider that can store one JSON document behind <span class="mono">GET/PUT {base}/sync</span> — full contract in <span class="mono">DEPLOY.md</span>.</div>
+                <div>• <strong>Merge:</strong> last-write-wins per record (newest timestamp; ties keep this device) with a merge log — unsynced local changes are never silently overwritten.</div>
+              </div>
+            </details>
+
+            <details class="tiebreak-details" id="syncLogDetails" hidden>
+              <summary>${icon("icon-layers")} Merge log</summary>
+              <div class="stack-xs" id="syncLogBody" style="margin-top:var(--space-s)"></div>
+            </details>
+          </div>
+
+          <p class="card__meta" id="syncOffNote" style="margin:0">Sync is off — your data stays on this device.</p>
+        </section>
+      </details>
+
+      <!-- Community (Contribute + Benchmark + Study Buddies · Phase 12 disclosure) -->
+      <details class="disclose" id="discloseCommunity">
+        <summary class="disclose__summary">
+          <span class="disclose__title">Community (optional)</span>
+          <span class="disclose__status" id="sumCommunity">Open source · optional</span>
+        </summary>
+        <div id="youCommunitySlot" class="stack-m">
+          <section class="card stack-s community-card" id="youContributeSection" aria-label="Open-source contributions">
+            <h3 class="card__title">Contribute</h3>
+            <p class="card__meta">JELET Study Hub is open source. Verified question contributions, corrections and improvements are welcome — follow the repository's accuracy and original-content guidelines. Participation is optional; no study data is submitted here.</p>
+            <a class="btn btn--ghost" href="https://github.com/pabi277/Jelet" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Explore the project on GitHub</a>
+          </section>
         </div>
-
-        <p class="card__meta" id="syncOffNote" style="margin:0">Sync is off — your data stays on this device.</p>
-      </section>
-
-      <section class="card stack-s community-card" id="youContributeSection" aria-label="Open-source contributions">
-        <h3 class="card__title">Contribute</h3>
-        <p class="card__meta">JELET Study Hub is open source. Verified question contributions, corrections and improvements are welcome — follow the repository's accuracy and original-content guidelines. Participation is optional; no study data is submitted here.</p>
-        <a class="btn btn--ghost" href="https://github.com/pabi277/Jelet" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Explore the project on GitHub</a>
-      </section>
+      </details>
     </div>
   `);
 
+  if (typeof window !== "undefined" && window.matchMedia?.("(min-width: 1024px)")?.matches) {
+    root.querySelectorAll(".disclose").forEach((d) => {
+      d.open = true;
+    });
+  } else if (invite !== null) {
+    const comm = $("#discloseCommunity", root);
+    if (comm) comm.open = true;
+  }
+
   main.innerHTML = "";
   main.appendChild(root);
+  const communitySlot = $("#youCommunitySlot", root);
   const latestMock = (await getAllAttempts()).filter(isShareableMock)
     .sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)))[0];
-  await mountBenchmark(root, latestMock);
-  await mountStudyBuddies(root, manifest, invite);
+  await mountBenchmark(communitySlot, latestMock);
+  await mountStudyBuddies(communitySlot, manifest, invite);
 
   function renderCgpaStatus() {
     const slot = $("#cgpaEligibilitySlot", root);
+    const sumJu = $("#sumJU", root);
     if (profile.diplomaCgpa === "" || profile.diplomaCgpa === null) {
       slot.innerHTML = `<span class="pill">Enter your WBSCTE Diploma CGPA above to check WBJEEB % &amp; JU eligibility</span>`;
+      if (sumJu) sumJu.textContent = "Not set";
       return;
     }
     const res = evaluateDiplomaEligibility(profile.diplomaCgpa, profile.category);
     if (!res.valid) {
       slot.innerHTML = `<span class="badge badge--wrong">Enter a valid CGPA between 4.00 and 10.00</span>`;
+      if (sumJu) sumJu.textContent = "Invalid CGPA";
       return;
+    }
+    if (sumJu) {
+      sumJu.textContent = `${res.percentage.toFixed(1)}% · ${res.eligible ? "Eligible" : "Below cutoff"}`;
     }
     if (res.eligible) {
       slot.innerHTML = `
@@ -617,6 +696,10 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     const pill = $("#aiVaultStatusPill", root);
     pill.className = hasKey ? "badge badge--correct" : "pill";
     pill.textContent = hasKey ? `${pCfg.label} · Key Saved` : "Offline Corpus Mode";
+    const sumAi = $("#sumAI", root);
+    if (sumAi) {
+      sumAi.textContent = hasKey ? `${pCfg.label} · Key saved` : "Offline corpus mode";
+    }
     $("#aiMaskedKeyLine", root).textContent = `Key: ${maskApiKey(vault.apiKey)} · Model: ${effectiveModel}`;
     const defaultOpt = $("#aiDefaultModelOpt", root);
     if (defaultOpt) {
@@ -729,7 +812,17 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
   });
 
   // Activity tiles
+  function syncActivityStatus() {
+    const sumActivity = $("#sumActivity", root);
+    if (sumActivity) {
+      const bCount = snapshot.savedBookmarks.length;
+      const rCount = snapshot.recentlyVisitedUnits.length;
+      sumActivity.textContent = `${bCount} bookmark${bCount === 1 ? "" : "s"} · ${rCount} recent unit${rCount === 1 ? "" : "s"}`;
+    }
+  }
+
   function renderActivityDrawer() {
+    syncActivityStatus();
     const slot = $("#activityListSlot", root);
     slot.innerHTML = "";
     if (!activityDrawer) return;
@@ -786,12 +879,48 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     renderActivityDrawer();
   });
 
+  function syncPrefsStatus(explicitTheme = null) {
+    const domTheme =
+      typeof document !== "undefined"
+        ? document.documentElement?.getAttribute?.("data-theme")
+        : null;
+    const isDark =
+      explicitTheme !== null
+        ? explicitTheme === "dark"
+        : domTheme
+        ? domTheme === "dark"
+        : meta.theme === "dark";
+    const switchBtn = $("#youDarkSwitchBtn", root);
+    if (switchBtn) switchBtn.setAttribute("aria-checked", String(isDark));
+    const sumPrefs = $("#sumPrefs", root);
+    if (sumPrefs) {
+      sumPrefs.textContent = `${isDark ? "AMOLED on" : "Light mode"}${
+        offlinePackCached ? " · Offline ready" : ""
+      }`;
+    }
+  }
+
+  let themeObserver = null;
+  if (typeof MutationObserver !== "undefined" && typeof document !== "undefined" && document.documentElement) {
+    themeObserver = new MutationObserver(() => {
+      if (!root.isConnected) {
+        themeObserver.disconnect();
+        return;
+      }
+      syncPrefsStatus();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+  }
+
   // AMOLED Dark Mode switch
-  $("#youDarkSwitchBtn", root).addEventListener("click", async (ev) => {
-    const btn = ev.currentTarget;
+  $("#youDarkSwitchBtn", root).addEventListener("click", async () => {
     if (onThemeToggle) {
       const next = await onThemeToggle();
-      btn.setAttribute("aria-checked", String(next === "dark"));
+      meta = { ...meta, theme: next };
+      syncPrefsStatus(next);
     }
   });
 
@@ -804,6 +933,8 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
       const res = await warmOfflineCorpus((done, total) => {
         statusText.textContent = `Caching corpus locally: ${done} / ${total} files…`;
       });
+      offlinePackCached = true;
+      syncPrefsStatus();
       statusText.textContent = `✔ Ready offline (${res.filesCached} verified JSON & SVG files cached)`;
       showToast("Full 2022–2025 corpus cached for instant study");
     } catch (err) {
@@ -917,6 +1048,8 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
       pill.className = "badge badge--correct";
       pill.textContent = "Up to date";
     }
+    const sumSync = $("#sumSync", root);
+    if (sumSync) sumSync.textContent = pill.textContent;
 
     $("#syncOffNote", root).hidden = st.enabled;
     $("#syncConfigFields", root).hidden = !(st.enabled || syncFieldsRevealed);
@@ -1080,4 +1213,10 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
   renderSyncStatus().catch(() => {});
   renderCgpaStatus();
   syncAiVaultDom();
+  syncActivityStatus();
+  syncPrefsStatus();
+
+  return () => {
+    if (themeObserver) themeObserver.disconnect();
+  };
 }
