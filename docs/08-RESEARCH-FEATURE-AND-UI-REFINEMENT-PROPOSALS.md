@@ -233,6 +233,14 @@ outline card, prev/next unit.
    currently a flat stack of 16 full cards.
 6. Sticky bottom bar: show **pyq count + last practiced accuracy** on the primary CTA
    (`Practise this topic (16 PYQs · 62%)`) — honest, from `questionStats`.
+7. **Reference model (owner-selected, 2026-11-25):** the sister repo's fixed 15-block
+   unit anatomy (overview → anchored topic sections → formulas → definitions →
+   comparisons → MCQs → SAQ/LAQ → practice → quick revision → watch & learn) is
+   documented with a JELET mapping in
+   [`docs/references/DIPLOMA-3RD-SEM-UNIT-SYSTEM-REFERENCE.md`](references/DIPLOMA-3RD-SEM-UNIT-SYSTEM-REFERENCE.md) —
+   mine it when the Learn-enrichment phase executes; keep JELET's JSON + gates
+   architecture (no static-HTML port), and note its SAQ/LAQ blocks conflict with the
+   MCQ-only exam law unless re-expressed as worked examples / practice-set items.
 
 ### 5.4 Formula sheet (`#/formulas`)
 

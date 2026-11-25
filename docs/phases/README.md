@@ -25,7 +25,7 @@ Two kinds of documents live here:
 | 10 | Accessibility, zoom, device QA, release | ✅ Done | `phase-10/record.md` |
 | **11** | **AI Tutor: Option Detection, Section Context & History** (+ 1 blocking bug fix) | ✅ Done | `phase-11/record.md` |
 | **12** | **Phone UI Compaction: Today & You/Settings (disclosure pattern)** | ✅ Done | **`phase-12/record.md`** |
-| **13** | **Learn Enrichment from Private Reference Books (AI-assisted, copyright-safe)** | 📋 Researched — awaiting execution | **`phase-13/plan.md`** |
+| **13** | **Learn Enrichment from Private Reference Books (AI-assisted, copyright-safe)** | 📋 Researched — awaiting execution · plan **amended 2026-11-25** (vault restructure + unit-model reference; docs-only, not executing) | **`phase-13/plan.md`** |
 | 14+ | Practice-set content expansion (legacy "Phase 11+" row of `docs/05`) | ⏳ Not started | (owner renumbers on approval — see note below) |
 
 > **Roadmap alignment note:** `docs/05-PHASE-ROADMAP-AND-GATES.md` §1 currently labels
@@ -82,3 +82,18 @@ All three plans derive from the full-repository research audit
 [`docs/08-RESEARCH-FEATURE-AND-UI-REFINEMENT-PROPOSALS.md`](../../08-RESEARCH-FEATURE-AND-UI-REFINEMENT-PROPOSALS.md)
 plus a live Google Drive inventory of the private reference-book vault (2026-11-25).
 No application code has been written for Phases 11–13 — specification only.
+
+**2026-11-25 research refresh (docs-only, owner-directed):** the owner restructured
+`05_Reference_Books_PRIVATE_NO_GITHUB/` (NCERT zips → unzipped chapter folders; large
+PDFs → ≤ ~20 MB chunks — every book now under the connector's size cap) and selected
+the sister repo's per-unit anatomy as the target model for unit study content.
+A live readability smoke test (`docs/06` §3.1) found the chunked big books are
+image-only scans: **agent-readable = NCERT chapters + HC Verma Vol-1 + Jain & Jain +
+Engineering-Chemistry pack; BS Grewal / HCV Vol-2 / VK Mehta / `05E` = owner-eyes-only.**
+The unit-model reference is
+[`docs/references/DIPLOMA-3RD-SEM-UNIT-SYSTEM-REFERENCE.md`](../../references/DIPLOMA-3RD-SEM-UNIT-SYSTEM-REFERENCE.md).
+`phase-13/plan.md` carries **Amendment A** with these facts; its execution remains
+blocked on owner sign-off, and per owner direction no code is written for it now.
+**Owner decisions (2026-11-25):** data stays JSON (UI must feel bespoke, not
+templated — reference doc §6); `studyPack` schema as proposed; MCQ-only; OCR
+skipped for now (scan-only facts via owner page-pointer confirmation).

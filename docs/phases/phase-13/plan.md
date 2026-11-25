@@ -4,8 +4,64 @@
 > before any `_data/` change** (`AGENTS.md` §5.5).
 > **Previous:** Phase 12 (`phase-12/plan.md`) · **Next:** legacy content row of
 > `docs/05` → becomes Phase 14+ on approval.
-> **Research basis:** live Google Drive inventory (2026-11-25) + `docs/06` vault guide +
-> `docs/03` §2.4 unit schema + `scripts/verify_corpus.py` unit gate + `docs/08` §4 Wave C.
+> **Research basis:** live Google Drive inventory (2026-11-25, **re-verified after the
+> owner's vault restructure** — see Amendment A) + `docs/06` vault guide +
+> `docs/03` §2.4 unit schema + `scripts/verify_corpus.py` unit gate + `docs/08` §4
+> Wave C + owner-selected unit model
+> [`docs/references/DIPLOMA-3RD-SEM-UNIT-SYSTEM-REFERENCE.md`](../../references/DIPLOMA-3RD-SEM-UNIT-SYSTEM-REFERENCE.md).
+
+---
+
+## Amendment A — 2026-11-25 (docs-only research refresh — zero code)
+
+The owner restructured `05_Reference_Books_PRIVATE_NO_GITHUB/` and re-pointed
+research at the sister repo's unit system. Per owner direction, **this plan is not
+being executed in the current session** — only these research facts were refreshed.
+
+1. **Vault restructure:** every NCERT `.zip` is now an **unzipped chapter folder**
+   (one PDF per chapter) and every large PDF is **split** into
+   `NNN_…_split_NNN.pdf` chunks (≈ ≤ 20 MB each). The old size constraints are
+   obsolete — **but a live readability smoke test (2026-11-25, `docs/06` §3.1)
+   shows the chunked big books are image-only scans**: BS Grewal, HC Verma Vol-2,
+   VK Mehta and all `05E` guidebooks have **no text layer** (owner-eyes / offline
+   OCR only). The agent-readable reference set is: **all NCERT chapter folders,
+   HC Verma Vol-1, Jain & Jain, Engineering Chemistry pack** (Allen unverified at
+   audit time). Plan the §3 fact-base step around that set.
+2. **Unit-content model (owner-selected):** unit study substance should be shaped
+   like the sister repo's fixed 15-block unit anatomy (Unit Overview →
+   topic-by-topic anchored sections → Key Formulas → Key Definitions → Comparisons
+   → MCQs → SAQ → LAQ → Practice Problems → Quick Revision → Watch & Learn). The
+   §2.1 `studyPack` proposal already covers several of these blocks; the exact
+   mapping, gaps and open owner questions (first-class `definitions[]` /
+   `comparisons[]` blocks; SAQ/LAQ self-review items vs the MCQ-only exam law) are
+   in `docs/references/DIPLOMA-3RD-SEM-UNIT-SYSTEM-REFERENCE.md` §3.3 & §5.
+   **Resolve those before executing §2.**
+3. §1.1, §3 step ② and §3.4 below were updated to the post-restructure vault state
+   (marked *Amendment A*). All other sections are unchanged from the original plan.
+4. **Session-2 verification (owner direction: try download→OCR / direct page view):**
+   all agent-side OCR routes are closed — connector download cannot reach the
+   workspace (no URL field in the tool schema; sandbox host allowlist), Drive viewer
+   and download URLs hit the privacy sign-in wall (tested live). Also confirmed:
+   `read_file_text` has a **25 MB extraction cap** (whole VK Mehta unreadable — use
+   chunks) and HC Verma Vol-2 is image-only throughout (chunk 003 sample). Owner-side
+   OCR paths (Drive → Google Docs OCR, or local `ocrmypdf` re-upload) + the
+   fact-verification protocol are specified in `docs/06` §3.2–§3.3. Architecture
+   question (JSON vs per-unit static HTML) analyzed with a keep-JSON
+   recommendation in the unit-model reference §6; owner decisions pending.
+5. **Owner decisions (2026-11-25, via structured Q&A):**
+   - **Architecture:** data stays JSON. Owner refinement — *"the preview must feel
+     not a template; use HTML, CSS, JS for the UI"* → when §2.3 executes, the
+     Study Pack tab must render as a bespoke, per-block-designed page (varied
+     card identities, rhythm, semantic markup), never a uniform repeated template
+     or raw JSON dump. Full requirement list: unit-model reference §6.
+   - **`studyPack` schema:** §2.1 **as proposed** — no `definitions[]`/
+     `comparisons[]` additions (Diploma anatomy stays a presentation reference).
+   - **Question types:** **MCQ-only** (exam-true); long-form value goes into
+     `workedExamples`. No SAQ/LAQ blocks.
+   - **OCR:** skipped for now (`docs/06` §3.2); scan-only facts follow the
+     fact-verification protocol (`docs/06` §3.3, step 4: owner page-pointer
+     confirmation).
+   - Still open: 42-unit coverage page (reference doc §5.3).
 
 ---
 
@@ -26,27 +82,35 @@ So this phase is a **content factory + a small UI slot**, not a book scanner.
 
 ## 1. What the Research Found
 
-### 1.1 Your Drive inventory (live-verified 2026-11-25 — matches `docs/06` §2)
+### 1.1 Your Drive inventory (*Amendment A* — live-verified 2026-11-25, post-restructure — canonical copy: `docs/06` §2)
 
-Folder: `JELET_2028_Master_Vault/05_Reference_Books_PRIVATE_NO_GITHUB/`
+Folder: `JELET_2028_Master_Vault/05_Reference_Books_PRIVATE_NO_GITHUB/` (`1Jsb15vIqetNmWuoWf3lI2bZ07yraycb7`).
+Zips → **unzipped chapter folders**; large PDFs → **split chunk folders**. Subject-folder IDs unchanged.
 
-| Subfolder | Folder ID | Files | Contents (name — covers) |
-| :--- | :--- | :-: | :--- |
-| `05A_Mathematics_Books` | `1yeuV4hnYBprzF0tLr9CFOUaw7wdHaRC0` | 4 | `BS_Grewal_Higher_Engineering_Mathematics.pdf` (M01–M03, M08, M09) · `NCERT_Class11_Mathematics_Chapters.zip` (M04, M05, M10, M11) · `NCERT_Class12_Mathematics_Part1.zip` (M01–M02, M07) · `NCERT_Class12_Mathematics_Part2.zip` (M06, M07, M09, M11) |
-| `05B_Physics_Books` | `1CgUIqNHsH_SAveBSBCP_a4yaEVs8IBdX` | 7 | `HC_Verma_Concepts_of_Physics_Vol1.pdf` (P01–P13) · `Vol2.pdf` (P14–P15 only) · `Allen_Physics_Formula_and_Theory_Ref.pdf` (formula checks) · NCERT Class 11 Phys Part1/Part2 zips (P01–P13) · NCERT Class 12 `FEEE_Circuits_Only.zip` (E04/E05) · `Optics_Photoelectric.zip` (P14, P15, E06) |
-| `05C_Chemistry_Books` | `1pclunmO4Ej3Qr1eTKqz2Biv-6QZbhiwZ` | 5 | `Jain_and_Jain_Engineering_Chemistry_Compact.pdf` (C06, C07) · `Engineering_Chemistry_Full_Reference.pdf` (industrial + electrochemistry) · NCERT Class 11 Chem Part1/Part2 zips (C01–C04, C08) · NCERT Class 12 Organic zip (C08) |
-| `05D_FEEE_..._Books` | `1VF2DauLnRw9Zk8gwEpSCPICS39z-FdAe` | 1 | `VK_Mehta_Principles_of_Electronics.pdf` (E06–E08) |
-| `05E_JELET_Guidebooks_Private_Ref` | `1z4hgfBSSCN8Wyl6hj_zP1iGzymzjNVMj` | 3 | `JELET_Guidebook_A_Sarkar_2022` · `JELET_Guidebook_General_Scan` (image scan) · `JELET_Practice_Sets_Scan` (image scan) |
-| `06_My_Notes_and_Formula_Sheets` | `1VbCajps_pAYi_tCFSUowsEUvptYX-B0Y` | 0 | **Empty** — room for your own notes later |
+| Subfolder | Folder ID | Post-restructure structure |
+| :--- | :--- | :--- |
+| `05A_Mathematics_Books` | `1yeuV4hnYBprzF0tLr9CFOUaw7wdHaRC0` | `BS_Grewal_…_split pdf/` = 14 chunks + `index.pdf` (M01–M03, M08, M09) · NCERT unzip folders: Class-11 Math `kemh1dd` (19 PDFs; M04/M05/M10/M11), Class-12 P1 `lemh1dd` (10; M01–M02/M07), Class-12 P2 `lemh2dd` (9; M06/M07/M09/M11) |
+| `05B_Physics_Books` | `1CgUIqNHsH_SAveBSBCP_a4yaEVs8IBdX` | `Allen_…Ref.pdf` (8.5 MB, formula checks) · `HC_Verma_Vol1.pdf` (4.8 MB; P01–P13) · `HC_Verma_Vol2 split pdf/` (5 chunks; P14–P15 only) · NCERT unzip: `keph1dd` (10; P01–P05), `keph2dd` (9; P06–P13), Class-12 P1 `FEEE_Circuits_Only` `leph1dd` (10; E04/E05), P2 `Optics_Photoelectric` `leph2dd` (8; P14/P15/E06) |
+| `05C_Chemistry_Books` | `1pclunmO4Ej3Qr1eTKqz2Biv-6QZbhiwZ` | `Jain_and_Jain_…_Compact.pdf` (13.5 MB; C06/C07) · `Engineering_Chemistry_Full_Reference.pdf` (43 MB) + `split pdf/` (3 chunks; industrial + electrochemistry) · NCERT unzip: `kech1dd` (9; C01–C03), `kech2dd` (5; C04/C08), Class-12 Organic `lech2dd` (7; C08) |
+| `05D_FEEE_..._Books` | `1VF2DauLnRw9Zk8gwEpSCPICS39z-FdAe` | `VK_Mehta_….pdf` (43.7 MB) + `split pdf/` (8 chunks) — covers `E06–E08` |
+| `05E_JELET_Guidebooks_Private_Ref` | `1z4hgfBSSCN8Wyl6hj_zP1iGzymzjNVMj` | Sarkar PDF (38.5 MB) + split (7 chunks) · General Scan PDF (25.5 MB) + split (2 chunks) · Practice Sets Scan PDF (7.5 MB) |
+| `06_My_Notes_and_Formula_Sheets` | `1VbCajps_pAYi_tCFSUowsEUvptYX-B0Y` | **Still empty** — room for your own notes later |
 
-Reading constraints discovered:
-* `read_file_text` can extract text from **PDFs**; **`.zip` files cannot be read**
-  through the connector (binary) — treat NCERT zips as offline-only references.
-* `docs/06` warns BS Grewal is **154 MB** (above the 100 MB connector cap) — never
-  bulk-download; read targeted page ranges only, or skip and rely on the
-  Allen/formula-sheet + existing corpus for those facts.
+Reading constraints (*Amendment A* — supersede the pre-restructure rules):
+* No zips remain in `05_*`; every item is a PDF or PDF folder under the connector's
+  size cap. **But "under the cap" ≠ "readable"** — a live smoke test (`docs/06`
+  §3.1) found the chunked big books are **image-only scans**.
+* **Agent-readable (text layer verified):** all NCERT chapter folders, HC Verma
+  Vol-1, Jain & Jain, Engineering Chemistry pack. Allen: verify on first use.
+* **Owner-eyes-only (image-only, no text layer):** BS Grewal (incl. its
+  `index.pdf`), HC Verma Vol-2, VK Mehta, all `05E` scans — cite them only as
+  page/scope pointers the owner confirms offline; never as agent-read fact sources.
+* NCERT filenames decode mechanically (`kemh101` = Class 11 Maths Ch. 1; `an` =
+  answers; `ps`/`sm` = supplementary) — see the decoder table in `docs/06` §3.
+  Confirm chapter titles by opening the PDF before citing (accuracy law).
 * `05E` guidebooks: **never** copy questions/keys from them into `_data/papers/`
-  (`docs/06` warning) — official WBJEEB booklets remain the only paper source.
+  (`docs/06` warning) — official WBJEEB booklets remain the only paper source;
+  `05E` stays scope-only even though it is now browsable chunk-by-chunk.
 
 ### 1.2 Current unit content depth (sample: `_data/units/M01.json`)
 
@@ -150,8 +214,11 @@ echo your reviewed wording instead of inventing study tips. **Never** inject
   never read `05E` for content — scope-only at most).
 * Extract **facts only**: topic scope, formula names, standard relationships,
   chapter numbering. Work in small `max_chars` windows around the chapter you need.
-* BS Grewal (>100 MB cap): skip direct read; use Allen formula PDF + NCERT zips
-  (offline, owner-eyes-only) + existing unit formulas as the fact base.
+* BS Grewal (*Amendment A*): **image-only scan** — no text layer even chunked
+  (`docs/06` §3.1). Treat as owner-eyes-only; the agent fact-base for maths units
+  is NCERT chapter folders + Allen + existing unit formulas.
+* NCERT folders + HC Verma Vol-1 + Jain & Jain + Engineering Chemistry pack are
+  the verified agent-readable fact base; read small `max_chars` windows only.
 
 **③ Draft ORIGINAL content (AI-assisted):**
 * Draft each `studyPack` field **in your own words**, pitched at
@@ -191,11 +258,11 @@ checked* in this phase folder.
 
 | Batch | Units | Why these first | Reference books |
 | :---: | :--- | :--- | :--- |
-| **Pilot (3)** | `M01` (Matrices), `C03` (Ionic/Chemical Equilibrium), `E05` (AC Fundamentals) | One per major subject; M01 has 16 PYQs (most traffic); E05 matches the UI reference lesson | BS Grewal ch. on matrices (scope) / NCERT 11 Chem Part1 / NCERT 12 Phys Circuits zip (owner-offline) + Allen |
+| **Pilot (3)** | `M01` (Matrices), `C03` (Ionic/Chemical Equilibrium), `E05` (AC Fundamentals) | One per major subject; M01 has 16 PYQs (most traffic); E05 matches the UI reference lesson | NCERT 12 Math `lemh1dd` Ch.3–4 / NCERT 11 Chem `kech1dd` Ch.6 / NCERT 12 Phys `leph1dd` circuits chapters + Allen (BS Grewal = owner-eyes-only scan) |
 | 1 | `M02`, `M03`, `M07`, `M11` | High-yield maths | BS Grewal (scope), NCERT 12 Math P1/P2 |
 | 2 | `P08`, `P12`, `P14`, `P15` | Heat + optics + photoelectric (scoring) | HC Verma Vol1/Vol2, Allen |
 | 3 | `C01`, `C04`, `C06`, `C07` | Atomic/redox + industrial chem | Jain & Jain, Engineering Chemistry, NCERT 11 |
-| 4 | `E01`–`E04`, `E06`–`E08` | FEEE block | VK Mehta (+ NCERT Circuits zip offline) |
+| 4 | `E01`–`E04`, `E06`–`E08` | FEEE block | NCERT `leph1dd` circuits chapters (VK Mehta = owner-eyes-only scan) |
 | 5 | Remaining units (fill to 42) | — | as mapped in `docs/06` |
 
 Each batch = author → gates → sign-off → `batch-<units>.md` evidence → next.
