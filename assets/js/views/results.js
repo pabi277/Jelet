@@ -13,6 +13,9 @@
  *   - Expandable SymPy-verified solutions + 1-tap Codec AI Doubt Tutor trigger
  */
 
+import { isShareableMock } from "../core/share-result.js";
+import { mountResultShare } from "./share-result.js";
+
 import {
   loadManifest,
   getQuestionIndex,
@@ -324,6 +327,7 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
 
   main.innerHTML = "";
   main.appendChild(root);
+  if (isShareableMock(attempt)) mountResultShare(root, attempt);
 
   $("#retryIndepBtn", root).addEventListener("click", async () => {
     const sess = await createSession({
