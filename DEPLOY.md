@@ -213,3 +213,166 @@ manifest). It is frozen by the Phase 03 gates — never edit
 `_data/papers/*.json`, `_data/solutions/*.solutions.json`,
 `scripts/_build/*`, or `scripts/verify_*` without re-running the full
 verification pipeline and recording evidence under `docs/phases/`.
+
+## Optional anonymous benchmark (Phase 10)
+
+The static app needs **no backend**. Without a user-configured base URL in You →
+This week's benchmark it shows **Benchmark not configured**, not sample numbers.
+Saving a URL is local only. **Load** explicitly performs GET; an unchecked-by-default
+**Contribute anonymously** toggle plus **Contribute this mock** explicitly performs
+POST. No background requests, auto-submit, offline queue or automatic retries.
+The results page offers the same controls for that selected independent full mock;
+You selects the latest independent full mock. Only recognized official paper IDs
+(`jelet-2022`–`jelet-2026`) can contribute. Curated/assisted scores are not submitted.
+
+### Provider-agnostic REST contract v1
+
+Configure a **base URL**, e.g. `https://operator.example/community`; the client
+appends `/benchmark`. HTTPS required (HTTP allowed only for localhost development).
+No URL credentials, query strings, fragments, client API keys or authentication.
+The provider must support CORS for your app origin: methods GET/POST/OPTIONS and
+headers `Accept, Content-Type`. Return `Cache-Control: no-store` on all responses.
+The client uses `credentials: omit`, `referrerPolicy: no-referrer`, redirects disabled,
+`cache: no-store`, and a 12-second timeout. The service worker bypasses no-store
+requests, including same-origin deployments, so an old aggregate is never served
+from its runtime cache.
+
+**POST `{base}/benchmark`**, JSON with **exactly these three fields**:
+
+```json
+{ "marks": 75.08333333333333, "accuracy": 75, "paperYear": 2025 }
+```
+
+This is a contract example, **not a seeded submission**. Marks are normalized from
+stored integer twelfths by division by 12, with range −20…120. Validate finite numbers,
+accuracy integer 0…100 and year integer 2022…2026. Recover `twelfths = round(marks*12)`
+and reject if `abs(marks*12 - twelfths) > 1e-8`; persist the integer, not float sums.
+Accuracy is fully-correct / attempted (correct + partial + incorrect), rounded to
+an integer percent; zero when nothing was attempted. The provider **rejects unknown
+fields** and oversized bodies. Never accept name, email, device/session/attempt ID,
+profile, answers, API keys or user-supplied receipt timestamps. The server assigns
+its UTC receipt timestamp and appends each accepted event to durable shared storage.
+No update/delete endpoint; no sample records or generated/fake submissions.
+
+Success is **201**, JSON `{ "accepted": true, "weekStart": "YYYY-MM-DD" }`, where
+weekStart is Monday 00:00 UTC of the server's current week. Invalid input → 400;
+provider-limited → 429; outage → 5xx. Do not report accepted before durable append.
+A lost/invalid acknowledgement may mean a submission arrived; the client warns
+rather than retrying silently. Local per-endpoint/week/attempt receipts reduce
+accidental repeats on this device, but are never sent and **do not prove unique
+students or globally deduplicate**. Avoid double-tapping/retrying after an uncertain
+POST. Receipt records and configuration do not enter encrypted sync (ordinary
+manual study backups can contain these local meta records).
+
+**GET `{base}/benchmark`** → 200, including for an empty week:
+
+```json
+{
+  "version": 1,
+  "weekStart": "YYYY-MM-DD",
+  "generatedAt": "ISO-8601 UTC timestamp",
+  "count": 0,
+  "scores": []
+}
+```
+
+Each nonempty `scores` entry is `{ "twelfths": integer, "count": positiveInteger }`:
+**one bin per distinct exact score**, −240…1440, no duplicated bins; counts sum to
+`count`. Aggregate only accepted events received in `[Monday 00:00 UTC, next Monday)`.
+All years are pooled, with one submission = one event, **not one unique person**.
+This exact frequency histogram is necessary: a mean alone cannot justify a
+percentile. Never return raw events, accuracy/year combinations, identity fields,
+IP addresses or request metadata. Build snapshots from a consistent store read;
+set `generatedAt` to the snapshot time. Client rejects wrong-week, pre-week/future
+snapshots, malformed bins and mismatched totals. Empty/malformed/unreachable data
+never yields a percentile. A snapshot is explicitly labeled, not a live rank.
+
+Comparison is `floor(1000 * count(scores strictly below mine) / count) / 10` percent
+**higher than** submissions; tied and higher-score counts are shown separately.
+This deliberately avoids misleading top-X claims when ties exist. The UI shows the
+verifiable total and cautions that these are self-reported practice submissions,
+not verified exam scores, unique students, or a representative population.
+
+### Provider privacy and operations requirements
+
+Deploy an append-only table/object log and aggregate it, for example in a serverless
+worker backed by a durable SQL database. This phase ships the static client/contract,
+**not a managed community service**. Start empty; only explicit user POSTs create rows.
+Keep only twelfths, accuracy, paperYear and server receipt time internally. Expose
+only score counts externally. Do not log bodies, IPs, user agents or other identifiers;
+disable access logs/analytics at the edge too. The payload is anonymous by construction,
+but transport metadata (especially IP address) is visible to the endpoint/network
+operator — this is **not** an anonymity network. Explain this policy before users
+choose your endpoint. No cookies, tracking, accounts or identity-based anti-abuse.
+Apply body-size limits and aggregate resource/rate caps without persistent user IDs.
+Anonymous submissions cannot be made Sybil-proof; do not claim fraud-proof ranking.
+Consider suppressing comparison for small cohorts as a future contract version;
+exact score histograms inherently disclose frequencies even for small samples.
+
+## Local result cards and Study buddies
+
+- **SVG results:** independent full mocks offer Share; default export includes only
+  marks, exact twelfths and accuracy. Explicit full breakdown adds the canonical
+  paper label, recorded time (or “not recorded”), accuracy trend versus the previous
+  independent mock, and available subject scores. Trend reuses the readiness
+  ±5-percentage-point accuracy threshold, not a prediction of exam rank; no previous
+  mock means insufficient data, not an invented improvement. The SVG embeds resolved
+  theme colors with no external font/image dependencies. No profile, custom attempt
+  title, answers, timestamps or API key enters the card. Download is generated
+  locally and clearly marked “Study result · JELET Study Hub” / not official WBJEEB.
+- **Study buddies:** `#/you?invite=<base64url UTF-8 JSON>` carries only version, random
+  group invite ID, group name, shared topic, up to ten peer-provided focus topics and
+  a plan of canonical unit IDs. No user identity or automatic device identifier.
+  The URL fragment is decoded locally; preview + **Join locally** is required to
+  save it. Malformed/oversized/unknown-version invites cannot create records. Same-ID
+  joins preserve existing local edits, so links cannot silently overwrite a plan.
+- Invites are **readable and forwardable, not encrypted or access-controlled**.
+  There is no server member roster, chat, presence, verification of who supplied a
+  topic, live collaboration, membership notification, or synchronization between
+  buddies. Enter only topics that peers actually shared. Unit plans are locally
+  editable; a freshly prepared invite conveys the current copy to a new recipient.
+  Existing members keep their local edits on repeat joins (they must edit locally
+  to adopt a revised plan). “Leave locally” does not revoke a previously sent invite.
+- Groups live in `meta/app.studyGroups` in IndexedDB, per-device by default. They
+  participate in **explicit encrypted study sync** / ordinary study backup like
+  other app settings; sync applies the existing **whole app-record LWW** rule, not
+  collaborative per-group merging. This is multi-device sync for the same student's
+  study state, **not** a group backend or a reason to share a sync passphrase with
+  buddies. Topic/invite state is limited to 30 local groups; no new data schema or
+  backend is necessary.
+
+### Optional runnable reference adapter (no cloud vendor dependency)
+
+`scripts/benchmark_server.py` implements the contract above using only Python's
+standard library and SQLite. It starts **empty**, never seeds rows, disables
+request/error logging that could disclose IPs, stores only the four documented
+server-side fields, rejects unknown/duplicate JSON fields, limits POSTs to 512 bytes,
+and acknowledges only after a durable commit. GET performs a current-week histogram
+query. There are no row-list/update/delete APIs; SQLite triggers also block updates
+and deletes. This is append-only through the service, not tamper-proof storage against
+a database administrator. It is optional tooling, **never part of Pages/static PWA**.
+
+For local development on the **same machine** as your browser:
+
+```sh
+python3 scripts/benchmark_server.py \
+  --database /tmp/jelet-community.sqlite \
+  --port 8787 \
+  --allow-origin http://localhost:8000
+```
+
+Then explicitly configure `http://localhost:8787` as the benchmark base URL. Match
+the app's actual origin exactly (including port). On hosted/mobile deployments,
+localhost refers to the student's device, **not your server**: deploy the adapter
+on a durable volume behind an HTTPS reverse proxy and configure its public HTTPS
+base URL instead. Set `--allow-origin` to the app's origin (GitHub Pages origin
+without the repository path); a public anonymous operator can explicitly use `*`.
+Route `/benchmark` to this adapter; a prefix deployment must strip the base prefix
+before forwarding. Disable proxy/CDN access logs, analytics and cookies, limit
+connections/rates/body size globally, restrict admin access to the SQLite volume,
+and monitor only aggregate health. The reference adapter is not an internet-hardened
+managed service or a Sybil-proof anti-abuse system. Back up the durable volume
+privately; **never commit or deploy the event database**. `.gitignore` excludes
+SQLite/db artifacts. `/tmp` in the example is disposable; use persistent storage
+for a real community. Automated tests create their own temporary database and
+submit explicit synthetic **test-only** events; none are shipped as app data.

@@ -8,6 +8,11 @@
  *                                        Offline Pack & About/Sources
  */
 
+import { mountStudyBuddies } from "./study-buddies.js";
+import { mountBenchmark } from "./benchmark.js";
+import { getAllAttempts } from "../core/stats.js";
+import { isShareableMock } from "../core/share-result.js";
+
 import { loadManifest, warmOfflineCorpus } from "../core/data-loader.js";
 import { escapeHtml } from "../core/math.js";
 import {
@@ -42,7 +47,7 @@ import {
 } from "../db/sync.js";
 import { $, el, icon, showToast, formatDurationClock } from "../core/ui.js";
 
-export async function renderYouHub(main, { onThemeToggle } = {}) {
+export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) {
   main.innerHTML = `<div class="view"><p class="view__placeholder">Loading local vault…</p></div>`;
 
   const manifest = await loadManifest();
@@ -529,11 +534,21 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
 
         <p class="card__meta" id="syncOffNote" style="margin:0">Sync is off — your data stays on this device.</p>
       </section>
+
+      <section class="card stack-s community-card" id="youContributeSection" aria-label="Open-source contributions">
+        <h3 class="card__title">Contribute</h3>
+        <p class="card__meta">JELET Study Hub is open source. Verified question contributions, corrections and improvements are welcome — follow the repository's accuracy and original-content guidelines. Participation is optional; no study data is submitted here.</p>
+        <a class="btn btn--ghost" href="https://github.com/pabi277/Jelet" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Explore the project on GitHub</a>
+      </section>
     </div>
   `);
 
   main.innerHTML = "";
   main.appendChild(root);
+  const latestMock = (await getAllAttempts()).filter(isShareableMock)
+    .sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)))[0];
+  await mountBenchmark(root, latestMock);
+  await mountStudyBuddies(root, manifest, invite);
 
   function renderCgpaStatus() {
     const slot = $("#cgpaEligibilitySlot", root);
