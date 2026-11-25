@@ -389,3 +389,10 @@ Batch scope unchanged: videos for batches 1–5 are enriched per-batch, not now.
   real P02 MCQ stem error (dv/dx = a/v is the straight-line chain rule, not
   a projectile identity). Study Packs shipped: **42/42**. Provenance for the
   20 new units ships `pending` until owner sign-off.
+- **Post-ship follow-up (owner spec "Search Indexing + Loading Trade-off")** —
+  Learn explorer `searchBlob` now indexes studyPack content (primer headings +
+  LaTeX-stripped prose, SF labels, hooks, mistakes, checklist + section
+  labels) via the shared `assets/js/core/studypack-search.js` builder; no
+  extra fetch (inline data). Browser probes 11/11; node suite 131/131. The
+  inline-vs-lazy-load trade-off is documented with lazy-load explicitly
+  deferred in `record.md`; sw → `jelet-v3-sw-21`.

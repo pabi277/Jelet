@@ -14,11 +14,15 @@
  *      exist; hook grid widens via min-width only (phone-first law).
  *   4. AI Tutor grounding: hooks + mistakes only (≤400 chars), never furtherReading;
  *      legacy prompt untouched for units without studyPack.
- *   5. Pilot + Batch 1 data v2 (`_data/units/M01|C03|E05|M02|M03|M07|M11.json`):
+ *   5. Pilot + batches 1-5 data v2 (`_data/units/*.json`, all 42 units packed):
  *      5-6 primers, 12-18 formulas (unique sfIds), 6-12 definitions, 3-4
  *      comparison tables (columns[0] is the label column), 8-10 MCQs with
- *      honest A-D keys, 8-12 hooks/mistakes/checklist, clean provenance; the
- *      other 30 units ship NO studyPack (batch isolation).
+ *      honest A-D keys, 8-12 hooks/mistakes/checklist, clean provenance, and
+ *      4+ curated video lectures per unit.
+ *   6. Learn search indexing (phase-13 fix): studyPack terms — primer headings
+ *      + prose, keyFormula labels, memory hooks, common mistakes, exam-checklist
+ *      terms and the section labels — join the unit `searchBlob` through the
+ *      shared `studypack-search.js` builder (no extra fetch, inline data).
  */
 
 import test from "node:test";
@@ -27,6 +31,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { buildGroundTruthSystemPrompt, summarizeStudyPackForTutor } from "../assets/js/core/ai-vault.js";
+import { buildStudyPackSearchText } from "../assets/js/core/studypack-search.js";
 
 const ROOT = process.cwd();
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), "utf8");
@@ -184,7 +189,36 @@ test("AI Tutor: studyPack grounds hooks + mistakes only, capped, legacy prompt u
   assert.equal(summarizeStudyPackForTutor(null), "");
 });
 
-test("Pilot + batch 1-3 data v2: 15 units carry the full anatomy; the other 30 do not", () => {
+test("Learn search: studyPack terms are indexed into the unit searchBlob", () => {
+  const learnJs = read("assets/js/views/learn.js");
+  assert.ok(
+    learnJs.includes('import { buildStudyPackSearchText } from "../core/studypack-search.js";'),
+    "learn.js imports the shared studyPack search builder"
+  );
+  assert.ok(
+    learnJs.includes("${buildStudyPackSearchText(u.studyPack)}"),
+    "searchBlob composes studyPack text inline — no extra fetch, no studypack-index.json"
+  );
+
+  // Owner verification probes, executed against the real builder + real data:
+  // search "memory hook", "common mistake", "matrix anatomy" and an
+  // exam-checklist term — the matching unit's blob must contain each.
+  const m01 = JSON.parse(read("_data/units/M01.json"));
+  const blob = `${m01.unitId} ${m01.officialCode} ${m01.title} ${buildStudyPackSearchText(m01.studyPack)}`.toLowerCase();
+  assert.ok(blob.includes("matrix anatomy"), "probe 'matrix anatomy' lands on the M01 primer heading");
+  assert.ok(blob.includes("memory hook"), "probe 'memory hook' lands on the Memory Hooks section label");
+  assert.ok(blob.includes("common mistake"), "probe 'common mistake' lands on the Common Mistakes section label");
+  assert.ok(blob.includes("inner orders must agree"), "an M01 exam-checklist term is searchable");
+  assert.ok(blob.includes("shoes before socks"), "an M01 memory-hook term is searchable");
+
+  // Units without a studyPack keep the legacy blob shape (empty contribution).
+  assert.equal(buildStudyPackSearchText(null), "");
+  assert.equal(buildStudyPackSearchText(undefined), "");
+  const partial = buildStudyPackSearchText({ memoryHooks: ["Transpose undoes in reverse"] });
+  assert.ok(partial.includes("Memory Hooks") && partial.includes("transpose undoes in reverse"), "partial packs contribute only what they ship");
+});
+
+test("Pilot + batches 1-5 data v2: all 42 units carry the full anatomy", () => {
   for (const unitId of PACKED_UNITS) {
     const unit = JSON.parse(read(`_data/units/${unitId}.json`));
     const sp = unit.studyPack;

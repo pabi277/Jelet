@@ -16,6 +16,7 @@ import {
   loadSolutionsForQuestions,
 } from "../core/data-loader.js";
 import { renderLatex, stripLatexForSearch, escapeHtml } from "../core/math.js";
+import { buildStudyPackSearchText } from "../core/studypack-search.js";
 import { SUBJECT_META, isVoidedQuestion } from "../core/scoring.js";
 import {
   getUnitProgressMap,
@@ -73,7 +74,10 @@ export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
       .join(" ");
     return {
       unit: u,
-      searchBlob: `${u.unitId} ${u.officialCode} ${u.title} ${formulasText}`.toLowerCase(),
+      // studyPack ships inline in the unit JSON (Amendment B, accept-in-place),
+      // so its text joins the blob with zero extra fetch — primer headings +
+      // prose, SF labels, hooks, mistakes and checklist are all searchable.
+      searchBlob: `${u.unitId} ${u.officialCode} ${u.title} ${formulasText} ${buildStudyPackSearchText(u.studyPack)}`.toLowerCase(),
     };
   });
 
