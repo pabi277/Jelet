@@ -1,0 +1,546 @@
+{
+  "unitId": "P05",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P05-PRD01",
+        "heading": "Newton's Law & the Three $g$-Variations",
+        "proseLatex": "$F = \\frac{GMm}{r^2}$ with $G = 6.67\\times10^{-11}$; surface $g = \\frac{GM}{R^2} = \\frac{4}{3}\\pi G\\rho R$. At height: $g_h = \\frac{g}{(1+h/R)^2}$ (approximation $g(1-2h/R)$ ONLY for $h \\ll R$). At depth: $g_d = g\\left(1 - \\frac{d}{R}\\right)$, linear to zero at centre. Rotation: $g_{\\text{eff}} = g - \\omega^2R\\cos^2\\lambda$ (max at poles, min at equator). Micro-check: $h = R$: $g_h = g/4$."
+      },
+      {
+        "prdId": "P05-PRD02",
+        "heading": "Negative Potential Energy & Escape Speed",
+        "proseLatex": "With $U(\\infty) = 0$: $U = -\\frac{GMm}{r}$. Escape speed $v_e = \\sqrt{\\frac{2GM}{R}} = \\sqrt{2gR} \\approx 11.2\\,\\text{km/s}$ — independent of mass AND launch angle. Micro-check: $g = 10$, $R = 6.4\\times10^6\\,\\text{m}$: $v_e = \\sqrt{1.28\\times10^8} \\approx 11.3\\,\\text{km/s}$."
+      },
+      {
+        "prdId": "P05-PRD03",
+        "heading": "Orbital Speed & the Virial Energy Ladder",
+        "proseLatex": "Circular orbit radius $r$: $v_o = \\sqrt{\\frac{GM}{r}}$ (near surface $v_e = \\sqrt{2}\\,v_o$). Virial relations: $K = \\frac{GMm}{2r}$, $U = -2K$, $E = -K = \\frac{U}{2} = -\\frac{GMm}{2r}$. Micro-check: doubling $r$ halves $|E|$; energy must be ADDED to escape."
+      },
+      {
+        "prdId": "P05-PRD04",
+        "heading": "Kepler's Three Laws",
+        "proseLatex": "1st: elliptical orbits, Sun at one focus. 2nd: $\\frac{dA}{dt} = \\frac{L}{2m}$ constant — angular-momentum conservation, so $v_pr_p = v_ar_a$. 3rd: $T^2 \\propto a^3$ ($T^2 = \\frac{4\\pi^2}{GM}a^3$). Micro-check: $a$ quadrupled $\\Rightarrow T$ multiplied by $8$."
+      },
+      {
+        "prdId": "P05-PRD05",
+        "heading": "Geostationary Orbit Essentials",
+        "proseLatex": "Equatorial plane, west-to-east, $T = 24\\,\\text{h}$, altitude $\\approx 35{,}800\\,\\text{km}$ — one radius for all geostationary satellites since $T$ fixes $a$ via Kepler's third law. Micro-check: $T^2 \\propto a^3$: doubling $a$ multiplies $T$ by $2\\sqrt{2} \\approx 2.83$."
+      },
+      {
+        "prdId": "P05-PRD06",
+        "heading": "Hollow Shell: Field Zero, Potential Constant",
+        "proseLatex": "Inside a hollow spherical shell the field is $\\vec{0}$ everywhere, but the POTENTIAL is nonzero constant: $V = -\\frac{GM}{R}$ (same as surface). Micro-check: moving a mass inside the shell costs zero work — no field, but it still sits in a potential well."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P05-SF01",
+        "label": "Newton's gravitation",
+        "latex": "F = \\frac{GMm}{r^2}",
+        "use": "Inverse-square attraction."
+      },
+      {
+        "sfId": "P05-SF02",
+        "label": "Surface gravity",
+        "latex": "g = \\frac{GM}{R^2} = \\frac{4}{3}\\pi G\\rho R",
+        "use": "Density route too."
+      },
+      {
+        "sfId": "P05-SF03",
+        "label": "$g$ at height (exact)",
+        "latex": "g_h = \\frac{g}{(1+h/R)^2}",
+        "use": "Approx $g(1-2h/R)$ for $h \\ll R$."
+      },
+      {
+        "sfId": "P05-SF04",
+        "label": "$g$ at depth",
+        "latex": "g_d = g\\left(1-\\frac{d}{R}\\right)",
+        "use": "Linear, zero at centre."
+      },
+      {
+        "sfId": "P05-SF05",
+        "label": "Rotation effect",
+        "latex": "g_{\\text{eff}} = g - \\omega^2R\\cos^2\\lambda",
+        "use": "Poles max, equator min."
+      },
+      {
+        "sfId": "P05-SF06",
+        "label": "Gravitational PE",
+        "latex": "U = -\\frac{GMm}{r}",
+        "use": "Zero at infinity."
+      },
+      {
+        "sfId": "P05-SF07",
+        "label": "Escape speed",
+        "latex": "v_e = \\sqrt{\\frac{2GM}{R}} = \\sqrt{2gR}",
+        "use": "$\\approx 11.2\\,\\text{km/s}$; mass/angle independent."
+      },
+      {
+        "sfId": "P05-SF08",
+        "label": "Orbital speed",
+        "latex": "v_o = \\sqrt{\\frac{GM}{r}}",
+        "use": "$v_e = \\sqrt{2}\\,v_o$ near surface."
+      },
+      {
+        "sfId": "P05-SF09",
+        "label": "Virial relations",
+        "latex": "K = \\frac{GMm}{2r};\\ U = -2K;\\ E = -K",
+        "use": "Bound orbit energy ladder."
+      },
+      {
+        "sfId": "P05-SF10",
+        "label": "Kepler's third law",
+        "latex": "T^2 = \\frac{4\\pi^2}{GM}a^3",
+        "use": "$T^2 \\propto a^3$."
+      },
+      {
+        "sfId": "P05-SF11",
+        "label": "Geostationary altitude",
+        "latex": "T = 24\\,\\text{h} \\Rightarrow h \\approx 35{,}800\\,\\text{km}",
+        "use": "Equatorial, west-to-east."
+      },
+      {
+        "sfId": "P05-SF12",
+        "label": "Shell interior",
+        "latex": "E_g = \\vec{0};\\quad V = -\\frac{GM}{R}",
+        "use": "Field zero, potential constant."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P05-DEF01",
+        "term": "Escape speed",
+        "definition": "Minimum launch speed to reach infinity with zero speed: $\\sqrt{2GM/R}$."
+      },
+      {
+        "defId": "P05-DEF02",
+        "term": "Virial theorem (orbit form)",
+        "definition": "Bound circular orbits satisfy $U = -2K$, $E = -K$."
+      },
+      {
+        "defId": "P05-DEF03",
+        "term": "Geostationary satellite",
+        "definition": "Equatorial, 24 h period, fixed over one longitude."
+      },
+      {
+        "defId": "P05-DEF04",
+        "term": "Kepler's second law",
+        "definition": "Equal areas in equal times — angular momentum conservation."
+      },
+      {
+        "defId": "P05-DEF05",
+        "term": "Gravitational potential",
+        "definition": "Work per unit mass to bring a test mass from infinity: $-\\frac{GM}{r}$."
+      },
+      {
+        "defId": "P05-DEF06",
+        "term": "Apparent gravity",
+        "definition": "Effective $g$ including the centrifugal reduction from planet spin."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P05-CMP01",
+        "title": "$g$ at height vs depth (small $h, d$)",
+        "columns": [
+          "Aspect",
+          "Height $h$",
+          "Depth $d$"
+        ],
+        "rows": [
+          {
+            "label": "Linear law",
+            "values": [
+              "$g(1-2h/R)$",
+              "$g(1-d/R)$"
+            ]
+          },
+          {
+            "label": "Slope",
+            "values": [
+              "$-2/R$",
+              "$-1/R$"
+            ]
+          },
+          {
+            "label": "Exact form",
+            "values": [
+              "$\\frac{g}{(1+h/R)^2}$",
+              "same linear law exact"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P05-CMP02",
+        "title": "Escape vs orbital speed",
+        "columns": [
+          "Aspect",
+          "$v_e$",
+          "$v_o$"
+        ],
+        "rows": [
+          {
+            "label": "Magnitude (surface)",
+            "values": [
+              "$\\approx 11.2\\,\\text{km/s}$",
+              "$\\approx 7.9\\,\\text{km/s}$"
+            ]
+          },
+          {
+            "label": "Relation",
+            "values": [
+              "$v_e = \\sqrt{2}\\,v_o$",
+              "$v_o = v_e/\\sqrt{2}$"
+            ]
+          },
+          {
+            "label": "Dependence on $m$",
+            "values": [
+              "none",
+              "none"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P05-CMP03",
+        "title": "Inside a shell vs inside a uniform sphere",
+        "columns": [
+          "Aspect",
+          "Shell",
+          "Uniform solid"
+        ],
+        "rows": [
+          {
+            "label": "Field",
+            "values": [
+              "$\\vec{0}$ everywhere",
+              "$\\frac{GMr}{R^3}$ inward"
+            ]
+          },
+          {
+            "label": "Potential",
+            "values": [
+              "constant $-GM/R$",
+              "quadratic, $-\\frac{3GM}{2R}$ at centre"
+            ]
+          },
+          {
+            "label": "$g$ at centre",
+            "values": [
+              "$0$",
+              "$0$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P05-MCQ01",
+        "stemLatex": "At altitude $h = R$ (one Earth radius up), $g$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{g}{4}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{g}{2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{g}{9}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$g_h = \\frac{g}{(1+1)^2} = g/4$ — the linear approximation fails here."
+      },
+      {
+        "mcqId": "P05-MCQ02",
+        "stemLatex": "At depth $d = R/2$, $g$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{g}{4}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{g}{2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{3g}{4}$"
+          },
+          {
+            "id": "D",
+            "latex": "$g$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$g_d = g(1 - 1/2) = g/2$ — the linear law is exact inside a uniform sphere."
+      },
+      {
+        "mcqId": "P05-MCQ03",
+        "stemLatex": "Escape speed from Earth's surface is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$7.9\\,\\text{km/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$11.2\\,\\text{km/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$9.8\\,\\text{km/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$22.4\\,\\text{km/s}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\sqrt{2gR} \\approx 11.2\\,\\text{km/s}$, independent of mass and angle."
+      },
+      {
+        "mcqId": "P05-MCQ04",
+        "stemLatex": "For a circular orbit, which energy relation is correct?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$E = -K = U/2$"
+          },
+          {
+            "id": "B",
+            "latex": "$E = K = -U/2$"
+          },
+          {
+            "id": "C",
+            "latex": "$E = K + U = 0$"
+          },
+          {
+            "id": "D",
+            "latex": "$U = -K/2$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Virial ladder: $K = \\frac{GMm}{2r}$, $U = -2K$, $E = -K$."
+      },
+      {
+        "mcqId": "P05-MCQ05",
+        "stemLatex": "If a planet's orbital radius quadruples, its period multiplies by:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$4$"
+          },
+          {
+            "id": "C",
+            "latex": "$8$"
+          },
+          {
+            "id": "D",
+            "latex": "$16$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$T^2 \\propto a^3$: $T \\to 4^{3/2} = 8$."
+      },
+      {
+        "mcqId": "P05-MCQ06",
+        "stemLatex": "A geostationary satellite orbits at approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3{,}600\\,\\text{km}$"
+          },
+          {
+            "id": "B",
+            "latex": "$35{,}800\\,\\text{km}$"
+          },
+          {
+            "id": "C",
+            "latex": "$358{,}000\\,\\text{km}$"
+          },
+          {
+            "id": "D",
+            "latex": "$6{,}400\\,\\text{km}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$T = 24\\,\\text{h}$ fixes $a \\approx 42{,}000\\,\\text{km}$ from centre ($h \\approx 35{,}800\\,\\text{km}$)."
+      },
+      {
+        "mcqId": "P05-MCQ07",
+        "stemLatex": "Effective $g$ is MINIMUM at:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "the poles"
+          },
+          {
+            "id": "B",
+            "latex": "the equator"
+          },
+          {
+            "id": "C",
+            "latex": "$45°$ latitude"
+          },
+          {
+            "id": "D",
+            "latex": "all latitudes equally"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\cos^2\\lambda$ is largest at $\\lambda = 0$: maximum centrifugal reduction."
+      },
+      {
+        "mcqId": "P05-MCQ08",
+        "stemLatex": "The gravitational potential at the centre of a hollow spherical shell equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$-\\frac{GM}{R}$"
+          },
+          {
+            "id": "C",
+            "latex": "$-\\frac{GM}{2R}$"
+          },
+          {
+            "id": "D",
+            "latex": "$+\\frac{GM}{R}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Potential is constant inside the shell at the surface value $-GM/R$; only the field is zero."
+      },
+      {
+        "mcqId": "P05-MCQ09",
+        "stemLatex": "Two bodies fall from rest in vacuum; the heavier one:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "falls faster"
+          },
+          {
+            "id": "B",
+            "latex": "falls at the same rate ($g$ independent of $m$)"
+          },
+          {
+            "id": "C",
+            "latex": "falls slower"
+          },
+          {
+            "id": "D",
+            "latex": "depends on shape"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$g$ is independent of the falling mass."
+      },
+      {
+        "mcqId": "P05-MCQ10",
+        "stemLatex": "At perihelion vs aphelion, the speeds satisfy:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$v_pr_p = v_ar_a$"
+          },
+          {
+            "id": "B",
+            "latex": "$v_pr_p > v_ar_a$"
+          },
+          {
+            "id": "C",
+            "latex": "$v_pr_p < v_ar_a$"
+          },
+          {
+            "id": "D",
+            "latex": "no relation"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Kepler's second law: areal velocity constant $\\Rightarrow$ angular momentum conserved."
+      }
+    ],
+    "memoryHooks": [
+      "Height: $\\frac{g}{(1+h/R)^2$; depth: $g(1-d/R)$; spin: $-\\omega^2R\\cos^2\\lambda$.",
+      "Height slope $-2/R$ vs depth slope $-1/R$.",
+      "$v_e = \\sqrt{2gR} \\approx 11.2\\,\\text{km/s}$; $v_e = \\sqrt{2}\\,v_o$.",
+      "Virial: $U = -2K$, $E = -K$.",
+      "$T^2 \\propto a^3$: radius $\\times 4 \\Rightarrow T \\times 8$.",
+      "Geostationary: equatorial, 24 h, $\\approx 35{,}800\\,\\text{km}$.",
+      "Shell: field zero, potential $-GM/R$ constant.",
+      "Escape speed ignores mass and launch angle."
+    ],
+    "commonMistakes": [
+      "Using $g(1-2h/R)$ when $h \\sim R$.",
+      "Claiming escape speed depends on projectile mass or angle.",
+      "Writing $E = 0$ for a bound orbit (it is negative).",
+      "Forgetting the $\\cos^2\\lambda$ in rotation corrections.",
+      "Making shell potential zero (only the field is zero).",
+      "Mixing up $v_e$ and $v_o$ numerical values.",
+      "Applying Kepler's third law beyond bound orbits.",
+      "Rushing the final unit conversion after a correct setup."
+    ],
+    "examChecklist": [
+      "Choose exact vs linear $g_h$ based on $h/R$ size.",
+      "Apply the depth law linearly; zero at centre.",
+      "Recall $v_e \\approx 11.2\\,\\text{km/s}$ and its independence.",
+      "State the virial energy ladder for circular orbits.",
+      "Kepler's laws: focus, areal law, $T^2 \\propto a^3$.",
+      "Geostationary conditions (plane, direction, period, altitude).",
+      "Shell interior: $E = 0$, $V = -GM/R$.",
+      "Sanity-check the order of magnitude at the end."
+    ],
+    "furtherReading": [
+      {
+        "book": "Fundamentals of Physics",
+        "author": "Halliday, Resnick & Walker",
+        "chapters": "Gravitation chapter",
+        "note": "Gravitation fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

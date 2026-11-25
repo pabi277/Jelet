@@ -180,7 +180,676 @@
       "channelName": "Chemistry Class by PM Mishra",
       "language": "en",
       "scopeNote": "Bohr radii & energy levels, hydrogen spectrum, quantum numbers & electronic configurations"
+    },
+    {
+      "title": "Atomic Structure Class 11 One Shot | NCERT Full Revision | Chemistry Chapter 2 | Fateh 2026",
+      "url": "https://www.youtube.com/watch?v=wV_-s9xgDnE",
+      "videoId": "wV_-s9xgDnE",
+      "duration": "123 min",
+      "durationMinutes": 123,
+      "provider": "YouTube · PW Class 11 Science",
+      "channelName": "PW Class 11 Science",
+      "language": "hi",
+      "scopeNote": "Full-chapter one shot in Hindi — Thomson to Bohr to quantum numbers and configurations, with NCERT MIQs matching the pack span"
+    },
+    {
+      "title": "STRUCTURE OF ATOM Full Chapter Covered | Class 11 Chemistry Chapter 1 | Bharti Mam",
+      "url": "https://www.youtube.com/watch?v=4-yKxIvkH60",
+      "videoId": "4-yKxIvkH60",
+      "duration": "107 min",
+      "durationMinutes": 107,
+      "provider": "YouTube · ISC Wallah Class 11 & 12",
+      "channelName": "ISC Wallah Class 11 & 12",
+      "language": "hi",
+      "scopeNote": "Timed walkthrough: Bohr postulates at 1:07:35, de Broglie at 1:14:42, quantum numbers at 1:19:15 — the pack's primer order"
+    },
+    {
+      "title": "Structure of Atom Class 11 One Shot | All Concepts + NCERT + PYQs | Chemistry Chapter 2",
+      "url": "https://www.youtube.com/watch?v=JC3IguOuekk",
+      "videoId": "JC3IguOuekk",
+      "duration": "159 min",
+      "durationMinutes": 159,
+      "provider": "YouTube · PW Class 11 Science (Shourya Grover Ma'am)",
+      "channelName": "PW Class 11 Science",
+      "language": "hi",
+      "scopeNote": "PYQ-heavy revision of Bohr energies, magnetic moment and configurations — drills the exact MCQ skills the pack tests"
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "C01-PRD01",
+        "heading": "Bohr Model for One-Electron Species",
+        "proseLatex": "For hydrogenic ions ($\\text{H}, \\text{He}^+, \\text{Li}^{2+}$) of nuclear charge $Z$, Bohr's quantization $mvr = \\frac{nh}{2\\pi}$ gives orbit radius $r_n = 0.529\\,\\frac{n^2}{Z}\\ \\text{\\AA}$, speed $v_n \\propto \\frac{Z}{n}$ and total energy $E_n = -13.6\\,\\frac{Z^2}{n^2}\\ \\text{eV}$, with kinetic energy $K = -E$ and potential energy $U = 2E$. Every quantity scales with $Z$ and $n$ — no new physics per ion. Micro-check: $\\text{He}^+$ ground state: $E_1 = -13.6 \\times 2^2 = -54.4\\ \\text{eV}$, and $K = +54.4\\ \\text{eV}$, $U = -108.8\\ \\text{eV}$."
+      },
+      {
+        "prdId": "C01-PRD02",
+        "heading": "Rydberg Formula and Spectral Series",
+        "proseLatex": "A transition $n_2 \\to n_1$ emits a photon of wavenumber $\\bar{\\nu} = \\frac{1}{\\lambda} = R_H Z^2\\left(\\frac{1}{n_1^2} - \\frac{1}{n_2^2}\\right)$ with $R_H = 1.097 \\times 10^7\\ \\text{m}^{-1}$. Series are named by the FIXED lower level: Lyman ($n_1 = 1$, UV), Balmer ($n_1 = 2$, visible), Paschen ($n_1 = 3$, IR). Electrons falling from a level $n_2$ can land through every intermediate level, producing $\\frac{\\Delta n(\\Delta n + 1)}{2}$ distinct lines. Micro-check: from $n = 4$ to $n = 2$: $\\Delta n = 2$ gives $\\frac{2 \\times 3}{2} = 3$ lines ($4 \\to 3$, $4 \\to 2$, $3 \\to 2$)."
+      },
+      {
+        "prdId": "C01-PRD03",
+        "heading": "Quantum Numbers and Node Counting",
+        "proseLatex": "Four numbers label every electron: principal $n = 1, 2, 3, \\dots$; azimuthal $l = 0 \\dots n-1$ ($s, p, d, f$); magnetic $m_l = -l \\dots +l$ giving $2l+1$ orbitals per subshell, $n^2$ orbitals and $2n^2$ maximum electrons per shell; spin $m_s = \\pm\\frac{1}{2}$. Nodes are counted from the same pair: angular (planar/conical) nodes $= l$, radial (spherical) nodes $= n - l - 1$, total $= n - 1$. Micro-check: a $4d$ orbital ($n = 4, l = 2$) has $2$ angular and $4 - 2 - 1 = 1$ radial nodes, $3$ total."
+      },
+      {
+        "prdId": "C01-PRD04",
+        "heading": "Filling Rules: Aufbau, Pauli, Hund and the Cr/Cu Exceptions",
+        "proseLatex": "Subshells fill in increasing $n + l$; on a tie the lower $n$ wins, so $4s$ ($4+0$) fills before $3d$ ($3+2=5$). Pauli exclusion forbids two electrons sharing all four quantum numbers (hence $2$ per orbital), and Hund's rule spreads electrons parallel-spin across degenerate orbitals first. Half-filled and fully-filled subshells gain exchange stability, so $\\text{Cr}$ ($Z = 24$) is $[\\text{Ar}]\\,3d^5 4s^1$ and $\\text{Cu}$ ($Z = 29$) is $[\\text{Ar}]\\,3d^{10} 4s^1$. Micro-check: order around $n = 4$: $3p \\to 4s \\to 3d \\to 4p$ — $4s$ wins the tie against $3d$ on $n$."
+      },
+      {
+        "prdId": "C01-PRD05",
+        "heading": "Spin-Only Magnetic Moment and Ion Configurations",
+        "proseLatex": "Paramagnetism comes from unpaired electrons only: $\\mu = \\sqrt{n(n+2)}\\ \\text{BM}$. For transition-metal IONS, remove electrons from $4s$ FIRST (it filled first but leaves first), then recount the $d$-shell. $\\text{Fe}$: $[\\text{Ar}]3d^6 4s^2 \\to \\text{Fe}^{2+}$: $[\\text{Ar}]3d^6$ with $4$ unpaired — never $3d^4 4s^2$. Micro-check: $\\text{Fe}^{3+}$ is $3d^5$, so $n = 5$: $\\mu = \\sqrt{5 \\times 7} = \\sqrt{35} \\approx 4.9 \\times 1.21 \\approx 5.92\\ \\text{BM}$."
+      },
+      {
+        "prdId": "C01-PRD06",
+        "heading": "de Broglie Waves and the Uncertainty Principle",
+        "proseLatex": "Matter waves: $\\lambda = \\frac{h}{p} = \\frac{h}{mv}$ — measurable only for particles of subatomic mass. An electron accelerated through $V$ volts has $K = eV$, giving the handy $\\lambda(\\text{\\AA}) = \\frac{12.27}{\\sqrt{V}}$. Heisenberg's principle caps simultaneous precision: $\\Delta x \\cdot \\Delta p_x \\ge \\frac{h}{4\\pi}$ (note the $4\\pi$, not $2\\pi$). Micro-check: electron through $V = 100\\ \\text{V}$: $\\lambda = \\frac{12.27}{\\sqrt{100}} = 1.227\\ \\text{\\AA}$ — atomic-scale, hence electron diffraction works."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "C01-SF01",
+        "label": "Bohr radius",
+        "latex": "$r_n = 0.529\\,\\frac{n^2}{Z}\\ \\text{\\AA}$",
+        "use": "Radius scales as $n^2/Z$; only one $Z$, not $Z^2$."
+      },
+      {
+        "sfId": "C01-SF02",
+        "label": "Bohr energy (and K, U split)",
+        "latex": "$E_n = -13.6\\,\\frac{Z^2}{n^2}\\ \\text{eV},\\quad K = -E,\\quad U = 2E$",
+        "use": "Ground-state energy and ionization limits for H, $\\text{He}^+$, $\\text{Li}^{2+}$."
+      },
+      {
+        "sfId": "C01-SF03",
+        "label": "Rydberg wavenumber",
+        "latex": "$\\frac{1}{\\lambda} = R_H Z^2\\left(\\frac{1}{n_1^2} - \\frac{1}{n_2^2}\\right),\\ R_H = 1.097 \\times 10^7\\ \\text{m}^{-1}$",
+        "use": "Spectral lines of hydrogenic species."
+      },
+      {
+        "sfId": "C01-SF04",
+        "label": "Number of spectral lines from one level",
+        "latex": "$N = \\frac{\\Delta n(\\Delta n + 1)}{2}$",
+        "use": "Count distinct emitted lines for a jump between levels."
+      },
+      {
+        "sfId": "C01-SF05",
+        "label": "Bohr speed and energy in SI",
+        "latex": "$v_n = 2.18 \\times 10^6\\,\\frac{Z}{n}\\ \\text{m/s},\\quad E_n = -2.18 \\times 10^{-18}\\,\\frac{Z^2}{n^2}\\ \\text{J}$",
+        "use": "When answers are wanted in m/s or joules."
+      },
+      {
+        "sfId": "C01-SF06",
+        "label": "Orbital and electron counts",
+        "latex": "$\\text{orbitals per subshell} = 2l + 1,\\quad \\text{per shell} = n^2,\\quad \\text{max } e^- = 2n^2$",
+        "use": "Capacity bookkeeping."
+      },
+      {
+        "sfId": "C01-SF07",
+        "label": "Node counts",
+        "latex": "$\\text{radial} = n - l - 1,\\quad \\text{angular} = l,\\quad \\text{total} = n - 1$",
+        "use": "Any $(n, l)$ orbital."
+      },
+      {
+        "sfId": "C01-SF08",
+        "label": "Heisenberg uncertainty",
+        "latex": "$\\Delta x \\cdot \\Delta p_x \\ge \\frac{h}{4\\pi},\\ h = 6.626 \\times 10^{-34}\\ \\text{J s}$",
+        "use": "Minimum simultaneous uncertainty."
+      },
+      {
+        "sfId": "C01-SF09",
+        "label": "Aufbau $(n + l)$ order",
+        "latex": "$\\text{fill by } (n + l);\\ \\text{tie} \\to \\text{lower } n:\\ 4s (4) < 3d (5)$",
+        "use": "Predict configurations."
+      },
+      {
+        "sfId": "C01-SF10",
+        "label": "Spin-only magnetic moment",
+        "latex": "$\\mu = \\sqrt{n(n+2)}\\ \\text{BM}$",
+        "use": "$n$ = unpaired electrons, after $4s$ removal for ions."
+      },
+      {
+        "sfId": "C01-SF11",
+        "label": "Orbital angular momentum",
+        "latex": "$L = \\sqrt{l(l+1)}\\,\\frac{h}{2\\pi}$",
+        "use": "$s: 0$, $p: \\sqrt{2}\\,\\hbar$, $d: \\sqrt{6}\\,\\hbar$."
+      },
+      {
+        "sfId": "C01-SF12",
+        "label": "de Broglie wavelength",
+        "latex": "$\\lambda = \\frac{h}{mv} = \\frac{h}{p};\\quad \\lambda(\\text{\\AA}) = \\frac{12.27}{\\sqrt{V}}$ for $e^-$ through $V$ volts",
+        "use": "Matter-wave numerics."
+      },
+      {
+        "sfId": "C01-SF13",
+        "label": "Photon pack",
+        "latex": "$E = h\\nu = \\frac{hc}{\\lambda},\\quad 1\\ \\text{eV} = 1.602 \\times 10^{-19}\\ \\text{J}$",
+        "use": "Convert between spectral data and energies."
+      },
+      {
+        "sfId": "C01-SF14",
+        "label": "Subshell electron capacity",
+        "latex": "$e^-_{\\text{subshell}} = 2(2l + 1)$",
+        "use": "$s: 2$, $p: 6$, $d: 10$, $f: 14$."
+      },
+      {
+        "sfId": "C01-SF15",
+        "label": "Hydrogenic ionization energy",
+        "latex": "$IE = E_\\infty - E_1 = 13.6\\,Z^2\\ \\text{eV}$ (from $n = 1$)",
+        "use": "$\\text{H} = 13.6$, $\\text{He}^+ = 54.4$, $\\text{Li}^{2+} = 122.4\\ \\text{eV}$."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "C01-DEF01",
+        "term": "Orbit vs orbital",
+        "definition": "Orbit: fixed classical path (Bohr). Orbital: probability-density region $|\\psi|^2$ (quantum model)."
+      },
+      {
+        "defId": "C01-DEF02",
+        "term": "Ground and excited states",
+        "definition": "Ground: lowest energy ($n = 1$ for H). Excited: any $n > $ ground; reached by absorbing a photon."
+      },
+      {
+        "defId": "C01-DEF03",
+        "term": "Spectral series",
+        "definition": "Line families named by the fixed lower level $n_1$: Lyman ($1$, UV), Balmer ($2$, visible), Paschen ($3$, IR), Brackett ($4$), Pfund ($5$)."
+      },
+      {
+        "defId": "C01-DEF04",
+        "term": "Principal quantum number $n$",
+        "definition": "Sets shell, size and (with $Z$) energy: allowed $1, 2, 3, \\dots$"
+      },
+      {
+        "defId": "C01-DEF05",
+        "term": "Azimuthal $l$ and magnetic $m_l$",
+        "definition": "$l$ sets subshell shape ($0$–$n{-}1$) and node count; $m_l$ ($-l \\dots +l$) sets orbital orientation."
+      },
+      {
+        "defId": "C01-DEF06",
+        "term": "Spin quantum number $m_s$",
+        "definition": "$\\pm\\frac{1}{2}$ — two electrons per orbital, opposite spins (Pauli)."
+      },
+      {
+        "defId": "C01-DEF07",
+        "term": "Radial vs angular node",
+        "definition": "Radial: sphere of zero $|\\psi|^2$ counted by $n - l - 1$. Angular: plane/cone counted by $l$."
+      },
+      {
+        "defId": "C01-DEF08",
+        "term": "Pauli exclusion principle",
+        "definition": "No two electrons in an atom share all four quantum numbers."
+      },
+      {
+        "defId": "C01-DEF09",
+        "term": "Hund's rule of maximum multiplicity",
+        "definition": "Degenerate orbitals fill singly, parallel-spin, before pairing."
+      },
+      {
+        "defId": "C01-DEF10",
+        "term": "Isoelectronic species",
+        "definition": "Different species with the same electron count ($\\text{O}^{2-}, \\text{F}^-, \\text{Ne}, \\text{Na}^+$: $10\\ e^-$)."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "C01-CMP01",
+        "title": "How Bohr quantities scale",
+        "columns": [
+          "Quantity",
+          "Scaling",
+          "Quick anchor"
+        ],
+        "rows": [
+          {
+            "label": "Radius $r_n$",
+            "values": [
+              "$\\propto n^2/Z$",
+              "$r(\\text{He}^+, n=2)/r(\\text{H}, n=1) = 2$"
+            ]
+          },
+          {
+            "label": "Speed $v_n$",
+            "values": [
+              "$\\propto Z/n$",
+              "double $Z$, double speed"
+            ]
+          },
+          {
+            "label": "Energy $E_n$",
+            "values": [
+              "$\\propto -Z^2/n^2$",
+              "$\\text{Li}^{2+}$: $9 \\times 13.6 = 122.4\\ \\text{eV}$ deep"
+            ]
+          },
+          {
+            "label": "Ionization energy",
+            "values": [
+              "$13.6\\,Z^2\\ \\text{eV}$",
+              "same as $|E_1|$"
+            ]
+          },
+          {
+            "label": "Applies to",
+            "values": [
+              "one-electron only",
+              "$\\text{H}, \\text{He}^+, \\text{Li}^{2+}, \\dots$ — never neutral He"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C01-CMP02",
+        "title": "The first three spectral series",
+        "columns": [
+          "Series",
+          "$n_1 \\to$",
+          "Region"
+        ],
+        "rows": [
+          {
+            "label": "Lyman",
+            "values": [
+              "$n_1 = 1$",
+              "ultraviolet"
+            ]
+          },
+          {
+            "label": "Balmer",
+            "values": [
+              "$n_1 = 2$",
+              "visible ($\\text{H}\\alpha \\approx 656\\ \\text{nm}$)"
+            ]
+          },
+          {
+            "label": "Paschen",
+            "values": [
+              "$n_1 = 3$",
+              "infrared"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C01-CMP03",
+        "title": "Radial vs angular nodes",
+        "columns": [
+          "Aspect",
+          "Radial node",
+          "Angular node"
+        ],
+        "rows": [
+          {
+            "label": "Count",
+            "values": [
+              "$n - l - 1$",
+              "$l$"
+            ]
+          },
+          {
+            "label": "Geometry",
+            "values": [
+              "sphere of zero probability",
+              "plane or cone of zero probability"
+            ]
+          },
+          {
+            "label": "$4d$ orbital",
+            "values": [
+              "$1$",
+              "$2$"
+            ]
+          },
+          {
+            "label": "$3p$ orbital",
+            "values": [
+              "$1$",
+              "$1$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C01-CMP04",
+        "title": "The famous exceptions",
+        "columns": [
+          "Species",
+          "Configuration",
+          "Unpaired $e^-$",
+          "Driver"
+        ],
+        "rows": [
+          {
+            "label": "$\\text{Cr}$ ($Z=24$)",
+            "values": [
+              "$[\\text{Ar}]3d^5 4s^1$",
+              "$6$",
+              "half-filled $d^5$ exchange stability"
+            ]
+          },
+          {
+            "label": "$\\text{Cu}$ ($Z=29$)",
+            "values": [
+              "$[\\text{Ar}]3d^{10} 4s^1$",
+              "$1$",
+              "fully-filled $d^{10}$ stability"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "C01-MCQ01",
+        "stemLatex": "The ground-state energy of $\\text{Li}^{2+}$ ($Z = 3$) is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-13.6\\ \\text{eV}$"
+          },
+          {
+            "id": "B",
+            "latex": "$-54.4\\ \\text{eV}$"
+          },
+          {
+            "id": "C",
+            "latex": "$-122.4\\ \\text{eV}$"
+          },
+          {
+            "id": "D",
+            "latex": "$-40.8\\ \\text{eV}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$E_1 = -13.6\\,Z^2 = -13.6 \\times 9 = -122.4\\ \\text{eV}$. One-electron species only — this is exactly why Bohr works for $\\text{Li}^{2+}$ but not neutral Li."
+      },
+      {
+        "mcqId": "C01-MCQ02",
+        "stemLatex": "Electrons dropping from $n = 4$ directly to the Balmer level $n_1 = 2$ can produce how many distinct lines?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$3$"
+          },
+          {
+            "id": "C",
+            "latex": "$4$"
+          },
+          {
+            "id": "D",
+            "latex": "$6$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\Delta n = 4 - 2 = 2$: $N = \\frac{\\Delta n(\\Delta n + 1)}{2} = \\frac{2 \\times 3}{2} = 3$ — the jumps $4 \\to 3$, $4 \\to 2$ and $3 \\to 2$."
+      },
+      {
+        "mcqId": "C01-MCQ03",
+        "stemLatex": "How many radial nodes does a $3p$ orbital have?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$1$"
+          },
+          {
+            "id": "C",
+            "latex": "$2$"
+          },
+          {
+            "id": "D",
+            "latex": "$3$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\text{radial} = n - l - 1 = 3 - 1 - 1 = 1$ (and $1$ angular node, $2$ total)."
+      },
+      {
+        "mcqId": "C01-MCQ04",
+        "stemLatex": "The ratio $r(\\text{He}^+, n = 2) : r(\\text{H}, n = 1)$ of Bohr radii is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1:1$"
+          },
+          {
+            "id": "B",
+            "latex": "$2:1$"
+          },
+          {
+            "id": "C",
+            "latex": "$4:1$"
+          },
+          {
+            "id": "D",
+            "latex": "$1:2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$r \\propto n^2/Z$: $\\frac{2^2/2}{1^2/1} = \\frac{2}{1}$. The $n^2$ doubles the $Z$-halving."
+      },
+      {
+        "mcqId": "C01-MCQ05",
+        "stemLatex": "Spin-only magnetic moment of $\\text{Fe}^{3+}$ ($Z = 26$):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$4.90\\ \\text{BM}$"
+          },
+          {
+            "id": "B",
+            "latex": "$5.92\\ \\text{BM}$"
+          },
+          {
+            "id": "C",
+            "latex": "$6.93\\ \\text{BM}$"
+          },
+          {
+            "id": "D",
+            "latex": "$3.87\\ \\text{BM}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\text{Fe}^{3+}$: remove $4s^2$ then one $3d$ $\\to 3d^5$, $n = 5$ unpaired. $\\mu = \\sqrt{5 \\times 7} = \\sqrt{35} \\approx 5.92\\ \\text{BM}$."
+      },
+      {
+        "mcqId": "C01-MCQ06",
+        "stemLatex": "Which aqueous ion is diamagnetic?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{Fe}^{2+}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{Cr}^{3+}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{Zn}^{2+}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{Mn}^{2+}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$\\text{Zn}^{2+}$ is $3d^{10}$ — fully filled, zero unpaired. $\\text{Fe}^{2+}$ ($d^6$), $\\text{Cr}^{3+}$ ($d^3$), $\\text{Mn}^{2+}$ ($d^5$) all retain unpaired electrons."
+      },
+      {
+        "mcqId": "C01-MCQ07",
+        "stemLatex": "In Aufbau $(n+l)$ filling, the subshell filled immediately AFTER $4s$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3d$"
+          },
+          {
+            "id": "B",
+            "latex": "$4p$"
+          },
+          {
+            "id": "C",
+            "latex": "$3p$"
+          },
+          {
+            "id": "D",
+            "latex": "$4d$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$4s$ ($4+0 = 4$) then $3d$ ($3+2 = 5$): within equal $n+l$... here $3d$ and $4p$ both total $5$, but lower $n$ wins, so $3d$ first."
+      },
+      {
+        "mcqId": "C01-MCQ08",
+        "stemLatex": "An electron accelerated through $V = 100\\ \\text{V}$ has de Broglie wavelength:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$12.27\\ \\text{\\AA}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.227\\ \\text{\\AA}$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.1227\\ \\text{\\AA}$"
+          },
+          {
+            "id": "D",
+            "latex": "$122.7\\ \\text{\\AA}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\lambda = \\frac{12.27}{\\sqrt{V}} = \\frac{12.27}{10} = 1.227\\ \\text{\\AA}$ — the classic electron-diffraction scale."
+      },
+      {
+        "mcqId": "C01-MCQ09",
+        "stemLatex": "If the permitted uncertainty $\\Delta x$ in position is halved, the minimum uncertainty $\\Delta p$ in momentum:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "halves"
+          },
+          {
+            "id": "B",
+            "latex": "doubles"
+          },
+          {
+            "id": "C",
+            "latex": "quadruples"
+          },
+          {
+            "id": "D",
+            "latex": "is unchanged"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\Delta x \\cdot \\Delta p \\ge \\frac{h}{4\\pi}$: the product floor is fixed, so halving one factor forces the other to double."
+      },
+      {
+        "mcqId": "C01-MCQ10",
+        "stemLatex": "The total number of orbitals in the shell $n = 3$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3$"
+          },
+          {
+            "id": "B",
+            "latex": "$6$"
+          },
+          {
+            "id": "C",
+            "latex": "$9$"
+          },
+          {
+            "id": "D",
+            "latex": "$18$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$n^2 = 9$ orbitals ($1 \\times 3s + 3 \\times 3p + 5 \\times 3d$); $18$ would be the maximum ELECTRON count $2n^2$."
+      }
+    ],
+    "memoryHooks": [
+      "Energy carries $Z^2$, radius only $Z$ — and both sit under $n^2$ (radius) or $n^2$ (energy).",
+      "$K = -E$, $U = 2E$: kinetic is what the energy owes.",
+      "Angular nodes $= l$, radial $= n - l - 1$, total $= n - 1$.",
+      "$4s$ fills before $3d$ — but $4s$ LEAVES first when an ion forms.",
+      "Cr wants five half-filled $d$'s; Cu wants a full $d^{10}$.",
+      "$\\sqrt{n(n+2)}$: count UNPAIRED electrons, never the total.",
+      "Lyman ends at $n = 1$ (UV); Balmer ends at $n = 2$ (visible); Paschen at $3$ (IR).",
+      "Bohr math is a one-electron club: H, $\\text{He}^+$, $\\text{Li}^{2+}$ only.",
+      "Lines from one jump level: $\\frac{\\Delta n(\\Delta n+1)}{2}$.",
+      "Heisenberg uses $h/4\\pi$ — not $h/2\\pi$."
+    ],
+    "commonMistakes": [
+      "Stripping $3d$ before $4s$ when forming transition-metal ions (Fe²⁺ is $3d^6$, not $3d^4 4s^2$).",
+      "Applying Bohr energies to neutral He or any multi-electron species.",
+      "Swapping angular ($l$) and radial ($n - l - 1$) node counts.",
+      "Using $h/2\\pi$ instead of $h/4\\pi$ in the uncertainty product.",
+      "Counting Cr as $4$ unpaired — $3d^5 4s^1$ has $6$.",
+      "Quoting $2l + 1$ as the ELECTRON capacity of a subshell (that's orbitals; electrons are $2(2l+1)$).",
+      "Ordering subshells by $n$ alone instead of $n + l$.",
+      "Dropping the minus sign or the $Z^2$ when scaling $E_n$.",
+      "Reporting $\\mu$ in any unit other than Bohr magneton (BM)."
+    ],
+    "examChecklist": [
+      "Confirm the species is one-electron BEFORE any Bohr formula.",
+      "Scale with $Z^2/n^2$ for energy, $n^2/Z$ for radius, $Z/n$ for speed.",
+      "Sanity-check energies with $K = -E$ and $U = 2E$.",
+      "Name the series from the FIXED lower level $n_1$.",
+      "Count lines with $\\frac{\\Delta n(\\Delta n+1)}{2}$.",
+      "Nodes: radial $n - l - 1$, angular $l$, total $n - 1$.",
+      "Fill by $n + l$; break ties toward lower $n$.",
+      "For ions: remove $4s$ electrons first, then recount unpaired.",
+      "$\\mu = \\sqrt{n(n+2)}$ BM with the corrected unpaired count.",
+      "$\\Delta x \\Delta p \\ge h/4\\pi$; de Broglie $\\lambda = 12.27/\\sqrt{V}$ Å for electrons.",
+      "Convert eV ↔ J with $1.602 \\times 10^{-19}$ when the answer wants SI."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 11 Chemistry, Part II",
+        "author": "NCERT",
+        "chapters": "Unit 2 (Structure of Atom), §2.2–2.7",
+        "note": "Bohr model, dual behaviour, uncertainty, quantum numbers and orbital filling — the fact base this pack compresses."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "Owner-approved (session sign-off on batch 3, 2026-11-25)",
+      "reviewedAt": "2026-11-25 (owner approved; batch 4 authorized)"
+    }
+  }
 }

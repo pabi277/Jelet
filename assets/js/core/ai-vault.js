@@ -143,6 +143,19 @@ export function maskApiKey(apiKey) {
 }
 
 /**
+ * Phase 13 §2.4 — compact Study Pack grounding for unit prompts.
+ * Echoes ONLY the pack's memory hooks and common mistakes (the owner-reviewed
+ * wording), never `furtherReading` book pointers. Trimmed to ~400 chars.
+ */
+export function summarizeStudyPackForTutor(studyPack) {
+  if (!studyPack || typeof studyPack !== "object") return "";
+  const hooks = (studyPack.memoryHooks || []).slice(0, 3).join("; ");
+  const slips = (studyPack.commonMistakes || []).slice(0, 3).join("; ");
+  const raw = `Memory hooks: ${hooks} | Common mistakes: ${slips}`;
+  return raw.length <= 400 ? raw : `${raw.slice(0, 397)}...`;
+}
+
+/**
  * Build the Immutable Ground-Truth System Prompt (docs/04 §5.1).
  */
 export function buildGroundTruthSystemPrompt({
@@ -215,6 +228,7 @@ export function buildGroundTruthSystemPrompt({
       formula ? `- Selected Formula (${formula.label}): ${formula.latex}` : "",
       formula?.aiExplainContext ? `- Derivation Focus: ${formula.aiExplainContext}` : "",
       `- WBJEEB Traps for ${unit.unitId}: ${(unit.wbjeebTraps || []).join(" | ")}`,
+      unit.studyPack ? `- Study Pack Hooks & Slips: ${summarizeStudyPackForTutor(unit.studyPack)}` : "",
       `- Preferred Language: ${languageMode} (Use crisp KaTeX $...$ and $$...$$ for all math).`,
       ...contextLines,
       "",

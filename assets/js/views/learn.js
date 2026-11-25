@@ -16,6 +16,7 @@ import {
   loadSolutionsForQuestions,
 } from "../core/data-loader.js";
 import { renderLatex, stripLatexForSearch, escapeHtml } from "../core/math.js";
+import { buildStudyPackSearchText } from "../core/studypack-search.js";
 import { SUBJECT_META, isVoidedQuestion } from "../core/scoring.js";
 import {
   getUnitProgressMap,
@@ -73,7 +74,10 @@ export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
       .join(" ");
     return {
       unit: u,
-      searchBlob: `${u.unitId} ${u.officialCode} ${u.title} ${formulasText}`.toLowerCase(),
+      // studyPack ships inline in the unit JSON (Amendment B, accept-in-place),
+      // so its text joins the blob with zero extra fetch — primer headings +
+      // prose, SF labels, hooks, mistakes and checklist are all searchable.
+      searchBlob: `${u.unitId} ${u.officialCode} ${u.title} ${formulasText} ${buildStudyPackSearchText(u.studyPack)}`.toLowerCase(),
     };
   });
 
@@ -306,7 +310,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
   );
   let solutionsCache = null;
   const requestedTab = String(query?.get?.("tab") || "").toLowerCase();
-  const validTabs = new Set(["workbook", "formulas", "pyqs", "videos"]);
+  const validTabs = new Set(["workbook", "study", "formulas", "pyqs", "videos"]);
   let activeTab = validTabs.has(requestedTab) ? requestedTab : "workbook";
 
   const isBookmarkedInit = Boolean(bookmarksMap.get(unit.unitId)?.bookmarked);
@@ -434,10 +438,11 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
     const row = $("#lessonTabsRow", root);
     row.innerHTML = "";
     const tabs = [
-      { id: "workbook", label: "Workbook" },
-      { id: "formulas", label: `Formulas (${unitFormulas.length})` },
-      { id: "pyqs", label: `Verified PYQs (${unitPyqs.length})` },
+      { id: "study", label: "Study Pack" },
       { id: "videos", label: `Videos (${(unit.videoLectures || []).length})` },
+      { id: "formulas", label: `Formulas (${unitFormulas.length})` },
+      { id: "workbook", label: "Workbook" },
+      { id: "pyqs", label: `Verified PYQs (${unitPyqs.length})` },
     ];
     for (const t of tabs) {
       const b = el(
@@ -580,6 +585,274 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
         showToast("Unit note saved locally");
       });
       slot.appendChild(noteCard);
+      return;
+    }
+
+    if (activeTab === "study") {
+      // Phase 13 — Study Pack tab (docs/phases/phase-13/plan.md §2.3).
+      // Per-block visual identity (owner refinement, unit-model reference §6):
+      // primers = worked-example tint cards, hooks = compact chip grid,
+      // mistakes = amber caution list, checklist = tick list, reading = quiet
+      // footnote block — never five identical cards, never raw JSON.
+      const sp = unit.studyPack;
+      if (!sp || typeof sp !== "object" || !Array.isArray(sp.conceptPrimer) || !sp.conceptPrimer.length) {
+        // Calm empty state — units whose pack has not shipped yet.
+        slot.appendChild(
+          el(`
+            <section class="card stack-xs">
+              <div class="cluster-xs">
+                ${icon("icon-spark")}
+                <strong>Study Pack (${escapeHtml(unit.unitId)})</strong>
+              </div>
+              <p class="card__meta" style="margin:0">
+                Study Pack for this unit is being authored — every pack is originally written and verified before shipping. Meanwhile: Videos · Formulas · Workbook · PYQs above.
+              </p>
+            </section>
+          `)
+        );
+        return;
+      }
+
+      const prov = sp.provenance || {};
+      const provPending = /^pending/i.test(String(prov.reviewedBy || ""));
+      const provText = provPending
+        ? "AI-assisted draft · owner review pending"
+        : `AI-assisted draft · reviewed by ${prov.reviewedBy || "owner"} · ${prov.reviewedAt || ""}`.trim();
+
+      const primerHtml = sp.conceptPrimer
+        .map(
+          (p) => `
+          <article class="worked-example study-primer stack-xs">
+            <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+              <strong class="study-primer__heading">${escapeHtml(p.heading || "")}</strong>
+              ${p.prdId ? `<span class="mono pill">${escapeHtml(p.prdId)}</span>` : ""}
+            </div>
+            <div class="lesson-prose">${renderLatex(p.proseLatex || "", { preserveNewlines: true })}</div>
+          </article>
+        `
+        )
+        .join("");
+
+      const sfHtml = (sp.keyFormulas || [])
+        .map(
+          (f) => `
+          <div class="lesson-formula-card study-sf">
+            <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+              <div class="cluster-xs">
+                ${f.sfId ? `<span class="mono pill">${escapeHtml(f.sfId)}</span>` : ""}
+                <span class="solution-step__head" style="margin:0">${escapeHtml(f.label || "")}</span>
+              </div>
+            </div>
+            <div class="math-scroll" style="margin-top:var(--space-xs)">${renderLatex(f.latex || "")}</div>
+            ${f.use ? `<p class="lesson-formula-card__note" style="margin-top:var(--space-3xs)">${escapeHtml(f.use)}</p>` : ""}
+          </div>
+        `
+        )
+        .join("");
+
+      const defsHtml = (sp.keyDefinitions || [])
+        .map(
+          (d) => `
+          <div class="study-def">
+            <dt>${escapeHtml(d.term || "")}</dt>
+            <dd>${renderLatex(d.definition || "")}</dd>
+          </div>
+        `
+        )
+        .join("");
+
+      const cmpHtml = (sp.comparisons || [])
+        .map(
+          (c) => `
+          <div class="stack-xs">
+            <div class="study-cmp-title">${escapeHtml(c.title || "")}</div>
+            <div class="study-cmp-scroll">
+              <table class="study-cmp">
+                <thead>
+                  <tr>${(c.columns || []).map((col) => `<th scope="col">${escapeHtml(col)}</th>`).join("")}</tr>
+                </thead>
+                <tbody>
+                  ${(c.rows || [])
+                    .map(
+                      (row) => `
+                      <tr>
+                        <th scope="row">${escapeHtml(row.label || "")}</th>
+                        ${(row.values || []).map((v) => `<td>${renderLatex(v)}</td>`).join("")}
+                      </tr>
+                    `
+                    )
+                    .join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `
+        )
+        .join("");
+
+      const mcqHtml = (sp.mcqSelfTest || [])
+        .map(
+          (q, i) => `
+          <article class="card stack-xs study-mcq" data-correct="${escapeHtml((q.correct || []).join(","))}">
+            <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+              ${q.mcqId ? `<span class="mono pill">${escapeHtml(q.mcqId)}</span>` : ""}
+              <span class="card__meta">Self-test Q${i + 1} / ${(sp.mcqSelfTest || []).length}</span>
+            </div>
+            <div class="lesson-prose">${renderLatex(q.stemLatex || "")}</div>
+            <div class="stack-xs">
+              ${(q.options || [])
+                .map(
+                  (opt) => `
+                  <div class="study-mcq-opt" data-opt="${escapeHtml(opt.id || "")}">
+                    <span class="study-mcq-opt__letter">${escapeHtml(opt.id || "")}</span>
+                    <div class="study-mcq-opt__body">${renderLatex(opt.latex || "")}</div>
+                  </div>
+                `
+                )
+                .join("")}
+            </div>
+            <button type="button" class="btn btn--ghost btn--sm js-mcq-reveal" aria-expanded="false" style="align-self:flex-start">
+              ${icon("icon-check")} Reveal answer + reason
+            </button>
+            <div class="study-mcq-answer" hidden>
+              <div class="study-mcq-answer__key">Correct:
+                ${(q.correct || []).map((c) => `<span class="badge badge--correct">${escapeHtml(c)}</span>`).join(" ")}
+              </div>
+              <div class="study-mcq-answer__why">${renderLatex(q.explanation || "")}</div>
+            </div>
+          </article>
+        `
+        )
+        .join("");
+
+      const hooksHtml = (sp.memoryHooks || [])
+        .map(
+          (h, i) => `
+          <div class="lesson-formula-card study-hook">
+            <span class="mono study-hook__idx">H${i + 1}</span>
+            <div class="study-hook__text">${renderLatex(h)}</div>
+          </div>
+        `
+        )
+        .join("");
+
+      const mistakesHtml = (sp.commonMistakes || [])
+        .map((m) => `<li style="margin-top:var(--space-2xs)">${renderLatex(m)}</li>`)
+        .join("");
+
+      const checklistHtml = (sp.examChecklist || [])
+        .map((item) => `<li class="study-check-item">${renderLatex(item)}</li>`)
+        .join("");
+
+      // Long checklists collapse behind the shared tiebreak-details disclosure.
+      const checklistBlock =
+        (sp.examChecklist || []).length > 8
+          ? `<details class="tiebreak-details"><summary>Exam-Day Checklist (${(sp.examChecklist || []).length} checks)</summary><ul class="study-checklist">${checklistHtml}</ul></details>`
+          : `<section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-check")} Exam-Day Checklist</h3>
+              <ul class="study-checklist">${checklistHtml}</ul>
+            </section>`;
+
+      const readingHtml = (sp.furtherReading || [])
+        .map(
+          (r) => `
+          <div class="study-reading__item">
+            <div class="study-reading__book">${escapeHtml(r.book || "")}</div>
+            <div class="card__meta">${escapeHtml([r.author, r.chapters].filter(Boolean).join(" · "))}</div>
+            <p class="study-reading__note">${escapeHtml(r.note || "")}</p>
+          </div>
+        `
+        )
+        .join("");
+
+      slot.appendChild(
+        el(`
+          <div class="stack-m">
+            <section class="study-pack-intro stack-xs">
+              <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+                <div class="cluster-xs">
+                  ${icon("icon-spark")}
+                  <strong>${escapeHtml(unit.unitId)} Study Pack</strong>
+                </div>
+                <span class="mono pill">${escapeHtml(unit.officialCode)}</span>
+              </div>
+              <p class="study-pack-intro__lede" style="margin:0">
+                ${escapeHtml(unit.title)} — plain-words primers, recall hooks, mistake radar and a last-minute checklist in one compact pass.
+              </p>
+            </section>
+
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-learn")} Concept Primer <span class="study-block-title__meta">plain words before the maths</span></h3>
+              ${primerHtml}
+            </section>
+
+            ${sfHtml ? `
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-formula")} Key Formula Family <span class="study-block-title__meta">the complete exam set · ${escapeHtml(String((sp.keyFormulas || []).length))} identities</span></h3>
+              <div class="stack-xs">${sfHtml}</div>
+            </section>` : ""}
+
+            ${defsHtml ? `
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-layers")} Key Definitions <span class="study-block-title__meta">the terms the paper uses</span></h3>
+              <dl class="study-defs">${defsHtml}</dl>
+            </section>` : ""}
+
+            ${cmpHtml ? `
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-info")} Comparisons <span class="study-block-title__meta">side-by-side, never confused again</span></h3>
+              ${cmpHtml}
+            </section>` : ""}
+
+            ${mcqHtml ? `
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-check")} MCQ Self-Test <span class="study-block-title__meta">exam-true practice · tap to reveal · never scored</span></h3>
+              ${mcqHtml}
+            </section>` : ""}
+
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-bolt")} Memory Hooks <span class="study-block-title__meta">one-line recall aids</span></h3>
+              <div class="study-hook-grid">${hooksHtml}</div>
+            </section>
+
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-alert")} Common Mistakes <span class="study-block-title__meta">self-inflicted slips — board-designed traps live in the Workbook tab</span></h3>
+              <div class="exam-trap stack-xs">
+                <ul style="margin:0;padding-left:var(--space-l)">${mistakesHtml}</ul>
+              </div>
+            </section>
+
+            ${checklistBlock}
+
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-bookmark")} Read Further <span class="study-block-title__meta">title &amp; chapter pointers only</span></h3>
+              <div class="study-reading stack-xs">${readingHtml}</div>
+            </section>
+
+            <p class="card__meta study-provenance">${escapeHtml(provText)}</p>
+          </div>
+        `)
+      );
+
+      // MCQ self-test wiring: per-question reveal, zero storage, zero scoring.
+      slot.querySelectorAll(".js-mcq-reveal").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const card = btn.closest(".study-mcq");
+          if (!card) return;
+          const box = card.querySelector(".study-mcq-answer");
+          const revealed = !box.hidden;
+          box.hidden = revealed;
+          btn.setAttribute("aria-expanded", revealed ? "false" : "true");
+          btn.innerHTML = revealed
+            ? `${icon("icon-check")} Reveal answer + reason`
+            : `${icon("icon-close")} Hide answer`;
+          const correctSet = new Set(String(card.dataset.correct || "").split(",").filter(Boolean));
+          card.querySelectorAll(".study-mcq-opt").forEach((opt) => {
+            if (revealed) opt.removeAttribute("data-hit");
+            else if (correctSet.has(String(opt.dataset.opt))) opt.setAttribute("data-hit", "true");
+          });
+        });
+      });
       return;
     }
 

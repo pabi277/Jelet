@@ -1,0 +1,558 @@
+{
+  "unitId": "C08",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "C08-PRD01",
+        "heading": "IUPAC Priority & Parent Selection",
+        "proseLatex": "Principal-group priority: $-\\text{COOH} > -\\text{SO}_3\\text{H} > -\\text{COOR} > -\\text{COCl} > -\\text{CONH}_2 > -\\text{CN} > -\\text{CHO} > >\\text{C=O} > -\\text{OH} > -\\text{NH}_2 >$ alkene/alkyne. The highest-priority group fixes the suffix and numbering direction. Micro-check: a molecule with $-\\text{OH}$ and $-\\text{CHO}$ is an $\\text{al}$, not an $\\text{ol}$."
+      },
+      {
+        "prdId": "C08-PRD02",
+        "heading": "$s$-Character, Hybridization & Acidity",
+        "proseLatex": "$sp$ ($50\\%\\,s$) $> sp^2$ ($33\\%$) $> sp^3$ ($25\\%$) in electronegativity: terminal alkyne $\\text{C-H}$ ($sp$) is acidic enough for $\\text{NaNH}_2$, alcohols are not. Acidity ladder: phenol ($pK_a \\approx 10$) $>$ water ($15.7$) $>$ alcohols ($16\\text{--}18$) $>$ terminal alkynes ($25$); picric acid even liberates $\\text{CO}_2$ from $\\text{NaHCO}_3$ with no $-\\text{COOH}$ group. Micro-check: more $s$-character, closer electrons, more acidic."
+      },
+      {
+        "prdId": "C08-PRD03",
+        "heading": "DBE: Counting Rings and $\\pi$-Bonds",
+        "proseLatex": "$\\text{DBE} = C + 1 - \\frac{H + X - N}{2}$: every ring or $\\pi$-bond contributes one. Benzene: $6 + 1 - \\frac{6}{2} = 4$ (ring + three doubles). Micro-check: halogens add to $H$; nitrogen subtracts from it; oxygen is invisible."
+      },
+      {
+        "prdId": "C08-PRD04",
+        "heading": "Electronic Effects & Carbocation Stability",
+        "proseLatex": "Inductive ($\\pm I$), resonance ($\\pm M$) and hyperconjugation (count $\\alpha$-C-H bonds!) stabilize carbocations and alkenes as $3^\\circ > 2^\\circ > 1^\\circ > \\text{CH}_3^+$, boosted further by allylic/benzylic resonance; carbanions reverse ($1^\\circ > 2^\\circ > 3^\\circ$). Micro-check: benzylic beats $3^\\circ$ when resonance is available."
+      },
+      {
+        "prdId": "C08-PRD05",
+        "heading": "Markovnikov, Kharasch & Ozonolysis",
+        "proseLatex": "Unsymmetrical alkenes add HX with H going to the carbon already H-richer (Markovnikov). ONLY $\\text{HBr}$ with peroxides ($\\text{ROOR}$) flips to anti-Markovnikov radical addition (Kharasch) — $\\text{HCl}$ and $\\text{HI}$ never flip. Reductive ozonolysis ($\\text{O}_3$, then $\\text{Zn}/\\text{H}_2\\text{O}$) cleaves each $\\text{C=C}$ into two carbonyls. Micro-check: peroxide + $\\text{HI}$ still gives Markovnikov."
+      },
+      {
+        "prdId": "C08-PRD06",
+        "heading": "Diagnostics, Disproportionation & Everyday Polymers",
+        "proseLatex": "Lucas ($\\text{conc. HCl} + \\text{anhyd.}\\ \\text{ZnCl}_2$): instant turbidity $3^\\circ$, minutes $2^\\circ$, none $1^\\circ$ at RT. Tollens' silver mirror and Fehling's red $\\text{Cu}_2\\text{O}$ catch aldehydes (Fehling fails for benzaldehyde). Iodoform ($\\text{I}_2/\\text{NaOH}$) flags $\\text{CH}_3\\text{CO-}$ or $\\text{CH}_3\\text{CH(OH)}-$; ethanol is the ONLY $1^\\circ$ alcohol positive. Aldehydes WITHOUT $\\alpha$-H do Cannizzaro; WITH $\\alpha$-H do Aldol. Polymers: Nylon-6,6 (diamine + adipic acid), Bakelite (phenol + $\\text{HCHO}$), Teflon ($\\text{CF}_2 = \\text{CF}_2$), rubber (cis-1,4-polyisoprene). Micro-check: ethanol: Lucas-slow but iodoform-positive."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "C08-SF01",
+        "label": "Functional-group priority",
+        "latex": "-\\text{COOH} > -\\text{SO}_3\\text{H} > -\\text{COOR} > -\\text{COCl} > -\\text{CONH}_2 > -\\text{CN} > -\\text{CHO} > \\text{C=O} > -\\text{OH} > -\\text{NH}_2",
+        "use": "Names the suffix."
+      },
+      {
+        "sfId": "C08-SF02",
+        "label": "$s$-character ladder",
+        "latex": "sp\\ (50\\%) > sp^2\\ (33\\%) > sp^3\\ (25\\%)",
+        "use": "Electronegativity rises with $s$."
+      },
+      {
+        "sfId": "C08-SF03",
+        "label": "Degree of unsaturation",
+        "latex": "\\text{DBE} = C + 1 - \\frac{H + X - N}{2}",
+        "use": "Rings plus $\\pi$-bonds."
+      },
+      {
+        "sfId": "C08-SF04",
+        "label": "Benzene DBE",
+        "latex": "6 + 1 - \\frac{6}{2} = 4",
+        "use": "Ring plus three double bonds."
+      },
+      {
+        "sfId": "C08-SF05",
+        "label": "Carbocation stability",
+        "latex": "3^\\circ > 2^\\circ > 1^\\circ > \\text{CH}_3^+",
+        "use": "Plus benzylic/allylic resonance."
+      },
+      {
+        "sfId": "C08-SF06",
+        "label": "Carbanion stability",
+        "latex": "1^\\circ > 2^\\circ > 3^\\circ",
+        "use": "Reverse of carbocations."
+      },
+      {
+        "sfId": "C08-SF07",
+        "label": "Hyperconjugation count",
+        "latex": "\\text{stability} \\propto \\alpha\\text{-C-H bonds}",
+        "use": "More alkyl H, more forms."
+      },
+      {
+        "sfId": "C08-SF08",
+        "label": "Markovnikov rule",
+        "latex": "\\text{H to the H-richer carbon}",
+        "use": "Via the stabler carbocation."
+      },
+      {
+        "sfId": "C08-SF09",
+        "label": "Kharasch condition",
+        "latex": "\\text{HBr} + \\text{ROOR} \\Rightarrow \\text{anti-Markovnikov}",
+        "use": "Radical route only."
+      },
+      {
+        "sfId": "C08-SF10",
+        "label": "Ozonolysis cleavage",
+        "latex": "\\text{C=C} \\to 2\\ \\text{C=O}\\ (\\text{Zn}/\\text{H}_2\\text{O})",
+        "use": "Locates double bonds."
+      },
+      {
+        "sfId": "C08-SF11",
+        "label": "Lucas reagent",
+        "latex": "\\text{conc. HCl} + \\text{anhyd.}\\ \\text{ZnCl}_2",
+        "use": "Turbidity: $3^\\circ$ fast, $1^\\circ$ none."
+      },
+      {
+        "sfId": "C08-SF12",
+        "label": "Iodoform requirement",
+        "latex": "\\text{CH}_3\\text{CO-}\\ \\text{or}\\ \\text{CH}_3\\text{CH(OH)-}",
+        "use": "Yellow $\\text{CHI}_3$ precipitate."
+      },
+      {
+        "sfId": "C08-SF13",
+        "label": "Acidity ladder",
+        "latex": "pK_a:\\ \\text{phenol} 10 < \\text{water} 15.7 < \\text{alcohol} 16{-}18 < \\text{alkyne} 25",
+        "use": "Lower $pK_a$, stronger acid."
+      },
+      {
+        "sfId": "C08-SF14",
+        "label": "Stereoisomer count",
+        "latex": "\\le 2^n\\ \\text{for}\\ n\\ \\text{chiral centres}",
+        "use": "Fewer when meso forms exist."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "C08-DEF01",
+        "term": "Degree of unsaturation (DBE)",
+        "definition": "Ring count plus $\\pi$-bond count from the molecular formula."
+      },
+      {
+        "defId": "C08-DEF02",
+        "term": "Kharasch (peroxide) effect",
+        "definition": "Peroxide-driven radical addition of HBr giving anti-Markovnikov products."
+      },
+      {
+        "defId": "C08-DEF03",
+        "term": "Cannizzaro reaction",
+        "definition": "Base disproportionation of aldehydes lacking $\\alpha$-hydrogen."
+      },
+      {
+        "defId": "C08-DEF04",
+        "term": "Aldol condensation",
+        "definition": "Self-addition of aldehydes/ketones WITH $\\alpha$-hydrogen under base."
+      },
+      {
+        "defId": "C08-DEF05",
+        "term": "Chiral centre",
+        "definition": "Carbon bearing four different groups; source of optical activity."
+      },
+      {
+        "defId": "C08-DEF06",
+        "term": "Lucas test",
+        "definition": "ZnCl$_2$/HCl turbidity test distinguishing $1^\\circ$, $2^\\circ$, $3^\\circ$ alcohols."
+      },
+      {
+        "defId": "C08-DEF07",
+        "term": "Zwitterionic resonance",
+        "definition": "Charge-separated contributor; stabilizes phenoxide and nitro groups."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "C08-CMP01",
+        "title": "Carbocation vs carbanion stability",
+        "columns": [
+          "Species",
+          "Stability order",
+          "Driving effect"
+        ],
+        "rows": [
+          {
+            "label": "Carbocation",
+            "values": [
+              "$3^\\circ > 2^\\circ > 1^\\circ$",
+              "+I and hyperconjugation"
+            ]
+          },
+          {
+            "label": "Carbanion",
+            "values": [
+              "$1^\\circ > 2^\\circ > 3^\\circ$",
+              "$-I$ groups spread charge"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C08-CMP02",
+        "title": "Cannizzaro vs Aldol",
+        "columns": [
+          "Feature",
+          "Cannizzaro",
+          "Aldol"
+        ],
+        "rows": [
+          {
+            "label": "$\\alpha$-hydrogen",
+            "values": [
+              "absent",
+              "present"
+            ]
+          },
+          {
+            "label": "Outcome",
+            "values": [
+              "acid + alcohol",
+              "$\\beta$-hydroxy carbonyl"
+            ]
+          },
+          {
+            "label": "Example",
+            "values": [
+              "$\\text{HCHO}$, $\\text{PhCHO}$",
+              "acetaldehyde"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C08-CMP03",
+        "title": "Diagnostic tests at a glance",
+        "columns": [
+          "Test",
+          "Positive sign",
+          "Catches"
+        ],
+        "rows": [
+          {
+            "label": "Lucas",
+            "values": [
+              "turbidity speed",
+              "$1^\\circ/2^\\circ/3^\\circ$ alcohols"
+            ]
+          },
+          {
+            "label": "Tollens",
+            "values": [
+              "silver mirror",
+              "aldehydes"
+            ]
+          },
+          {
+            "label": "Iodoform",
+            "values": [
+              "yellow $\\text{CHI}_3$",
+              "$\\text{CH}_3\\text{CO-}$ motif"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "C08-MCQ01",
+        "stemLatex": "A molecule contains both $-\\text{CHO}$ and $-\\text{OH}$. Its principal suffix comes from:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-\\text{OH}$ (suffix ol)"
+          },
+          {
+            "id": "B",
+            "latex": "$-\\text{CHO}$ (suffix al)"
+          },
+          {
+            "id": "C",
+            "latex": "either, alphabetically"
+          },
+          {
+            "id": "D",
+            "latex": "both get suffixes"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$-\\text{CHO}$ outranks $-\\text{OH}$ in the IUPAC priority list."
+      },
+      {
+        "mcqId": "C08-MCQ02",
+        "stemLatex": "Terminal alkyne C-H is more acidic than alkane C-H because:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "sp carbon has 50 percent s-character"
+          },
+          {
+            "id": "B",
+            "latex": "alkynes are heavier"
+          },
+          {
+            "id": "C",
+            "latex": "of hyperconjugation"
+          },
+          {
+            "id": "D",
+            "latex": "sp$^3$ is more electronegative"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Higher $s$-character holds electrons closer, stabilizing the conjugate base."
+      },
+      {
+        "mcqId": "C08-MCQ03",
+        "stemLatex": "DBE for benzene $\\text{C}_6\\text{H}_6$:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3$"
+          },
+          {
+            "id": "B",
+            "latex": "$4$"
+          },
+          {
+            "id": "C",
+            "latex": "$5$"
+          },
+          {
+            "id": "D",
+            "latex": "$6$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$6 + 1 - \\frac{6}{2} = 4$: ring plus three $\\pi$-bonds."
+      },
+      {
+        "mcqId": "C08-MCQ04",
+        "stemLatex": "DBE for a compound $\\text{C}_4\\text{H}_7\\text{Cl}$:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$3$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Treat Cl as H: $\\text{C}_4\\text{H}_8$: $4 + 1 - 4 = 1$ (one $\\pi$ or ring)."
+      },
+      {
+        "mcqId": "C08-MCQ05",
+        "stemLatex": "Most stable carbocation among:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{CH}_3^+$"
+          },
+          {
+            "id": "B",
+            "latex": "$1^\\circ$ alkyl"
+          },
+          {
+            "id": "C",
+            "latex": "$2^\\circ$ alkyl"
+          },
+          {
+            "id": "D",
+            "latex": "benzylic"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "Benzylic resonance beats even $3^\\circ$ inductive stabilization."
+      },
+      {
+        "mcqId": "C08-MCQ06",
+        "stemLatex": "Which addition obeys the peroxide (Kharasch) anti-Markovnikov route?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{HCl}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{HBr}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{HI}$"
+          },
+          {
+            "id": "D",
+            "latex": "all three"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Only HBr: the radical chain is energetically viable for HBr alone."
+      },
+      {
+        "mcqId": "C08-MCQ07",
+        "stemLatex": "Reductive ozonolysis of an alkene gives:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "two alcohols"
+          },
+          {
+            "id": "B",
+            "latex": "two carbonyl compounds"
+          },
+          {
+            "id": "C",
+            "latex": "one carboxylic acid only"
+          },
+          {
+            "id": "D",
+            "latex": "an epoxide"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\text{O}_3$ then $\\text{Zn}/\\text{H}_2\\text{O}$ cleaves $\\text{C=C}$ to $\\text{C=O}$ fragments."
+      },
+      {
+        "mcqId": "C08-MCQ08",
+        "stemLatex": "Lucas reagent gives INSTANT turbidity with:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1^\\circ$ alcohol"
+          },
+          {
+            "id": "B",
+            "latex": "$2^\\circ$ alcohol"
+          },
+          {
+            "id": "C",
+            "latex": "$3^\\circ$ alcohol"
+          },
+          {
+            "id": "D",
+            "latex": "phenol"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$3^\\circ$ carbocation forms fastest; $2^\\circ$ takes minutes, $1^\\circ$ none at RT."
+      },
+      {
+        "mcqId": "C08-MCQ09",
+        "stemLatex": "Which $1^\\circ$ alcohol gives a POSITIVE iodoform test?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "methanol"
+          },
+          {
+            "id": "B",
+            "latex": "ethanol"
+          },
+          {
+            "id": "C",
+            "latex": "propan-1-ol"
+          },
+          {
+            "id": "D",
+            "latex": "butan-1-ol"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Ethanol's $\\text{CH}_3\\text{CH(OH)-}$ motif oxidizes to $\\text{CH}_3\\text{CO-}$."
+      },
+      {
+        "mcqId": "C08-MCQ10",
+        "stemLatex": "$\\text{PhCHO}$ (benzaldehyde) with concentrated NaOH undergoes:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "aldol condensation"
+          },
+          {
+            "id": "B",
+            "latex": "Cannizzaro disproportionation"
+          },
+          {
+            "id": "C",
+            "latex": "no reaction"
+          },
+          {
+            "id": "D",
+            "latex": "iodoform test"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "No $\\alpha$-H, so base disproportionates it to benzoate and benzyl alcohol."
+      }
+    ],
+    "memoryHooks": [
+      "Priority: COOH rules; OH barely beats NH$_2$.",
+      "$sp$ is 50 percent s: acidiest C-H.",
+      "DBE: $C + 1 - (H + X - N)/2$; oxygen invisible.",
+      "Cations love alkyl; anions hate it.",
+      "Count $\\alpha$-C-H for hyperconjugation.",
+      "H to the H-richer carbon (Markovnikov).",
+      "Peroxides flip HBr only.",
+      "Ozonolysis: double bond becomes two C=O.",
+      "Lucas: tertiary turbid in a blink.",
+      "No $\\alpha$-H: Cannizzaro; with: Aldol."
+    ],
+    "commonMistakes": [
+      "Letting $-\\text{OH}$ outrank $-\\text{CHO}$ or $-\\text{CN}$.",
+      "Forgetting halogens add to H and nitrogen subtracts in DBE.",
+      "Extending the peroxide effect to HCl or HI.",
+      "Claiming phenol is less acidic than an alcohol.",
+      "Expecting Fehling's solution to catch benzaldehyde.",
+      "Calling methanol iodoform-positive.",
+      "Forcing aldol onto aldehydes without $\\alpha$-hydrogen.",
+      "Reversing carbocation and carbanion stability orders."
+    ],
+    "examChecklist": [
+      "Rank functional groups before naming.",
+      "Check $\\alpha$-H presence before Aldol or Cannizzaro.",
+      "Compute DBE with the $H + X - N$ correction.",
+      "Order carbocations, carbanions, and acidity ladders.",
+      "State Markovnikov vs Kharasch conditions exactly.",
+      "Assign Lucas, Tollens, Fehling, iodoform outcomes.",
+      "Choose Cannizzaro vs Aldol by $\\alpha$-H presence.",
+      "Match polymers to monomers (Nylon-6,6, Bakelite, Teflon)."
+    ],
+    "furtherReading": [
+      {
+        "book": "Organic Chemistry",
+        "author": "Morrison & Boyd",
+        "chapters": "Structure, reactions and alcohol/aldehyde chapters",
+        "note": "Organic fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

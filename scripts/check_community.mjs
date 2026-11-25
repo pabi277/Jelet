@@ -48,7 +48,18 @@ const server = http.createServer(async (req, res) => {
 await new Promise(r => server.listen(0, "0.0.0.0", r));
 const base = `http://127.0.0.1:${server.address().port}/`;
 const libDir = await fs.mkdtemp(path.join(os.tmpdir(), "jelet-community-libs-"));
-const chromiumRoot = path.dirname(require.resolve("@sparticuz/chromium/package.json", { paths: roots }));
+// Newer @sparticuz/chromium releases block the './package.json' subpath in their
+// `exports` map — resolve the entry instead and walk up to the package root
+// that owns bin/.
+const dirHasBin = async (dir) => {
+  try { await fs.access(path.join(dir, "bin")); return true; } catch { return false; }
+};
+let chromiumRoot = path.dirname(require.resolve("@sparticuz/chromium", { paths: roots }));
+for (let i = 0; i < 6 && !(await dirHasBin(chromiumRoot)); i++) {
+  const parent = path.dirname(chromiumRoot);
+  if (parent === chromiumRoot) break;
+  chromiumRoot = parent;
+}
 const archive = path.join(libDir, "libs.tar");
 await fs.writeFile(archive, zlib.brotliDecompressSync(await fs.readFile(path.join(chromiumRoot, "bin/al2023.tar.br"))));
 execFileSync("tar", ["-xf", archive, "-C", libDir]);

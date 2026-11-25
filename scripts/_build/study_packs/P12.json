@@ -1,0 +1,654 @@
+{
+  "unitId": "P12",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P12-PRD01",
+        "heading": "Laws of Reflection and the Deviation Angle",
+        "proseLatex": "Incident ray, reflected ray and the normal are coplanar, and $\\angle i = \\angle r$ always. A single plane mirror turns a ray through the deviation angle $\\delta = \\pi - 2i$: grazing incidence ($i \\to 90^\\circ$) barely deviates, normal incidence ($i = 0$) sends light straight back with $\\delta = 180^\\circ$. Micro-check: $i = 40^\\circ$ gives $\\delta = 180^\\circ - 80^\\circ = 100^\\circ$."
+      },
+      {
+        "prdId": "P12-PRD02",
+        "heading": "Plane-Mirror Kinematics: The $2v$ Rule",
+        "proseLatex": "A plane mirror forms a virtual, upright, laterally inverted image as far BEHIND the mirror as the object is in front. If you walk toward a stationary mirror at speed $v$, your image walks toward the mirror at $v$ too — so it approaches YOU at $2v$, while its speed relative to the MIRROR is only $v$. If the mirror itself moves, add the mirror's motion into the bookkeeping. Micro-check: walking in at $1\\ \\text{m/s}$, the gap between you and your image shrinks at $2\\ \\text{m/s}$."
+      },
+      {
+        "prdId": "P12-PRD03",
+        "heading": "Two Inclined Mirrors: Counting Images",
+        "proseLatex": "For mirrors inclined at $\\theta$, compute $m = \\frac{360^\\circ}{\\theta}$. If $m$ is EVEN, the answer is always $N = m - 1$, wherever the object sits. If $m$ is ODD, $N = m$ unless the object lies ON the bisector, where $N = m - 1$. If $m$ is not an integer, take $N = $ the integer part of $m$. Micro-check: $\\theta = 60^\\circ$ gives $m = 6$ (even) so $N = 5$ images for every object position."
+      },
+      {
+        "prdId": "P12-PRD04",
+        "heading": "Spherical Mirrors: Sign Convention and the Mirror Equation",
+        "proseLatex": "Cartesian convention: light travels $+x$, distances measured from the pole, leftward negative. Concave mirror focal length $f < 0$; convex $f > 0$; always $f = R/2$ in magnitude. The mirror equation has a PLUS sign: $\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$ (the lens equation carries a MINUS — do not swap them). Magnification $m = -\\frac{v}{u}$. Micro-check: concave $f = -20\\ \\text{cm}$, object $u = -30\\ \\text{cm}$: $\\frac{1}{v} = \\frac{1}{f} - \\frac{1}{u} = -\\tfrac{1}{20} + \\tfrac{1}{30} = -\\tfrac{1}{60}$, so $v = -60\\ \\text{cm}$, real and $m = -\\tfrac{-60}{-30} = -2$ (inverted, doubled)."
+      },
+      {
+        "prdId": "P12-PRD05",
+        "heading": "Convex Mirrors Always Shrink",
+        "proseLatex": "A convex mirror gives ONLY virtual, upright, diminished images for real objects — that is why vehicles use them for a wide field of view. The focal point sits behind the mirror ($f > 0$), so the image always lands between pole and focus. Micro-check: convex $f = +20\\ \\text{cm}$, object $u = -20\\ \\text{cm}$: $\\frac{1}{v} = \\frac{1}{20} + \\frac{1}{20} = \\tfrac{1}{10}$, so $v = +10\\ \\text{cm}$ behind the mirror and $m = -\\tfrac{10}{-20} = +\\tfrac{1}{2}$ — upright, half-size, virtual."
+      },
+      {
+        "prdId": "P12-PRD06",
+        "heading": "Rotation, Submersion and Minimum Mirror Size",
+        "proseLatex": "Rotating a mirror by $\\theta$ swings the reflected ray by $2\\theta$ — mirrors double angles. Submerging a mirror in water changes NOTHING: reflection happens at the surface, so $f = R/2$ is untouched (unlike lenses, whose focal length depends on the medium). To see your full image in a plane mirror you need a mirror only HALF your height, positioned from head-midpoint to eye-level. Micro-check: rotate a mirror $5^\\circ$ and the spot on a distant wall moves $10^\\circ$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P12-SF01",
+        "label": "Law of reflection",
+        "latex": "$\\angle i = \\angle r$, coplanar rays",
+        "use": "Foundation of every ray construction."
+      },
+      {
+        "sfId": "P12-SF02",
+        "label": "Plane-mirror deviation",
+        "latex": "$\\delta = \\pi - 2i$",
+        "use": "Single-reflection angular turn."
+      },
+      {
+        "sfId": "P12-SF03",
+        "label": "Plane mirror image distance",
+        "latex": "$|v| = |u|$ (virtual, behind mirror)",
+        "use": "Symmetric image position."
+      },
+      {
+        "sfId": "P12-SF04",
+        "label": "Image approach speed",
+        "latex": "$v_{\\text{rel}} = 2 v_{\\text{object}}$",
+        "use": "Walking toward a fixed mirror."
+      },
+      {
+        "sfId": "P12-SF05",
+        "label": "Image count parameter",
+        "latex": "$m = \\frac{360^\\circ}{\\theta}$",
+        "use": "Two inclined plane mirrors."
+      },
+      {
+        "sfId": "P12-SF06",
+        "label": "Image count, even $m$",
+        "latex": "$N = m - 1$ (any object position)",
+        "use": "Even case is position-independent."
+      },
+      {
+        "sfId": "P12-SF07",
+        "label": "Image count, odd $m$",
+        "latex": "$N = m$, or $m - 1$ on the bisector",
+        "use": "Odd case depends on object placement."
+      },
+      {
+        "sfId": "P12-SF08",
+        "label": "Focal length of spherical mirror",
+        "latex": "$|f| = \\frac{R}{2}$",
+        "use": "Concave $f < 0$, convex $f > 0$ (Cartesian)."
+      },
+      {
+        "sfId": "P12-SF09",
+        "label": "Mirror equation",
+        "latex": "$\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$",
+        "use": "PLUS sign — the lens equation has MINUS."
+      },
+      {
+        "sfId": "P12-SF10",
+        "label": "Mirror magnification",
+        "latex": "$m = -\\frac{v}{u}$",
+        "use": "Negative = inverted real image."
+      },
+      {
+        "sfId": "P12-SF11",
+        "label": "Mirror rotation doubling",
+        "latex": "Mirror $\\to \\theta$, reflected ray $\\to 2\\theta$",
+        "use": "Optical lever applications."
+      },
+      {
+        "sfId": "P12-SF12",
+        "label": "Water immersion (mirror)",
+        "latex": "$f$ unchanged in any medium",
+        "use": "Reflection ignores the surrounding medium."
+      },
+      {
+        "sfId": "P12-SF13",
+        "label": "Minimum plane-mirror height",
+        "latex": "$h_{\\text{mirror}} = \\tfrac{1}{2} h_{\\text{person}}$",
+        "use": "Full-body image from half-height glass."
+      },
+      {
+        "sfId": "P12-SF14",
+        "label": "Two successive reflections",
+        "latex": "$\\delta_{\\text{total}} = (\\pi - 2i_1) + (\\pi - 2i_2)$",
+        "use": "Periscope-style deviation bookkeeping."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P12-DEF01",
+        "term": "Normal",
+        "definition": "The perpendicular to the mirror surface at the point of incidence; the reference for measuring $i$ and $r$."
+      },
+      {
+        "defId": "P12-DEF02",
+        "term": "Virtual image",
+        "definition": "An image formed by ray EXTENSIONS, not real ray crossings; cannot be caught on a screen."
+      },
+      {
+        "defId": "P12-DEF03",
+        "term": "Real image",
+        "definition": "An image where reflected rays actually meet; projectable, and always inverted for a single mirror."
+      },
+      {
+        "defId": "P12-DEF04",
+        "term": "Lateral inversion",
+        "definition": "Left-right swap of a plane-mirror image; up-down is preserved."
+      },
+      {
+        "defId": "P12-DEF05",
+        "term": "Pole, centre & focus",
+        "definition": "Pole = mirror midpoint; centre of curvature $C$ at radius $R$; focus $F$ midway, $|f| = R/2$."
+      },
+      {
+        "defId": "P12-DEF06",
+        "term": "Cartesian sign convention",
+        "definition": "Pole as origin, incident light along $+x$; leftward (real-object) distances negative."
+      },
+      {
+        "defId": "P12-DEF07",
+        "term": "Paraxial rays",
+        "definition": "Rays making small angles with the principal axis — the approximation that makes the mirror equation exact."
+      },
+      {
+        "defId": "P12-DEF08",
+        "term": "Magnification (mirror)",
+        "definition": "$m = -v/u$; sign gives orientation, magnitude the size ratio."
+      },
+      {
+        "defId": "P12-DEF09",
+        "term": "Deviation",
+        "definition": "Angle between original direction and final direction of a ray."
+      },
+      {
+        "defId": "P12-DEF10",
+        "term": "Field of view",
+        "definition": "The angular region a mirror can show; convex mirrors widen it at the cost of minification."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P12-CMP01",
+        "title": "Plane vs Concave vs Convex Mirror",
+        "columns": [
+          "Property",
+          "Plane",
+          "Concave",
+          "Convex"
+        ],
+        "rows": [
+          {
+            "label": "Image nature",
+            "values": [
+              "Always virtual, upright",
+              "Real or virtual",
+              "Only virtual, upright"
+            ]
+          },
+          {
+            "label": "Image size",
+            "values": [
+              "Same as object",
+              "Varies with position",
+              "Always diminished"
+            ]
+          },
+          {
+            "label": "Focal length",
+            "values": [
+              "Infinite ($R \\to \\infty$)",
+              "Negative",
+              "Positive"
+            ]
+          },
+          {
+            "label": "Typical use",
+            "values": [
+              "Household mirror",
+              "Shaving/solar concentrator",
+              "Vehicle rear-view"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P12-CMP02",
+        "title": "Image Count: Even vs Odd $m = 360/\\theta$",
+        "columns": [
+          "Aspect",
+          "$m$ even",
+          "$m$ odd",
+          "$m$ non-integer"
+        ],
+        "rows": [
+          {
+            "label": "Count rule",
+            "values": [
+              "$N = m - 1$ always",
+              "$N = m$ ($m-1$ on bisector)",
+              "$N = $ integer part of $m$"
+            ]
+          },
+          {
+            "label": "Example",
+            "values": [
+              "$\\theta = 60^\\circ \\to N = 5$",
+              "$\\theta = 72^\\circ \\to N = 5$ (or 4)",
+              "$\\theta = 50^\\circ \\to N = 7$"
+            ]
+          },
+          {
+            "label": "Object dependence",
+            "values": [
+              "None",
+              "Bisector check needed",
+              "None"
+            ]
+          },
+          {
+            "label": "Trap",
+            "values": [
+              "Forgetting the $-1$",
+              "Missing the bisector exception",
+              "Rounding up instead of down"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P12-CMP03",
+        "title": "Mirror vs Lens — The Sign Bookkeeping",
+        "columns": [
+          "Feature",
+          "Mirror",
+          "Lens"
+        ],
+        "rows": [
+          {
+            "label": "Governing equation",
+            "values": [
+              "$\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$ (PLUS)",
+              "$\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$ (MINUS)"
+            ]
+          },
+          {
+            "label": "Magnification",
+            "values": [
+              "$m = -\\frac{v}{u}$",
+              "$m = +\\frac{v}{u}$"
+            ]
+          },
+          {
+            "label": "Water immersion",
+            "values": [
+              "$f$ unchanged",
+              "$f$ changes with $n_m$"
+            ]
+          },
+          {
+            "label": "Power concept",
+            "values": [
+              "Not used",
+              "$P = 1/f$ dioptres"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P12-CMP04",
+        "title": "Real vs Virtual Image (single mirror)",
+        "columns": [
+          "Aspect",
+          "Real image",
+          "Virtual image"
+        ],
+        "rows": [
+          {
+            "label": "Formation",
+            "values": [
+              "Rays actually intersect",
+              "Rays only appear to diverge from"
+            ]
+          },
+          {
+            "label": "Screen test",
+            "values": [
+              "Catchable",
+              "Not catchable"
+            ]
+          },
+          {
+            "label": "Orientation",
+            "values": [
+              "Inverted",
+              "Upright"
+            ]
+          },
+          {
+            "label": "Mirror that makes it",
+            "values": [
+              "Concave, object beyond focus",
+              "Plane, convex, or concave inside focus"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P12-MCQ01",
+        "stemLatex": "A person walks toward a stationary plane mirror at $1.5\\ \\text{m/s}$. The speed of the image relative to the person is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.75\\ \\text{m/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.5\\ \\text{m/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$3\\ \\text{m/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0\\ \\text{m/s}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Image and object each move at $1.5\\ \\text{m/s}$ toward the mirror, closing the gap at $2 \\times 1.5 = 3\\ \\text{m/s}$."
+      },
+      {
+        "mcqId": "P12-MCQ02",
+        "stemLatex": "Two plane mirrors are inclined at $60^\\circ$. The number of images of an object placed anywhere between them is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5$"
+          },
+          {
+            "id": "B",
+            "latex": "$6$"
+          },
+          {
+            "id": "C",
+            "latex": "$7$"
+          },
+          {
+            "id": "D",
+            "latex": "$5$ or $6$ depending on position"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$m = \\frac{360}{60} = 6$ is EVEN, so $N = m - 1 = 5$ for every object position."
+      },
+      {
+        "mcqId": "P12-MCQ03",
+        "stemLatex": "Two plane mirrors are inclined at $50^\\circ$. The maximum number of images formed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$6$"
+          },
+          {
+            "id": "B",
+            "latex": "$7$"
+          },
+          {
+            "id": "C",
+            "latex": "$8$"
+          },
+          {
+            "id": "D",
+            "latex": "$7.2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$m = \\frac{360}{50} = 7.2$ is not an integer, so $N = 7$ (integer part). A non-integer answer choice is always a trap."
+      },
+      {
+        "mcqId": "P12-MCQ04",
+        "stemLatex": "A ray strikes a plane mirror at incidence angle $40^\\circ$. Its deviation is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$40^\\circ$"
+          },
+          {
+            "id": "B",
+            "latex": "$80^\\circ$"
+          },
+          {
+            "id": "C",
+            "latex": "$100^\\circ$"
+          },
+          {
+            "id": "D",
+            "latex": "$140^\\circ$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$\\delta = 180^\\circ - 2i = 180^\\circ - 80^\\circ = 100^\\circ$."
+      },
+      {
+        "mcqId": "P12-MCQ05",
+        "stemLatex": "An object stands $30\\ \\text{cm}$ from a concave mirror of focal length $20\\ \\text{cm}$. The image distance from the mirror is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$12\\ \\text{cm}$, virtual"
+          },
+          {
+            "id": "B",
+            "latex": "$60\\ \\text{cm}$, real"
+          },
+          {
+            "id": "C",
+            "latex": "$60\\ \\text{cm}$, virtual"
+          },
+          {
+            "id": "D",
+            "latex": "$50\\ \\text{cm}$, real"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\frac{1}{v} = \\frac{1}{-20} - \\frac{1}{-30} = -\\tfrac{1}{60}$, so $v = -60\\ \\text{cm}$ — $60\\ \\text{cm}$ in front, real, with $m = -2$."
+      },
+      {
+        "mcqId": "P12-MCQ06",
+        "stemLatex": "An object is $20\\ \\text{cm}$ from a convex mirror of focal length $20\\ \\text{cm}$. The image is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$10\\ \\text{cm}$ behind, upright, half-size"
+          },
+          {
+            "id": "B",
+            "latex": "$10\\ \\text{cm}$ in front, inverted"
+          },
+          {
+            "id": "C",
+            "latex": "$40\\ \\text{cm}$ behind, enlarged"
+          },
+          {
+            "id": "D",
+            "latex": "$20\\ \\text{cm}$ behind, same size"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\frac{1}{v} = \\frac{1}{20} + \\frac{1}{20} = \\tfrac{1}{10} \\Rightarrow v = +10\\ \\text{cm}$ (behind), $m = -\\tfrac{10}{-20} = +\\tfrac{1}{2}$: virtual, upright, diminished."
+      },
+      {
+        "mcqId": "P12-MCQ07",
+        "stemLatex": "A spherical mirror has radius of curvature $40\\ \\text{cm}$. Its focal length magnitude is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$10\\ \\text{cm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$20\\ \\text{cm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$40\\ \\text{cm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$80\\ \\text{cm}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$|f| = R/2 = 20\\ \\text{cm}$ — the focus always sits halfway to the centre of curvature."
+      },
+      {
+        "mcqId": "P12-MCQ08",
+        "stemLatex": "A concave mirror is submerged in water. Its focal length:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "increases"
+          },
+          {
+            "id": "B",
+            "latex": "decreases"
+          },
+          {
+            "id": "C",
+            "latex": "remains unchanged"
+          },
+          {
+            "id": "D",
+            "latex": "becomes negative"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Reflection needs no medium change, so $f = R/2$ stays put — unlike a lens, whose focal length shifts with $n_m$."
+      },
+      {
+        "mcqId": "P12-MCQ09",
+        "stemLatex": "A plane mirror is rotated by $5^\\circ$ about an axis in its plane. The reflected ray turns by:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2.5^\\circ$"
+          },
+          {
+            "id": "B",
+            "latex": "$5^\\circ$"
+          },
+          {
+            "id": "C",
+            "latex": "$10^\\circ$"
+          },
+          {
+            "id": "D",
+            "latex": "$20^\\circ$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Mirrors double angles: a $\\theta$ rotation of the mirror swings the reflected ray by $2\\theta = 10^\\circ$."
+      },
+      {
+        "mcqId": "P12-MCQ10",
+        "stemLatex": "The minimum height of a plane mirror in which a $180\\ \\text{cm}$ person can see their full image is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$180\\ \\text{cm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$90\\ \\text{cm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$45\\ \\text{cm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$360\\ \\text{cm}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Half the person's height, mounted from head-midpoint down: $90\\ \\text{cm}$. The answer never depends on distance."
+      }
+    ],
+    "memoryHooks": [
+      "Plane mirror: image as far behind as you are in front — a perfect reflection twin.",
+      "Closing speed on your own image is $2v$; its speed past the mirror is $v$.",
+      "Even $m = 360/\\theta$: images $= m - 1$, wherever you hide the object.",
+      "Odd $m$: one MORE image unless the object sits on the bisector.",
+      "Mirror equation carries a PLUS; the lens equation carries a MINUS.",
+      "Concave negative, convex positive (Cartesian) — write the sign before dividing.",
+      "Convex mirrors only shrink and only virtual.",
+      "Mirrors double rotation angles: tilt $\\theta$, deflect $2\\theta$.",
+      "Water cannot change a mirror's focus — reflection ignores media.",
+      "Full-body view needs half-height glass."
+    ],
+    "commonMistakes": [
+      "Using $N = m$ when $m$ is even — the correct even rule is $N = m - 1$.",
+      "Forgetting the bisector exception when $m$ is odd.",
+      "Writing $\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$ for mirrors (that is the LENS equation).",
+      "Dropping the minus sign in $m = -v/u$ and misreading image orientation.",
+      "Mixing up the sign of $f$: concave is negative in Cartesian convention.",
+      "Claiming water changes a mirror's focal length (it changes lenses, not mirrors).",
+      "Reporting image speed past the mirror ($v$) when the question asks speed relative to the person ($2v$).",
+      "Saying a convex mirror can form a real or enlarged image — it never can.",
+      "Rounding $m = 7.2$ up to $8$ instead of taking the integer part $7$."
+    ],
+    "examChecklist": [
+      "Draw the normal first; measure $i$ from it, never from the surface.",
+      "Two-mirror counting: compute $m$ and branch even/odd/non-integer BEFORE counting.",
+      "Assign Cartesian signs ($u < 0$; concave $f < 0$) before solving the mirror equation.",
+      "Convert the solved $v$ into words: front/behind, real/virtual.",
+      "Compute $m$ with the minus and state orientation + size.",
+      "Plane-mirror kinematics: decide relative to WHOM the speed is asked.",
+      "Rotation questions: multiply by 2, then sanity-check the direction.",
+      "Immersion questions: mirror unchanged, lens changes — know which one you hold.",
+      "Minimum-mirror answers ignore object distance entirely.",
+      "Verify one ray with $\\angle i = \\angle r$ before trusting the diagram.",
+      "Confirm magnitudes are physical (positive distances, $|m|$ sensible)."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Physics, Part II",
+        "author": "NCERT",
+        "chapters": "Ch. 9 (Ray Optics and Optical Instruments), §9.1–9.2",
+        "note": "Reflection laws, sign convention and the spherical-mirror equation feeding this pack; plane-mirror counting comes from the diploma syllabus notes."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "Owner-approved (session sign-off on batch 2, 2026-11-25)",
+      "reviewedAt": "2026-11-25 (owner approved; batch 3 authorized)"
+    }
+  }
+}

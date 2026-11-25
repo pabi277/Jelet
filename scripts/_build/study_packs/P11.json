@@ -1,0 +1,572 @@
+{
+  "unitId": "P11",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P11-PRD01",
+        "heading": "First Law & the Physics Sign Convention",
+        "proseLatex": "$\\Delta Q = \\Delta U + \\Delta W$ with $\\Delta W$ = work done BY the gas ($\\int P\\,dV$, area under the $P$-$V$ curve; clockwise cycle $\\Rightarrow \\Delta W > 0$, $\\Delta U_{\\text{cycle}} = 0$). Chemistry flips it ($\\Delta U = q + w_{\\text{on}}$) — read which work is asked! Micro-check: expansion absorbing $100\\,\\text{J}$ while doing $40\\,\\text{J}$: $\\Delta U = 60\\,\\text{J}$."
+      },
+      {
+        "prdId": "P11-PRD02",
+        "heading": "Degrees of Freedom, Mayer's Relation & Gamma",
+        "proseLatex": "$U = \\frac{f}{2}nRT$ (monatomic $f = 3$, rigid diatomic $f = 5$); $C_P - C_V = R$ and $\\gamma = \\frac{C_P}{C_V} = 1 + \\frac{2}{f}$: monatomic $5/3 \\approx 1.67$, diatomic $7/5 = 1.4$. Micro-check: diatomic $C_V = \\frac{5}{2}R$, $C_P = \\frac{7}{2}R$."
+      },
+      {
+        "prdId": "P11-PRD03",
+        "heading": "The Four Processes at a Glance",
+        "proseLatex": "Isochoric: $W = 0$, $\\Delta Q = \\Delta U$. Isobaric: $W = P\\Delta V = nR\\Delta T$. Isothermal: $\\Delta U = 0$, $\\Delta Q = W = nRT\\ln\\frac{V_2}{V_1}$, bulk modulus $K_T = P$. Adiabatic: $\\Delta Q = 0$, $W = -\\Delta U$, $PV^\\gamma = \\text{const}$, $TV^{\\gamma-1} = \\text{const}$, slope $\\gamma\\times$ steeper than isotherm. Micro-check: isothermal doubling of $V$: $W = nRT\\ln 2$."
+      },
+      {
+        "prdId": "P11-PRD04",
+        "heading": "Free Expansion: the Irreversible Exception",
+        "proseLatex": "Expansion into vacuum: $P_{\\text{ext}} = 0 \\Rightarrow W = 0$; no heat exchange $\\Rightarrow \\Delta Q = 0$; so $\\Delta U = 0$ and an IDEAL gas suffers NO temperature change — even though $PV^\\gamma = \\text{const}$ does NOT apply (it holds only for reversible adiabats). Micro-check: an irreversible adiabat is not a $PV^\\gamma$ curve."
+      },
+      {
+        "prdId": "P11-PRD05",
+        "heading": "Carnot Engine & Refrigerator COP",
+        "proseLatex": "Reversible Carnot between $T_H$ and $T_C$ (KELVIN): $\\eta = 1 - \\frac{T_C}{T_H} = \\frac{W}{Q_H}$; refrigerator COP $= \\frac{Q_C}{W} = \\frac{T_C}{T_H - T_C}$. Lowering $T_C$ by $\\Delta T$ helps $\\eta$ MORE than raising $T_H$ by the same $\\Delta T$. Micro-check: $T_H = 500$, $T_C = 300$: $\\eta = 0.4$; drop $T_C$ to $290$: $\\eta = 0.42$ vs raising $T_H$ to $510$: $\\eta \\approx 0.412$."
+      },
+      {
+        "prdId": "P11-PRD06",
+        "heading": "Second Law in Two Voices",
+        "proseLatex": "Kelvin-Planck: no cyclic engine converts heat to work with $100\\%$ efficiency. Clausius: heat never flows spontaneously cold $\\to$ hot without external work. Both forbid perpetual motions of the second kind. Micro-check: a perfect engine ($\\eta = 1$) would violate Kelvin-Planck outright."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P11-SF01",
+        "label": "First law (physics)",
+        "latex": "\\Delta Q = \\Delta U + \\Delta W",
+        "use": "$\\Delta W$ = work BY the gas."
+      },
+      {
+        "sfId": "P11-SF02",
+        "label": "Work from $P$-$V$",
+        "latex": "\\Delta W = \\int P\\,dV",
+        "use": "Area under the curve."
+      },
+      {
+        "sfId": "P11-SF03",
+        "label": "Internal energy",
+        "latex": "U = \\frac{f}{2}nRT",
+        "use": "$f = 3$ mono, $5$ rigid diatomic."
+      },
+      {
+        "sfId": "P11-SF04",
+        "label": "Mayer's relation",
+        "latex": "C_P - C_V = R",
+        "use": "Ideal gases."
+      },
+      {
+        "sfId": "P11-SF05",
+        "label": "Gamma from $f$",
+        "latex": "\\gamma = 1 + \\frac{2}{f}",
+        "use": "Mono $5/3$, diatomic $7/5$."
+      },
+      {
+        "sfId": "P11-SF06",
+        "label": "Isochoric process",
+        "latex": "W = 0;\\quad \\Delta Q = \\Delta U",
+        "use": "Constant volume."
+      },
+      {
+        "sfId": "P11-SF07",
+        "label": "Isobaric work",
+        "latex": "W = P\\Delta V = nR\\Delta T",
+        "use": "Constant pressure."
+      },
+      {
+        "sfId": "P11-SF08",
+        "label": "Isothermal work",
+        "latex": "W = nRT\\ln\\frac{V_2}{V_1}",
+        "use": "$\\Delta U = 0$ for ideal gas."
+      },
+      {
+        "sfId": "P11-SF09",
+        "label": "Isothermal bulk modulus",
+        "latex": "K_T = P",
+        "use": "Isotherm stiffness."
+      },
+      {
+        "sfId": "P11-SF10",
+        "label": "Adiabatic relations",
+        "latex": "PV^\\gamma = \\text{const};\\quad TV^{\\gamma-1} = \\text{const}",
+        "use": "Reversible only."
+      },
+      {
+        "sfId": "P11-SF11",
+        "label": "Adiabatic work",
+        "latex": "W = -\\Delta U = nC_V(T_1 - T_2)",
+        "use": "$\\Delta Q = 0$."
+      },
+      {
+        "sfId": "P11-SF12",
+        "label": "Carnot efficiency",
+        "latex": "\\eta = 1 - \\frac{T_C}{T_H}",
+        "use": "Kelvin temperatures."
+      },
+      {
+        "sfId": "P11-SF13",
+        "label": "Refrigerator COP",
+        "latex": "\\text{COP} = \\frac{Q_C}{W} = \\frac{T_C}{T_H - T_C}",
+        "use": "Carnot fridge."
+      },
+      {
+        "sfId": "P11-SF14",
+        "label": "van 't Hoff equation",
+        "latex": "\\ln\\frac{K_2}{K_1} = \\frac{\\Delta H^\\circ}{R}\\left(\\frac{1}{T_1} - \\frac{1}{T_2}\\right)",
+        "use": "Temperature shift of $K$."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P11-DEF01",
+        "term": "Internal energy",
+        "definition": "State function $\\frac{f}{2}nRT$ for an ideal gas; depends only on temperature."
+      },
+      {
+        "defId": "P11-DEF02",
+        "term": "Reversible adiabatic process",
+        "definition": "$\\Delta Q = 0$ with $PV^\\gamma$ const; steeper than any isotherm."
+      },
+      {
+        "defId": "P11-DEF03",
+        "term": "Carnot engine",
+        "definition": "Reversible cycle between two reservoirs; maximum possible efficiency."
+      },
+      {
+        "defId": "P11-DEF04",
+        "term": "Coefficient of performance",
+        "definition": "Heat extracted per work input for a refrigerator."
+      },
+      {
+        "defId": "P11-DEF05",
+        "term": "Kelvin-Planck statement",
+        "definition": "No cycle converts heat entirely into work."
+      },
+      {
+        "defId": "P11-DEF06",
+        "term": "Clausius statement",
+        "definition": "No spontaneous cold-to-hot heat flow without external work."
+      },
+      {
+        "defId": "P11-DEF07",
+        "term": "Free expansion",
+        "definition": "Expansion into vacuum: $Q = W = \\Delta U = 0$ (ideal gas, $\\Delta T = 0$)."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P11-CMP01",
+        "title": "Isothermal vs adiabatic",
+        "columns": [
+          "Aspect",
+          "Isothermal",
+          "Adiabatic (reversible)"
+        ],
+        "rows": [
+          {
+            "label": "Gas law",
+            "values": [
+              "$PV = \\text{const}$",
+              "$PV^\\gamma = \\text{const}$"
+            ]
+          },
+          {
+            "label": "$\\Delta U$",
+            "values": [
+              "$0$",
+              "$-W$"
+            ]
+          },
+          {
+            "label": "$P$-$V$ slope",
+            "values": [
+              "$-P/V$",
+              "$\\gamma$ times steeper"
+            ]
+          },
+          {
+            "label": "Bulk modulus",
+            "values": [
+              "$P$",
+              "$\\gamma P$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P11-CMP02",
+        "title": "Engine vs refrigerator (Carnot)",
+        "columns": [
+          "Aspect",
+          "Engine",
+          "Refrigerator"
+        ],
+        "rows": [
+          {
+            "label": "Figure of merit",
+            "values": [
+              "$\\eta = 1 - T_C/T_H$",
+              "COP $= T_C/(T_H - T_C)$"
+            ]
+          },
+          {
+            "label": "Energy flow",
+            "values": [
+              "$Q_H \\to W + Q_C$",
+              "$W$ pumps $Q_C$ to $Q_H$"
+            ]
+          },
+          {
+            "label": "Kelvin required",
+            "values": [
+              "yes",
+              "yes"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P11-CMP03",
+        "title": "Reversible adiabat vs free expansion",
+        "columns": [
+          "Aspect",
+          "Reversible adiabat",
+          "Free expansion"
+        ],
+        "rows": [
+          {
+            "label": "$PV^\\gamma$",
+            "values": [
+              "holds",
+              "does NOT hold"
+            ]
+          },
+          {
+            "label": "$\\Delta T$ (ideal)",
+            "values": [
+              "generally non-zero",
+              "zero"
+            ]
+          },
+          {
+            "label": "Entropy",
+            "values": [
+              "constant",
+              "increases"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P11-MCQ01",
+        "stemLatex": "An ideal gas absorbs $100\\,\\text{J}$ and does $40\\,\\text{J}$ of work. $\\Delta U$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$140\\,\\text{J}$"
+          },
+          {
+            "id": "B",
+            "latex": "$60\\,\\text{J}$"
+          },
+          {
+            "id": "C",
+            "latex": "$-60\\,\\text{J}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\Delta Q = \\Delta U + W \\Rightarrow \\Delta U = 100 - 40 = 60\\,\\text{J}$."
+      },
+      {
+        "mcqId": "P11-MCQ02",
+        "stemLatex": "For a rigid diatomic gas, $\\gamma$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{5}{3}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{7}{5}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{4}{3}$"
+          },
+          {
+            "id": "D",
+            "latex": "$1.67$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$f = 5$: $\\gamma = 1 + \\frac{2}{5} = 1.4$."
+      },
+      {
+        "mcqId": "P11-MCQ03",
+        "stemLatex": "In isothermal expansion of an ideal gas:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\Delta U > 0$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\Delta U = 0$ and $\\Delta Q = W$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\Delta Q = 0$"
+          },
+          {
+            "id": "D",
+            "latex": "$W = 0$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Constant $T$ for an ideal gas means $\\Delta U = 0$."
+      },
+      {
+        "mcqId": "P11-MCQ04",
+        "stemLatex": "The $P$-$V$ slope of a reversible adiabat compared to the isotherm through the same point is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "equal"
+          },
+          {
+            "id": "B",
+            "latex": "$\\gamma$ times steeper"
+          },
+          {
+            "id": "C",
+            "latex": "$\\gamma$ times shallower"
+          },
+          {
+            "id": "D",
+            "latex": "orthogonal"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\left(\\frac{dP}{dV}\\right)_{\\text{ad}} = \\gamma\\left(\\frac{dP}{dV}\\right)_{\\text{iso}}$ in magnitude."
+      },
+      {
+        "mcqId": "P11-MCQ05",
+        "stemLatex": "An ideal gas expands freely into a vacuum. Its temperature:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "drops sharply"
+          },
+          {
+            "id": "B",
+            "latex": "rises"
+          },
+          {
+            "id": "C",
+            "latex": "is unchanged (ideal gas)"
+          },
+          {
+            "id": "D",
+            "latex": "doubles"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$Q = W = \\Delta U = 0$: no temperature change; $PV^\\gamma$ does not apply."
+      },
+      {
+        "mcqId": "P11-MCQ06",
+        "stemLatex": "A Carnot engine works between $500\\,\\text{K}$ and $300\\,\\text{K}$. Its efficiency is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$60\\%$"
+          },
+          {
+            "id": "B",
+            "latex": "$40\\%$"
+          },
+          {
+            "id": "C",
+            "latex": "$20\\%$"
+          },
+          {
+            "id": "D",
+            "latex": "$50\\%$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\eta = 1 - \\frac{300}{500} = 0.4$."
+      },
+      {
+        "mcqId": "P11-MCQ07",
+        "stemLatex": "Lowering $T_C$ by $\\Delta T$ versus raising $T_H$ by the same $\\Delta T$:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "raising $T_H$ helps more"
+          },
+          {
+            "id": "B",
+            "latex": "lowering $T_C$ helps more"
+          },
+          {
+            "id": "C",
+            "latex": "identical effect"
+          },
+          {
+            "id": "D",
+            "latex": "neither changes $\\eta$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "The sensitivity of $\\eta$ to $T_C$ is larger — sink cooling wins."
+      },
+      {
+        "mcqId": "P11-MCQ08",
+        "stemLatex": "A Carnot refrigerator between $300\\,\\text{K}$ and $400\\,\\text{K}$ has COP:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3$"
+          },
+          {
+            "id": "B",
+            "latex": "$4$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{1}{3}$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "COP $= \\frac{300}{400 - 300} = 3$."
+      },
+      {
+        "mcqId": "P11-MCQ09",
+        "stemLatex": "In a cyclic process, net $\\Delta U$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "positive clockwise"
+          },
+          {
+            "id": "B",
+            "latex": "zero"
+          },
+          {
+            "id": "C",
+            "latex": "equal to net heat minus nothing"
+          },
+          {
+            "id": "D",
+            "latex": "negative"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "State function returns to its start; net $\\Delta Q = $ net $W$."
+      },
+      {
+        "mcqId": "P11-MCQ10",
+        "stemLatex": "Raising temperature shifts an equilibrium:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "always left"
+          },
+          {
+            "id": "B",
+            "latex": "toward the endothermic direction, changing $K$"
+          },
+          {
+            "id": "C",
+            "latex": "never changes $K$"
+          },
+          {
+            "id": "D",
+            "latex": "toward fewer moles"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Temperature is the only disturbance that alters the numerical $K$."
+      }
+    ],
+    "memoryHooks": [
+      "$\\Delta Q = \\Delta U + W_{\\text{by}}$ (physics sign).",
+      "$C_P - C_V = R$; $\\gamma = 1 + 2/f$.",
+      "Mono $5/3$, diatomic $7/5$.",
+      "Isochoric: no work. Isobaric: $P\\Delta V$. Isothermal: $nRT\\ln$. Adiabatic: $-\\Delta U$.",
+      "$PV^\\gamma$: reversible only; free expansion is the exception.",
+      "Adiabat is $\\gamma\\times$ steeper.",
+      "$\\eta = 1 - T_C/T_H$ (kelvin).",
+      "COP $= T_C/(T_H - T_C)$.",
+      "Sink cooling beats source heating for efficiency.",
+      "Cycle: $\\Delta U = 0$; net work = enclosed area."
+    ],
+    "commonMistakes": [
+      "Mixing physics and chemistry sign conventions.",
+      "Plugging Celsius into Carnot efficiencies.",
+      "Applying $PV^\\gamma$ to free or irreversible expansion.",
+      "Forgetting $\\gamma$-steepness in graph comparisons.",
+      "Claiming any real engine beats the Carnot limit.",
+      "Counting vibrational degrees for rigid-diatomic questions.",
+      "Saying $\\Delta U \\ne 0$ for isothermal ideal-gas processes.",
+      "Dropping the kelvin requirement in COP sums."
+    ],
+    "examChecklist": [
+      "Fix the sign convention before computing work.",
+      "Compute $W$ as the signed $P$-$V$ area.",
+      "Know all four process laws and their $Q$, $U$, $W$ splits.",
+      "Use $\\gamma = 1 + 2/f$ with correct $f$.",
+      "Adiabat vs isotherm: slope and modulus comparisons.",
+      "Carnot efficiency and COP in kelvin.",
+      "Recognize free expansion's zero-$\\Delta T$ result.",
+      "van 't Hoff for temperature shifts of $K$."
+    ],
+    "furtherReading": [
+      {
+        "book": "Heat and Thermodynamics",
+        "author": "Brij Lal & N. Subrahmanyam",
+        "chapters": "Laws of thermodynamics and kinetic theory chapters",
+        "note": "Thermodynamics fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

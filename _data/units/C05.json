@@ -150,7 +150,602 @@
       "channelName": "Ekeeda",
       "language": "en",
       "scopeNote": "Dynamic equilibrium, Kp vs Kc, Le Chatelier shifts & Haber/Contact industrial conditions"
+    },
+    {
+      "title": "Chemical Equilibrium In 30 Minutes! Quick Revision - Physical Chemistry| JEE & NEET 2020 | Pahul Sir",
+      "url": "https://www.youtube.com/watch?v=Soi8xPqe3jQ",
+      "videoId": "Soi8xPqe3jQ",
+      "duration": "32 min",
+      "durationMinutes": 32,
+      "provider": "YouTube · Catalysis by Vedantu",
+      "channelName": "Catalysis by Vedantu",
+      "language": "en",
+      "scopeNote": "Rapid full-chapter revision: Kc and Kp, ICE tables, degree of dissociation, Le Chatelier."
+    },
+    {
+      "title": "Chemical Equilibrium L1 | Basics of Chemical Equilibrium | JEE & NEET 2022 | Class 11 | Pahul Sir",
+      "url": "https://www.youtube.com/watch?v=bVublt6zI1k",
+      "videoId": "bVublt6zI1k",
+      "duration": "69 min",
+      "durationMinutes": 69,
+      "provider": "YouTube · Catalysis by Vedantu",
+      "channelName": "Catalysis by Vedantu",
+      "language": "en",
+      "scopeNote": "Concept-building lecture on equilibrium basics and the equilibrium constant."
+    },
+    {
+      "title": "Derivation of Equilibrium Constant (Kc and Kp) - Chemical Equilibrium - Chemistry Class 11",
+      "url": "https://www.youtube.com/watch?v=qYUJx1ix5Bs",
+      "videoId": "qYUJx1ix5Bs",
+      "duration": "10 min",
+      "durationMinutes": 10,
+      "provider": "YouTube · Ekeeda",
+      "channelName": "Ekeeda",
+      "language": "en",
+      "scopeNote": "Short derivation of Kp from Kc via delta-ng; pairs with the pack checklist item on Delta-n-g."
+    },
+    {
+      "title": "Equilibrium Constant (Kc and Kp) - Problem 1 - Chemical Equilibrium - Chemistry Class 11",
+      "url": "https://www.youtube.com/watch?v=R-jcpC8lioo",
+      "videoId": "R-jcpC8lioo",
+      "duration": "9 min",
+      "durationMinutes": 9,
+      "provider": "YouTube · Ekeeda",
+      "channelName": "Ekeeda",
+      "language": "en",
+      "scopeNote": "Worked Kc-Kp numerical; smaller channel kept for exact syllabus fit."
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "C05-PRD01",
+        "heading": "Law of Mass Action & the Activity Rule",
+        "proseLatex": "For $aA + bB \\rightleftharpoons cC + dD$, $K_c = \\frac{[C]^c[D]^d}{[A]^a[B]^b}$ with PURE solids and liquids OMITTED (unit activity): $\\text{CaCO}_3(s) \\rightleftharpoons \\text{CaO}(s) + \\text{CO}_2(g)$ gives $K_p = p_{\\text{CO}_2}$ alone. Micro-check: drop anything with a fixed activity from the expression."
+      },
+      {
+        "prdId": "C05-PRD02",
+        "heading": "$K_p$ vs $K_c$: the $\\Delta n_g$ Bridge",
+        "proseLatex": "$K_p = K_c(RT)^{\\Delta n_g}$ where $\\Delta n_g$ counts ONLY gaseous moles, products minus reactants: for $\\text{C}(s) + \\text{CO}_2(g) \\rightleftharpoons 2\\text{CO}(g)$, $\\Delta n_g = 2 - 1 = +1$ (ignore solid carbon). $\\Delta n_g = 0 \\Rightarrow K_p = K_c$. Micro-check: $\\text{N}_2 + 3\\text{H}_2 \\rightleftharpoons 2\\text{NH}_3$: $\\Delta n_g = -2$."
+      },
+      {
+        "prdId": "C05-PRD03",
+        "heading": "Equilibrium-Algebra Rules",
+        "proseLatex": "Reverse the reaction $\\Rightarrow K' = 1/K$; multiply stoichiometry by $m$ $\\Rightarrow K' = K^m$; add two equilibria $\\Rightarrow K_{\\text{net}} = K_1K_2$. These three moves solve most JELET manipulation questions. Micro-check: halving a reaction takes $K^{1/2}$."
+      },
+      {
+        "prdId": "C05-PRD04",
+        "heading": "Reaction Quotient $Q$ and Le Chatelier",
+        "proseLatex": "$Q$ uses the same expression as $K$ but at non-equilibrium concentrations: $Q < K$ drives forward, $Q > K$ reverse. Pressure up (volume down) shifts toward FEWER gas moles; temperature up shifts toward the ENDOTHERMIC side — the only disturbance that changes the numerical $K$ (van 't Hoff: $\\ln\\frac{K_2}{K_1} = \\frac{\\Delta H^\\circ}{R}(\\frac{1}{T_1} - \\frac{1}{T_2})$). Micro-check: a catalyst never shifts $Q$ or $K$ — it only shortens the ride."
+      },
+      {
+        "prdId": "C05-PRD05",
+        "heading": "Inert Gas: Two Very Different Outcomes",
+        "proseLatex": "Adding inert gas at CONSTANT VOLUME changes no partial pressures $\\Rightarrow$ zero shift, every time. At CONSTANT PRESSURE the volume grows, every partial pressure dilutes equally $\\Rightarrow$ shift toward MORE gas moles. Micro-check: inert + fixed $V$ is the standard trick answer."
+      },
+      {
+        "prdId": "C05-PRD06",
+        "heading": "Haber & Contact: Industry Applies Le Chatelier",
+        "proseLatex": "Both $\\text{N}_2 + 3\\text{H}_2 \\rightleftharpoons 2\\text{NH}_3$ ($\\Delta H < 0$, $\\Delta n_g = -2$) and $2\\text{SO}_2 + \\text{O}_2 \\rightleftharpoons 2\\text{SO}_3$ ($\\Delta H < 0$, $\\Delta n_g = -1$) are exothermic and mole-decreasing: high pressure favours yield, moderate $\\sim 700\\,\\text{K}$ balances rate against $K$, catalysts ($\\text{Fe}$ with promoter; $\\text{V}_2\\text{O}_5$) speed both directions equally. Micro-check: catalysts change time-to-equilibrium, never yield."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "C05-SF01",
+        "label": "Law of mass action",
+        "latex": "K_c = \\frac{[C]^c[D]^d}{[A]^a[B]^b}",
+        "use": "Pure solids and liquids omitted."
+      },
+      {
+        "sfId": "C05-SF02",
+        "label": "$K_p$-$K_c$ bridge",
+        "latex": "K_p = K_c(RT)^{\\Delta n_g}",
+        "use": "Gas-phase conversion."
+      },
+      {
+        "sfId": "C05-SF03",
+        "label": "Gaseous mole change",
+        "latex": "\\Delta n_g = (c+d) - (a+b)\\ \\text{(gases only)}",
+        "use": "Ignore solids."
+      },
+      {
+        "sfId": "C05-SF04",
+        "label": "Reversal rule",
+        "latex": "K' = \\frac{1}{K}",
+        "use": "Backward reaction."
+      },
+      {
+        "sfId": "C05-SF05",
+        "label": "Stoichiometric scaling",
+        "latex": "K' = K^m",
+        "use": "Multiply by $m$."
+      },
+      {
+        "sfId": "C05-SF06",
+        "label": "Addition rule",
+        "latex": "K_{\\text{net}} = K_1 K_2",
+        "use": "Coupled equilibria."
+      },
+      {
+        "sfId": "C05-SF07",
+        "label": "Reaction quotient",
+        "latex": "Q_c\\ \\text{vs}\\ K_c",
+        "use": "$Q<K$ forward; $Q>K$ reverse."
+      },
+      {
+        "sfId": "C05-SF08",
+        "label": "van 't Hoff equation",
+        "latex": "\\ln\\frac{K_2}{K_1} = \\frac{\\Delta H^\\circ}{R}\\left(\\frac{1}{T_1} - \\frac{1}{T_2}\\right)",
+        "use": "Temperature changes $K$."
+      },
+      {
+        "sfId": "C05-SF09",
+        "label": "Pressure (volume) shift",
+        "latex": "\\Delta P \\uparrow \\Rightarrow \\text{shift to fewer gas moles}",
+        "use": "Le Chatelier."
+      },
+      {
+        "sfId": "C05-SF10",
+        "label": "Haber process",
+        "latex": "\\text{N}_2 + 3\\text{H}_2 \\rightleftharpoons 2\\text{NH}_3;\\ \\Delta n_g = -2",
+        "use": "Exothermic synthesis."
+      },
+      {
+        "sfId": "C05-SF11",
+        "label": "Contact process",
+        "latex": "2\\text{SO}_2 + \\text{O}_2 \\rightleftharpoons 2\\text{SO}_3;\\ \\Delta n_g = -1",
+        "use": "$\\text{V}_2\\text{O}_5$ catalyst."
+      },
+      {
+        "sfId": "C05-SF12",
+        "label": "Decomposition equilibrium",
+        "latex": "K_p = p_{\\text{CO}_2}\\ \\text{for}\\ \\text{CaCO}_3 \\rightleftharpoons \\text{CaO} + \\text{CO}_2",
+        "use": "Solids dropped."
+      },
+      {
+        "sfId": "C05-SF13",
+        "label": "Degree of dissociation",
+        "latex": "\\alpha = \\frac{\\text{dissociated moles}}{\\text{initial moles}}",
+        "use": "Feeds $K_p$ in terms of $\\alpha$."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "C05-DEF01",
+        "term": "Equilibrium constant",
+        "definition": "Fixed ratio of equilibrium activities, independent of starting amounts."
+      },
+      {
+        "defId": "C05-DEF02",
+        "term": "Reaction quotient $Q$",
+        "definition": "Same law applied at any moment; direction decided by $Q$ vs $K$."
+      },
+      {
+        "defId": "C05-DEF03",
+        "term": "Le Chatelier's principle",
+        "definition": "A disturbed equilibrium shifts to oppose the disturbance."
+      },
+      {
+        "defId": "C05-DEF04",
+        "term": "$\\Delta n_g$",
+        "definition": "Change in GASEOUS mole numbers, products minus reactants."
+      },
+      {
+        "defId": "C05-DEF05",
+        "term": "Catalyst (equilibrium view)",
+        "definition": "Speeds forward and reverse equally; changes neither $K$ nor yield."
+      },
+      {
+        "defId": "C05-DEF06",
+        "term": "Degree of dissociation",
+        "definition": "Fraction of the initial amount that dissociated at equilibrium."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "C05-CMP01",
+        "title": "Inert gas at constant $V$ vs constant $P$",
+        "columns": [
+          "Aspect",
+          "Constant volume",
+          "Constant pressure"
+        ],
+        "rows": [
+          {
+            "label": "Partial pressures",
+            "values": [
+              "unchanged",
+              "all dilute equally"
+            ]
+          },
+          {
+            "label": "Shift",
+            "values": [
+              "none, always",
+              "toward more gas moles"
+            ]
+          },
+          {
+            "label": "$K$ changes",
+            "values": [
+              "no",
+              "no"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C05-CMP02",
+        "title": "Disturbances and their effects",
+        "columns": [
+          "Disturbance",
+          "Shift direction",
+          "$K$ affected?"
+        ],
+        "rows": [
+          {
+            "label": "Pressure up",
+            "values": [
+              "fewer gas moles",
+              "no"
+            ]
+          },
+          {
+            "label": "Temperature up",
+            "values": [
+              "endothermic side",
+              "yes (van 't Hoff)"
+            ]
+          },
+          {
+            "label": "Catalyst added",
+            "values": [
+              "none",
+              "no"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C05-CMP03",
+        "title": "Haber vs Contact process",
+        "columns": [
+          "Feature",
+          "Haber",
+          "Contact"
+        ],
+        "rows": [
+          {
+            "label": "$\\Delta n_g$",
+            "values": [
+              "$-2$",
+              "$-1$"
+            ]
+          },
+          {
+            "label": "Catalyst",
+            "values": [
+              "Fe with $\\text{K}_2\\text{O}$/Mo promoter",
+              "$\\text{V}_2\\text{O}_5$"
+            ]
+          },
+          {
+            "label": "Pressure strategy",
+            "values": [
+              "high pressure favours",
+              "high pressure favours"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "C05-MCQ01",
+        "stemLatex": "For $\\text{CaCO}_3(s) \\rightleftharpoons \\text{CaO}(s) + \\text{CO}_2(g)$, $K_p$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{p_{\\text{CO}_2} \\cdot p_{\\text{CaO}}}{p_{\\text{CaCO}_3}}$"
+          },
+          {
+            "id": "B",
+            "latex": "$p_{\\text{CO}_2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{1}{p_{\\text{CO}_2}}$"
+          },
+          {
+            "id": "D",
+            "latex": "$p_{\\text{CO}_2}^2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Pure solids have unit activity and are omitted."
+      },
+      {
+        "mcqId": "C05-MCQ02",
+        "stemLatex": "For $\\text{C}(s) + \\text{CO}_2(g) \\rightleftharpoons 2\\text{CO}(g)$, $\\Delta n_g$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+2$"
+          },
+          {
+            "id": "B",
+            "latex": "$+1$"
+          },
+          {
+            "id": "C",
+            "latex": "$-1$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Count gases only: $2 - 1 = +1$; solid carbon ignored."
+      },
+      {
+        "mcqId": "C05-MCQ03",
+        "stemLatex": "If a reaction is reversed, its new $K$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-K$"
+          },
+          {
+            "id": "B",
+            "latex": "$K^2$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{1}{K}$"
+          },
+          {
+            "id": "D",
+            "latex": "unchanged"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Reversal inverts the equilibrium constant."
+      },
+      {
+        "mcqId": "C05-MCQ04",
+        "stemLatex": "Doubling all stoichiometric coefficients of a reaction multiplies $K$ by:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$4$"
+          },
+          {
+            "id": "C",
+            "latex": "$K$ again (unchanged)"
+          },
+          {
+            "id": "D",
+            "latex": "it squares"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "Scaling by $m = 2$ gives $K^2$."
+      },
+      {
+        "mcqId": "C05-MCQ05",
+        "stemLatex": "For $\\text{N}_2 + 3\\text{H}_2 \\rightleftharpoons 2\\text{NH}_3$, the relation between $K_p$ and $K_c$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$K_p = K_c$"
+          },
+          {
+            "id": "B",
+            "latex": "$K_p = K_c(RT)^{-2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$K_p = K_c(RT)^{2}$"
+          },
+          {
+            "id": "D",
+            "latex": "$K_p = K_c RT$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\Delta n_g = 2 - 4 = -2$."
+      },
+      {
+        "mcqId": "C05-MCQ06",
+        "stemLatex": "A catalyst added to a system at equilibrium:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "shifts it forward"
+          },
+          {
+            "id": "B",
+            "latex": "shifts it backward"
+          },
+          {
+            "id": "C",
+            "latex": "changes nothing except speed to equilibrium"
+          },
+          {
+            "id": "D",
+            "latex": "increases $K_c$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Catalysts speed both directions equally; $K$ and yield are untouched."
+      },
+      {
+        "mcqId": "C05-MCQ07",
+        "stemLatex": "Inert gas added at CONSTANT VOLUME to an equilibrium mixture:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "shifts toward more moles"
+          },
+          {
+            "id": "B",
+            "latex": "shifts toward fewer moles"
+          },
+          {
+            "id": "C",
+            "latex": "produces no shift"
+          },
+          {
+            "id": "D",
+            "latex": "changes $K$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "No partial pressure changes, so no shift."
+      },
+      {
+        "mcqId": "C05-MCQ08",
+        "stemLatex": "Inert gas added at CONSTANT PRESSURE to $\\text{N}_2 + 3\\text{H}_2 \\rightleftharpoons 2\\text{NH}_3$ shifts it:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "toward NH$_3$ (fewer moles)"
+          },
+          {
+            "id": "B",
+            "latex": "toward reactants (more moles)"
+          },
+          {
+            "id": "C",
+            "latex": "no shift"
+          },
+          {
+            "id": "D",
+            "latex": "depends on the gas"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Dilution shifts toward the higher-mole side: reactants here."
+      },
+      {
+        "mcqId": "C05-MCQ09",
+        "stemLatex": "Raising $T$ on an exothermic equilibrium:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "shifts forward, $K$ rises"
+          },
+          {
+            "id": "B",
+            "latex": "shifts backward (endothermic side), $K$ falls"
+          },
+          {
+            "id": "C",
+            "latex": "no change"
+          },
+          {
+            "id": "D",
+            "latex": "changes rate only, not position"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Temperature is the only disturbance that changes $K$; exothermic $K$ falls with $T$."
+      },
+      {
+        "mcqId": "C05-MCQ10",
+        "stemLatex": "At some instant a mixture has $Q_c > K_c$. The reaction:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "proceeds forward"
+          },
+          {
+            "id": "B",
+            "latex": "proceeds in reverse"
+          },
+          {
+            "id": "C",
+            "latex": "is at equilibrium"
+          },
+          {
+            "id": "D",
+            "latex": "stops"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$Q > K$: too much product, so the reverse reaction runs until $Q = K$."
+      }
+    ],
+    "memoryHooks": [
+      "Solids and liquids vanish from $K$.",
+      "$K_p = K_c(RT)^{\\Delta n_g}$; gases only in $\\Delta n_g$.",
+      "Reverse: invert. Scale: exponentiate. Add: multiply.",
+      "$Q < K$ forward; $Q > K$ backward.",
+      "Pressure up: run to the fewer-moles side.",
+      "Temperature is the only $K$-changer.",
+      "Inert at fixed $V$: nothing happens.",
+      "Inert at fixed $P$: run to more moles.",
+      "Catalyst: faster arrival, same destination.",
+      "Haber and Contact both hate heat and love pressure."
+    ],
+    "commonMistakes": [
+      "Leaving solids or liquids inside $K$ expressions.",
+      "Counting solid moles in $\\Delta n_g$.",
+      "Believing a catalyst shifts the position of equilibrium.",
+      "Adding inert gas at fixed volume and expecting a shift.",
+      "Forgetting that only temperature changes the numerical $K$.",
+      "Applying the wrong exponent when scaling stoichiometry.",
+      "Mixing up $Q<K$ and $Q>K$ directions.",
+      "Predicting higher yield at higher temperature for exothermic processes."
+    ],
+    "examChecklist": [
+      "Strip solids and liquids before writing $K$.",
+      "Compute $\\Delta n_g$ before choosing $K_p$ or $K_c$.",
+      "Count only gaseous moles in $\\Delta n_g$.",
+      "Use invert, exponentiate, multiply for $K$ algebra.",
+      "Compare $Q$ with $K$ to pick direction.",
+      "Recite the inert-gas $V$ vs $P$ rule.",
+      "Apply van 't Hoff for temperature jumps.",
+      "Know Haber and Contact catalysts and $\\Delta n_g$."
+    ],
+    "furtherReading": [
+      {
+        "book": "Physical Chemistry",
+        "author": "P. C. Rakshit",
+        "chapters": "Chemical equilibrium chapter",
+        "note": "Equilibrium fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

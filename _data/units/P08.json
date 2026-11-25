@@ -168,7 +168,687 @@
       "channelName": "Lectures by Walter Lewin. They will make you ♥ Physics.",
       "language": "en",
       "scopeNote": "Hydrostatic pressure, Pascal's hydraulic press, Archimedes buoyancy & floatation"
+    },
+    {
+      "title": "Mechanical Properties of Fluids | CLASS 11 Physics | Complete NCERT Chapter | Prashant Kirad",
+      "url": "https://www.youtube.com/watch?v=R8gN-kDi5E8",
+      "videoId": "R8gN-kDi5E8",
+      "duration": "168 min",
+      "durationMinutes": 168,
+      "provider": "YouTube · Prashant Kirad 11th & 12th",
+      "channelName": "Prashant Kirad 11th & 12th",
+      "language": "hi",
+      "scopeNote": "Full-chapter one shot in Hindi — pressure to Pascal, Archimedes, continuity, Bernoulli, Torricelli, viscosity, Poiseuille and Stokes, matching the pack span"
+    },
+    {
+      "title": "Bernoulli's Principle One-Shot | Mechanical Properties of Fluid | NCERT Physics Class 11 | Vedantu",
+      "url": "https://www.youtube.com/watch?v=fY6huKUsZFk",
+      "videoId": "fY6huKUsZFk",
+      "duration": "68 min",
+      "durationMinutes": 68,
+      "provider": "YouTube · Vedantu 11&12",
+      "channelName": "Vedantu 11&12",
+      "language": "hi",
+      "scopeNote": "Bernoulli ledger deep dive — the streamline energy trade behind PRD05 and the efflux numerics"
+    },
+    {
+      "title": "Viscous Drag, Stokes' Law, Terminal Velocity & Real Fluids | Physics Class 11",
+      "url": "https://www.youtube.com/watch?v=KHncWNl2xtQ",
+      "videoId": "KHncWNl2xtQ",
+      "duration": "73 min",
+      "durationMinutes": 73,
+      "provider": "YouTube · Physics Inside Out",
+      "channelName": "Physics Inside Out",
+      "language": "hi",
+      "scopeNote": "Stokes' law and terminal velocity derived in full — the last mile of the pack where the one-shot moves quickest"
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P08-PRD01",
+        "heading": "Hydrostatic Pressure: Depth, Not Shape",
+        "proseLatex": "Static liquid pressure at vertical depth $h$ is $P = P_0 + \\rho g h$; the gauge part $\\rho g h$ depends ONLY on $h$, $\\rho$ and $g$ — never on the container shape or total volume (hydrostatic paradox: a skinny tube and a wide lake at the same depth carry the same pressure). Absolute pressure adds atmospheric $P_0 \\approx 1.013 \\times 10^5\\ \\text{Pa}$; most JELET answers want gauge pressure unless stated. Micro-check: $10\\ \\text{m}$ down in water with $\\rho = 1000\\ \\text{kg/m}^3$, $g = 10\\ \\text{m/s}^2$: gauge pressure $= 1000 \\times 10 \\times 10 = 10^5\\ \\text{Pa} = 100\\ \\text{kPa}$."
+      },
+      {
+        "prdId": "P08-PRD02",
+        "heading": "Pascal's Law and the Hydraulic Press",
+        "proseLatex": "An enclosed liquid at rest transmits an externally applied pressure change UNCHANGED to every point and wall — that is Pascal's law, and it powers hydraulic presses and brakes: $\\frac{F_1}{A_1} = \\frac{F_2}{A_2}$, so a small force on a small piston becomes a large force on a large piston, paying for it with a proportionally larger displacement. Micro-check: $20\\ \\text{N}$ on a $5\\ \\text{cm}^2$ piston gives $4\\ \\text{N/cm}^2$; transmitted intact to a $50\\ \\text{cm}^2$ piston it lifts $4 \\times 50 = 200\\ \\text{N}$."
+      },
+      {
+        "prdId": "P08-PRD03",
+        "heading": "Archimedes, Floatation and the Ice-Water Trick",
+        "proseLatex": "A immersed body feels upthrust equal to the WEIGHT of displaced fluid; floating requires weight = upthrust, so the submerged fraction is $\\frac{V_{\\text{sub}}}{V} = \\frac{\\rho_{\\text{body}}}{\\rho_{\\text{fluid}}}$. The classic WBJEE trap: ice floating in water has already displaced exactly the water its melted form will occupy, so the LEVEL STAYS UNCHANGED when it melts — it rises only if the ice carries trapped heavier mass or sits in a liquid lighter than water. Micro-check: ice of density $0.9\\rho_w$ floats with $\\tfrac{0.9\\rho_w}{\\rho_w} = \\tfrac{9}{10}$ of its volume submerged."
+      },
+      {
+        "prdId": "P08-PRD04",
+        "heading": "Continuity: Area-Speed Conservation",
+        "proseLatex": "For steady incompressible flow the volume rate is constant everywhere: $Q = A_1v_1 = A_2v_2$ ($\\text{m}^3/\\text{s}$). Since $A = \\pi r^2$, halving the RADIUS quarters the area and QUADRUPLES the speed — a favourite numerical. Velocity is largest where the pipe is narrowest. Micro-check: $3\\ \\text{m/s}$ in a pipe of radius $2\\ \\text{cm}$ becomes $3 \\times 4 = 12\\ \\text{m/s}$ where the radius is $1\\ \\text{cm}$."
+      },
+      {
+        "prdId": "P08-PRD05",
+        "heading": "Bernoulli's Theorem and Torricelli's Efflux",
+        "proseLatex": "Along a streamline of ideal (non-viscous, steady, incompressible) flow, $P + \\tfrac{1}{2}\\rho v^2 + \\rho g h = \\text{const}$ — pressure head, speed head and height head trade against each other. On a horizontal streamline, faster flow means LOWER pressure (aerofoil lift, venturimeter). For a tank with an orifice at depth $h$ below the free surface, Bernoulli gives Torricelli's efflux speed $v = \\sqrt{2gh}$ — the same speed as a free fall from that depth. Micro-check: a hole $5\\ \\text{m}$ deep jets out at $v = \\sqrt{2 \\times 10 \\times 5} = 10\\ \\text{m/s}$."
+      },
+      {
+        "prdId": "P08-PRD06",
+        "heading": "Viscosity: Newton, Poiseuille and Stokes",
+        "proseLatex": "Viscous shear between laminar layers is $F = -\\eta A\\frac{dv}{dy}$ with SI unit $\\text{Pa\\,s}$ ($1\\ \\text{Pa\\,s} = 10\\ \\text{poise}$ — the conversion trap runs the other way). Heating WEAKENS liquids (viscosity falls) but SCATTERS gases harder (viscosity rises). Laminar tube flow obeys Poiseuille's $R^4$ law $Q = \\frac{\\pi \\Delta P R^4}{8\\eta L}$ — doubling radius multiplies flow by $2^4 = 16$. A sphere settling in viscous fluid reaches Stokes terminal velocity $v_t = \\frac{2r^2(\\rho - \\sigma)g}{9\\eta} \\propto r^2$. Micro-check: $2\\ \\text{Pa\\,s} = 20\\ \\text{poise}$, and doubling a tube radius takes $Q$ up by $16\\times$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P08-SF01",
+        "label": "Absolute pressure at depth",
+        "latex": "$P = P_0 + \\rho g h$",
+        "use": "Gauge part $\\rho g h$ ignores container shape."
+      },
+      {
+        "sfId": "P08-SF02",
+        "label": "Gauge pressure",
+        "latex": "$P_{\\text{gauge}} = \\rho g h$",
+        "use": "Default ask in JELET numerics."
+      },
+      {
+        "sfId": "P08-SF03",
+        "label": "Pascal transmission",
+        "latex": "$\\frac{F_1}{A_1} = \\frac{F_2}{A_2}$",
+        "use": "Hydraulic press force multiplication."
+      },
+      {
+        "sfId": "P08-SF04",
+        "label": "Archimedes upthrust",
+        "latex": "$F_B = \\rho_{\\text{fluid}}\\, V_{\\text{sub}}\\, g$",
+        "use": "Weight of displaced fluid, not body weight."
+      },
+      {
+        "sfId": "P08-SF05",
+        "label": "Float condition",
+        "latex": "$\\frac{V_{\\text{sub}}}{V} = \\frac{\\rho_{\\text{body}}}{\\rho_{\\text{fluid}}}$",
+        "use": "Submerged fraction from density ratio."
+      },
+      {
+        "sfId": "P08-SF06",
+        "label": "Continuity equation",
+        "latex": "$A_1 v_1 = A_2 v_2 = Q$",
+        "use": "Steady incompressible volume conservation."
+      },
+      {
+        "sfId": "P08-SF07",
+        "label": "Bernoulli equation",
+        "latex": "$P + \\tfrac{1}{2}\\rho v^2 + \\rho g h = \\text{const}$",
+        "use": "Along one streamline of ideal flow."
+      },
+      {
+        "sfId": "P08-SF08",
+        "label": "Horizontal Bernoulli trade",
+        "latex": "$P_1 + \\tfrac{1}{2}\\rho v_1^2 = P_2 + \\tfrac{1}{2}\\rho v_2^2$",
+        "use": "Faster = lower pressure at same height."
+      },
+      {
+        "sfId": "P08-SF09",
+        "label": "Torricelli efflux",
+        "latex": "$v = \\sqrt{2 g h}$",
+        "use": "Free-surface tank, orifice at depth $h$."
+      },
+      {
+        "sfId": "P08-SF10",
+        "label": "Newton viscous force",
+        "latex": "$F = -\\eta A \\frac{dv}{dy}$",
+        "use": "Laminar shear; minus = resisting the gradient."
+      },
+      {
+        "sfId": "P08-SF11",
+        "label": "Viscosity units",
+        "latex": "$1\\ \\text{Pa\\,s} = 10\\ \\text{poise}$",
+        "use": "The $0.1$ vs $10$ conversion trap."
+      },
+      {
+        "sfId": "P08-SF12",
+        "label": "Poiseuille flow rate",
+        "latex": "$Q = \\frac{\\pi \\Delta P R^4}{8 \\eta L}$",
+        "use": "Pressure-driven laminar tube flow."
+      },
+      {
+        "sfId": "P08-SF13",
+        "label": "Poiseuille radius scaling",
+        "latex": "$R \\to kR \\Rightarrow Q \\to k^4 Q$",
+        "use": "The $R^4$ lever: $2\\times$ radius = $16\\times$ flow."
+      },
+      {
+        "sfId": "P08-SF14",
+        "label": "Stokes terminal velocity",
+        "latex": "$v_t = \\frac{2 r^2 (\\rho - \\sigma) g}{9 \\eta}$",
+        "use": "Sphere settling; $\\propto r^2$ and density difference."
+      },
+      {
+        "sfId": "P08-SF15",
+        "label": "Temperature trends",
+        "latex": "$\\eta_{\\text{liquid}}$ falls, $\\eta_{\\text{gas}}$ rises on heating",
+        "use": "One-line conceptual MCQ."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P08-DEF01",
+        "term": "Gauge pressure",
+        "definition": "Pressure measured relative to atmosphere: $\\rho g h$ for a static liquid column."
+      },
+      {
+        "defId": "P08-DEF02",
+        "term": "Streamline (steady) flow",
+        "definition": "Flow where each particle's path repeats: velocity at a point is time-independent; Bernoulli applies per streamline."
+      },
+      {
+        "defId": "P08-DEF03",
+        "term": "Ideal fluid",
+        "definition": "Incompressible and non-viscous — the regime where Bernoulli's theorem is exact."
+      },
+      {
+        "defId": "P08-DEF04",
+        "term": "Upthrust (buoyant force)",
+        "definition": "Net upward force on an immersed body equal to the weight of displaced fluid."
+      },
+      {
+        "defId": "P08-DEF05",
+        "term": "Floatation",
+        "definition": "Equilibrium of a floating body: total weight equals total upthrust."
+      },
+      {
+        "defId": "P08-DEF06",
+        "term": "Volume flow rate $Q$",
+        "definition": "Volume crossing a section per second, $Av$, constant along a steady incompressible pipe."
+      },
+      {
+        "defId": "P08-DEF07",
+        "term": "Coefficient of viscosity $\\eta$",
+        "definition": "Shear stress per velocity gradient $\\frac{F}{A\\,dv/dy}$; SI unit Pa s, CGS unit poise."
+      },
+      {
+        "defId": "P08-DEF08",
+        "term": "Laminar vs turbulent flow",
+        "definition": "Ordered layered flow vs chaotic eddies, judged by Reynolds number $\\operatorname{Re} = \\frac{\\rho v D}{\\eta}$ (low = laminar)."
+      },
+      {
+        "defId": "P08-DEF09",
+        "term": "Terminal velocity",
+        "definition": "Constant settling speed when viscous drag plus upthrust balance weight; $v_t \\propto r^2$ for a sphere."
+      },
+      {
+        "defId": "P08-DEF10",
+        "term": "Efflux speed",
+        "definition": "Speed of liquid escaping a side orifice, $\\sqrt{2gh}$ below the free surface (Torricelli)."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P08-CMP01",
+        "title": "Absolute vs Gauge Pressure",
+        "columns": [
+          "Aspect",
+          "Absolute pressure",
+          "Gauge pressure"
+        ],
+        "rows": [
+          {
+            "label": "Reference",
+            "values": [
+              "Vacuum zero",
+              "Local atmosphere"
+            ]
+          },
+          {
+            "label": "At depth $h$",
+            "values": [
+              "$P_0 + \\rho g h$",
+              "$\\rho g h$"
+            ]
+          },
+          {
+            "label": "Sea-level value at 10 m water",
+            "values": [
+              "$\\approx 2 \\times 10^5\\ \\text{Pa}$",
+              "$10^5\\ \\text{Pa}$"
+            ]
+          },
+          {
+            "label": "JELET default",
+            "values": [
+              "Only when stated",
+              "Usually the wanted answer"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P08-CMP02",
+        "title": "Continuity vs Bernoulli — What Each Governs",
+        "columns": [
+          "Aspect",
+          "Continuity $A v = Q$",
+          "Bernoulli energy ledger"
+        ],
+        "rows": [
+          {
+            "label": "Conserves",
+            "values": [
+              "Volume per second",
+              "$P + \\tfrac12\\rho v^2 + \\rho g h$ per streamline"
+            ]
+          },
+          {
+            "label": "Explains",
+            "values": [
+              "Speed up in narrow sections",
+              "Pressure drop where flow speeds up"
+            ]
+          },
+          {
+            "label": "Needs",
+            "values": [
+              "Incompressible steady flow",
+              "Ideal (non-viscous) steady flow"
+            ]
+          },
+          {
+            "label": "Classic numeric",
+            "values": [
+              "Radius halved, speed $\\times 4$",
+              "Efflux $\\sqrt{2gh}$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P08-CMP03",
+        "title": "Viscosity of Liquids vs Gases",
+        "columns": [
+          "Aspect",
+          "Liquids",
+          "Gases"
+        ],
+        "rows": [
+          {
+            "label": "On heating",
+            "values": [
+              "$\\eta$ DECREASES (bonds weaken)",
+              "$\\eta$ INCREASES (molecular mixing grows)"
+            ]
+          },
+          {
+            "label": "Origin",
+            "values": [
+              "Cohesive attraction",
+              "Momentum diffusion between layers"
+            ]
+          },
+          {
+            "label": "Typical magnitude",
+            "values": [
+              "$10^{-3}$ to $1\\ \\text{Pa\\,s}$",
+              "$10^{-5}\\ \\text{Pa\\,s}$ scale"
+            ]
+          },
+          {
+            "label": "Trap flag",
+            "values": [
+              "Honey flows easier warm",
+              "Air thickens warm — opposite of liquids"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P08-CMP04",
+        "title": "Poiseuille vs Stokes — Two Viscous Regimes",
+        "columns": [
+          "Aspect",
+          "Poiseuille tube flow",
+          "Stokes settling sphere"
+        ],
+        "rows": [
+          {
+            "label": "Driven by",
+            "values": [
+              "Pressure difference $\\Delta P$",
+              "Weight surplus $(\\rho - \\sigma)g$"
+            ]
+          },
+          {
+            "label": "Geometry law",
+            "values": [
+              "$Q \\propto R^4$",
+              "$v_t \\propto r^2$"
+            ]
+          },
+          {
+            "label": "Doubled size gives",
+            "values": [
+              "$16 \\times$ flow",
+              "$4 \\times$ terminal speed"
+            ]
+          },
+          {
+            "label": "Formula",
+            "values": [
+              "$\\frac{\\pi \\Delta P R^4}{8\\eta L}$",
+              "$\\frac{2r^2(\\rho-\\sigma)g}{9\\eta}$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P08-MCQ01",
+        "stemLatex": "The gauge pressure $10\\ \\text{m}$ below the surface of water ($\\rho = 1000\\ \\text{kg/m}^3$, $g = 10\\ \\text{m/s}^2$) is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$10\\ \\text{kPa}$"
+          },
+          {
+            "id": "B",
+            "latex": "$100\\ \\text{kPa}$"
+          },
+          {
+            "id": "C",
+            "latex": "$101.3\\ \\text{kPa}$"
+          },
+          {
+            "id": "D",
+            "latex": "$1000\\ \\text{kPa}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\rho g h = 1000 \\times 10 \\times 10 = 10^5\\ \\text{Pa} = 100\\ \\text{kPa}$. Option C is the ATMOSPHERIC pressure — the absolute value would be about twice $10^5\\ \\text{Pa}$."
+      },
+      {
+        "mcqId": "P08-MCQ02",
+        "stemLatex": "A block of ice floating in a glass of pure water melts completely. The water level:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "rises"
+          },
+          {
+            "id": "B",
+            "latex": "falls"
+          },
+          {
+            "id": "C",
+            "latex": "remains unchanged"
+          },
+          {
+            "id": "D",
+            "latex": "first rises, then falls"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Floating ice already displaces water equal to its own weight, and melting converts it into exactly that volume of water — level unchanged. Rising needs trapped impurities or a lighter host liquid."
+      },
+      {
+        "mcqId": "P08-MCQ03",
+        "stemLatex": "Water flows at $3\\ \\text{m/s}$ through a pipe of radius $2\\ \\text{cm}$. In a section of radius $1\\ \\text{cm}$ the speed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$6\\ \\text{m/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$12\\ \\text{m/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1.5\\ \\text{m/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$3\\ \\text{m/s}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$A \\propto r^2$: radius halved gives area $\\tfrac{1}{4}$, so $v$ jumps $\\times 4$ to $12\\ \\text{m/s}$ by $A_1v_1 = A_2v_2$."
+      },
+      {
+        "mcqId": "P08-MCQ04",
+        "stemLatex": "A tank has an orifice $5\\ \\text{m}$ below the free surface ($g = 10\\ \\text{m/s}^2$). The efflux speed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5\\ \\text{m/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$10\\ \\text{m/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\sqrt{5}\\ \\text{m/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$50\\ \\text{m/s}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Torricelli: $v = \\sqrt{2gh} = \\sqrt{2 \\times 10 \\times 5} = 10\\ \\text{m/s}$ — free-fall speed from that depth."
+      },
+      {
+        "mcqId": "P08-MCQ05",
+        "stemLatex": "$2\\ \\text{Pa\\,s}$ expressed in poise is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.2\\ \\text{poise}$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\ \\text{poise}$"
+          },
+          {
+            "id": "C",
+            "latex": "$20\\ \\text{poise}$"
+          },
+          {
+            "id": "D",
+            "latex": "$200\\ \\text{poise}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$1\\ \\text{Pa\\,s} = 10\\ \\text{poise}$, so $2\\ \\text{Pa\\,s} = 20\\ \\text{poise}$. Reversing the factor picks the $0.2$ trap."
+      },
+      {
+        "mcqId": "P08-MCQ06",
+        "stemLatex": "In Poiseuille flow, doubling the tube radius multiplies the volume flow rate by:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$4$"
+          },
+          {
+            "id": "C",
+            "latex": "$8$"
+          },
+          {
+            "id": "D",
+            "latex": "$16$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$Q \\propto R^4$: $2^4 = 16$. The $R^4$ leverage is the most-tested fluid fact."
+      },
+      {
+        "mcqId": "P08-MCQ07",
+        "stemLatex": "A sphere falling through a viscous liquid reaches terminal velocity $v_t$. Doubling its radius (same densities, same liquid) makes $v_t$:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2 v_t$"
+          },
+          {
+            "id": "B",
+            "latex": "$4 v_t$"
+          },
+          {
+            "id": "C",
+            "latex": "$8 v_t$"
+          },
+          {
+            "id": "D",
+            "latex": "$v_t$ unchanged"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Stokes: $v_t = \\frac{2r^2(\\rho - \\sigma)g}{9\\eta} \\propto r^2$, so $r \\to 2r$ gives $4 v_t$."
+      },
+      {
+        "mcqId": "P08-MCQ08",
+        "stemLatex": "A hydraulic press has pistons of area $5\\ \\text{cm}^2$ and $50\\ \\text{cm}^2$. A $20\\ \\text{N}$ force on the small piston lifts, on the large piston, a maximum load of:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$20\\ \\text{N}$"
+          },
+          {
+            "id": "B",
+            "latex": "$100\\ \\text{N}$"
+          },
+          {
+            "id": "C",
+            "latex": "$200\\ \\text{N}$"
+          },
+          {
+            "id": "D",
+            "latex": "$2000\\ \\text{N}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$\\frac{F_2}{F_1} = \\frac{A_2}{A_1} = 10$, so $F_2 = 200\\ \\text{N}$. The large piston also moves only $\\tfrac{1}{10}$ of the small piston's distance."
+      },
+      {
+        "mcqId": "P08-MCQ09",
+        "stemLatex": "Along a horizontal streamline of ideal flow, the speed doubles from $v$ to $2v$. The pressure change $P_2 - P_1$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+\\tfrac{1}{2}\\rho v^2$"
+          },
+          {
+            "id": "B",
+            "latex": "$-\\tfrac{3}{2}\\rho v^2$"
+          },
+          {
+            "id": "C",
+            "latex": "$-\\tfrac{1}{2}\\rho v^2$"
+          },
+          {
+            "id": "D",
+            "latex": "$-\\rho v^2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$P_1 + \\tfrac12\\rho v^2 = P_2 + \\tfrac12\\rho(2v)^2 = P_2 + 2\\rho v^2$, so $P_2 - P_1 = -\\tfrac{3}{2}\\rho v^2$: pressure drops by the difference of the speed heads."
+      },
+      {
+        "mcqId": "P08-MCQ10",
+        "stemLatex": "On heating, the viscosity of a LIQUID and of a GAS respectively:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "increases, increases"
+          },
+          {
+            "id": "B",
+            "latex": "decreases, increases"
+          },
+          {
+            "id": "C",
+            "latex": "decreases, decreases"
+          },
+          {
+            "id": "D",
+            "latex": "increases, decreases"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Liquids lose cohesive strength (viscosity falls); gases gain molecular mixing (viscosity rises). The reversal is a classic conceptual option."
+      }
+    ],
+    "memoryHooks": [
+      "Pressure at depth asks only HOW DEEP, never HOW WIDE — shape is irrelevant.",
+      "Pascal: squeeze a liquid and every wall feels the same squeeze.",
+      "Floating ice melting never raises pure-water level — its displacement is already its melt.",
+      "Narrow pipe = fast water: halve the radius, quarter the area, quadruple the speed.",
+      "Bernoulli is a ledger: pay speed or height, save pressure.",
+      "Torricelli efflux = free-fall speed: $\\sqrt{2gh}$.",
+      "$1\\ \\text{Pa\\,s} = 10\\ \\text{poise}$ — SI is ten times the poise, not a tenth.",
+      "Poiseuille's $R^4$: doubling radius buys $16\\times$ flow.",
+      "Stokes terminal speed grows with $r^2$ — big raindrops outfall drizzle.",
+      "Heat a liquid, it thins; heat a gas, it thickens."
+    ],
+    "commonMistakes": [
+      "Reporting absolute pressure ($P_0 + \\rho gh$) when the question asks gauge — read the wording.",
+      "Assuming hydrostatic pressure depends on container shape or total liquid volume.",
+      "Scaling speed linearly with radius in continuity — it scales with $1/r^2$.",
+      "Reversing the poise conversion ($1\\ \\text{Pa\\,s} \\neq 0.1$ poise).",
+      "Using $Q \\propto R^2$ instead of $R^4$ in Poiseuille problems.",
+      "Letting ice-melt water rise the level of pure water — it does not.",
+      "Forgetting the density difference $(\\rho - \\sigma)$ in Stokes terminal velocity.",
+      "Applying Bernoulli across viscous or unsteady flow without justification.",
+      "Treating faster flow as higher pressure on a horizontal streamline — it is lower."
+    ],
+    "examChecklist": [
+      "Decide gauge vs absolute before computing $\\rho g h$.",
+      "Continuity first: fix speeds from area ratios, then bring Bernoulli.",
+      "Efflux and free-fall share $\\sqrt{2gh}$ — reuse the shortcut.",
+      "Convert viscosity units explicitly; write the $10\\times$ factor down.",
+      "Poiseuille scaling: exponent 4 on radius, 1 on length and $\\eta^{-1}$.",
+      "Stokes: check $\\rho > \\sigma$ for sinking, $\\rho < \\sigma$ for rising bubbles.",
+      "Floatation: submerged fraction = density ratio.",
+      "Ice-in-water level questions: unchanged, unless trapped mass or lighter liquid.",
+      "Bernoulli numerics on horizontal lines: subtract speed heads $\\tfrac12\\rho\\Delta(v^2)$.",
+      "Hydraulic press: force gain = area ratio, displacement loss = same ratio.",
+      "Re-verify one arithmetic step with units carried through."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 11 Physics, Part II",
+        "author": "NCERT",
+        "chapters": "Ch. 10 (Mechanical Properties of Fluids), §10.1–10.6",
+        "note": "Pressure, Pascal, Archimedes, continuity, Bernoulli, viscosity, Poiseuille and Stokes — the full span this pack compresses for revision."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "Owner-approved (session sign-off on batch 2, 2026-11-25)",
+      "reviewedAt": "2026-11-25 (owner approved; batch 3 authorized)"
+    }
+  }
 }

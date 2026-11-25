@@ -1,0 +1,642 @@
+{
+  "unitId": "C04",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "C04-PRD01",
+        "heading": "Oxidation Numbers and the Peroxide Traps",
+        "proseLatex": "Oxidation = electron loss (oxidation number rises; the species is the reducing agent); reduction = electron gain (ON falls; oxidizing agent). Oxygen is $-2$ EXCEPT in peroxides where it is $-1$ — that single exception defuses JELET's favourite traps: in $\\text{CrO}_5$ (butterfly, two peroxo rings) chromium is $+6$, NOT $+10$; in Caro's acid $\\text{H}_2\\text{SO}_5$ sulphur is $+6$, NOT $+8$. Micro-check: $\\text{CrO}_5$ carries four peroxo O ($-1$ each) and one oxo O ($-2$): $x + 4(-1) + (-2) = 0 \\Rightarrow x = +6$."
+      },
+      {
+        "prdId": "C04-PRD02",
+        "heading": "n-Factors and Equivalent Weights",
+        "proseLatex": "The $n$-factor is electrons transferred per formula unit, and it depends on the MEDIUM. For $\\text{KMnO}_4$: $n_f = 5$ in acid ($\\text{Mn}^{2+}$), $3$ in neutral/faintly alkaline ($\\text{MnO}_2$), $1$ in strongly alkaline ($\\text{MnO}_4^{2-}$); for acidified $\\text{K}_2\\text{Cr}_2\\text{O}_7$, $n_f = 6$ (two Cr, $+6 \\to +3$ each). Equivalent weight $E = \\frac{M}{n_f}$. Micro-check: $E(\\text{KMnO}_4)$ in acid $= \\frac{158}{5} = 31.6$; in neutral medium $\\frac{158}{3} \\approx 52.7$ — three different answers from one salt."
+      },
+      {
+        "prdId": "C04-PRD03",
+        "heading": "Faraday's Laws of Electrolysis",
+        "proseLatex": "One faraday $F = 96500\\ \\text{C}$ deposits ONE gram-equivalent of any substance. First law: $w = \\frac{E\\,I\\,t}{96500} = \\frac{M\\,I\\,t}{n_f\\,F}$. Second law (cells in series, equal charge): $\\frac{w_1}{w_2} = \\frac{E_1}{E_2}$. Always compute charge first: $Q = It$, then moles of electrons $= \\frac{Q}{F}$. Micro-check: $0.5\\ \\text{F}$ through $\\text{AgNO}_3$: $w = 108 \\times 0.5 = 54\\ \\text{g}$ of Ag ($n_f = 1$)."
+      },
+      {
+        "prdId": "C04-PRD04",
+        "heading": "Conductance: κ Falls, Λm Rises",
+        "proseLatex": "Specific conductivity $\\kappa$ counts ions per $\\text{cm}^3$, so DILUTION lowers it. Molar conductivity $\\Lambda_m = \\frac{1000\\,\\kappa}{M}$ counts conducting power per mole — dilution increases it (ions travel farther apart, less mutual blocking). Kohlrausch's law adds limiting values independently: $\\Lambda_m^\\circ = \\nu_+\\lambda_+^\\circ + \\nu_-\\lambda_-^\\circ$. Micro-check: dilute 10-fold: $\\kappa$ drops, $M$ drops 10-fold faster than $\\kappa$, so $\\Lambda_m = \\frac{1000\\kappa}{M}$ climbs."
+      },
+      {
+        "prdId": "C04-PRD05",
+        "heading": "Galvanic Cells: Anatomy and Standard EMF",
+        "proseLatex": "LOAN for galvanic cells: Left electrode — Oxidation — Anode — Negative. (In electrolytic cells the anode is POSITIVE.) Standard EMF uses both half-cells as reduction potentials: $E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}}$, and spontaneity links everything to Gibbs: $\\Delta G^\\circ = -nFE^\\circ_{\\text{cell}} < 0$. Micro-check: Daniell: $E^\\circ = 0.34 - (-0.76) = 1.10\\ \\text{V}$, so $\\Delta G^\\circ = -2 \\times 96500 \\times 1.10 \\approx -212\\ \\text{kJ/mol}$ — spontaneous."
+      },
+      {
+        "prdId": "C04-PRD06",
+        "heading": "Nernst Equation and the Cell–Equilibrium Bridge",
+        "proseLatex": "At $298\\ \\text{K}$: $E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\frac{0.0591}{n}\\log_{10} Q$ (reaction quotient $Q$). The cell dies at equilibrium: $E = 0$ exactly when $Q = K_{\\text{eq}}$, giving $\\log K_{\\text{eq}} = \\frac{nE^\\circ}{0.0591}$. Remember $n$ — electrons in the BALANCED overall reaction. Micro-check: Daniell with $[\\text{Cu}^{2+}] = 0.1$, $[\\text{Zn}^{2+}] = 1$: $Q = 10$, $E = 1.10 - \\frac{0.0591}{2} \\times 1 \\approx 1.07\\ \\text{V}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "C04-SF01",
+        "label": "Oxidation-number rules",
+        "latex": "$\\sum \\text{ON} = \\text{charge};\\quad \\text{O} = -2\\ (\\text{peroxide } -1),\\ \\text{H} = +1\\ (\\text{hydride } -1),\\ \\text{F} = -1$",
+        "use": "Assign before anything else."
+      },
+      {
+        "sfId": "C04-SF02",
+        "label": "The two peroxide traps",
+        "latex": "$\\text{CrO}_5: \\text{Cr} = +6;\\qquad \\text{H}_2\\text{SO}_5: \\text{S} = +6$",
+        "use": "Butterfly/peroxo O are $-1$, so the central atom never exceeds group valence."
+      },
+      {
+        "sfId": "C04-SF03",
+        "label": "$\\text{KMnO}_4$ n-factors",
+        "latex": "$n_f = 5\\ (\\text{acidic}),\\ 3\\ (\\text{neutral}),\\ 1\\ (\\text{strongly alkaline})$",
+        "use": "Medium decides the electron count."
+      },
+      {
+        "sfId": "C04-SF04",
+        "label": "Acidified dichromate n-factor",
+        "latex": "$\\text{K}_2\\text{Cr}_2\\text{O}_7: n_f = 6$",
+        "use": "Two Cr($+6 \\to +3$) per formula unit."
+      },
+      {
+        "sfId": "C04-SF05",
+        "label": "Equivalent weight and normality",
+        "latex": "$E = \\frac{M}{n_f};\\quad \\text{equivalents} = N \\times V(\\text{L})$",
+        "use": "Titration arithmetic engine."
+      },
+      {
+        "sfId": "C04-SF06",
+        "label": "Faraday 1st law",
+        "latex": "$w = \\frac{E\\,I\\,t}{96500} = \\frac{M\\,I\\,t}{n_f \\cdot 96500}$",
+        "use": "Mass deposited/liberated by current."
+      },
+      {
+        "sfId": "C04-SF07",
+        "label": "Faraday 2nd law (series cells)",
+        "latex": "$\\frac{w_1}{w_2} = \\frac{E_1}{E_2}$",
+        "use": "Same charge splits mass by equivalent weight."
+      },
+      {
+        "sfId": "C04-SF08",
+        "label": "Charge and electron count",
+        "latex": "$Q = I\\,t;\\quad \\text{mol } e^- = \\frac{Q}{F},\\ F = 96500\\ \\text{C/mol}$",
+        "use": "Do this first in every electrolysis problem."
+      },
+      {
+        "sfId": "C04-SF09",
+        "label": "Molar conductivity",
+        "latex": "$\\Lambda_m = \\frac{1000\\,\\kappa}{M}\\ \\ (\\kappa\\ \\text{S/cm},\\ M\\ \\text{mol/L})$",
+        "use": " rises on dilution while $\\kappa$ falls."
+      },
+      {
+        "sfId": "C04-SF10",
+        "label": "Kohlrausch's law",
+        "latex": "$\\Lambda_m^\\circ = \\nu_+\\lambda_+^\\circ + \\nu_-\\lambda_-^\\circ$",
+        "use": "Limiting molar conductivities add independently."
+      },
+      {
+        "sfId": "C04-SF11",
+        "label": "Standard cell EMF",
+        "latex": "$E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}}$",
+        "use": "Both potentials written as reductions."
+      },
+      {
+        "sfId": "C04-SF12",
+        "label": "Gibbs–EMF link",
+        "latex": "$\\Delta G^\\circ = -nFE^\\circ_{\\text{cell}} = -2.303\\,RT\\log_{10} K$",
+        "use": "Spontaneity and equilibrium in one line."
+      },
+      {
+        "sfId": "C04-SF13",
+        "label": "Nernst equation (298 K)",
+        "latex": "$E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\frac{0.0591}{n}\\log_{10} Q$",
+        "use": "Non-standard concentrations."
+      },
+      {
+        "sfId": "C04-SF14",
+        "label": "Cell potential at equilibrium",
+        "latex": "$\\log K_{\\text{eq}} = \\frac{nE^\\circ_{\\text{cell}}}{0.0591}$",
+        "use": "$E = 0$ when $Q = K$."
+      },
+      {
+        "sfId": "C04-SF15",
+        "label": "Combining half-cells (E° is intensive)",
+        "latex": "$n_3 E_3^\\circ = n_1 E_1^\\circ + n_2 E_2^\\circ$",
+        "use": "Add $\\Delta G^\\circ$ values, NEVER raw $E^\\circ$."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "C04-DEF01",
+        "term": "Oxidation / reduction",
+        "definition": "Oxidation: loss of electrons, ON increases. Reduction: gain of electrons, ON decreases."
+      },
+      {
+        "defId": "C04-DEF02",
+        "term": "Oxidizing vs reducing agent",
+        "definition": "Oxidizing agent gains electrons (is reduced); reducing agent loses electrons (is oxidized)."
+      },
+      {
+        "defId": "C04-DEF03",
+        "term": "Oxidation number",
+        "definition": "Formal charge an atom would carry if every bond were fully ionic."
+      },
+      {
+        "defId": "C04-DEF04",
+        "term": "n-factor / equivalent weight",
+        "definition": "Electrons transferred per formula unit; $E = M/n_f$. Depends on the reaction medium."
+      },
+      {
+        "defId": "C04-DEF05",
+        "term": "Faraday constant",
+        "definition": "$F = N_A e \\approx 96500\\ \\text{C/mol}$ — charge of one mole of electrons."
+      },
+      {
+        "defId": "C04-DEF06",
+        "term": "Specific conductivity κ",
+        "definition": "Conductance of $1\\ \\text{cm}^3$ of solution; falls on dilution (fewer ions per cm³)."
+      },
+      {
+        "defId": "C04-DEF07",
+        "term": "Molar conductivity Λm",
+        "definition": "$\\Lambda_m = 1000\\kappa/M$; conducting power per mole; rises on dilution."
+      },
+      {
+        "defId": "C04-DEF08",
+        "term": "Kohlrausch's law of independent migration",
+        "definition": "At infinite dilution each ion contributes its own limiting molar conductivity, independent of the counter-ion."
+      },
+      {
+        "defId": "C04-DEF09",
+        "term": "Anode and cathode",
+        "definition": "Oxidation always at the anode, reduction at the cathode — polarity flips between galvanic (anode −) and electrolytic (anode +)."
+      },
+      {
+        "defId": "C04-DEF10",
+        "term": "Standard electrode potential",
+        "definition": "Half-cell reduction potential vs SHE at unit activity, $298\\ \\text{K}$, 1 atm gas."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "C04-CMP01",
+        "title": "Oxidation vs reduction",
+        "columns": [
+          "Aspect",
+          "Oxidation",
+          "Reduction"
+        ],
+        "rows": [
+          {
+            "label": "Electrons",
+            "values": [
+              "lost",
+              "gained"
+            ]
+          },
+          {
+            "label": "Oxidation number",
+            "values": [
+              "increases",
+              "decreases"
+            ]
+          },
+          {
+            "label": "Species acts as",
+            "values": [
+              "reducing agent",
+              "oxidizing agent"
+            ]
+          },
+          {
+            "label": "Happens at",
+            "values": [
+              "anode",
+              "cathode"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C04-CMP02",
+        "title": "κ vs Λm on dilution",
+        "columns": [
+          "Quantity",
+          "On dilution",
+          "Why"
+        ],
+        "rows": [
+          {
+            "label": "Specific conductivity $\\kappa$",
+            "values": [
+              "decreases",
+              "fewer ions per $\\text{cm}^3$"
+            ]
+          },
+          {
+            "label": "Molar conductivity $\\Lambda_m$",
+            "values": [
+              "increases",
+              "per-mole conducting power; ions less crowded"
+            ]
+          },
+          {
+            "label": "Limiting value",
+            "values": [
+              "$\\to 0$",
+              "$\\to \\Lambda_m^\\circ$ (Kohlrausch)"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C04-CMP03",
+        "title": "Galvanic vs electrolytic cell",
+        "columns": [
+          "Feature",
+          "Galvanic",
+          "Electrolytic"
+        ],
+        "rows": [
+          {
+            "label": "Energy direction",
+            "values": [
+              "chemical → electrical",
+              "electrical → chemical"
+            ]
+          },
+          {
+            "label": "Anode polarity",
+            "values": [
+              "negative",
+              "positive"
+            ]
+          },
+          {
+            "label": "Cathode polarity",
+            "values": [
+              "positive",
+              "negative"
+            ]
+          },
+          {
+            "label": "Reaction",
+            "values": [
+              "spontaneous",
+              "forced"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C04-CMP04",
+        "title": "KMnO₄ by medium",
+        "columns": [
+          "Medium",
+          "Product",
+          "$n_f$"
+        ],
+        "rows": [
+          {
+            "label": "Acidic",
+            "values": [
+              "$\\text{Mn}^{2+}$",
+              "$5$"
+            ]
+          },
+          {
+            "label": "Neutral / faintly alkaline",
+            "values": [
+              "$\\text{MnO}_2$",
+              "$3$"
+            ]
+          },
+          {
+            "label": "Strongly alkaline",
+            "values": [
+              "$\\text{MnO}_4^{2-}$",
+              "$1$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "C04-MCQ01",
+        "stemLatex": "The oxidation state of Cr in $\\text{CrO}_5$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+10$"
+          },
+          {
+            "id": "B",
+            "latex": "$+6$"
+          },
+          {
+            "id": "C",
+            "latex": "$+4$"
+          },
+          {
+            "id": "D",
+            "latex": "$+8$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Four peroxo O at $-1$ and one oxo O at $-2$: $x - 4 - 2 = 0 \\Rightarrow x = +6$. Chromium never exceeds its group valence $+6$ — $+10$ is the classic trap."
+      },
+      {
+        "mcqId": "C04-MCQ02",
+        "stemLatex": "The oxidation state of S in Caro's acid $\\text{H}_2\\text{SO}_5$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+8$"
+          },
+          {
+            "id": "B",
+            "latex": "$+6$"
+          },
+          {
+            "id": "C",
+            "latex": "$+4$"
+          },
+          {
+            "id": "D",
+            "latex": "$+2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Structure has one $\\mathrm{-O-O-}$ bridge (2 peroxo O at $-1$ each) plus three oxo O at $-2$: $2(+1) + x + 3(-2) + 2(-1) = 0 \\Rightarrow x = +6$. Sulphur cannot exceed $+6$."
+      },
+      {
+        "mcqId": "C04-MCQ03",
+        "stemLatex": "Equivalent weight of $\\text{KMnO}_4$ ($M = 158$) in NEUTRAL medium:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$31.6$"
+          },
+          {
+            "id": "B",
+            "latex": "$52.7$"
+          },
+          {
+            "id": "C",
+            "latex": "$158$"
+          },
+          {
+            "id": "D",
+            "latex": "$79$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Neutral medium: $n_f = 3$ ($\\text{MnO}_4^- \\to \\text{MnO}_2$). $E = \\frac{158}{3} \\approx 52.7$ — NOT $\\frac{158}{5} = 31.6$, which is the acidic value."
+      },
+      {
+        "mcqId": "C04-MCQ04",
+        "stemLatex": "Mass of silver ($E = 108$) deposited by $0.5\\ \\text{F}$ of charge:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$108\\ \\text{g}$"
+          },
+          {
+            "id": "B",
+            "latex": "$54\\ \\text{g}$"
+          },
+          {
+            "id": "C",
+            "latex": "$27\\ \\text{g}$"
+          },
+          {
+            "id": "D",
+            "latex": "$216\\ \\text{g}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$1\\ \\text{F}$ deposits $1$ gram-equivalent: $w = 108 \\times 0.5 = 54\\ \\text{g}$."
+      },
+      {
+        "mcqId": "C04-MCQ05",
+        "stemLatex": "The SAME charge passes through $\\text{CuSO}_4$ and $\\text{AgNO}_3$ cells in series. Mass ratio Cu : Ag deposited:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$127 : 432$"
+          },
+          {
+            "id": "B",
+            "latex": "$63.5 : 108$"
+          },
+          {
+            "id": "C",
+            "latex": "$108 : 63.5$"
+          },
+          {
+            "id": "D",
+            "latex": "$1 : 2$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Faraday 2nd law: $\\frac{w_{\\text{Cu}}}{w_{\\text{Ag}}} = \\frac{E_{\\text{Cu}}}{E_{\\text{Ag}}} = \\frac{63.5/2}{108} = \\frac{31.75}{108} = \\frac{127}{432}$."
+      },
+      {
+        "mcqId": "C04-MCQ06",
+        "stemLatex": "Standard EMF of the Daniell cell ($\\text{Zn} | \\text{Zn}^{2+} || \\text{Cu}^{2+} | \\text{Cu}$), given $E^\\circ_{\\text{Cu}} = +0.34\\ \\text{V}$, $E^\\circ_{\\text{Zn}} = -0.76\\ \\text{V}$:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.42\\ \\text{V}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.10\\ \\text{V}$"
+          },
+          {
+            "id": "C",
+            "latex": "$-1.10\\ \\text{V}$"
+          },
+          {
+            "id": "D",
+            "latex": "$1.46\\ \\text{V}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}} = 0.34 - (-0.76) = 1.10\\ \\text{V}$."
+      },
+      {
+        "mcqId": "C04-MCQ07",
+        "stemLatex": "For the Daniell cell with $[\\text{Zn}^{2+}] = 1\\ \\text{M}$ and $[\\text{Cu}^{2+}] = 0.1\\ \\text{M}$, the cell EMF at $298\\ \\text{K}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1.10\\ \\text{V}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.07\\ \\text{V}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1.13\\ \\text{V}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.53\\ \\text{V}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$Q = \\frac{[\\text{Zn}^{2+}]}{[\\text{Cu}^{2+}]} = 10$: $E = 1.10 - \\frac{0.0591}{2}\\log 10 = 1.10 - 0.0296 \\approx 1.07\\ \\text{V}$."
+      },
+      {
+        "mcqId": "C04-MCQ08",
+        "stemLatex": "On dilution, specific conductivity $\\kappa$ and molar conductivity $\\Lambda_m$ respectively:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "both increase"
+          },
+          {
+            "id": "B",
+            "latex": "both decrease"
+          },
+          {
+            "id": "C",
+            "latex": "$\\kappa$ increases, $\\Lambda_m$ decreases"
+          },
+          {
+            "id": "D",
+            "latex": "$\\kappa$ decreases, $\\Lambda_m$ increases"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "Fewer ions per $\\text{cm}^3$ pull $\\kappa$ down; $\\Lambda_m = 1000\\kappa/M$ rises because $M$ falls faster and ions migrate farther apart."
+      },
+      {
+        "mcqId": "C04-MCQ09",
+        "stemLatex": "$\\Delta G^\\circ$ for the Daniell cell ($n = 2$, $E^\\circ = 1.10\\ \\text{V}$, $F = 96500\\ \\text{C/mol}$):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+212.3\\ \\text{kJ/mol}$"
+          },
+          {
+            "id": "B",
+            "latex": "$-212.3\\ \\text{kJ/mol}$"
+          },
+          {
+            "id": "C",
+            "latex": "$-106.2\\ \\text{kJ/mol}$"
+          },
+          {
+            "id": "D",
+            "latex": "$-424.6\\ \\text{kJ/mol}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\Delta G^\\circ = -nFE^\\circ = -2 \\times 96500 \\times 1.10 = -212300\\ \\text{J} \\approx -212.3\\ \\text{kJ/mol}$ — negative, hence spontaneous."
+      },
+      {
+        "mcqId": "C04-MCQ10",
+        "stemLatex": "Given $\\text{Fe}^{3+} + e^- \\to \\text{Fe}^{2+}$, $E^\\circ_1 = 0.77\\ \\text{V}$ and $\\text{Fe}^{2+} + 2e^- \\to \\text{Fe}$, $E^\\circ_2 = -0.44\\ \\text{V}$, the standard potential of $\\text{Fe}^{3+} + 3e^- \\to \\text{Fe}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+0.33\\ \\text{V}$"
+          },
+          {
+            "id": "B",
+            "latex": "$-0.04\\ \\text{V}$"
+          },
+          {
+            "id": "C",
+            "latex": "$-0.11\\ \\text{V}$"
+          },
+          {
+            "id": "D",
+            "latex": "$+0.04\\ \\text{V}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Combine via $\\Delta G^\\circ$: $n_3E_3^\\circ = 1(0.77) + 2(-0.44) = -0.11$, so $E_3^\\circ = \\frac{-0.11}{3} \\approx -0.037\\ \\text{V} \\approx -0.04\\ \\text{V}$. Adding raw potentials ($0.33$) is the trap — $E^\\circ$ is intensive."
+      }
+    ],
+    "memoryHooks": [
+      "Peroxide O = $-1$: butterflies keep Cr at $+6$ and Caro's S at $+6$.",
+      "Medium picks the n-factor: Mn gives $5, 3, 1$ in acid, neutral, base.",
+      "One faraday, one gram-equivalent — of ANY substance.",
+      "Series cells share charge; masses split by equivalent weights.",
+      "κ falls, Λm rises — dilution's seesaw.",
+      "LOAN: Left – Oxidation – Anode – Negative (galvanic cells).",
+      "$E^\\circ$ is intensive: never multiply it; add $\\Delta G^\\circ$ instead.",
+      "$\\frac{0.0591}{n}$ — forgetting $n$ is a whole-mark error.",
+      "$E = 0$ when $Q = K$: the cell flat-lines at equilibrium.",
+      "$\\Delta G^\\circ$ negative $\\Leftrightarrow E^\\circ$ positive $\\Leftrightarrow K > 1$."
+    ],
+    "commonMistakes": [
+      "Assigning Cr $= +10$ in $\\text{CrO}_5$ or S $= +8$ in $\\text{H}_2\\text{SO}_5$ (counting peroxo O as $-2$).",
+      "Using the acidic $n_f = 5$ for $\\text{KMnO}_4$ in neutral or alkaline medium.",
+      "Multiplying $E^\\circ$ by $n$ when scaling a half-reaction.",
+      "Claiming $\\kappa$ rises on dilution.",
+      "Swapping anode polarity between galvanic (−) and electrolytic (+) cells.",
+      "Using $0.0591$ without dividing by $n$ in the Nernst equation.",
+      "Writing $\\log K = E^\\circ/0.0591$ without the factor $n$.",
+      "Dropping $n_f$ from $w = \\frac{MIt}{n_f \\cdot 96500}$.",
+      "Reporting $\\Delta G^\\circ > 0$ for a spontaneous ($E^\\circ > 0$) cell."
+    ],
+    "examChecklist": [
+      "Assign peroxo O ($-1$) before summing oxidation numbers.",
+      "Pick the n-factor by MEDIUM, then $E = M/n_f$.",
+      "Start every electrolysis problem with $Q = It$, then moles of $e^- = Q/F$.",
+      "In series cells, masses are proportional to equivalent weights only.",
+      "Recite κ↓ / Λm↑ on dilution, with the reason.",
+      "$E^\\circ_{\\text{cell}} = $ cathode − anode, both as reduction potentials.",
+      "Nernst: divide $0.0591$ by $n$; use $Q$ with balanced-stoichiometry exponents.",
+      "$\\Delta G^\\circ = -nFE^\\circ$; sign-check against spontaneity.",
+      "Combine half-cells through $n_3E_3^\\circ = n_1E_1^\\circ + n_2E_2^\\circ$, never raw $E^\\circ$.",
+      "$\\log K = nE^\\circ/0.0591$ bridges cells and equilibria.",
+      "Electrolytic cells: anode positive, cathode negative."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Chemistry, Part I",
+        "author": "NCERT",
+        "chapters": "Unit 2 (Electrochemistry), §2.1–2.4",
+        "note": "Galvanic cells, Nernst, conductance and electrolysis — the fact base this pack compresses."
+      },
+      {
+        "book": "NCERT Class 11 Chemistry, Part II",
+        "author": "NCERT",
+        "chapters": "Unit 8 (Redox Reactions)",
+        "note": "Oxidation-number assignment and redox balancing behind the pack's first two primers."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "Owner-approved (session sign-off on batch 3, 2026-11-25)",
+      "reviewedAt": "2026-11-25 (owner approved; batch 4 authorized)"
+    }
+  }
+}

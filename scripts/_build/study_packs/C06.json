@@ -1,0 +1,637 @@
+{
+  "unitId": "C06",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "C06-PRD01",
+        "heading": "Ore vs Mineral — and the Ore Formulas That Pay",
+        "proseLatex": "Every ore is a mineral, but not every mineral is an ore: an ore is the mineral from which the metal can be extracted PROFITABLY. JELET's must-know list: bauxite $\\text{Al}_2\\text{O}_3\\cdot 2\\text{H}_2\\text{O}$ and cryolite $\\text{Na}_3\\text{AlF}_6$ (Al); haematite $\\text{Fe}_2\\text{O}_3$, magnetite $\\text{Fe}_3\\text{O}_4$, siderite $\\text{FeCO}_3$ (Fe); copper pyrites $\\text{CuFeS}_2$, malachite $\\text{CuCO}_3\\cdot\\text{Cu(OH)}_2$ (Cu); zinc blende $\\text{ZnS}$, calamine $\\text{ZnCO}_3$ (Zn); galena $\\text{PbS}$ (Pb). Micro-check: iron pyrites $\\text{FeS}_2$ (fool's gold) is NOT a workable iron ore — too much sulphur."
+      },
+      {
+        "prdId": "C06-PRD02",
+        "heading": "Concentration: Match the Method to the Ore",
+        "proseLatex": "Gangue (unwanted rocky matrix) is stripped before extraction. Sulphide ores go to FROTH FLOTATION: powdered ore + water + pine oil (collector) — air bubbles carry sulphide particles up; $\\text{NaCN}$ acts as depressant when $\\text{ZnS}$ must be separated from $\\text{PbS}$. Bauxite (an oxide hydrate) uses Bayer chemical LEACHING with hot concentrated NaOH. Magnetite, being ferromagnetic, uses magnetic separation. Micro-check: $\\text{ZnS}$ is a sulphide $\\Rightarrow$ froth flotation, never leaching."
+      },
+      {
+        "prdId": "C06-PRD03",
+        "heading": "Calcination vs Roasting — and Flux + Slag",
+        "proseLatex": "CALCINATION heats carbonate/hydrated ores with NO (or limited) air: $\\text{ZnCO}_3 \\to \\text{ZnO} + \\text{CO}_2$. ROASTING heats sulphide ores in EXCESS air: $2\\text{ZnS} + 3\\text{O}_2 \\to 2\\text{ZnO} + 2\\text{SO}_2$. A FLUX binds the gangue chemically: $\\underbrace{\\text{CaO}}_{\\text{basic flux}} + \\underbrace{\\text{SiO}_2}_{\\text{acidic gangue}} \\to \\underbrace{\\text{CaSiO}_3}_{\\text{slag}}$ — limestone is the blast furnace's cleaning agent. Micro-check: carbonate + no air $=$ calcination; sulphide + excess air $=$ roasting — never swap them."
+      },
+      {
+        "prdId": "C06-PRD04",
+        "heading": "Blast Furnace Iron Smelting",
+        "proseLatex": "Inside the blast furnace, coke burns to CO which reduces haematite, while limestone decomposes ($\\text{CaCO}_3 \\to \\text{CaO} + \\text{CO}_2$) to supply the basic flux that mops up acidic $\\text{SiO}_2$ gangue as $\\text{CaSiO}_3$ slag floating on the molten iron. Micro-check: the furnace sells two products — pig iron (metal) and $\\text{CaSiO}_3$ slag (waste); both come from one limestone charge."
+      },
+      {
+        "prdId": "C06-PRD05",
+        "heading": "Hall–Héroult: Electrolytic Aluminium",
+        "proseLatex": "Aluminium is too electropositive for carbon reduction, so pure alumina is dissolved in molten cryolite $\\text{Na}_3\\text{AlF}_6$ + fluorspar $\\text{CaF}_2$: pure $\\text{Al}_2\\text{O}_3$ melts above $2300\\ \\text{K}$, but the melt fuses near $\\sim 1140\\ \\text{K}$ and conducts far better. At the cathode $\\text{Al}^{3+} + 3e^- \\to \\text{Al}$; the carbon anode is consumed burning the liberated oxygen. Micro-check: cryolite's job is SOLVENT/FLUX — it lowers the fusion point and raises conductivity; it does not chemically reduce alumina."
+      },
+      {
+        "prdId": "C06-PRD06",
+        "heading": "Refining Map and Engineering Alloys",
+        "proseLatex": "Ultrapure routes: electrolytic refining (Cu, Zn), Mond process (Ni via $\\text{Ni(CO)}_4$, decomposed at $\\sim 230^\\circ\\text{C}$ on Ni powder), van Arkel iodide method (Ti, Zr), zone refining (Si, Ge — melt zone drags impurities along). High-yield alloys: brass $\\text{Cu}+\\text{Zn}$, bronze $\\text{Cu}+\\text{Sn}$, german silver $\\text{Cu}+\\text{Zn}+\\text{Ni}$ (ZERO silver), gunmetal $\\text{Cu}+\\text{Sn}+\\text{Zn}$, solder $\\text{Pb}+\\text{Sn}$, duralumin $\\text{Al}+\\text{Cu}+\\text{Mg}+\\text{Mn}$ (aircraft), stainless steel $\\text{Fe}+\\text{Cr}+\\text{Ni}+\\text{C}$, nichrome $\\text{Ni}+\\text{Cr}+\\text{Fe}$ (heating coils). Micro-check: the name lies — german silver contains $0\\%$ Ag."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "C06-SF01",
+        "label": "Aluminium ores",
+        "latex": "$\\text{Bauxite}: \\text{Al}_2\\text{O}_3\\cdot 2\\text{H}_2\\text{O};\\quad \\text{Cryolite}: \\text{Na}_3\\text{AlF}_6$",
+        "use": "Bauxite is the ore; cryolite is the electrolyte solvent."
+      },
+      {
+        "sfId": "C06-SF02",
+        "label": "Iron ores",
+        "latex": "$\\text{Haematite}: \\text{Fe}_2\\text{O}_3;\\quad \\text{Magnetite}: \\text{Fe}_3\\text{O}_4;\\quad \\text{Siderite}: \\text{FeCO}_3$",
+        "use": "Pick the formula by name."
+      },
+      {
+        "sfId": "C06-SF03",
+        "label": "Copper ores",
+        "latex": "$\\text{Copper pyrites}: \\text{CuFeS}_2;\\quad \\text{Malachite}: \\text{CuCO}_3\\cdot\\text{Cu(OH)}_2$",
+        "use": "$\\text{CuFeS}_2$ is the main commercial Cu ore."
+      },
+      {
+        "sfId": "C06-SF04",
+        "label": "Zinc and lead ores",
+        "latex": "$\\text{Zinc blende}: \\text{ZnS};\\quad \\text{Calamine}: \\text{ZnCO}_3;\\quad \\text{Galena}: \\text{PbS}$",
+        "use": "Blende/carbonate pairing decides calcination vs roasting."
+      },
+      {
+        "sfId": "C06-SF05",
+        "label": "Concentration pairing",
+        "latex": "$\\text{sulphide} \\to \\text{froth flotation};\\quad \\text{bauxite (oxide hydrate)} \\to \\text{leaching};\\quad \\text{magnetite} \\to \\text{magnetic separation}$",
+        "use": "Ore type picks the method."
+      },
+      {
+        "sfId": "C06-SF06",
+        "label": "Froth-flotation additives",
+        "latex": "$\\text{pine oil} = \\text{collector};\\quad \\text{NaCN} = \\text{depressant} (\\text{ZnS/PbS separation})$",
+        "use": "NaCN wets-and-keeps-down one sulphide."
+      },
+      {
+        "sfId": "C06-SF07",
+        "label": "Calcination",
+        "latex": "$\\text{ZnCO}_3 \\to \\text{ZnO} + \\text{CO}_2;\\quad \\text{Al}_2\\text{O}_3\\cdot 2\\text{H}_2\\text{O} \\to \\text{Al}_2\\text{O}_3 + 2\\text{H}_2\\text{O}$",
+        "use": "Carbonates/hydrates, absence of air."
+      },
+      {
+        "sfId": "C06-SF08",
+        "label": "Roasting",
+        "latex": "$2\\text{ZnS} + 3\\text{O}_2 \\to 2\\text{ZnO} + 2\\text{SO}_2$",
+        "use": "Sulphides in excess air; SO₂ is the fingerprint."
+      },
+      {
+        "sfId": "C06-SF09",
+        "label": "Flux + gangue → slag",
+        "latex": "$\\text{CaO} + \\text{SiO}_2 \\to \\text{CaSiO}_3$",
+        "use": "Basic flux removes acidic gangue (and vice versa)."
+      },
+      {
+        "sfId": "C06-SF10",
+        "label": "Blast-furnace chemistry",
+        "latex": "$\\text{CaCO}_3 \\to \\text{CaO} + \\text{CO}_2;\\quad \\text{Fe}_2\\text{O}_3 + 3\\text{CO} \\to 2\\text{Fe} + 3\\text{CO}_2$",
+        "use": "Limestone flux + CO reduction."
+      },
+      {
+        "sfId": "C06-SF11",
+        "label": "Hall–Héroult melt and electrodes",
+        "latex": "$\\text{Al}_2\\text{O}_3$ in $\\text{Na}_3\\text{AlF}_6 + \\text{CaF}_2$;\\ cathode: $\\text{Al}^{3+} + 3e^- \\to \\text{Al}$;\\ anode: $\\text{C} + \\text{O}_2 \\to \\text{CO}_2$",
+        "use": "Cryolite lowers fusion point $\\sim 2300 \\to \\sim 1140\\ \\text{K}$."
+      },
+      {
+        "sfId": "C06-SF12",
+        "label": "Refining-process map",
+        "latex": "$\\text{Mond}: \\text{Ni(CO)}_4;\\quad \\text{van Arkel}: \\text{Ti, Zr (iodide)};\\quad \\text{zone}: \\text{Si, Ge};\\quad \\text{electrolytic}: \\text{Cu, Zn}$",
+        "use": "Named method → named metal."
+      },
+      {
+        "sfId": "C06-SF13",
+        "label": "Alloy compositions I",
+        "latex": "$\\text{Brass} = \\text{Cu+Zn};\\ \\text{Bronze} = \\text{Cu+Sn};\\ \\text{German silver} = \\text{Cu+Zn+Ni};\\ \\text{Gunmetal} = \\text{Cu+Sn+Zn}$",
+        "use": "German silver carries $0\\%$ Ag."
+      },
+      {
+        "sfId": "C06-SF14",
+        "label": "Alloy compositions II",
+        "latex": "$\\text{Solder} = \\text{Pb+Sn};\\ \\text{Duralumin} = \\text{Al+Cu+Mg+Mn};\\ \\text{Stainless steel} = \\text{Fe+Cr+Ni+C};\\ \\text{Nichrome} = \\text{Ni+Cr+Fe}$",
+        "use": "Match alloy to use: solder joints, aircraft frames, heaters."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "C06-DEF01",
+        "term": "Ore vs mineral",
+        "definition": "Mineral: natural compound of a metal. Ore: the mineral from which extraction is PROFITABLE — every ore is a mineral, not conversely."
+      },
+      {
+        "defId": "C06-DEF02",
+        "term": "Gangue (matrix)",
+        "definition": "The unwanted earthy impurity (e.g. $\\text{SiO}_2$) mixed with the ore."
+      },
+      {
+        "defId": "C06-DEF03",
+        "term": "Flux",
+        "definition": "Substance added to combine with gangue and form fusible slag; basic flux (CaO) for acidic gangue, acidic flux (SiO₂) for basic gangue."
+      },
+      {
+        "defId": "C06-DEF04",
+        "term": "Slag",
+        "definition": "Fusible flux–gangue combination ($\\text{CaSiO}_3$) that floats on the metal and is skimmed off."
+      },
+      {
+        "defId": "C06-DEF05",
+        "term": "Froth flotation",
+        "definition": "Concentration of sulphide ores: pine-oil-coated sulphide particles ride air bubbles; gangue sinks."
+      },
+      {
+        "defId": "C06-DEF06",
+        "term": "Calcination",
+        "definition": "Heating carbonate/hydrated ores in absence (or limited supply) of air; volatile matter (CO₂, H₂O) leaves."
+      },
+      {
+        "defId": "C06-DEF07",
+        "term": "Roasting",
+        "definition": "Heating sulphide ores in EXCESS air; sulphur leaves as SO₂."
+      },
+      {
+        "defId": "C06-DEF08",
+        "term": "Smelting",
+        "definition": "Carbon/CO reduction of the roasted/calcined ore to molten metal in a furnace (blast furnace for iron)."
+      },
+      {
+        "defId": "C06-DEF09",
+        "term": "Hall–Héroult process",
+        "definition": "Electrolytic extraction of Al from alumina dissolved in molten cryolite + fluorspar."
+      },
+      {
+        "defId": "C06-DEF10",
+        "term": "Zone refining",
+        "definition": "Ultrapurification (Si, Ge): a moving melt zone carries impurities to one end of the ingot."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "C06-CMP01",
+        "title": "Calcination vs roasting",
+        "columns": [
+          "Aspect",
+          "Calcination",
+          "Roasting"
+        ],
+        "rows": [
+          {
+            "label": "Ore type",
+            "values": [
+              "carbonate / hydrated",
+              "sulphide"
+            ]
+          },
+          {
+            "label": "Air supply",
+            "values": [
+              "absence / limited",
+              "excess"
+            ]
+          },
+          {
+            "label": "Volatile byproduct",
+            "values": [
+              "$\\text{CO}_2$, $\\text{H}_2\\text{O}$",
+              "$\\text{SO}_2$"
+            ]
+          },
+          {
+            "label": "Example",
+            "values": [
+              "$\\text{ZnCO}_3 \\to \\text{ZnO} + \\text{CO}_2$",
+              "$2\\text{ZnS} + 3\\text{O}_2 \\to 2\\text{ZnO} + 2\\text{SO}_2$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C06-CMP02",
+        "title": "Concentration method by ore type",
+        "columns": [
+          "Ore type",
+          "Method",
+          "Key additive / agent"
+        ],
+        "rows": [
+          {
+            "label": "Sulphide ($\\text{ZnS}$, $\\text{PbS}$, $\\text{CuFeS}_2$)",
+            "values": [
+              "froth flotation",
+              "pine oil collector; NaCN depressant"
+            ]
+          },
+          {
+            "label": "Oxide hydrate (bauxite)",
+            "values": [
+              "chemical leaching (Bayer)",
+              "hot concentrated NaOH"
+            ]
+          },
+          {
+            "label": "Ferromagnetic (magnetite)",
+            "values": [
+              "magnetic separation",
+              "—"
+            ]
+          },
+          {
+            "label": "Siliceous / gravity-separable",
+            "values": [
+              "gravity (wilfley table)",
+              "water current"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C06-CMP03",
+        "title": "Flux vs slag",
+        "columns": [
+          "Aspect",
+          "Flux",
+          "Slag"
+        ],
+        "rows": [
+          {
+            "label": "Role",
+            "values": [
+              "removes gangue",
+              "the removed product"
+            ]
+          },
+          {
+            "label": "Nature",
+            "values": [
+              "basic (CaO) or acidic ($\\text{SiO}_2$)",
+              "neutral fusible compound"
+            ]
+          },
+          {
+            "label": "Blast-furnace example",
+            "values": [
+              "$\\text{CaO}$ from limestone",
+              "$\\text{CaSiO}_3$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C06-CMP04",
+        "title": "Refining route per metal",
+        "columns": [
+          "Metal",
+          "Method",
+          "Key idea"
+        ],
+        "rows": [
+          {
+            "label": "$\\text{Ni}$",
+            "values": [
+              "Mond process",
+              "$\\text{Ni(CO)}_4$ volatile carbonyl, decomposed hot"
+            ]
+          },
+          {
+            "label": "$\\text{Ti}$, $\\text{Zr}$",
+            "values": [
+              "van Arkel (iodide)",
+              "volatile iodides decompose on hot filament"
+            ]
+          },
+          {
+            "label": "$\\text{Si}$, $\\text{Ge}$",
+            "values": [
+              "zone refining",
+              "melt zone sweeps impurities"
+            ]
+          },
+          {
+            "label": "$\\text{Cu}$, $\\text{Zn}$",
+            "values": [
+              "electrolytic",
+              "anode dissolves, pure metal plates out"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "C06-MCQ01",
+        "stemLatex": "The ore of aluminium with formula $\\text{Al}_2\\text{O}_3\\cdot 2\\text{H}_2\\text{O}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "Cryolite"
+          },
+          {
+            "id": "B",
+            "latex": "Bauxite"
+          },
+          {
+            "id": "C",
+            "latex": "Malachite"
+          },
+          {
+            "id": "D",
+            "latex": "Calamine"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Bauxite is the hydrated oxide; cryolite $\\text{Na}_3\\text{AlF}_6$ is an Al COMPOUND but used as electrolyte solvent, not as the extracted ore."
+      },
+      {
+        "mcqId": "C06-MCQ02",
+        "stemLatex": "Froth flotation is the concentration method of choice for:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "Oxide ores"
+          },
+          {
+            "id": "B",
+            "latex": "Sulphide ores"
+          },
+          {
+            "id": "C",
+            "latex": "Carbonate ores"
+          },
+          {
+            "id": "D",
+            "latex": "Native metals"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Sulphide particles are wetted by pine oil and float; oxides/carbonates use other routes (bauxite: leaching)."
+      },
+      {
+        "mcqId": "C06-MCQ03",
+        "stemLatex": "In froth flotation of $\\text{ZnS}$–$\\text{PbS}$ mixtures, $\\text{NaCN}$ acts as a:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "Collector"
+          },
+          {
+            "id": "B",
+            "latex": "Depressant"
+          },
+          {
+            "id": "C",
+            "latex": "Frother"
+          },
+          {
+            "id": "D",
+            "latex": "Flux"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\text{NaCN}$ depresses (keeps down) $\\text{ZnS}$ so $\\text{PbS}$ floats first — a selective depressant, not the collector (that's pine oil)."
+      },
+      {
+        "mcqId": "C06-MCQ04",
+        "stemLatex": "Calcination of calamine ($\\text{ZnCO}_3$) gives:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{Zn} + \\text{CO}_2$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{ZnO} + \\text{CO}_2$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{ZnO} + \\text{SO}_2$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{ZnS} + \\text{O}_2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Carbonate + absence of air: $\\text{ZnCO}_3 \\to \\text{ZnO} + \\text{CO}_2$. No $\\text{SO}_2$ — that's the roasting fingerprint."
+      },
+      {
+        "mcqId": "C06-MCQ05",
+        "stemLatex": "The correctly balanced roasting equation for zinc blende is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{ZnS} + \\text{O}_2 \\to \\text{ZnO} + \\text{SO}_2$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\text{ZnS} + 3\\text{O}_2 \\to 2\\text{ZnO} + 2\\text{SO}_2$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{ZnS} + 2\\text{O}_2 \\to \\text{ZnO} + \\text{SO}_2$"
+          },
+          {
+            "id": "D",
+            "latex": "$2\\text{ZnS} + \\text{O}_2 \\to 2\\text{ZnO} + \\text{SO}_2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Balance check: Zn $2=2$, S $2=2$, O $6 = 2 + 4$. The other options break the oxygen count."
+      },
+      {
+        "mcqId": "C06-MCQ06",
+        "stemLatex": "The slag formed in the blast furnace during iron smelting is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{CaO}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{SiO}_2$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{CaSiO}_3$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{CaCO}_3$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$\\text{CaO}$ (basic flux) + $\\text{SiO}_2$ (acidic gangue) $\\to \\text{CaSiO}_3$ slag. $\\text{CaO}$ is the flux, not the slag."
+      },
+      {
+        "mcqId": "C06-MCQ07",
+        "stemLatex": "Cryolite and fluorspar are added to alumina in the Hall–Héroult cell because they:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "chemically reduce $\\text{Al}_2\\text{O}_3$"
+          },
+          {
+            "id": "B",
+            "latex": "lower the fusion point and raise conductivity"
+          },
+          {
+            "id": "C",
+            "latex": "act as anode material"
+          },
+          {
+            "id": "D",
+            "latex": "remove sulphur gangue"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Pure alumina melts above $2300\\ \\text{K}$ and conducts poorly; the cryolite–fluorspar melt fuses near $\\sim 1140\\ \\text{K}$ and conducts far better. Reduction happens at the CATHODE electrically."
+      },
+      {
+        "mcqId": "C06-MCQ08",
+        "stemLatex": "The Mond process is used for refining:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{Ti}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{Ni}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{Si}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{Cu}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Ni forms volatile $\\text{Ni(CO)}_4$ which decomposes on hot Ni powder. Ti/Zr go through van Arkel iodides; Si/Ge through zone refining."
+      },
+      {
+        "mcqId": "C06-MCQ09",
+        "stemLatex": "Zone refining is the ultrapurification route for:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{Cu}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{Si}$ and $\\text{Ge}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{Ni}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{Zn}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Semiconductor-grade Si/Ge: a moving melt zone drags impurities along the ingot to one end."
+      },
+      {
+        "mcqId": "C06-MCQ10",
+        "stemLatex": "German silver is an alloy of:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{Cu} + \\text{Sn}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{Cu} + \\text{Zn} + \\text{Ni}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{Ag} + \\text{Cu} + \\text{Zn}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{Pb} + \\text{Sn}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\text{Cu} + \\text{Zn} + \\text{Ni}$ — the name lies: it contains $0\\%$ silver."
+      }
+    ],
+    "memoryHooks": [
+      "All ores are minerals; only the PROFITABLE minerals are ores.",
+      "Sulphides float, oxides leach, magnetites attract.",
+      "No air for carbonates (calcination), excess air for sulphides (roasting).",
+      "Limestone cleans the blast furnace: CaO hugs SiO₂ into slag.",
+      "Cryolite melts alumina's stubbornness: $\\sim 2300\\ \\text{K} \\to \\sim 1140\\ \\text{K}$.",
+      "Mond smells of CO (Ni); van Arkel smells of iodine (Ti, Zr).",
+      "Zone refining drags impurities down the ingot — semiconductors only.",
+      "German silver: the name lies — zero silver.",
+      "Brass has Zn, bronze has Sn — Brass-Zinc, Bronze-Tin.",
+      "Nichrome in the heater coil, duralumin in the aircraft frame."
+    ],
+    "commonMistakes": [
+      "Calling every mineral an ore — profitability is the dividing line.",
+      "Using froth flotation on oxide or carbonate ores.",
+      "Swapping the calcination and roasting definitions (air is the tell).",
+      "Writing $\\text{CaO}$ as the blast-furnace slag (it is the flux; slag $= \\text{CaSiO}_3$).",
+      "Saying cryolite chemically reduces alumina (it is solvent/flux; reduction is electrolytic).",
+      "Assigning the Mond process to Ti (Mond = Ni; van Arkel = Ti/Zr).",
+      "Putting Sn in brass or Zn in bronze.",
+      "Believing german silver contains Ag.",
+      "Listing $\\text{FeS}_2$ as a workable iron ore (sulphur content is too high)."
+    ],
+    "examChecklist": [
+      "Match each ore formula to its metal before answering.",
+      "Pair concentration method with ore type (sulphide/oxide/magnetic).",
+      "Recite the froth-flotation roles: pine oil = collector, NaCN = depressant.",
+      "Calcination = carbonate/hydrate + no/limited air $\\to \\text{CO}_2$.",
+      "Roasting = sulphide + excess air $\\to \\text{SO}_2$.",
+      "Blast furnace chain: $\\text{CaCO}_3 \\to \\text{CaO} \\to \\text{CaSiO}_3$ slag.",
+      "Hall–Héroult: cryolite + fluorspar lower fusion point, raise conductivity.",
+      "Refining map: Mond–Ni, van Arkel–Ti/Zr, zone–Si/Ge, electrolytic–Cu/Zn.",
+      "Alloy grid: brass, bronze, german silver, gunmetal, solder, duralumin, nichrome.",
+      "German silver contains $0\\%$ Ag — say it before they ask.",
+      "Never offer $\\text{FeS}_2$ as an iron ore."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Chemistry, Part I",
+        "author": "NCERT",
+        "chapters": "Unit 6 (General Principles and Processes of Isolation of Elements), §6.1–6.4",
+        "note": "Concentration, thermodynamics of extraction and refining — the fact base this pack compresses."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "Owner-approved (session sign-off on batch 3, 2026-11-25)",
+      "reviewedAt": "2026-11-25 (owner approved; batch 4 authorized)"
+    }
+  }
+}

@@ -164,7 +164,587 @@
       "channelName": "Simple Physics with Sir Ayaz",
       "language": "en",
       "scopeNote": "Refractive index, Snell's law, apparent depth, prism deviation & TIR"
+    },
+    {
+      "title": "Total Internal Reflection of Light and Critical Angle of Refraction Physics",
+      "url": "https://www.youtube.com/watch?v=5bkiQob8ikc",
+      "videoId": "5bkiQob8ikc",
+      "duration": "15 min",
+      "durationMinutes": 15,
+      "provider": "YouTube · The Organic Chemistry Tutor",
+      "channelName": "The Organic Chemistry Tutor",
+      "language": "en",
+      "scopeNote": "TIR and critical angle with worked examples."
+    },
+    {
+      "title": "Refraction of Light",
+      "url": "https://www.youtube.com/watch?v=ON1QGqB6vxg",
+      "videoId": "ON1QGqB6vxg",
+      "duration": "11 min",
+      "durationMinutes": 11,
+      "provider": "YouTube · The Organic Chemistry Tutor",
+      "channelName": "The Organic Chemistry Tutor",
+      "language": "en",
+      "scopeNote": "Refraction basics with Snell's-law problems."
+    },
+    {
+      "title": "Snell's Law & Index of Refraction Practice Problems - Physics",
+      "url": "https://www.youtube.com/watch?v=ohQheheySDw",
+      "videoId": "ohQheheySDw",
+      "duration": "18 min",
+      "durationMinutes": 18,
+      "provider": "YouTube · The Organic Chemistry Tutor",
+      "channelName": "The Organic Chemistry Tutor",
+      "language": "en",
+      "scopeNote": "Practice set for refractive-index computations."
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P13-PRD01",
+        "heading": "Snell's Law & the Invariants of Refraction",
+        "proseLatex": "$n = \\frac{c}{v} = \\frac{\\lambda_0}{\\lambda}$; crossing media keeps FREQUENCY (and photon energy $h\\nu$) strictly constant while speed and wavelength scale by $1/n$. Snell: $n_1\\sin\\theta_1 = n_2\\sin\\theta_2$ — rays bend toward the normal entering a denser medium. Micro-check: $n = 1.5$: $v = 2\\times10^8\\,\\text{m/s}$, $\\lambda = \\frac{2}{3}\\lambda_0$."
+      },
+      {
+        "prdId": "P13-PRD02",
+        "heading": "Apparent Depth & Normal Shift",
+        "proseLatex": "Near-normal viewing: $d_{\\text{app}} = \\frac{d}{n}$; normal shift $\\Delta d = d\\left(1 - \\frac{1}{n}\\right)$, ADDITIVE across stacked slabs. Micro-check: water $n = 4/3$, depth $12\\,\\text{m}$: apparent $9\\,\\text{m}$, shift $3\\,\\text{m}$."
+      },
+      {
+        "prdId": "P13-PRD03",
+        "heading": "Total Internal Reflection: the Denser-to-Rarer Gate",
+        "proseLatex": "TIR needs BOTH: travel from denser ($n_1$) toward rarer ($n_2 < n_1$), AND $i > \\theta_c$ with $\\sin\\theta_c = \\frac{n_2}{n_1}$ ($1/n$ into air). Rarer-to-denser TIR is IMPOSSIBLE at any angle. Micro-check: water-air: $\\theta_c = \\sin^{-1}(3/4) \\approx 48.6^\\circ$."
+      },
+      {
+        "prdId": "P13-PRD04",
+        "heading": "Optical Fibres & the Submerged Bulb Disc",
+        "proseLatex": "Step-index fibre: core $n_1$ > cladding $n_2$ (never reversed), acceptance $\\text{NA} = \\sin\\theta_{\\text{acc}} = \\sqrt{n_1^2 - n_2^2}$. A point source at depth $h$ lights a surface disc of radius $R = \\frac{h}{\\sqrt{n^2 - 1}}$. Micro-check: $n = 1.5$, $h = 5$: $R = \\frac{5}{\\sqrt{1.25}} \\approx 4.47\\,\\text{m}$."
+      },
+      {
+        "prdId": "P13-PRD05",
+        "heading": "Prism: Geometry & Minimum Deviation",
+        "proseLatex": "Prism relations: $r_1 + r_2 = A$ and $\\delta = i + e - A$. At minimum deviation the passage is symmetric ($i = e$, $r_1 = r_2 = A/2$), giving $n = \\frac{\\sin\\frac{A + \\delta_m}{2}}{\\sin\\frac{A}{2}}$. Thin prism ($A \\lesssim 10^\\circ$): $\\delta \\approx (n - 1)A$. Micro-check: $A = 60^\\circ$, $\\delta_m = 40^\\circ$: $n = \\frac{\\sin 50^\\circ}{\\sin 30^\\circ} = \\frac{0.766}{0.5} = 1.53$."
+      },
+      {
+        "prdId": "P13-PRD06",
+        "heading": "Frequency Never Changes",
+        "proseLatex": "Colour is set by frequency: on refraction only $v = c/n$ and $\\lambda = \\lambda_0/n$ change; photon energy $h\\nu$ is untouched. Dispersion (prisms, rainbows) arises because $n$ varies with frequency. Micro-check: red light entering glass slows and shortens but stays red."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P13-SF01",
+        "label": "Refractive index",
+        "latex": "n = \\frac{c}{v} = \\frac{\\lambda_0}{\\lambda}",
+        "use": "Speed and wavelength ratio."
+      },
+      {
+        "sfId": "P13-SF02",
+        "label": "Snell's law",
+        "latex": "n_1\\sin\\theta_1 = n_2\\sin\\theta_2",
+        "use": "Bending across interfaces."
+      },
+      {
+        "sfId": "P13-SF03",
+        "label": "Apparent depth",
+        "latex": "d_{\\text{app}} = \\frac{d}{n}",
+        "use": "Near-normal viewing."
+      },
+      {
+        "sfId": "P13-SF04",
+        "label": "Normal shift",
+        "latex": "\\Delta d = d\\left(1 - \\frac{1}{n}\\right)",
+        "use": "Additive across slabs."
+      },
+      {
+        "sfId": "P13-SF05",
+        "label": "Critical angle",
+        "latex": "\\sin\\theta_c = \\frac{n_2}{n_1}",
+        "use": "Into air: $1/n$."
+      },
+      {
+        "sfId": "P13-SF06",
+        "label": "TIR conditions",
+        "latex": "n_1 > n_2\\ \\text{and}\\ i > \\theta_c",
+        "use": "Both required."
+      },
+      {
+        "sfId": "P13-SF07",
+        "label": "Fibre numerical aperture",
+        "latex": "\\text{NA} = \\sqrt{n_1^2 - n_2^2}",
+        "use": "Core over cladding."
+      },
+      {
+        "sfId": "P13-SF08",
+        "label": "Submerged disc radius",
+        "latex": "R = \\frac{h}{\\sqrt{n^2 - 1}}",
+        "use": "Point source at depth $h$."
+      },
+      {
+        "sfId": "P13-SF09",
+        "label": "Prism geometry",
+        "latex": "r_1 + r_2 = A;\\quad \\delta = i + e - A",
+        "use": "Two-ray bookkeeping."
+      },
+      {
+        "sfId": "P13-SF10",
+        "label": "Minimum-deviation index",
+        "latex": "n = \\frac{\\sin\\frac{A+\\delta_m}{2}}{\\sin\\frac{A}{2}}",
+        "use": "Symmetric passage."
+      },
+      {
+        "sfId": "P13-SF11",
+        "label": "Thin-prism deviation",
+        "latex": "\\delta \\approx (n-1)A",
+        "use": "$A \\lesssim 10^\\circ$."
+      },
+      {
+        "sfId": "P13-SF12",
+        "label": "Refraction invariants",
+        "latex": "\\nu\\ \\text{constant},\\quad v = \\frac{c}{n}",
+        "use": "Frequency never changes."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P13-DEF01",
+        "term": "Absolute refractive index",
+        "definition": "$c/v$ for a medium relative to vacuum."
+      },
+      {
+        "defId": "P13-DEF02",
+        "term": "Critical angle",
+        "definition": "Incidence angle in the denser medium giving $90^\\circ$ refraction."
+      },
+      {
+        "defId": "P13-DEF03",
+        "term": "Total internal reflection",
+        "definition": "Full reflection inside the denser medium beyond $\\theta_c$."
+      },
+      {
+        "defId": "P13-DEF04",
+        "term": "Numerical aperture",
+        "definition": "$\\sqrt{n_1^2 - n_2^2}$: the fibre's light-gathering sine limit."
+      },
+      {
+        "defId": "P13-DEF05",
+        "term": "Angle of minimum deviation",
+        "definition": "Symmetric-prism deviation; smallest $\\delta$ for the prism."
+      },
+      {
+        "defId": "P13-DEF06",
+        "term": "Normal shift",
+        "definition": "Upward shift of apparent depth for near-normal viewing."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P13-CMP01",
+        "title": "What changes vs stays on refraction",
+        "columns": [
+          "Quantity",
+          "Behaviour"
+        ],
+        "rows": [
+          {
+            "label": "Frequency $\\nu$",
+            "values": [
+              "constant"
+            ]
+          },
+          {
+            "label": "Photon energy $h\\nu$",
+            "values": [
+              "constant"
+            ]
+          },
+          {
+            "label": "Speed $v$",
+            "values": [
+              "$c/n$"
+            ]
+          },
+          {
+            "label": "Wavelength $\\lambda$",
+            "values": [
+              "$\\lambda_0/n$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P13-CMP02",
+        "title": "Denser-to-rarer vs rarer-to-denser",
+        "columns": [
+          "Aspect",
+          "Denser to rarer",
+          "Rarer to denser"
+        ],
+        "rows": [
+          {
+            "label": "Bending",
+            "values": [
+              "away from normal",
+              "toward normal"
+            ]
+          },
+          {
+            "label": "TIR",
+            "values": [
+              "possible beyond $\\theta_c$",
+              "impossible"
+            ]
+          },
+          {
+            "label": "Speed",
+            "values": [
+              "increases",
+              "decreases"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P13-CMP03",
+        "title": "Thin prism vs general prism",
+        "columns": [
+          "Aspect",
+          "Thin ($A \\lesssim 10^\\circ$)",
+          "General prism"
+        ],
+        "rows": [
+          {
+            "label": "Deviation",
+            "values": [
+              "$(n-1)A$ fixed",
+              "$\\delta = i + e - A$ varies"
+            ]
+          },
+          {
+            "label": "Minimum deviation",
+            "values": [
+              "nearly position-independent",
+              "symmetric passage only"
+            ]
+          },
+          {
+            "label": "Index extraction",
+            "values": [
+              "$n = 1 + \\frac{\\delta}{A}$",
+              "$\\frac{\\sin\\frac{A+\\delta_m}{2}}{\\sin\\frac{A}{2}}$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P13-MCQ01",
+        "stemLatex": "Light enters glass ($n = 1.5$) from air. Its speed becomes:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2\\times10^8\\ \\text{m/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$4.5\\times10^8\\ \\text{m/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$3\\times10^8\\ \\text{m/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$1.5\\times10^8\\ \\text{m/s}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$v = c/n = 2\\times10^8\\ \\text{m/s}$."
+      },
+      {
+        "mcqId": "P13-MCQ02",
+        "stemLatex": "On entering the glass, the light's frequency:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "increases"
+          },
+          {
+            "id": "B",
+            "latex": "decreases"
+          },
+          {
+            "id": "C",
+            "latex": "stays constant"
+          },
+          {
+            "id": "D",
+            "latex": "halves"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Frequency (and photon energy) never change on refraction."
+      },
+      {
+        "mcqId": "P13-MCQ03",
+        "stemLatex": "A pool of real depth $12\\,\\text{m}$ ($n = 4/3$) appears to be deep:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$9\\,\\text{m}$"
+          },
+          {
+            "id": "B",
+            "latex": "$12\\,\\text{m}$"
+          },
+          {
+            "id": "C",
+            "latex": "$16\\,\\text{m}$"
+          },
+          {
+            "id": "D",
+            "latex": "$3\\,\\text{m}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$d_{\\text{app}} = d/n = 9\\,\\text{m}$; shift $3\\,\\text{m}$."
+      },
+      {
+        "mcqId": "P13-MCQ04",
+        "stemLatex": "The critical angle for water-air ($n = 4/3$) is about:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$48.6^\\circ$"
+          },
+          {
+            "id": "B",
+            "latex": "$41.8^\\circ$"
+          },
+          {
+            "id": "C",
+            "latex": "$30^\\circ$"
+          },
+          {
+            "id": "D",
+            "latex": "$60^\\circ$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\sin\\theta_c = 3/4 \\Rightarrow \\theta_c \\approx 48.6^\\circ$."
+      },
+      {
+        "mcqId": "P13-MCQ05",
+        "stemLatex": "TIR can occur when light travels:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "glass to air beyond $\\theta_c$"
+          },
+          {
+            "id": "B",
+            "latex": "air to glass at any angle"
+          },
+          {
+            "id": "C",
+            "latex": "air to water always"
+          },
+          {
+            "id": "D",
+            "latex": "glass to air below $\\theta_c$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Both denser-to-rarer AND beyond the critical angle are required."
+      },
+      {
+        "mcqId": "P13-MCQ06",
+        "stemLatex": "An optical fibre requires:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$n_{\\text{core}} > n_{\\text{cladding}}$"
+          },
+          {
+            "id": "B",
+            "latex": "$n_{\\text{core}} < n_{\\text{cladding}}$"
+          },
+          {
+            "id": "C",
+            "latex": "equal indices"
+          },
+          {
+            "id": "D",
+            "latex": "no cladding"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "TIR at the core-cladding boundary needs the core denser."
+      },
+      {
+        "mcqId": "P13-MCQ07",
+        "stemLatex": "A point bulb $5\\,\\text{m}$ deep in a medium ($n = 1.5$) lights a surface disc of radius:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$4.47\\,\\text{m}$"
+          },
+          {
+            "id": "B",
+            "latex": "$5\\,\\text{m}$"
+          },
+          {
+            "id": "C",
+            "latex": "$3.33\\,\\text{m}$"
+          },
+          {
+            "id": "D",
+            "latex": "$7.5\\,\\text{m}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$R = \\frac{5}{\\sqrt{2.25 - 1}} = \\frac{5}{\\sqrt{1.25}} \\approx 4.47\\,\\text{m}$."
+      },
+      {
+        "mcqId": "P13-MCQ08",
+        "stemLatex": "For a prism, which relation always holds?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$r_1 + r_2 = A$"
+          },
+          {
+            "id": "B",
+            "latex": "$r_1 = r_2 = A$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\delta = A$"
+          },
+          {
+            "id": "D",
+            "latex": "$i = e$ always"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Geometry of the triangular section; $i = e$ only at minimum deviation."
+      },
+      {
+        "mcqId": "P13-MCQ09",
+        "stemLatex": "$A = 60^\\circ$, $\\delta_m = 40^\\circ$. The prism index is about:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1.53$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.41$"
+          },
+          {
+            "id": "C",
+            "latex": "$1.66$"
+          },
+          {
+            "id": "D",
+            "latex": "$1.33$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$n = \\frac{\\sin 50^\\circ}{\\sin 30^\\circ} = \\frac{0.766}{0.5} \\approx 1.53$."
+      },
+      {
+        "mcqId": "P13-MCQ10",
+        "stemLatex": "A thin prism ($A = 6^\\circ$) with $n = 1.5$ deviates by about:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3^\\circ$"
+          },
+          {
+            "id": "B",
+            "latex": "$6^\\circ$"
+          },
+          {
+            "id": "C",
+            "latex": "$1.5^\\circ$"
+          },
+          {
+            "id": "D",
+            "latex": "$9^\\circ$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\delta = (n - 1)A = 0.5\\times6^\\circ = 3^\\circ$."
+      }
+    ],
+    "memoryHooks": [
+      "Frequency never changes — only $v$ and $\\lambda$.",
+      "$d_{\\text{app}} = d/n$; shifts add across slabs.",
+      "TIR = denser-to-rarer AND beyond $\\theta_c$.",
+      "$\\sin\\theta_c = 1/n$ into air.",
+      "Fibre: core denser; $\\text{NA} = \\sqrt{n_1^2 - n_2^2}$.",
+      "Disc radius $h/\\sqrt{n^2-1}$.",
+      "Prism: $r_1 + r_2 = A$; $\\delta = i + e - A$.",
+      "Minimum deviation: symmetric passage; index from half-angles.",
+      "Thin prism: $(n-1)A$.",
+      "Snell keeps frequency fixed; speed and wavelength scale together."
+    ],
+    "commonMistakes": [
+      "Saying wavelength or speed stays constant instead of frequency.",
+      "Attempting TIR from rarer to denser.",
+      "Reversing core and cladding indices.",
+      "Using $i = e$ away from minimum deviation.",
+      "Forgetting the additive normal shift across stacked slabs.",
+      "Wrong half-angle pairing in the minimum-deviation formula.",
+      "Mixing up $r_1 + r_2 = A$ with $i + e = A$.",
+      "Mixing up $r_1 + r_2 = A$ with $i + e = A$."
+    ],
+    "examChecklist": [
+      "State the invariants ($\\nu$, $h\\nu$) and the scalers ($v$, $\\lambda$).",
+      "Compute apparent depth and additive normal shifts.",
+      "Verify both TIR conditions before answering.",
+      "Fibre NA and the core-cladding inequality.",
+      "Prism geometry plus minimum-deviation index extraction.",
+      "Thin-prism quick deviation $(n-1)A$.",
+      "Distinguish $\\delta = i + e - A$ from $r_1 + r_2 = A$.",
+      "Distinguish $\\delta = i + e - A$ from $r_1 + r_2 = A$."
+    ],
+    "furtherReading": [
+      {
+        "book": "Fundamentals of Optics",
+        "author": "Jenkins & White",
+        "chapters": "Refraction, TIR and prism chapters",
+        "note": "Geometrical-optics fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

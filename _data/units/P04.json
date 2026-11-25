@@ -176,7 +176,592 @@
       "channelName": "PW Class 11 Science",
       "language": "en",
       "scopeNote": "Variable-force work, Work-Energy theorem, springs, power & collisions"
+    },
+    {
+      "title": "WORK, ENERGY & POWER, VERTICAL CIRCULAR DYNAMICS in ONE SHOT || All Concepts & PYQ || Ummeed NEET",
+      "url": "https://www.youtube.com/watch?v=Ce-1sflLTj8",
+      "videoId": "Ce-1sflLTj8",
+      "duration": "335 min",
+      "durationMinutes": 335,
+      "provider": "YouTube · Competition Wallah",
+      "channelName": "Competition Wallah",
+      "language": "en",
+      "scopeNote": "PW marathon covering work-energy theorem, potential-energy graphs and vertical circles."
+    },
+    {
+      "title": "JEE 2023: Work Energy and Power Class 11 [JEE Revision in One Shot] | JEE Physics | Vedantu JEE",
+      "url": "https://www.youtube.com/watch?v=r8HjT8pmvOg",
+      "videoId": "r8HjT8pmvOg",
+      "duration": "107 min",
+      "durationMinutes": 107,
+      "provider": "YouTube · Vedantu JEE",
+      "channelName": "Vedantu JEE",
+      "language": "en",
+      "scopeNote": "JEE revision one shot: work-energy theorem and energy-conservation drills."
+    },
+    {
+      "title": "Class 11 Physics | Work Power Energy | One Shot | JEE 2027 | JEE 2028 | Vinay Shur Sir",
+      "url": "https://www.youtube.com/watch?v=bXWyJfxdqzc",
+      "videoId": "bXWyJfxdqzc",
+      "duration": "99 min",
+      "durationMinutes": 99,
+      "provider": "YouTube · Vedantu JEE",
+      "channelName": "Vedantu JEE",
+      "language": "en",
+      "scopeNote": "Concept session with spring-energy and power numericals."
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P04-PRD01",
+        "heading": "Work by Variable Forces & the Zero-Work Cases",
+        "proseLatex": "$W = \\int\\vec{F}\\cdot d\\vec{r}$ (constant force: $FD\\cos\\theta$). Centripetal force does ZERO work ($\\vec{F}\\perp d\\vec{r}$ always). Micro-check: $F = 10\\,\\text{N}$ at $60°$ over $5\\,\\text{m}$: $W = 25\\,\\text{J}$."
+      },
+      {
+        "prdId": "P04-PRD02",
+        "heading": "Work-Energy Theorem & the $K$-$p$ Link",
+        "proseLatex": "$W_{\\text{all}} = \\Delta K$ holds universally, friction included. $K = \\frac{p^2}{2m}$: equal momenta $\\Rightarrow$ the LIGHTER body carries more $K$ ($K \\propto 1/m$); equal speeds $\\Rightarrow$ $K \\propto m$. Micro-check: $m$ vs $2m$ at equal $p$: $K$ ratio $2 : 1$."
+      },
+      {
+        "prdId": "P04-PRD03",
+        "heading": "Conservative Forces & Spring Energy",
+        "proseLatex": "Conservative $\\oint\\vec{F}\\cdot d\\vec{r} = 0$, $\\vec{F} = -\\nabla U$: gravity $U = mgh$, spring $U_s = \\frac{1}{2}kx^2$. With $W_{\\text{nc}} = 0$, $E = K + U$ is conserved. Micro-check: $k = 500$, $x = 0.2$: $U_s = 10\\,\\text{J}$."
+      },
+      {
+        "prdId": "P04-PRD04",
+        "heading": "Percent Changes: Exact, Not Linear",
+        "proseLatex": "$K = \\frac{p^2}{2m}$: small changes allow $\\frac{\\Delta K}{K} \\approx 2\\frac{\\Delta p}{p}$, but finite ones need $(1+\\delta)^2 - 1$: $+100\\%$ in $p$ gives $4K - K = +300\\%$, NOT $+200\\%$. Micro-check: $\\delta = 0.1$: $21\\%$, slightly more than linear $20\\%$."
+      },
+      {
+        "prdId": "P04-PRD05",
+        "heading": "Constant-Power Vehicles",
+        "proseLatex": "$P_0 = Fv = mv\\frac{dv}{dt}$ gives $v \\propto t^{1/2}$ and $x \\propto t^{3/2}$, with $a = \\frac{P_0}{mv}$ decreasing as $v$ grows. Micro-check: $m = 1000\\,\\text{kg}$, $P_0 = 50\\,\\text{kW}$, $v = 10$: $a = 5\\,\\text{m/s}^2$."
+      },
+      {
+        "prdId": "P04-PRD06",
+        "heading": "Vertical Circle Minimum Speeds & Collision Restitution",
+        "proseLatex": "String loop radius $R$: $v_{\\text{top}} = \\sqrt{gR}$, $v_{\\text{bottom}} = \\sqrt{5gR}$; a rigid ROD needs only $v_{\\text{bottom}} = \\sqrt{4gR}$. Restitution $e = \\frac{v_2 - v_1}{u_1 - u_2}$: $e = 1$ elastic (equal masses swap velocities), $0 < e < 1$ inelastic, $e = 0$ coalescence. Momentum is conserved in ALL collisions. Micro-check: $e = 1$, equal masses, $u_1 = 6$, $u_2 = 0$: $v_1 = 0$, $v_2 = 6$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P04-SF01",
+        "label": "Work (general)",
+        "latex": "W = \\int\\vec{F}\\cdot d\\vec{r}",
+        "use": "Constant force: $FD\\cos\\theta$."
+      },
+      {
+        "sfId": "P04-SF02",
+        "label": "Work-energy theorem",
+        "latex": "W_{\\text{all}} = \\Delta K",
+        "use": "Universally true, friction included."
+      },
+      {
+        "sfId": "P04-SF03",
+        "label": "$K$-$p$ relation",
+        "latex": "K = \\frac{p^2}{2m}",
+        "use": "Equal $p$: $K \\propto 1/m$."
+      },
+      {
+        "sfId": "P04-SF04",
+        "label": "Spring potential",
+        "latex": "U_s = \\tfrac{1}{2}kx^2",
+        "use": "Hookean spring."
+      },
+      {
+        "sfId": "P04-SF05",
+        "label": "Mechanical energy",
+        "latex": "E = K + U\\ (W_{\\text{nc}} = 0)",
+        "use": "Conserved without friction."
+      },
+      {
+        "sfId": "P04-SF06",
+        "label": "Instantaneous power",
+        "latex": "P = \\frac{dW}{dt} = \\vec{F}\\cdot\\vec{v}",
+        "use": "Dot product."
+      },
+      {
+        "sfId": "P04-SF07",
+        "label": "Constant-power growth",
+        "latex": "v \\propto t^{1/2};\\quad x \\propto t^{3/2}",
+        "use": "$P_0 = Fv$ engine."
+      },
+      {
+        "sfId": "P04-SF08",
+        "label": "Finite percent change",
+        "latex": "(1+\\delta)^2 - 1",
+        "use": "Exact for $\\ge 5\\%$ changes."
+      },
+      {
+        "sfId": "P04-SF09",
+        "label": "String loop speeds",
+        "latex": "v_{\\text{top}} = \\sqrt{gR};\\ v_{\\text{bottom}} = \\sqrt{5gR}",
+        "use": "Vertical circle (string)."
+      },
+      {
+        "sfId": "P04-SF10",
+        "label": "Rod loop speed",
+        "latex": "v_{\\text{bottom}} = \\sqrt{4gR}",
+        "use": "Rod supports compression."
+      },
+      {
+        "sfId": "P04-SF11",
+        "label": "Coefficient of restitution",
+        "latex": "e = \\frac{v_2 - v_1}{u_1 - u_2}",
+        "use": "$1$ elastic, $0$ sticky."
+      },
+      {
+        "sfId": "P04-SF12",
+        "label": "Gravitational PE (uniform)",
+        "latex": "U = mgh",
+        "use": "Near-surface conservative store."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P04-DEF01",
+        "term": "Work",
+        "definition": "Energy transferred by force along displacement: $\\vec{F}\\cdot\\vec{d}$ or the integral."
+      },
+      {
+        "defId": "P04-DEF02",
+        "term": "Conservative force",
+        "definition": "Closed-loop work zero; defines potential energy."
+      },
+      {
+        "defId": "P04-DEF03",
+        "term": "Kinetic energy",
+        "definition": "$\\frac{1}{2}mv^2 = \\frac{p^2}{2m}$."
+      },
+      {
+        "defId": "P04-DEF04",
+        "term": "Instantaneous power",
+        "definition": "$\\vec{F}\\cdot\\vec{v}$ — the rate of doing work."
+      },
+      {
+        "defId": "P04-DEF05",
+        "term": "Coefficient of restitution",
+        "definition": "Relative-speed ratio measuring collision elasticity."
+      },
+      {
+        "defId": "P04-DEF06",
+        "term": "Work-energy theorem",
+        "definition": "Total work equals kinetic-energy change, always."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P04-CMP01",
+        "title": "Elastic vs inelastic collisions",
+        "columns": [
+          "Aspect",
+          "Elastic ($e=1$)",
+          "Inelastic ($0 \\le e < 1$)"
+        ],
+        "rows": [
+          {
+            "label": "Momentum",
+            "values": [
+              "conserved",
+              "conserved"
+            ]
+          },
+          {
+            "label": "KE",
+            "values": [
+              "conserved",
+              "partly lost"
+            ]
+          },
+          {
+            "label": "Equal masses",
+            "values": [
+              "swap velocities",
+              "partial transfer"
+            ]
+          },
+          {
+            "label": "$e = 0$",
+            "values": [
+              "not applicable",
+              "bodies coalesce"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P04-CMP02",
+        "title": "String vs rod vertical circle",
+        "columns": [
+          "Aspect",
+          "String",
+          "Rod"
+        ],
+        "rows": [
+          {
+            "label": "$v_{\\text{top}}$",
+            "values": [
+              "$\\sqrt{gR}$",
+              "can be $0$"
+            ]
+          },
+          {
+            "label": "$v_{\\text{bottom}}$",
+            "values": [
+              "$\\sqrt{5gR}$",
+              "$\\sqrt{4gR}$"
+            ]
+          },
+          {
+            "label": "Reason",
+            "values": [
+              "string can't push",
+              "rod supports compression"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P04-CMP03",
+        "title": "Constant force vs constant power",
+        "columns": [
+          "Aspect",
+          "Constant $F$",
+          "Constant $P_0$"
+        ],
+        "rows": [
+          {
+            "label": "Acceleration",
+            "values": [
+              "constant",
+              "$a = P_0/(mv)$ decreases"
+            ]
+          },
+          {
+            "label": "$v(t)$",
+            "values": [
+              "linear",
+              "$\\propto t^{1/2}$"
+            ]
+          },
+          {
+            "label": "$x(t)$",
+            "values": [
+              "$\\propto t^2$",
+              "$\\propto t^{3/2}$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P04-MCQ01",
+        "stemLatex": "A force of $10\\,\\text{N}$ at $60°$ to the horizontal moves a body $5\\,\\text{m}$ horizontally. Work done is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$25\\,\\text{J}$"
+          },
+          {
+            "id": "B",
+            "latex": "$50\\,\\text{J}$"
+          },
+          {
+            "id": "C",
+            "latex": "$43\\,\\text{J}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$W = FD\\cos\\theta = 10\\times5\\times0.5 = 25\\,\\text{J}$."
+      },
+      {
+        "mcqId": "P04-MCQ02",
+        "stemLatex": "Two bodies of masses $m$ and $2m$ have equal momentum. Their KE ratio is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2 : 1$"
+          },
+          {
+            "id": "B",
+            "latex": "$1 : 2$"
+          },
+          {
+            "id": "C",
+            "latex": "$1 : 1$"
+          },
+          {
+            "id": "D",
+            "latex": "$4 : 1$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$K = p^2/2m$: the lighter body has double the KE."
+      },
+      {
+        "mcqId": "P04-MCQ03",
+        "stemLatex": "Momentum of a body increases by $100\\%$. Its KE increases by:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$100\\%$"
+          },
+          {
+            "id": "B",
+            "latex": "$200\\%$"
+          },
+          {
+            "id": "C",
+            "latex": "$300\\%$"
+          },
+          {
+            "id": "D",
+            "latex": "$50\\%$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$(1+1)^2 - 1 = 3$: $+300\\%$ — the linear $2\\delta$ rule fails at $100\\%$."
+      },
+      {
+        "mcqId": "P04-MCQ04",
+        "stemLatex": "A spring with $k = 500\\,\\text{N/m}$ is compressed $0.2\\,\\text{m}$. Stored energy is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$10\\,\\text{J}$"
+          },
+          {
+            "id": "B",
+            "latex": "$20\\,\\text{J}$"
+          },
+          {
+            "id": "C",
+            "latex": "$5\\,\\text{J}$"
+          },
+          {
+            "id": "D",
+            "latex": "$100\\,\\text{J}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\frac{1}{2}\\times500\\times0.04 = 10\\,\\text{J}$."
+      },
+      {
+        "mcqId": "P04-MCQ05",
+        "stemLatex": "A $1000\\,\\text{kg}$ car with a $50\\,\\text{kW}$ engine moves at $10\\,\\text{m/s}$. Its acceleration is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5\\,\\text{m/s}^2$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.5\\,\\text{m/s}^2$"
+          },
+          {
+            "id": "C",
+            "latex": "$50\\,\\text{m/s}^2$"
+          },
+          {
+            "id": "D",
+            "latex": "$10\\,\\text{m/s}^2$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$a = \\frac{P}{mv} = \\frac{50000}{10000} = 5\\,\\text{m/s}^2$."
+      },
+      {
+        "mcqId": "P04-MCQ06",
+        "stemLatex": "The minimum bottom speed to complete a string vertical loop of radius $R$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\sqrt{gR}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\sqrt{2gR}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\sqrt{4gR}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{5gR}$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "Energy: $\\frac{1}{2}mv_b^2 = \\frac{1}{2}m(gR) + mg(2R) \\Rightarrow v_b = \\sqrt{5gR}$."
+      },
+      {
+        "mcqId": "P04-MCQ07",
+        "stemLatex": "For a rigid ROD vertical circle, the minimum bottom speed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\sqrt{gR}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\sqrt{2gR}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\sqrt{4gR}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{5gR}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "The rod supports compression: top speed may be $0$, so $v_b = \\sqrt{4gR}$."
+      },
+      {
+        "mcqId": "P04-MCQ08",
+        "stemLatex": "In an elastic 1D collision between equal masses ($u_2 = 0$), the velocities after are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$v_1 = 0$, $v_2 = u_1$"
+          },
+          {
+            "id": "B",
+            "latex": "$v_1 = u_1$, $v_2 = 0$"
+          },
+          {
+            "id": "C",
+            "latex": "$v_1 = v_2 = u_1/2$"
+          },
+          {
+            "id": "D",
+            "latex": "$v_1 = -u_1$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$e = 1$ with equal masses simply swaps velocities."
+      },
+      {
+        "mcqId": "P04-MCQ09",
+        "stemLatex": "Which is conserved in EVERY isolated collision?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "kinetic energy"
+          },
+          {
+            "id": "B",
+            "latex": "linear momentum"
+          },
+          {
+            "id": "C",
+            "latex": "both always"
+          },
+          {
+            "id": "D",
+            "latex": "neither"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Momentum always; KE only when $e = 1$."
+      },
+      {
+        "mcqId": "P04-MCQ10",
+        "stemLatex": "The work done by centripetal force over one full circular lap is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$mv^2$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\pi mv^2$"
+          },
+          {
+            "id": "C",
+            "latex": "$0$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{1}{2}mv^2$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$\\vec{F}\\perp d\\vec{r}$ at every instant: zero work."
+      }
+    ],
+    "memoryHooks": [
+      "$W = \\vec{F}\\cdot\\vec{d}$: the $\\cos\\theta$ matters.",
+      "Centripetal force does zero work.",
+      "$K = p^2/2m$: equal $p$ $\\to$ lighter wins KE.",
+      "$+100\\%$ in $p$ = $+300\\%$ in $K$ (exact, not $2\\delta$).",
+      "$U_s = \\frac{1}{2}kx^2$; $E = K + U$ without friction.",
+      "$P = \\vec{F}\\cdot\\vec{v}$; constant $P$: $v \\propto \\sqrt{t}$.",
+      "String loop: $\\sqrt{gR}$ top, $\\sqrt{5gR}$ bottom.",
+      "Rod loop: only $\\sqrt{4gR}$ bottom.",
+      "$e = 1$ equal masses swap; $e = 0$ stick.",
+      "Momentum always conserved; KE only if elastic."
+    ],
+    "commonMistakes": [
+      "Using linear $2\\delta$ for percent changes beyond $\\sim 5\\%$.",
+      "Dropping the $\\frac{1}{2}$ in spring or stored-work energy.",
+      "Quoting $\\sqrt{5gR}$ for a rod loop.",
+      "Claiming KE is conserved in inelastic collisions.",
+      "Writing $P = Fv$ without the angle in the dot product.",
+      "Forgetting $W_{\\text{nc}}$ terms in the work-energy theorem.",
+      "Mixing up string and rod loop speeds.",
+      "Rushing the final unit conversion after a correct setup."
+    ],
+    "examChecklist": [
+      "Integrate $\\vec{F}\\cdot d\\vec{r}$ for variable forces.",
+      "Apply $W_{\\text{all}} = \\Delta K$ including friction paths.",
+      "Switch between $K = \\frac{p^2}{2m}$ and $\\frac{1}{2}mv^2$ as needed.",
+      "Use exact $(1+\\delta)^2 - 1$ for finite percent changes.",
+      "Constant power: $a = P_0/mv$, $v \\propto t^{1/2}$.",
+      "Vertical-circle minimum speeds: string vs rod.",
+      "Collision toolkit: momentum + restitution equations.",
+      "Identify zero-work cases ($\\vec{F}\\perp d\\vec{r}$)."
+    ],
+    "furtherReading": [
+      {
+        "book": "Fundamentals of Physics",
+        "author": "Halliday, Resnick & Walker",
+        "chapters": "Work and kinetic energy + potential energy/energy conservation chapters",
+        "note": "Work-energy fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

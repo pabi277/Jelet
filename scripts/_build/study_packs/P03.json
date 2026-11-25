@@ -1,0 +1,548 @@
+{
+  "unitId": "P03",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P03-PRD01",
+        "heading": "Newton's Second Law, Impulse & Momentum Conservation",
+        "proseLatex": "$\\vec{F}_{\\text{ext}} = \\frac{d\\vec{p}}{dt}$ with $\\vec{p} = m\\vec{v}$; impulse $\\vec{J} = \\int\\vec{F}\\,dt = \\Delta\\vec{p}$ = area under $F$-$t$. With $\\vec{F}_{\\text{ext}} = \\vec{0}$ (explosions, recoil, collisions) total momentum is conserved regardless of energy losses. Micro-check: $10\\,\\text{g}$ bullet at $400\\,\\text{m/s}$ from a $4\\,\\text{kg}$ rifle: recoil $= \\frac{0.01\\times400}{4} = 1\\,\\text{m/s}$."
+      },
+      {
+        "prdId": "P03-PRD02",
+        "heading": "Action-Reaction Pairs Act on Different Bodies",
+        "proseLatex": "$\\vec{F}_{AB} = -\\vec{F}_{BA}$ act on TWO different bodies, so they never cancel within one free-body diagram — the horse-cart paradox dissolves on the horse's FBD. Micro-check: book on table: the table pushes the book up; the book pushes the table down — different bodies."
+      },
+      {
+        "prdId": "P03-PRD03",
+        "heading": "Static vs Kinetic Friction & Angle of Repose",
+        "proseLatex": "Static friction is self-adjusting: $0 \\le f_s \\le \\mu_s N$ — it equals the applied load until slip starts, NEVER $\\mu_s N$ prematurely. Once sliding: $f_k = \\mu_k N$ with $\\mu_k < \\mu_s$. Angle of friction $\\lambda = \\tan^{-1}\\mu_s$ equals the angle of repose $\\theta_r$. Micro-check: $F = 3\\,\\text{N} < \\mu_s N = 5\\,\\text{N}$: friction $= 3\\,\\text{N}$, block static."
+      },
+      {
+        "prdId": "P03-PRD04",
+        "heading": "Normal Force Is NOT Always $mg$",
+        "proseLatex": "On an incline $N = mg\\cos\\theta$; in a lift accelerating up $N = m(g + a)$; under a pull at angle $\\theta$ above horizontal $N = mg - F\\sin\\theta$ (pushing: $mg + F\\sin\\theta$) — so PULLING a roller is easier than pushing. Micro-check: $F = 20\\,\\text{N}$ at $30°$ on $10\\,\\text{kg}$: $N = 100 - 10 = 90\\,\\text{N}$."
+      },
+      {
+        "prdId": "P03-PRD05",
+        "heading": "Centripetal Force Is a Resultant, Not a New Force",
+        "proseLatex": "$mv^2/r$ is the net inward component of real forces (tension, normal, gravity, friction) — never draw it as an extra arrow. Flat turn: $v_{\\max} = \\sqrt{\\mu_s rg}$. Banked curve (frictionless): $\\tan\\theta = \\frac{v^2}{rg}$; with friction $v_{\\max} = \\sqrt{rg\\frac{\\tan\\theta + \\mu_s}{1 - \\mu_s\\tan\\theta}}$. Micro-check: $\\mu = 0.5$, $r = 20$, $g = 10$: $v_{\\max} = 10\\,\\text{m/s}$."
+      },
+      {
+        "prdId": "P03-PRD06",
+        "heading": "Inertial vs Rotating Frames: Pick One",
+        "proseLatex": "In an inertial frame, set $\\sum F_{\\text{inward}} = \\frac{mv^2}{r}$ with real forces only. In a rotating frame you may add a centrifugal pseudo-force — but never both at once (double counting). Micro-check: conical pendulum: inertial route gives $\\tan\\theta = \\frac{v^2}{rg}$ with $T\\cos\\theta = mg$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P03-SF01",
+        "label": "Newton's second law",
+        "latex": "\\vec{F}_{\\text{ext}} = \\frac{d\\vec{p}}{dt} = m\\vec{a}",
+        "use": "Constant-mass form $m\\vec{a}$."
+      },
+      {
+        "sfId": "P03-SF02",
+        "label": "Impulse",
+        "latex": "\\vec{J} = \\int\\vec{F}\\,dt = \\Delta\\vec{p}",
+        "use": "Area under $F$-$t$."
+      },
+      {
+        "sfId": "P03-SF03",
+        "label": "Momentum conservation",
+        "latex": "\\textstyle\\sum m_i\\vec{v}_i = \\text{const}",
+        "use": "Isolated systems."
+      },
+      {
+        "sfId": "P03-SF04",
+        "label": "Static friction window",
+        "latex": "0 \\le f_s \\le \\mu_s N",
+        "use": "Self-adjusting until slip."
+      },
+      {
+        "sfId": "P03-SF05",
+        "label": "Kinetic friction",
+        "latex": "f_k = \\mu_k N",
+        "use": "Constant once sliding; $\\mu_k < \\mu_s$."
+      },
+      {
+        "sfId": "P03-SF06",
+        "label": "Angle of repose",
+        "latex": "\\theta_r = \\tan^{-1}\\mu_s",
+        "use": "= angle of friction."
+      },
+      {
+        "sfId": "P03-SF07",
+        "label": "Incline normal",
+        "latex": "N = mg\\cos\\theta",
+        "use": "Not $mg$."
+      },
+      {
+        "sfId": "P03-SF08",
+        "label": "Oblique pull normal",
+        "latex": "N = mg \\mp F\\sin\\theta",
+        "use": "Pull minus, push plus."
+      },
+      {
+        "sfId": "P03-SF09",
+        "label": "Flat-turn speed limit",
+        "latex": "v_{\\max} = \\sqrt{\\mu_s rg}",
+        "use": "Friction supplies centripetal force."
+      },
+      {
+        "sfId": "P03-SF10",
+        "label": "Banked curve (no friction)",
+        "latex": "\\tan\\theta = \\frac{v^2}{rg}",
+        "use": "Optimum no-wear speed."
+      },
+      {
+        "sfId": "P03-SF11",
+        "label": "Banked + friction",
+        "latex": "v_{\\max} = \\sqrt{rg\\frac{\\tan\\theta + \\mu_s}{1 - \\mu_s\\tan\\theta}}",
+        "use": "Upper speed limit."
+      },
+      {
+        "sfId": "P03-SF12",
+        "label": "Lift apparent weight",
+        "latex": "N = m(g \\pm a)",
+        "use": "Accelerating lift: up $+$, down $-$."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P03-DEF01",
+        "term": "Impulse",
+        "definition": "Time integral of force; equals momentum change."
+      },
+      {
+        "defId": "P03-DEF02",
+        "term": "Action-reaction pair",
+        "definition": "Equal, opposite forces on two different bodies (Newton's third law)."
+      },
+      {
+        "defId": "P03-DEF03",
+        "term": "Static friction",
+        "definition": "Self-adjusting contact force up to the ceiling $\\mu_s N$."
+      },
+      {
+        "defId": "P03-DEF04",
+        "term": "Angle of repose",
+        "definition": "Incline angle at which sliding begins: $\\tan^{-1}\\mu_s$."
+      },
+      {
+        "defId": "P03-DEF05",
+        "term": "Centripetal force",
+        "definition": "Net inward resultant causing circular motion; not a separate force."
+      },
+      {
+        "defId": "P03-DEF06",
+        "term": "Banked curve",
+        "definition": "Road tilt providing a centripetal component of the normal force."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P03-CMP01",
+        "title": "Static vs kinetic friction",
+        "columns": [
+          "Aspect",
+          "Static $f_s$",
+          "Kinetic $f_k$"
+        ],
+        "rows": [
+          {
+            "label": "Magnitude",
+            "values": [
+              "matches load, $\\le \\mu_s N$",
+              "$\\mu_k N$ fixed"
+            ]
+          },
+          {
+            "label": "Coefficient",
+            "values": [
+              "$\\mu_s$ (larger)",
+              "$\\mu_k < \\mu_s$"
+            ]
+          },
+          {
+            "label": "State",
+            "values": [
+              "no sliding",
+              "sliding"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P03-CMP02",
+        "title": "Pulling vs pushing (angle $\\theta$)",
+        "columns": [
+          "Aspect",
+          "Pull",
+          "Push"
+        ],
+        "rows": [
+          {
+            "label": "$N$",
+            "values": [
+              "$mg - F\\sin\\theta$",
+              "$mg + F\\sin\\theta$"
+            ]
+          },
+          {
+            "label": "Friction",
+            "values": [
+              "smaller",
+              "larger"
+            ]
+          },
+          {
+            "label": "Effort",
+            "values": [
+              "less",
+              "more"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P03-CMP03",
+        "title": "Flat vs banked turn",
+        "columns": [
+          "Aspect",
+          "Flat",
+          "Banked"
+        ],
+        "rows": [
+          {
+            "label": "Centripetal source",
+            "values": [
+              "friction only",
+              "normal component ($\\pm$ friction)"
+            ]
+          },
+          {
+            "label": "Design speed",
+            "values": [
+              "$\\sqrt{\\mu_s rg}$",
+              "$\\sqrt{rg\\tan\\theta}$ (no friction)"
+            ]
+          },
+          {
+            "label": "With friction",
+            "values": [
+              "same",
+              "$\\sqrt{rg\\frac{\\tan\\theta+\\mu_s}{1-\\mu_s\\tan\\theta}}$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P03-MCQ01",
+        "stemLatex": "A $4\\,\\text{kg}$ rifle fires a $10\\,\\text{g}$ bullet at $400\\,\\text{m/s}$. Recoil speed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1\\,\\text{m/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$4\\,\\text{m/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$10\\,\\text{m/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.1\\,\\text{m/s}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Momentum conservation: $\\frac{0.01\\times400}{4} = 1\\,\\text{m/s}$."
+      },
+      {
+        "mcqId": "P03-MCQ02",
+        "stemLatex": "A block feels $F = 3\\,\\text{N}$ applied while $\\mu_s N = 5\\,\\text{N}$. The friction force is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5\\,\\text{N}$"
+          },
+          {
+            "id": "B",
+            "latex": "$3\\,\\text{N}$"
+          },
+          {
+            "id": "C",
+            "latex": "$2\\,\\text{N}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Static friction equals the applied load until slip: $3\\,\\text{N}$."
+      },
+      {
+        "mcqId": "P03-MCQ03",
+        "stemLatex": "The angle of repose for $\\mu_s = 0.5$ is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$26.6°$"
+          },
+          {
+            "id": "B",
+            "latex": "$30°$"
+          },
+          {
+            "id": "C",
+            "latex": "$45°$"
+          },
+          {
+            "id": "D",
+            "latex": "$60°$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\tan^{-1}(0.5) \\approx 26.6°$."
+      },
+      {
+        "mcqId": "P03-MCQ04",
+        "stemLatex": "A $10\\,\\text{kg}$ crate is pulled by $20\\,\\text{N}$ at $30°$ above horizontal ($g = 10$). The normal force is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$90\\,\\text{N}$"
+          },
+          {
+            "id": "B",
+            "latex": "$100\\,\\text{N}$"
+          },
+          {
+            "id": "C",
+            "latex": "$110\\,\\text{N}$"
+          },
+          {
+            "id": "D",
+            "latex": "$80\\,\\text{N}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$N = mg - F\\sin\\theta = 100 - 10 = 90\\,\\text{N}$."
+      },
+      {
+        "mcqId": "P03-MCQ05",
+        "stemLatex": "On a flat road with $\\mu_s = 0.5$ and $r = 20\\,\\text{m}$ ($g = 10$), the maximum cornering speed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$10\\,\\text{m/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$14\\,\\text{m/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$20\\,\\text{m/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$5\\,\\text{m/s}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\sqrt{0.5\\times20\\times10} = 10\\,\\text{m/s}$."
+      },
+      {
+        "mcqId": "P03-MCQ06",
+        "stemLatex": "For a frictionless banked curve at $\\theta = 45°$ ($g = 10$, $r = 40\\,\\text{m}$), the design speed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$20\\,\\text{m/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$10\\,\\text{m/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$40\\,\\text{m/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$14\\,\\text{m/s}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$v = \\sqrt{rg\\tan\\theta} = \\sqrt{400} = 20\\,\\text{m/s}$."
+      },
+      {
+        "mcqId": "P03-MCQ07",
+        "stemLatex": "Action-reaction pairs never cancel because:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "they are unequal"
+          },
+          {
+            "id": "B",
+            "latex": "they act on different bodies"
+          },
+          {
+            "id": "C",
+            "latex": "friction absorbs them"
+          },
+          {
+            "id": "D",
+            "latex": "they are not simultaneous"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Newton's third law forces act on two distinct bodies."
+      },
+      {
+        "mcqId": "P03-MCQ08",
+        "stemLatex": "In a lift accelerating upward at $a$, the normal force on a passenger of mass $m$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$m(g - a)$"
+          },
+          {
+            "id": "B",
+            "latex": "$m(g + a)$"
+          },
+          {
+            "id": "C",
+            "latex": "$mg$"
+          },
+          {
+            "id": "D",
+            "latex": "$ma$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$N - mg = ma \\Rightarrow N = m(g + a)$ — feels heavier."
+      },
+      {
+        "mcqId": "P03-MCQ09",
+        "stemLatex": "Impulse equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "the area under the $F$-$t$ graph"
+          },
+          {
+            "id": "B",
+            "latex": "the slope of the $F$-$t$ graph"
+          },
+          {
+            "id": "C",
+            "latex": "$F \\times$ distance"
+          },
+          {
+            "id": "D",
+            "latex": "$\\Delta K$ only for elastic impacts"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$J = \\int F\\,dt = \\Delta p$."
+      },
+      {
+        "mcqId": "P03-MCQ10",
+        "stemLatex": "The correct circular-motion analysis in an inertial frame uses:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "real forces with $\\sum F_{\\text{in}} = mv^2/r$"
+          },
+          {
+            "id": "B",
+            "latex": "a centrifugal arrow plus $mv^2/r$"
+          },
+          {
+            "id": "C",
+            "latex": "no force analysis"
+          },
+          {
+            "id": "D",
+            "latex": "pseudo forces only"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Never double-count: real forces OR pseudo-force frames, never both."
+      }
+    ],
+    "memoryHooks": [
+      "$J = \\Delta p$ = area under $F$-$t$.",
+      "No external force $\\Rightarrow$ momentum conserved (even inelastic).",
+      "Third-law pairs: different bodies, never cancel on one FBD.",
+      "Static friction matches the push until slip; ceiling $\\mu_s N$.",
+      "$\\theta_r = \\tan^{-1}\\mu_s$.",
+      "$N \\neq mg$: incline $mg\\cos\\theta$; pull $-$, push $+$.",
+      "Pull beats push on rollers.",
+      "$mv^2/r$ = resultant, never a new arrow.",
+      "Flat turn $\\sqrt{\\mu rg}$; bank $\\tan\\theta = v^2/rg$.",
+      "Pick inertial FBD or rotating frame — one only."
+    ],
+    "commonMistakes": [
+      "Setting $f_s = \\mu_s N$ before slip occurs.",
+      "Drawing $N = mg$ on inclines or in lifts.",
+      "Adding both centrifugal pseudo-force and $mv^2/r$.",
+      "Cancelling action-reaction pairs on one body's diagram.",
+      "Using $\\mu_k$ where $\\mu_s$ is asked.",
+      "Forgetting $F\\sin\\theta$ in the normal for oblique pushes/pulls.",
+      "Treating centripetal force as a physical interaction.",
+      "Rushing the final unit conversion after a correct setup."
+    ],
+    "examChecklist": [
+      "Impulse-momentum for variable-force and collision questions.",
+      "Conserve momentum in isolated explosions (regardless of $e$).",
+      "Apply the static-friction window before slip.",
+      "Compute $N$ for inclines, lifts, oblique forces.",
+      "Use $\\tan^{-1}\\mu_s$ for repose/friction angle.",
+      "Flat/banked turn speed limits with and without friction.",
+      "Keep third-law pairs off a single FBD.",
+      "Choose inertial or rotating frame consistently."
+    ],
+    "furtherReading": [
+      {
+        "book": "Fundamentals of Physics",
+        "author": "Halliday, Resnick & Walker",
+        "chapters": "Force and motion + friction/circular dynamics chapters",
+        "note": "Newtonian mechanics fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

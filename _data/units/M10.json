@@ -176,7 +176,605 @@
       "channelName": "Electric-Electronic-Engineer",
       "language": "en",
       "scopeNote": "Order, degree, separable, linear first-order and initial-value ODEs"
+    },
+    {
+      "title": "Differential Equations Class 12 Maths | One Shot | Full Chapter | Chapter 9 | Boards 2025-26",
+      "url": "https://www.youtube.com/watch?v=KdREHDS3MOM",
+      "videoId": "KdREHDS3MOM",
+      "duration": "172 min",
+      "durationMinutes": 172,
+      "provider": "YouTube · Anurag Chauhan - EduMitra",
+      "channelName": "Anurag Chauhan - EduMitra",
+      "language": "hi",
+      "scopeNote": "NCERT chapter 9 end-to-end: variable separable, homogeneous and linear differential equations."
+    },
+    {
+      "title": "Differential Equations Class 12 JEE Mains in 1 Shot | JEE 2021 | JEE Math | Crash Course | Vedantu",
+      "url": "https://www.youtube.com/watch?v=u3hjw5XUfpw",
+      "videoId": "u3hjw5XUfpw",
+      "duration": "89 min",
+      "durationMinutes": 89,
+      "provider": "YouTube · Vedantu JEE Made Ejee",
+      "channelName": "Vedantu JEE Made Ejee",
+      "language": "en",
+      "scopeNote": "JEE crash course on order and degree, formation of DEs and integrating factors."
+    },
+    {
+      "title": "Differential Equation - L2 | Variable Separable Form | Class 12 Maths | JEE Mains & Advanced 2020",
+      "url": "https://www.youtube.com/watch?v=zMBmD1WjS3Y",
+      "videoId": "zMBmD1WjS3Y",
+      "duration": "60 min",
+      "durationMinutes": 60,
+      "provider": "YouTube · Vedantu JEE",
+      "channelName": "Vedantu JEE",
+      "language": "en",
+      "scopeNote": "Variable-separable drills matching the pack's worked examples."
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M10-PRD01",
+        "heading": "Order, Degree & the Linear ODE Machine",
+        "proseLatex": "Order = highest derivative present; degree = its positive-integer exponent AFTER clearing radicals/fractions in derivatives — undefined if a derivative sits inside $\\sin$, $e^{(\\cdot)}$ or $\\ln$. First-order linear $\\frac{dy}{dx} + P(x)y = Q(x)$: normalize by the $y'$ coefficient FIRST, then IF $= e^{\\int P\\,dx}$ and $y\\cdot\\text{IF} = \\int Q\\cdot\\text{IF}\\,dx + C$. Micro-check: $\\frac{dy}{dx} + \\frac{y}{x} = x^2$: IF $= x$, so $yx = \\frac{x^4}{4} + C$."
+      },
+      {
+        "prdId": "M10-PRD02",
+        "heading": "Exact Equations: the $M_y = N_x$ Test",
+        "proseLatex": "$M\\,dx + N\\,dy = 0$ is exact iff $\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$; then $F = \\text{const}$ with $F_x = M$, $F_y = N$. Micro-check: $2xy\\,dx + x^2\\,dy = 0$: $M_y = 2x = N_x$ — exact, and $d(x^2y) = 2xy\\,dx + x^2\\,dy$, so $x^2y = C$."
+      },
+      {
+        "prdId": "M10-PRD03",
+        "heading": "Homogeneous Equations: the $y = vx$ Reduction",
+        "proseLatex": "$\\frac{dy}{dx} = \\phi(y/x)$ becomes separable under $y = vx$: $v + x\\frac{dv}{dx} = \\phi(v)$. Micro-check: $\\frac{dy}{dx} = \\frac{x+y}{x} = 1 + \\frac{y}{x}$: $x v' = 1 \\Rightarrow v = \\ln x + C \\Rightarrow y = x\\ln x + Cx$."
+      },
+      {
+        "prdId": "M10-PRD04",
+        "heading": "Bernoulli: One Substitution to Linear",
+        "proseLatex": "$\\frac{dy}{dx} + Py = Qy^n$ ($n \\neq 0, 1$): divide by $y^n$, set $u = y^{1-n}$, obtaining the linear ODE $\\frac{du}{dx} + (1-n)Pu = (1-n)Q$. Micro-check: $n = 3$: $u = y^{-2}$ and $\\frac{du}{dx} - 2Pu = -2Q$."
+      },
+      {
+        "prdId": "M10-PRD05",
+        "heading": "Second-Order CF: Read the Auxiliary Roots",
+        "proseLatex": "$(aD^2 + bD + c)y = 0$: roots of $am^2 + bm + c = 0$ decide $y_{\\text{CF}}$ — distinct real $m_1, m_2$: $c_1e^{m_1x} + c_2e^{m_2x}$; repeated $m$: $(c_1 + c_2x)e^{mx}$; complex $\\alpha \\pm i\\beta$: $e^{\\alpha x}(c_1\\cos\\beta x + c_2\\sin\\beta x)$. Micro-check: $y'' - 5y' + 6y = 0$: $m = 2, 3$ gives $c_1e^{2x} + c_2e^{3x}$."
+      },
+      {
+        "prdId": "M10-PRD06",
+        "heading": "PI Shortcuts: $D \\to k$ and $D^2 \\to -\\omega^2$",
+        "proseLatex": "$y_{\\text{PI}} = \\frac{1}{f(D)}R(x)$: for $e^{kx}$ replace $D \\to k$ (if $f(k) = 0$, multiply by $x$ and use $f'(D)$); for $\\sin\\omega x$ or $\\cos\\omega x$ replace $D^2 \\to -\\omega^2$ — never $D \\to -\\omega$ (trap). Micro-check: $(D^2 + 4)y = \\cos 3x$: $\\frac{\\cos 3x}{-9 + 4} = -\\frac{\\cos 3x}{5}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M10-SF01",
+        "label": "Degree rule",
+        "latex": "\\text{degree after clearing radicals/fractions in } y'",
+        "use": "Undefined inside $\\sin$, $e$, $\\ln$ of $y'$."
+      },
+      {
+        "sfId": "M10-SF02",
+        "label": "Integrating factor",
+        "latex": "\\text{IF} = e^{\\int P(x)\\,dx}",
+        "use": "After normalizing by the $y'$ coefficient."
+      },
+      {
+        "sfId": "M10-SF03",
+        "label": "Linear ODE solution",
+        "latex": "y\\cdot\\text{IF} = \\int Q\\cdot\\text{IF}\\,dx + C",
+        "use": "First-order linear."
+      },
+      {
+        "sfId": "M10-SF04",
+        "label": "Exactness test",
+        "latex": "\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}",
+        "use": "$M\\,dx + N\\,dy = 0$."
+      },
+      {
+        "sfId": "M10-SF05",
+        "label": "Homogeneous substitution",
+        "latex": "y = vx \\Rightarrow v + x\\frac{dv}{dx} = \\phi(v)",
+        "use": "Separable reduction."
+      },
+      {
+        "sfId": "M10-SF06",
+        "label": "Bernoulli substitution",
+        "latex": "u = y^{1-n}:\\ \\frac{du}{dx} + (1-n)Pu = (1-n)Q",
+        "use": "Linearizes Bernoulli."
+      },
+      {
+        "sfId": "M10-SF07",
+        "label": "Auxiliary equation",
+        "latex": "am^2 + bm + c = 0",
+        "use": "Roots decide the CF."
+      },
+      {
+        "sfId": "M10-SF08",
+        "label": "CF: distinct real roots",
+        "latex": "c_1 e^{m_1 x} + c_2 e^{m_2 x}",
+        "use": "Two exponentials."
+      },
+      {
+        "sfId": "M10-SF09",
+        "label": "CF: repeated root",
+        "latex": "(c_1 + c_2 x)e^{mx}",
+        "use": "Polynomial $\\times$ exponential."
+      },
+      {
+        "sfId": "M10-SF10",
+        "label": "CF: complex roots",
+        "latex": "e^{\\alpha x}(c_1\\cos\\beta x + c_2\\sin\\beta x)",
+        "use": "Damped oscillation."
+      },
+      {
+        "sfId": "M10-SF11",
+        "label": "PI for $e^{kx}$",
+        "latex": "\\frac{1}{f(k)}e^{kx}",
+        "use": "$f(k) = 0$: multiply by $x$, use $f'(D)$."
+      },
+      {
+        "sfId": "M10-SF12",
+        "label": "PI for $\\sin\\omega x$, $\\cos\\omega x$",
+        "latex": "D^2 \\to -\\omega^2",
+        "use": "Only $D^2$; never $D = -\\omega$."
+      },
+      {
+        "sfId": "M10-SF13",
+        "label": "Degree example",
+        "latex": "(1+(y')^2)^3 = (y'')^2: \\text{ order } 2, \\text{ degree } 2",
+        "use": "Sixth power clears both radicals."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M10-DEF01",
+        "term": "Order",
+        "definition": "Highest derivative present in the ODE."
+      },
+      {
+        "defId": "M10-DEF02",
+        "term": "Degree",
+        "definition": "Positive-integer power of the highest derivative after clearing radicals/fractions; undefined if derivatives sit inside transcendental functions."
+      },
+      {
+        "defId": "M10-DEF03",
+        "term": "Integrating factor",
+        "definition": "$e^{\\int P\\,dx}$; converts a linear ODE into an exact product derivative."
+      },
+      {
+        "defId": "M10-DEF04",
+        "term": "Exact equation",
+        "definition": "$M\\,dx + N\\,dy = 0$ with $M_y = N_x$: arises from some $F(x, y) = C$."
+      },
+      {
+        "defId": "M10-DEF05",
+        "term": "Homogeneous first-order ODE",
+        "definition": "$\\frac{dy}{dx} = \\phi(y/x)$; reduce with $y = vx$."
+      },
+      {
+        "defId": "M10-DEF06",
+        "term": "Bernoulli equation",
+        "definition": "$y' + Py = Qy^n$; linearized by $u = y^{1-n}$."
+      },
+      {
+        "defId": "M10-DEF07",
+        "term": "Complementary function",
+        "definition": "General solution of the homogeneous second-order ODE."
+      },
+      {
+        "defId": "M10-DEF08",
+        "term": "Particular integral",
+        "definition": "Any one solution of the inhomogeneous ODE, found via $1/f(D)$ shortcuts."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M10-CMP01",
+        "title": "CF vs PI",
+        "columns": [
+          "Aspect",
+          "CF",
+          "PI"
+        ],
+        "rows": [
+          {
+            "label": "Solves",
+            "values": [
+              "homogeneous part ($R = 0$)",
+              "full inhomogeneous ODE"
+            ]
+          },
+          {
+            "label": "Source",
+            "values": [
+              "auxiliary roots",
+              "$1/f(D)$ shortcuts"
+            ]
+          },
+          {
+            "label": "Constants",
+            "values": [
+              "carries $c_1, c_2$",
+              "none"
+            ]
+          },
+          {
+            "label": "Final answer",
+            "values": [
+              "$y = \\text{CF} + \\text{PI}$",
+              "—"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M10-CMP02",
+        "title": "Auxiliary-root cases",
+        "columns": [
+          "Roots",
+          "CF form"
+        ],
+        "rows": [
+          {
+            "label": "Distinct real $m_1, m_2$",
+            "values": [
+              "$c_1e^{m_1x} + c_2e^{m_2x}$"
+            ]
+          },
+          {
+            "label": "Repeated $m$",
+            "values": [
+              "$(c_1 + c_2x)e^{mx}$"
+            ]
+          },
+          {
+            "label": "Complex $\\alpha \\pm i\\beta$",
+            "values": [
+              "$e^{\\alpha x}(c_1\\cos\\beta x + c_2\\sin\\beta x)$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M10-CMP03",
+        "title": "Linear vs Bernoulli",
+        "columns": [
+          "Aspect",
+          "Linear",
+          "Bernoulli"
+        ],
+        "rows": [
+          {
+            "label": "Right side",
+            "values": [
+              "$Q(x)$",
+              "$Q(x)y^n$"
+            ]
+          },
+          {
+            "label": "Substitution",
+            "values": [
+              "none (IF only)",
+              "$u = y^{1-n}$"
+            ]
+          },
+          {
+            "label": "After conversion",
+            "values": [
+              "already linear",
+              "linear in $u$ with $(1-n)$ factors"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M10-MCQ01",
+        "stemLatex": "The order and degree of $(1 + (y')^2)^3 = (y'')^2$ are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$ and $2$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$ and $3$"
+          },
+          {
+            "id": "C",
+            "latex": "$3$ and $2$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$ and $2$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Highest derivative $y''$: order $2$; raise to the $6$th power: $(1+(y')^2)^3 = (y'')^2$ — degree $2$."
+      },
+      {
+        "mcqId": "M10-MCQ02",
+        "stemLatex": "The integrating factor of $\\frac{dy}{dx} + \\frac{y}{x} = x^2$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$x$"
+          },
+          {
+            "id": "B",
+            "latex": "$e^x$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\ln x$"
+          },
+          {
+            "id": "D",
+            "latex": "$x^2$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$P = 1/x$ (after the equation is already normalized): IF $= e^{\\int dx/x} = x$."
+      },
+      {
+        "mcqId": "M10-MCQ03",
+        "stemLatex": "The solution of $2xy\\,dx + x^2\\,dy = 0$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$x^2 y = C$"
+          },
+          {
+            "id": "B",
+            "latex": "$x y^2 = C$"
+          },
+          {
+            "id": "C",
+            "latex": "$x + y = C$"
+          },
+          {
+            "id": "D",
+            "latex": "$x^2 + y^2 = C$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Exact ($M_y = N_x = 2x$); $d(x^2y) = 2xy\\,dx + x^2\\,dy$, so $x^2y = C$."
+      },
+      {
+        "mcqId": "M10-MCQ04",
+        "stemLatex": "For $\\frac{dy}{dx} = \\frac{x+y}{x}$, the substitution $y = vx$ gives the solution:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$y = x\\ln x + Cx$"
+          },
+          {
+            "id": "B",
+            "latex": "$y = x^2 + C$"
+          },
+          {
+            "id": "C",
+            "latex": "$y = \\ln x + C$"
+          },
+          {
+            "id": "D",
+            "latex": "$y = xe^x + C$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$v + xv' = 1 + v \\Rightarrow xv' = 1 \\Rightarrow v = \\ln x + C$, i.e. $y = x\\ln x + Cx$."
+      },
+      {
+        "mcqId": "M10-MCQ05",
+        "stemLatex": "For $\\frac{dy}{dx} + Py = Qy^3$, the correct substitution is $u$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$y^2$"
+          },
+          {
+            "id": "B",
+            "latex": "$y^{-2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$y^3$"
+          },
+          {
+            "id": "D",
+            "latex": "$y^{1/3}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$u = y^{1-n} = y^{-2}$ converts it to a linear ODE in $u$."
+      },
+      {
+        "mcqId": "M10-MCQ06",
+        "stemLatex": "The complementary function of $y'' - 5y' + 6y = 0$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$c_1e^{2x} + c_2e^{3x}$"
+          },
+          {
+            "id": "B",
+            "latex": "$(c_1 + c_2x)e^{5x/2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$e^{2x}(c_1\\cos x + c_2\\sin x)$"
+          },
+          {
+            "id": "D",
+            "latex": "$c_1e^{-2x} + c_2e^{-3x}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$m^2 - 5m + 6 = 0 \\Rightarrow m = 2, 3$: distinct real roots."
+      },
+      {
+        "mcqId": "M10-MCQ07",
+        "stemLatex": "The complementary function of $y'' - 4y' + 4y = 0$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$(c_1 + c_2x)e^{2x}$"
+          },
+          {
+            "id": "B",
+            "latex": "$c_1e^{2x} + c_2e^{-2x}$"
+          },
+          {
+            "id": "C",
+            "latex": "$e^{2x}(c_1\\cos 2x + c_2\\sin 2x)$"
+          },
+          {
+            "id": "D",
+            "latex": "$c_1e^{2x} + c_2e^{3x}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$m^2 - 4m + 4 = 0 \\Rightarrow m = 2$ repeated: $(c_1 + c_2x)e^{2x}$."
+      },
+      {
+        "mcqId": "M10-MCQ08",
+        "stemLatex": "A particular integral of $y'' + 4y = \\cos 3x$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-\\frac{1}{5}\\cos 3x$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{1}{5}\\cos 3x$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\cos 3x$"
+          },
+          {
+            "id": "D",
+            "latex": "$-5\\cos 3x$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$D^2 \\to -9$: $\\frac{\\cos 3x}{-9 + 4} = -\\frac{\\cos 3x}{5}$."
+      },
+      {
+        "mcqId": "M10-MCQ09",
+        "stemLatex": "The degree of $y'' = e^{y'}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "undefined"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "A derivative inside $e^{(\\cdot)}$ can never be cleared to a polynomial power."
+      },
+      {
+        "mcqId": "M10-MCQ10",
+        "stemLatex": "A particular integral of $y'' + 9y = \\sin 2x$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{\\sin 2x}{5}$"
+          },
+          {
+            "id": "B",
+            "latex": "$-\\frac{\\sin 2x}{5}$"
+          },
+          {
+            "id": "C",
+            "latex": "$5\\sin 2x$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sin 2x$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$D^2 \\to -4$: $\\frac{\\sin 2x}{-4 + 9} = \\frac{\\sin 2x}{5}$."
+      }
+    ],
+    "memoryHooks": [
+      "Order = highest derivative; degree needs a cleared polynomial in $y'$.",
+      "Radicals/fractions in derivatives: clear before reading degree.",
+      "Derivative inside $\\sin$, $e$, $\\ln$ $\\to$ degree undefined.",
+      "Normalize by $a(x)$ FIRST, then IF $= e^{\\int P\\,dx}$.",
+      "Exact test: $M_y = N_x$; integrate $M$ w.r.t. $x$.",
+      "$y = vx$ for $\\phi(y/x)$; Bernoulli: $u = y^{1-n}$.",
+      "Auxiliary roots: distinct $\\to$ two exponentials; repeated $\\to$ $(c_1 + c_2x)e^{mx}$; complex $\\to$ damped oscillation.",
+      "$e^{kx}$: $D \\to k$; $\\sin/\\cos$: $D^2 \\to -\\omega^2$ only.",
+      "$f(k) = 0$? Multiply by $x$ and differentiate the operator.",
+      "Final answer: $y = \\text{CF} + \\text{PI}$."
+    ],
+    "commonMistakes": [
+      "Computing IF before dividing by the $y'$ coefficient.",
+      "Reading degree from the un-cleared radical form.",
+      "Assigning a degree to $y'' = e^{y'}$-type equations.",
+      "Using $u = y^{1-n}$ with the wrong sign in $(1-n)P$.",
+      "Replacing $D$ by $-\\omega$ instead of $D^2$ by $-\\omega^2$.",
+      "Forgetting the $x$-multiplication rescue when $f(k) = 0$.",
+      "Quoting $(c_1 + c_2x)e^{mx}$ for distinct roots.",
+      "Missing the $+\\text{PI}$ in the general solution."
+    ],
+    "examChecklist": [
+      "State order and degree after clearing radicals; spot undefined-degree cases.",
+      "Normalize, then IF $= e^{\\int P\\,dx}$ for linear ODEs.",
+      "Test $M_y = N_x$ before calling an equation exact.",
+      "Reduce $\\phi(y/x)$ with $y = vx$.",
+      "Bernoulli: divide by $y^n$, substitute $u = y^{1-n}$.",
+      "Factor the auxiliary equation and pick the right CF case.",
+      "PI: $D \\to k$ for exponentials, $D^2 \\to -\\omega^2$ for trig.",
+      "Handle $f(k) = 0$ failures with the $x$-shift rule.",
+      "Combine $y = \\text{CF} + \\text{PI}$ at the end."
+    ],
+    "furtherReading": [
+      {
+        "book": "Ordinary and Partial Differential Equations",
+        "author": "M. D. Raisinghania",
+        "chapters": "First-order and second-order constant-coefficient ODE chapters",
+        "note": "ODE machinery this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

@@ -1,0 +1,628 @@
+{
+  "unitId": "M04",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M04-PRD01",
+        "heading": "Straight Lines: Angle, Distance & Pair Tests",
+        "proseLatex": "Two lines with slopes $m_1, m_2$ meet at acute angle $\\tan\\theta = \\left|\\frac{m_1 - m_2}{1 + m_1 m_2}\\right|$; $m_1 = m_2$ means parallel and $m_1 m_2 = -1$ means perpendicular. The perpendicular distance from $(x_0, y_0)$ to $ax + by + c = 0$ is $\\frac{|ax_0 + by_0 + c|}{\\sqrt{a^2+b^2}}$. Micro-check: from $(2, 3)$ to $3x + 4y + 5 = 0$: $\\frac{|6 + 12 + 5|}{5} = \\frac{23}{5} = 4.6$."
+      },
+      {
+        "prdId": "M04-PRD02",
+        "heading": "Circles: General Form, Radius & Orthogonal Cuts",
+        "proseLatex": "$x^2 + y^2 + 2gx + 2fy + c = 0$ has centre $(-g, -f)$ and radius $\\sqrt{g^2 + f^2 - c}$ — but only AFTER normalizing the coefficient of $x^2$ and $y^2$ to 1 (trap: divide $Ax^2 + Ay^2 + \\dots = 0$ by $A$ first). Two circles cut orthogonally when $2g_1 g_2 + 2f_1 f_2 = c_1 + c_2$. Micro-check: $x^2 + y^2 - 4x + 6y - 3 = 0$: centre $(2, -3)$, $r = \\sqrt{4 + 9 + 3} = 4$."
+      },
+      {
+        "prdId": "M04-PRD03",
+        "heading": "Distance Between Parallel Lines: Normalize First",
+        "proseLatex": "For $ax + by + c_1 = 0$ and $kax + kby + c_2 = 0$, divide the second by $k$ so both share $(a, b)$; only then apply $\\frac{|c_1 - c_2'|}{\\sqrt{a^2+b^2}}$. Applying the formula to unequal coefficients is the classic slip. Micro-check: $2x + 3y + 5 = 0$ vs $4x + 6y - 9 = 0$: halve the second to $2x + 3y - 4.5 = 0$, distance $= \\frac{9.5}{\\sqrt{13}} \\approx 2.63$."
+      },
+      {
+        "prdId": "M04-PRD04",
+        "heading": "Conics by Eccentricity + the Parabola Kit",
+        "proseLatex": "Eccentricity classifies conics: circle $e = 0$, parabola $e = 1$, ellipse $0 < e < 1$, hyperbola $e > 1$. For $y^2 = 4ax$: focus $(a, 0)$, directrix $x = -a$, latus rectum $4a$. Micro-check: $y^2 = 12x$ gives $a = 3$: focus $(3, 0)$, LR $= 12$."
+      },
+      {
+        "prdId": "M04-PRD05",
+        "heading": "Ellipse & Hyperbola Parameter Machine",
+        "proseLatex": "Ellipse $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$ ($a > b$): $b^2 = a^2(1-e^2)$, foci $(\\pm ae, 0)$, LR $= \\frac{2b^2}{a}$. If $b > a$ the major axis flips to the $y$-axis and $e = \\sqrt{1 - a^2/b^2}$. Hyperbola: $b^2 = a^2(e^2 - 1)$; the rectangular hyperbola has $a = b$, $e = \\sqrt{2}$. Micro-check: $\\frac{x^2}{25}+\\frac{y^2}{9}=1$: $e = \\sqrt{1 - 9/25} = 4/5$, foci $(\\pm 4, 0)$, LR $= 18/5$."
+      },
+      {
+        "prdId": "M04-PRD06",
+        "heading": "Tangents: the T = 0 Rule & Slope-Form Conditions",
+        "proseLatex": "At a point $(x_1, y_1)$ ON any second-degree curve, the tangent $T = 0$ follows from the replacements $x^2 \\to xx_1$, $y^2 \\to yy_1$, $2x \\to (x+x_1)$, $2y \\to (y+y_1)$, $2xy \\to (xy_1 + x_1 y)$. In slope form $y = mx + c$ the tangency conditions are $c = a/m$ (parabola $y^2 = 4ax$), $c = \\pm\\sqrt{a^2 m^2 + b^2}$ (ellipse), $c = \\pm\\sqrt{a^2 m^2 - b^2}$ (hyperbola). Micro-check: tangent of slope 2 to $y^2 = 4x$: $c = \\frac{1}{2}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M04-SF01",
+        "label": "Angle between two lines",
+        "latex": "\\tan\\theta = \\left|\\frac{m_1 - m_2}{1 + m_1 m_2}\\right|",
+        "use": "Acute angle from slopes."
+      },
+      {
+        "sfId": "M04-SF02",
+        "label": "Perpendicularity test",
+        "latex": "m_1 m_2 = -1",
+        "use": "Slopes of perpendicular lines."
+      },
+      {
+        "sfId": "M04-SF03",
+        "label": "Point-to-line distance",
+        "latex": "\\frac{|ax_0 + by_0 + c|}{\\sqrt{a^2+b^2}}",
+        "use": "Perpendicular distance."
+      },
+      {
+        "sfId": "M04-SF04",
+        "label": "Parallel-line distance",
+        "latex": "\\frac{|c_1 - c_2|}{\\sqrt{a^2+b^2}}",
+        "use": "Only after equalizing $(a, b)$."
+      },
+      {
+        "sfId": "M04-SF05",
+        "label": "Circle centre & radius",
+        "latex": "(-g, -f),\\quad r = \\sqrt{g^2 + f^2 - c}",
+        "use": "From $x^2 + y^2 + 2gx + 2fy + c = 0$."
+      },
+      {
+        "sfId": "M04-SF06",
+        "label": "Orthogonal circle condition",
+        "latex": "2g_1 g_2 + 2f_1 f_2 = c_1 + c_2",
+        "use": "Right-angle intersection test."
+      },
+      {
+        "sfId": "M04-SF07",
+        "label": "Eccentricity classes",
+        "latex": "e = 0, 1, (0,1), >1",
+        "use": "Circle, parabola, ellipse, hyperbola."
+      },
+      {
+        "sfId": "M04-SF08",
+        "label": "Parabola $y^2 = 4ax$ kit",
+        "latex": "\\text{focus } (a, 0);\\ \\text{directrix } x = -a",
+        "use": "Standard right-opening parabola."
+      },
+      {
+        "sfId": "M04-SF09",
+        "label": "Parabola latus rectum",
+        "latex": "4a",
+        "use": "Focal chord perpendicular to axis."
+      },
+      {
+        "sfId": "M04-SF10",
+        "label": "Ellipse: $b^2 = a^2(1-e^2)$",
+        "latex": "b^2 = a^2(1-e^2),\\ a > b",
+        "use": "Links semi-axes to $e$."
+      },
+      {
+        "sfId": "M04-SF11",
+        "label": "Ellipse foci & LR",
+        "latex": "(\\pm ae, 0);\\quad \\text{LR} = \\frac{2b^2}{a}",
+        "use": "Standard ellipse geometry."
+      },
+      {
+        "sfId": "M04-SF12",
+        "label": "Hyperbola: $b^2 = a^2(e^2-1)$",
+        "latex": "b^2 = a^2(e^2-1)",
+        "use": "Conjugate-axis relation."
+      },
+      {
+        "sfId": "M04-SF13",
+        "label": "Rectangular hyperbola",
+        "latex": "a = b \\Rightarrow e = \\sqrt{2}",
+        "use": "Asymptotes perpendicular."
+      },
+      {
+        "sfId": "M04-SF14",
+        "label": "T = 0 replacement rule",
+        "latex": "x^2 \\to xx_1,\\ y^2 \\to yy_1,\\ 2x \\to x + x_1",
+        "use": "Instant tangent at a curve point."
+      },
+      {
+        "sfId": "M04-SF15",
+        "label": "Slope-form tangency conditions",
+        "latex": "c = \\frac{a}{m};\\ \\pm\\sqrt{a^2m^2+b^2};\\ \\pm\\sqrt{a^2m^2-b^2}",
+        "use": "Parabola / ellipse / hyperbola."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M04-DEF01",
+        "term": "Eccentricity",
+        "definition": "Fixed ratio $e$ of distance-to-focus over distance-to-directrix that classifies the conic."
+      },
+      {
+        "defId": "M04-DEF02",
+        "term": "Focus",
+        "definition": "Fixed point used with the directrix to define the conic locus."
+      },
+      {
+        "defId": "M04-DEF03",
+        "term": "Directrix",
+        "definition": "Fixed line paired with the focus in the conic definition."
+      },
+      {
+        "defId": "M04-DEF04",
+        "term": "Latus rectum",
+        "definition": "Focal chord perpendicular to the major/transverse axis."
+      },
+      {
+        "defId": "M04-DEF05",
+        "term": "General circle form",
+        "definition": "$x^2 + y^2 + 2gx + 2fy + c = 0$ with centre $(-g,-f)$, radius $\\sqrt{g^2+f^2-c}$."
+      },
+      {
+        "defId": "M04-DEF06",
+        "term": "Orthogonal circles",
+        "definition": "Circles intersecting at right angles: $2g_1g_2 + 2f_1f_2 = c_1 + c_2$."
+      },
+      {
+        "defId": "M04-DEF07",
+        "term": "Tangent (slope form)",
+        "definition": "Line $y = mx + c$ touching a conic exactly when $c$ satisfies the tangency condition."
+      },
+      {
+        "defId": "M04-DEF08",
+        "term": "Condition of tangency",
+        "definition": "The constraint on $c$ (or on line parameters) forcing a single common point."
+      },
+      {
+        "defId": "M04-DEF09",
+        "term": "Conic section",
+        "definition": "Locus with constant focus-to-directrix distance ratio $e$."
+      },
+      {
+        "defId": "M04-DEF10",
+        "term": "T = 0 rule",
+        "definition": "Second-degree replacement recipe giving the tangent at a known curve point."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M04-CMP01",
+        "title": "Conic families by eccentricity",
+        "columns": [
+          "Conic",
+          "e",
+          "Standard equation"
+        ],
+        "rows": [
+          {
+            "label": "Circle",
+            "values": [
+              "$0$",
+              "$x^2 + y^2 = r^2$"
+            ]
+          },
+          {
+            "label": "Parabola",
+            "values": [
+              "$1$",
+              "$y^2 = 4ax$"
+            ]
+          },
+          {
+            "label": "Ellipse",
+            "values": [
+              "$0 < e < 1$",
+              "$\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$"
+            ]
+          },
+          {
+            "label": "Hyperbola",
+            "values": [
+              "$> 1$",
+              "$\\frac{x^2}{a^2}-\\frac{y^2}{b^2}=1$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M04-CMP02",
+        "title": "Slope-form tangency: $c$ for $y = mx + c$",
+        "columns": [
+          "Curve",
+          "Condition on $c$"
+        ],
+        "rows": [
+          {
+            "label": "Parabola $y^2 = 4ax$",
+            "values": [
+              "$\\frac{a}{m}$"
+            ]
+          },
+          {
+            "label": "Ellipse",
+            "values": [
+              "$\\pm\\sqrt{a^2 m^2 + b^2}$"
+            ]
+          },
+          {
+            "label": "Hyperbola",
+            "values": [
+              "$\\pm\\sqrt{a^2 m^2 - b^2}$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M04-CMP03",
+        "title": "Ellipse vs hyperbola parameters ($a > b$)",
+        "columns": [
+          "Aspect",
+          "Ellipse",
+          "Hyperbola"
+        ],
+        "rows": [
+          {
+            "label": "$b^2$ relation",
+            "values": [
+              "$a^2(1-e^2)$",
+              "$a^2(e^2-1)$"
+            ]
+          },
+          {
+            "label": "Eccentricity",
+            "values": [
+              "$0 < e < 1$",
+              "$e > 1$"
+            ]
+          },
+          {
+            "label": "Latus rectum",
+            "values": [
+              "$\\frac{2b^2}{a}$",
+              "$\\frac{2b^2}{a}$"
+            ]
+          },
+          {
+            "label": "Rectangular case",
+            "values": [
+              "none",
+              "$a = b$, $e = \\sqrt{2}$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M04-CMP04",
+        "title": "Line-pair tests from slopes",
+        "columns": [
+          "Relation",
+          "Condition"
+        ],
+        "rows": [
+          {
+            "label": "Parallel",
+            "values": [
+              "$m_1 = m_2$"
+            ]
+          },
+          {
+            "label": "Perpendicular",
+            "values": [
+              "$m_1 m_2 = -1$"
+            ]
+          },
+          {
+            "label": "Acute angle",
+            "values": [
+              "$\\tan\\theta = \\left|\\frac{m_1 - m_2}{1 + m_1 m_2}\\right|$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M04-MCQ01",
+        "stemLatex": "The perpendicular distance from $(2, 3)$ to the line $3x + 4y + 5 = 0$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$4.6$"
+          },
+          {
+            "id": "B",
+            "latex": "$5.2$"
+          },
+          {
+            "id": "C",
+            "latex": "$3.8$"
+          },
+          {
+            "id": "D",
+            "latex": "$6.0$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\frac{|3(2) + 4(3) + 5|}{\\sqrt{9+16}} = \\frac{23}{5} = 4.6$."
+      },
+      {
+        "mcqId": "M04-MCQ02",
+        "stemLatex": "The radius of the circle $x^2 + y^2 - 4x + 6y - 3 = 0$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$3$"
+          },
+          {
+            "id": "C",
+            "latex": "$4$"
+          },
+          {
+            "id": "D",
+            "latex": "$5$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$g = -2, f = 3, c = -3$: $r = \\sqrt{4 + 9 + 3} = \\sqrt{16} = 4$."
+      },
+      {
+        "mcqId": "M04-MCQ03",
+        "stemLatex": "The circle $x^2 + y^2 - 6x + 2y + k = 0$ cuts $x^2 + y^2 + 2x + 4y - 4 = 0$ orthogonally when $k$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$3$"
+          },
+          {
+            "id": "C",
+            "latex": "$-2$"
+          },
+          {
+            "id": "D",
+            "latex": "$5$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$2g_1g_2 + 2f_1f_2 = 2(1)(-3) + 2(2)(1) = -2$; set $-2 = c_1 + c_2 = -4 + k \\Rightarrow k = 2$."
+      },
+      {
+        "mcqId": "M04-MCQ04",
+        "stemLatex": "The focus of the parabola $y^2 = 12x$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$(3, 0)$"
+          },
+          {
+            "id": "B",
+            "latex": "$(12, 0)$"
+          },
+          {
+            "id": "C",
+            "latex": "$(0, 3)$"
+          },
+          {
+            "id": "D",
+            "latex": "$(4, 0)$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$4a = 12 \\Rightarrow a = 3$, so the focus is $(a, 0) = (3, 0)$ and the LR is $12$."
+      },
+      {
+        "mcqId": "M04-MCQ05",
+        "stemLatex": "The eccentricity of $\\frac{x^2}{25} + \\frac{y^2}{9} = 1$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{3}{5}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{4}{5}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{5}{4}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{2}{5}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$e = \\sqrt{1 - b^2/a^2} = \\sqrt{1 - 9/25} = 4/5$; foci $(\\pm 4, 0)$."
+      },
+      {
+        "mcqId": "M04-MCQ06",
+        "stemLatex": "For $\\frac{x^2}{16} + \\frac{y^2}{25} = 1$, the eccentricity is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{3}{5}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{4}{5}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{5}{3}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{4}{3}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Here $b > a$: major axis along $y$, so $e = \\sqrt{1 - a^2/b^2} = \\sqrt{1 - 16/25} = 3/5$."
+      },
+      {
+        "mcqId": "M04-MCQ07",
+        "stemLatex": "The distance between $2x + 3y + 5 = 0$ and $4x + 6y - 9 = 0$ is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2.63$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.32$"
+          },
+          {
+            "id": "C",
+            "latex": "$5.26$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.66$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Halve the second line: $2x + 3y - 4.5 = 0$; distance $= \\frac{|5 - (-4.5)|}{\\sqrt{13}} = \\frac{9.5}{3.606} \\approx 2.63$."
+      },
+      {
+        "mcqId": "M04-MCQ08",
+        "stemLatex": "The line $y = 2x + c$ touches $y^2 = 4x$ when $c$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{1}{2}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1$"
+          },
+          {
+            "id": "C",
+            "latex": "$2$"
+          },
+          {
+            "id": "D",
+            "latex": "$4$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$c = \\frac{a}{m}$ with $a = 1$, $m = 2$: $c = 1/2$."
+      },
+      {
+        "mcqId": "M04-MCQ09",
+        "stemLatex": "The eccentricity of a rectangular hyperbola is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\sqrt{2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$2$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{3}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$a = b$ gives $e = \\sqrt{1 + b^2/a^2} = \\sqrt{2}$; asymptotes are perpendicular."
+      },
+      {
+        "mcqId": "M04-MCQ10",
+        "stemLatex": "The acute angle between lines of slopes $\\frac{1}{2}$ and $3$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$30°$"
+          },
+          {
+            "id": "B",
+            "latex": "$45°$"
+          },
+          {
+            "id": "C",
+            "latex": "$60°$"
+          },
+          {
+            "id": "D",
+            "latex": "$90°$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\tan\\theta = \\left|\\frac{0.5 - 3}{1 + 1.5}\\right| = \\left|\\frac{-2.5}{2.5}\\right| = 1 \\Rightarrow \\theta = 45°$."
+      }
+    ],
+    "memoryHooks": [
+      "Slope pair tests: equal $\\to$ parallel, product $-1$ $\\to$ perpendicular.",
+      "Point-to-line distance: substitute, absolute value, divide by $\\sqrt{a^2+b^2}$.",
+      "Circle: centre flips signs of $g, f$; radius needs $g^2 + f^2 - c$.",
+      "Normalize $Ax^2 + Ay^2$ by $A$ BEFORE reading $g, f, c$.",
+      "Orthogonal circles: $2g_1g_2 + 2f_1f_2 = c_1 + c_2$.",
+      "Parallel lines: equalize $(a, b)$ first, then $|c_1 - c_2|$ over norm.",
+      "$y^2 = 4ax$: focus $(a, 0)$, LR $4a$ — read $a$ from $4a$.",
+      "Ellipse $b^2 = a^2(1-e^2)$; hyperbola swaps the sign: $b^2 = a^2(e^2-1)$.",
+      "$b > a$: major axis on $y$, use $e = \\sqrt{1 - a^2/b^2}$.",
+      "Rectangular hyperbola: $e = \\sqrt{2}$."
+    ],
+    "commonMistakes": [
+      "Reading $g, f, c$ without dividing by the $x^2$ coefficient first.",
+      "Applying the parallel-line distance formula to unequal $(a, b)$ pairs.",
+      "Assuming the major axis is along $x$ when $b > a$.",
+      "Using $b^2 = a^2(1-e^2)$ for a hyperbola (it is $a^2(e^2-1)$).",
+      "Quoting LR $= 2a$ for a parabola (it is $4a$).",
+      "Forgetting the $\\pm$ in ellipse/hyperbola slope-form tangency conditions.",
+      "Applying $T = 0$ at a point not on the curve.",
+      "Dropping the absolute value in the point-to-line distance.",
+      "Mixing up focus $(a, 0)$ with directrix $x = -a$ for $y^2 = 4ax$."
+    ],
+    "examChecklist": [
+      "Compute point-to-line and parallel-line distances in one line each.",
+      "Extract circle centre/radius only after normalizing coefficients.",
+      "Test orthogonal circles with $2g_1g_2 + 2f_1f_2 = c_1 + c_2$.",
+      "Classify a conic by $e$ before quoting parameters.",
+      "Read $a$ from $y^2 = 4ax$ (so $a = 3$ when $y^2 = 12x$).",
+      "State $b^2$ relations: ellipse $a^2(1-e^2)$, hyperbola $a^2(e^2-1)$.",
+      "Check $a$ vs $b$ before quoting foci or $e$ for an ellipse.",
+      "Use $T = 0$ replacements for tangents at a curve point.",
+      "Recall all three slope-form tangency conditions.",
+      "Rectangular hyperbola: $a = b$, $e = \\sqrt{2}$.",
+      "Sanity-check distances as positive reals."
+    ],
+    "furtherReading": [
+      {
+        "book": "The Elements of Coordinate Geometry",
+        "author": "S. L. Loney",
+        "chapters": "Straight lines + parabola, ellipse, hyperbola chapters",
+        "note": "Lines and conics fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

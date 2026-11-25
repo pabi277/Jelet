@@ -1,0 +1,628 @@
+{
+  "unitId": "E04",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "E04-PRD01",
+        "heading": "KCL and KVL Are Conservation Laws",
+        "proseLatex": "Kirchhoff's Current Law $\\sum I = 0$ at a node is charge conservation; Kirchhoff's Voltage Law $\\sum V = 0$ around a loop is energy conservation. Every network method (mesh, nodal) is bookkeeping on these two. Micro-check: three currents meet at a node ($2\\ \\text{A}$ in, $3\\ \\text{A}$ in, $x$ out): $x = 5\\ \\text{A}$ — KCL."
+      },
+      {
+        "prdId": "E04-PRD02",
+        "heading": "Superposition — With Its Two Red Lines",
+        "proseLatex": "In linear bilateral networks, each independent source's contribution to any VOLTAGE or CURRENT can be computed alone: kill other ideal voltage sources (SHORT them) and ideal current sources (OPEN them). Never deactivate DEPENDENT sources. And superposition NEVER applies to power: $P = I^2R$ is nonlinear — add currents first, then square. Micro-check: two sources give $I_1 = 2\\ \\text{A}$, $I_2 = 3\\ \\text{A}$ through $R = 1\\ \\Omega$: net power uses $I = 5\\ \\text{A} \\Rightarrow 25\\ \\text{W}$, not $4 + 9 = 13\\ \\text{W}$."
+      },
+      {
+        "prdId": "E04-PRD03",
+        "heading": "Dividers and the Symmetric Y–Δ Rule",
+        "proseLatex": "Current divider: the branch current carries the OPPOSITE resistance in the numerator, $I_1 = I\\frac{R_2}{R_1 + R_2}$; voltage divider keeps its own, $V_1 = V\\frac{R_1}{R_1+R_2}$. For equal resistors, the conversion shortcut is $R_\\Delta = 3R_Y$. Micro-check: $10\\ \\text{A}$ splits into $2\\ \\Omega$ and $8\\ \\Omega$: the $2\\ \\Omega$ branch carries $10 \\times \\frac{8}{10} = 8\\ \\text{A}$."
+      },
+      {
+        "prdId": "E04-PRD04",
+        "heading": "Thévenin and Norton: Two Faces of One Network",
+        "proseLatex": "Any linear two-terminal network reduces to an open-circuit voltage $V_{\\text{th}} = V_{\\text{oc}}$ in series with $R_{\\text{th}}$, or a short-circuit current $I_N = I_{\\text{sc}} = \\frac{V_{\\text{th}}}{R_{\\text{th}}}$ in parallel with $R_N = R_{\\text{th}}$. Measure $V_{\\text{oc}}$ and $I_{\\text{sc}}$ and you have both: $R_{\\text{th}} = \\frac{V_{\\text{oc}}}{I_{\\text{sc}}}$. Micro-check: $V_{\\text{oc}} = 24\\ \\text{V}$, $I_{\\text{sc}} = 6\\ \\text{A}$: $R_{\\text{th}} = 4\\ \\Omega$, $I_N = 6\\ \\text{A}$."
+      },
+      {
+        "prdId": "E04-PRD05",
+        "heading": "Maximum Power Transfer — and Its 50% Catch",
+        "proseLatex": "A variable resistive load extracts maximum power at $R_L = R_{\\text{th}}$, delivering $P_{\\max} = \\frac{V_{\\text{th}}^2}{4R_{\\text{th}}}$ — but at exactly $50\\%$ efficiency, since the source resistance burns an equal share. $50\\%$ is the efficiency AT maximum power, NOT the maximum efficiency ($\\eta = \\frac{R_L}{R_L + R_{\\text{th}}} \\to 100\\%$ as $R_L \\to \\infty$). Micro-check: $V_{\\text{th}} = 24\\ \\text{V}$, $R_{\\text{th}} = 4\\ \\Omega$: $P_{\\max} = \\frac{576}{16} = 36\\ \\text{W}$, with $18\\ \\text{W}$ lost inside."
+      },
+      {
+        "prdId": "E04-PRD06",
+        "heading": "Transients: Continuity, Steady State and the Universal Form",
+        "proseLatex": "Capacitor voltage and inductor current CANNOT jump: $v_C(0^+) = v_C(0^-)$, $i_L(0^+) = i_L(0^-)$. In DC steady state a capacitor is an OPEN circuit and an inductor a SHORT. Every first-order transient obeys $x(t) = x(\\infty) + [x(0^+) - x(\\infty)]e^{-t/\\tau}$ with $\\tau_{RC} = R_{\\text{th}}C$, $\\tau_{RL} = \\frac{L}{R_{\\text{th}}}$ — $63.2\\%$ of the change at $t = \\tau$, $>99\\%$ by $5\\tau$. Micro-check: $R = 50\\ \\text{k}\\Omega$, $C = 10\\ \\mu\\text{F}$: $\\tau = 0.5\\ \\text{s}$, and at $0.5\\ \\text{s}$ a $100\\ \\text{V}$ charge has reached $63.2\\ \\text{V}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "E04-SF01",
+        "label": "Kirchhoff's laws",
+        "latex": "$\\sum I_{\\text{node}} = 0;\\quad \\sum V_{\\text{loop}} = 0$",
+        "use": "Charge and energy conservation."
+      },
+      {
+        "sfId": "E04-SF02",
+        "label": "Current divider",
+        "latex": "$I_1 = I\\,\\frac{R_2}{R_1 + R_2}$",
+        "use": "OPPOSITE resistance in the numerator."
+      },
+      {
+        "sfId": "E04-SF03",
+        "label": "Voltage divider",
+        "latex": "$V_1 = V\\,\\frac{R_1}{R_1 + R_2}$",
+        "use": "OWN resistance in the numerator."
+      },
+      {
+        "sfId": "E04-SF04",
+        "label": "Symmetric star–delta",
+        "latex": "$R_\\Delta = 3 R_Y$",
+        "use": "Equal-resistor conversion shortcut."
+      },
+      {
+        "sfId": "E04-SF05",
+        "label": "Superposition deactivation",
+        "latex": "$V$-source $\\to$ short; $I$-source $\\to$ open; dependent sources stay",
+        "use": "For voltages/currents only."
+      },
+      {
+        "sfId": "E04-SF06",
+        "label": "Superposition power ban",
+        "latex": "$P \\ne P_1 + P_2$; use net $I$ then square",
+        "use": "Non-linear quantity."
+      },
+      {
+        "sfId": "E04-SF07",
+        "label": "Thévenin equivalent",
+        "latex": "$V_{\\text{th}} = V_{\\text{oc}}$ in series with $R_{\\text{th}}$",
+        "use": "Linear two-terminal network."
+      },
+      {
+        "sfId": "E04-SF08",
+        "label": "Norton equivalent",
+        "latex": "$I_N = I_{\\text{sc}}$ parallel $R_N = R_{\\text{th}}$",
+        "use": "$I_N = V_{\\text{th}}/R_{\\text{th}}$."
+      },
+      {
+        "sfId": "E04-SF09",
+        "label": "Resistance from measurements",
+        "latex": "$R_{\\text{th}} = \\frac{V_{\\text{oc}}}{I_{\\text{sc}}}$",
+        "use": "Two measurements give everything."
+      },
+      {
+        "sfId": "E04-SF10",
+        "label": "Maximum power transfer",
+        "latex": "$R_L = R_{\\text{th}} \\Rightarrow P_{\\max} = \\frac{V_{\\text{th}}^2}{4 R_{\\text{th}}}$",
+        "use": "Matched load condition."
+      },
+      {
+        "sfId": "E04-SF11",
+        "label": "Efficiency at max power",
+        "latex": "$\\eta = 50\\%$ exactly",
+        "use": "Not the maximum efficiency."
+      },
+      {
+        "sfId": "E04-SF12",
+        "label": "Efficiency vs load",
+        "latex": "$\\eta = \\frac{R_L}{R_L + R_{\\text{th}}}$",
+        "use": "$\\to 100\\%$ as $R_L \\to \\infty$."
+      },
+      {
+        "sfId": "E04-SF13",
+        "label": "Universal transient response",
+        "latex": "$x(t) = x(\\infty) + [x(0^+) - x(\\infty)]e^{-t/\\tau}$",
+        "use": "Every first-order circuit."
+      },
+      {
+        "sfId": "E04-SF14",
+        "label": "RC time constant",
+        "latex": "$\\tau_{RC} = R_{\\text{th}} C$",
+        "use": "Multiply."
+      },
+      {
+        "sfId": "E04-SF15",
+        "label": "RL time constant",
+        "latex": "$\\tau_{RL} = \\frac{L}{R_{\\text{th}}}$",
+        "use": "Divide — never $L \\cdot R$."
+      },
+      {
+        "sfId": "E04-SF16",
+        "label": "Continuity + steady state",
+        "latex": "$v_C(0^+) = v_C(0^-)$, $i_L(0^+) = i_L(0^-)$;\\ DC: $C$ open, $L$ short",
+        "use": "The three shortcuts."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "E04-DEF01",
+        "term": "KCL / KVL",
+        "definition": "Node current sum zero (charge conservation) / loop voltage sum zero (energy conservation)."
+      },
+      {
+        "defId": "E04-DEF02",
+        "term": "Linear bilateral network",
+        "definition": "Network obeying superposition — same response for either current direction, linear elements."
+      },
+      {
+        "defId": "E04-DEF03",
+        "term": "Dependent source",
+        "definition": "Source whose value is controlled by another circuit variable; never deactivated in superposition."
+      },
+      {
+        "defId": "E04-DEF04",
+        "term": "Thévenin equivalent",
+        "definition": "Open-circuit voltage source in series with the killed-network resistance."
+      },
+      {
+        "defId": "E04-DEF05",
+        "term": "Norton equivalent",
+        "definition": "Short-circuit current source in parallel with $R_{\\text{th}}$; the dual of Thévenin."
+      },
+      {
+        "defId": "E04-DEF06",
+        "term": "Maximum power transfer",
+        "definition": "Condition $R_L = R_{\\text{th}}$ delivering $V_{\\text{th}}^2/4R_{\\text{th}}$ at $50\\%$ efficiency."
+      },
+      {
+        "defId": "E04-DEF07",
+        "term": "Time constant $\\tau$",
+        "definition": "The time for $63.2\\%$ of the total first-order change; $RC$ or $L/R$."
+      },
+      {
+        "defId": "E04-DEF08",
+        "term": "Steady-state equivalents (DC)",
+        "definition": "Capacitor $\\to$ open circuit; inductor $\\to$ short circuit, as $t \\to \\infty$."
+      },
+      {
+        "defId": "E04-DEF09",
+        "term": "Continuity conditions",
+        "definition": "$v_C$ and $i_L$ cannot jump instantaneously: $x(0^+) = x(0^-)$."
+      },
+      {
+        "defId": "E04-DEF10",
+        "term": "Transient",
+        "definition": "The exponential transition between initial and final states, dead beyond $\\approx 5\\tau$."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "E04-CMP01",
+        "title": "Voltage vs current divider",
+        "columns": [
+          "Aspect",
+          "Voltage divider",
+          "Current divider"
+        ],
+        "rows": [
+          {
+            "label": "Numerator",
+            "values": [
+              "own resistance $R_1$",
+              "opposite resistance $R_2$"
+            ]
+          },
+          {
+            "label": "Formula",
+            "values": [
+              "$V\\frac{R_1}{R_1+R_2}$",
+              "$I\\frac{R_2}{R_1+R_2}$"
+            ]
+          },
+          {
+            "label": "Series or parallel",
+            "values": [
+              "series chain",
+              "parallel pair"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E04-CMP02",
+        "title": "Thévenin vs Norton",
+        "columns": [
+          "Aspect",
+          "Thévenin",
+          "Norton"
+        ],
+        "rows": [
+          {
+            "label": "Source",
+            "values": [
+              "voltage $V_{\\text{oc}}$ in series",
+              "current $I_{\\text{sc}}$ in parallel"
+            ]
+          },
+          {
+            "label": "Resistance",
+            "values": [
+              "$R_{\\text{th}}$ series",
+              "$R_N = R_{\\text{th}}$ parallel"
+            ]
+          },
+          {
+            "label": "Relation",
+            "values": [
+              "$I_N = V_{\\text{th}}/R_{\\text{th}}$",
+              "same network, dual view"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E04-CMP03",
+        "title": "Max power vs max efficiency",
+        "columns": [
+          "Aspect",
+          "At $R_L = R_{\\text{th}}$",
+          "At $R_L \\to \\infty$"
+        ],
+        "rows": [
+          {
+            "label": "Power delivered",
+            "values": [
+              "maximum $V_{\\text{th}}^2/4R_{\\text{th}}$",
+              "$\\to 0$"
+            ]
+          },
+          {
+            "label": "Efficiency",
+            "values": [
+              "exactly $50\\%$",
+              "$\\to 100\\%$"
+            ]
+          },
+          {
+            "label": "Meaning",
+            "values": [
+              "best power matching",
+              "best energy economy"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E04-CMP04",
+        "title": "Element behaviour: $t = 0^+$ vs DC steady state",
+        "columns": [
+          "Element",
+          "At $0^+$",
+          "Steady state (DC)"
+        ],
+        "rows": [
+          {
+            "label": "Capacitor",
+            "values": [
+              "keeps $v_C(0^-)$ (may act as source)",
+              "open circuit"
+            ]
+          },
+          {
+            "label": "Inductor",
+            "values": [
+              "keeps $i_L(0^-)$ (may act as source)",
+              "short circuit"
+            ]
+          },
+          {
+            "label": "Time constant",
+            "values": [
+              "$\\tau = R_{\\text{th}}C$",
+              "$\\tau = L/R_{\\text{th}}$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "E04-MCQ01",
+        "stemLatex": "A network shows $V_{\\text{oc}} = 48\\ \\text{V}$ and $I_{\\text{sc}} = 12\\ \\text{A}$ at its terminals. For maximum power transfer, $R_L$ and $P_{\\max}$ are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$4\\ \\Omega$, $144\\ \\text{W}$"
+          },
+          {
+            "id": "B",
+            "latex": "$4\\ \\Omega$, $48\\ \\text{W}$"
+          },
+          {
+            "id": "C",
+            "latex": "$2\\ \\Omega$, $288\\ \\text{W}$"
+          },
+          {
+            "id": "D",
+            "latex": "$4\\ \\Omega$, $288\\ \\text{W}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$R_{\\text{th}} = 48/12 = 4\\ \\Omega = R_L$; $P_{\\max} = \\frac{48^2}{4 \\times 4} = \\frac{2304}{16} = 144\\ \\text{W}$."
+      },
+      {
+        "mcqId": "E04-MCQ02",
+        "stemLatex": "An uncharged $20\\ \\mu\\text{F}$ capacitor charges from a $50\\ \\text{V}$ DC source through $100\\ \\text{k}\\Omega$. The time constant and $v_C(2\\ \\text{s})$ are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2\\ \\text{s}$, $31.6\\ \\text{V}$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\ \\text{s}$, $50\\ \\text{V}$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.2\\ \\text{s}$, $31.6\\ \\text{V}$"
+          },
+          {
+            "id": "D",
+            "latex": "$2\\ \\text{s}$, $63.2\\ \\text{V}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\tau = 10^5 \\times 20 \\times 10^{-6} = 2\\ \\text{s}$; at $t = \\tau$, $v_C = 0.632 \\times 50 \\approx 31.6\\ \\text{V}$."
+      },
+      {
+        "mcqId": "E04-MCQ03",
+        "stemLatex": "A $10\\ \\text{A}$ current splits between parallel resistors $2\\ \\Omega$ and $8\\ \\Omega$. The current through the $2\\ \\Omega$ branch is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2\\ \\text{A}$"
+          },
+          {
+            "id": "B",
+            "latex": "$8\\ \\text{A}$"
+          },
+          {
+            "id": "C",
+            "latex": "$5\\ \\text{A}$"
+          },
+          {
+            "id": "D",
+            "latex": "$10\\ \\text{A}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Current divider takes the OPPOSITE resistance: $10 \\times \\frac{8}{2+8} = 8\\ \\text{A}$ through the $2\\ \\Omega$ branch."
+      },
+      {
+        "mcqId": "E04-MCQ04",
+        "stemLatex": "Superposition CANNOT be applied directly to:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "branch currents"
+          },
+          {
+            "id": "B",
+            "latex": "node voltages"
+          },
+          {
+            "id": "C",
+            "latex": "power dissipated in a resistor"
+          },
+          {
+            "id": "D",
+            "latex": "loop equations"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$P = I^2R$ is non-linear: compute the net current first, then square — never add component powers."
+      },
+      {
+        "mcqId": "E04-MCQ05",
+        "stemLatex": "While applying superposition, an ideal current source is deactivated by replacing it with:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "a short circuit"
+          },
+          {
+            "id": "B",
+            "latex": "an open circuit"
+          },
+          {
+            "id": "C",
+            "latex": "its internal resistance"
+          },
+          {
+            "id": "D",
+            "latex": "a voltage source"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Kill ideal voltage sources as shorts and ideal current sources as opens; dependent sources are never deactivated."
+      },
+      {
+        "mcqId": "E04-MCQ06",
+        "stemLatex": "In DC steady state (long after switching), an ideal capacitor and inductor respectively behave as:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "short, open"
+          },
+          {
+            "id": "B",
+            "latex": "open, short"
+          },
+          {
+            "id": "C",
+            "latex": "short, short"
+          },
+          {
+            "id": "D",
+            "latex": "open, open"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$i_C \\to 0$ (open) and $v_L = 0$ (short) as $t \\to \\infty$ under DC excitation."
+      },
+      {
+        "mcqId": "E04-MCQ07",
+        "stemLatex": "For equal-valued resistors, the relation between delta and star resistance is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$R_Y = 3R_\\Delta$"
+          },
+          {
+            "id": "B",
+            "latex": "$R_\\Delta = 3R_Y$"
+          },
+          {
+            "id": "C",
+            "latex": "$R_\\Delta = R_Y$"
+          },
+          {
+            "id": "D",
+            "latex": "$R_\\Delta = 9R_Y$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Symmetric conversion: each delta arm carries three times the star resistance."
+      },
+      {
+        "mcqId": "E04-MCQ08",
+        "stemLatex": "The efficiency at which a DC source delivers MAXIMUM power to a matched load is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$100\\%$"
+          },
+          {
+            "id": "B",
+            "latex": "$75\\%$"
+          },
+          {
+            "id": "C",
+            "latex": "$50\\%$"
+          },
+          {
+            "id": "D",
+            "latex": "$25\\%$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Matching halves the voltage between $R_{\\text{th}}$ and $R_L$ — exactly $50\\%$ efficiency; maximum efficiency instead needs $R_L \\gg R_{\\text{th}}$."
+      },
+      {
+        "mcqId": "E04-MCQ09",
+        "stemLatex": "An RL circuit has $L = 2\\ \\text{H}$ and $R_{\\text{th}} = 4\\ \\Omega$. Its time constant is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$8\\ \\text{s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.5\\ \\text{s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$2\\ \\text{s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$4\\ \\text{s}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\tau_{RL} = L/R = 2/4 = 0.5\\ \\text{s}$ — divide, never multiply."
+      },
+      {
+        "mcqId": "E04-MCQ10",
+        "stemLatex": "At $t = 0^+$, just after a switch closes, the allowed discontinuity is in:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$v_C$"
+          },
+          {
+            "id": "B",
+            "latex": "$i_L$"
+          },
+          {
+            "id": "C",
+            "latex": "$i_C$ (capacitor current)"
+          },
+          {
+            "id": "D",
+            "latex": "none of these"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$v_C$ and $i_L$ are continuous; $i_C = C\\,dv_C/dt$ and $v_L = L\\,di_L/dt$ may jump instantly."
+      }
+    ],
+    "memoryHooks": [
+      "KCL counts charge; KVL counts energy.",
+      "Voltage source dies shorted; current source dies open; dependent sources never die.",
+      "Divider numerators: voltage keeps its own R, current takes the other.",
+      "Equal resistors: delta is thrice the star.",
+      "Match for power ($R_L = R_{\\text{th}}$), mismatch for efficiency.",
+      "$P_{\\max} = V_{\\text{th}}^2/4R_{\\text{th}}$ — the 4 remembers the 50%.",
+      "$v_C$ and $i_L$ are continuity oaths.",
+      "DC steady state: C open, L short.",
+      "$\\tau = RC$ multiplies; $\\tau = L/R$ divides.",
+      "63.2% at one tau, 99%+ by five."
+    ],
+    "commonMistakes": [
+      "Adding component powers under superposition.",
+      "Shorting current sources or opening voltage sources when deactivating.",
+      "Deactivating dependent sources.",
+      "Writing $\\tau = L \\cdot R$ (it is $L/R$).",
+      "Using the same resistor in both divider numerators.",
+      "Calling 50% efficiency the maximum possible efficiency.",
+      "Allowing $v_C$ or $i_L$ to jump at $t = 0^+$.",
+      "Treating a capacitor as short (or inductor as open) in DC steady state.",
+      "Forgetting $R_\\Delta = 3R_Y$ holds only for EQUAL resistors."
+    ],
+    "examChecklist": [
+      "Write KCL/KVL conservation meanings before solving.",
+      "Superposition: short $V$-sources, open $I$-sources, spare dependent ones.",
+      "Never superpose power; net current first, then $I^2R$.",
+      "Dividers: own-R for voltage, opposite-R for current.",
+      "Symmetric $R_\\Delta = 3R_Y$ shortcut when resistors match.",
+      "Thévenin from measurements: $R_{\\text{th}} = V_{\\text{oc}}/I_{\\text{sc}}$.",
+      "$P_{\\max} = V_{\\text{th}}^2/4R_{\\text{th}}$ at $R_L = R_{\\text{th}}$, efficiency exactly $50\\%$.",
+      "State continuity of $v_C$, $i_L$ at $0^+$ before any transient.",
+      "DC steady state: capacitor open, inductor short.",
+      "Compute $\\tau = R_{\\text{th}}C$ or $L/R_{\\text{th}}$; use the universal response.",
+      "At $t = \\tau$ the response has moved $63.2\\%$."
+    ],
+    "furtherReading": [
+      {
+        "book": "Engineering Circuit Analysis",
+        "author": "W. H. Hayt, J. E. Kemmerly",
+        "chapters": "Network theorems + first-order circuits chapters",
+        "note": "Thévenin/Norton, superposition and transients — pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "Owner-approved (session sign-off on batch 4, 2026-11-25)",
+      "reviewedAt": "2026-11-25 (owner approved; final batch 5 authorized)"
+    }
+  }
+}

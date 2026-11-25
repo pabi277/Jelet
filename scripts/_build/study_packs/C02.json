@@ -1,0 +1,554 @@
+{
+  "unitId": "C02",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "C02-PRD01",
+        "heading": "Ionic Lattices & the Lattice-Energy Lever",
+        "proseLatex": "Ionic bonding is favoured by low ionization enthalpy, high electron-gain enthalpy and large lattice energy $U \\propto \\frac{q^+q^-}{r^+ + r^-}$: higher charges and smaller ions bind tighter. Micro-check: LiF beats LiI in lattice energy because $r^-$ shrinks."
+      },
+      {
+        "prdId": "C02-PRD02",
+        "heading": "Fajans' Rules: When Ionic Turns Covalent",
+        "proseLatex": "A small, highly charged cation polarizes a large, polarizable anion: covalent character rises as $\\text{LiCl} > \\text{NaCl} > \\text{KCl}$ and $\\text{AlCl}_3 > \\text{MgCl}_2 > \\text{NaCl}$. Cation charge up or size down $\\Rightarrow$ more covalent. Micro-check: $\\text{AgCl}$ is more covalent than $\\text{NaCl}$ ($\\text{Ag}^+$ smaller, $18e^-$ shell)."
+      },
+      {
+        "prdId": "C02-PRD03",
+        "heading": "Steric Number = Hybridization (VSEPR)",
+        "proseLatex": "$\\text{SN} = \\frac{1}{2}(V + M - C + A)$ counts $\\sigma$-domains: $2\\to sp$ (linear $180^\\circ$), $3\\to sp^2$ (trigonal planar $120^\\circ$), $4\\to sp^3$, $5\\to sp^3d$, $6\\to sp^3d^2$. Lone pairs compress angles: $\\text{CH}_4\\;109.5^\\circ > \\text{NH}_3\\;107^\\circ > \\text{H}_2\\text{O}\\;104.5^\\circ$. Micro-check: $\\text{XeF}_4$: $\\text{SN} = \\frac{8+4}{2} = 6$, two lone pairs $\\Rightarrow$ square planar."
+      },
+      {
+        "prdId": "C02-PRD04",
+        "heading": "MOT: Bond Order from Electron Counting",
+        "proseLatex": "$\\text{BO} = \\frac{1}{2}(N_b - N_a)$. For $Z_{\\text{total}} \\le 14$ ($\\text{B}_2,\\text{C}_2,\\text{N}_2$) $\\pi_{2p}$ sits below $\\sigma_{2p_z}$; above $14$ ($\\text{O}_2,\\text{F}_2$) the order flips. Higher BO $\\Rightarrow$ shorter bond, larger dissociation energy; $\\text{BO} = 0$ (e.g. $\\text{He}_2$) means the molecule does not exist. Micro-check: $\\text{N}_2$: $\\frac{10-4}{2} = 3$."
+      },
+      {
+        "prdId": "C02-PRD05",
+        "heading": "Paramagnetism: the MOT Payoff",
+        "proseLatex": "Unpaired electrons $\\Rightarrow$ paramagnetic: $\\text{O}_2$ ($\\text{BO} = 2$, two unpaired $\\pi^*$) and $\\text{B}_2$ ($\\text{BO} = 1$, two unpaired $\\pi$) are PARAMAGNETIC despite even electron counts — the classic JELET trap that Lewis structures cannot explain. Micro-check: $\\text{N}_2$, $\\text{F}_2$ are diamagnetic (all paired)."
+      },
+      {
+        "prdId": "C02-PRD06",
+        "heading": "Dipole Moments & Hydrogen Bonding",
+        "proseLatex": "$\\vec\\mu = q\\vec d$, $1\\,\\text{D} = 3.336\\times10^{-30}\\,\\text{C\\,m}$; symmetric shapes ($\\text{CO}_2, \\text{BF}_3, \\text{CCl}_4, \\text{XeF}_4$) cancel to zero, and $\\mu(\\text{NH}_3) = 1.47\\,\\text{D} > \\mu(\\text{NF}_3) = 0.24\\,\\text{D}$ because the lone-pair dipole adds to $\\text{N-H}$ but opposes $\\text{N-F}$. Intermolecular H-bonds raise boiling points ($\\text{H}_2\\text{O} \\gg \\text{H}_2\\text{S}$); intramolecular H-bonds make $o$-nitrophenol MORE steam-volatile than $p$-nitrophenol. Micro-check: H-bond donors need $\\text{H}$ on $\\text{F}$, $\\text{O}$ or $\\text{N}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "C02-SF01",
+        "label": "Lattice energy scaling",
+        "latex": "U \\propto \\frac{q^+ q^-}{r^+ + r^-}",
+        "use": "Charge up, distance down."
+      },
+      {
+        "sfId": "C02-SF02",
+        "label": "Born-Haber link",
+        "latex": "\\Delta H_f = \\Delta H_{\\text{sub}} + \\frac{1}{2}D + \\text{IE} + \\text{EA} + U",
+        "use": "Energy bookkeeping."
+      },
+      {
+        "sfId": "C02-SF03",
+        "label": "Fajans polarizing power",
+        "latex": "\\phi^{+} \\propto \\frac{\\text{charge}}{r^2}",
+        "use": "Small highly-charged cations."
+      },
+      {
+        "sfId": "C02-SF04",
+        "label": "Steric number",
+        "latex": "\\text{SN} = \\frac{1}{2}(V + M - C + A)",
+        "use": "$V$ valence, $M$ monovalent atoms, $C$ cation charge, $A$ anion charge."
+      },
+      {
+        "sfId": "C02-SF05",
+        "label": "SN to hybridization",
+        "latex": "2\\to sp,\\ 3\\to sp^2,\\ 4\\to sp^3,\\ 5\\to sp^3d,\\ 6\\to sp^3d^2",
+        "use": "Domain geometry."
+      },
+      {
+        "sfId": "C02-SF06",
+        "label": "Bond-angle compression",
+        "latex": "\\text{CH}_4 > \\text{NH}_3 > \\text{H}_2\\text{O}",
+        "use": "Lone pairs squeeze angles."
+      },
+      {
+        "sfId": "C02-SF07",
+        "label": "Bond order",
+        "latex": "\\text{BO} = \\frac{1}{2}(N_b - N_a)",
+        "use": "MOT electron counting."
+      },
+      {
+        "sfId": "C02-SF08",
+        "label": "Bond order scale",
+        "latex": "r \\downarrow\\ \\text{as}\\ \\text{BO} \\uparrow",
+        "use": "Shorter, stronger bonds."
+      },
+      {
+        "sfId": "C02-SF09",
+        "label": "O$_2$ electron fill",
+        "latex": "\\pi^{*}_{2p}\\ \\text{holds 2 unpaired}\\ e^{-}",
+        "use": "Paramagnetism of $\\text{O}_2$."
+      },
+      {
+        "sfId": "C02-SF10",
+        "label": "Magnetic property rule",
+        "latex": "\\text{unpaired}\\ e^{-} \\Rightarrow \\text{paramagnetic}",
+        "use": "$\\text{O}_2$, $\\text{B}_2$ qualify."
+      },
+      {
+        "sfId": "C02-SF11",
+        "label": "Dipole moment",
+        "latex": "\\mu = q \\times d",
+        "use": "Vector sum over bonds plus lone pairs."
+      },
+      {
+        "sfId": "C02-SF12",
+        "label": "Debye conversion",
+        "latex": "1\\ \\text{D} = 3.336\\times10^{-30}\\ \\text{C m}",
+        "use": "CGS-to-SI bridge."
+      },
+      {
+        "sfId": "C02-SF13",
+        "label": "Percent ionic character",
+        "latex": "\\%\\ \\text{ionic} = \\frac{\\mu_{\\text{obs}}}{\\mu_{\\text{100\\%}}} \\times 100",
+        "use": "Compare with full-charge dipole."
+      },
+      {
+        "sfId": "C02-SF14",
+        "label": "Hydrogen-bond donor rule",
+        "latex": "\\text{H on F, O, N} \\Rightarrow \\text{H-bond possible}",
+        "use": "Strong intermolecular glue."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "C02-DEF01",
+        "term": "Lattice energy",
+        "definition": "Energy released assembling one mole of an ionic lattice from gaseous ions."
+      },
+      {
+        "defId": "C02-DEF02",
+        "term": "Polarizability (Fajans)",
+        "definition": "Ease with which an anion's electron cloud distorts under a cation's field."
+      },
+      {
+        "defId": "C02-DEF03",
+        "term": "Steric number",
+        "definition": "Half of $V + M - C + A$: the number of electron domains around the central atom."
+      },
+      {
+        "defId": "C02-DEF04",
+        "term": "Bond order",
+        "definition": "Half the difference between bonding and antibonding electrons."
+      },
+      {
+        "defId": "C02-DEF05",
+        "term": "Dipole moment",
+        "definition": "Product of charge and separation; vector sum of bond and lone-pair dipoles."
+      },
+      {
+        "defId": "C02-DEF06",
+        "term": "Hydrogen bond",
+        "definition": "Attractive $\\text{X-H}\\cdots\\text{Y}$ interaction with $\\text{X, Y} = \\text{F, O, N}$."
+      },
+      {
+        "defId": "C02-DEF07",
+        "term": "Intramolecular H-bond",
+        "definition": "H-bond within one molecule (chelation), as in $o$-nitrophenol."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "C02-CMP01",
+        "title": "Repulsion hierarchy around a central atom",
+        "columns": [
+          "Pair type",
+          "Repulsion strength"
+        ],
+        "rows": [
+          {
+            "label": "Lone pair on lone pair",
+            "values": [
+              "strongest"
+            ]
+          },
+          {
+            "label": "Lone pair on bond pair",
+            "values": [
+              "intermediate"
+            ]
+          },
+          {
+            "label": "Bond pair on bond pair",
+            "values": [
+              "weakest"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C02-CMP02",
+        "title": "MOT ordering below vs above 14 electrons",
+        "columns": [
+          "Case",
+          "$\\sigma_{2p_z}$ vs $\\pi_{2p}$",
+          "Examples"
+        ],
+        "rows": [
+          {
+            "label": "$Z_{\\text{total}} \\le 14$",
+            "values": [
+              "$\\pi$ below $\\sigma$",
+              "$\\text{B}_2, \\text{C}_2, \\text{N}_2$"
+            ]
+          },
+          {
+            "label": "$Z_{\\text{total}} > 14$",
+            "values": [
+              "$\\sigma$ below $\\pi$",
+              "$\\text{O}_2, \\text{F}_2$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "C02-CMP03",
+        "title": "Intermolecular vs intramolecular H-bond",
+        "columns": [
+          "Aspect",
+          "Intermolecular",
+          "Intramolecular"
+        ],
+        "rows": [
+          {
+            "label": "Effect on boiling point",
+            "values": [
+              "raises",
+              "little effect"
+            ]
+          },
+          {
+            "label": "Steam volatility",
+            "values": [
+              "lower",
+              "higher ($o$-nitrophenol)"
+            ]
+          },
+          {
+            "label": "Example",
+            "values": [
+              "water, HF chains",
+              "$o$-nitrophenol chelation"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "C02-MCQ01",
+        "stemLatex": "Correct order of covalent character (Fajans' rules):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{LiCl} > \\text{NaCl} > \\text{KCl}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{KCl} > \\text{NaCl} > \\text{LiCl}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{NaCl} > \\text{KCl} > \\text{LiCl}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{LiCl} = \\text{NaCl} = \\text{KCl}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Smaller cation polarizes the anion more: LiCl is most covalent."
+      },
+      {
+        "mcqId": "C02-MCQ02",
+        "stemLatex": "Hybridization of Xe in $\\text{XeF}_4$ ($\\text{SN} = \\frac{8+4}{2}$):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$sp^3$"
+          },
+          {
+            "id": "B",
+            "latex": "$sp^3d$"
+          },
+          {
+            "id": "C",
+            "latex": "$sp^3d^2$"
+          },
+          {
+            "id": "D",
+            "latex": "$sp^2$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$\\text{SN} = 6 \\Rightarrow sp^3d^2$; two lone pairs give the square-planar shape."
+      },
+      {
+        "mcqId": "C02-MCQ03",
+        "stemLatex": "Steric number of I in $\\text{ICl}_2^-$ ($V=7$, $M=2$, anion charge $1$):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$4$"
+          },
+          {
+            "id": "B",
+            "latex": "$5$"
+          },
+          {
+            "id": "C",
+            "latex": "$6$"
+          },
+          {
+            "id": "D",
+            "latex": "$3$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\text{SN} = \\frac{7+2+1}{2} = 5 \\Rightarrow sp^3d$, linear shape with three lone pairs."
+      },
+      {
+        "mcqId": "C02-MCQ04",
+        "stemLatex": "Bond order of $\\text{N}_2$ (10 bonding, 4 antibonding electrons):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$2.5$"
+          },
+          {
+            "id": "C",
+            "latex": "$3$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$\\text{BO} = \\frac{10-4}{2} = 3$ — the famous triple bond."
+      },
+      {
+        "mcqId": "C02-MCQ05",
+        "stemLatex": "Bond order of the superoxide ion $\\text{O}_2^-$ (17 electrons):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.5$"
+          },
+          {
+            "id": "C",
+            "latex": "$2.5$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\text{BO} = \\frac{10-7}{2} = 1.5$: one antibonding electron added to $\\text{O}_2$."
+      },
+      {
+        "mcqId": "C02-MCQ06",
+        "stemLatex": "Which homonuclear diatomic is paramagnetic?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{N}_2$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{O}_2$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{F}_2$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{C}_2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\text{O}_2$ has two unpaired $\\pi^*$ electrons; the rest are paired."
+      },
+      {
+        "mcqId": "C02-MCQ07",
+        "stemLatex": "$\\mu(\\text{NH}_3) > \\mu(\\text{NF}_3)$ because:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "F is heavier than H"
+          },
+          {
+            "id": "B",
+            "latex": "the lone-pair dipole adds to N-H but opposes N-F dipoles"
+          },
+          {
+            "id": "C",
+            "latex": "NH3 is planar"
+          },
+          {
+            "id": "D",
+            "latex": "NF3 is ionic"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Vector addition: lone pair reinforces $\\text{N-H}$, cancels $\\text{N-F}$."
+      },
+      {
+        "mcqId": "C02-MCQ08",
+        "stemLatex": "Which molecule has a NON-zero dipole moment?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\text{CO}_2$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{BF}_3$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{NH}_3$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{CCl}_4$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Pyramidal $\\text{NH}_3$ retains $\\mu = 1.47\\,\\text{D}$; the symmetric others cancel."
+      },
+      {
+        "mcqId": "C02-MCQ09",
+        "stemLatex": "$o$-nitrophenol is more steam-volatile than $p$-nitrophenol because:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "it is lighter"
+          },
+          {
+            "id": "B",
+            "latex": "intramolecular H-bonding removes intermolecular glue"
+          },
+          {
+            "id": "C",
+            "latex": "it is ionic"
+          },
+          {
+            "id": "D",
+            "latex": "of steric strain"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Chelated H-bonds stay inside the molecule; $p$-form H-bonds to neighbours."
+      },
+      {
+        "mcqId": "C02-MCQ10",
+        "stemLatex": "$\\text{H}_2\\text{O}$ boils far higher than $\\text{H}_2\\text{S}$ because:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "O is heavier"
+          },
+          {
+            "id": "B",
+            "latex": "strong intermolecular O-H hydrogen bonds"
+          },
+          {
+            "id": "C",
+            "latex": "H2O is linear"
+          },
+          {
+            "id": "D",
+            "latex": "S-H bonds are stronger"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Intermolecular H-bonding raises the boiling point dramatically."
+      }
+    ],
+    "memoryHooks": [
+      "Lattice energy: charges up, radii down.",
+      "Fajans: small hot cation distorts big soft anion.",
+      "SN half of $V+M-C+A$; 4 is tetrahedral $sp^3$.",
+      "Lone pairs squeeze bond angles.",
+      "$\\text{BO} = (N_b - N_a)/2$; zero BO means no molecule.",
+      "Under 14 electrons: $\\pi$ first; over 14: $\\sigma$ first.",
+      "$\\text{O}_2$ and $\\text{B}_2$ are the even-electron paramagnets.",
+      "Symmetric shapes kill dipole moments.",
+      "Lone pair adds in $\\text{NH}_3$, opposes in $\\text{NF}_3$.",
+      "Intra-H-bond: steam volatile; inter-H-bond: high boiling."
+    ],
+    "commonMistakes": [
+      "Counting lone pairs as bond domains without doubling their electron share.",
+      "Forgetting the $-C$ or $+A$ correction in steric number.",
+      "Predicting $\\text{O}_2$ diamagnetic from a Lewis double bond.",
+      "Swapping the MOT ordering at 14 electrons.",
+      "Calling $\\mu(\\text{NF}_3)$ larger because F is more electronegative.",
+      "Treating bond order as integer-only ($\\text{O}_2^-$ is $1.5$).",
+      "Claiming intramolecular H-bonds raise boiling points.",
+      "Missing that $\\text{CCl}_4$ and $\\text{BF}_3$ have zero dipole."
+    ],
+    "examChecklist": [
+      "Compute SN with the correct $C$ and $A$ signs.",
+      "Convert SN to hybridization and shape (incl. lone pairs).",
+      "Count $N_b$, $N_a$ for bond order and magnetism.",
+      "Apply Fajans by cation charge and size.",
+      "Vector-add bond and lone-pair dipoles for $\\mu$.",
+      "Use $1\\,\\text{D} = 3.336\\times10^{-30}\\,\\text{C m}$.",
+      "Convert between Debye and SI for dipole questions.",
+      "Distinguish intra- vs intermolecular H-bond effects."
+    ],
+    "furtherReading": [
+      {
+        "book": "Concise Inorganic Chemistry",
+        "author": "J. D. Lee",
+        "chapters": "Chemical bonding chapter",
+        "note": "Bonding fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

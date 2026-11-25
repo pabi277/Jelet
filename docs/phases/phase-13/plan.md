@@ -1,7 +1,11 @@
 # Phase 13 PLAN — Learn Enrichment from Private Reference Books (AI-Assisted, Copyright-Safe)
 
-> **Status:** 📋 Research complete · **zero code written** · **owner sign-off required
-> before any `_data/` change** (`AGENTS.md` §5.5).
+> **Status:** 🚧 **Execution started (2026-11-25).** Gate extension (§2.2),
+> Study Pack tab + empty state (§2.3), AI-tutor grounding (§2.4) and the pilot
+> batch `M01`/`C03`/`E05` (§3 ①–⑥) are shipped on branch
+> `arena/75454728-jelet` — evidence: `phase-13/batch-M01-C03-E05.md`.
+> **Awaiting owner spot-check & sign-off (§4 step 5) before batches 1–5 and
+> before any merge** (`AGENTS.md` §5.5).
 > **Previous:** Phase 12 (`phase-12/plan.md`) · **Next:** legacy content row of
 > `docs/05` → becomes Phase 14+ on approval.
 > **Research basis:** live Google Drive inventory (2026-11-25, **re-verified after the
@@ -62,6 +66,33 @@ being executed in the current session** — only these research facts were refre
      fact-verification protocol (`docs/06` §3.3, step 4: owner page-pointer
      confirmation).
    - Still open: 42-unit coverage page (reference doc §5.3).
+
+---
+
+## Amendment B — 2026-11-25 (owner-approved Study Pack v2 anatomy — supersedes part of Amendment A)
+
+After reviewing the v1 pilot on device, the owner judged it too shallow for exam
+preparation and approved a **fuller per-unit anatomy (Study Pack v2)**, adopting
+more of the Diploma-3rd-sem unit model (`docs/references/…UNIT-SYSTEM-REFERENCE.md`
+§3) than Amendment A §2 originally allowed:
+
+1. **v2 schema (replaces the Amendment-A §2 resolution "schema as proposed"):**
+   `studyPack` now carries **ten** blocks — `conceptPrimer` (5–6 topic-anchored
+   items with micro-examples), `keyFormulas` (12–18, the complete exam family,
+   `sfId` convention), `keyDefinitions` (6–12, `defId`), `comparisons` (3–4
+   side-by-side tables, `cmpId`), `mcqSelfTest` (8–10 original MCQs with keyed
+   answers + one-line reasons, `mcqId`), `memoryHooks`/`commonMistakes`/
+   `examChecklist` (8–12 each), `furtherReading`, `provenance` (unchanged).
+2. **MCQ behaviour (owner-selected):** reveal **per question** — tap
+   "Reveal answer + reason" under each card. Self-test MCQs are inline reveal
+   cards inside the Lesson tab: **never scored, never stored, never routed into
+   `practice-sets` or the `/500` metrics** (MCQ-only exam law preserved).
+3. **Pacing (owner-selected):** pilot `M01`/`C03`/`E05` rewritten to v2 → owner
+   re-reviews → batches 1–5 continue with the same template.
+4. Gate, authoring pipeline and UI laws unchanged; `verify_corpus.py` validates
+   every v2 block structurally (counts, id conventions/uniqueness, comparison
+   row/column shape, honest A-D keys) and `build_study_packs.py` remains the only
+   unit-writing path (`build_units.py` stays stale — do not re-run).
 
 ---
 
@@ -309,3 +340,59 @@ Each batch = author → gates → sign-off → `batch-<units>.md` evidence → n
 * ❌ Ship any field without owner review; no "unverified" disclaimers in UI.
 * ❌ Auto-load anything from Drive at runtime — the app never talks to Google Drive;
   books are used **only during authoring**, offline from the shipped app.
+
+## 7. Amendment B addendum — post-v2 owner minor changes (2026-11-25)
+
+Owner approved Study Pack v2 ("Thats good") with two minor changes; both are
+required before owner re-review of the pilot and both are now implemented:
+
+1. **Tab sequence fixed** to `Study Pack → Videos → Formulas → Workbook →
+   Verified PYQs` in `learn.js` (was Study Pack last). Empty-state copy for the
+   39 non-pilot units updated to point at the tabs that already exist.
+   `?tab=study` deep link unchanged.
+2. **Exam-relevant video enrichment (pilot units only).** Each pilot unit's
+   `videoLectures[]` grew from 1 lecture to a small exam-oriented set
+   (M01 → 4, C03 → 5, E05 → 4), spanning Bengali/Hindi/English channels, each
+   entry with a one-line exam-relevant `scopeNote`. Metadata law honoured: every
+   ID verified live via YouTube oEmbed (title + channel) and every duration
+   taken from the YouTube watch page `Length` header — never invented
+   (`tests/app-integrity.test.mjs` per-video gate stays green).
+
+Batch scope unchanged: videos for batches 1–5 are enriched per-batch, not now.
+
+### 3.4 status update (2026-11-25)
+
+- Pilot v2 (`d044860`) + minor changes (`c460da3`) owner-approved ("Thats good").
+- **Batch 1 (M02/M03/M07/M11) shipped and owner-signed-off** ("Thats good on
+  every front") — `provenance.reviewedBy/reviewedAt` stamped owner-approved in
+  drafts + shipped units (2026-11-25). Evidence in
+  `batch-M02-M03-M07-M11.md`.
+- **Batch 2 (P08/P12/P14/P15) shipped and owner-signed-off** ("Ok continue
+  next batch") — `provenance.reviewedBy/reviewedAt` stamped owner-approved in
+  drafts + shipped units (2026-11-25). Evidence in
+  `batch-P08-P12-P14-P15.md`.
+- **Batch 3 (C01/C04/C06/C07) shipped and owner-signed-off** ("Continue next
+  batch") — `provenance.reviewedBy/reviewedAt` stamped owner-approved in
+  drafts + shipped units (2026-11-25). Evidence in
+  `batch-C01-C04-C06-C07.md`. The SymPy sweep caught and fixed a real C04
+  MCQ explanation error (Caro's-acid peroxo tally) before ship.
+- **Batch 4 (E01–E04 + E06–E08) shipped and owner-signed-off** ("Continue the
+  last batch") — `provenance.reviewedBy/reviewedAt` stamped owner-approved in
+  drafts + shipped units (2026-11-25). Evidence in
+  `batch-E01-E02-E03-E04-E06-E07-E08.md`. The B4 sweep ran 41/41 after a
+  pre-sweep self-review fix (E06: I_E = (1+β)I_B = 50·I_B, not 51·I_B).
+- **Batch 5 (final: fill to 42) shipped** ("Continue the last batch") —
+  remaining 20 units: M04–M06, M08–M10, P01–P07, P09–P11, P13, C02, C05,
+  C08. Same cadence: drafts → sweep → per-unit video enrichment (3+ new
+  each) → apply → gates → evidence. Evidence in
+  `batch-M04-M10-P01-P13-C02-C05-C08.md`. The pre-sweep self-review caught a
+  real P02 MCQ stem error (dv/dx = a/v is the straight-line chain rule, not
+  a projectile identity). Study Packs shipped: **42/42**. Provenance for the
+  20 new units ships `pending` until owner sign-off.
+- **Post-ship follow-up (owner spec "Search Indexing + Loading Trade-off")** —
+  Learn explorer `searchBlob` now indexes studyPack content (primer headings +
+  LaTeX-stripped prose, SF labels, hooks, mistakes, checklist + section
+  labels) via the shared `assets/js/core/studypack-search.js` builder; no
+  extra fetch (inline data). Browser probes 11/11; node suite 131/131. The
+  inline-vs-lazy-load trade-off is documented with lazy-load explicitly
+  deferred in `record.md`; sw → `jelet-v3-sw-21`.

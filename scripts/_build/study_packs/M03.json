@@ -1,0 +1,653 @@
+{
+  "unitId": "M03",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M03-PRD01",
+        "heading": "i and the Four-Beat Power Cycle",
+        "proseLatex": "The imaginary unit $i$ satisfies $i^2 = -1$, so every power of $i$ rides a cycle of length $4$: $i, -1, -i, 1$, repeat. To reduce $i^n$, divide the exponent by $4$ and keep only the remainder $r$ — the answer is $i^r$. This single move crushes every giant-exponent question in seconds. Micro-check: $2026 = 4 \\times 506 + 2$, so $i^{2026} = i^2 = -1$."
+      },
+      {
+        "prdId": "M03-PRD02",
+        "heading": "Conjugate, Modulus and the Division Engine",
+        "proseLatex": "For $z = x + iy$, the conjugate is $\\bar{z} = x - iy$, the modulus is $|z| = \\sqrt{x^2 + y^2}$, and the identity $z\\bar{z} = |z|^2$ converts every division into multiplication: $\\frac{1}{z} = \\frac{\\bar{z}}{|z|^2}$. To rationalise a fraction, multiply ONLY the denominator's conjugate into numerator and denominator — the $i^2$ terms cancel below and the result is real-plus-imaginary in one step. Conjugation also commutes with algebra: $\\overline{z_1 \\pm z_2} = \\bar{z}_1 \\pm \\bar{z}_2$ and $\\overline{z_1 z_2} = \\bar{z}_1\\bar{z}_2$. Micro-check: $\\frac{1+i}{1-i} \\times \\frac{1+i}{1+i} = \\frac{(1+i)^2}{2} = \\frac{2i}{2} = i$."
+      },
+      {
+        "prdId": "M03-PRD03",
+        "heading": "Argument: Quadrant Discipline",
+        "proseLatex": "The principal argument $\\theta = \\operatorname{Arg} z$ is the angle of $z$ in $(-\\pi, \\pi]$. Raw $\\arctan(y/x)$ only sees quadrant I or IV — in quadrant II add $\\pi$ to the reference angle, in quadrant III subtract it from $-\\pi$. Read the signs of $x$ and $y$ FIRST, then compute. A second common slip: complex numbers cannot be ordered, so $z_1 < z_2$ is meaningless unless both are real — compare moduli instead. Micro-check: $-1 - i$ sits in quadrant III, so $\\operatorname{Arg} = -\\pi + \\arctan(1) = -3\\pi/4$, never $\\pi/4$."
+      },
+      {
+        "prdId": "M03-PRD04",
+        "heading": "De Moivre's Engine",
+        "proseLatex": "In polar form $z = r(\\cos\\theta + i\\sin\\theta)$, multiplication multiplies moduli and ADDS arguments, division divides them and SUBTRACTS. De Moivre's theorem packages this for powers: $(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$ for integer $n$. Converting to polar form before raising to a power is almost always faster and safer than binomial expansion. Micro-check: $1 + i = \\sqrt{2}(\\cos\\tfrac{\\pi}{4} + i\\sin\\tfrac{\\pi}{4})$, so $(1+i)^4 = 4(\\cos\\pi + i\\sin\\pi) = -4$ — no binomial theorem needed."
+      },
+      {
+        "prdId": "M03-PRD05",
+        "heading": "Cube Roots of Unity and the $\\omega$ Toolkit",
+        "proseLatex": "Solving $z^3 = 1$ gives $1, \\omega, \\omega^2$ where $\\omega = -\\tfrac{1}{2} + i\\tfrac{\\sqrt{3}}{2} = e^{i\\,2\\pi/3}$. The toolkit is three lines: $1 + \\omega + \\omega^2 = 0$, $\\omega^3 = 1$, and $\\bar{\\omega} = \\omega^2$. Reduce exponents modulo $3$, then convert any $\\omega$-sum using the sum-zero identity — high powers collapse instantly. Micro-check: $(1+\\omega)(1+\\omega^2) = 1 + \\omega + \\omega^2 + \\omega^3 = 1 + (\\omega + \\omega^2) + 1 = 1 - 1 + 1$'s pieces sum to $1$."
+      },
+      {
+        "prdId": "M03-PRD06",
+        "heading": "Argand Loci: Read the Equation as Geometry",
+        "proseLatex": "Every modulus equation is a distance statement in the Argand plane: $|z - z_0| = R$ is the circle of centre $z_0$ and radius $R$ (with $<$ interior, $\\le$ the disc); $|z - z_1| = |z - z_2|$ is the perpendicular bisector of the segment $z_1z_2$; $\\left|\\frac{z - z_1}{z - z_2}\\right| = k$ with $k \\neq 1$ is an Apollonius circle. Identify which distance the equation compares BEFORE doing any algebra, and the MCQ answers itself. Micro-check: $|z - 2i| = 3$ is a circle with centre $(0, 2)$ and radius $3$ — the centre is where the subtracted expression vanishes."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M03-SF01",
+        "label": "Power cycle of $i$",
+        "latex": "$i^{4k} = 1,\\; i^{4k+1} = i,\\; i^{4k+2} = -1,\\; i^{4k+3} = -i$",
+        "use": "Reduce any exponent of $i$ modulo $4$."
+      },
+      {
+        "sfId": "M03-SF02",
+        "label": "Conjugate–modulus identity",
+        "latex": "$z\\bar{z} = |z|^2$",
+        "use": "The engine behind every rationalisation."
+      },
+      {
+        "sfId": "M03-SF03",
+        "label": "Reciprocal by conjugate",
+        "latex": "$\\frac{1}{z} = \\frac{\\bar{z}}{|z|^2}$",
+        "use": "Divide complex numbers without expanding $i$."
+      },
+      {
+        "sfId": "M03-SF04",
+        "label": "Modulus of products & quotients",
+        "latex": "$|z_1 z_2| = |z_1||z_2|,\\quad \\left|\\frac{z_1}{z_2}\\right| = \\frac{|z_1|}{|z_2|}$",
+        "use": "Moduli of fractions without rationalising first."
+      },
+      {
+        "sfId": "M03-SF05",
+        "label": "Triangle inequality",
+        "latex": "$|z_1 + z_2| \\le |z_1| + |z_2|$",
+        "use": "Bound sums; equality when $z_1, z_2$ point the same way."
+      },
+      {
+        "sfId": "M03-SF06",
+        "label": "Conjugate algebra",
+        "latex": "$\\overline{z_1 \\pm z_2} = \\bar{z}_1 \\pm \\bar{z}_2,\\quad \\overline{z_1 z_2} = \\bar{z}_1\\bar{z}_2$",
+        "use": "Conjugation respects arithmetic; also $\\overline{(\\bar{z})} = z$."
+      },
+      {
+        "sfId": "M03-SF07",
+        "label": "Argument of products & quotients",
+        "latex": "$\\arg(z_1 z_2) = \\arg z_1 + \\arg z_2 \\pmod{2\\pi}$",
+        "use": "Angles add on multiplication — reduce into the principal branch after."
+      },
+      {
+        "sfId": "M03-SF08",
+        "label": "Argument by quadrant",
+        "latex": "$\\theta = \\arctan\\tfrac{y}{x}$ (Q I), $\\pi - \\arctan\\tfrac{|y|}{|x|}$ (Q II), $-\\pi + \\arctan\\tfrac{|y|}{|x|}$ (Q III), $-\\arctan\\tfrac{|y|}{|x|}$ (Q IV)",
+        "use": "Fixes the quadrant-II/III sign trap instantly."
+      },
+      {
+        "sfId": "M03-SF09",
+        "label": "De Moivre's theorem",
+        "latex": "$(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$",
+        "use": "Integer powers in one move; $n$-th roots divide $\\theta$ by $n$."
+      },
+      {
+        "sfId": "M03-SF10",
+        "label": "Euler (exponential) form",
+        "latex": "$z = re^{i\\theta} \\equiv r(\\cos\\theta + i\\sin\\theta)$",
+        "use": "Compact polar form — powers become exponent arithmetic."
+      },
+      {
+        "sfId": "M03-SF11",
+        "label": "Cube-root-of-unity toolkit",
+        "latex": "$1 + \\omega + \\omega^2 = 0,\\quad \\omega^3 = 1,\\quad \\bar{\\omega} = \\omega^2$",
+        "use": "Reduce $\\omega^n$ modulo $3$; convert $\\omega$-sums via the sum-zero identity."
+      },
+      {
+        "sfId": "M03-SF12",
+        "label": "Division shortcuts",
+        "latex": "$\\frac{1+i}{1-i} = i,\\quad \\frac{1-i}{1+i} = -i$",
+        "use": "Memorise — these two appear inside most high-power questions."
+      },
+      {
+        "sfId": "M03-SF13",
+        "label": "Squares of $1 \\pm i$",
+        "latex": "$(1+i)^2 = 2i,\\quad (1-i)^2 = -2i$",
+        "use": "Halves the work in binomial-flavoured expansions."
+      },
+      {
+        "sfId": "M03-SF14",
+        "label": "Circle locus",
+        "latex": "$|z - z_0| = R$",
+        "use": "Circle, centre $z_0$, radius $R$; $<$ inside, $\\le$ the disc."
+      },
+      {
+        "sfId": "M03-SF15",
+        "label": "Bisector & Apollonius loci",
+        "latex": "$|z - z_1| = |z - z_2|$ (bisector); $\\left|\\frac{z-z_1}{z-z_2}\\right| = k,\\ k \\neq 1$ (Apollonius circle)",
+        "use": "Equal distances vs fixed distance ratio."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M03-DEF01",
+        "term": "Imaginary unit $i$",
+        "definition": "The number with $i^2 = -1$; every complex number is $x + iy$ with real $x, y$."
+      },
+      {
+        "defId": "M03-DEF02",
+        "term": "Real & imaginary parts",
+        "definition": "For $z = x + iy$: $x = \\operatorname{Re} z$, $y = \\operatorname{Im} z$; $z$ is real iff $\\operatorname{Im} z = 0$, purely imaginary iff $\\operatorname{Re} z = 0$."
+      },
+      {
+        "defId": "M03-DEF03",
+        "term": "Conjugate $\\bar{z}$",
+        "definition": "The reflection $x - iy$ of $z = x + iy$ in the real axis; real numbers are their own conjugates."
+      },
+      {
+        "defId": "M03-DEF04",
+        "term": "Modulus $|z|$",
+        "definition": "The distance $\\sqrt{x^2 + y^2}$ of $z$ from the origin; always non-negative and real."
+      },
+      {
+        "defId": "M03-DEF05",
+        "term": "Principal argument",
+        "definition": "The unique $\\theta \\in (-\\pi, \\pi]$ with $z = |z|(\\cos\\theta + i\\sin\\theta)$; $\\operatorname{Arg}(0)$ is undefined."
+      },
+      {
+        "defId": "M03-DEF06",
+        "term": "Polar / Euler form",
+        "definition": "$z = r(\\cos\\theta + i\\sin\\theta) = re^{i\\theta}$ with $r = |z| \\ge 0$; the pair $(r, \\theta)$ replaces $(x, y)$."
+      },
+      {
+        "defId": "M03-DEF07",
+        "term": "Cube roots of unity",
+        "definition": "The three solutions of $z^3 = 1$: $1, \\omega, \\omega^2$ with $\\omega = e^{i\\,2\\pi/3}$; they sum to $0$ and are pairwise conjugates."
+      },
+      {
+        "defId": "M03-DEF08",
+        "term": "De Moivre's theorem",
+        "definition": "$(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$ for integer $n$; powers rotate and scale in polar form."
+      },
+      {
+        "defId": "M03-DEF09",
+        "term": "Argand plane",
+        "definition": "The plane whose point $(x, y)$ represents $z = x + iy$; modulus is distance from $O$, argument is the angle from the $+x$ axis."
+      },
+      {
+        "defId": "M03-DEF10",
+        "term": "Locus equation in $z$",
+        "definition": "A condition on $z$ (usually a modulus equation) describing a curve — circle, bisector, ray or Apollonius circle — in the Argand plane."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M03-CMP01",
+        "title": "Modulus vs Argument vs Conjugate",
+        "columns": [
+          "Aspect",
+          "Modulus $|z|$",
+          "Argument $\\theta$",
+          "Conjugate $\\bar{z}$"
+        ],
+        "rows": [
+          {
+            "label": "Definition",
+            "values": [
+              "$\\sqrt{x^2+y^2}$, distance from $O$",
+              "Angle in $(-\\pi, \\pi]$",
+              "$x - iy$, reflection in real axis"
+            ]
+          },
+          {
+            "label": "Algebra role",
+            "values": [
+              "$z\\bar{z} = |z|^2$",
+              "Angles add on multiplication",
+              "$\\overline{z_1z_2} = \\bar{z}_1\\bar{z}_2$"
+            ]
+          },
+          {
+            "label": "Geometric meaning",
+            "values": [
+              "How far",
+              "Which direction",
+              "Mirror image"
+            ]
+          },
+          {
+            "label": "Edge case",
+            "values": [
+              "$|z| = 0 \\iff z = 0$",
+              "Undefined at $z = 0$",
+              "Real $z$: $\\bar{z} = z$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M03-CMP02",
+        "title": "Cartesian vs Polar vs Euler Form",
+        "columns": [
+          "Feature",
+          "Cartesian $x + iy$",
+          "Polar $r(\\cos\\theta + i\\sin\\theta)$",
+          "Euler $re^{i\\theta}$"
+        ],
+        "rows": [
+          {
+            "label": "Best for",
+            "values": [
+              "Addition, subtraction",
+              "Powers, roots, products",
+              "Same as polar, tighter notation"
+            ]
+          },
+          {
+            "label": "Visible data",
+            "values": [
+              "Components $x$, $y$",
+              "Modulus + argument",
+              "Modulus + argument"
+            ]
+          },
+          {
+            "label": "Conversion",
+            "values": [
+              "$r = \\sqrt{x^2+y^2}$",
+              "$x = r\\cos\\theta$, $y = r\\sin\\theta$",
+              "$e^{i\\theta} = \\cos\\theta + i\\sin\\theta$"
+            ]
+          },
+          {
+            "label": "Weak at",
+            "values": [
+              "High powers (binomial blow-up)",
+              "Component extraction",
+              "Component extraction"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M03-CMP03",
+        "title": "$i$ vs $\\omega$: Two Root-of-Unity Families",
+        "columns": [
+          "Property",
+          "$i$ (4th root of $-1$)",
+          "$\\omega$ (cube root of $1$)"
+        ],
+        "rows": [
+          {
+            "label": "Defining equation",
+            "values": [
+              "$i^2 = -1$",
+              "$\\omega^2 + \\omega + 1 = 0$"
+            ]
+          },
+          {
+            "label": "Power cycle",
+            "values": [
+              "Length $4$: $i, -1, -i, 1$",
+              "Length $3$: $\\omega, \\omega^2, 1$"
+            ]
+          },
+          {
+            "label": "Sum of all roots",
+            "values": [
+              "$1 + i + (-1) + (-i) = 0$",
+              "$1 + \\omega + \\omega^2 = 0$"
+            ]
+          },
+          {
+            "label": "Conjugate partner",
+            "values": [
+              "$\\bar{i} = -i$",
+              "$\\bar{\\omega} = \\omega^2$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M03-CMP04",
+        "title": "Three Argand Loci at a Glance",
+        "columns": [
+          "Equation",
+          "Curve",
+          "Key parameters"
+        ],
+        "rows": [
+          {
+            "label": "$|z - z_0| = R$",
+            "values": [
+              "Circle",
+              "Centre $z_0$, radius $R$"
+            ]
+          },
+          {
+            "label": "$|z - z_1| = |z - z_2|$",
+            "values": [
+              "Perpendicular bisector",
+              "Equidistant from $z_1$ and $z_2$"
+            ]
+          },
+          {
+            "label": "$\\left|\\frac{z - z_1}{z - z_2}\\right| = k$, $k \\neq 1$",
+            "values": [
+              "Apollonius circle",
+              "Fixed distance ratio $k$ about the two poles"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M03-MCQ01",
+        "stemLatex": "$i^{2026}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$i$"
+          },
+          {
+            "id": "C",
+            "latex": "$-1$"
+          },
+          {
+            "id": "D",
+            "latex": "$-i$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$2026 = 4 \\times 506 + 2$, so $i^{2026} = i^2 = -1$. Reduce the exponent modulo $4$ — never expand."
+      },
+      {
+        "mcqId": "M03-MCQ02",
+        "stemLatex": "$\\dfrac{1+i}{1-i}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$i$"
+          },
+          {
+            "id": "B",
+            "latex": "$-i$"
+          },
+          {
+            "id": "C",
+            "latex": "$1$"
+          },
+          {
+            "id": "D",
+            "latex": "$-1$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Multiply by the denominator's conjugate: $\\frac{(1+i)^2}{(1-i)(1+i)} = \\frac{2i}{2} = i$."
+      },
+      {
+        "mcqId": "M03-MCQ03",
+        "stemLatex": "$\\left| \\dfrac{3 + 4i}{1 - i} \\right|$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\sqrt{5}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\dfrac{5}{\\sqrt{2}}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\dfrac{25}{2}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Moduli divide: $\\frac{|3+4i|}{|1-i|} = \\frac{5}{\\sqrt{2}}$. Rationalising first only wastes time."
+      },
+      {
+        "mcqId": "M03-MCQ04",
+        "stemLatex": "The principal argument of $-1 + i\\sqrt{3}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\dfrac{\\pi}{3}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\dfrac{2\\pi}{3}$"
+          },
+          {
+            "id": "C",
+            "latex": "$-\\dfrac{2\\pi}{3}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\dfrac{4\\pi}{3}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$x < 0$, $y > 0$ means quadrant II: $\\theta = \\pi - \\arctan\\sqrt{3} = \\pi - \\tfrac{\\pi}{3} = \\tfrac{2\\pi}{3}$."
+      },
+      {
+        "mcqId": "M03-MCQ05",
+        "stemLatex": "If $\\omega$ is a complex cube root of unity, $\\omega^{100}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\omega$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\omega^2$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$100 = 3 \\times 33 + 1$, so $\\omega^{100} = (\\omega^3)^{33}\\omega = \\omega$."
+      },
+      {
+        "mcqId": "M03-MCQ06",
+        "stemLatex": "$(1 + \\omega)(1 + \\omega^2)$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\omega$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\omega^2$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "Expand: $1 + \\omega + \\omega^2 + \\omega^3 = 1 + (\\omega + \\omega^2) + 1 = 1 - 1 + 1 = 1$ using $1+\\omega+\\omega^2 = 0$ and $\\omega^3 = 1$."
+      },
+      {
+        "mcqId": "M03-MCQ07",
+        "stemLatex": "The imaginary part of $\\dfrac{2 + 3i}{3 - 4i}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-\\dfrac{6}{25}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\dfrac{17}{25}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\dfrac{3}{5}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\dfrac{17}{5}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Multiply top and bottom by $3 + 4i$: numerator $(2+3i)(3+4i) = -6 + 17i$, denominator $25$, so $\\operatorname{Im} = \\tfrac{17}{25}$."
+      },
+      {
+        "mcqId": "M03-MCQ08",
+        "stemLatex": "The Euler form of $1 + i$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\sqrt{2}\\,e^{i\\pi/4}$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\,e^{i\\pi/2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$e^{i\\pi/4}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{2}\\,e^{i\\,3\\pi/4}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$|1+i| = \\sqrt{2}$ and $\\operatorname{Arg} = \\arctan 1 = \\tfrac{\\pi}{4}$ (quadrant I), giving $\\sqrt{2}e^{i\\pi/4}$."
+      },
+      {
+        "mcqId": "M03-MCQ09",
+        "stemLatex": "The locus $|z - (1 + i)| = 2$ is a circle whose centre is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$(1, -1)$"
+          },
+          {
+            "id": "B",
+            "latex": "$(-1, 1)$"
+          },
+          {
+            "id": "C",
+            "latex": "$(1, 1)$"
+          },
+          {
+            "id": "D",
+            "latex": "$(2, 2)$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "The centre is where the subtracted expression vanishes: $z = 1 + i$, i.e. $(1, 1)$, with radius $2$."
+      },
+      {
+        "mcqId": "M03-MCQ10",
+        "stemLatex": "$(\\cos\\theta + i\\sin\\theta)^6(\\cos\\theta - i\\sin\\theta)^4$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\cos 10\\theta + i\\sin 10\\theta$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\cos 2\\theta - i\\sin 2\\theta$"
+          },
+          {
+            "id": "C",
+            "latex": "$1$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\cos 2\\theta + i\\sin 2\\theta$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$(\\cos\\theta - i\\sin\\theta) = (\\cos\\theta + i\\sin\\theta)^{-1}$, so the product is $(\\cos\\theta + i\\sin\\theta)^{6-4} = \\cos 2\\theta + i\\sin 2\\theta$."
+      }
+    ],
+    "memoryHooks": [
+      "$i$'s powers ride a 4-beat cycle: divide the exponent by 4, keep the remainder.",
+      "$z\\bar{z} = |z|^2$ — multiply by the conjugate and every $i^2$ cancels.",
+      "Dividing complex numbers: multiply ONLY the denominator's conjugate, top and bottom.",
+      "$\\frac{1+i}{1-i} = i$ and $\\frac{1-i}{1+i} = -i$ — memorise both.",
+      "Quadrant discipline: raw $\\arctan$ lies in Q I/IV — pull Q II back by $+\\pi$, Q III by $-\\pi$.",
+      "De Moivre: powers raise the modulus and multiply the angle.",
+      "$\\omega$: three beats — $\\omega^3 = 1$, sum zero, conjugate is $\\omega^2$.",
+      "$1 + \\omega + \\omega^2 = 0$ converts any $\\omega$-sum into a small integer instantly.",
+      "$|z - z_0| = R$ is a circle; equal distances is a bisector — read loci as geometry first.",
+      "Moduli multiply, arguments add — and reduce arguments back into $(-\\pi, \\pi]$."
+    ],
+    "commonMistakes": [
+      "Trusting raw $\\arctan(y/x)$ in quadrants II/III — $\\operatorname{Arg}(-1-i) = -3\\pi/4$, not $\\pi/4$.",
+      "Writing $z_1 < z_2$ for non-real complex numbers — only moduli can be ordered.",
+      "Binomial-expanding $(1+i)^n$ when De Moivre finishes it in one line.",
+      "Rationalising with the WRONG conjugate or forgetting to multiply the numerator too.",
+      "Reducing $\\omega$-powers modulo $4$ (the $i$ cycle) instead of modulo $3$.",
+      "Claiming $\\bar{\\omega} = \\omega$ — the cube roots pair as $\\bar{\\omega} = \\omega^2$.",
+      "Adding arguments without reducing into the principal branch $(-\\pi, \\pi]$.",
+      "Reading $|z - z_0| < R$ as including the boundary — strict inequality is the interior only.",
+      "Squaring $1 \\pm i$ by full expansion when $(1+i)^2 = 2i$ and $(1-i)^2 = -2i$ are one-liners."
+    ],
+    "examChecklist": [
+      "Reduce $i^n$ and $\\omega^n$ by remainder first — never by expansion.",
+      "For divisions: conjugate of the denominator, multiplied into BOTH levels.",
+      "Check the quadrant BEFORE computing an argument; write $x$ and $y$ signs down.",
+      "Convert to polar/Euler form before powers or roots; check $r$ with Pythagoras.",
+      "Deploy the $\\omega$ toolkit ($\\omega^3 = 1$, sum zero, $\\bar{\\omega} = \\omega^2$) on every $\\omega$ expression.",
+      "Use $\\frac{1+i}{1-i} = i$ and $(1 \\pm i)^2 = \\pm 2i$ as instant reducers.",
+      "Moduli of products/quotients: split BEFORE rationalising.",
+      "Locus questions: name the curve (circle/bisector/Apollonius) and read the centre/radius straight off.",
+      "Compare complex numbers only through moduli.",
+      "Confirm the principal argument lies in $(-\\pi, \\pi]$ at the end.",
+      "Re-verify one rationalisation by recomputing the modulus of the result."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 11 Mathematics",
+        "author": "NCERT",
+        "chapters": "Ch. 5 (Complex Numbers and Quadratic Equations)",
+        "note": "Conjugate–modulus algebra, Argand basics and the division engine; pair with De Moivre and cube roots of unity from the diploma syllabus for the full unit."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "Owner-approved (session sign-off on batch 1, 2026-11-25)",
+      "reviewedAt": "2026-11-25 (owner: \"Thats good on every front\")"
+    }
+  }
+}

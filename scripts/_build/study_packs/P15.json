@@ -1,0 +1,630 @@
+{
+  "unitId": "P15",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P15-PRD01",
+        "heading": "Photon Quanta: Energy and Momentum Packets",
+        "proseLatex": "Light of frequency $\\nu$ (wavelength $\\lambda$) travels as photons, each carrying energy $E = h\\nu = \\frac{hc}{\\lambda} \\approx \\frac{1240\\ \\text{eV\\,nm}}{\\lambda(\\text{nm})}$ and momentum $p = \\frac{h}{\\lambda} = \\frac{E}{c}$ (rest mass zero). The $1240$ shortcut converts any wavelength to eV in one division. A beam's intensity is photon energy per second — more photons, not stronger photons. Micro-check: $\\lambda = 620\\ \\text{nm}$ gives $E = \\tfrac{1240}{620} = 2\\ \\text{eV}$ per photon."
+      },
+      {
+        "prdId": "P15-PRD02",
+        "heading": "Einstein's Photoelectric Equation",
+        "proseLatex": "One photon liberates at most one electron, spending the work function $\\phi_0$ (the metal's escape price) and handing the surplus to kinetic energy: $K_{\\max} = h\\nu - \\phi_0$. No light below threshold $\\nu_0 = \\frac{\\phi_0}{h}$ can eject electrons, however intense. The stopping potential measures $K_{\\max}$ in volts: $eV_s = K_{\\max}$. Micro-check: $h\\nu = 4\\ \\text{eV}$ onto a $\\phi_0 = 1.5\\ \\text{eV}$ metal gives $K_{\\max} = 2.5\\ \\text{eV}$ and $V_s = 2.5\\ \\text{V}$."
+      },
+      {
+        "prdId": "P15-PRD03",
+        "heading": "Intensity vs Frequency: Who Controls What",
+        "proseLatex": "Above threshold, raising INTENSITY (fixed $\\nu$) sends more photons per second, so the saturation photocurrent grows linearly — $K_{\\max}$ and $V_s$ do NOT move. Raising FREQUENCY moves the energy ladder: $K_{\\max} = h\\nu - \\phi_0$ grows, and doubling $\\nu$ gives $K_{\\max}' = 2h\\nu - \\phi_0 = 2K_{\\max} + \\phi_0$, STRICTLY more than double. Graph trap: $V_s$ vs $\\nu$ has slope $\\frac{h}{e}$; $K_{\\max}$ vs $\\nu$ has slope $h$. Micro-check: $K_{\\max} = 1\\ \\text{eV}$, $\\phi_0 = 1\\ \\text{eV}$: doubling $\\nu$ yields $2(1) + 1 = 3\\ \\text{eV}$, not $2\\ \\text{eV}$."
+      },
+      {
+        "prdId": "P15-PRD04",
+        "heading": "Threshold in Two Currencies",
+        "proseLatex": "The threshold can be written as a frequency $\\nu_0 = \\frac{\\phi_0}{h}$ or as the longest ejecting wavelength $\\lambda_0 = \\frac{1240\\ \\text{eV\\,nm}}{\\phi_0(\\text{eV})}$ (nm). Wavelengths LONGER than $\\lambda_0$ fail regardless of intensity. Compute one currency, convert with the $1240$ shortcut. Micro-check: $\\phi_0 = 3\\ \\text{eV}$ gives $\\lambda_0 \\approx \\tfrac{1240}{3} \\approx 413\\ \\text{nm}$ — visible violet edge."
+      },
+      {
+        "prdId": "P15-PRD05",
+        "heading": "de Broglie: Matter Wears the Same Wave Coat",
+        "proseLatex": "Every moving particle has wavelength $\\lambda = \\frac{h}{p} = \\frac{h}{\\sqrt{2mK}}$; an electron accelerated from rest through $V$ volts gains $K = eV$ and shows $\\lambda(\\text{\\AA}) \\approx \\frac{12.27}{\\sqrt{V}}$. Faster particles carry SHORTER waves — the same inverse logic as photons. Micro-check: electrons through $100\\ \\text{V}$ have $\\lambda = \\tfrac{12.27}{10} \\approx 1.23\\ \\text{\\AA}$, matching crystal lattice spacings — why Davisson-Germer saw diffraction."
+      },
+      {
+        "prdId": "P15-PRD06",
+        "heading": "Photocell Bookkeeping and the Solar Cell",
+        "proseLatex": "Photon arrival rate is power divided by photon energy: $\\dot{N} = \\frac{P_{\\text{in}}}{E}$. In a photocircuit, electrons between $K_{\\max}$ and $0$ are emitted; the stopping potential just stops the fastest. A solar PHOTovoltaic cell converts photon energy DIRECTLY into electrical energy across a p-n junction — no external battery — output scaling with irradiance. Micro-check: a $2\\ \\text{W}$ beam of $2\\ \\text{eV}$ photons delivers $\\frac{2}{2 \\times 1.6 \\times 10^{-19}} = 6.25 \\times 10^{18}$ photons per second."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P15-SF01",
+        "label": "Photon energy",
+        "latex": "$E = h\\nu = \\frac{hc}{\\lambda}$",
+        "use": "One packet per frequency."
+      },
+      {
+        "sfId": "P15-SF02",
+        "label": "eV shortcut",
+        "latex": "$E(\\text{eV}) \\approx \\frac{1240}{\\lambda(\\text{nm})}$",
+        "use": "Instant wavelength-to-energy conversion."
+      },
+      {
+        "sfId": "P15-SF03",
+        "label": "Photon momentum",
+        "latex": "$p = \\frac{h}{\\lambda} = \\frac{E}{c}$",
+        "use": "Rest-mass-free momentum."
+      },
+      {
+        "sfId": "P15-SF04",
+        "label": "Einstein equation",
+        "latex": "$K_{\\max} = h\\nu - \\phi_0$",
+        "use": "Surplus energy after the escape price."
+      },
+      {
+        "sfId": "P15-SF05",
+        "label": "Stopping potential",
+        "latex": "$eV_s = K_{\\max}$",
+        "use": "Volts measure the fastest electron."
+      },
+      {
+        "sfId": "P15-SF06",
+        "label": "Threshold frequency",
+        "latex": "$\\nu_0 = \\frac{\\phi_0}{h}$",
+        "use": "Below it, nothing ejects — ever."
+      },
+      {
+        "sfId": "P15-SF07",
+        "label": "Threshold wavelength",
+        "latex": "$\\lambda_0(\\text{nm}) \\approx \\frac{1240}{\\phi_0(\\text{eV})}$",
+        "use": "Longest wavelength that still ejects."
+      },
+      {
+        "sfId": "P15-SF08",
+        "label": "Intensity law",
+        "latex": "$I_{\\text{sat}} \\propto$ intensity ($\\nu > \\nu_0$)",
+        "use": "More photons = more current, same $K_{\\max}$."
+      },
+      {
+        "sfId": "P15-SF09",
+        "label": "Doubling frequency",
+        "latex": "$2\\nu \\Rightarrow K_{\\max}' = 2K_{\\max} + \\phi_0$",
+        "use": "More than double — the non-linear trap."
+      },
+      {
+        "sfId": "P15-SF10",
+        "label": "Slope of $V_s$ vs $\\nu$",
+        "latex": "$\\text{slope} = \\frac{h}{e}$",
+        "use": "Graph trap: $K_{\\max}$ vs $\\nu$ slopes $h$."
+      },
+      {
+        "sfId": "P15-SF11",
+        "label": "de Broglie wavelength",
+        "latex": "$\\lambda = \\frac{h}{p} = \\frac{h}{\\sqrt{2mK}}$",
+        "use": "Matter waves from momentum."
+      },
+      {
+        "sfId": "P15-SF12",
+        "label": "Electron through $V$ volts",
+        "latex": "$\\lambda(\\text{\\AA}) \\approx \\frac{12.27}{\\sqrt{V}}$",
+        "use": "The numeric de Broglie shortcut."
+      },
+      {
+        "sfId": "P15-SF13",
+        "label": "Photon rate",
+        "latex": "$\\dot{N} = \\frac{P_{\\text{in}}}{E_{\\text{photon}}}$",
+        "use": "Power split into packets."
+      },
+      {
+        "sfId": "P15-SF14",
+        "label": "Charge-energy bridge",
+        "latex": "$K = eV$ for one electron through $V$",
+        "use": "Connects volts to kinetic energy."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P15-DEF01",
+        "term": "Photon",
+        "definition": "A quantum of light: energy $h\\nu$, momentum $h/\\lambda$, zero rest mass."
+      },
+      {
+        "defId": "P15-DEF02",
+        "term": "Work function $\\phi_0$",
+        "definition": "The minimum energy to free an electron from a metal surface; varies by metal."
+      },
+      {
+        "defId": "P15-DEF03",
+        "term": "Threshold frequency",
+        "definition": "$\\nu_0 = \\phi_0/h$ — the lowest frequency that can eject photoelectrons."
+      },
+      {
+        "defId": "P15-DEF04",
+        "term": "Stopping potential",
+        "definition": "The retarding voltage that just halts the fastest photoelectrons: $eV_s = K_{\\max}$."
+      },
+      {
+        "defId": "P15-DEF05",
+        "term": "Saturation current",
+        "definition": "The plateau photocurrent when every emitted electron is collected; scales with intensity."
+      },
+      {
+        "defId": "P15-DEF06",
+        "term": "Photoelectric effect",
+        "definition": "Ejection of electrons from a metal by light of frequency above threshold."
+      },
+      {
+        "defId": "P15-DEF07",
+        "term": "de Broglie wavelength",
+        "definition": "The matter-wave length $h/p$ attached to any moving particle."
+      },
+      {
+        "defId": "P15-DEF08",
+        "term": "Photocurrent",
+        "definition": "Charge emitted per second reaching the collector; zero below threshold."
+      },
+      {
+        "defId": "P15-DEF09",
+        "term": "Solar (photovoltaic) cell",
+        "definition": "A p-n junction converting photon energy directly into electrical energy without an external bias."
+      },
+      {
+        "defId": "P15-DEF10",
+        "term": "Intensity",
+        "definition": "Energy per unit area per second — a photon COUNT property, not a per-photon energy."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P15-CMP01",
+        "title": "Raising Intensity vs Raising Frequency",
+        "columns": [
+          "Effect",
+          "Intensity $\\uparrow$ ($\\nu$ fixed)",
+          "Frequency $\\uparrow$ ($I$ fixed)"
+        ],
+        "rows": [
+          {
+            "label": "Per-photon energy",
+            "values": [
+              "Unchanged",
+              "Increases ($h\\nu$)"
+            ]
+          },
+          {
+            "label": "Saturation current",
+            "values": [
+              "Increases linearly",
+              "Unchanged (fewer photons at same $I$)"
+            ]
+          },
+          {
+            "label": "$K_{\\max}$ / $V_s$",
+            "values": [
+              "Unchanged",
+              "Increases by $h\\,\\Delta\\nu$"
+            ]
+          },
+          {
+            "label": "Below threshold",
+            "values": [
+              "Still zero current",
+              "Current appears once $\\nu > \\nu_0$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P15-CMP02",
+        "title": "Photon vs Electron (de Broglie)",
+        "columns": [
+          "Aspect",
+          "Photon",
+          "Electron at $V$ volts"
+        ],
+        "rows": [
+          {
+            "label": "Energy",
+            "values": [
+              "$h\\nu = \\frac{1240}{\\lambda}\\ \\text{eV}$",
+              "$eV$"
+            ]
+          },
+          {
+            "label": "Wavelength",
+            "values": [
+              "$\\lambda = \\frac{1240}{E}\\ \\text{nm}$",
+              "$\\frac{12.27}{\\sqrt{V}}\\ \\text{\\AA}$"
+            ]
+          },
+          {
+            "label": "Rest mass",
+            "values": [
+              "Zero",
+              "$m_e$"
+            ]
+          },
+          {
+            "label": "Speed dependence",
+            "values": [
+              "Always $c$",
+              "$\\lambda$ shortens as $\\sqrt{V}$ grows"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P15-CMP03",
+        "title": "Three Outputs and Their Controllers",
+        "columns": [
+          "Quantity",
+          "Set by",
+          "Untouched by"
+        ],
+        "rows": [
+          {
+            "label": "$K_{\\max}$ and $V_s$",
+            "values": [
+              "Frequency (and metal)",
+              "Intensity"
+            ]
+          },
+          {
+            "label": "Saturation current",
+            "values": [
+              "Intensity (above threshold)",
+              "Further frequency rise"
+            ]
+          },
+          {
+            "label": "Zero current",
+            "values": [
+              "Any $\\nu \\le \\nu_0$",
+              "Any intensity whatever"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P15-CMP04",
+        "title": "Which Graph Slope Is Which",
+        "columns": [
+          "Graph",
+          "Slope",
+          "Intercept meaning"
+        ],
+        "rows": [
+          {
+            "label": "$V_s$ vs $\\nu$",
+            "values": [
+              "$h/e$",
+              "$x$-intercept gives $\\nu_0$"
+            ]
+          },
+          {
+            "label": "$K_{\\max}$ vs $\\nu$",
+            "values": [
+              "$h$",
+              "Same $\\nu_0$ intercept"
+            ]
+          },
+          {
+            "label": "$I_{\\text{sat}}$ vs intensity",
+            "values": [
+              "Positive constant ($\\nu$ fixed)",
+              "Zero below threshold"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P15-MCQ01",
+        "stemLatex": "The energy of a photon of wavelength $620\\ \\text{nm}$ is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.5\\ \\text{eV}$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\ \\text{eV}$"
+          },
+          {
+            "id": "C",
+            "latex": "$3.1\\ \\text{eV}$"
+          },
+          {
+            "id": "D",
+            "latex": "$620\\ \\text{eV}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$E \\approx \\frac{1240}{\\lambda(\\text{nm})} = \\frac{1240}{620} = 2\\ \\text{eV}$ — the shortcut in one step."
+      },
+      {
+        "mcqId": "P15-MCQ02",
+        "stemLatex": "Light of $h\\nu = 4\\ \\text{eV}$ falls on a metal with $\\phi_0 = 1.5\\ \\text{eV}$. The stopping potential is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1.5\\ \\text{V}$"
+          },
+          {
+            "id": "B",
+            "latex": "$2.5\\ \\text{V}$"
+          },
+          {
+            "id": "C",
+            "latex": "$4\\ \\text{V}$"
+          },
+          {
+            "id": "D",
+            "latex": "$5.5\\ \\text{V}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$K_{\\max} = 4 - 1.5 = 2.5\\ \\text{eV}$, and $eV_s = K_{\\max}$ gives $V_s = 2.5\\ \\text{V}$."
+      },
+      {
+        "mcqId": "P15-MCQ03",
+        "stemLatex": "Above threshold, the incident intensity is doubled at fixed frequency. What doubles?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$K_{\\max}$"
+          },
+          {
+            "id": "B",
+            "latex": "$V_s$"
+          },
+          {
+            "id": "C",
+            "latex": "Saturation photocurrent"
+          },
+          {
+            "id": "D",
+            "latex": "Threshold frequency"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Twice the photons per second means twice the collected charge rate; per-photon energy is untouched, so $K_{\\max}$ and $V_s$ stay put."
+      },
+      {
+        "mcqId": "P15-MCQ04",
+        "stemLatex": "A metal has work function $3\\ \\text{eV}$. Its threshold wavelength is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1240\\ \\text{nm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$413\\ \\text{nm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$310\\ \\text{nm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$3\\ \\text{nm}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\lambda_0 \\approx \\frac{1240}{\\phi_0(\\text{eV})} = \\frac{1240}{3} \\approx 413\\ \\text{nm}$ — longer waves cannot eject electrons."
+      },
+      {
+        "mcqId": "P15-MCQ05",
+        "stemLatex": "If the frequency of incident light (above threshold) is doubled, the new $K_{\\max}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2K_{\\max}$"
+          },
+          {
+            "id": "B",
+            "latex": "$2K_{\\max} + \\phi_0$"
+          },
+          {
+            "id": "C",
+            "latex": "$K_{\\max} + \\phi_0$"
+          },
+          {
+            "id": "D",
+            "latex": "$K_{\\max}$ unchanged"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$K_{\\max}' = 2h\\nu - \\phi_0 = 2(K_{\\max} + \\phi_0) - \\phi_0 = 2K_{\\max} + \\phi_0$ — strictly MORE than double."
+      },
+      {
+        "mcqId": "P15-MCQ06",
+        "stemLatex": "In the graph of stopping potential $V_s$ against frequency $\\nu$, the slope equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$h$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{h}{e}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\phi_0$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\nu_0$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$eV_s = h\\nu - \\phi_0$ divides through by $e$: slope $= h/e$, with the $\\nu$-intercept at $\\nu_0$."
+      },
+      {
+        "mcqId": "P15-MCQ07",
+        "stemLatex": "Electrons accelerated from rest through $100\\ \\text{V}$ have de Broglie wavelength approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$12.27\\ \\text{\\AA}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.23\\ \\text{\\AA}$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.123\\ \\text{\\AA}$"
+          },
+          {
+            "id": "D",
+            "latex": "$122.7\\ \\text{\\AA}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\lambda \\approx \\frac{12.27}{\\sqrt{100}} = \\frac{12.27}{10} \\approx 1.23\\ \\text{\\AA}$."
+      },
+      {
+        "mcqId": "P15-MCQ08",
+        "stemLatex": "The momentum of a photon of energy $E$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{E}{c}$"
+          },
+          {
+            "id": "B",
+            "latex": "$Ec$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{E}{c^2}$"
+          },
+          {
+            "id": "D",
+            "latex": "zero, since it has no rest mass"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$p = \\frac{h}{\\lambda} = \\frac{E}{c}$ — massless carriers still carry momentum."
+      },
+      {
+        "mcqId": "P15-MCQ09",
+        "stemLatex": "A $2\\ \\text{W}$ beam consists of $2\\ \\text{eV}$ photons. Photons arriving per second number about:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1.6 \\times 10^{19}$"
+          },
+          {
+            "id": "B",
+            "latex": "$6.25 \\times 10^{18}$"
+          },
+          {
+            "id": "C",
+            "latex": "$3.2 \\times 10^{18}$"
+          },
+          {
+            "id": "D",
+            "latex": "$2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\dot{N} = \\frac{2}{2 \\times 1.6 \\times 10^{-19}} = 6.25 \\times 10^{18}\\ \\text{photons/s}$ — power divided by energy per packet."
+      },
+      {
+        "mcqId": "P15-MCQ10",
+        "stemLatex": "A solar cell converts light into electricity by:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "heating a thermocouple"
+          },
+          {
+            "id": "B",
+            "latex": "photoelectron emission into vacuum"
+          },
+          {
+            "id": "C",
+            "latex": "photovoltaic action across a p-n junction"
+          },
+          {
+            "id": "D",
+            "latex": "chemical electrolysis"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "A photovoltaic p-n junction turns photon energy directly into electrical energy with no external battery — distinct from the emission-based photocell."
+      }
+    ],
+    "memoryHooks": [
+      "$1240$ nm-eV: divide by wavelength, get electron-volts.",
+      "One photon buys one electron: pay $\\phi_0$, keep the change as $K_{\\max}$.",
+      "Intensity hires MORE photons; frequency arms EACH photon.",
+      "Doubling $\\nu$ more than doubles $K_{\\max}$: the bonus is exactly $\\phi_0$.",
+      "No threshold, no electrons — intensity is powerless below $\\nu_0$.",
+      "$V_s$ graph slopes $h/e$; $K_{\\max}$ graph slopes $h$ — check the axis.",
+      "Faster matter, shorter wave: $\\lambda = 12.27/\\sqrt{V}$ for electrons.",
+      "Photon rate = power split by packet size.",
+      "Stopping potential is $K_{\\max}$ read in volts.",
+      "Solar cell = photovoltaic junction, not electron emission into air."
+    ],
+    "commonMistakes": [
+      "Doubling $K_{\\max}$ when frequency doubles — the true new value is $2K_{\\max} + \\phi_0$.",
+      "Raising $K_{\\max}$ or $V_s$ with intensity — intensity only feeds current.",
+      "Sloping the $V_s$-$\\nu$ graph with $h$ instead of $h/e$.",
+      "Expecting photoemission below threshold by cranking intensity.",
+      "Feeding nanometres where metres belong, or eV where joules belong — units first.",
+      "Using $p = mc$ for photons — their momentum is $E/c$ with zero rest mass.",
+      "Reading $\\sqrt{V}$ as $V$ in the electron de Broglie shortcut.",
+      "Counting photon rates with $P \\times E$ instead of $P/E$.",
+      "Confusing the emission photocell with the photovoltaic solar cell."
+    ],
+    "examChecklist": [
+      "Convert wavelength to eV with the 1240 shortcut before any equation.",
+      "Write $K_{\\max} = h\\nu - \\phi_0$ and check $\\nu > \\nu_0$ first.",
+      "Stopping potential numerics: $V_s = K_{\\max}/e$ in volts.",
+      "Intensity questions: answer with saturation current, never $K_{\\max}$.",
+      "Frequency-doubling questions: expand $2h\\nu - \\phi_0$ explicitly.",
+      "Graph questions: identify which of $V_s$ or $K_{\\max}$ is plotted, then pick $h/e$ or $h$.",
+      "de Broglie numerics: $12.27/\\sqrt{V}$ for electrons; $h/p$ otherwise.",
+      "Photon-rate questions divide power by per-photon energy.",
+      "Threshold questions: choose $\\nu_0 = \\phi_0/h$ or $\\lambda_0 = 1240/\\phi_0$ to match the ask.",
+      "Carry eV and joules separately; convert with $1\\ \\text{eV} = 1.6 \\times 10^{-19}\\ \\text{J}$.",
+      "Re-verify one energy audit: photon in = escape price + kinetic out."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Physics, Part II",
+        "author": "NCERT",
+        "chapters": "Ch. 11 (Dual Nature of Radiation and Matter), §11.1–11.4",
+        "note": "Photon picture, Einstein's photoelectric equation, stopping-potential graphs and de Broglie waves — the exact span of this pack."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "Owner-approved (session sign-off on batch 2, 2026-11-25)",
+      "reviewedAt": "2026-11-25 (owner approved; batch 3 authorized)"
+    }
+  }
+}

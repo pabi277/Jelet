@@ -1,0 +1,553 @@
+{
+  "unitId": "P01",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P01-PRD01",
+        "heading": "SI Base Dimensions & Homogeneity Law",
+        "proseLatex": "The seven SI base dimensions are $[M], [L], [T], [I], [\\Theta], [N], [J]$. By dimensional homogeneity, only identical-dimension terms may be added or equated, and arguments of $\\sin$, $e$, $\\ln$ MUST be dimensionless. Micro-check: $\\sin\\omega t$ is legal because $\\omega t$ is $[T^{-1}][T] = [T^0]$."
+      },
+      {
+        "prdId": "P01-PRD02",
+        "heading": "High-Yield Dimensional Formulas",
+        "proseLatex": "Force $[MLT^{-2}]$; work and torque both $[ML^2T^{-2}]$ (same dimensions, different physics); viscosity $[ML^{-1}T^{-1}]$; Planck's $h$ $[ML^2T^{-1}]$; and the trio $RC$, $L/R$, $\\sqrt{LC}$ all reduce to $[T]$. Micro-check: $\\frac{L}{R} = \\frac{[ML^2T^{-2}I^{-2}]}{[ML^2T^{-3}I^{-2}]} = [T]$."
+      },
+      {
+        "prdId": "P01-PRD03",
+        "heading": "Dimensionless vs Unitless",
+        "proseLatex": "Plane angle (rad) and solid angle (sr) carry SI units yet have dimension $[M^0L^0T^0]$ — dimensionless is NOT unitless. Conversely, torque and work share $[ML^2T^{-2}]$ while being different quantities. Micro-check: $[\\varepsilon_0\\mu_0]^{-1/2} = [LT^{-1}]$ — the speed of light."
+      },
+      {
+        "prdId": "P01-PRD04",
+        "heading": "Error Propagation: Additive, Always",
+        "proseLatex": "Maximum errors add in sums AND differences: $\\Delta(A \\pm B) = \\Delta A + \\Delta B$. For $Z = \\frac{A^pB^q}{C^r}$, fractional errors combine with POSITIVE exponent magnitudes: $\\frac{\\Delta Z}{Z} = |p|\\frac{\\Delta A}{A} + |q|\\frac{\\Delta B}{B} + |r|\\frac{\\Delta C}{C}$ — the denominator's $r$ still contributes $+|r|$ (errors never subtract). Micro-check: $Z = A/B$ with $2\\%$ and $3\\%$ errors: $\\Delta Z/Z = 5\\%$."
+      },
+      {
+        "prdId": "P01-PRD05",
+        "heading": "Vernier & Screw-Gauge Least Counts",
+        "proseLatex": "Vernier: $\\text{LC} = 1\\,\\text{MSD} - 1\\,\\text{VSD}$ (typically $0.1\\,\\text{mm}$). Screw gauge: $\\text{LC} = \\frac{\\text{pitch}}{\\text{circular divisions}}$ (e.g., $\\frac{0.5\\,\\text{mm}}{50} = 0.01\\,\\text{mm}$). Corrected reading $=$ observed $-$ (signed zero error). Micro-check: pitch $1\\,\\text{mm}$ over $100$ divisions: LC $= 0.01\\,\\text{mm}$."
+      },
+      {
+        "prdId": "P01-PRD06",
+        "heading": "Significant Figures: the Trailing-Zero Rule",
+        "proseLatex": "Trailing zeros WITHOUT a decimal point are non-significant: $2500\\,\\text{m}$ has $2$ sig figs. Trailing zeros AFTER a decimal point are significant: $2.500\\,\\text{km}$ has $4$. Micro-check: $0.00320$ has $3$ sig figs (leading zeros never count; the trailing zero does)."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P01-SF01",
+        "label": "Force dimensions",
+        "latex": "[MLT^{-2}]",
+        "use": "$F = ma$."
+      },
+      {
+        "sfId": "P01-SF02",
+        "label": "Work / torque dimensions",
+        "latex": "[ML^2T^{-2}]",
+        "use": "Shared dimensions, distinct quantities."
+      },
+      {
+        "sfId": "P01-SF03",
+        "label": "Viscosity dimensions",
+        "latex": "[ML^{-1}T^{-1}]",
+        "use": "From $F = \\eta A\\frac{dv}{dx}$."
+      },
+      {
+        "sfId": "P01-SF04",
+        "label": "Planck's constant",
+        "latex": "[ML^2T^{-1}]",
+        "use": "$E = h\\nu$."
+      },
+      {
+        "sfId": "P01-SF05",
+        "label": "Time-constant trio",
+        "latex": "RC = L/R = \\sqrt{LC} = [T]",
+        "use": "All three reduce to time."
+      },
+      {
+        "sfId": "P01-SF06",
+        "label": "Light speed from constants",
+        "latex": "[\\varepsilon_0\\mu_0]^{-1/2} = [LT^{-1}]",
+        "use": "EM combination shortcut."
+      },
+      {
+        "sfId": "P01-SF07",
+        "label": "Sum/difference error",
+        "latex": "\\Delta(A \\pm B) = \\Delta A + \\Delta B",
+        "use": "Errors add, never cancel."
+      },
+      {
+        "sfId": "P01-SF08",
+        "label": "Power-law error",
+        "latex": "\\frac{\\Delta Z}{Z} = \\textstyle\\sum |p_i|\\frac{\\Delta A_i}{A_i}",
+        "use": "Positive exponent magnitudes."
+      },
+      {
+        "sfId": "P01-SF09",
+        "label": "Vernier least count",
+        "latex": "\\text{LC} = 1\\,\\text{MSD} - 1\\,\\text{VSD}",
+        "use": "Typical: $0.1\\,\\text{mm}$."
+      },
+      {
+        "sfId": "P01-SF10",
+        "label": "Screw-gauge least count",
+        "latex": "\\text{LC} = \\frac{\\text{pitch}}{\\text{divisions}}",
+        "use": "Pitch over divisions."
+      },
+      {
+        "sfId": "P01-SF11",
+        "label": "Zero-error correction",
+        "latex": "\\text{reading} = \\text{observed} - (\\pm\\text{zero error})",
+        "use": "Sign matters."
+      },
+      {
+        "sfId": "P01-SF12",
+        "label": "Percentage error",
+        "latex": "\\%\\text{error} = \\frac{\\Delta Z}{Z}\\times100",
+        "use": "Reported with the value."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P01-DEF01",
+        "term": "Dimensional homogeneity",
+        "definition": "Every added/equated term shares identical dimensions; function arguments are dimensionless."
+      },
+      {
+        "defId": "P01-DEF02",
+        "term": "Dimensionless quantity",
+        "definition": "Dimension $[M^0L^0T^0]$; may still carry a unit (radian, steradian)."
+      },
+      {
+        "defId": "P01-DEF03",
+        "term": "Least count",
+        "definition": "Smallest measurable increment of an instrument."
+      },
+      {
+        "defId": "P01-DEF04",
+        "term": "Zero error",
+        "definition": "Systematic offset read at closed jaws; subtracted with its sign."
+      },
+      {
+        "defId": "P01-DEF05",
+        "term": "Significant figures",
+        "definition": "Meaningful digits; trailing zeros count only after a decimal point."
+      },
+      {
+        "defId": "P01-DEF06",
+        "term": "Relative error",
+        "definition": "$\\frac{\\Delta Z}{Z}$; expressed as percentage when multiplied by $100$."
+      },
+      {
+        "defId": "P01-DEF07",
+        "term": "SI base quantities",
+        "definition": "Mass, length, time, current, temperature, amount, luminous intensity."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P01-CMP01",
+        "title": "Dimensionless vs unitless",
+        "columns": [
+          "Aspect",
+          "Dimensionless",
+          "Unitless"
+        ],
+        "rows": [
+          {
+            "label": "Example",
+            "values": [
+              "radian, strain",
+              "pure number $2$"
+            ]
+          },
+          {
+            "label": "SI unit",
+            "values": [
+              "may carry rad or sr",
+              "none"
+            ]
+          },
+          {
+            "label": "Dimension",
+            "values": [
+              "$[M^0L^0T^0]$",
+              "$[M^0L^0T^0]$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P01-CMP02",
+        "title": "Work vs torque",
+        "columns": [
+          "Aspect",
+          "Work",
+          "Torque"
+        ],
+        "rows": [
+          {
+            "label": "Dimensions",
+            "values": [
+              "$[ML^2T^{-2}]$",
+              "$[ML^2T^{-2}]$"
+            ]
+          },
+          {
+            "label": "Nature",
+            "values": [
+              "scalar energy",
+              "axial vector"
+            ]
+          },
+          {
+            "label": "SI unit",
+            "values": [
+              "joule",
+              "N·m (not joule)"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P01-CMP03",
+        "title": "Vernier vs screw gauge",
+        "columns": [
+          "Aspect",
+          "Vernier callipers",
+          "Screw gauge"
+        ],
+        "rows": [
+          {
+            "label": "Least count",
+            "values": [
+              "MSD $-$ VSD",
+              "$\\frac{\\text{pitch}}{\\text{divisions}}$"
+            ]
+          },
+          {
+            "label": "Typical LC",
+            "values": [
+              "$0.1\\,\\text{mm}$",
+              "$0.01\\,\\text{mm}$"
+            ]
+          },
+          {
+            "label": "Measures",
+            "values": [
+              "lengths, diameters",
+              "thin wires, sheets"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P01-MCQ01",
+        "stemLatex": "The dimensional formula of Planck's constant $h$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$[ML^2T^{-1}]$"
+          },
+          {
+            "id": "B",
+            "latex": "$[ML^2T^{-2}]$"
+          },
+          {
+            "id": "C",
+            "latex": "$[MLT^{-2}]$"
+          },
+          {
+            "id": "D",
+            "latex": "$[ML^{-1}T^{-1}]$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "From $E = h\\nu$: $[ML^2T^{-2}][T] = [ML^2T^{-1}]$."
+      },
+      {
+        "mcqId": "P01-MCQ02",
+        "stemLatex": "Which trio all have the dimensions of time?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$RC$, $L/R$, $\\sqrt{LC}$"
+          },
+          {
+            "id": "B",
+            "latex": "$RC$, $L/R$, $LC$"
+          },
+          {
+            "id": "C",
+            "latex": "$L/R$, $C/L$, $LC$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{RC}$, $L/R$, $LC$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$RC = [T]$, $L/R = [T]$, $\\sqrt{LC} = \\sqrt{[T^2]} = [T]$."
+      },
+      {
+        "mcqId": "P01-MCQ03",
+        "stemLatex": "$Z = \\frac{A^2B}{C}$ is measured with $\\Delta A/A = 2\\%$, $\\Delta B/B = 1\\%$, $\\Delta C/C = 3\\%$. Then $\\Delta Z/Z$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$8\\%$"
+          },
+          {
+            "id": "B",
+            "latex": "$4\\%$"
+          },
+          {
+            "id": "C",
+            "latex": "$6\\%$"
+          },
+          {
+            "id": "D",
+            "latex": "$2\\%$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$|2|(2\\%) + |1|(1\\%) + |1|(3\\%) = 8\\%$ — all errors add."
+      },
+      {
+        "mcqId": "P01-MCQ04",
+        "stemLatex": "In a difference $Z = A - B$ with $\\Delta A = 0.2$ and $\\Delta B = 0.3$, the maximum $\\Delta Z$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.1$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.5$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.36$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.06$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Worst-case errors ADD: $0.2 + 0.3 = 0.5$."
+      },
+      {
+        "mcqId": "P01-MCQ05",
+        "stemLatex": "A screw gauge has pitch $0.5\\,\\text{mm}$ and $50$ circular divisions. Its least count is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.001\\,\\text{mm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.01\\,\\text{mm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.05\\,\\text{mm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.1\\,\\text{mm}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\frac{0.5}{50} = 0.01\\,\\text{mm}$."
+      },
+      {
+        "mcqId": "P01-MCQ06",
+        "stemLatex": "The number of significant figures in $2500\\,\\text{m}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$3$"
+          },
+          {
+            "id": "C",
+            "latex": "$4$"
+          },
+          {
+            "id": "D",
+            "latex": "$6$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Trailing zeros without a decimal point are non-significant."
+      },
+      {
+        "mcqId": "P01-MCQ07",
+        "stemLatex": "The number of significant figures in $2.500\\,\\text{km}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$3$"
+          },
+          {
+            "id": "C",
+            "latex": "$4$"
+          },
+          {
+            "id": "D",
+            "latex": "$5$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Trailing zeros after the decimal ARE significant: $4$."
+      },
+      {
+        "mcqId": "P01-MCQ08",
+        "stemLatex": "The argument of $\\sin$ in a physically valid equation must be:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "dimensionless (may carry radians)"
+          },
+          {
+            "id": "B",
+            "latex": "dimensionful in metres"
+          },
+          {
+            "id": "C",
+            "latex": "always in seconds"
+          },
+          {
+            "id": "D",
+            "latex": "always in radians per second"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Transcendental arguments have dimension $[M^0L^0T^0]$; radian is the dimensionless unit."
+      },
+      {
+        "mcqId": "P01-MCQ09",
+        "stemLatex": "$[\\varepsilon_0\\mu_0]^{-1/2}$ has the dimensions of:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "velocity"
+          },
+          {
+            "id": "B",
+            "latex": "force"
+          },
+          {
+            "id": "C",
+            "latex": "resistance"
+          },
+          {
+            "id": "D",
+            "latex": "inductance"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$= [c] = [LT^{-1}]$ — the fastest recall route."
+      },
+      {
+        "mcqId": "P01-MCQ10",
+        "stemLatex": "Which pair has IDENTICAL dimensions but different physical meaning?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "work and torque"
+          },
+          {
+            "id": "B",
+            "latex": "force and pressure"
+          },
+          {
+            "id": "C",
+            "latex": "stress and strain"
+          },
+          {
+            "id": "D",
+            "latex": "power and energy"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Both are $[ML^2T^{-2}]$; torque is reported in N·m, work in joules."
+      }
+    ],
+    "memoryHooks": [
+      "Homogeneity: add only what matches; functions eat dimensionless arguments.",
+      "Force $MLT^{-2}$; work/torque $ML^2T^{-2}$; viscosity $ML^{-1}T^{-1}$.",
+      "$h$ is $ML^2T^{-1}$ — same as angular momentum.",
+      "$RC$, $L/R$, $\\sqrt{LC}$: all three are seconds.",
+      "$[\\varepsilon_0\\mu_0]^{-1/2}$ = speed of light.",
+      "Errors add in sums AND differences — never subtract.",
+      "Denominator exponents still contribute $+|r|$.",
+      "Vernier: MSD minus VSD; screw: pitch over divisions.",
+      "Trailing zeros: the decimal point makes them significant.",
+      "Dimensionless $\\neq$ unitless (radian!)."
+    ],
+    "commonMistakes": [
+      "Subtracting errors in $Z = A - B$ or $Z = A/B$.",
+      "Making $\\sin$/$e^{(\\cdot)}$ arguments dimensionful.",
+      "Counting trailing zeros of $2500$ as significant.",
+      "Confusing work and torque because dimensions match.",
+      "Forgetting the denominator exponent's magnitude in $\\Delta Z/Z$.",
+      "Adding zero error instead of subtracting with sign.",
+      "Quoting radian as unitless rather than dimensionless.",
+      "Rushing the final unit conversion after a correct setup."
+    ],
+    "examChecklist": [
+      "Check homogeneity of every option in dimension questions.",
+      "Recall force, work, viscosity, $h$, and the time-trio instantly.",
+      "Use $[\\varepsilon_0\\mu_0]^{-1/2} = [LT^{-1}]$ as a shortcut.",
+      "Add all fractional errors with positive magnitudes.",
+      "Compute vernier/screw least counts from pitch/divisions.",
+      "Correct readings for signed zero error.",
+      "Count significant figures with the decimal-point rule.",
+      "Distinguish dimensionless (rad) from unitless."
+    ],
+    "furtherReading": [
+      {
+        "book": "Fundamentals of Physics",
+        "author": "Halliday, Resnick & Walker",
+        "chapters": "Measurement chapter",
+        "note": "Units and error-analysis fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}
