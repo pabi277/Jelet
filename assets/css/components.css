@@ -2665,3 +2665,99 @@
 }
 .community-toggle input { flex-shrink: 0; accent-color: var(--brand-primary); }
 .community-card summary { min-height: var(--tap-min); cursor: pointer; }
+
+/* ==========================================================================
+   Phase 12 — Phone UI Compaction: `.disclose` Disclosure Row Pattern
+   --------------------------------------------------------------------------
+   Phone default = collapsed single-line status row (>=48px tap target).
+   Desktop opens automatically via JS matchMedia; tokens only, zero raw hex.
+   ========================================================================== */
+.disclose {
+  min-width: 0;
+}
+
+.disclose__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: var(--tap-min);
+  padding: var(--space-xs) var(--space-2xs);
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease;
+}
+
+.disclose:not([open]) > .disclose__summary {
+  border-bottom: 1px solid var(--border-subtle);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.disclose__summary:hover {
+  background: var(--bg-surface-subtle);
+}
+
+.disclose__summary:active {
+  background: var(--brand-tint);
+}
+
+.disclose__summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclose__summary::marker {
+  content: "";
+}
+
+.disclose__title {
+  flex: 0 0 auto;
+  max-width: 65%;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.disclose__status {
+  flex: 1 1 0%;
+  min-width: 0;
+  text-align: right;
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.disclose__summary::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-right: var(--space-3xs);
+  border-right: 2px solid var(--text-muted);
+  border-bottom: 2px solid var(--text-muted);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+.disclose[open] > .disclose__summary::after {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.disclose > .disclose__summary + * {
+  margin-top: var(--space-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disclose__summary,
+  .disclose__summary::after {
+    transition: none;
+  }
+}
+

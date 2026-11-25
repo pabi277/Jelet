@@ -175,6 +175,8 @@ try {
     }
     if (route === '#/you') {
       await page.waitForSelector('.js-buddy-edit');
+      const commOpen = await page.$eval('#discloseCommunity', d => d.open);
+      if (!commOpen) await page.click('#discloseCommunity > .disclose__summary');
       await page.$eval('.js-buddy-edit', form => { form.parentElement.open = true; form.querySelector('[name="plan"]').value = 'C01'; });
       await page.click('.js-buddy-edit button');
       await page.waitForFunction(() => document.querySelector('#buddyStatus').textContent.includes('Local plan saved'));

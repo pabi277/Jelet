@@ -346,9 +346,27 @@ async function main() {
       const shotDir = process.env.JELET_SAVE_SHOTS || "";
 
       // 1. Free-text target college + Custom AI model reveal & persistence on #/you
+      //    (Phase 12: also verifies phone compaction disclosures default closed >=48px,
+      //     expand cleanly on tap, and update dynamic status lines)
       await page.goto(base + "#/you", { waitUntil: "networkidle0", timeout: 30000 });
       await page.addStyleTag({ content: "html, body { overflow-x: visible !important; }" });
       await page.waitForSelector("#profTargetInput");
+      const youPhoneDisclose = await page.evaluate(() => {
+        const list = [...document.querySelectorAll(".you-view .disclose")];
+        const summaries = list.map((d) => d.querySelector(":scope > .disclose__summary"));
+        const interactiveInside = summaries.some((s) =>
+          Boolean(s?.querySelector("a, button, input, select, textarea"))
+        );
+        const minHeight = Math.min(...summaries.map((s) => s?.getBoundingClientRect().height || 0));
+        return {
+          count: list.length,
+          allClosed: list.every((d) => !d.open),
+          interactiveInside,
+          minHeight,
+        };
+      });
+      await page.click("#discloseJu > .disclose__summary");
+      await page.click("#discloseAi > .disclose__summary");
       await page.$eval("#profTargetInput", (el) => {
         el.value = "Kalyani Govt. Engg. College CSE (2027)";
         el.dispatchEvent(new Event("change", { bubbles: true }));
@@ -370,19 +388,24 @@ async function main() {
       const savedCollege = await page.$eval("#profTargetInput", (el) => el.value);
       const savedModel = await page.$eval("#aiCustomModelInput", (el) => el.value);
       const okYou =
+        youPhoneDisclose.count === 8 &&
+        youPhoneDisclose.allClosed &&
+        !youPhoneDisclose.interactiveInside &&
+        youPhoneDisclose.minHeight >= 47.5 &&
         customVisible &&
         youOverflow <= TOLERANCE_PX &&
         savedCollege === "Kalyani Govt. Engg. College CSE (2027)" &&
         savedModel === "gemini-2.5-pro" &&
         consoleErrors.length === 0;
-      results.push({ vp: "360 interactive", route: "#/you (college + custom model)", ok: okYou });
+      results.push({ vp: "360 interactive", route: "#/you (compaction + college + custom model)", ok: okYou });
       if (!okYou) {
         failures.push(
-          `  ✗ [360 interactive] #/you: customVisible=${customVisible}, overflow=${youOverflow}, savedCollege="${savedCollege}", savedModel="${savedModel}", errors=${consoleErrors.join("; ")}`
+          `  ✗ [360 interactive] #/you: disclose=${JSON.stringify(youPhoneDisclose)}, customVisible=${customVisible}, overflow=${youOverflow}, savedCollege="${savedCollege}", savedModel="${savedModel}", errors=${consoleErrors.join("; ")}`
         );
       }
 
-      // Switch to AMOLED Dark Mode
+      // Switch to AMOLED Dark Mode (open Preferences disclosure first on phone)
+      await page.click("#disclosePrefs > .disclose__summary");
       await page.click("#youDarkSwitchBtn");
       await new Promise((r) => setTimeout(r, 150));
 
