@@ -120,6 +120,8 @@ try {
   }
   await page.goto(base + "#/you", { waitUntil: "networkidle0" });
   await page.waitForSelector("#buddyCreateForm");
+  await page.$eval("#discloseCommunity > .disclose__summary", n => n.scrollIntoView({ block: "center" }));
+  await page.click("#discloseCommunity > .disclose__summary");
   await page.$eval("#buddyCreateForm", form => { form.parentElement.open = true; });
   await page.type('[name="groupName"]', 'Browser buddies');
   await page.type('[name="groupTopic"]', 'Optics focus');

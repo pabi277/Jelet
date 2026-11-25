@@ -346,27 +346,34 @@ async function main() {
       const shotDir = process.env.JELET_SAVE_SHOTS || "";
 
       // 1. Free-text target college + Custom AI model reveal & persistence on #/you
-      //    (Phase 12: also verifies phone compaction disclosures default closed >=48px,
-      //     expand cleanly on tap, and update dynamic status lines)
+      //    (Phase 12: JU Target & CGPA + AI Tutor are always open without disclosure
+      //     headers; the remaining 6 sections sit below them and default closed >=48px)
       await page.goto(base + "#/you", { waitUntil: "networkidle0", timeout: 30000 });
       await page.addStyleTag({ content: "html, body { overflow-x: visible !important; }" });
       await page.waitForSelector("#profTargetInput");
       const youPhoneDisclose = await page.evaluate(() => {
-        const list = [...document.querySelectorAll(".you-view .disclose")];
+        const ju = document.querySelector("#youJuSection");
+        const ai = document.querySelector("#youAiSection");
+        const list = [...document.querySelectorAll(".you-view > .disclose")];
         const summaries = list.map((d) => d.querySelector(":scope > .disclose__summary"));
         const interactiveInside = summaries.some((s) =>
           Boolean(s?.querySelector("a, button, input, select, textarea"))
         );
         const minHeight = Math.min(...summaries.map((s) => s?.getBoundingClientRect().height || 0));
+        const juTop = ju?.getBoundingClientRect().top ?? 99999;
+        const aiTop = ai?.getBoundingClientRect().top ?? 99999;
+        const firstDiscloseTop = list[0]?.getBoundingClientRect().top ?? 0;
         return {
+          juUnwrapped: Boolean(ju && !ju.closest(".disclose")),
+          aiUnwrapped: Boolean(ai && !ai.closest(".disclose")),
+          juAboveAi: juTop < aiTop,
+          aiAboveDisclosures: aiTop < firstDiscloseTop,
           count: list.length,
           allClosed: list.every((d) => !d.open),
           interactiveInside,
           minHeight,
         };
       });
-      await page.click("#discloseJu > .disclose__summary");
-      await page.click("#discloseAi > .disclose__summary");
       await page.$eval("#profTargetInput", (el) => {
         el.value = "Kalyani Govt. Engg. College CSE (2027)";
         el.dispatchEvent(new Event("change", { bubbles: true }));
@@ -388,7 +395,11 @@ async function main() {
       const savedCollege = await page.$eval("#profTargetInput", (el) => el.value);
       const savedModel = await page.$eval("#aiCustomModelInput", (el) => el.value);
       const okYou =
-        youPhoneDisclose.count === 8 &&
+        youPhoneDisclose.juUnwrapped &&
+        youPhoneDisclose.aiUnwrapped &&
+        youPhoneDisclose.juAboveAi &&
+        youPhoneDisclose.aiAboveDisclosures &&
+        youPhoneDisclose.count === 6 &&
         youPhoneDisclose.allClosed &&
         !youPhoneDisclose.interactiveInside &&
         youPhoneDisclose.minHeight >= 47.5 &&
@@ -405,7 +416,9 @@ async function main() {
       }
 
       // Switch to AMOLED Dark Mode (open Preferences disclosure first on phone)
+      await page.$eval("#disclosePrefs > .disclose__summary", (el) => el.scrollIntoView({ block: "center" }));
       await page.click("#disclosePrefs > .disclose__summary");
+      await page.$eval("#youDarkSwitchBtn", (el) => el.scrollIntoView({ block: "center" }));
       await page.click("#youDarkSwitchBtn");
       await new Promise((r) => setTimeout(r, 150));
 
