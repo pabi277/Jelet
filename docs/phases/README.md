@@ -26,6 +26,7 @@ Two kinds of documents live here:
 | **11** | **AI Tutor: Option Detection, Section Context & History** (+ 1 blocking bug fix) | ✅ Done | `phase-11/record.md` |
 | **12** | **Phone UI Compaction: Today & You/Settings (disclosure pattern)** | ✅ Done | **`phase-12/record.md`** |
 | **13** | **Learn Enrichment from Private Reference Books (AI-assisted, copyright-safe)** | 📋 Researched — awaiting execution · plan **amended 2026-11-25** (vault restructure + unit-model reference; docs-only, not executing) | **`phase-13/plan.md`** |
+| **14** | **AI Tutor Dedicated Phase: Request Governor (rate limits & token budget) + Sheet UI Rebuild + AI Settings** | 📋 Researched — awaiting owner go-ahead · docs-only, zero code · **owner decisions incorporated 2026-11-25** (settings-in-You only · 70 s retry law · NVIDIA provider · `gemini-3.1-flash-lite` default · preview OFF · suggestions hidden during generation · history as 70%-width drawer with search) · research: `docs/09-AI-PHASE-RESEARCH-AUDIT.md` | **`phase-14/plan.md`** |
 | 14+ | Practice-set content expansion (legacy "Phase 11+" row of `docs/05`) | ⏳ Not started | (owner renumbers on approval — see note below) |
 
 > **Roadmap alignment note:** `docs/05-PHASE-ROADMAP-AND-GATES.md` §1 currently labels
@@ -43,6 +44,8 @@ Phase 11  (AI tutor + blocking results bug)   ← fixes a broken flagship flow f
 Phase 12  (phone UI compaction)               ← independent, can run in parallel with 11
    ↓
 Phase 13  (learn content from books)          ← slowest; owner sign-off required per batch
+   ↓
+Phase 14  (AI governor + sheet UI + settings) ← slices 14A → 14B → 14C; docs-only until owner go-ahead
 ```
 
 * Phases 11 and 12 touch disjoint files (`ai-tutor.js`/`results.js` vs `today.js`/`you.js`)
