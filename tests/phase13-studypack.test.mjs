@@ -14,10 +14,11 @@
  *      exist; hook grid widens via min-width only (phone-first law).
  *   4. AI Tutor grounding: hooks + mistakes only (≤400 chars), never furtherReading;
  *      legacy prompt untouched for units without studyPack.
- *   5. Pilot data v2 (`_data/units/M01|C03|E05.json`): 5-6 primers, 12-18 formulas
- *      (unique sfIds), 6-12 definitions, 3-4 comparison tables (columns[0] is the
- *      label column), 8-10 MCQs with honest A-D keys, 8-12 hooks/mistakes/checklist,
- *      clean provenance; the other 39 units ship NO studyPack (pilot isolation).
+ *   5. Pilot + Batch 1 data v2 (`_data/units/M01|C03|E05|M02|M03|M07|M11.json`):
+ *      5-6 primers, 12-18 formulas (unique sfIds), 6-12 definitions, 3-4
+ *      comparison tables (columns[0] is the label column), 8-10 MCQs with
+ *      honest A-D keys, 8-12 hooks/mistakes/checklist, clean provenance; the
+ *      other 38 units ship NO studyPack (batch isolation).
  */
 
 import test from "node:test";
@@ -31,6 +32,9 @@ const ROOT = process.cwd();
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), "utf8");
 
 const PILOT_UNITS = ["M01", "C03", "E05"];
+// Batch 1 (owner-approved pace): joins the pilot with the same v2 anatomy +
+// video-enrichment contract (plan §3.4 batch order).
+const PACKED_UNITS = [...PILOT_UNITS, "M02", "M03", "M07", "M11"];
 
 test("Lesson: study tab is valid, leads the tab sequence, with calm empty state", () => {
   const learnJs = read("assets/js/views/learn.js");
@@ -180,8 +184,8 @@ test("AI Tutor: studyPack grounds hooks + mistakes only, capped, legacy prompt u
   assert.equal(summarizeStudyPackForTutor(null), "");
 });
 
-test("Pilot data v2: M01, C03, E05 carry the full anatomy; the other 39 do not", () => {
-  for (const unitId of PILOT_UNITS) {
+test("Pilot + batch-1 data v2: 7 units carry the full anatomy; the other 38 do not", () => {
+  for (const unitId of PACKED_UNITS) {
     const unit = JSON.parse(read(`_data/units/${unitId}.json`));
     const sp = unit.studyPack;
     assert.ok(sp && typeof sp === "object", `${unitId} ships a studyPack`);
@@ -235,7 +239,7 @@ test("Pilot data v2: M01, C03, E05 carry the full anatomy; the other 39 do not",
     assert.ok(!flat.includes("http") && !flat.includes(".pdf") && !flat.includes(".zip"), `${unitId} furtherReading is pointer-only`);
     assert.ok(sp.provenance.draftedBy && sp.provenance.reviewedBy && sp.provenance.reviewedAt, `${unitId} provenance chain recorded`);
 
-    // Owner-approved video enrichment (Amendment B §5): every pilot unit carries
+    // Owner-approved video enrichment (Amendment B §5): every packed unit carries
     // 4+ curated, real lectures across languages (bn/en/hi), each with a
     // YouTube id, deep link, channel and an exam-relevant scope note.
     const videos = unit.videoLectures || [];
@@ -251,7 +255,7 @@ test("Pilot data v2: M01, C03, E05 carry the full anatomy; the other 39 do not",
 
   const manifest = JSON.parse(read("_data/manifest.json"));
   for (const meta of manifest.units) {
-    if (PILOT_UNITS.includes(meta.unitId)) continue;
+    if (PACKED_UNITS.includes(meta.unitId)) continue;
     const unit = JSON.parse(read(`_data/units/${meta.unitId}.json`));
     assert.equal(unit.studyPack, undefined, `${meta.unitId} must not carry a studyPack yet (pilot isolation)`);
   }

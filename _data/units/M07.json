@@ -176,7 +176,687 @@
       "channelName": "Arya Anjum",
       "language": "en",
       "scopeNote": "Critical points, first and second derivative tests for local extrema"
+    },
+    {
+      "title": "Maxima and Minima Class 12 | Maxima Minima Class 12 | Application of Derivatives Class 12th",
+      "url": "https://www.youtube.com/watch?v=kgCR_3uqRv4",
+      "videoId": "kgCR_3uqRv4",
+      "duration": "137 min",
+      "durationMinutes": 137,
+      "provider": "YouTube · Toppers Village",
+      "channelName": "Toppers Village",
+      "language": "hi",
+      "scopeNote": "Hindi marathon covering the full extrema span — first/second derivative tests, concavity, inflection and absolute extrema on closed intervals"
+    },
+    {
+      "title": "Maxima Minima Class 12 in Bengali |Part-1 | Calculus Class 12 | Application of Derivative in Bengali",
+      "url": "https://www.youtube.com/watch?v=p0ZI5JwO5OA",
+      "videoId": "p0ZI5JwO5OA",
+      "duration": "16 min",
+      "durationMinutes": 16,
+      "provider": "YouTube · LET'S IMPROVE",
+      "channelName": "LET'S IMPROVE",
+      "language": "bn",
+      "scopeNote": "Bengali short course on the condition for maxima and minima — the f'-sign / f''-test core of the pack"
+    },
+    {
+      "title": "Application of Derivatives Class 12 IIT JEE in 1 Shot | JEE 2021 | JEE Math | Crash Course | Vedantu",
+      "url": "https://www.youtube.com/watch?v=FemsNVoCtow",
+      "videoId": "FemsNVoCtow",
+      "duration": "104 min",
+      "durationMinutes": 104,
+      "provider": "YouTube · Vedantu JEE Made Ejee",
+      "channelName": "Vedantu JEE Made Ejee",
+      "language": "en",
+      "scopeNote": "English crash course across the unit span — tangents/normals, monotonicity and the extrema tests with JEE-style problems"
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M07-PRD01",
+        "heading": "The Derivative as Slope and as Rate",
+        "proseLatex": "$f'(x_0)$ answers two questions with one number: the slope of the tangent to $y = f(x)$ at $(x_0, y_0)$, and the instantaneous rate $\\frac{dy}{dx}$; with a parameter, the chain rule converts rates — $\\frac{dY}{dt} = f'(x)\\frac{dx}{dt}$. Everything in this unit is one of these two readings wearing different clothes. Micro-check: for $y = x^3 - 2x$, $y' = 3x^2 - 2$, so at $x = 1$ the tangent slope is $3(1) - 2 = 1$."
+      },
+      {
+        "prdId": "M07-PRD02",
+        "heading": "Tangents & Normals on Demand",
+        "proseLatex": "At $(x_0, y_0)$: tangent $y - y_0 = m_T(x - x_0)$ with $m_T = f'(x_0)$; normal $y - y_0 = m_N(x - x_0)$ with $m_N = -1/m_T$. Horizontal tangent: $m_T = 0$; vertical tangent: $m_T$ undefined. Two curves crossing at $P$ are orthogonal when $m_1 m_2 = -1$, and the angle between them satisfies $\\tan\\phi = \\left|\\frac{m_1 - m_2}{1 + m_1 m_2}\\right|$. Micro-check: for $y = x^2$ at $x = 2$ the point is $(2, 4)$, $m_T = 4$, $m_N = -1/4$, and the normal is $y - 4 = -\\tfrac{1}{4}(x - 2)$, i.e. $y = -\\tfrac{x}{4} + \\tfrac{9}{2}$."
+      },
+      {
+        "prdId": "M07-PRD03",
+        "heading": "Monotonicity: Read the Sign of $f'$",
+        "proseLatex": "$f'(x) > 0$ on an interval means strictly increasing, $f'(x) < 0$ strictly decreasing; an ISOLATED zero of $f'$ where the sign does not change (like $x^3$ at $0$) does not break strict monotonicity. The working method is the sign table: find where $f' = 0$ or $f'$ fails, split the real line at those points, test one point per region, then read increasing/decreasing intervals straight off the table. Micro-check: $f(x) = x^3 - 3x$ has $f' = 3(x^2-1)$, negative on $(-1, 1)$ and positive outside, so $f$ increases on $(-\\infty,-1) \\cup (1,\\infty)$ and decreases on $(-1,1)$."
+      },
+      {
+        "prdId": "M07-PRD04",
+        "heading": "Critical Points and the Two Extrema Tests",
+        "proseLatex": "Critical points are interior $c$ with $f'(c) = 0$ or $f'(c)$ undefined — candidates, never verdicts. First-derivative test: the sign of $f'$ flipping $+ \\to -$ at $c$ gives a local maximum, $- \\to +$ a local minimum, no flip neither. Second-derivative test: at a stationary point $f''(c) < 0$ hilltop, $f''(c) > 0$ valley; if $f''(c) = 0$ fall back to the first-derivative test. Always convert the critical $x$ into the extremum VALUE $f(c)$ — JELET asks for values. Micro-check: $x^3 - 3x$ has critical points $\\pm 1$; $f'' = 6x < 0$ at $x = -1$ gives local maximum value $f(-1) = 2$."
+      },
+      {
+        "prdId": "M07-PRD05",
+        "heading": "Concavity and Points of Inflection",
+        "proseLatex": "$f''(x) > 0$ makes the graph concave up (holds water), $f''(x) < 0$ concave down. A point of inflection needs BOTH $f''(c) = 0$ (or undefined) AND a genuine sign change of $f''$ across $c$ — $f(x) = x^4$ has $f''(0) = 0$ yet $x = 0$ is a strict minimum, not an inflection. Micro-check: for $y = x^4 - 6x^2$, $y'' = 12x^2 - 12 = 0$ at $x = \\pm 1$, and $y''$ changes sign at both — two inflection points, $(1, -5)$ and $(-1, -5)$."
+      },
+      {
+        "prdId": "M07-PRD06",
+        "heading": "Global Extrema and the Word-Problem Recipe",
+        "proseLatex": "On a closed interval $[a, b]$ the absolute maximum/minimum is found by evaluating $f$ at every critical point AND both endpoints, then comparing — endpoints win whenever $f$ is monotone across the interval. On open or split domains (like $x + \\tfrac{1}{x}$ with $x \\neq 0$), compare each branch separately: its local maximum $-2$ at $x = -1$ sits BELOW its local minimum $+2$ at $x = 1$. Word problems follow one recipe: model the quantity, differentiate, solve $f' = 0$, classify with $f''$, then answer the ASKED quantity (area, cost, volume — not the variable $x$). Micro-check: on $[0, \\tfrac{\\pi}{2}]$, $\\sin x + \\cos x$ peaks at $x = \\tfrac{\\pi}{4}$ with value $\\sqrt{2}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M07-SF01",
+        "label": "Tangent line at $(x_0, y_0)$",
+        "latex": "$y - y_0 = f'(x_0)(x - x_0)$",
+        "use": "Slope comes straight from the derivative."
+      },
+      {
+        "sfId": "M07-SF02",
+        "label": "Normal line",
+        "latex": "$y - y_0 = -\\frac{1}{f'(x_0)}(x - x_0)$",
+        "use": "Perpendicular to the tangent at the same point."
+      },
+      {
+        "sfId": "M07-SF03",
+        "label": "Perpendicular slopes",
+        "latex": "$m_1 m_2 = -1$",
+        "use": "Normal vs tangent; vertical tangent when $m_T = 0$ (the reciprocal fails)."
+      },
+      {
+        "sfId": "M07-SF04",
+        "label": "Orthogonal curves",
+        "latex": "$m_1 m_2 = -1$ at the intersection",
+        "use": "The orthogonality condition for two curves crossing at $P$."
+      },
+      {
+        "sfId": "M07-SF05",
+        "label": "Angle between curves",
+        "latex": "$\\tan\\phi = \\left| \\frac{m_1 - m_2}{1 + m_1 m_2} \\right|$",
+        "use": "Acute angle between tangents at an intersection point."
+      },
+      {
+        "sfId": "M07-SF06",
+        "label": "Related rates (chain rule)",
+        "latex": "$\\frac{dY}{dt} = f'(x)\\,\\frac{dx}{dt}$",
+        "use": "Convert a known rate into the asked rate."
+      },
+      {
+        "sfId": "M07-SF07",
+        "label": "Subtangent length",
+        "latex": "$\\text{subtangent} = \\left| \\frac{y}{f'(x)} \\right|$",
+        "use": "Diploma-favourite geometry quantity at a point on $y = f(x)$."
+      },
+      {
+        "sfId": "M07-SF08",
+        "label": "Increasing test",
+        "latex": "$f'(x) > 0 \\Rightarrow f$ strictly increasing",
+        "use": "Sign table decides the interval set."
+      },
+      {
+        "sfId": "M07-SF09",
+        "label": "Decreasing test",
+        "latex": "$f'(x) < 0 \\Rightarrow f$ strictly decreasing",
+        "use": "Isolated zeros of $f'$ without sign flip do not break strictness."
+      },
+      {
+        "sfId": "M07-SF10",
+        "label": "Critical point",
+        "latex": "$f'(c) = 0$ or $f'(c)$ undefined (interior)",
+        "use": "Candidates for extrema — always test, never assume."
+      },
+      {
+        "sfId": "M07-SF11",
+        "label": "First-derivative test",
+        "latex": "$f'$: $+ \\to -$ at $c$ local max; $- \\to +$ local min",
+        "use": "Works even when $f''(c) = 0$ or $f''$ fails."
+      },
+      {
+        "sfId": "M07-SF12",
+        "label": "Second-derivative test",
+        "latex": "$f''(c) < 0$ max, $f''(c) > 0$ min, $f''(c) = 0$ inconclusive",
+        "use": "Fast classification at stationary points."
+      },
+      {
+        "sfId": "M07-SF13",
+        "label": "Inflection condition",
+        "latex": "$f''(c) = 0$ (or undefined) AND $f''$ changes sign at $c$",
+        "use": "Both parts required — $x^4$ at $0$ fails the sign change."
+      },
+      {
+        "sfId": "M07-SF14",
+        "label": "Absolute extrema on $[a, b]$",
+        "latex": "$\\max\\{f(c_i), f(a), f(b)\\}$ over critical $c_i$",
+        "use": "Endpoints always compete — monotone functions still peak at an endpoint."
+      },
+      {
+        "sfId": "M07-SF15",
+        "label": "Linear change estimate",
+        "latex": "$\\Delta y \\approx f'(x)\\,\\Delta x$",
+        "use": "One-line small-change/error estimates."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M07-DEF01",
+        "term": "Tangent & normal",
+        "definition": "The tangent touches $y = f(x)$ at $P$ with slope $f'$; the normal is the perpendicular line through $P$ with slope $-1/f'$."
+      },
+      {
+        "defId": "M07-DEF02",
+        "term": "Monotonic (increasing/decreasing) function",
+        "definition": "A function rising or falling across an interval as certified by the sign of $f'$."
+      },
+      {
+        "defId": "M07-DEF03",
+        "term": "Critical (stationary) point",
+        "definition": "Interior $c$ where $f'(c) = 0$ or $f'$ does not exist; the candidate list for extrema."
+      },
+      {
+        "defId": "M07-DEF04",
+        "term": "Local extremum",
+        "definition": "A value $f(c)$ greater (maximum) or smaller (minimum) than all nearby values of $f$."
+      },
+      {
+        "defId": "M07-DEF05",
+        "term": "Absolute (global) extremum",
+        "definition": "The largest/smallest value over the WHOLE domain or interval — decided only after comparing candidates and endpoints."
+      },
+      {
+        "defId": "M07-DEF06",
+        "term": "Point of inflection",
+        "definition": "A point where the curve changes concavity: $f''$ vanishes (or fails) AND changes sign there."
+      },
+      {
+        "defId": "M07-DEF07",
+        "term": "Concave up / down",
+        "definition": "Concave up when $f'' > 0$ (valley shape), concave down when $f'' < 0$ (dome shape)."
+      },
+      {
+        "defId": "M07-DEF08",
+        "term": "Orthogonal curves",
+        "definition": "Curves whose tangents at an intersection are perpendicular: $m_1 m_2 = -1$."
+      },
+      {
+        "defId": "M07-DEF09",
+        "term": "Related rates",
+        "definition": "Problems linking two time-varying quantities through the chain rule, $\\frac{dY}{dt} = f'(x)\\frac{dx}{dt}$."
+      },
+      {
+        "defId": "M07-DEF10",
+        "term": "Differential $dy$",
+        "definition": "The linear estimate $dy = f'(x)\\,dx$ of the true change $\\Delta y$ for small $\\Delta x$."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M07-CMP01",
+        "title": "$f'$ vs $f''$ — What Each Derivative Tells You",
+        "columns": [
+          "Aspect",
+          "$f'(x)$ — first derivative",
+          "$f''(x)$ — second derivative"
+        ],
+        "rows": [
+          {
+            "label": "Sign reveals",
+            "values": [
+              "Increasing ($+$) vs decreasing ($-$)",
+              "Concave up ($+$) vs concave down ($-$)"
+            ]
+          },
+          {
+            "label": "Zero means",
+            "values": [
+              "Critical point — candidate only",
+              "Possible inflection — needs a sign change"
+            ]
+          },
+          {
+            "label": "Typical question",
+            "values": [
+              "Where is $f$ rising?",
+              "Which critical point is a max vs min?"
+            ]
+          },
+          {
+            "label": "Failure mode",
+            "values": [
+              "Isolated zero does not stop monotonicity",
+              "$f'' = 0$ alone proves nothing ($x^4$)"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M07-CMP02",
+        "title": "First-Derivative Test vs Second-Derivative Test",
+        "columns": [
+          "Aspect",
+          "First-derivative test",
+          "Second-derivative test"
+        ],
+        "rows": [
+          {
+            "label": "What you inspect",
+            "values": [
+              "Sign flip of $f'$ across $c$",
+              "Sign of $f''(c)$ only"
+            ]
+          },
+          {
+            "label": "Works when",
+            "values": [
+              "Always (even $f''(c) = 0$)",
+              "$f''(c) \\neq 0$ at a stationary point"
+            ]
+          },
+          {
+            "label": "Verdict rule",
+            "values": [
+              "$+\\to-$ max, $-\\to+$ min, no flip neither",
+              "$f'' < 0$ max, $f'' > 0$ min"
+            ]
+          },
+          {
+            "label": "Cost",
+            "values": [
+              "Test points on both sides",
+              "One extra differentiation, one evaluation"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M07-CMP03",
+        "title": "Local vs Absolute Extrema",
+        "columns": [
+          "Aspect",
+          "Local extremum",
+          "Absolute extremum"
+        ],
+        "rows": [
+          {
+            "label": "Scope",
+            "values": [
+              "Neighbourhood of one point",
+              "Whole interval or domain"
+            ]
+          },
+          {
+            "label": "Found by",
+            "values": [
+              "First/second-derivative test at critical points",
+              "Compare critical values AND endpoints"
+            ]
+          },
+          {
+            "label": "Can it be at an endpoint?",
+            "values": [
+              "No (interior only)",
+              "Yes — monotone functions peak at endpoints"
+            ]
+          },
+          {
+            "label": "Ordering quirk",
+            "values": [
+              "A local max can sit BELOW a local min ($x + 1/x$)",
+              "No quirk — one winner each side"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M07-CMP04",
+        "title": "Tangent vs Normal at $P(x_0, y_0)$",
+        "columns": [
+          "Aspect",
+          "Tangent",
+          "Normal"
+        ],
+        "rows": [
+          {
+            "label": "Slope",
+            "values": [
+              "$m_T = f'(x_0)$",
+              "$m_N = -1/f'(x_0)$"
+            ]
+          },
+          {
+            "label": "Equation",
+            "values": [
+              "$y - y_0 = m_T(x - x_0)$",
+              "$y - y_0 = m_N(x - x_0)$"
+            ]
+          },
+          {
+            "label": "Special case",
+            "values": [
+              "Horizontal when $m_T = 0$",
+              "Vertical when $m_T = 0$ (the reciprocal fails)"
+            ]
+          },
+          {
+            "label": "Product of slopes",
+            "values": [
+              "$m_T \\cdot m_N = -1$ always",
+              "Same identity, other side"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M07-MCQ01",
+        "stemLatex": "The slope of the tangent to $y = x^3 - 2x$ at $x = 1$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-2$"
+          },
+          {
+            "id": "B",
+            "latex": "$1$"
+          },
+          {
+            "id": "C",
+            "latex": "$3$"
+          },
+          {
+            "id": "D",
+            "latex": "$2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$y' = 3x^2 - 2$ gives $y'(1) = 3 - 2 = 1$."
+      },
+      {
+        "mcqId": "M07-MCQ02",
+        "stemLatex": "The slope of the normal to $y = x^2$ at $x = 2$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-4$"
+          },
+          {
+            "id": "B",
+            "latex": "$4$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\tfrac{1}{4}$"
+          },
+          {
+            "id": "D",
+            "latex": "$-\\tfrac{1}{4}$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$m_T = 2x = 4$, so $m_N = -1/4$. Flipping without negating picks the $\\tfrac{1}{4}$ trap."
+      },
+      {
+        "mcqId": "M07-MCQ03",
+        "stemLatex": "$f(x) = x^3 - 3x$ is strictly increasing on:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$(-\\infty, -1) \\cup (1, \\infty)$"
+          },
+          {
+            "id": "B",
+            "latex": "$(-1, 1)$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\mathbb{R}$"
+          },
+          {
+            "id": "D",
+            "latex": "$(0, \\infty)$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$f'(x) = 3(x^2 - 1) > 0$ exactly when $|x| > 1$; inside $(-1, 1)$ the derivative is negative."
+      },
+      {
+        "mcqId": "M07-MCQ04",
+        "stemLatex": "The local maximum value of $f(x) = x^3 - 3x$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$-2$"
+          },
+          {
+            "id": "C",
+            "latex": "$0$"
+          },
+          {
+            "id": "D",
+            "latex": "$3$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Critical points $\\pm 1$; $f''(x) = 6x < 0$ at $x = -1$ gives a maximum with value $f(-1) = -1 + 3 = 2$."
+      },
+      {
+        "mcqId": "M07-MCQ05",
+        "stemLatex": "The absolute minimum of $f(x) = x^2 - 4x + 5$ on $[0, 3]$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$0$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$f'(x) = 2x - 4 = 0$ at $x = 2$ inside $[0,3]$, and $f(2) = 1$ beats the endpoint values $f(0) = 5$, $f(3) = 2$."
+      },
+      {
+        "mcqId": "M07-MCQ06",
+        "stemLatex": "The number of points of inflection of $y = x^4 - 6x^2$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$1$"
+          },
+          {
+            "id": "C",
+            "latex": "$2$"
+          },
+          {
+            "id": "D",
+            "latex": "$4$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$y'' = 12x^2 - 12$ vanishes at $x = \\pm 1$ and changes sign at both — two inflection points."
+      },
+      {
+        "mcqId": "M07-MCQ07",
+        "stemLatex": "The side of a square grows at $2\\ \\text{cm/s}$. When the side is $5\\ \\text{cm}$, the area grows at:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$20\\ \\text{cm}^2/\\text{s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$10\\ \\text{cm}^2/\\text{s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$25\\ \\text{cm}^2/\\text{s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$40\\ \\text{cm}^2/\\text{s}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$A = s^2 \\Rightarrow \\frac{dA}{dt} = 2s\\frac{ds}{dt} = 2 \\times 5 \\times 2 = 20$."
+      },
+      {
+        "mcqId": "M07-MCQ08",
+        "stemLatex": "For $x > 0$, the local minimum value of $f(x) = x + \\dfrac{1}{x}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$0$"
+          },
+          {
+            "id": "D",
+            "latex": "$-2$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$f'(x) = 1 - 1/x^2 = 0$ at $x = 1$ with $f''(1) = 2 > 0$; value $f(1) = 2$ (AM-GM agrees)."
+      },
+      {
+        "mcqId": "M07-MCQ09",
+        "stemLatex": "The curves $y = e^x$ and $y = e^{-x}$ intersect at $(0, 1)$. The product of their slopes there is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$1$"
+          },
+          {
+            "id": "C",
+            "latex": "$-1$"
+          },
+          {
+            "id": "D",
+            "latex": "$2$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$m_1 = e^0 = 1$ and $m_2 = -e^0 = -1$, so $m_1 m_2 = -1$ — the curves cross orthogonally."
+      },
+      {
+        "mcqId": "M07-MCQ10",
+        "stemLatex": "The absolute maximum of $f(x) = \\sin x + \\cos x$ on $\\left[0, \\tfrac{\\pi}{2}\\right]$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\tfrac{1}{\\sqrt{2}}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{2}$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$f'(x) = \\cos x - \\sin x = 0$ at $x = \\tfrac{\\pi}{4}$, where $f = \\tfrac{1}{\\sqrt{2}} + \\tfrac{1}{\\sqrt{2}} = \\sqrt{2}$, beating the endpoint value $1$."
+      }
+    ],
+    "memoryHooks": [
+      "Tangent borrows $f'$, normal borrows $-1/f'$ — perpendicular slopes multiply to $-1$.",
+      "Sign of $f'$ paints the graph: $+$ climbs, $-$ slides.",
+      "Critical points are candidates, not verdicts — always run a test.",
+      "$f'' < 0$ hilltop, $f'' > 0$ valley bottom, $f'' = 0$ inconclusive.",
+      "$f'' = 0$ alone proves nothing — $x^4$ is flat at $0$ and still a minimum.",
+      "On a closed interval, endpoints always enter the max-min race.",
+      "Chain rule turns how-fast questions into $f'(x)\\,dx/dt$.",
+      "Word problems end at the ASKED quantity — area or cost, not $x$.",
+      "An isolated zero of $f'$ ($x^3$ at $0$) does not break strict monotonicity.",
+      "$\\Delta y \\approx f'(x)\\Delta x$ — small-change estimates in one line."
+    ],
+    "commonMistakes": [
+      "Treating $f''(c) = 0$ as automatic inflection — $f(x) = x^4$ at $0$ is a strict minimum.",
+      "Forgetting endpoints on closed-interval absolute extrema; monotone functions peak at an end.",
+      "Reporting the critical $x$ instead of the extremum value $f(c)$ when the question asks for a value.",
+      "Flipping the normal slope without negating: $m_N = -1/m_T$, not $1/m_T$.",
+      "Classifying critical points without any test — $f'(c) = 0$ alone says nothing.",
+      "Declaring decrease from an isolated zero of $f'$ (like $x^3$ at $0$).",
+      "Using $\\tan\\phi = \\frac{m_1 - m_2}{1 + m_1 m_2}$ without the modulus or missing the $1 + m_1m_2$ denominator.",
+      "In related rates, substituting the instantaneous value of the variable BEFORE differentiating.",
+      "On split domains ($x + 1/x$), comparing a local max with a local min across the domain hole."
+    ],
+    "examChecklist": [
+      "Compute $f'(x_0)$ first; write the tangent equation with the actual point $(x_0, y_0)$ substituted.",
+      "Normals: negate the reciprocal; handle horizontal/vertical tangents separately.",
+      "Build the monotonicity sign table with one test point per region.",
+      "List ALL critical points ($f' = 0$ or undefined) before classifying.",
+      "Prefer the second-derivative test at stationary points; fall back to the first-derivative test when $f'' = 0$.",
+      "Absolute extrema on $[a, b]$: evaluate critical values AND $f(a)$, $f(b)$.",
+      "Inflection: demand BOTH $f'' = 0$ (or undefined) and a genuine sign change.",
+      "Related rates: differentiate first, substitute the instantaneous values last.",
+      "Orthogonality checks: verify $m_1 m_2 = -1$ at the actual intersection point.",
+      "Word problems: model, differentiate, classify, then restate the asked quantity with units.",
+      "Sanity-check one derivative computation before using it downstream."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Mathematics, Part I",
+        "author": "NCERT",
+        "chapters": "Ch. 6 (Applications of Derivatives), §6.1–6.5",
+        "note": "Rates of change, tangents/normals, increasing-decreasing tests and the two extrema procedures that this pack packages for exam speed."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

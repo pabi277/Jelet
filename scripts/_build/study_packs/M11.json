@@ -1,0 +1,650 @@
+{
+  "unitId": "M11",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M11-PRD01",
+        "heading": "Sample Space and Classical Probability",
+        "proseLatex": "An experiment's sample space $S$ lists every outcome; an event $E$ is a subset. With equally likely outcomes, $P(E) = \\frac{n(E)}{n(S)}$ — always reduce to the total first, then count favourable cases without double counting. Probability lives in $[0, 1]$: $P(S) = 1$ and $P(\\emptyset) = 0$; any answer outside $[0,1]$ is an arithmetic error, not a discovery. Micro-check: two dice, $P(\\text{sum} = 8)$: favourable pairs $(2,6), (3,5), (4,4), (5,3), (6,2)$ over $36$ outcomes give $\\tfrac{5}{36}$."
+      },
+      {
+        "prdId": "M11-PRD02",
+        "heading": "Complements, Addition Theorem and De Morgan",
+        "proseLatex": "The complement rule $P(\\bar{A}) = 1 - P(A)$ is the cheapest tool in the kit. For any two events, $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$ — subtract the overlap counted twice; when $A$ and $B$ are mutually exclusive ($A \\cap B = \\emptyset$) the overlap is $0$ and the terms simply add. De Morgan's gate-flip: $P(\\bar{A} \\cap \\bar{B}) = 1 - P(A \\cup B)$ and $P(\\bar{A} \\cup \\bar{B}) = 1 - P(A \\cap B)$. Micro-check: $P(A) = 0.5$, $P(B) = 0.4$, $P(A \\cap B) = 0.1$ gives $P(A \\cup B) = 0.5 + 0.4 - 0.1 = 0.8$."
+      },
+      {
+        "prdId": "M11-PRD03",
+        "heading": "Conditional Probability and the Multiplication Rule",
+        "proseLatex": "Conditioning shrinks the universe to $B$: $P(A \\mid B) = \\frac{P(A \\cap B)}{P(B)}$ for $P(B) > 0$. Rearranged, the multiplication rule computes intersections: $P(A \\cap B) = P(B)\\,P(A \\mid B) = P(A)\\,P(B \\mid A)$. Conditioning is NOT symmetric — $P(A \\mid B) \\neq P(B \\mid A)$ unless the two probabilities happen to be equal, and dividing by $P(B) = 0$ is illegal. Micro-check: $P(A) = 0.4$ with $P(B \\mid A) = 0.5$ gives $P(A \\cap B) = 0.4 \\times 0.5 = 0.2$."
+      },
+      {
+        "prdId": "M11-PRD04",
+        "heading": "Independence: The Multiplication Test",
+        "proseLatex": "Events $A, B$ are independent IFF $P(A \\cap B) = P(A)P(B)$ — independence is a numeric test, not a feeling. It propagates to complements: if $A, B$ are independent then so are $\\bar{A}, \\bar{B}$, and $P(\\text{at least one}) = 1 - P(\\bar{A})P(\\bar{B}) = 1 - q_1 q_2$ in general. Remember the hard wall: with $P(A), P(B) > 0$, mutually exclusive and independent CANNOT both hold — exclusive forces the intersection to $0$, independence forces it to be positive. Micro-check: independent $P(A) = 0.3$, $P(B) = 0.4$ give $P(A \\cap B) = 0.12$ and $P(\\text{at least one}) = 1 - 0.7 \\times 0.6 = 0.58$."
+      },
+      {
+        "prdId": "M11-PRD05",
+        "heading": "Total Probability and Bayes' Theorem",
+        "proseLatex": "Split the world into mutually exclusive, exhaustive causes $H_1, H_2, \\dots$ (a partition). The total probability of evidence $E$: $P(E) = \\sum_i P(H_i)P(E \\mid H_i)$. Bayes then flips the conditional: $P(H_i \\mid E) = \\frac{P(H_i)P(E \\mid H_i)}{P(E)}$ — prior times likelihood over total evidence. The JELET pattern is fixed: machines, bags or production lines with given shares and defect rates. Micro-check: machine $M_1$ makes $60\\%$ with $2\\%$ defective, $M_2$ makes $40\\%$ with $5\\%$ defective: $P(D) = 0.6 \\times 0.02 + 0.4 \\times 0.05 = 0.032$, so $P(M_1 \\mid D) = \\tfrac{0.012}{0.032} = \\tfrac{3}{8}$."
+      },
+      {
+        "prdId": "M11-PRD06",
+        "heading": "Bernoulli Trials to the Binomial Law",
+        "proseLatex": "A Bernoulli trial is one success/failure experiment with constant $p$; $n$ independent repetitions give $X \\sim \\operatorname{Bin}(n, p)$ with $P(X = r) = \\binom{n}{r} p^r q^{n-r}$, $q = 1 - p$. Mean $\\mu = np$, variance $\\sigma^2 = npq$ — so variance is ALWAYS strictly less than mean (as long as $0 < p < 1$), a one-line impossibility test for given pairs. At least one success in $n$ trials: $P = 1 - q^n$. Micro-check: mean $4$, variance $2$ forces $npq/np = q = \\tfrac{1}{2}$, so $p = \\tfrac{1}{2}$ and $n = 8$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M11-SF01",
+        "label": "Classical probability",
+        "latex": "$P(E) = \\dfrac{n(E)}{n(S)}$ (equally likely)",
+        "use": "Count favourable over total — reduce the space first."
+      },
+      {
+        "sfId": "M11-SF02",
+        "label": "Complement rule",
+        "latex": "$P(\\bar{A}) = 1 - P(A)$",
+        "use": "Cheapest route for at least/not-at-least phrasings."
+      },
+      {
+        "sfId": "M11-SF03",
+        "label": "Addition theorem (general)",
+        "latex": "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$",
+        "use": "Any two events; never skip the overlap subtraction."
+      },
+      {
+        "sfId": "M11-SF04",
+        "label": "Addition (mutually exclusive)",
+        "latex": "$A \\cap B = \\emptyset \\Rightarrow P(A \\cup B) = P(A) + P(B)$",
+        "use": "Disjoint events only."
+      },
+      {
+        "sfId": "M11-SF05",
+        "label": "De Morgan probabilities",
+        "latex": "$P(\\bar{A} \\cap \\bar{B}) = 1 - P(A \\cup B)$",
+        "use": "None-of-the-two questions in one line."
+      },
+      {
+        "sfId": "M11-SF06",
+        "label": "Conditional probability",
+        "latex": "$P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)}$, $P(B) > 0$",
+        "use": "Shrink the universe to $B$ before counting."
+      },
+      {
+        "sfId": "M11-SF07",
+        "label": "Multiplication rule",
+        "latex": "$P(A \\cap B) = P(B)\\,P(A \\mid B) = P(A)\\,P(B \\mid A)$",
+        "use": "Compute intersections sequentially."
+      },
+      {
+        "sfId": "M11-SF08",
+        "label": "Independence test",
+        "latex": "$A, B$ independent $\\iff P(A \\cap B) = P(A)P(B)$",
+        "use": "Verify numerically; also implies $\\bar{A}, \\bar{B}$ independent."
+      },
+      {
+        "sfId": "M11-SF09",
+        "label": "At least one of independent events",
+        "latex": "$P(\\text{at least one}) = 1 - P(\\bar{A})P(\\bar{B})$; $n$ trials: $1 - q^n$",
+        "use": "The complement shortcut for at-least-one questions."
+      },
+      {
+        "sfId": "M11-SF10",
+        "label": "Total probability",
+        "latex": "$P(E) = \\sum_i P(H_i)\\,P(E \\mid H_i)$",
+        "use": "Causes $H_i$ form a partition; sums every route to $E$."
+      },
+      {
+        "sfId": "M11-SF11",
+        "label": "Bayes' theorem",
+        "latex": "$P(H_i \\mid E) = \\dfrac{P(H_i)P(E \\mid H_i)}{\\sum_j P(H_j)P(E \\mid H_j)}$",
+        "use": "Reverse conditioning: which cause explains the evidence."
+      },
+      {
+        "sfId": "M11-SF12",
+        "label": "Binomial PMF",
+        "latex": "$P(X = r) = \\binom{n}{r} p^r q^{n-r},\\; q = 1 - p$",
+        "use": "Exactly-$r$-successes questions in independent trials."
+      },
+      {
+        "sfId": "M11-SF13",
+        "label": "Binomial mean",
+        "latex": "$\\mu = np$",
+        "use": "Expected successes; pairs with variance to solve for $n, p$."
+      },
+      {
+        "sfId": "M11-SF14",
+        "label": "Binomial variance",
+        "latex": "$\\sigma^2 = npq < np$",
+        "use": "The strict inequality is an instant impossibility test."
+      },
+      {
+        "sfId": "M11-SF15",
+        "label": "Exactly one of two events",
+        "latex": "$P(\\text{exactly one}) = P(A) + P(B) - 2P(A \\cap B)$",
+        "use": "Union minus twice the overlap."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M11-DEF01",
+        "term": "Sample space $S$",
+        "definition": "The set of all possible outcomes of an experiment; $P(S) = 1$."
+      },
+      {
+        "defId": "M11-DEF02",
+        "term": "Event",
+        "definition": "Any subset of the sample space; probability assigns it a number in $[0, 1]$."
+      },
+      {
+        "defId": "M11-DEF03",
+        "term": "Equally likely outcomes",
+        "definition": "Outcomes with identical chance, licensing $P(E) = n(E)/n(S)$."
+      },
+      {
+        "defId": "M11-DEF04",
+        "term": "Mutually exclusive events",
+        "definition": "Events that cannot occur together: $A \\cap B = \\emptyset$, so $P(A \\cap B) = 0$."
+      },
+      {
+        "defId": "M11-DEF05",
+        "term": "Exhaustive events",
+        "definition": "Events whose union covers $S$; with exclusivity they form a partition (the Bayes setup)."
+      },
+      {
+        "defId": "M11-DEF06",
+        "term": "Conditional probability",
+        "definition": "$P(A \\mid B)$ — the probability of $A$ computed inside the shrunken universe $B$."
+      },
+      {
+        "defId": "M11-DEF07",
+        "term": "Independent events",
+        "definition": "Events satisfying $P(A \\cap B) = P(A)P(B)$; occurrence of one leaves the other's probability unchanged."
+      },
+      {
+        "defId": "M11-DEF08",
+        "term": "Prior & posterior (Bayes)",
+        "definition": "$P(H_i)$ is the prior belief in cause $H_i$; $P(H_i \\mid E)$ the posterior after observing evidence $E$."
+      },
+      {
+        "defId": "M11-DEF09",
+        "term": "Bernoulli trial",
+        "definition": "One success/failure experiment with fixed success probability $p$."
+      },
+      {
+        "defId": "M11-DEF10",
+        "term": "Binomial distribution",
+        "definition": "The count of successes in $n$ independent Bernoulli trials: $X \\sim \\operatorname{Bin}(n, p)$ with mean $np$ and variance $npq$."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M11-CMP01",
+        "title": "Mutually Exclusive vs Independent",
+        "columns": [
+          "Aspect",
+          "Mutually exclusive",
+          "Independent"
+        ],
+        "rows": [
+          {
+            "label": "Definition",
+            "values": [
+              "$A \\cap B = \\emptyset$",
+              "$P(A \\cap B) = P(A)P(B)$"
+            ]
+          },
+          {
+            "label": "Intersection value",
+            "values": [
+              "Exactly $0$",
+              "Positive when $P(A), P(B) > 0$"
+            ]
+          },
+          {
+            "label": "Can both hold?",
+            "values": [
+              "No — incompatible for positive probabilities",
+              "No — the two conditions collide"
+            ]
+          },
+          {
+            "label": "Addition rule becomes",
+            "values": [
+              "$P(A \\cup B) = P(A) + P(B)$",
+              "Still subtracts the overlap"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M11-CMP02",
+        "title": "$P(A \\mid B)$ vs $P(B \\mid A)$",
+        "columns": [
+          "Aspect",
+          "$P(A \\mid B)$",
+          "$P(B \\mid A)$"
+        ],
+        "rows": [
+          {
+            "label": "Universe shrunk to",
+            "values": [
+              "$B$",
+              "$A$"
+            ]
+          },
+          {
+            "label": "Formula",
+            "values": [
+              "$\\frac{P(A \\cap B)}{P(B)}$",
+              "$\\frac{P(A \\cap B)}{P(A)}$"
+            ]
+          },
+          {
+            "label": "Equal when",
+            "values": [
+              "Only if $P(A) = P(B)$ (or independence makes both equal their marginals)",
+              "Same condition, other side"
+            ]
+          },
+          {
+            "label": "Typical trap",
+            "values": [
+              "Swapping the two in machine/Bayes problems",
+              "Same trap, reversed"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M11-CMP03",
+        "title": "Binomial Mean vs Variance",
+        "columns": [
+          "Aspect",
+          "Mean $\\mu = np$",
+          "Variance $\\sigma^2 = npq$"
+        ],
+        "rows": [
+          {
+            "label": "Formula",
+            "values": [
+              "$np$",
+              "$npq$ with $q = 1 - p$"
+            ]
+          },
+          {
+            "label": "Constraint",
+            "values": [
+              "Any $n \\ge 1$, $0 \\le p \\le 1$",
+              "STRICTLY less than $\\mu$ when $0 < p < 1$"
+            ]
+          },
+          {
+            "label": "JELET use",
+            "values": [
+              "Solve for $n$ or $p$ with one equation",
+              "Impossibility test (mean 4, variance 5 is fake)"
+            ]
+          },
+          {
+            "label": "Solving pattern",
+            "values": [
+              "Take the ratio $\\sigma^2/\\mu = q$ first",
+              "Then recover $p = 1 - q$, $n = \\mu/p$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M11-CMP04",
+        "title": "With Replacement vs Without Replacement",
+        "columns": [
+          "Aspect",
+          "With replacement",
+          "Without replacement"
+        ],
+        "rows": [
+          {
+            "label": "Trial independence",
+            "values": [
+              "Independent trials",
+              "Dependent trials"
+            ]
+          },
+          {
+            "label": "Success probability",
+            "values": [
+              "Constant $p$ — binomial applies",
+              "Shifts each draw — binomial does NOT apply"
+            ]
+          },
+          {
+            "label": "Typical setup",
+            "values": [
+              "Coins, dice, machine runs",
+              "Cards drawn from one deck, balls kept out"
+            ]
+          },
+          {
+            "label": "Safe formula",
+            "values": [
+              "$\\binom{n}{r}p^r q^{n-r}$",
+              "Sequential multiplication $P \\times P(\\cdot \\mid \\cdot)$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M11-MCQ01",
+        "stemLatex": "$A$ and $B$ are independent with $P(A) = 0.3$, $P(B) = 0.4$. Then $P(A \\cap B)$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.7$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.12$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.1$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.02$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Independence multiplies: $0.3 \\times 0.4 = 0.12$."
+      },
+      {
+        "mcqId": "M11-MCQ02",
+        "stemLatex": "Given $P(A) = 0.5$, $P(B) = 0.4$, $P(A \\cap B) = 0.1$, the value of $P(A \\cup B)$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.9$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.2$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.8$"
+          },
+          {
+            "id": "D",
+            "latex": "$1.0$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$P(A \\cup B) = 0.5 + 0.4 - 0.1 = 0.8$ — the overlap is subtracted once."
+      },
+      {
+        "mcqId": "M11-MCQ03",
+        "stemLatex": "Two fair dice are thrown. $P(\\text{sum} = 8)$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\tfrac{5}{36}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\tfrac{1}{6}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\tfrac{7}{36}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\tfrac{1}{9}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Favourable pairs: $(2,6), (3,5), (4,4), (5,3), (6,2)$ — five of $36$ equally likely outcomes."
+      },
+      {
+        "mcqId": "M11-MCQ04",
+        "stemLatex": "If $P(A) = 0.4$ and $P(B \\mid A) = 0.5$, then $P(A \\cap B)$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.125$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.9$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.5$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.2$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "Multiplication rule: $P(A \\cap B) = P(A)P(B \\mid A) = 0.4 \\times 0.5 = 0.2$."
+      },
+      {
+        "mcqId": "M11-MCQ05",
+        "stemLatex": "Machine $M_1$ produces $60\\%$ of items with $2\\%$ defective; machine $M_2$ produces $40\\%$ with $5\\%$ defective. Given a randomly chosen item is defective, $P(M_1 \\mid D)$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\tfrac{1}{2}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\tfrac{5}{8}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\tfrac{3}{8}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\tfrac{3}{16}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$P(D) = 0.6(0.02) + 0.4(0.05) = 0.032$ and $P(M_1 \\cap D) = 0.012$, so $P(M_1 \\mid D) = \\tfrac{0.012}{0.032} = \\tfrac{3}{8}$."
+      },
+      {
+        "mcqId": "M11-MCQ06",
+        "stemLatex": "For a binomial distribution with $n = 5$, $p = \\tfrac{1}{2}$, $P(X = 3)$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\tfrac{5}{16}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\tfrac{1}{16}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\tfrac{15}{16}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\tfrac{1}{32}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\binom{5}{3}(\\tfrac{1}{2})^3(\\tfrac{1}{2})^2 = 10 \\cdot \\tfrac{1}{32} = \\tfrac{5}{16}$."
+      },
+      {
+        "mcqId": "M11-MCQ07",
+        "stemLatex": "Three fair coins are tossed. $P(\\text{at least one head})$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\tfrac{1}{8}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\tfrac{3}{8}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\tfrac{7}{8}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\tfrac{1}{2}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$1 - q^n = 1 - (\\tfrac{1}{2})^3 = \\tfrac{7}{8}$ — the complement (no heads) is the boring case."
+      },
+      {
+        "mcqId": "M11-MCQ08",
+        "stemLatex": "A binomial distribution has mean $4$ and variance $2$. The value of $n$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$16$"
+          },
+          {
+            "id": "C",
+            "latex": "$4$"
+          },
+          {
+            "id": "D",
+            "latex": "$8$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$\\sigma^2/\\mu = q = \\tfrac{1}{2}$, so $p = \\tfrac{1}{2}$ and $n = \\mu/p = 4/\\tfrac{1}{2} = 8$."
+      },
+      {
+        "mcqId": "M11-MCQ09",
+        "stemLatex": "If $P(A \\cup B) = 0.8$, then $P(\\bar{A} \\cap \\bar{B})$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.2$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.8$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.3$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.5$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "De Morgan: $P(\\bar{A} \\cap \\bar{B}) = 1 - P(A \\cup B) = 0.2$."
+      },
+      {
+        "mcqId": "M11-MCQ10",
+        "stemLatex": "With $P(A) = 0.5$, $P(B) = 0.4$, $P(A \\cap B) = 0.1$, the probability that EXACTLY ONE of $A$, $B$ occurs is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.9$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.2$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.6$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.7$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$P(A) + P(B) - 2P(A \\cap B) = 0.5 + 0.4 - 0.2 = 0.7$: the overlap is removed from BOTH events."
+      }
+    ],
+    "memoryHooks": [
+      "Probability lives in $[0,1]$ — anything outside is a calculation error, not a discovery.",
+      "OR adds (minus the overlap), AND multiplies — but only independent ANDs multiply cleanly.",
+      "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$: the overlap is counted twice, subtract once.",
+      "Mutually exclusive and independent cannot both hold while $P(A), P(B) > 0$.",
+      "$P(A \\mid B)$ shrinks the universe to $B$ — divide by $P(B)$ first.",
+      "At least one $= 1 - \\text{none}$: compute the boring complement.",
+      "Bayes = prior $\\times$ likelihood over total evidence — machines, bags, tests all use it.",
+      "Binomial: fixed $n$, constant $p$, count successes — mean $np$, variance $npq$.",
+      "Variance $npq$ is always strictly less than mean $np$ (as long as $q < 1$).",
+      "De Morgan flips the gate: none-of-the-two $= 1 - P(A \\cup B)$."
+    ],
+    "commonMistakes": [
+      "Treating mutually exclusive events as independent — exclusive forces $P(A \\cap B) = 0$, not $P(A)P(B)$.",
+      "Adding $P(A) + P(B)$ for overlapping events without subtracting the intersection.",
+      "Using the exactly-one formula without the factor $2$: $P(A) + P(B) - 2P(A \\cap B)$.",
+      "Applying the binomial law when trials are dependent (cards drawn without replacement).",
+      "Accepting mean/variance pairs with $\\sigma^2 \\ge \\mu$ — impossible for a genuine binomial law.",
+      "Dividing by $P(B) = 0$ when conditioning.",
+      "Reading $P(A \\mid B)$ as $P(B \\mid A)$ in machine-defect problems — the conditioning direction matters.",
+      "In Bayes, taking one term $P(H_i)P(E \\mid H_i)$ as the denominator instead of the full sum.",
+      "Using $1 - q^n$ with $p$ in place of $q$ — the complement exponent uses FAILURE probability."
+    ],
+    "examChecklist": [
+      "Fix the sample space and count the total before any formula.",
+      "Overlap present? Subtract $P(A \\cap B)$ from the addition theorem.",
+      "Test independence numerically; never infer it from the story alone.",
+      "Conditionals: divide by the conditioning event's probability and respect its direction.",
+      "At least one / none questions: go through the complement $1 - P(\\text{none})$.",
+      "Bayes: identify the partition (causes), compute $P(E)$ by the total-probability sum, then invert.",
+      "Binomial check: fixed $n$, constant $p$, independent trials — else switch to sequential multiplication.",
+      "Mean/variance pairs: verify $\\sigma^2 < \\mu$ before solving; get $q$ from the ratio.",
+      "Exactly-one questions: apply $P(A) + P(B) - 2P(A \\cap B)$.",
+      "De Morgan converts none-of-the-two into one complement of the union.",
+      "Range-check every answer against $[0, 1]$ before moving on."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Mathematics, Part II",
+        "author": "NCERT",
+        "chapters": "Ch. 13 (Probability), §13.1–13.6",
+        "note": "Conditional probability, independence, Bayes' theorem and the Bernoulli-to-binomial bridge with mean and variance — the full span of this pack."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

@@ -359,3 +359,11 @@ required before owner re-review of the pilot and both are now implemented:
    (`tests/app-integrity.test.mjs` per-video gate stays green).
 
 Batch scope unchanged: videos for batches 1–5 are enriched per-batch, not now.
+
+### 3.4 status update (2026-11-25)
+
+- Pilot v2 (`d044860`) + minor changes (`c460da3`) owner-approved ("Thats good").
+- **Batch 1 (M02/M03/M07/M11) shipped** with the full v2 anatomy + per-batch
+  video enrichment; evidence in `batch-M02-M03-M07-M11.md`; awaiting owner
+  sign-off. Study Packs validated: 7/42.
+- Next: Batch 2 = P08/P12/P14/P15 on owner approval.

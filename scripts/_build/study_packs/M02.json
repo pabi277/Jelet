@@ -1,0 +1,663 @@
+{
+  "unitId": "M02",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M02-PRD01",
+        "heading": "What a Determinant Is: One Signed Number from a Square Array",
+        "proseLatex": "A determinant is a single signed number attached to a SQUARE array $[a_{ij}]$ — order-2 gives $|a_{ij}| = a_{11}a_{22} - a_{12}a_{21}$, and order-3 expands by Sarrus (triangle) rule as $\\Delta = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{13}a_{22}a_{31} - a_{11}a_{23}a_{32} - a_{12}a_{21}a_{33}$: copy the first two columns beside the array, then take the three down-right diagonals with $+$ and the three up-right ones with $-$. Geometrically $\\Delta$ is a scale factor: areas scale by $|\\Delta|$, and $\\Delta = 0$ means the rows collapse into one line (or plane). Micro-check: Sarrus on order-2 is just the cross rule — for entries $2, 3$ in row 1 and $4, 5$ in row 2, $\\Delta = 2 \\times 5 - 3 \\times 4 = -2$."
+      },
+      {
+        "prdId": "M02-PRD02",
+        "heading": "Minors, Cofactors & the Sign Chessboard",
+        "proseLatex": "For order-3, the minor $M_{ij}$ is the order-2 determinant left after deleting row $i$ and column $j$; the cofactor is the signed minor $C_{ij} = (-1)^{i+j}M_{ij}$, with sign chessboard $+\\;-\\;+$ on the first row. Expanding along ANY row or column gives the same $\\Delta$ — so always pick the line with the most zeros, because each zero contributes nothing. Micro-check: expanding $\\begin{vmatrix} 1 & 2 & 3 \\\\ 2 & 3 & 4 \\\\ 3 & 4 & 5 \\end{vmatrix}$ along row 1 gives $1(15-16) - 2(10-12) + 3(8-9) = -1 + 4 - 3 = 0$ — rows in arithmetic progression always give a zero determinant."
+      },
+      {
+        "prdId": "M02-PRD03",
+        "heading": "The Row-Operation Properties That Do All the Work",
+        "proseLatex": "Seven properties turn messy determinants into easy ones: (1) swapping two rows flips the sign; (2) two identical or proportional rows force $\\Delta = 0$; (3) multiplying ONE row by $k$ multiplies $\\Delta$ by $k$; (4) $R_i \\to R_i + kR_j$ leaves $\\Delta$ unchanged — the free simplification; (5) transposing does not change $\\Delta$; (6) a sum split along one row splits $\\Delta$ into two determinants; (7) an odd-order skew-symmetric determinant is $0$ because the zero diagonal pairs cancel. Micro-check: in $\\begin{vmatrix} 3 & 5 \\\\ 4 & 6 \\end{vmatrix}$, apply $C_2 \\to C_2 + 2C_1$: entries become $5+6, 6+8$ so the value stays $3 \\times 14 - 11 \\times 4 = -2$ — no recomputation needed — no recomputation needed."
+      },
+      {
+        "prdId": "M02-PRD04",
+        "heading": "Cramer's Rule and the Consistency Court",
+        "proseLatex": "For $AX = B$ ($3 \\times 3$, $B \\neq 0$), build the replacement determinants $\\Delta_x, \\Delta_y, \\Delta_z$ by swapping the corresponding coefficient column for $B$'s column. If $\\Delta \\neq 0$ the system is consistent with the unique solution $x = \\Delta_x/\\Delta$, $y = \\Delta_y/\\Delta$, $z = \\Delta_z/\\Delta$. If $\\Delta = 0$ but at least one replacement determinant is non-zero, the system is inconsistent (no solution). If ALL four are zero the court is still open — the system may have infinitely many solutions (dependent equations) or none (parallel planes like $x+y+z=1$, $2x+y+z=2$, $3x+y+z=4$); check whether the equations are proportional. Micro-check: $2x + 3y = 8$, $3x - y = 1$ has $\\Delta = -11$, $\\Delta_x = -11$, $\\Delta_y = -22$, so $x = 1$, $y = 2$ in two divisions."
+      },
+      {
+        "prdId": "M02-PRD05",
+        "heading": "Determinants That Depend on x, and the Geometry Tests",
+        "proseLatex": "When entries depend on $x$, differentiate $\\Delta(x)$ ONE row (or column) at a time and add the three resulting determinants — never differentiate everything at once. The same determinant machinery answers coordinate questions: area of triangle with vertices $(x_1,y_1), (x_2,y_2), (x_3,y_3)$ is $\\tfrac{1}{2}|\\Delta_{\\text{vertices}}|$, and three points are collinear exactly when that vertex determinant is $0$. Micro-check: $\\Delta(x) = \\begin{vmatrix} x & 2 \\\\ 3 & x \\end{vmatrix} = x^2 - 6$, so $\\frac{d}{dx}\\Delta(x) = 2x$ by differentiating the first row only."
+      },
+      {
+        "prdId": "M02-PRD06",
+        "heading": "Determinants Meet Matrices: |kA|, |adj A|, |AB|",
+        "proseLatex": "Determinant algebra plugs straight into matrix questions from M01: $|kA| = k^n|A|$ (order $n$ first), $|AB| = |A||B|$, $|A^T| = |A|$, $|\\operatorname{adj} A| = |A|^{n-1}$, and $|A^{-1}| = 1/|A|$ for $\\Delta \\neq 0$. A matrix is singular exactly when $|A| = 0$ — that single test decides invertibility, unique Cramer solutions, and trivial homogeneous systems in one stroke. Micro-check: $|A| = 3$ on order 3 gives $|2A| = 2^3 \\times 3 = 24$ and $|\\operatorname{adj} A| = 3^2 = 9$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M02-SF01",
+        "label": "Order-2 determinant",
+        "latex": "$\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix} = ad - bc$",
+        "use": "The base case every expansion bottoms out in."
+      },
+      {
+        "sfId": "M02-SF02",
+        "label": "Sarrus (triangle) rule, order 3",
+        "latex": "$\\Delta = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{13}a_{22}a_{31} - a_{11}a_{23}a_{32} - a_{12}a_{21}a_{33}$",
+        "use": "Direct expansion of an order-3 determinant without cofactors."
+      },
+      {
+        "sfId": "M02-SF03",
+        "label": "Cofactor & expansion along row $i$",
+        "latex": "$C_{ij} = (-1)^{i+j}M_{ij},\\quad \\Delta = \\sum_{j=1}^{3} a_{ij}C_{ij}$",
+        "use": "Expand along any row (or column) — same value every time."
+      },
+      {
+        "sfId": "M02-SF04",
+        "label": "Sign chessboard",
+        "latex": "$\\begin{bmatrix} + & - & + \\\\ - & + & - \\\\ + & - & + \\end{bmatrix}$",
+        "use": "Read the $(i,j)$ sign off the board before multiplying a minor."
+      },
+      {
+        "sfId": "M02-SF05",
+        "label": "Row swap",
+        "latex": "$\\text{swap}(R_i, R_j) \\Rightarrow \\Delta \\to -\\Delta$",
+        "use": "Interchanging two rows (or columns) flips the sign."
+      },
+      {
+        "sfId": "M02-SF06",
+        "label": "Identical or proportional rows",
+        "latex": "$R_i \\parallel R_j \\Rightarrow \\Delta = 0$",
+        "use": "Instant zero — also the collinearity/dependency test."
+      },
+      {
+        "sfId": "M02-SF07",
+        "label": "Scaling one line",
+        "latex": "$R_i \\to kR_i \\Rightarrow \\Delta \\to k\\Delta$",
+        "use": "$k$ multiplies ONE row/column of a determinant, not the whole array."
+      },
+      {
+        "sfId": "M02-SF08",
+        "label": "Add a multiple of another row",
+        "latex": "$R_i \\to R_i + kR_j \\Rightarrow \\Delta$ unchanged",
+        "use": "The free simplification — create zeros before expanding."
+      },
+      {
+        "sfId": "M02-SF09",
+        "label": "Transpose invariance",
+        "latex": "$|A^T| = |A|$",
+        "use": "Row properties double as column properties."
+      },
+      {
+        "sfId": "M02-SF10",
+        "label": "Odd skew-symmetric determinant",
+        "latex": "$A^T = -A,\\ n \\text{ odd} \\Rightarrow |A| = 0$",
+        "use": "One-line answer for every odd-order skew-symmetric question."
+      },
+      {
+        "sfId": "M02-SF11",
+        "label": "Product & scalar power rules",
+        "latex": "$|AB| = |A||B|,\\quad |kA| = k^n|A|$",
+        "use": "Bridge to matrix MCQs; apply order $n$ BEFORE the scalar."
+      },
+      {
+        "sfId": "M02-SF12",
+        "label": "Adjoint determinant",
+        "latex": "$|\\operatorname{adj} A| = |A|^{n-1}$",
+        "use": "Order-3: $|\\operatorname{adj} A| = |A|^2$."
+      },
+      {
+        "sfId": "M02-SF13",
+        "label": "Area of a triangle by determinant",
+        "latex": "$\\text{Area} = \\tfrac{1}{2}\\left| \\begin{vmatrix} x_1 & y_1 & 1 \\\\ x_2 & y_2 & 1 \\\\ x_3 & y_3 & 1 \\end{vmatrix} \\right|$",
+        "use": "Absorb the $\\tfrac12$ AFTER taking the modulus — never a negative area."
+      },
+      {
+        "sfId": "M02-SF14",
+        "label": "Collinearity of three points",
+        "latex": "$\\begin{vmatrix} x_1 & y_1 & 1 \\\\ x_2 & y_2 & 1 \\\\ x_3 & y_3 & 1 \\end{vmatrix} = 0$",
+        "use": "Zero vertex determinant = the three points sit on one line."
+      },
+      {
+        "sfId": "M02-SF15",
+        "label": "Cramer's rule",
+        "latex": "$x = \\frac{\\Delta_x}{\\Delta},\\; y = \\frac{\\Delta_y}{\\Delta},\\; z = \\frac{\\Delta_z}{\\Delta} \\quad (\\Delta \\neq 0)$",
+        "use": "Unique solution of $AX = B$; $\\Delta_r$ replaces column $r$ with $B$."
+      },
+      {
+        "sfId": "M02-SF16",
+        "label": "Derivative of a determinant",
+        "latex": "$\\frac{d}{dx}\\Delta(x) = \\sum_{r} \\Delta_r$ — one differentiated row per term, others frozen",
+        "use": "Differentiate ONE row (or column) at a time and add the pieces."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M02-DEF01",
+        "term": "Determinant",
+        "definition": "The single signed number $\\Delta$ computed from a square array of order $n$; undefined for non-square arrays."
+      },
+      {
+        "defId": "M02-DEF02",
+        "term": "Minor $M_{ij}$",
+        "definition": "The determinant left after deleting row $i$ and column $j$ of the array."
+      },
+      {
+        "defId": "M02-DEF03",
+        "term": "Cofactor $C_{ij}$",
+        "definition": "The signed minor $(-1)^{i+j}M_{ij}$; expanding a determinant means summing $a_{ij}C_{ij}$ along any line."
+      },
+      {
+        "defId": "M02-DEF04",
+        "term": "Singular matrix",
+        "definition": "A square matrix with $|A| = 0$; non-singular matrices ($|A| \\neq 0$) are exactly the invertible ones."
+      },
+      {
+        "defId": "M02-DEF05",
+        "term": "Replacement determinant $\\Delta_x$",
+        "definition": "For $AX = B$, the coefficient determinant with column $x$ swapped for the constant column $B$."
+      },
+      {
+        "defId": "M02-DEF06",
+        "term": "Consistent system",
+        "definition": "A linear system with at least one solution; inconsistent systems have none."
+      },
+      {
+        "defId": "M02-DEF07",
+        "term": "Homogeneous system $AX = 0$",
+        "definition": "Always has the trivial solution $X = 0$; a non-trivial solution exists iff $|A| = 0$, and then infinitely many exist."
+      },
+      {
+        "defId": "M02-DEF08",
+        "term": "Sarrus (triangle) rule",
+        "definition": "Order-3 shortcut: append the first two columns and sum the three down-right diagonal products minus the three up-right ones."
+      },
+      {
+        "defId": "M02-DEF09",
+        "term": "Collinear points",
+        "definition": "Three points on one straight line; equivalently their vertex determinant is zero, so the triangle area is $0$."
+      },
+      {
+        "defId": "M02-DEF10",
+        "term": "Skew-symmetric determinant",
+        "definition": "One with $a_{ij} = -a_{ji}$: zero diagonal, opposite off-diagonal pairs; odd order forces value $0$."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M02-CMP01",
+        "title": "Row/Column Operations × Effect on the Value",
+        "columns": [
+          "Operation",
+          "Effect on $\\Delta$",
+          "Worked cue"
+        ],
+        "rows": [
+          {
+            "label": "Swap two rows",
+            "values": [
+              "Sign flips",
+              "$\\Delta$ becomes $-\\Delta$"
+            ]
+          },
+          {
+            "label": "Multiply ONE row by $k$",
+            "values": [
+              "Multiplies $\\Delta$ by $k$",
+              "$R_1 \\to 2R_1$ doubles the value"
+            ]
+          },
+          {
+            "label": "$R_i \\to R_i + kR_j$",
+            "values": [
+              "No change",
+              "Free simplification — create zeros first"
+            ]
+          },
+          {
+            "label": "Identical / proportional rows",
+            "values": [
+              "$\\Delta = 0$",
+              "Instant answer, no expansion"
+            ]
+          },
+          {
+            "label": "Transpose the array",
+            "values": [
+              "No change",
+              "$|A^T| = |A|$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M02-CMP02",
+        "title": "Consistency Verdicts for $AX = B$ (order 3)",
+        "columns": [
+          "Determinant pattern",
+          "Verdict",
+          "Why"
+        ],
+        "rows": [
+          {
+            "label": "$\\Delta \\neq 0$",
+            "values": [
+              "Unique solution via Cramer",
+              "Exactly one point of intersection"
+            ]
+          },
+          {
+            "label": "$\\Delta = 0$, some $\\Delta_r \\neq 0$",
+            "values": [
+              "Inconsistent — no solution",
+              "Equations demand contradictory values"
+            ]
+          },
+          {
+            "label": "$\\Delta = \\Delta_x = \\Delta_y = \\Delta_z = 0$",
+            "values": [
+              "0 or infinitely many",
+              "Check proportionality of equations before deciding"
+            ]
+          },
+          {
+            "label": "$AX = 0$ with $\\Delta \\neq 0$",
+            "values": [
+              "Only the trivial solution",
+              "Non-zero solution forces $|A| = 0$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M02-CMP03",
+        "title": "Cramer's Rule: Order 2 vs Order 3",
+        "columns": [
+          "Feature",
+          "2×2 system",
+          "3×3 system"
+        ],
+        "rows": [
+          {
+            "label": "Replacement determinants",
+            "values": [
+              "$\\Delta_x, \\Delta_y$ (two)",
+              "$\\Delta_x, \\Delta_y, \\Delta_z$ (three)"
+            ]
+          },
+          {
+            "label": "Unique-solution condition",
+            "values": [
+              "$\\Delta \\neq 0$",
+              "$\\Delta \\neq 0$ (same law)"
+            ]
+          },
+          {
+            "label": "Typical JELET ask",
+            "values": [
+              "Quick $x$, $y$ values",
+              "Consistency classification, not just values"
+            ]
+          },
+          {
+            "label": "Fallback when $\\Delta = 0$",
+            "values": [
+              "Compare slopes / constants",
+              "Compare all four dets, then proportional rows"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M02-CMP04",
+        "title": "Determinant $|A|$ vs Matrix $A$ (order 3)",
+        "columns": [
+          "Aspect",
+          "Matrix $A$",
+          "Determinant $|A|$"
+        ],
+        "rows": [
+          {
+            "label": "Object",
+            "values": [
+              "A $3 \\times 3$ array of entries",
+              "One signed number"
+            ]
+          },
+          {
+            "label": "Scalar $k$ multiplies",
+            "values": [
+              "Every entry ($kA$)",
+              "One chosen line ($k\\Delta$)"
+            ]
+          },
+          {
+            "label": "Power law",
+            "values": [
+              "$|kA| = k^3|A|$",
+              "$k|A|$ is NOT $|kA|$"
+            ]
+          },
+          {
+            "label": "Zero value means",
+            "values": [
+              "Singular, non-invertible",
+              "Rows are dependent (one is a mix of others)"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M02-MCQ01",
+        "stemLatex": "$\\begin{vmatrix} 1 & 2 & 3 \\\\ 2 & 3 & 4 \\\\ 3 & 4 & 5 \\end{vmatrix}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$0$"
+          },
+          {
+            "id": "C",
+            "latex": "$-2$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Rows are in arithmetic progression, so one row is a mix of the others and $\\Delta = 0$. Direct check along row 1: $1(15-16) - 2(10-12) + 3(8-9) = -1 + 4 - 3 = 0$."
+      },
+      {
+        "mcqId": "M02-MCQ02",
+        "stemLatex": "For $\\Delta = \\begin{vmatrix} 3 & 5 \\\\ 4 & 6 \\end{vmatrix} = -2$, the value of $\\begin{vmatrix} 3 & 5+6 \\\\ 4 & 6+8 \\end{vmatrix}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-10$"
+          },
+          {
+            "id": "B",
+            "latex": "$0$"
+          },
+          {
+            "id": "C",
+            "latex": "$-2$"
+          },
+          {
+            "id": "D",
+            "latex": "$2$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "The new determinant is the original with $C_2 \\to C_2 + 2C_1$ applied, which leaves $\\Delta$ unchanged: $-2$."
+      },
+      {
+        "mcqId": "M02-MCQ03",
+        "stemLatex": "If $A$ is any $3 \\times 3$ skew-symmetric matrix, $|A|$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$1$"
+          },
+          {
+            "id": "C",
+            "latex": "$|A|$ depends on the entries"
+          },
+          {
+            "id": "D",
+            "latex": "$-1$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Odd order forces $|A| = |A^T| = |-A| = (-1)^3|A| = -|A|$, so $2|A| = 0$."
+      },
+      {
+        "mcqId": "M02-MCQ04",
+        "stemLatex": "A system has $\\Delta = 2$, $\\Delta_x = 6$, $\\Delta_y = 4$, $\\Delta_z = -2$. The value of $x$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3$"
+          },
+          {
+            "id": "B",
+            "latex": "$12$"
+          },
+          {
+            "id": "C",
+            "latex": "$2$"
+          },
+          {
+            "id": "D",
+            "latex": "$-1$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Cramer: $x = \\Delta_x/\\Delta = 6/2 = 3$. All four determinants are non-zero, so the solution is unique."
+      },
+      {
+        "mcqId": "M02-MCQ05",
+        "stemLatex": "If $\\Delta(x) = \\begin{vmatrix} x & 1 & 2 \\\\ 2 & x & 1 \\\\ 1 & 2 & x \\end{vmatrix}$, then $\\Delta(2)$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$9$"
+          },
+          {
+            "id": "B",
+            "latex": "$5$"
+          },
+          {
+            "id": "C",
+            "latex": "$3$"
+          },
+          {
+            "id": "D",
+            "latex": "$7$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\Delta(x) = x(x^2-2) - 1(2x-1) + 2(4-x) = x^3 - 6x + 9$, so $\\Delta(2) = 8 - 12 + 9 = 5$."
+      },
+      {
+        "mcqId": "M02-MCQ06",
+        "stemLatex": "The area of the triangle with vertices $(0,0)$, $(4,0)$, $(0,3)$ is, in square units:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$12$"
+          },
+          {
+            "id": "B",
+            "latex": "$6$"
+          },
+          {
+            "id": "C",
+            "latex": "$3$"
+          },
+          {
+            "id": "D",
+            "latex": "$24$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\text{Area} = \\tfrac{1}{2}|4 \\times 3 - 0| = 6$. The determinant gives $12$; forgetting the $\\tfrac{1}{2}$ picks the trap option."
+      },
+      {
+        "mcqId": "M02-MCQ07",
+        "stemLatex": "$\\begin{vmatrix} 1 & 2 \\\\ 3 & 4 \\end{vmatrix} = -2$. After interchanging its two rows, the determinant equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-2$"
+          },
+          {
+            "id": "B",
+            "latex": "$0$"
+          },
+          {
+            "id": "C",
+            "latex": "$6$"
+          },
+          {
+            "id": "D",
+            "latex": "$2$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "One row swap flips the sign: $-(-2) = 2$. No recomputation is needed."
+      },
+      {
+        "mcqId": "M02-MCQ08",
+        "stemLatex": "The homogeneous system $x + y + z = 0$, $2x + 3y + z = 0$, $x + 2y + 2z = 0$ has solution set:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$x = y = z = 0$ only"
+          },
+          {
+            "id": "B",
+            "latex": "no solution"
+          },
+          {
+            "id": "C",
+            "latex": "$(1, 0, 0)$ only"
+          },
+          {
+            "id": "D",
+            "latex": "$(0, 1, 1)$ only"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\Delta = 1(6-2) - 1(4-1) + 1(4-3) = 4 - 3 + 1 = 2 \\neq 0$, so the only solution is the trivial one $x = y = z = 0$."
+      },
+      {
+        "mcqId": "M02-MCQ09",
+        "stemLatex": "For $2x + 3y = 8$ and $3x - y = 1$, the value of $x + y$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$4$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\Delta = -11$, $\\Delta_x = -11$, $\\Delta_y = -22$ give $x = 1$, $y = 2$, so $x + y = 3$."
+      },
+      {
+        "mcqId": "M02-MCQ10",
+        "stemLatex": "$\\begin{vmatrix} 1 & 1 & 1 \\\\ 1 & 2 & 3 \\\\ 1 & 3 & 5 \\end{vmatrix}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$1$"
+          },
+          {
+            "id": "C",
+            "latex": "$2$"
+          },
+          {
+            "id": "D",
+            "latex": "$-2$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Expanding: $1(10-9) - 1(5-3) + 1(3-2) = 1 - 2 + 1 = 0$ — the vertex determinant of $(1,1)$, $(2,3)$, $(3,5)$, so the points are collinear."
+      }
+    ],
+    "memoryHooks": [
+      "Sarrus = three down-right products minus three up-right products — append the first two columns and the diagonals draw themselves.",
+      "One swap flips the sign; identical or proportional rows kill $\\Delta$ to $0$.",
+      "$k$ touches ONE line of a determinant but EVERY entry of a matrix: $k\\Delta$ vs $|kA| = k^n|A|$.",
+      "$R_i \\to R_i + kR_j$ never changes $\\Delta$ — the free simplification before expanding.",
+      "Cofactor sign chessboard starts $+$ at top-left: $(-1)^{i+j}$.",
+      "Expand along the line with the most zeros — zeros are free cofactors.",
+      "Cramer divides by $\\Delta$: $\\Delta \\neq 0$ means one solution; $\\Delta = 0$ sends you to the consistency court.",
+      "Odd skew-symmetric $\\Rightarrow |A| = 0$: zero diagonal, cancelling pairs.",
+      "Differentiate $\\Delta(x)$ ONE row at a time and add the three pieces.",
+      "Area $= \\tfrac{1}{2}|\\text{det}|$; a zero vertex determinant means collinear points."
+    ],
+    "commonMistakes": [
+      "Claiming $|kA| = k|A|$: the order comes first — $|kA| = k^n|A|$, while $k$ next to $\\Delta$ scales only one line.",
+      "Differentiating every entry of $\\Delta(x)$ at once instead of one row (or column) per term.",
+      "Dropping the $(-1)^{i+j}$ sign mid-expansion — the chessboard must be written before multiplying minors.",
+      "Declaring infinitely many solutions the moment all four determinants are zero — parallel planes also give all-zero determinants.",
+      "Forgetting the absolute value in the area formula, reporting a negative area.",
+      "Dividing by $\\Delta = 0$ in Cramer's rule — check $\\Delta \\neq 0$ before dividing anything.",
+      "Mixing row and column operations in one derivation and keeping intermediate signs from both.",
+      "Recomputing from scratch after $R_i \\to R_i + kR_j$ instead of carrying the unchanged value forward.",
+      "Losing a minus sign after a swap performed mid-simplification — track swaps like cash."
+    ],
+    "examChecklist": [
+      "Write the Sarrus rule or the chosen expansion line before touching numbers.",
+      "Look for identical/proportional rows or an AP pattern — an instant $\\Delta = 0$ beats a full expansion.",
+      "Create zeros with $R_i \\to R_i + kR_j$ before any cofactor expansion.",
+      "Read cofactor signs off the $+\\,-\\,+$ chessboard, never from memory mid-flight.",
+      "For $AX = B$: compute $\\Delta$ first; only if $\\Delta \\neq 0$ divide by it.",
+      "When all four determinants vanish, test equation proportionality before choosing 0 vs infinitely many.",
+      "For homogeneous $AX = 0$: $\\Delta \\neq 0$ trivial-only; $\\Delta = 0$ infinitely many.",
+      "Geometry questions: area gets $\\tfrac{1}{2}$ plus modulus; collinearity sets the same determinant to $0$.",
+      "$\\Delta(x)$ derivatives: one differentiated row per term, everything else frozen.",
+      "Matrix-determinant hybrids: apply $|kA| = k^n|A|$, $|\\operatorname{adj}A| = |A|^{n-1}$, $|AB| = |A||B|$ with the order first.",
+      "Re-verify one expansion by a different row — same value confirms the arithmetic."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Mathematics, Part I",
+        "author": "NCERT",
+        "chapters": "Ch. 4 (Determinants), §4.2–4.6",
+        "note": "Full determinant ladder — properties, expansion, area/collinearity applications, adjoint-inverse bridge and Cramer consistency — matching this pack's scope."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}
