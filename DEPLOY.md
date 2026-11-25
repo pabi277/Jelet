@@ -340,3 +340,39 @@ exact score histograms inherently disclose frequencies even for small samples.
   study state, **not** a group backend or a reason to share a sync passphrase with
   buddies. Topic/invite state is limited to 30 local groups; no new data schema or
   backend is necessary.
+
+### Optional runnable reference adapter (no cloud vendor dependency)
+
+`scripts/benchmark_server.py` implements the contract above using only Python's
+standard library and SQLite. It starts **empty**, never seeds rows, disables
+request/error logging that could disclose IPs, stores only the four documented
+server-side fields, rejects unknown/duplicate JSON fields, limits POSTs to 512 bytes,
+and acknowledges only after a durable commit. GET performs a current-week histogram
+query. There are no row-list/update/delete APIs; SQLite triggers also block updates
+and deletes. This is append-only through the service, not tamper-proof storage against
+a database administrator. It is optional tooling, **never part of Pages/static PWA**.
+
+For local development on the **same machine** as your browser:
+
+```sh
+python3 scripts/benchmark_server.py \
+  --database /tmp/jelet-community.sqlite \
+  --port 8787 \
+  --allow-origin http://localhost:8000
+```
+
+Then explicitly configure `http://localhost:8787` as the benchmark base URL. Match
+the app's actual origin exactly (including port). On hosted/mobile deployments,
+localhost refers to the student's device, **not your server**: deploy the adapter
+on a durable volume behind an HTTPS reverse proxy and configure its public HTTPS
+base URL instead. Set `--allow-origin` to the app's origin (GitHub Pages origin
+without the repository path); a public anonymous operator can explicitly use `*`.
+Route `/benchmark` to this adapter; a prefix deployment must strip the base prefix
+before forwarding. Disable proxy/CDN access logs, analytics and cookies, limit
+connections/rates/body size globally, restrict admin access to the SQLite volume,
+and monitor only aggregate health. The reference adapter is not an internet-hardened
+managed service or a Sybil-proof anti-abuse system. Back up the durable volume
+privately; **never commit or deploy the event database**. `.gitignore` excludes
+SQLite/db artifacts. `/tmp` in the example is disposable; use persistent storage
+for a real community. Automated tests create their own temporary database and
+submit explicit synthetic **test-only** events; none are shipped as app data.

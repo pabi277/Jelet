@@ -37,6 +37,12 @@ node_modules/
 out/
 target/
 
+# Optional benchmark event stores must never be committed.
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+
 # --- Logs, caches, and local tooling ---
 .cache/
 .mypy_cache/
