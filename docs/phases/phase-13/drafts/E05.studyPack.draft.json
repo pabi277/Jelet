@@ -1,0 +1,51 @@
+{
+  "conceptPrimer": [
+    {
+      "prdId": "E05-PRD01",
+      "heading": "RMS follows heating, not the signed average",
+      "proseLatex": "In a resistor, instantaneous heating power is $p(t)=i(t)^2R$. Squaring makes both halves of an alternating current contribute positively. RMS is the steady-current magnitude that produces the same average heating: $I_{\\mathrm{rms}}=\\sqrt{\\langle i^2\\rangle}$. For a sine wave $i=I_m\\sin(\\omega t)$, averaging the square over a full cycle gives $I_{\\mathrm{rms}}=I_m/\\sqrt2$, even though the signed full-cycle average current is zero. Identify the waveform and averaging interval before choosing a conversion factor."
+    },
+    {
+      "prdId": "E05-PRD02",
+      "heading": "Reactance tells you the phase direction",
+      "proseLatex": "For ideal components in sinusoidal steady state at one frequency, take the current as your reference. A resistor voltage is in phase with that current; an inductor voltage is ahead by a quarter-cycle; a capacitor voltage is behind by a quarter-cycle. In a series RLC circuit these give $Z=R+j(\\omega L-1/(\\omega C))$. A positive net reactance means an inductive circuit and a lagging current relative to the supply; a negative net reactance means a capacitive circuit and a leading current."
+    },
+    {
+      "prdId": "E05-PRD03",
+      "heading": "Series resonance removes net reactance, not the components",
+      "proseLatex": "For ideal $L$ and $C$ in series with a positive resistance $R$, resonance occurs at $\\omega_0=1/\\sqrt{LC}$. The inductor and capacitor still store and return energy, but their reactances cancel in the supply impedance. With a fixed RMS supply voltage, the current is then $V_{\\mathrm{rms}}/R$, the largest value as frequency is varied while $R$, $L$ and $C$ stay fixed. This statement is about the series circuit and its steady-state supply current; it is not permission to replace every resonant network by a wire."
+    },
+    {
+      "prdId": "E05-PRD04",
+      "heading": "Separate energy use from current carried",
+      "proseLatex": "For sinusoidal single-phase operation, apparent power is $S=V_{\\mathrm{rms}}I_{\\mathrm{rms}}$ in VA, while real power is $P=S\\cos\\phi$ in W. The phase difference $\\phi$ determines what fraction of that voltage-current product becomes average energy transfer. An ideal inductor or capacitor has zero average real power, but it can still carry current. In a series RLC calculation, distinguish reactive power $Q_{\\mathrm{reactive}}=I_{\\mathrm{rms}}^2(X_L-X_C)$ from quality factor $Q_{\\mathrm{quality}}=\\omega_0L/R$; they share a letter, not a meaning or a unit."
+    }
+  ],
+  "memoryHooks": [
+    "RMS: square, average over the stated interval, then take the root.",
+    "For a pure inductor, current lags; for a pure capacitor, current leads.",
+    "Name the reference waveform before saying lead or lag.",
+    "Watts use the power factor; VA uses the RMS voltage-current product."
+  ],
+  "commonMistakes": [
+    "Mixing a peak current with an RMS voltage in the same power calculation.",
+    "Entering a phase angle in degrees when the calculator is set to radians, or the reverse.",
+    "Leaving microfarads or millihenries unconverted before substituting into SI formulas.",
+    "Confusing the dimensionless quality factor with reactive power measured in var.",
+    "Assuming zero average real power means zero current in an ideal reactive element."
+  ],
+  "examChecklist": [
+    "Identify the waveform, frequency, averaging interval and whether supplied values are peak or RMS.",
+    "Convert component values to ohms, henries and farads before substitution.",
+    "Write the current or voltage chosen as the phase reference.",
+    "For series RLC, decide whether $X_L-X_C$ is positive, negative or zero.",
+    "Keep real power in W, reactive power in var and apparent power in VA.",
+    "For a resonance result, state the circuit type and the conditions held fixed."
+  ],
+  "furtherReading": [],
+  "provenance": {
+    "draftedBy": "AI-assisted draft",
+    "reviewedBy": "",
+    "reviewedAt": ""
+  }
+}

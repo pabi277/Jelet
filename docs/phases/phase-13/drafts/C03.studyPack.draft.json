@@ -1,0 +1,51 @@
+{
+  "conceptPrimer": [
+    {
+      "prdId": "C03-PRD01",
+      "heading": "Count particles before choosing a pH formula",
+      "proseLatex": "In an acid-base mixture, first ask what reacts and what remains. For the usual aqueous neutralization step, $\\mathrm{H}^++\\mathrm{OH}^-\\rightarrow\\mathrm{H_2O}$ uses one mole of each ion. Convert each supplied solution to reacting moles, allowing for the reaction-specific acid or base factor. Compare these amounts before taking any logarithm. After mixing, a leftover concentration uses the total solution volume, not just the volume of the solution that supplied the leftover ions."
+    },
+    {
+      "prdId": "C03-PRD02",
+      "heading": "Strong and concentrated answer different questions",
+      "proseLatex": "Concentration tells you how much solute was put into a volume; strength describes its ionization behaviour in the chosen solvent. For an ideal dilute solution of a weak monoprotic acid with initial concentration $C$, neglecting water ionization, let $x$ be the equilibrium hydrogen-ion concentration. Then $K_a=x^2/(C-x)$. Replacing $C-x$ by $C$ gives $x\\approx\\sqrt{K_aC}$ only when $x$ is small compared with $C$. A useful classroom check is $x/C\\le0.05$; if it fails, keep the quadratic rather than forcing the shortcut."
+    },
+    {
+      "prdId": "C03-PRD03",
+      "heading": "The pH scale counts factors, not differences",
+      "proseLatex": "In the dilute-solution concentration model, $\\mathrm{pH}=-\\log_{10}[\\mathrm{H}^+]$, with concentrations entered numerically in $\\mathrm{mol\\,L^{-1}}$. Moving from $10^{-3}$ to $10^{-4}$ reduces hydrogen-ion concentration tenfold and raises pH from $3$ to $4$. Equal steps on this scale represent equal concentration ratios, not equal concentration differences. More generally, a concentration change by a factor $r$ changes pH by $-\\log_{10}r$. Keep the logarithm until the final step instead of rounding the concentration first."
+    },
+    {
+      "prdId": "C03-PRD04",
+      "heading": "A buffer has two partners with different jobs",
+      "proseLatex": "An acidic buffer needs appreciable amounts of a weak acid $\\mathrm{HA}$ and its conjugate base $\\mathrm{A}^-$. Added strong acid consumes some $\\mathrm{A}^-$; added strong base consumes some $\\mathrm{HA}$. Account for that reaction first. If both partners remain appreciably present and the usual dilute-solution approximations apply, use $\\mathrm{pH}\\approx\\mathrm{p}K_a+\\log_{10}(n_{\\mathrm{A}^-}/n_{\\mathrm{HA}})$: their common final volume cancels in the concentration ratio. Once either partner is exhausted, this two-partner shortcut no longer describes the mixture."
+    }
+  ],
+  "memoryHooks": [
+    "React first, divide by total volume next, take the logarithm last.",
+    "Strength asks how it ionizes; concentration asks how much is present.",
+    "Ten times more $[\\mathrm{H}^+]$ means one pH unit less.",
+    "For an acidic buffer: base partner above acid partner in the ratio."
+  ],
+  "commonMistakes": [
+    "Using the original sample volume after two solutions have been mixed.",
+    "Treating equal solution volumes as equal reacting amounts without checking concentration and stoichiometry.",
+    "Using $\\sqrt{K_aC}$ without checking the small-ionization assumption.",
+    "Substituting the starting buffer amounts after added acid or base has already consumed one partner.",
+    "Rounding a hydrogen-ion concentration too early and carrying that error into the logarithm."
+  ],
+  "examChecklist": [
+    "Identify whether the task concerns a strong electrolyte, weak acid/base, buffer or neutralization mixture.",
+    "Convert volume to litres when calculating moles from molarity.",
+    "Write the reaction and check its acid/base factor before using equivalent amounts.",
+    "Use final concentrations; for a buffer ratio, confirm both partners survive.",
+    "If using a weak-acid approximation, check the calculated ionization fraction.",
+    "At the end, check that increasing hydrogen-ion concentration would lower the reported pH."
+  ],
+  "furtherReading": [],
+  "provenance": {
+    "draftedBy": "AI-assisted draft",
+    "reviewedBy": "",
+    "reviewedAt": ""
+  }
+}

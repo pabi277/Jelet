@@ -149,3 +149,33 @@ never content candidates.
 4. Record actual reviewer/date and batch evidence, regenerate the index and
    rerun all gates; obtain pilot UI/content-voice sign-off before later batches.
 5. Only after all batches and final owner sign-off may Phase 13 be closed.
+
+## Continuation — pilot authoring candidates (2026-11-25)
+
+After the owner requested continuation, prepared original candidates for **M01,
+C03 and E05**, outside `_data/`. See [pilot review](pilot-review.md) for the exact
+text and [batch evidence](batch-M01-C03-E05.md) for scope, reference attempts,
+mathematical-check coverage, hashes and remaining checkpoints.
+
+- Live read-only Drive inventory was checked. Relevant reference reads were
+  limited by archive format, size/extraction limits, repeated provider failures
+  and a suspected filename/attribution mismatch. No book/extraction bytes were
+  saved locally. The reference milestone remains **incomplete**; these are
+  corpus-grounded original candidates, not a completed book-enrichment batch.
+- Each candidate has four primers, four hooks, student mistakes and six revision
+  checks. Reading arrays and reviewer/date remain empty rather than fabricated.
+- New author-only tools: `verify_studypack_pilot.py` (requires SymPy; 95 draft/text
+  + 49 mathematical checks pass), and `build_studypack_review.py` (reproducible
+  Markdown review with `--check`). Neither tool writes `_data/` or approvals.
+- Strict offline KaTeX/review-generation tests added; **131/131 JS tests** now
+  pass. Python gate tests **6/6**, responsive **47/47**, Study Pack browser
+  **32/32**, corpus, independent SymPy, token/link and diff checks all pass.
+- The production validator rejects every actual draft for its missing reviewer
+  and review date, as intended. All **42 unit files and the 3-byte empty index
+  remain unchanged**, with **0 published packs**. Runtime code is unchanged by
+  this continuation.
+
+**Next:** owner reads the review document, supplies corrections and actual review
+identity/date, and completes the private-reference/bibliography check (or explicitly
+approves an alternative fact-checking basis). Only then consider promotion into
+sidecars, final pilot UI checks and batch sign-off. Phase 13 remains open.

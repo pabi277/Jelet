@@ -1,0 +1,50 @@
+{
+  "conceptPrimer": [
+    {
+      "prdId": "M01-PRD01",
+      "heading": "Read the dimensions before the numbers",
+      "proseLatex": "A matrix is a labelled arrangement of numbers, so its dimensions tell you which operations make sense. In a product, a row from the first matrix meets a column from the second. For $A$ of size $2\\times3$ and $B$ of size $3\\times2$, each such meeting uses three pairs of entries. There are two output rows and two output columns, so $AB$ is $2\\times2$. Reversing the order gives a $3\\times3$ matrix $BA$: even the output size can change."
+    },
+    {
+      "prdId": "M01-PRD02",
+      "heading": "An inverse undoes an operation, not an entry",
+      "proseLatex": "For a square matrix, $A^{-1}$ means an operation that undoes multiplication by $A$: $A^{-1}A=AA^{-1}=I$. It does not mean taking the reciprocal of every entry. Before trying to find an inverse, test $\\det A\\ne0$. For $AX=B$, multiply on the left to obtain $X=A^{-1}B$; for $XA=B$, multiply on the right to obtain $X=BA^{-1}$. The side matters because matrix factors cannot generally be swapped."
+    },
+    {
+      "prdId": "M01-PRD03",
+      "heading": "Transpose separates the shared and opposite parts",
+      "proseLatex": "Transposing swaps the row and column labels: the entry at $(i,j)$ moves to $(j,i)$. For a real square matrix, pair each entry with its mirror across the diagonal. Their average forms the symmetric part $S=(A+A^T)/2$; their half-difference forms the skew-symmetric part $K=(A-A^T)/2$. They recombine as $A=S+K$. A quick check is $S^T=S$ and $K^T=-K$, so the diagonal of $K$ must vanish."
+    },
+    {
+      "prdId": "M01-PRD04",
+      "heading": "Replace repeated multiplication with a short identity",
+      "proseLatex": "For a $2\\times2$ matrix, write $t=\\operatorname{tr}A$ and $d=\\det A$. Cayley-Hamilton gives $A^2-tA+dI=O$. This is a rewriting rule: whenever $A^2$ appears, replace it by $tA-dI$. If $d\\ne0$, multiplying the identity by $A^{-1}$ gives $A^{-1}=(tI-A)/d$. Keep $I$ beside a scalar constant when forming a matrix polynomial; a scalar alone is not a matrix of the required order."
+    }
+  ],
+  "memoryHooks": [
+    "Inside dimensions must match; the outside dimensions name the product.",
+    "Undo on the side where the matrix acts: $AX=B\\Rightarrow X=A^{-1}B$.",
+    "Transpose: exchange row and column labels, then check the dimensions.",
+    "Average the mirror pair for $S$; half-difference for $K$."
+  ],
+  "commonMistakes": [
+    "Taking entry-by-entry reciprocals instead of finding a matrix inverse.",
+    "Building cofactors correctly but forgetting to transpose the cofactor matrix when forming the adjoint.",
+    "Cancelling a factor before checking that it is invertible.",
+    "Writing a scalar constant in a matrix polynomial without the matching identity matrix."
+  ],
+  "examChecklist": [
+    "Write the order of every matrix and check that the requested operation exists.",
+    "Before inversion or cancellation, check $\\det A\\ne0$.",
+    "For matrix equations, write the side on which the inverse must multiply.",
+    "Check a computed inverse by multiplying with the original matrix and comparing with $I$.",
+    "For a transpose or symmetry result, compare a pair of off-diagonal entries.",
+    "For a $2\\times2$ Cayley-Hamilton reduction, recompute trace and determinant before substituting."
+  ],
+  "furtherReading": [],
+  "provenance": {
+    "draftedBy": "AI-assisted draft",
+    "reviewedBy": "",
+    "reviewedAt": ""
+  }
+}
