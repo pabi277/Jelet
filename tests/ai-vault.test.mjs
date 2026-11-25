@@ -96,6 +96,48 @@ test("Ground-Truth prompt builder locks official WBJEEB key & byte-exact preview
   assert.equal(parsed.contents[0].parts[0].text, "Why was option B wrong?");
 });
 
+test("Ground-Truth prompt: origin & section are optional, appear once, preview stays byte-exact", () => {
+  const paper2025 = JSON.parse(fs.readFileSync("./_data/papers/2025.json", "utf8"));
+  const sol2025 = JSON.parse(fs.readFileSync("./_data/solutions/2025.solutions.json", "utf8"));
+  const q1 = paper2025.questions[0];
+  const s1 = sol2025.solutions[q1.id];
+
+  // Absent by default → no context lines (fully backward compatible).
+  const plain = buildGroundTruthSystemPrompt({ question: q1, solution: s1 });
+  assert.equal((plain.match(/Opened from:/g) || []).length, 0);
+  assert.equal((plain.match(/Lesson section:/g) || []).length, 0);
+
+  // Present → exactly one of each line in the question branch.
+  const withCtx = buildGroundTruthSystemPrompt({
+    question: q1,
+    solution: s1,
+    origin: "Results Review",
+    sectionHeading: "Matrices",
+  });
+  assert.equal((withCtx.match(/Opened from: Results Review/g) || []).length, 1);
+  assert.equal((withCtx.match(/Lesson section: Matrices/g) || []).length, 1);
+
+  // Byte-exact preview invariant (docs/04 §4): shown body == sent body.
+  const req = buildAiRequestPayload({
+    vault: { provider: "gemini", model: "gemini-2.5-flash", apiKey: "k" },
+    systemPrompt: withCtx,
+    history: [],
+    userMessage: "hi",
+  });
+  const parsed = JSON.parse(req.bodyString);
+  assert.equal(parsed.system_instruction.parts[0].text, withCtx);
+});
+
+test("Ground-Truth prompt: unit branch carries origin context line", () => {
+  const p02 = normalizeUnit(JSON.parse(fs.readFileSync("./_data/units/P02.json", "utf8")));
+  const sys = buildGroundTruthSystemPrompt({
+    unit: p02,
+    formula: p02.formulas[0],
+    origin: "Unit Formula Sheet",
+  });
+  assert.equal((sys.match(/Opened from: Unit Formula Sheet/g) || []).length, 1);
+});
+
 test("Custom model name is persisted in vault, passed to BYOK payloads, and falls back when blank", () => {
   const mem = createMemoryStorage();
 

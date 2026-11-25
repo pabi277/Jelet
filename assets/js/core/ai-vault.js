@@ -155,7 +155,13 @@ export function buildGroundTruthSystemPrompt({
   studentOutcome = null,
   studentScoreText = "",
   languageMode = "English",
+  origin = "",
+  sectionHeading = "",
 } = {}) {
+  // Optional page/section context (Gap B). Absent by default → backward compatible.
+  const contextLines = [];
+  if (origin) contextLines.push(`Opened from: ${origin}`);
+  if (sectionHeading) contextLines.push(`Lesson section: ${sectionHeading}`);
   if (question) {
     const markingRuleText =
       question.key?.status === "voided"
@@ -190,6 +196,7 @@ export function buildGroundTruthSystemPrompt({
       `- Verification / Option Traps: ${trapsText}`,
       `- Student's Selected Option(s): ${studentSelected.length ? studentSelected.join(", ") : "None"} (Outcome: ${studentOutcome || "reviewing"}, Score: ${studentScoreText || "N/A"})`,
       `- Preferred Language: ${languageMode} (Use crisp KaTeX $...$ and $$...$$ for all math).`,
+      ...contextLines,
       "",
       "STRICT RULES:",
       "1. Treat the Official Correct Answer(s) and Verified Solution above as 100% ground truth. NEVER claim another option is correct.",
@@ -209,6 +216,7 @@ export function buildGroundTruthSystemPrompt({
       formula?.aiExplainContext ? `- Derivation Focus: ${formula.aiExplainContext}` : "",
       `- WBJEEB Traps for ${unit.unitId}: ${(unit.wbjeebTraps || []).join(" | ")}`,
       `- Preferred Language: ${languageMode} (Use crisp KaTeX $...$ and $$...$$ for all math).`,
+      ...contextLines,
       "",
       "Explain clearly from 1st-year Diploma fundamentals up to JELET exam speed without going outside the official WBJEEB syllabus.",
     ]
@@ -219,6 +227,7 @@ export function buildGroundTruthSystemPrompt({
   return [
     "You are the JELET Study Hub AI Doubt Tutor helping a West Bengal Polytechnic Diploma student targeting Jadavpur University in WBJEEB JELET Paper-I (100 Qs, 120 Marks: Mathematics 50m, Physics 35m, Chemistry 25m, FEEE 10m; 42 canonical units M01–M11, P01–P15, C01–C08, E01–E08).",
     `Preferred Language: ${languageMode} (Use KaTeX $...$ and $$...$$ for equations).`,
+    ...contextLines,
     "Give concise, accurate, syllabus-faithful explanations.",
   ].join("\n");
 }

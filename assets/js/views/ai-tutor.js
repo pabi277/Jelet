@@ -29,6 +29,18 @@ import {
   sendBuiltAiRequest,
 } from "../core/ai-vault.js";
 import { $, el, icon, showToast } from "../core/ui.js";
+import { normalizeTutorContext, tutorContextKey } from "../core/tutor-context.js";
+import { getQuestionStatsMap } from "../core/stats.js";
+import {
+  sessionTitle,
+  sessionContext,
+  upsertSession,
+  deleteSession,
+  clearHistory,
+  listSessions,
+  loadAiHistory,
+  persistAiHistory,
+} from "../db/ai-history.js";
 
 /**
  * Synthesize an immediate, 100%-corpus-grounded tutor response offline
@@ -258,38 +270,271 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
   let chatHistory = []; // [{ role: "user"|"assistant", text: string, source: string }]
   let activeAbortController = null;
   let pendingWelcomeAction = null;
+  let historyOpen = false; // history panel visibility (Gap C)
+  let activeHistoryKey = null; // tutorContextKey for the open conversation
+  let thinking = false; // show the "thinking" bubble while a reply is being produced
+  let typing = null; // in-progress typewriter reveal { text, source, tokens, idx, wordsPerTick, timer }
+  let suggestionsOpen = true; // preset-chip row visibility (collapsible to save phone space)
 
-  function closeTutor() {
-    if (activeAbortController) {
-      activeAbortController.abort();
-      activeAbortController = null;
+  /**
+   * Persist the current conversation into the device-local aiHistory record.
+   * Best-effort: a storage failure must never break the tutor.
+   */
+  async function persistCurrentSession() {
+    if (!activeHistoryKey) return;
+    try {
+      const record = await loadAiHistory();
+      const next = upsertSession(record, {
+        key: activeHistoryKey,
+        title: sessionTitle(activeContext),
+        context: sessionContext(activeContext),
+        messages: chatHistory,
+      });
+      await persistAiHistory(next);
+    } catch {
+      /* history persistence is best-effort */
     }
-    closeAllSheets();
   }
 
-  closeBtn?.addEventListener("click", closeTutor);
+  /** Relative-time label for a stored session's updatedAt. */
+  function relativeTime(iso) {
+    const t = Date.parse(iso);
+    if (!Number.isFinite(t)) return "";
+    const diff = Date.now() - t;
+    const min = Math.round(diff / 60000);
+    if (min < 1) return "just now";
+    if (min < 60) return `${min} min ago`;
+    const hr = Math.round(min / 60);
+    if (hr < 24) return `${hr} hr ago`;
+    const day = Math.round(hr / 24);
+    if (day < 7) return `${day} d ago`;
+    return new Date(t).toLocaleDateString();
+  }
 
-  async function openTutor(ctx = {}) {
-    // Hard Timed-Mock Integrity Lock (docs/04 §6)
-    if (location.hash.startsWith("#/exam/")) {
-      showToast("Codec AI Tutor is locked during Timed Mock Exams.");
+  function escapeAttr(s) {
+    return String(s ?? "").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  }
+
+  /** True when the user prefers no motion (typewriter collapses to instant). */
+  function prefersReducedMotion() {
+    try {
+      return typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch {
+      return false;
+    }
+  }
+
+  function clearThinking() {
+    thinking = false;
+  }
+
+  /** Stop any in-progress typewriter (discards the partial reveal). */
+  function cancelTyping() {
+    if (typing && typing.timer) clearInterval(typing.timer);
+    typing = null;
+  }
+
+  /** Commit the in-progress typewriter to chat history WITHOUT re-rendering. */
+  function commitTyping() {
+    if (!typing) return;
+    const { text, source } = typing;
+    if (typing.timer) clearInterval(typing.timer);
+    typing = null;
+    chatHistory.push({ role: "assistant", text, source });
+    void persistCurrentSession();
+  }
+
+  /** Finish typing: commit the full message, clear state, re-render + persist. */
+  function finalizeTyping() {
+    if (!typing) return;
+    commitTyping();
+    clearThinking();
+    void renderTutorBody();
+  }
+
+  /**
+   * Reveal an assistant reply word-by-word (the "typing" feel). The full text
+   * is committed to chat history only once the reveal completes, so the
+   * byte-exact preview and history persistence always see the complete message.
+   */
+  function startTyping(text, source) {
+    clearThinking();
+    cancelTyping();
+    const fullText = String(text ?? "");
+    if (!fullText) {
+      finalizeTyping();
       return;
     }
-
-    activeContext = { ...ctx };
-    if (activeContext.question && !activeContext.solution) {
-      activeContext.solution = await loadSolutionForQuestion(activeContext.question);
+    if (prefersReducedMotion()) {
+      chatHistory.push({ role: "assistant", text: fullText, source: source || "" });
+      typing = null;
+      void renderTutorBody();
+      void persistCurrentSession();
+      return;
     }
-    if (activeContext.question && !activeContext.unit && activeContext.question.unitId) {
-      activeContext.unit = await loadUnit(activeContext.question.unitId).catch(() => null);
-    }
+    const tokens = fullText.match(/\S+\s*|\s+/g) || [fullText];
+    // Bound the total reveal to ~30 ticks so long replies don't drag on.
+    const wordsPerTick = Math.max(1, Math.round(tokens.length / 30));
+    const state = { text: fullText, source: source || "", tokens, idx: 0, wordsPerTick, timer: null };
+    typing = state;
+    renderTutorBody();
+    state.timer = setInterval(() => {
+      state.idx += state.wordsPerTick;
+      if (state.idx >= state.tokens.length) {
+        clearInterval(state.timer);
+        state.timer = null;
+        finalizeTyping();
+        return;
+      }
+      typing = state;
+      renderTutorBody();
+    }, 22);
+  }
 
+  /* ------------------------------------------------------------------ *
+   * Keyboard fit — keep the AI sheet above the on-screen keyboard.
+   * `dvh` alone is inconsistent across mobile browsers; `visualViewport`
+   * gives the reliable visible height, so we size the sheet to it while open
+   * (phone/tablet bottom-sheet layout only; the desktop panel is untouched).
+   * ------------------------------------------------------------------ */
+  let _keyboardFitHandler = null;
+
+  function fitSheetForKeyboard() {
+    if (!sheet) return;
+    if (typeof window === "undefined" || !window.visualViewport) return;
+    if (typeof window.matchMedia === "function" && window.matchMedia("(min-width: 1024px)").matches) return;
+    const vv = window.visualViewport;
+    const h = Math.round(vv.height);
+    if (h > 0) {
+      sheet.style.height = `${h}px`;
+      sheet.style.maxHeight = "none";
+      sheet.classList.add("ai-sheet--keyboard");
+    }
+  }
+
+  function startKeyboardFit() {
+    if (typeof window === "undefined" || !window.visualViewport) return;
+    fitSheetForKeyboard();
+    if (_keyboardFitHandler) return;
+    _keyboardFitHandler = () => {
+      fitSheetForKeyboard();
+      const threadEl = document.getElementById("aiChatThread");
+      if (threadEl) threadEl.scrollTop = threadEl.scrollHeight;
+    };
+    window.visualViewport.addEventListener("resize", _keyboardFitHandler);
+    window.visualViewport.addEventListener("scroll", _keyboardFitHandler);
+  }
+
+  function stopKeyboardFit() {
+    if (_keyboardFitHandler && window.visualViewport) {
+      window.visualViewport.removeEventListener("resize", _keyboardFitHandler);
+      window.visualViewport.removeEventListener("scroll", _keyboardFitHandler);
+      _keyboardFitHandler = null;
+    }
+    if (sheet) {
+      sheet.style.height = "";
+      sheet.style.maxHeight = "";
+      sheet.classList.remove("ai-sheet--keyboard");
+    }
+  }
+
+  /** Build the history-panel HTML (replaces the chat thread while open). */
+  async function buildHistoryPanel() {
+    const record = await loadAiHistory();
+    const sessions = listSessions(record);
+    let rowsHtml;
+    if (!sessions.length) {
+      rowsHtml = `<div class="ai-history-empty">No past conversations yet — ask about any question or unit and it will be remembered here (stored only on this device).</div>`;
+    } else {
+      rowsHtml = sessions
+        .map((s) => {
+          const msgs = Array.isArray(s.messages) ? s.messages : [];
+          const snippet = msgs.length
+            ? String(msgs[msgs.length - 1].text || "").replace(/\s+/g, " ").slice(0, 80)
+            : "";
+          return `
+            <div class="ai-history-row" data-key="${escapeAttr(s.key)}">
+              <div class="ai-history-row__main">
+                <div class="ai-history-row__title">${escapeHtml(s.title)}</div>
+                <div class="ai-history-row__snippet">${escapeHtml(snippet)}</div>
+              </div>
+              <span class="ai-history-row__time">${escapeHtml(relativeTime(s.updatedAt))}</span>
+              <button type="button" class="ai-history-row__del" data-del="${escapeAttr(s.key)}" aria-label="Delete conversation">×</button>
+            </div>`;
+        })
+        .join("");
+    }
+    return `
+      <div class="ai-history-panel">
+        <div class="row-between" style="gap:var(--space-xs)">
+          <strong class="ai-context-card__title">Conversation history</strong>
+          <button type="button" class="btn btn--ghost btn--sm" id="aiHistoryNewBtn">${icon("icon-refresh")} New chat</button>
+        </div>
+        <div class="ai-history-list">${rowsHtml}</div>
+        <p class="card__meta">Stored only on this device · never synced · API keys never included.</p>
+        <button type="button" class="btn btn--ghost btn--sm" id="aiHistoryClearAllBtn">Clear all history</button>
+      </div>`;
+  }
+
+  /** Find a formula by id across a unit's sections/notes keyFormulas. */
+  function findFormula(unit, formulaId) {
+    if (!unit || !formulaId) return null;
+    const pools = [...(unit.sections || []), ...(unit.notes || [])];
+    for (const pool of pools) {
+      const f = (pool.keyFormulas || []).find((kf) => kf.formulaId === formulaId);
+      if (f) return f;
+    }
+    return null;
+  }
+
+  /** Rehydrate a stored session's context by id and reopen it (Gap C). */
+  async function openStoredSession(key) {
+    try {
+      const record = await loadAiHistory();
+      const session = record.sessions && record.sessions[key];
+      if (!session) return;
+      const ctx = { ...(session.context || {}) };
+      ctx.selected = Array.isArray(ctx.selected) ? ctx.selected.slice() : [];
+      ctx.studentOutcome = ctx.studentOutcome || null;
+      if (ctx.studentOutcome) {
+        ctx.scoreResult = { outcome: ctx.studentOutcome };
+      }
+      // Re-fetch the full objects by id (never stored).
+      if (ctx.questionId) {
+        const q = (await getQuestionIndex()).get(ctx.questionId);
+        if (q) {
+          ctx.question = q;
+          if (ctx.unitId) ctx.unit = await loadUnit(ctx.unitId).catch(() => null);
+          ctx.solution = await loadSolutionForQuestion(q).catch(() => null);
+        }
+      }
+      if (ctx.unitId && !ctx.unit) {
+        ctx.unit = await loadUnit(ctx.unitId).catch(() => null);
+      }
+      if (ctx.formulaId && ctx.unit) {
+        ctx.formula = findFormula(ctx.unit, ctx.formulaId);
+      }
+      // openTutor recomputes the same key and restores the stored messages.
+      await openTutor(ctx);
+    } catch {
+      /* rehydration is best-effort */
+    }
+  }
+
+  /** New chat: clear the current session's messages, then seed a fresh thread. */
+  async function newConversation() {
+    if (activeHistoryKey) {
+      try {
+        const record = await loadAiHistory();
+        await persistAiHistory(deleteSession(record, activeHistoryKey));
+      } catch {
+        /* best-effort */
+      }
+    }
     chatHistory = [];
     pendingWelcomeAction = null;
-    openOverlay(sheet);
+    historyOpen = false;
     await renderTutorBody();
-
-    // Auto-seed initial helpful context summary if opened on a specific question or formula!
     if (activeContext.mode === "formula" && activeContext.formula) {
       await handleAsk(`Explain ${activeContext.formula.label} step by step`, { forceOfflineFirst: !hasByokKey() });
     } else if (activeContext.question) {
@@ -301,6 +546,104 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
         hasWrong ? "Why was my option wrong?" : "Show verified step-by-step breakdown",
         { forceOfflineFirst: true }
       );
+    }
+  }
+
+  function closeTutor() {
+    if (activeAbortController) {
+      activeAbortController.abort();
+      activeAbortController = null;
+    }
+    // Finalize any in-progress typewriter, then persist the conversation
+    // (best-effort) before the sheet closes.
+    commitTyping();
+    clearThinking();
+    void persistCurrentSession();
+    stopKeyboardFit();
+    closeAllSheets();
+  }
+
+  closeBtn?.addEventListener("click", closeTutor);
+
+  // History panel toggle (Gap C) — button lives in the static sheet header.
+  const historyBtn = document.getElementById("aiHistoryBtn");
+  historyBtn?.addEventListener("click", async () => {
+    historyOpen = !historyOpen;
+    historyBtn.setAttribute("aria-expanded", String(historyOpen));
+    await renderTutorBody();
+  });
+
+  async function openTutor(ctx = {}) {
+    // Hard Timed-Mock Integrity Lock (docs/04 §6)
+    if (location.hash.startsWith("#/exam/")) {
+      showToast("Codec AI Tutor is locked during Timed Mock Exams.");
+      return;
+    }
+
+    // Discard any in-progress typing from a previous (closing) conversation.
+    cancelTyping();
+    clearThinking();
+
+    // Canonical context: accept both caller naming styles forever (Bug A fix).
+    activeContext = normalizeTutorContext(ctx);
+    if (activeContext.question && !activeContext.solution) {
+      activeContext.solution = await loadSolutionForQuestion(activeContext.question);
+    }
+    if (activeContext.question && !activeContext.unit && activeContext.question.unitId) {
+      activeContext.unit = await loadUnit(activeContext.question.unitId).catch(() => null);
+    }
+
+    // History (Gap C): restore a prior conversation for this exact context.
+    activeHistoryKey = tutorContextKey(activeContext);
+    historyOpen = false;
+    pendingWelcomeAction = null;
+    let restored = false;
+    try {
+      const record = await loadAiHistory();
+      const stored = record.sessions && record.sessions[activeHistoryKey];
+      if (stored && Array.isArray(stored.messages) && stored.messages.length) {
+        chatHistory = stored.messages.map((m) => ({
+          role: m.role,
+          text: m.text,
+          source: m.source || "",
+        }));
+        restored = true;
+      } else {
+        chatHistory = [];
+      }
+    } catch {
+      chatHistory = [];
+    }
+
+    openOverlay(sheet);
+    startKeyboardFit();
+    await renderTutorBody();
+
+    // Auto-seed only for genuinely new threads — a restored conversation keeps
+    // its own history (no duplicate seed).
+    const willSeed =
+      !restored &&
+      ((activeContext.mode === "formula" && activeContext.formula) || Boolean(activeContext.question));
+
+    // Preset suggestions stay open only for a genuinely empty thread; once a
+    // reply exists (seeded or restored) they collapse to save phone space.
+    suggestionsOpen = !willSeed && chatHistory.length === 0;
+    if (!suggestionsOpen) await renderTutorBody();
+
+    if (!restored) {
+      // Auto-seed initial helpful context summary if opened on a specific question or formula!
+      if (activeContext.mode === "formula" && activeContext.formula) {
+        await handleAsk(`Explain ${activeContext.formula.label} step by step`, { forceOfflineFirst: !hasByokKey() });
+      } else if (activeContext.question) {
+        const hasWrong =
+          activeContext.selected?.length &&
+          activeContext.scoreResult &&
+          activeContext.scoreResult.outcome !== "correct";
+        await handleAsk(
+          hasWrong ? "Why was my option wrong?" : "Show verified step-by-step breakdown",
+          { forceOfflineFirst: true }
+        );
+      }
     }
   }
 
@@ -341,6 +684,28 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       contextMeta = `Official Section ${u.officialCode} · ${(u.pyqIds || []).length} PYQs`;
     }
 
+    // Section/page context (Gap B): where the student opened the tutor from.
+    if (activeContext.origin) {
+      contextMeta += ` · From ${activeContext.origin}`;
+      if (activeContext.section) contextMeta += ` · § ${activeContext.section}`;
+    }
+
+    // Honest local attempt history for a question context (Gap B, optional).
+    // 0 prior attempts shows nothing extra; best-effort — never blocks rendering.
+    if (q) {
+      try {
+        const qStats = await getQuestionStatsMap();
+        const rec = qStats.get(q.id);
+        const attempts = Number(rec?.attemptsCount || 0);
+        if (attempts > 0) {
+          const lastOutcome = rec?.lastOutcome || "";
+          contextMeta += ` · ${attempts} prior attempt(s)${lastOutcome ? ` · last ${lastOutcome}` : ""}`;
+        }
+      } catch {
+        /* history enrichment is best-effort */
+      }
+    }
+
     const sysPrompt = buildGroundTruthSystemPrompt({
       question: q,
       solution: activeContext.solution,
@@ -353,6 +718,8 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
         ? formatTwelfths(activeContext.scoreResult.twelfths, { signed: true })
         : "",
       languageMode: vault.preferredLanguage || "English",
+      origin: activeContext.origin,
+      sectionHeading: activeContext.section,
     });
 
     let previewReq = null;
@@ -380,6 +747,41 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
           "Step-by-step intuition",
           "বাংলায় বলো (Bengali)",
         ];
+
+    // History panel replaces the chat thread + chips + composer while open (Gap C).
+    const threadSectionHtml = historyOpen
+      ? await buildHistoryPanel()
+      : `
+        <!-- Chat Thread -->
+        <div class="ai-chat-thread" id="aiChatThread"></div>
+
+        <!-- Preset Prompt Chips (collapsible to save phone space) -->
+        <div class="ai-suggestions">
+          <button type="button" class="btn btn--ghost btn--sm ai-suggestions-toggle" id="aiSuggestionsToggle" aria-expanded="${suggestionsOpen}">
+            <span class="ai-suggestions-label">Suggestions</span>
+            <span class="ai-suggestions-chev" aria-hidden="true">${suggestionsOpen ? "\u25BE" : "\u25B8"}</span>
+          </button>
+          <div class="chip-row ai-chips-row" id="aiChipsRow" ${suggestionsOpen ? "" : "hidden"}>
+            ${chips
+              .map(
+                (c) =>
+                  `<button type="button" class="chip ai-preset-chip" data-prompt="${escapeHtml(c)}">${escapeHtml(c)}</button>`
+              )
+              .join("")}
+          </div>
+        </div>
+
+        <!-- Composer Row -->
+        <form class="ai-composer" id="aiComposerForm">
+          <input type="text" class="input-field" id="aiComposerInput" placeholder="${
+            byokActive
+              ? "Ask follow-up doubt on this topic…"
+              : "Ask any JELET topic or tap a chip…"
+          }" autocomplete="off" />
+          <button type="submit" class="btn btn--primary btn--sm" id="aiSendBtn">
+            ${activeAbortController ? "Stop" : "Ask"}
+          </button>
+        </form>`;
 
     body.innerHTML = "";
     const wrap = el(`
@@ -418,36 +820,14 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
         <!-- One-time "Before you ask" Agreement Card (docs/04 §3) -->
         <div id="aiWelcomeSlot"></div>
 
-        <!-- Chat Thread -->
-        <div class="ai-chat-thread" id="aiChatThread"></div>
-
-        <!-- Preset Prompt Chips -->
-        <div class="chip-row ai-chips-row">
-          ${chips
-            .map(
-              (c) =>
-                `<button type="button" class="chip ai-preset-chip" data-prompt="${escapeHtml(c)}">${escapeHtml(c)}</button>`
-            )
-            .join("")}
-        </div>
-
-        <!-- Composer Row -->
-        <form class="ai-composer" id="aiComposerForm">
-          <input type="text" class="input-field" id="aiComposerInput" placeholder="${
-            byokActive
-              ? "Ask follow-up doubt on this topic…"
-              : "Ask any JELET topic or tap a chip…"
-          }" autocomplete="off" />
-          <button type="submit" class="btn btn--primary btn--sm" id="aiSendBtn">
-            ${activeAbortController ? "Stop" : "Ask"}
-          </button>
-        </form>
+        ${threadSectionHtml}
       </div>
     `);
 
     body.appendChild(wrap);
 
-    // Populate chat thread
+    // Populate chat thread (skipped while the history panel is open)
+    if (!historyOpen) {
     const thread = $("#aiChatThread", wrap);
     if (!chatHistory.length) {
       thread.innerHTML = `
@@ -480,6 +860,60 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
         thread.appendChild(item);
       }
       thread.scrollTop = thread.scrollHeight;
+    }
+
+    // In-flight reply: thinking bubble, or a word-by-word typewriter bubble.
+    if (typing) {
+      const revealed = typing.tokens.slice(0, typing.idx).join("");
+      const tItem = el(`
+        <div class="ai-msg ai-msg--assistant ai-msg--typing">
+          <div class="ai-msg__meta">${icon("icon-spark")} ${escapeHtml(typing.source || "Codec Tutor")}</div>
+          <div class="ai-msg__bubble">${renderTutorBubbleHtml(revealed)}<span class="ai-typing-cursor" aria-hidden="true"></span></div>
+        </div>
+      `);
+      thread.appendChild(tItem);
+      thread.scrollTop = thread.scrollHeight;
+    } else if (thinking) {
+      const tItem = el(`
+        <div class="ai-msg ai-msg--assistant ai-msg--thinking">
+          <div class="ai-msg__meta">${icon("icon-spark")} Codec Tutor</div>
+          <div class="ai-msg__bubble"><span class="ai-thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span></div>
+        </div>
+      `);
+      thread.appendChild(tItem);
+      thread.scrollTop = thread.scrollHeight;
+    }
+    }
+
+    // History panel interactions (Gap C)
+    if (historyOpen) {
+      const panel = $(".ai-history-panel", wrap);
+      panel
+        ?.querySelectorAll(".ai-history-row")
+        .forEach((row) => {
+          row.addEventListener("click", async (ev) => {
+            if (ev.target.closest("[data-del]")) return;
+            await openStoredSession(row.dataset.key);
+          });
+        });
+      panel
+        ?.querySelectorAll("[data-del]")
+        .forEach((btn) => {
+          btn.addEventListener("click", async (ev) => {
+            ev.stopPropagation();
+            const record = await loadAiHistory();
+            await persistAiHistory(deleteSession(record, btn.dataset.del));
+            await renderTutorBody();
+          });
+        });
+      $("#aiHistoryNewBtn", wrap)?.addEventListener("click", () => {
+        void newConversation();
+      });
+      $("#aiHistoryClearAllBtn", wrap)?.addEventListener("click", async () => {
+        const record = await loadAiHistory();
+        await persistAiHistory(clearHistory());
+        await renderTutorBody();
+      });
     }
 
     // One-time "Before you ask" card if pending first BYOK call
@@ -546,6 +980,12 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       });
     });
 
+    // Suggestions toggle — collapse the preset chips to reclaim phone space.
+    $("#aiSuggestionsToggle", wrap)?.addEventListener("click", () => {
+      suggestionsOpen = !suggestionsOpen;
+      renderTutorBody(inputEl?.value || draftMessage);
+    });
+
     // Preset chips
     wrap.querySelectorAll(".ai-preset-chip").forEach((chip) => {
       chip.addEventListener("click", () => {
@@ -557,8 +997,8 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       });
     });
 
-    // Composer submit / Stop
-    $("#aiComposerForm", wrap).addEventListener("submit", async (e) => {
+    // Composer submit / Stop (absent while the history panel is open)
+    $("#aiComposerForm", wrap)?.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (activeAbortController) {
         activeAbortController.abort();
@@ -584,20 +1024,21 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       return;
     }
 
+    // If a previous reply is still being typed out, commit it first.
+    if (typing) finalizeTyping();
+
     chatHistory.push({ role: "user", text: userText });
 
     if (!byokReady) {
+      // Thinking bubble while the offline reply is computed, then type it out.
+      thinking = true;
+      await renderTutorBody(userText);
       const reply = await buildOfflineCorpusReply({
         context: activeContext,
         userPrompt: userText,
         languageMode: vault.preferredLanguage || "English",
       });
-      chatHistory.push({
-        role: "assistant",
-        text: reply,
-        source: "SymPy & WBJEEB Corpus",
-      });
-      await renderTutorBody();
+      startTyping(reply, "SymPy & WBJEEB Corpus");
       return;
     }
 
@@ -617,6 +1058,8 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
         ? formatTwelfths(activeContext.scoreResult.twelfths, { signed: true })
         : "",
       languageMode: vault.preferredLanguage || "English",
+      origin: activeContext.origin,
+      sectionHeading: activeContext.section,
     });
 
     const priorTurns = chatHistory
@@ -624,6 +1067,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       .map((m) => ({ role: m.role, text: m.text }));
 
     activeAbortController = new AbortController();
+    thinking = true;
     await renderTutorBody(userText);
 
     try {
@@ -637,33 +1081,19 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
         signal: activeAbortController.signal,
       });
       activeAbortController = null;
-      chatHistory.push({
-        role: "assistant",
-        text: llmReply,
-        source: `${req.providerLabel} (${req.model})`,
-      });
-      await renderTutorBody();
+      startTyping(llmReply, `${req.providerLabel} (${req.model})`);
     } catch (err) {
       activeAbortController = null;
       if (err.name === "AbortError") {
-        chatHistory.push({
-          role: "assistant",
-          text: "*Generation stopped.*",
-          source: "Cancelled",
-        });
+        startTyping("*Generation stopped.*", "Cancelled");
       } else {
         const fallback = await buildOfflineCorpusReply({
           context: activeContext,
           userPrompt: userText,
           languageMode: vault.preferredLanguage || "English",
         });
-        chatHistory.push({
-          role: "assistant",
-          text: `*Live provider error (${err.message}) — showing Verified Offline Corpus breakdown instead:*\n\n${fallback}`,
-          source: "Offline Fallback · Corpus Verified",
-        });
+        startTyping(`*Live provider error (${err.message}) — showing Verified Offline Corpus breakdown instead:*\n\n${fallback}`, "Offline Fallback · Corpus Verified");
       }
-      await renderTutorBody();
     }
   }
 

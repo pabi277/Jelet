@@ -158,6 +158,7 @@ test("sanitizeForSync strips any apiKey field from every store", () => {
       { key: "app", profile: { name: "Pabitra" }, theme: "light" },
       { key: "sync", baseUrl: "https://private.example/api", enabled: true }, // device-local → excluded
       { key: "syncOutbox", entries: [{ store: "attempts", key: "a1" }] }, // device-local → excluded
+      { key: "aiHistory", sessions: { "q:Q1": { title: "JELET 2025 · Q1" } }, order: ["q:Q1"] }, // device-local → excluded
       { key: SYNC_TOMB_KEY, tombs: { "sessions/old": "2026-11-24T00:00:00.000Z" } },
     ],
   };
@@ -171,6 +172,7 @@ test("sanitizeForSync strips any apiKey field from every store", () => {
   assert.ok(!json.includes("jelet_ai_vault"), "vault key leaked into sync scope");
   assert.ok(!json.includes("private.example"), "device-local sync config leaked");
   assert.ok(!json.includes("syncOutbox"), "device-local outbox leaked");
+  assert.ok(!json.includes("aiHistory"), "device-local AI tutor history leaked");
   assert.equal(containsSecretMaterial(json), false);
 
   // In-scope records survive.
@@ -533,6 +535,7 @@ test("SYNC_LOCAL_META_KEYS cover every device-local meta record", () => {
   // profile/settings record ("app") and tombstones must be.
   assert.ok(SYNC_LOCAL_META_KEYS.includes("sync"));
   assert.ok(SYNC_LOCAL_META_KEYS.includes("syncOutbox"));
+  assert.ok(SYNC_LOCAL_META_KEYS.includes("aiHistory"));
   assert.ok(!SYNC_LOCAL_META_KEYS.includes("app"));
   assert.ok(!SYNC_LOCAL_META_KEYS.includes(SYNC_TOMB_KEY));
 });

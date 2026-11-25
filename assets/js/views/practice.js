@@ -975,17 +975,18 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
       const solBox = $("#pracSolutionBox", card);
       solBox.innerHTML = "";
       solBox.appendChild(
-        buildSolutionBlock(q, sol, {
-          onAskAi: openAiTutor
-            ? (question, solution) =>
-                openAiTutor({
-                  question,
-                  solution,
-                  studentSelected: [...selected],
-                  studentOutcome: scoredItem?.outcome,
-                })
-            : null,
-        })
+          buildSolutionBlock(q, sol, {
+            onAskAi: openAiTutor
+              ? (question, solution) =>
+                  openAiTutor({
+                    question,
+                    solution,
+                    studentSelected: [...selected],
+                    studentOutcome: scoredItem?.outcome,
+                    origin: "Practice Runner",
+                  })
+              : null,
+          })
       );
     }
 
@@ -1046,6 +1047,7 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
           question: q,
           solution: sol,
           studentSelected: [...selected],
+          origin: "Practice Runner",
         });
       });
     });
@@ -1070,7 +1072,7 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
           </div>
         `)
       );
-      prevBox.appendChild(
+        prevBox.appendChild(
         buildSolutionBlock(q, sol, {
           onAskAi: openAiTutor
             ? (question, solution) =>
@@ -1078,6 +1080,7 @@ export async function renderPracticeRunner(main, sessionId, { openAiTutor } = {}
                   question,
                   solution,
                   studentSelected: priorCtx?.previousSelected || [],
+                  origin: "Practice Runner",
                 })
             : null,
         })
