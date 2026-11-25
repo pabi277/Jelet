@@ -41,6 +41,8 @@ const SHELL_ASSETS = [
   "./assets/js/core/stats.js",
   "./assets/js/core/charts.js",
   "./assets/js/core/share-result.js",
+  "./assets/js/core/benchmark.js",
+  "./assets/js/views/benchmark.js",
   "./assets/js/views/share-result.js",
   "./assets/js/core/ui.js",
   "./assets/js/core/ai-vault.js",
@@ -202,7 +204,7 @@ self.addEventListener("fetch", (event) => {
 
   // Pass-through: non-GET (AI POSTs, form submits) and cross-origin
   // requests (BYOK providers, YouTube facade) are never cached or blocked.
-  if (request.method !== "GET") return;
+  if (request.method !== "GET" || request.cache === "no-store") return;
 
   let origin = null;
   try {

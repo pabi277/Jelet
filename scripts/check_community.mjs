@@ -14,9 +14,30 @@ const load = async name => import(pathToFileURL(require.resolve(name, { paths: r
 const { default: chromium } = await load("@sparticuz/chromium");
 const { default: puppeteer } = await load("puppeteer-core");
 const mime = { ".mjs": "text/javascript", ".js": "text/javascript", ".css": "text/css", ".html": "text/html", ".json": "application/json", ".svg": "image/svg+xml", ".webmanifest": "application/manifest+json" };
+const submissions = []; // Test-only store, initially empty; accepts actual browser opt-in POSTs.
+const benchmarkRequests = [];
+const weekStart = () => {
+  const d = new Date(); d.setUTCHours(0, 0, 0, 0); d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7);
+  return d.toISOString().slice(0, 10);
+};
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, "http://test");
+    if (url.pathname === "/benchmark") {
+      benchmarkRequests.push({ method: req.method, cookie: req.headers.cookie, referer: req.headers.referer });
+      res.setHeader("Content-Type", "application/json");
+      res.setHeader("Cache-Control", "no-store");
+      if (req.method === "POST") {
+        let text = ""; for await (const chunk of req) text += chunk;
+        const body = JSON.parse(text);
+        assert.deepEqual(Object.keys(body).sort(), ["accuracy", "marks", "paperYear"]);
+        submissions.push(body);
+        return res.writeHead(201).end(JSON.stringify({ accepted: true, weekStart: weekStart() }));
+      }
+      const bins = new Map();
+      for (const s of submissions) bins.set(Math.round(s.marks * 12), (bins.get(Math.round(s.marks * 12)) || 0) + 1);
+      return res.end(JSON.stringify({ version: 1, weekStart: weekStart(), generatedAt: new Date().toISOString(), count: submissions.length, scores: [...bins].map(([twelfths, count]) => ({ twelfths, count })) }));
+    }
     if (url.pathname === "/favicon.ico") return res.writeHead(204).end();
     const file = path.resolve("." + (url.pathname === "/" ? "/index.html" : decodeURIComponent(url.pathname)));
     if (!file.startsWith(process.cwd() + "/")) return res.writeHead(403).end();
@@ -62,6 +83,31 @@ try {
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${width} ${route}: overflow`);
       checks++;
     }
+  }
+  assert.equal(benchmarkRequests.length, 0, "no automatic benchmark traffic");
+  if (await page.$("#benchmarkUrl")) {
+    await page.goto(base + "#/results/browser-test", { waitUntil: "networkidle0" });
+    await page.waitForSelector("#benchmarkUrl");
+    assert.match(await page.$eval("#benchmarkStatus", n => n.textContent), /not configured/);
+    await page.type("#benchmarkUrl", base);
+    await page.click("#benchmarkSave");
+    await page.waitForFunction(() => document.querySelector("#benchmarkStatus").textContent.includes("saved locally"));
+    assert.equal(benchmarkRequests.length, 0);
+    await page.click("#benchmarkLoad");
+    await page.waitForFunction(() => document.querySelector("#benchmarkStatus").textContent.includes("No submissions"));
+    assert.equal(await page.$eval("#benchmarkSubmit", n => n.disabled), true);
+    await page.click("#benchmarkConsent");
+    await page.click("#benchmarkSubmit");
+    await page.waitForFunction(() => document.querySelector("#benchmarkStatus").textContent.includes("accepted"));
+    assert.equal(submissions.length, 1);
+    await page.click("#benchmarkLoad");
+    await page.waitForFunction(() => document.querySelector("#benchmarkComparison").textContent.includes("1 tied"));
+    await page.reload({ waitUntil: "networkidle0" });
+    await page.waitForSelector("#benchmarkSubmit");
+    await page.click("#benchmarkConsent");
+    assert.equal(await page.$eval("#benchmarkSubmit", n => n.disabled), true, "receipt blocks accidental repeat");
+    for (const request of benchmarkRequests) { assert.equal(request.cookie, undefined); assert.equal(request.referer, undefined); }
+    checks++;
   }
   assert.deepEqual(errors, [], "console/page errors");
   console.log(`Community browser audit: ${checks} route/viewport checks PASS; zero console errors`);

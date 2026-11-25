@@ -14,6 +14,7 @@
  */
 
 import { isShareableMock } from "../core/share-result.js";
+import { mountBenchmark } from "./benchmark.js";
 import { mountResultShare } from "./share-result.js";
 
 import {
@@ -327,7 +328,10 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
 
   main.innerHTML = "";
   main.appendChild(root);
-  if (isShareableMock(attempt)) mountResultShare(root, attempt);
+  if (isShareableMock(attempt)) {
+    mountResultShare(root, attempt);
+    await mountBenchmark(root, attempt);
+  }
 
   $("#retryIndepBtn", root).addEventListener("click", async () => {
     const sess = await createSession({

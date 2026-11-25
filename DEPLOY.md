@@ -213,3 +213,98 @@ manifest). It is frozen by the Phase 03 gates — never edit
 `_data/papers/*.json`, `_data/solutions/*.solutions.json`,
 `scripts/_build/*`, or `scripts/verify_*` without re-running the full
 verification pipeline and recording evidence under `docs/phases/`.
+
+## Optional anonymous benchmark (Phase 10)
+
+The static app needs **no backend**. Without a user-configured base URL in You →
+This week's benchmark it shows **Benchmark not configured**, not sample numbers.
+Saving a URL is local only. **Load** explicitly performs GET; an unchecked-by-default
+**Contribute anonymously** toggle plus **Contribute this mock** explicitly performs
+POST. No background requests, auto-submit, offline queue or automatic retries.
+The results page offers the same controls for that selected independent full mock;
+You selects the latest independent full mock. Only recognized official paper IDs
+(`jelet-2022`–`jelet-2026`) can contribute. Curated/assisted scores are not submitted.
+
+### Provider-agnostic REST contract v1
+
+Configure a **base URL**, e.g. `https://operator.example/community`; the client
+appends `/benchmark`. HTTPS required (HTTP allowed only for localhost development).
+No URL credentials, query strings, fragments, client API keys or authentication.
+The provider must support CORS for your app origin: methods GET/POST/OPTIONS and
+headers `Accept, Content-Type`. Return `Cache-Control: no-store` on all responses.
+The client uses `credentials: omit`, `referrerPolicy: no-referrer`, redirects disabled,
+`cache: no-store`, and a 12-second timeout. The service worker bypasses no-store
+requests, including same-origin deployments, so an old aggregate is never served
+from its runtime cache.
+
+**POST `{base}/benchmark`**, JSON with **exactly these three fields**:
+
+```json
+{ "marks": 75.08333333333333, "accuracy": 75, "paperYear": 2025 }
+```
+
+This is a contract example, **not a seeded submission**. Marks are normalized from
+stored integer twelfths by division by 12, with range −20…120. Validate finite numbers,
+accuracy integer 0…100 and year integer 2022…2026. Recover `twelfths = round(marks*12)`
+and reject if `abs(marks*12 - twelfths) > 1e-8`; persist the integer, not float sums.
+Accuracy is fully-correct / attempted (correct + partial + incorrect), rounded to
+an integer percent; zero when nothing was attempted. The provider **rejects unknown
+fields** and oversized bodies. Never accept name, email, device/session/attempt ID,
+profile, answers, API keys or user-supplied receipt timestamps. The server assigns
+its UTC receipt timestamp and appends each accepted event to durable shared storage.
+No update/delete endpoint; no sample records or generated/fake submissions.
+
+Success is **201**, JSON `{ "accepted": true, "weekStart": "YYYY-MM-DD" }`, where
+weekStart is Monday 00:00 UTC of the server's current week. Invalid input → 400;
+provider-limited → 429; outage → 5xx. Do not report accepted before durable append.
+A lost/invalid acknowledgement may mean a submission arrived; the client warns
+rather than retrying silently. Local per-endpoint/week/attempt receipts reduce
+accidental repeats on this device, but are never sent and **do not prove unique
+students or globally deduplicate**. Avoid double-tapping/retrying after an uncertain
+POST. Receipt records and configuration do not enter encrypted sync (ordinary
+manual study backups can contain these local meta records).
+
+**GET `{base}/benchmark`** → 200, including for an empty week:
+
+```json
+{
+  "version": 1,
+  "weekStart": "YYYY-MM-DD",
+  "generatedAt": "ISO-8601 UTC timestamp",
+  "count": 0,
+  "scores": []
+}
+```
+
+Each nonempty `scores` entry is `{ "twelfths": integer, "count": positiveInteger }`:
+**one bin per distinct exact score**, −240…1440, no duplicated bins; counts sum to
+`count`. Aggregate only accepted events received in `[Monday 00:00 UTC, next Monday)`.
+All years are pooled, with one submission = one event, **not one unique person**.
+This exact frequency histogram is necessary: a mean alone cannot justify a
+percentile. Never return raw events, accuracy/year combinations, identity fields,
+IP addresses or request metadata. Build snapshots from a consistent store read;
+set `generatedAt` to the snapshot time. Client rejects wrong-week, pre-week/future
+snapshots, malformed bins and mismatched totals. Empty/malformed/unreachable data
+never yields a percentile. A snapshot is explicitly labeled, not a live rank.
+
+Comparison is `floor(1000 * count(scores strictly below mine) / count) / 10` percent
+**higher than** submissions; tied and higher-score counts are shown separately.
+This deliberately avoids misleading top-X claims when ties exist. The UI shows the
+verifiable total and cautions that these are self-reported practice submissions,
+not verified exam scores, unique students, or a representative population.
+
+### Provider privacy and operations requirements
+
+Deploy an append-only table/object log and aggregate it, for example in a serverless
+worker backed by a durable SQL database. This phase ships the static client/contract,
+**not a managed community service**. Start empty; only explicit user POSTs create rows.
+Keep only twelfths, accuracy, paperYear and server receipt time internally. Expose
+only score counts externally. Do not log bodies, IPs, user agents or other identifiers;
+disable access logs/analytics at the edge too. The payload is anonymous by construction,
+but transport metadata (especially IP address) is visible to the endpoint/network
+operator — this is **not** an anonymity network. Explain this policy before users
+choose your endpoint. No cookies, tracking, accounts or identity-based anti-abuse.
+Apply body-size limits and aggregate resource/rate caps without persistent user IDs.
+Anonymous submissions cannot be made Sybil-proof; do not claim fraud-proof ranking.
+Consider suppressing comparison for small cohorts as a future contract version;
+exact score histograms inherently disclose frequencies even for small samples.

@@ -8,6 +8,10 @@
  *                                        Offline Pack & About/Sources
  */
 
+import { mountBenchmark } from "./benchmark.js";
+import { getAllAttempts } from "../core/stats.js";
+import { isShareableMock } from "../core/share-result.js";
+
 import { loadManifest, warmOfflineCorpus } from "../core/data-loader.js";
 import { escapeHtml } from "../core/math.js";
 import {
@@ -534,6 +538,9 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
 
   main.innerHTML = "";
   main.appendChild(root);
+  const latestMock = (await getAllAttempts()).filter(isShareableMock)
+    .sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)))[0];
+  await mountBenchmark(root, latestMock);
 
   function renderCgpaStatus() {
     const slot = $("#cgpaEligibilitySlot", root);
