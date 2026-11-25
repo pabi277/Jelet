@@ -159,7 +159,579 @@
       "channelName": "Ekeeda",
       "language": "en",
       "scopeNote": "Conduction, convection, thermal radiation, Fourier's law & composite slabs"
+    },
+    {
+      "title": "Thermal Conductivity, Stefan Boltzmann Law, Heat Transfer, Conduction, Convecton, Radiation, Physics",
+      "url": "https://www.youtube.com/watch?v=LR5bYxC4syI",
+      "videoId": "LR5bYxC4syI",
+      "duration": "29 min",
+      "durationMinutes": 29,
+      "provider": "YouTube · The Organic Chemistry Tutor",
+      "channelName": "The Organic Chemistry Tutor",
+      "language": "en",
+      "scopeNote": "Conduction, convection and radiation with worked numericals."
+    },
+    {
+      "title": "Heat Transfer: Conduction, Convection And Radiation | Physics",
+      "url": "https://www.youtube.com/watch?v=MUC098hvqH4",
+      "videoId": "MUC098hvqH4",
+      "duration": "14 min",
+      "durationMinutes": 14,
+      "provider": "YouTube · Najam Academy",
+      "channelName": "Najam Academy",
+      "language": "en",
+      "scopeNote": "Quick explainer comparing the three modes of heat transfer."
+    },
+    {
+      "title": "One Shot: Heat Transfer (Conduction) | Thermal Physics | JEE Mains & Advanced | 11 Physics | Vedantu",
+      "url": "https://www.youtube.com/watch?v=-JDfcIV9R10",
+      "videoId": "-JDfcIV9R10",
+      "duration": "59 min",
+      "durationMinutes": 59,
+      "provider": "YouTube · Vedantu JEE English",
+      "channelName": "Vedantu JEE English",
+      "language": "en",
+      "scopeNote": "JEE conduction one shot using the thermal-resistance analogy."
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P10-PRD01",
+        "heading": "Fourier's Law & the Electrical Analogy",
+        "proseLatex": "Steady-state 1D conduction: heat current $H = \\frac{KA(T_1 - T_2)}{L}$ (watts) mirrors Ohm's law with thermal resistance $R_{\\text{th}} = \\frac{L}{KA}$ ($\\text{K/W}$). Series slabs carry the SAME $H$ with $R_{\\text{eq}} = \\sum R_i$; parallel rods share the SAME $\\Delta T$ with $\\frac{1}{R_{\\text{eq}}} = \\sum\\frac{1}{R_i}$. Micro-check: $K = 0.2$, $A = 1$, $L = 0.1$, $\\Delta T = 50$: $H = 100\\,\\text{W}$."
+      },
+      {
+        "prdId": "P10-PRD02",
+        "heading": "Series vs Parallel Effective Conductivity",
+        "proseLatex": "Equal-thickness series slabs: $K_{\\text{eq}} = \\frac{2K_1K_2}{K_1+K_2}$ (HARMONIC mean — dominated by the poor conductor). Equal-area parallel: $K_{\\text{eq}} = \\frac{K_1+K_2}{2}$ (arithmetic mean). Micro-check: $K_1 = 0.2$, $K_2 = 0.6$ in series: $K_{\\text{eq}} = \\frac{0.24}{0.8} = 0.3$; in parallel: $0.4$."
+      },
+      {
+        "prdId": "P10-PRD03",
+        "heading": "Convection & Newton's Law of Cooling",
+        "proseLatex": "Convection moves heat by bulk fluid motion (natural vs forced; zero-$g$ kills natural convection). Small excess temperature: $-\\frac{dT}{dt} = b(T - T_0)$; the interval form $\\frac{T_1 - T_2}{\\Delta t} = b\\left(\\frac{T_1+T_2}{2} - T_0\\right)$ solves cooling-time questions in two lines. Micro-check: cooling is SLOWER at lower excess temperature: $70\\to60$ takes longer than $80\\to70$."
+      },
+      {
+        "prdId": "P10-PRD04",
+        "heading": "Kirchhoff's Radiation Law",
+        "proseLatex": "$e_\\lambda = a_\\lambda$ at thermal equilibrium: good absorbers are good emitters; a blackbody has $e = a = 1$. A white/reflective surface both absorbs AND emits less. Micro-check: a rough blackened bulb cools faster by radiation than a polished one in the same room."
+      },
+      {
+        "prdId": "P10-PRD05",
+        "heading": "Stefan–Boltzmann & Wien's Displacement",
+        "proseLatex": "$P = e\\sigma AT^4$ with $T$ in KELVIN (the classic trap); net exchange with surroundings at $T_0$: $P = e\\sigma A(T^4 - T_0^4)$. Wien: $\\lambda_m T = 2.898\\times10^{-3}\\,\\text{m K}$ — hotter bodies peak bluer. Micro-check: doubling $T$ (K) multiplies $P$ by $16$; $T = 290$: $\\lambda_m \\approx 10\\,\\mu\\text{m}$ (infrared)."
+      },
+      {
+        "prdId": "P10-PRD06",
+        "heading": "Radiation Needs No Medium",
+        "proseLatex": "Radiation propagates at $c = 3\\times10^8\\,\\text{m/s}$ through vacuum — the only transfer mode that works across empty space (Sun to Earth). Conduction needs matter contact; convection needs bulk flow. Micro-check: a vacuum flask kills conduction/convection; radiation remains, cut by silvering."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P10-SF01",
+        "label": "Fourier conduction law",
+        "latex": "H = \\frac{KA(T_1-T_2)}{L}",
+        "use": "Steady-state heat current."
+      },
+      {
+        "sfId": "P10-SF02",
+        "label": "Thermal resistance",
+        "latex": "R_{\\text{th}} = \\frac{L}{KA}",
+        "use": "K/W; series add."
+      },
+      {
+        "sfId": "P10-SF03",
+        "label": "Series slabs",
+        "latex": "R_{\\text{eq}} = R_1 + R_2",
+        "use": "Same current through both."
+      },
+      {
+        "sfId": "P10-SF04",
+        "label": "Parallel rods",
+        "latex": "\\frac{1}{R_{\\text{eq}}} = \\frac{1}{R_1} + \\frac{1}{R_2}",
+        "use": "Same $\\Delta T$ across both."
+      },
+      {
+        "sfId": "P10-SF05",
+        "label": "Series effective conductivity",
+        "latex": "K_{\\text{eq}} = \\frac{2K_1K_2}{K_1+K_2}",
+        "use": "Harmonic mean (equal $L$)."
+      },
+      {
+        "sfId": "P10-SF06",
+        "label": "Parallel effective conductivity",
+        "latex": "K_{\\text{eq}} = \\frac{K_1+K_2}{2}",
+        "use": "Arithmetic mean (equal $A$)."
+      },
+      {
+        "sfId": "P10-SF07",
+        "label": "Newton's cooling (differential)",
+        "latex": "-\\frac{dT}{dt} = b(T - T_0)",
+        "use": "Small excess temperature."
+      },
+      {
+        "sfId": "P10-SF08",
+        "label": "Newton's cooling (interval)",
+        "latex": "\\frac{T_1-T_2}{\\Delta t} = b\\left(\\frac{T_1+T_2}{2} - T_0\\right)",
+        "use": "Two-line JELET form."
+      },
+      {
+        "sfId": "P10-SF09",
+        "label": "Kirchhoff's law",
+        "latex": "e_\\lambda = a_\\lambda",
+        "use": "Good absorbers emit well."
+      },
+      {
+        "sfId": "P10-SF10",
+        "label": "Stefan–Boltzmann law",
+        "latex": "P = e\\sigma AT^4",
+        "use": "Kelvin mandatory."
+      },
+      {
+        "sfId": "P10-SF11",
+        "label": "Net radiated power",
+        "latex": "P = e\\sigma A(T^4 - T_0^4)",
+        "use": "With surroundings at $T_0$."
+      },
+      {
+        "sfId": "P10-SF12",
+        "label": "Wien's displacement law",
+        "latex": "\\lambda_m T = 2.898\\times10^{-3}\\ \\text{m K}",
+        "use": "Hotter $\\Rightarrow$ bluer peak."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P10-DEF01",
+        "term": "Thermal conductivity",
+        "definition": "$K$: heat current per area per gradient ($\\text{W m}^{-1}\\text{K}^{-1}$)."
+      },
+      {
+        "defId": "P10-DEF02",
+        "term": "Thermal resistance",
+        "definition": "$\\frac{L}{KA}$; the heat-flow analogue of electrical resistance."
+      },
+      {
+        "defId": "P10-DEF03",
+        "term": "Steady state",
+        "definition": "Temperatures at every cross-section stop changing; $H$ uniform along the rod."
+      },
+      {
+        "defId": "P10-DEF04",
+        "term": "Newton's law of cooling",
+        "definition": "Cooling rate proportional to excess temperature for small excess."
+      },
+      {
+        "defId": "P10-DEF05",
+        "term": "Blackbody",
+        "definition": "Ideal absorber and emitter with $e = a = 1$."
+      },
+      {
+        "defId": "P10-DEF06",
+        "term": "Wien peak",
+        "definition": "Wavelength of maximum spectral emission, $\\propto 1/T$."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P10-CMP01",
+        "title": "Conduction vs convection vs radiation",
+        "columns": [
+          "Aspect",
+          "Conduction",
+          "Convection",
+          "Radiation"
+        ],
+        "rows": [
+          {
+            "label": "Medium",
+            "values": [
+              "contact matter",
+              "bulk fluid flow",
+              "none needed"
+            ]
+          },
+          {
+            "label": "Works in vacuum",
+            "values": [
+              "no",
+              "no",
+              "yes"
+            ]
+          },
+          {
+            "label": "Governing law",
+            "values": [
+              "Fourier",
+              "Newton cooling",
+              "Stefan-Boltzmann"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P10-CMP02",
+        "title": "Series vs parallel slabs",
+        "columns": [
+          "Aspect",
+          "Series (equal $L$)",
+          "Parallel (equal $A$)"
+        ],
+        "rows": [
+          {
+            "label": "Shared quantity",
+            "values": [
+              "same $H$",
+              "same $\\Delta T$"
+            ]
+          },
+          {
+            "label": "Effective $K$",
+            "values": [
+              "harmonic mean",
+              "arithmetic mean"
+            ]
+          },
+          {
+            "label": "Dominated by",
+            "values": [
+              "poor conductor",
+              "average"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P10-CMP03",
+        "title": "Warming vs cooling intervals",
+        "columns": [
+          "Interval",
+          "Time taken"
+        ],
+        "rows": [
+          {
+            "label": "$80\\to70\\,^\\circ\\text{C}$",
+            "values": [
+              "shorter"
+            ]
+          },
+          {
+            "label": "$70\\to60\\,^\\circ\\text{C}$",
+            "values": [
+              "longer (smaller excess)"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P10-MCQ01",
+        "stemLatex": "Two slabs of equal thickness and equal area ($K_1 = 0.2$, $K_2 = 0.6$) in series: $K_{\\text{eq}}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.3$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.4$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.2$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.6$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Harmonic mean: $\\frac{2(0.12)}{0.8} = 0.3$."
+      },
+      {
+        "mcqId": "P10-MCQ02",
+        "stemLatex": "The same slabs in parallel (equal areas): $K_{\\text{eq}}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.3$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.4$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.24$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.8$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Arithmetic mean: $\\frac{0.8}{2} = 0.4$."
+      },
+      {
+        "mcqId": "P10-MCQ03",
+        "stemLatex": "A body cools from $70\\,^\\circ\\text{C}$ to $60\\,^\\circ\\text{C}$ compared to $80\\,^\\circ\\text{C}$ to $70\\,^\\circ\\text{C}$ (same surroundings):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "faster"
+          },
+          {
+            "id": "B",
+            "latex": "slower"
+          },
+          {
+            "id": "C",
+            "latex": "equal"
+          },
+          {
+            "id": "D",
+            "latex": "cannot say"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Smaller mean excess temperature $\\Rightarrow$ slower cooling per Newton's law."
+      },
+      {
+        "mcqId": "P10-MCQ04",
+        "stemLatex": "Doubling the Kelvin temperature of a blackbody multiplies radiated power by:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$4$"
+          },
+          {
+            "id": "C",
+            "latex": "$8$"
+          },
+          {
+            "id": "D",
+            "latex": "$16$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$T^4$: $2^4 = 16$."
+      },
+      {
+        "mcqId": "P10-MCQ05",
+        "stemLatex": "A body at $727\\,^\\circ\\text{C}$ ($1000\\,\\text{K}$) radiates peak wavelength near:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2.9\\,\\mu\\text{m}$"
+          },
+          {
+            "id": "B",
+            "latex": "$5.8\\,\\mu\\text{m}$"
+          },
+          {
+            "id": "C",
+            "latex": "$10\\,\\mu\\text{m}$"
+          },
+          {
+            "id": "D",
+            "latex": "$290\\,\\text{nm}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Wien: $\\lambda_m = \\frac{2.898\\times10^{-3}}{1000} = 2.9\\,\\mu\\text{m}$."
+      },
+      {
+        "mcqId": "P10-MCQ06",
+        "stemLatex": "In steady state along a composite rod, which quantity is constant through every section?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "temperature"
+          },
+          {
+            "id": "B",
+            "latex": "heat current"
+          },
+          {
+            "id": "C",
+            "latex": "gradient"
+          },
+          {
+            "id": "D",
+            "latex": "conductivity"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Series: same $H$ everywhere; temperature drops vary."
+      },
+      {
+        "mcqId": "P10-MCQ07",
+        "stemLatex": "Thermal resistance of a slab ($L = 0.1$, $A = 1$, $K = 0.5$) is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.2\\ \\text{K/W}$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.05\\ \\text{K/W}$"
+          },
+          {
+            "id": "C",
+            "latex": "$5\\ \\text{K/W}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.5\\ \\text{K/W}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\frac{0.1}{0.5\\times1} = 0.2\\ \\text{K/W}$."
+      },
+      {
+        "mcqId": "P10-MCQ08",
+        "stemLatex": "Natural convection inside a spacecraft (free fall):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "works normally"
+          },
+          {
+            "id": "B",
+            "latex": "vanishes since no gravity-driven buoyancy"
+          },
+          {
+            "id": "C",
+            "latex": "doubles"
+          },
+          {
+            "id": "D",
+            "latex": "becomes forced"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Buoyancy needs gravity; orbit removes natural convection."
+      },
+      {
+        "mcqId": "P10-MCQ09",
+        "stemLatex": "For a body in an enclosure at the same temperature:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "it absorbs more than it emits"
+          },
+          {
+            "id": "B",
+            "latex": "emits more than it absorbs"
+          },
+          {
+            "id": "C",
+            "latex": "emission equals absorption (equilibrium)"
+          },
+          {
+            "id": "D",
+            "latex": "no radiation occurs"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Kirchhoff: at thermal equilibrium, absorbed = emitted."
+      },
+      {
+        "mcqId": "P10-MCQ10",
+        "stemLatex": "Which mode carries the Sun's energy through space?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "conduction"
+          },
+          {
+            "id": "B",
+            "latex": "convection"
+          },
+          {
+            "id": "C",
+            "latex": "radiation"
+          },
+          {
+            "id": "D",
+            "latex": "all three"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Only radiation needs no medium."
+      }
+    ],
+    "memoryHooks": [
+      "$H = KA\\Delta T/L$; resistance $L/KA$.",
+      "Series = same current; parallel = same $\\Delta T$.",
+      "Series $K$: harmonic mean (bad conductor dominates).",
+      "Parallel $K$: arithmetic mean.",
+      "Kelvin or nothing in $T^4$ and $\\lambda_m T$.",
+      "$T \\to 2T$: power $\\to 16\\times$.",
+      "Wien: hotter is bluer; $2900$ over $T$-in-K microns.",
+      "Good absorbers = good emitters ($e = a$).",
+      "Cooling slows as excess temperature shrinks.",
+      "Vacuum flask blocks conduction and convection; silvering cuts radiation too."
+    ],
+    "commonMistakes": [
+      "Plugging Celsius into $T^4$ or Wien's law.",
+      "Using arithmetic mean for series slabs.",
+      "Claiming temperature is constant along a series rod.",
+      "Forgetting $\\Delta t$ in interval-form cooling problems.",
+      "Assuming radiation needs a medium.",
+      "Ignoring the $-T_0^4$ term for net exchange.",
+      "Using the single-slab resistance without adding series layers.",
+      "Using the single-slab resistance without adding series layers."
+    ],
+    "examChecklist": [
+      "Convert to Kelvin before any radiation computation.",
+      "Pick harmonic vs arithmetic mean by geometry.",
+      "Apply the thermal-resistance series and parallel toolkit.",
+      "Use Newton's interval form for cooling times.",
+      "State $e = a$ and blackbody conditions.",
+      "Wien estimates from $2.898\\times10^{-3}$ over $T$.",
+      "Compare cooling intervals via mean excess temperature.",
+      "Compare cooling intervals via mean excess temperature."
+    ],
+    "furtherReading": [
+      {
+        "book": "Heat and Thermodynamics",
+        "author": "Brij Lal & N. Subrahmanyam",
+        "chapters": "Transmission of heat chapter",
+        "note": "Heat-transfer fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

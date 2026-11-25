@@ -1,0 +1,545 @@
+{
+  "unitId": "P09",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P09-PRD01",
+        "heading": "Linear, Superficial & Volume Expansion",
+        "proseLatex": "Heating an isotropic solid by $\\Delta T$: $L = L_0(1+\\alpha\\Delta T)$, $A = A_0(1+\\beta\\Delta T)$, $V = V_0(1+\\gamma\\Delta T)$ with the exact ratio $\\alpha : \\beta : \\gamma = 1 : 2 : 3$ for small $\\alpha\\Delta T \\ll 1$ ($\\beta = 2\\alpha$, $\\gamma = 3\\alpha$). Cavities and holes expand too. Micro-check: $\\alpha = 2\\times10^{-5}$, $\\Delta T = 500$: $\\frac{\\Delta L}{L} = 1\\%$, $\\frac{\\Delta V}{V} = 3\\%$."
+      },
+      {
+        "prdId": "P09-PRD02",
+        "heading": "Density Drops as Temperature Rises",
+        "proseLatex": "$\\rho_T = \\frac{\\rho_0}{1+\\gamma\\Delta T} \\approx \\rho_0(1 - \\gamma\\Delta T)$ for small $\\gamma\\Delta T$. Micro-check: $\\gamma = 3\\times10^{-5}$, $\\Delta T = 100$: density falls $0.3\\%$."
+      },
+      {
+        "prdId": "P09-PRD03",
+        "heading": "Bimetallic Strips & the Equal-Difference Rod Pair",
+        "proseLatex": "A welded strip of two metals ($\\alpha_1 > \\alpha_2$) bends on heating with the HIGHER-$\\alpha$ metal on the OUTER (convex) side, and flips on cooling. Two rods keep a temperature-independent length difference iff $L_1\\alpha_1 = L_2\\alpha_2$. Micro-check: $L_1 = 2L_2$ requires $\\alpha_2 = 2\\alpha_1$… i.e. the shorter rod carries the larger $\\alpha$."
+      },
+      {
+        "prdId": "P09-PRD04",
+        "heading": "Pendulum Clock Drift",
+        "proseLatex": "$T = 2\\pi\\sqrt{L/g}$: heating lengthens $L$, so $T$ grows and the clock runs SLOW, losing $\\frac{\\Delta t}{t} = \\frac{1}{2}\\alpha\\Delta T$ seconds per second (the $\\frac{1}{2}$ from $\\sqrt{L}$). Micro-check: $\\alpha = 2\\times10^{-5}$, $\\Delta T = 20$: loses $2\\times10^{-4}\\,\\text{s/s} = 17.3\\,\\text{s/day}$ ($\\times 86400$)."
+      },
+      {
+        "prdId": "P09-PRD05",
+        "heading": "Real vs Apparent Liquid Expansion",
+        "proseLatex": "The container expands too ($\\gamma_g = 3\\alpha_g$), so observed apparent expansion is smaller: $\\gamma_{\\text{real}} = \\gamma_{\\text{app}} + \\gamma_{\\text{glass}}$. Micro-check: $\\gamma_{\\text{app}} = 1.8\\times10^{-4}$, $\\gamma_g = 2.7\\times10^{-5}$: $\\gamma_{\\text{real}} \\approx 2.07\\times10^{-4}$."
+      },
+      {
+        "prdId": "P09-PRD06",
+        "heading": "Water's Anomaly at $4\\,^\\circ\\text{C}$",
+        "proseLatex": "From $0$ to $4\\,^\\circ\\text{C}$ water CONTRACTS on heating, reaching maximum density ($1000\\,\\text{kg/m}^3$) and minimum volume at $4\\,^\\circ\\text{C}$. A brim-full vessel overflows whether you warm it above $4\\,^\\circ\\text{C}$ OR cool it below — both directions increase volume. Ice floats; lakes stay liquid under surface ice, saving aquatic life. Micro-check: at $4\\,^\\circ\\text{C}$ the brim vessel is at its SAFEST (minimum volume)."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P09-SF01",
+        "label": "Linear expansion",
+        "latex": "L = L_0(1+\\alpha\\Delta T)",
+        "use": "All linear dimensions, holes included."
+      },
+      {
+        "sfId": "P09-SF02",
+        "label": "Superficial expansion",
+        "latex": "A = A_0(1+\\beta\\Delta T)",
+        "use": "\\beta = 2\\alpha$."
+      },
+      {
+        "sfId": "P09-SF03",
+        "label": "Volume expansion",
+        "latex": "V = V_0(1+\\gamma\\Delta T)",
+        "use": "\\gamma = 3\\alpha$."
+      },
+      {
+        "sfId": "P09-SF04",
+        "label": "Expansion ratio",
+        "latex": "\\alpha : \\beta : \\gamma = 1 : 2 : 3",
+        "use": "Isotropic solids, small $\\Delta T$."
+      },
+      {
+        "sfId": "P09-SF05",
+        "label": "Density shift",
+        "latex": "\\rho_T = \\frac{\\rho_0}{1+\\gamma\\Delta T}",
+        "use": "Density falls on heating."
+      },
+      {
+        "sfId": "P09-SF06",
+        "label": "Equal-difference rods",
+        "latex": "L_1\\alpha_1 = L_2\\alpha_2",
+        "use": "Temperature-independent gap."
+      },
+      {
+        "sfId": "P09-SF07",
+        "label": "Pendulum drift",
+        "latex": "\\frac{\\Delta t}{t} = \\frac{1}{2}\\alpha\\Delta T",
+        "use": "Clock loses time when heated."
+      },
+      {
+        "sfId": "P09-SF08",
+        "label": "Day loss",
+        "latex": "\\Delta t_{\\text{day}} = \\frac{1}{2}\\alpha\\Delta T\\times86400",
+        "use": "Seconds lost per day."
+      },
+      {
+        "sfId": "P09-SF09",
+        "label": "Real vs apparent",
+        "latex": "\\gamma_{\\text{real}} = \\gamma_{\\text{app}} + \\gamma_{\\text{vessel}}",
+        "use": "Vessel expands too."
+      },
+      {
+        "sfId": "P09-SF10",
+        "label": "Bimetallic bend",
+        "latex": "\\alpha_{\\text{high}}\\text{ on the convex side}",
+        "use": "Flips when cooled."
+      },
+      {
+        "sfId": "P09-SF11",
+        "label": "Hole diameter growth",
+        "latex": "d = d_0(1+\\alpha\\Delta T)",
+        "use": "Photographic enlargement — never shrinks."
+      },
+      {
+        "sfId": "P09-SF12",
+        "label": "Second-order check",
+        "latex": "(1+\\gamma\\Delta T)^{1/3} \\approx 1+\\alpha\\Delta T",
+        "use": "Why the $1{:}2{:}3$ ratio holds."
+      },
+      {
+        "sfId": "P09-SF13",
+        "label": "Clock period shift",
+        "latex": "\\frac{\\Delta T_{\\text{period}}}{T} = \\frac{1}{2}\\frac{\\Delta L}{L} = \\frac{1}{2}\\alpha\\Delta T",
+        "use": "From $T \\propto \\sqrt{L}$."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P09-DEF01",
+        "term": "Coefficient of linear expansion",
+        "definition": "Fractional length increase per kelvin: $\\alpha$."
+      },
+      {
+        "defId": "P09-DEF02",
+        "term": "Apparent expansion",
+        "definition": "Liquid expansion observed ignoring the vessel's own growth."
+      },
+      {
+        "defId": "P09-DEF03",
+        "term": "Anomalous expansion of water",
+        "definition": "Contraction from $0$ to $4\\,^\\circ\\text{C}$; density peak at $4\\,^\\circ\\text{C}$."
+      },
+      {
+        "defId": "P09-DEF04",
+        "term": "Bimetallic strip",
+        "definition": "Two-metal sandwich bending with temperature; thermostat element."
+      },
+      {
+        "defId": "P09-DEF05",
+        "term": "Pendulum clock error",
+        "definition": "Fractional time drift $\\frac{1}{2}\\alpha\\Delta T$ from thermal lengthening."
+      },
+      {
+        "defId": "P09-DEF06",
+        "term": "Coefficient of volume expansion",
+        "definition": "Fractional volume increase per kelvin: $\\gamma = 3\\alpha$ for isotropic solids."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P09-CMP01",
+        "title": "Real vs apparent expansion",
+        "columns": [
+          "Aspect",
+          "Apparent",
+          "Real"
+        ],
+        "rows": [
+          {
+            "label": "Reference",
+            "values": [
+              "expanding vessel",
+              "fixed-volume frame"
+            ]
+          },
+          {
+            "label": "Coefficient",
+            "values": [
+              "$\\gamma_{\\text{app}}$",
+              "$\\gamma_{\\text{app}} + \\gamma_{\\text{vessel}}$"
+            ]
+          },
+          {
+            "label": "Size",
+            "values": [
+              "smaller",
+              "larger"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P09-CMP02",
+        "title": "Heating vs cooling a brim-full vessel at $4\\,^\\circ\\text{C}$",
+        "columns": [
+          "Action",
+          "Water volume",
+          "Overflow?"
+        ],
+        "rows": [
+          {
+            "label": "Heat above $4\\,^\\circ\\text{C}$",
+            "values": [
+              "expands",
+              "overflows"
+            ]
+          },
+          {
+            "label": "Cool below $4\\,^\\circ\\text{C}$",
+            "values": [
+              "expands (anomaly)",
+              "overflows"
+            ]
+          },
+          {
+            "label": "Stay at $4\\,^\\circ\\text{C}$",
+            "values": [
+              "minimum",
+              "safest"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P09-CMP03",
+        "title": "Hole vs plate expansion",
+        "columns": [
+          "Aspect",
+          "Plate",
+          "Hole"
+        ],
+        "rows": [
+          {
+            "label": "On heating",
+            "values": [
+              "grows",
+              "grows too (photographic enlargement)"
+            ]
+          },
+          {
+            "label": "Hole diameter",
+            "values": [
+              "—",
+              "increases, never shrinks"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P09-MCQ01",
+        "stemLatex": "For $\\alpha = 2\\times10^{-5}\\,\\text{K}^{-1}$ heated $100\\,\\text{K}$, the fractional volume increase is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.6\\%$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.2\\%$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.4\\%$"
+          },
+          {
+            "id": "D",
+            "latex": "$1.2\\%$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\gamma = 3\\alpha = 6\\times10^{-5}$; $\\times100 = 0.6\\%$."
+      },
+      {
+        "mcqId": "P09-MCQ02",
+        "stemLatex": "A metal plate with a circular hole is heated. The hole:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "shrinks"
+          },
+          {
+            "id": "B",
+            "latex": "grows"
+          },
+          {
+            "id": "C",
+            "latex": "stays the same"
+          },
+          {
+            "id": "D",
+            "latex": "becomes elliptical"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Photographic enlargement: every dimension scales up, holes included."
+      },
+      {
+        "mcqId": "P09-MCQ03",
+        "stemLatex": "A brass pendulum clock ($\\alpha = 2\\times10^{-5}$) is taken from $20\\,^\\circ\\text{C}$ to $40\\,^\\circ\\text{C}$. It:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "gains time"
+          },
+          {
+            "id": "B",
+            "latex": "loses about $17\\,\\text{s/day}$"
+          },
+          {
+            "id": "C",
+            "latex": "loses about $34\\,\\text{s/day}$"
+          },
+          {
+            "id": "D",
+            "latex": "keeps time"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\frac{1}{2}\\times2\\times10^{-5}\\times20 = 2\\times10^{-4}\\,\\text{s/s}$; $\\times86400 \\approx 17.3\\,\\text{s/day}$."
+      },
+      {
+        "mcqId": "P09-MCQ04",
+        "stemLatex": "Two rods keep a constant length difference when:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$L_1\\alpha_1 = L_2\\alpha_2$"
+          },
+          {
+            "id": "B",
+            "latex": "$L_1\\alpha_2 = L_2\\alpha_1$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\alpha_1 = \\alpha_2$ only"
+          },
+          {
+            "id": "D",
+            "latex": "$L_1 = L_2$ only"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Equal expansions $L_1\\alpha_1\\Delta T = L_2\\alpha_2\\Delta T$ preserve the gap."
+      },
+      {
+        "mcqId": "P09-MCQ05",
+        "stemLatex": "A bimetallic strip ($\\alpha_{\\text{brass}} > \\alpha_{\\text{steel}}$) is heated. The brass lies on the:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "inner concave side"
+          },
+          {
+            "id": "B",
+            "latex": "outer convex side"
+          },
+          {
+            "id": "C",
+            "latex": "either side"
+          },
+          {
+            "id": "D",
+            "latex": "neutral axis"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "The higher-$\\alpha$ metal expands more and takes the outer curve."
+      },
+      {
+        "mcqId": "P09-MCQ06",
+        "stemLatex": "Water's density is maximum at:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0\\,^\\circ\\text{C}$"
+          },
+          {
+            "id": "B",
+            "latex": "$4\\,^\\circ\\text{C}$"
+          },
+          {
+            "id": "C",
+            "latex": "$20\\,^\\circ\\text{C}$"
+          },
+          {
+            "id": "D",
+            "latex": "$100\\,^\\circ\\text{C}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Anomalous contraction ends at $4\\,^\\circ\\text{C}$: $\\rho_{\\max} = 1000\\,\\text{kg/m}^3$."
+      },
+      {
+        "mcqId": "P09-MCQ07",
+        "stemLatex": "A vessel brim-full of water at $4\\,^\\circ\\text{C}$ is cooled to $0\\,^\\circ\\text{C}$. It will:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "not overflow"
+          },
+          {
+            "id": "B",
+            "latex": "overflow"
+          },
+          {
+            "id": "C",
+            "latex": "first overflow then recede"
+          },
+          {
+            "id": "D",
+            "latex": "crack"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Cooling below $4\\,^\\circ\\text{C}$ expands water (anomaly) — overflow."
+      },
+      {
+        "mcqId": "P09-MCQ08",
+        "stemLatex": "$\\gamma_{\\text{app}} = 1.8\\times10^{-4}$ and $\\gamma_{\\text{glass}} = 2.7\\times10^{-5}$. The real coefficient is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2.07\\times10^{-4}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.53\\times10^{-4}$"
+          },
+          {
+            "id": "C",
+            "latex": "$2.7\\times10^{-4}$"
+          },
+          {
+            "id": "D",
+            "latex": "$1.8\\times10^{-4}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\gamma_{\\text{real}} = \\gamma_{\\text{app}} + \\gamma_{\\text{vessel}}$."
+      },
+      {
+        "mcqId": "P09-MCQ09",
+        "stemLatex": "As temperature rises (small $\\gamma\\Delta T$), a solid's density:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "rises"
+          },
+          {
+            "id": "B",
+            "latex": "falls as $\\rho_0(1-\\gamma\\Delta T)$"
+          },
+          {
+            "id": "C",
+            "latex": "stays constant"
+          },
+          {
+            "id": "D",
+            "latex": "doubles"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Volume grows, mass fixed: density drops."
+      },
+      {
+        "mcqId": "P09-MCQ10",
+        "stemLatex": "For a small temperature rise, $\\beta$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\alpha$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\alpha$"
+          },
+          {
+            "id": "C",
+            "latex": "$3\\alpha$"
+          },
+          {
+            "id": "D",
+            "latex": "$6\\alpha$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\alpha : \\beta : \\gamma = 1 : 2 : 3$."
+      }
+    ],
+    "memoryHooks": [
+      "$\\alpha : \\beta : \\gamma = 1 : 2 : 3$.",
+      "Holes expand — photographic enlargement.",
+      "Clock heated = slow: lose $\\frac{1}{2}\\alpha\\Delta T$ s/s, $\\times 86400$ for a day.",
+      "Equal-difference rods: $L_1\\alpha_1 = L_2\\alpha_2$.",
+      "Bimetal bends with high-$\\alpha$ metal outside; flips on cooling.",
+      "$\\gamma_{\\text{real}} = \\gamma_{\\text{app}} + \\gamma_{\\text{vessel}}$.",
+      "Water peaks in density at $4\\,^\\circ\\text{C}$ — brim overflows BOTH ways.",
+      "Density falls as $\\rho_0(1-\\gamma\\Delta T)$."
+    ],
+    "commonMistakes": [
+      "Shrinking holes on heating.",
+      "Dropping the $\\frac{1}{2}$ in pendulum drift.",
+      "Forgetting $\\beta = 2\\alpha$ when area questions are asked directly.",
+      "Forgetting $\\times86400$ for per-day loss.",
+      "Making the vessel's expansion vanish in $\\gamma_{\\text{real}}$.",
+      "Reversing the bimetal's convex side.",
+      "Claiming water expands monotonically from $0\\,^\\circ\\text{C}$.",
+      "Forgetting $\\gamma = 3\\alpha$ in density questions."
+    ],
+    "examChecklist": [
+      "Use $1 : 2 : 3$ for $\\alpha\\beta\\gamma$ conversions.",
+      "Convert between $\\alpha$, $\\beta$, $\\gamma$ before answering.",
+      "Enlarge holes photographically on heating.",
+      "Compute clock gain/loss per second and per day.",
+      "Set $L_1\\alpha_1 = L_2\\alpha_2$ for constant gaps.",
+      "Identify bimetal geometry on heating/cooling.",
+      "Add vessel expansion for real liquid coefficients.",
+      "Handle the $4\\,^\\circ\\text{C}$ anomaly both directions."
+    ],
+    "furtherReading": [
+      {
+        "book": "Heat and Thermodynamics",
+        "author": "Brij Lal & N. Subrahmanyam",
+        "chapters": "Thermal expansion chapter",
+        "note": "Expansion fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

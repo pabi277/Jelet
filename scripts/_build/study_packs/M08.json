@@ -1,0 +1,502 @@
+{
+  "unitId": "M08",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M08-PRD01",
+        "heading": "Partials, Clairaut Symmetry & Harmonic Tests",
+        "proseLatex": "$u_x$ differentiates w.r.t. $x$ holding $y$ strictly constant. Second-order mixed partials commute when continuous: $u_{xy} = u_{yx}$ (Clairaut/Schwarz). Harmonic functions satisfy Laplace's equation $u_{xx} + u_{yy} = 0$. Micro-check: $u = x^2 - y^2$: $u_{xx} = 2$, $u_{yy} = -2$, sum $= 0$ — harmonic."
+      },
+      {
+        "prdId": "M08-PRD02",
+        "heading": "Homogeneous Functions & Euler's First Relation",
+        "proseLatex": "$f$ is homogeneous of degree $n$ when $f(tx, ty) = t^n f(x,y)$, equivalently $f = x^n\\phi(y/x)$. Euler's theorem: $x f_x + y f_y = n f$. Micro-check: $f = x^3 + y^3$ is degree $3$: $x(3x^2) + y(3y^2) = 3f$."
+      },
+      {
+        "prdId": "M08-PRD03",
+        "heading": "Euler's Second-Order Extension",
+        "proseLatex": "For degree-$n$ homogeneous $f$: $x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy} = n(n-1)f$. Degree $0$ makes BOTH relations vanish: $x f_x + y f_y = 0$ and the second-order form $= 0$. Micro-check: $n = 2$ gives right side $2f$; $n = 0$ gives $0$."
+      },
+      {
+        "prdId": "M08-PRD04",
+        "heading": "Wrapped Functions: Euler via $\\psi$",
+        "proseLatex": "If $u = g(f)$ with degree-$n$ homogeneous core $\\psi(u) = f$, Euler applies to $\\psi$: $x u_x + y u_y = n\\,\\frac{\\psi(u)}{\\psi'(u)}$. The $\\ln$ case is the trap: $u = \\ln\\frac{x^3+y^3}{x+y}$ is NOT homogeneous itself, but $e^u$ is degree $2$, so $x u_x + y u_y = 2\\frac{e^u}{e^u} = 2$ — a constant! Micro-check: $u = \\tan^{-1}\\frac{x^3+y^3}{x-y}$: $\\tan u$ is degree $2$, so $x u_x + y u_y = 2\\frac{\\tan u}{\\sec^2 u} = \\sin 2u$."
+      },
+      {
+        "prdId": "M08-PRD05",
+        "heading": "Total Differential & Chain Rule",
+        "proseLatex": "$z = f(x(t), y(t))$: $\\frac{dz}{dt} = f_x\\frac{dx}{dt} + f_y\\frac{dy}{dt}$; the total differential $dz = f_x\\,dx + f_y\\,dy$ propagates small errors: $\\Delta z \\approx f_x\\Delta x + f_y\\Delta y$. Micro-check: $z = x^2 y$ with $x = t$, $y = t^2$: $\\frac{dz}{dt} = 2xy + x^2(2t) = 2t^3 + 2t^3 = 4t^3$."
+      },
+      {
+        "prdId": "M08-PRD06",
+        "heading": "Implicit Slope: the Minus Sign",
+        "proseLatex": "On $F(x, y) = 0$ with $F_y \\neq 0$, $dF = F_x\\,dx + F_y\\,dy = 0$ forces $\\frac{dy}{dx} = -\\frac{F_x}{F_y}$ — the minus sign is the single most-dropped symbol here. Micro-check: $x^2 + y^2 = 25$: $\\frac{dy}{dx} = -\\frac{2x}{2y} = -\\frac{x}{y}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M08-SF01",
+        "label": "Clairaut/Schwarz symmetry",
+        "latex": "u_{xy} = u_{yx}",
+        "use": "Continuous mixed partials commute."
+      },
+      {
+        "sfId": "M08-SF02",
+        "label": "Laplace's equation",
+        "latex": "u_{xx} + u_{yy} = 0",
+        "use": "Harmonic-function test."
+      },
+      {
+        "sfId": "M08-SF03",
+        "label": "Homogeneity definition",
+        "latex": "f(tx, ty) = t^n f(x, y)",
+        "use": "Degree-$n$ scaling."
+      },
+      {
+        "sfId": "M08-SF04",
+        "label": "Euler's theorem (first order)",
+        "latex": "x f_x + y f_y = n f",
+        "use": "Degree-$n$ homogeneous $f$."
+      },
+      {
+        "sfId": "M08-SF05",
+        "label": "Euler's second-order form",
+        "latex": "x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy} = n(n-1)f",
+        "use": "Second-order extension."
+      },
+      {
+        "sfId": "M08-SF06",
+        "label": "Degree-zero double zero",
+        "latex": "x f_x + y f_y = 0;\\ x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy} = 0",
+        "use": "$n = 0$ kills both."
+      },
+      {
+        "sfId": "M08-SF07",
+        "label": "Wrapped Euler",
+        "latex": "x u_x + y u_y = n\\,\\frac{\\psi(u)}{\\psi'(u)}",
+        "use": "Apply to the homogeneous core."
+      },
+      {
+        "sfId": "M08-SF08",
+        "label": "$\\ln$-wrap constant",
+        "latex": "u = \\ln\\tfrac{x^3+y^3}{x+y} \\Rightarrow x u_x + y u_y = 2",
+        "use": "$e^u$ is degree $2$."
+      },
+      {
+        "sfId": "M08-SF09",
+        "label": "$\\tan^{-1}$-wrap result",
+        "latex": "x u_x + y u_y = \\sin 2u",
+        "use": "Degree-2 core inside $\\tan u$."
+      },
+      {
+        "sfId": "M08-SF10",
+        "label": "Total derivative (chain rule)",
+        "latex": "\\frac{dz}{dt} = f_x\\frac{dx}{dt} + f_y\\frac{dy}{dt}",
+        "use": "Both paths summed."
+      },
+      {
+        "sfId": "M08-SF11",
+        "label": "Total differential",
+        "latex": "dz = f_x\\,dx + f_y\\,dy",
+        "use": "Error propagation: $\\Delta z \\approx f_x\\Delta x + f_y\\Delta y$."
+      },
+      {
+        "sfId": "M08-SF12",
+        "label": "Implicit slope",
+        "latex": "\\frac{dy}{dx} = -\\frac{F_x}{F_y}",
+        "use": "Mind the minus sign."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M08-DEF01",
+        "term": "Partial derivative",
+        "definition": "Rate of change holding the other variable strictly constant."
+      },
+      {
+        "defId": "M08-DEF02",
+        "term": "Mixed partial",
+        "definition": "$u_{xy}$ or $u_{yx}$; equal when continuous (Clairaut/Schwarz)."
+      },
+      {
+        "defId": "M08-DEF03",
+        "term": "Homogeneous function",
+        "definition": "$f(tx, ty) = t^n f(x,y)$; equivalently $x^n\\phi(y/x)$."
+      },
+      {
+        "defId": "M08-DEF04",
+        "term": "Euler's theorem",
+        "definition": "$x f_x + y f_y = n f$ for degree-$n$ homogeneous functions."
+      },
+      {
+        "defId": "M08-DEF05",
+        "term": "Total differential",
+        "definition": "$dz = f_x dx + f_y dy$ — first-order change along any path."
+      },
+      {
+        "defId": "M08-DEF06",
+        "term": "Total derivative",
+        "definition": "$\\frac{dz}{dt}$ via the chain rule when both variables move with $t$."
+      },
+      {
+        "defId": "M08-DEF07",
+        "term": "Harmonic function",
+        "definition": "Satisfies $u_{xx} + u_{yy} = 0$."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M08-CMP01",
+        "title": "Partial vs total derivative",
+        "columns": [
+          "Aspect",
+          "Partial $u_x$",
+          "Total $\\frac{dz}{dt}$"
+        ],
+        "rows": [
+          {
+            "label": "Held fixed",
+            "values": [
+              "other variable",
+              "nothing (both move with $t$)"
+            ]
+          },
+          {
+            "label": "Chain rule",
+            "values": [
+              "not needed",
+              "$f_x\\dot{x} + f_y\\dot{y}$"
+            ]
+          },
+          {
+            "label": "Use",
+            "values": [
+              "local rates",
+              "path rates + error propagation"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M08-CMP02",
+        "title": "Euler first vs second order",
+        "columns": [
+          "Aspect",
+          "First order",
+          "Second order"
+        ],
+        "rows": [
+          {
+            "label": "Form",
+            "values": [
+              "$x f_x + y f_y$",
+              "$x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy}$"
+            ]
+          },
+          {
+            "label": "Right side",
+            "values": [
+              "$n f$",
+              "$n(n-1) f$"
+            ]
+          },
+          {
+            "label": "$n = 0$ value",
+            "values": [
+              "$0$",
+              "$0$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M08-CMP03",
+        "title": "Direct vs wrapped Euler",
+        "columns": [
+          "Situation",
+          "Tool",
+          "Result"
+        ],
+        "rows": [
+          {
+            "label": "$f$ homogeneous",
+            "values": [
+              "Euler directly",
+              "$n f$"
+            ]
+          },
+          {
+            "label": "$u = g(f)$, $\\psi(u)$ homogeneous",
+            "values": [
+              "wrapped Euler",
+              "$n\\frac{\\psi(u)}{\\psi'(u)}$"
+            ]
+          },
+          {
+            "label": "$\\ln$-wrap trap",
+            "values": [
+              "$e^u$ is the core",
+              "constant $n$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M08-MCQ01",
+        "stemLatex": "For $u = x^3 + y^3$, $x u_x + y u_y$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$u$"
+          },
+          {
+            "id": "B",
+            "latex": "$2u$"
+          },
+          {
+            "id": "C",
+            "latex": "$3u$"
+          },
+          {
+            "id": "D",
+            "latex": "$6u$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Degree-$3$ homogeneous: Euler gives $3u$."
+      },
+      {
+        "mcqId": "M08-MCQ02",
+        "stemLatex": "For $u = x^2 - y^2$, the value of $u_{xx} + u_{yy}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$4$"
+          },
+          {
+            "id": "D",
+            "latex": "$x^2 + y^2$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$u_{xx} = 2$, $u_{yy} = -2$: Laplace sum $0$ — $u$ is harmonic."
+      },
+      {
+        "mcqId": "M08-MCQ03",
+        "stemLatex": "For $u = \\ln\\left(\\frac{x^3+y^3}{x+y}\\right)$, $x u_x + y u_y$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$1$"
+          },
+          {
+            "id": "C",
+            "latex": "$2$"
+          },
+          {
+            "id": "D",
+            "latex": "$3u$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$u$ is not homogeneous, but $e^u$ is degree $2$: $2\\frac{e^u}{e^u} = 2$ — a constant."
+      },
+      {
+        "mcqId": "M08-MCQ04",
+        "stemLatex": "For $u = \\tan^{-1}\\left(\\frac{x^3+y^3}{x-y}\\right)$, $x u_x + y u_y$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2u$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\tan u$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\sin 2u$"
+          },
+          {
+            "id": "D",
+            "latex": "$2\\sin u$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$\\tan u$ is degree $2$: $2\\frac{\\tan u}{\\sec^2 u} = 2\\sin u\\cos u = \\sin 2u$."
+      },
+      {
+        "mcqId": "M08-MCQ05",
+        "stemLatex": "With $z = x^2 y$, $x = t$, $y = t^2$: $\\frac{dz}{dt}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2t^3$"
+          },
+          {
+            "id": "B",
+            "latex": "$3t^3$"
+          },
+          {
+            "id": "C",
+            "latex": "$4t^3$"
+          },
+          {
+            "id": "D",
+            "latex": "$6t^3$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$f_x\\dot{x} + f_y\\dot{y} = 2xy(1) + x^2(2t) = 2t^3 + 2t^3 = 4t^3$."
+      },
+      {
+        "mcqId": "M08-MCQ06",
+        "stemLatex": "On the circle $x^2 + y^2 = 25$, $\\frac{dy}{dx}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{x}{y}$"
+          },
+          {
+            "id": "B",
+            "latex": "$-\\frac{x}{y}$"
+          },
+          {
+            "id": "C",
+            "latex": "$-\\frac{y}{x}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{2x}{y}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$F_x = 2x$, $F_y = 2y$: $\\frac{dy}{dx} = -\\frac{2x}{2y} = -\\frac{x}{y}$ — minus sign from $dF = 0$."
+      },
+      {
+        "mcqId": "M08-MCQ07",
+        "stemLatex": "For $f$ homogeneous of degree $0$, $x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$n f$"
+          },
+          {
+            "id": "B",
+            "latex": "$0$"
+          },
+          {
+            "id": "C",
+            "latex": "$f$"
+          },
+          {
+            "id": "D",
+            "latex": "$n(n-1)f$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$n(n-1) = 0$; both Euler relations vanish for degree zero."
+      },
+      {
+        "mcqId": "M08-MCQ08",
+        "stemLatex": "If both mixed partials of $u$ are continuous, which equality always holds?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$u_{xy} = u_{yx}$"
+          },
+          {
+            "id": "B",
+            "latex": "$u_{xy} = -u_{yx}$"
+          },
+          {
+            "id": "C",
+            "latex": "$u_{xx} = u_{yy}$"
+          },
+          {
+            "id": "D",
+            "latex": "$u_x = u_y$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Clairaut/Schwarz symmetry: order of differentiation is interchangeable."
+      }
+    ],
+    "memoryHooks": [
+      "$u_x$: freeze $y$; $u_y$: freeze $x$.",
+      "Clairaut: continuous mixed partials commute.",
+      "Harmonic test: $u_{xx} + u_{yy} = 0$.",
+      "Euler: $x f_x + y f_y = n f$; second order gains $n(n-1)$.",
+      "Wrapped core: $n\\frac{\\psi(u)}{\\psi'(u)}$ — never apply Euler to $u$ itself.",
+      "$\\ln$-wrap often lands on a CONSTANT.",
+      "$\\tan^{-1}$-wrap with degree 2 lands on $\\sin 2u$.",
+      "Chain rule: add both path contributions.",
+      "Total differential = error propagation tool.",
+      "Implicit slope: MINUS $F_x/F_y$."
+    ],
+    "commonMistakes": [
+      "Applying $x u_x + y u_y = n u$ to a function that is not homogeneous.",
+      "Forgetting $\\psi(u)/\\psi'(u)$ in wrapped-Euler results.",
+      "Dropping the minus sign in $\\frac{dy}{dx} = -\\frac{F_x}{F_y}$.",
+      "Treating $y$ as a function of $x$ inside a partial derivative (it must stay constant).",
+      "Forgetting the $2xy f_{xy}$ middle term in the second-order form.",
+      "Assuming $u_{xy} \\neq u_{yx}$ in general.",
+      "Confusing total derivative with partial derivative.",
+      "Reading $n$ from the numerator alone in quotient-type homogeneous cores."
+    ],
+    "examChecklist": [
+      "Test homogeneity by $f(tx, ty) = t^n f$ before quoting Euler.",
+      "State both Euler relations for degree $0$.",
+      "Convert wrapped functions: identify $\\psi(u)$ and its degree first.",
+      "Handle $\\ln$/$\\tan^{-1}$ wraps via $\\psi(u)/\\psi'(u)$.",
+      "Verify harmonic functions with $u_{xx} + u_{yy}$.",
+      "Chain rule: sum both variable paths.",
+      "Use $dz = f_x dx + f_y dy$ for small-error estimates.",
+      "Implicit curves: slope $= -F_x/F_y$, check $F_y \\neq 0$.",
+      "Quote Clairaut symmetry with its continuity condition."
+    ],
+    "furtherReading": [
+      {
+        "book": "Higher Engineering Mathematics",
+        "author": "B. S. Grewal",
+        "chapters": "Partial differentiation chapter",
+        "note": "Euler and chain-rule machinery this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

@@ -200,7 +200,610 @@
       "channelName": "RADHA JAYAPRAKASH REDDY-SPARK INFO",
       "language": "en",
       "scopeNote": "Diploma-to-engineering standard limits, indeterminate forms & continuity"
+    },
+    {
+      "title": "Limits & Continuity One Shot | Maths Masterclass for JEE Main & Advanced ft. Sachin Mor Sir",
+      "url": "https://www.youtube.com/watch?v=P3T_q7iZR6I",
+      "videoId": "P3T_q7iZR6I",
+      "duration": "447 min",
+      "durationMinutes": 447,
+      "provider": "YouTube · ALLEN JEE",
+      "channelName": "ALLEN JEE",
+      "language": "en",
+      "scopeNote": "Limits, continuity and differentiability marathon anchoring the differential-calculus core."
+    },
+    {
+      "title": "Continuity and Differentiability Class 12 One Shot | Vedantu Math | Harsh Priyam Sir",
+      "url": "https://www.youtube.com/watch?v=9EDlSrfgXLM",
+      "videoId": "9EDlSrfgXLM",
+      "duration": "86 min",
+      "durationMinutes": 86,
+      "provider": "YouTube · Vedantu JEE Made Ejee",
+      "channelName": "Vedantu JEE Made Ejee",
+      "language": "en",
+      "scopeNote": "Chain rule, implicit and parametric differentiation revision."
+    },
+    {
+      "title": "Limits Continuity And Differentiability Class 12 One Shot | JEE Maths | Vedantu Math | Abhay Sir",
+      "url": "https://www.youtube.com/watch?v=j7rC3Gy4U8I",
+      "videoId": "j7rC3Gy4U8I",
+      "duration": "133 min",
+      "durationMinutes": 133,
+      "provider": "YouTube · Vedantu JEE Made Ejee",
+      "channelName": "Vedantu JEE Made Ejee",
+      "language": "en",
+      "scopeNote": "LCD problem marathon; complements the pack's maxima-minima and tangent items."
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M06-PRD01",
+        "heading": "Limits, One-Sided Existence & the $1^\\infty$ Collapse",
+        "proseLatex": "A limit exists iff $f(a^-) = f(a^+) = L$ finitely; continuity adds $L = f(a)$. For $\\lim_{x\\to a}[1 + u(x)]^{v(x)}$ with $u \\to 0$, $v \\to \\infty$, the $1^\\infty$ form collapses to $e^{\\lim u(x)v(x)}$. Micro-check: $\\lim_{x\\to 0}(1 + 3x)^{1/x} = e^{\\lim 3x \\cdot 1/x} = e^3$."
+      },
+      {
+        "prdId": "M06-PRD02",
+        "heading": "L'Hospital & Series Rescue for $0/0$",
+        "proseLatex": "For genuine $0/0$ or $\\infty/\\infty$ ratios, $\\lim\\frac{f}{g} = \\lim\\frac{f'}{g'}$ (verify the form FIRST — trap); Maclaurin series give the same answers by expansion. Micro-check: $\\lim_{x\\to 0}\\frac{\\sin 5x}{3x} = \\frac{5\\cos 5x}{3}\\Big|_0 = \\frac{5}{3}$."
+      },
+      {
+        "prdId": "M06-PRD03",
+        "heading": "Differentiability & the Parametric Machine",
+        "proseLatex": "Differentiability at $a$ needs $f'(a^-) = f'(a^+)$ finitely; differentiable $\\Rightarrow$ continuous, but $|x|$ shows the converse fails. For $x = x(t), y = y(t)$: $\\frac{dy}{dx} = \\frac{\\dot{y}}{\\dot{x}}$ and $\\frac{d^2y}{dx^2} = \\frac{d}{dt}\\!\\left(\\frac{dy}{dx}\\right)\\cdot\\frac{1}{\\dot{x}}$ — never $\\ddot{y}/\\ddot{x}$ (trap). Micro-check: $x = t^2, y = t^3$: $\\frac{dy}{dx} = \\frac{3t}{2}$, $\\frac{d^2y}{dx^2} = \\frac{3/2}{2t} = \\frac{3}{4t}$."
+      },
+      {
+        "prdId": "M06-PRD04",
+        "heading": "Variable Exponents: Logarithmic Differentiation",
+        "proseLatex": "$y = u(x)^{v(x)}$: take logs, $\\ln y = v\\ln u$, then $y' = u^v\\left(v'\\ln u + \\frac{v\\,u'}{u}\\right)$. Micro-check: $y = x^x$ gives $y' = x^x(1 + \\ln x)$; at $x = 1$ the slope is $1$."
+      },
+      {
+        "prdId": "M06-PRD05",
+        "heading": "Rolle & Lagrange's Mean Value Theorem",
+        "proseLatex": "Continuous on $[a, b]$, differentiable on $(a, b)$: Lagrange guarantees $c$ with $f'(c) = \\frac{f(b)-f(a)}{b-a}$; Rolle is the $f(a) = f(b)$ special case giving $f'(c) = 0$. Both fail if $f'$ doesn't exist inside (trap: $|x|$, $x^{2/3}$ at $0$). Micro-check: $f = x^2$ on $[1, 3]$: $2c = 4 \\Rightarrow c = 2 \\in (1, 3)$."
+      },
+      {
+        "prdId": "M06-PRD06",
+        "heading": "Leibniz Rule & Standard $n$-th Derivative Shifts",
+        "proseLatex": "$(uv)_n = \\sum_{r=0}^{n}\\binom{n}{r}u_{n-r}v_r$ handles product $n$-th derivatives; shifts: $\\frac{d^n}{dx^n}\\sin(ax+b) = a^n\\sin\\left(ax+b+\\frac{n\\pi}{2}\\right)$ and $\\frac{d^n}{dx^n}e^{ax} = a^n e^{ax}$. Micro-check: third derivative of $\\sin 2x$ is $8\\sin(2x + \\frac{3\\pi}{2}) = -8\\cos 2x$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M06-SF01",
+        "label": "Limit existence",
+        "latex": "f(a^-) = f(a^+) = L",
+        "use": "Both one-sided limits agree."
+      },
+      {
+        "sfId": "M06-SF02",
+        "label": "Continuity at $a$",
+        "latex": "L = f(a)",
+        "use": "Limit equals value."
+      },
+      {
+        "sfId": "M06-SF03",
+        "label": "L'Hospital's rule",
+        "latex": "\\lim\\frac{f}{g} = \\lim\\frac{f'}{g'}",
+        "use": "Only for true $0/0$ or $\\infty/\\infty$."
+      },
+      {
+        "sfId": "M06-SF04",
+        "label": "$1^\\infty$ collapse",
+        "latex": "\\lim [1+u]^{v} = e^{\\lim u\\,v}",
+        "use": "$u \\to 0$, $v \\to \\infty$."
+      },
+      {
+        "sfId": "M06-SF05",
+        "label": "Differentiability test",
+        "latex": "f'(a^-) = f'(a^+) \\ \\text{finite}",
+        "use": "Smoothness criterion."
+      },
+      {
+        "sfId": "M06-SF06",
+        "label": "Parametric first derivative",
+        "latex": "\\frac{dy}{dx} = \\frac{\\dot{y}}{\\dot{x}}",
+        "use": "Divide the $t$-rates."
+      },
+      {
+        "sfId": "M06-SF07",
+        "label": "Parametric second derivative",
+        "latex": "\\frac{d^2y}{dx^2} = \\frac{d}{dt}\\left(\\frac{dy}{dx}\\right)\\cdot\\frac{1}{\\dot{x}}",
+        "use": "The extra $1/\\dot{x}$ factor."
+      },
+      {
+        "sfId": "M06-SF08",
+        "label": "Variable-exponent derivative",
+        "latex": "y' = u^v\\left(v'\\ln u + \\frac{v u'}{u}\\right)",
+        "use": "For $y = u(x)^{v(x)}$."
+      },
+      {
+        "sfId": "M06-SF09",
+        "label": "Lagrange's MVT",
+        "latex": "f'(c) = \\frac{f(b)-f(a)}{b-a}",
+        "use": "Some $c \\in (a, b)$."
+      },
+      {
+        "sfId": "M06-SF10",
+        "label": "Rolle's theorem",
+        "latex": "f(a) = f(b) \\Rightarrow f'(c) = 0",
+        "use": "Special MVT case."
+      },
+      {
+        "sfId": "M06-SF11",
+        "label": "Leibniz rule",
+        "latex": "(uv)_n = \\sum_{r=0}^{n} \\binom{n}{r} u_{n-r} v_r",
+        "use": "Product $n$-th derivative."
+      },
+      {
+        "sfId": "M06-SF12",
+        "label": "$n$-th derivative of $\\sin(ax+b)$",
+        "latex": "a^n \\sin\\left(ax+b+\\frac{n\\pi}{2}\\right)",
+        "use": "Phase-shift ladder."
+      },
+      {
+        "sfId": "M06-SF13",
+        "label": "$n$-th derivative of $\\cos(ax+b)$",
+        "latex": "a^n \\cos\\left(ax+b+\\frac{n\\pi}{2}\\right)",
+        "use": "Phase-shift ladder."
+      },
+      {
+        "sfId": "M06-SF14",
+        "label": "$n$-th derivative of $e^{ax}$",
+        "latex": "a^n e^{ax}",
+        "use": "Pure scaling."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M06-DEF01",
+        "term": "Limit",
+        "definition": "Value $L$ approached as $x \\to a$; exists iff both one-sided limits agree finitely."
+      },
+      {
+        "defId": "M06-DEF02",
+        "term": "Continuity",
+        "definition": "Limit equals function value at the point."
+      },
+      {
+        "defId": "M06-DEF03",
+        "term": "Differentiability",
+        "definition": "Finitely equal left and right derivatives at the point."
+      },
+      {
+        "defId": "M06-DEF04",
+        "term": "Indeterminate form",
+        "definition": "$0/0$, $\\infty/\\infty$, $1^\\infty$ etc. — needs L'Hospital, series, or the $1^\\infty$ collapse."
+      },
+      {
+        "defId": "M06-DEF05",
+        "term": "L'Hospital's rule",
+        "definition": "Ratio-of-derivatives evaluation valid only for true indeterminate ratios."
+      },
+      {
+        "defId": "M06-DEF06",
+        "term": "Parametric derivative",
+        "definition": "$dy/dx$ obtained from $t$-rates: $\\dot{y}/\\dot{x}$."
+      },
+      {
+        "defId": "M06-DEF07",
+        "term": "Rolle's theorem",
+        "definition": "$f(a) = f(b)$ with smoothness $\\Rightarrow$ a horizontal tangent exists inside."
+      },
+      {
+        "defId": "M06-DEF08",
+        "term": "Mean value theorem (Lagrange)",
+        "definition": "Some interior $c$ matches the secant slope."
+      },
+      {
+        "defId": "M06-DEF09",
+        "term": "Leibniz rule",
+        "definition": "Binomial-coefficient formula for the $n$-th derivative of a product."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M06-CMP01",
+        "title": "Continuity vs differentiability",
+        "columns": [
+          "Aspect",
+          "Continuity",
+          "Differentiability"
+        ],
+        "rows": [
+          {
+            "label": "Requirement",
+            "values": [
+              "$\\lim_{x\\to a} f = f(a)$",
+              "$f'(a^-) = f'(a^+)$ finite"
+            ]
+          },
+          {
+            "label": "Implication",
+            "values": [
+              "weaker",
+              "implies continuity"
+            ]
+          },
+          {
+            "label": "Counterexample direction",
+            "values": [
+              "$|x|$ is continuous, not differentiable at $0$",
+              "—"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M06-CMP02",
+        "title": "Rolle vs Lagrange",
+        "columns": [
+          "Aspect",
+          "Rolle",
+          "Lagrange MVT"
+        ],
+        "rows": [
+          {
+            "label": "Extra condition",
+            "values": [
+              "$f(a) = f(b)$",
+              "none"
+            ]
+          },
+          {
+            "label": "Conclusion",
+            "values": [
+              "$f'(c) = 0$",
+              "$f'(c) = \\frac{f(b)-f(a)}{b-a}$"
+            ]
+          },
+          {
+            "label": "Shared hypotheses",
+            "values": [
+              "continuous $[a,b]$, differentiable $(a,b)$",
+              "same"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M06-CMP03",
+        "title": "$0/0$ vs $1^\\infty$ handling",
+        "columns": [
+          "Form",
+          "Tool"
+        ],
+        "rows": [
+          {
+            "label": "$0/0$",
+            "values": [
+              "L'Hospital or Maclaurin series"
+            ]
+          },
+          {
+            "label": "$1^\\infty$",
+            "values": [
+              "collapse to $e^{\\lim u\\,v}$"
+            ]
+          },
+          {
+            "label": "Pre-check",
+            "values": [
+              "confirm the form before applying any rule"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M06-MCQ01",
+        "stemLatex": "$\\lim_{x\\to 0}(1 + 3x)^{2/x}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$e^2$"
+          },
+          {
+            "id": "B",
+            "latex": "$e^3$"
+          },
+          {
+            "id": "C",
+            "latex": "$e^6$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$1^\\infty$ collapse: $e^{\\lim 3x\\cdot 2/x} = e^6$."
+      },
+      {
+        "mcqId": "M06-MCQ02",
+        "stemLatex": "$\\lim_{x\\to 0}\\frac{\\sin 5x}{3x}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{5}{3}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{3}{5}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$0/0$: L'Hospital gives $\\frac{5\\cos 5x}{3} \\to \\frac{5}{3}$."
+      },
+      {
+        "mcqId": "M06-MCQ03",
+        "stemLatex": "At $x = 2$, $f(x) = |x - 2|$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "continuous and differentiable"
+          },
+          {
+            "id": "B",
+            "latex": "continuous but not differentiable"
+          },
+          {
+            "id": "C",
+            "latex": "differentiable but not continuous"
+          },
+          {
+            "id": "D",
+            "latex": "neither"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Corner point: both one-sided limits equal $0$ (continuous) but slopes $\\pm 1$ disagree."
+      },
+      {
+        "mcqId": "M06-MCQ04",
+        "stemLatex": "For $x = t^2$, $y = t^3$, $\\frac{dy}{dx}$ at $t = 2$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3$"
+          },
+          {
+            "id": "B",
+            "latex": "$6$"
+          },
+          {
+            "id": "C",
+            "latex": "$2$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{3}{2}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\frac{\\dot{y}}{\\dot{x}} = \\frac{3t^2}{2t} = \\frac{3t}{2} = 3$ at $t = 2$."
+      },
+      {
+        "mcqId": "M06-MCQ05",
+        "stemLatex": "For $x = t^2$, $y = t^3$, $\\frac{d^2y}{dx^2}$ at $t = 1$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{3}{4}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{3}{2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$3$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{1}{2}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\frac{d}{dt}(3t/2)\\cdot\\frac{1}{2t} = \\frac{3/2}{2t} = \\frac{3}{4t} = \\frac{3}{4}$ at $t = 1$."
+      },
+      {
+        "mcqId": "M06-MCQ06",
+        "stemLatex": "The derivative of $y = x^x$ at $x = 1$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$e$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\ln 2$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$y' = x^x(1 + \\ln x)$; at $x = 1$: $1\\cdot(1 + 0) = 1$."
+      },
+      {
+        "mcqId": "M06-MCQ07",
+        "stemLatex": "Rolle's theorem applied to $f(x) = x^2 - 4x + 3$ on $[1, 3]$ gives $c$ equal to:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$3$"
+          },
+          {
+            "id": "D",
+            "latex": "$4$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$f(1) = f(3) = 0$; $f'(c) = 2c - 4 = 0 \\Rightarrow c = 2 \\in (1, 3)$."
+      },
+      {
+        "mcqId": "M06-MCQ08",
+        "stemLatex": "Lagrange's MVT for $f(x) = x^2$ on $[1, 3]$ gives $c$ equal to:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2$"
+          },
+          {
+            "id": "B",
+            "latex": "$2.5$"
+          },
+          {
+            "id": "C",
+            "latex": "$1.5$"
+          },
+          {
+            "id": "D",
+            "latex": "$3$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$2c = \\frac{9 - 1}{2} = 4 \\Rightarrow c = 2$."
+      },
+      {
+        "mcqId": "M06-MCQ09",
+        "stemLatex": "$\\frac{d^3}{dx^3}\\sin 2x$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$8\\cos 2x$"
+          },
+          {
+            "id": "B",
+            "latex": "$-8\\cos 2x$"
+          },
+          {
+            "id": "C",
+            "latex": "$2\\cos 2x$"
+          },
+          {
+            "id": "D",
+            "latex": "$-2\\cos 2x$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$2^3\\sin(2x + \\frac{3\\pi}{2}) = 8(-\\cos 2x) = -8\\cos 2x$."
+      },
+      {
+        "mcqId": "M06-MCQ10",
+        "stemLatex": "In $(uv)_2 = u_2 v + k\\,u_1 v_1 + u v_2$, the coefficient $k$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$3$"
+          },
+          {
+            "id": "D",
+            "latex": "$n$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Leibniz: middle term carries $\\binom{2}{1} = 2$."
+      }
+    ],
+    "memoryHooks": [
+      "Limit needs both sides; continuity pins the value.",
+      "$1^\\infty$? Write $e^{\\lim u\\,v}$ and move on.",
+      "Verify $0/0$ BEFORE L'Hospital — never on a hunch.",
+      "Corner $|x|$: continuous yes, differentiable no.",
+      "Parametric second derivative: differentiate $dy/dx$ w.r.t. $t$, then divide by $\\dot{x}$.",
+      "$x^x$: $x^x(1 + \\ln x)$ — log first, chain second.",
+      "Rolle = equal ends $\\to$ flat spot; Lagrange = secant slope matched.",
+      "$|x|$, $x^{2/3}$: Rolle fails where $f'$ doesn't exist.",
+      "Leibniz coefficients: Pascal's triangle row.",
+      "$\\sin$ ladder: add $\\frac{n\\pi}{2}$, scale by $a^n$."
+    ],
+    "commonMistakes": [
+      "Applying L'Hospital to a ratio that isn't $0/0$ or $\\infty/\\infty$.",
+      "Writing $\\frac{d^2y}{dx^2} = \\frac{\\ddot{y}}{\\ddot{x}}$ for parametric curves.",
+      "Forgetting the $1/\\dot{x}$ factor in parametric second derivatives.",
+      "Claiming differentiability for corner points.",
+      "Using Rolle when $f(a) \\neq f(b)$ or $f'$ has an interior gap.",
+      "Mis-expanding $x^x$ without the logarithmic step.",
+      "Dropping the phase shift $\\frac{n\\pi}{2}$ in $n$-th derivative ladders.",
+      "Leibniz coefficients from memory instead of $\\binom{n}{r}$."
+    ],
+    "examChecklist": [
+      "Split limits into one-sided pieces at piecewise joins.",
+      "Confirm the indeterminate form, then pick L'Hospital or series.",
+      "Deploy $e^{\\lim u\\,v}$ for every $1^\\infty$ limit.",
+      "Test differentiability with one-sided slopes at suspect points.",
+      "Parametric: $\\dot{y}/\\dot{x}$ then the $1/\\dot{x}$ correction.",
+      "Logarithmic differentiation for $u^v$ functions.",
+      "Verify Rolle/MVT hypotheses before solving for $c$.",
+      "Leibniz with binomial coefficients for $(uv)_n$.",
+      "Quote $\\sin/\\cos/e^{ax}$ $n$-th derivative ladders directly.",
+      "Check $c \\in (a, b)$ at the end of every MVT question."
+    ],
+    "furtherReading": [
+      {
+        "book": "Differential Calculus",
+        "author": "Shanti Narayan & P. K. Mittal",
+        "chapters": "Limits, differentiation, mean value theorems chapters",
+        "note": "Calculus fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

@@ -1,0 +1,559 @@
+{
+  "unitId": "P02",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P02-PRD01",
+        "heading": "Differential Kinematics & Graph Slopes",
+        "proseLatex": "$v = \\frac{dx}{dt}$ (slope of the $x$-$t$ graph); $a = \\frac{dv}{dt} = v\\frac{dv}{dx}$ (slope of the $v$-$t$ graph). Signed area under $v$-$t$ gives displacement; unsigned area $\\int|v|\\,dt$ gives total distance. Micro-check: a $v$-$t$ triangle above the axis then an equal one below: displacement $0$, distance $2 \\times \\frac{1}{2}bh$."
+      },
+      {
+        "prdId": "P02-PRD02",
+        "heading": "SUVAT & the $n$-th Second Displacement",
+        "proseLatex": "Constant $a$: $v = u + at$, $s = ut + \\frac{1}{2}at^2$, $v^2 = u^2 + 2as$, and the $n$-th second displacement $s_n = u + \\frac{a}{2}(2n - 1)$. Micro-check: $u = 0$, $a = 2$: $s_3 = \\frac{2}{2}(5) = 5\\,\\text{m}$ — matches $\\frac{1}{2}(2)(9) - \\frac{1}{2}(2)(4) = 5$."
+      },
+      {
+        "prdId": "P02-PRD03",
+        "heading": "Projectile Machinery",
+        "proseLatex": "$v_x = u\\cos\\theta$ constant; $a_y = -g$; path $y = x\\tan\\theta - \\frac{gx^2}{2u^2\\cos^2\\theta}$; $R = \\frac{u^2\\sin 2\\theta}{g}$ peaks at $45^\\circ$; $H = \\frac{u^2\\sin^2\\theta}{2g}$. Complementary angles $\\theta$ and $90^\\circ - \\theta$ share range with $H_1/H_2 = \\tan^2\\theta$. Micro-check: $u = 20$, $\\theta = 30°$: $R = \\frac{400\\sin 60°}{10} = 20\\sqrt{3}\\,\\text{m}$."
+      },
+      {
+        "prdId": "P02-PRD04",
+        "heading": "Apex Physics: $v_y = 0$, Not $v = 0$",
+        "proseLatex": "At the top of a projectile, vertical velocity vanishes but horizontal velocity remains: $v_{\\text{top}} = u\\cos\\theta$, and $\\vec{a} = -g\\hat{j}$ is perpendicular to it. Time of flight $T = \\frac{2u\\sin\\theta}{g}$. Micro-check: $\\theta = 60°$, $u = 20$, $g = 10$: $T = 2\\sqrt{3}\\,\\text{s}$, $v_{\\text{top}} = 10\\,\\text{m/s}$."
+      },
+      {
+        "prdId": "P02-PRD05",
+        "heading": "Relative Velocity",
+        "proseLatex": "$\\vec{v}_{AB} = \\vec{v}_A - \\vec{v}_B$: the velocity of $A$ as seen from $B$. Rain-man and boat-river problems reduce to triangle components. Micro-check: boat $5\\,\\text{m/s}$ across a $3\\,\\text{m/s}$ stream: ground speed $\\sqrt{25 + 9} = \\sqrt{34}\\,\\text{m/s}$."
+      },
+      {
+        "prdId": "P02-PRD06",
+        "heading": "Circular Kinematics: Inward Acceleration Always",
+        "proseLatex": "$v = \\omega r$ (tangential), $a_c = \\frac{v^2}{r} = \\omega^2 r$ pointing radially inward even at constant speed. With speeding up, tangential $a_t = \\alpha r$ combines orthogonally: $a_{\\text{net}} = \\sqrt{a_c^2 + a_t^2}$. Micro-check: $v = 4$, $r = 2$: $a_c = 8\\,\\text{m/s}^2$; if $a_t = 6$, net $= 10\\,\\text{m/s}^2$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P02-SF01",
+        "label": "Velocity & acceleration",
+        "latex": "v = \\frac{dx}{dt};\\quad a = \\frac{dv}{dt} = v\\frac{dv}{dx}",
+        "use": "Graph slopes / chain form."
+      },
+      {
+        "sfId": "P02-SF02",
+        "label": "SUVAT set",
+        "latex": "v = u + at;\\ s = ut + \\tfrac{1}{2}at^2;\\ v^2 = u^2 + 2as",
+        "use": "Constant $a$ only."
+      },
+      {
+        "sfId": "P02-SF03",
+        "label": "$n$-th second displacement",
+        "latex": "s_n = u + \\frac{a}{2}(2n - 1)",
+        "use": "Distance in second $n$."
+      },
+      {
+        "sfId": "P02-SF04",
+        "label": "Projectile path",
+        "latex": "y = x\\tan\\theta - \\frac{gx^2}{2u^2\\cos^2\\theta}",
+        "use": "Parabolic trajectory."
+      },
+      {
+        "sfId": "P02-SF05",
+        "label": "Range",
+        "latex": "R = \\frac{u^2\\sin 2\\theta}{g}",
+        "use": "Max at $\\theta = 45°$."
+      },
+      {
+        "sfId": "P02-SF06",
+        "label": "Height & flight time",
+        "latex": "H = \\frac{u^2\\sin^2\\theta}{2g};\\quad T = \\frac{2u\\sin\\theta}{g}",
+        "use": "Apex and landing."
+      },
+      {
+        "sfId": "P02-SF07",
+        "label": "Complementary-angle range",
+        "latex": "R(\\theta) = R(90° - \\theta)",
+        "use": "Height ratio $\\tan^2\\theta$."
+      },
+      {
+        "sfId": "P02-SF08",
+        "label": "Relative velocity",
+        "latex": "\\vec{v}_{AB} = \\vec{v}_A - \\vec{v}_B",
+        "use": "A as seen from B."
+      },
+      {
+        "sfId": "P02-SF09",
+        "label": "Circular speed link",
+        "latex": "v = \\omega r",
+        "use": "Tangential speed."
+      },
+      {
+        "sfId": "P02-SF10",
+        "label": "Centripetal acceleration",
+        "latex": "a_c = \\frac{v^2}{r} = \\omega^2 r",
+        "use": "Always radially inward."
+      },
+      {
+        "sfId": "P02-SF11",
+        "label": "Net acceleration (non-uniform)",
+        "latex": "a_{\\text{net}} = \\sqrt{a_c^2 + a_t^2}",
+        "use": "$a_t = \\alpha r$ orthogonal."
+      },
+      {
+        "sfId": "P02-SF12",
+        "label": "Displacement vs distance",
+        "latex": "\\Delta x = \\int v\\,dt;\\quad d = \\int|v|\\,dt",
+        "use": "Signed vs unsigned area."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P02-DEF01",
+        "term": "Displacement",
+        "definition": "Signed change of position; area under $v$-$t$ with signs."
+      },
+      {
+        "defId": "P02-DEF02",
+        "term": "Total distance",
+        "definition": "Path length; unsigned area under $v$-$t$."
+      },
+      {
+        "defId": "P02-DEF03",
+        "term": "Projectile",
+        "definition": "Body under gravity alone after launch: constant $v_x$, free-fall $v_y$."
+      },
+      {
+        "defId": "P02-DEF04",
+        "term": "Complementary projectiles",
+        "definition": "Launch angles summing to $90°$; equal range, different heights."
+      },
+      {
+        "defId": "P02-DEF05",
+        "term": "Relative velocity",
+        "definition": "Velocity of one body measured in the other's frame."
+      },
+      {
+        "defId": "P02-DEF06",
+        "term": "Centripetal acceleration",
+        "definition": "Inward acceleration $v^2/r$ required for curved motion."
+      },
+      {
+        "defId": "P02-DEF07",
+        "term": "Tangential acceleration",
+        "definition": "$dv/dt$ along the path; changes speed, not direction."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P02-CMP01",
+        "title": "Displacement vs distance",
+        "columns": [
+          "Aspect",
+          "Displacement",
+          "Distance"
+        ],
+        "rows": [
+          {
+            "label": "Sign",
+            "values": [
+              "signed (vector)",
+              "always positive (scalar)"
+            ]
+          },
+          {
+            "label": "v-$t$ area",
+            "values": [
+              "signed",
+              "unsigned"
+            ]
+          },
+          {
+            "label": "Round trip",
+            "values": [
+              "$0$",
+              "positive"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P02-CMP02",
+        "title": "Projectile at apex vs launch",
+        "columns": [
+          "Quantity",
+          "At apex",
+          "At launch"
+        ],
+        "rows": [
+          {
+            "label": "$v_y$",
+            "values": [
+              "$0$",
+              "$u\\sin\\theta$"
+            ]
+          },
+          {
+            "label": "$v_x$",
+            "values": [
+              "$u\\cos\\theta$",
+              "$u\\cos\\theta$"
+            ]
+          },
+          {
+            "label": "$\\vec{a}$",
+            "values": [
+              "$-g\\hat{j}$",
+              "$-g\\hat{j}$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P02-CMP03",
+        "title": "Uniform vs non-uniform circular motion",
+        "columns": [
+          "Aspect",
+          "Uniform",
+          "Non-uniform"
+        ],
+        "rows": [
+          {
+            "label": "Speed",
+            "values": [
+              "constant",
+              "changing"
+            ]
+          },
+          {
+            "label": "$a_c$",
+            "values": [
+              "$v^2/r$ only",
+              "$v^2/r$ present"
+            ]
+          },
+          {
+            "label": "$a_t$",
+            "values": [
+              "$0$",
+              "$\\alpha r$"
+            ]
+          },
+          {
+            "label": "KE",
+            "values": [
+              "constant",
+              "changing"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P02-MCQ01",
+        "stemLatex": "A body starts from rest with $a = 2\\,\\text{m/s}^2$. Its displacement during the $3$rd second is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5\\,\\text{m}$"
+          },
+          {
+            "id": "B",
+            "latex": "$9\\,\\text{m}$"
+          },
+          {
+            "id": "C",
+            "latex": "$4\\,\\text{m}$"
+          },
+          {
+            "id": "D",
+            "latex": "$6\\,\\text{m}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$s_3 = \\frac{a}{2}(2n-1) = 1\\times5 = 5\\,\\text{m}$ (check: $9 - 4 = 5$)."
+      },
+      {
+        "mcqId": "P02-MCQ02",
+        "stemLatex": "A projectile lands at the launch level with $u = 20\\,\\text{m/s}$, $\\theta = 30°$, $g = 10$. Its range is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$20\\sqrt{3}\\,\\text{m}$"
+          },
+          {
+            "id": "B",
+            "latex": "$10\\sqrt{3}\\,\\text{m}$"
+          },
+          {
+            "id": "C",
+            "latex": "$40\\,\\text{m}$"
+          },
+          {
+            "id": "D",
+            "latex": "$20\\,\\text{m}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$R = \\frac{400\\sin 60°}{10} = 20\\sqrt{3}\\,\\text{m}$."
+      },
+      {
+        "mcqId": "P02-MCQ03",
+        "stemLatex": "At the highest point of a projectile's path:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "velocity and acceleration are both zero"
+          },
+          {
+            "id": "B",
+            "latex": "velocity is horizontal, acceleration is $g$ downward"
+          },
+          {
+            "id": "C",
+            "latex": "velocity is zero, acceleration is $g$"
+          },
+          {
+            "id": "D",
+            "latex": "velocity and acceleration are parallel"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$v_y = 0$ but $v_x = u\\cos\\theta$; $\\vec{a} = -g\\hat{j}$ throughout."
+      },
+      {
+        "mcqId": "P02-MCQ04",
+        "stemLatex": "Two projectiles are launched at $30°$ and $60°$ with the same speed. The ratio of maximum heights $H_{30}/H_{60}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{1}{3}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{1}{2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1$"
+          },
+          {
+            "id": "D",
+            "latex": "$3$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$H \\propto \\sin^2\\theta$: ratio $= \\frac{(1/2)^2}{(\\sqrt{3}/2)^2} = \\frac{1}{3}$ ($= \\tan^2 30°$)."
+      },
+      {
+        "mcqId": "P02-MCQ05",
+        "stemLatex": "A boat heads straight across a $3\\,\\text{m/s}$ stream at $5\\,\\text{m/s}$. Its ground speed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$8\\,\\text{m/s}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\sqrt{34}\\,\\text{m/s}$"
+          },
+          {
+            "id": "C",
+            "latex": "$2\\,\\text{m/s}$"
+          },
+          {
+            "id": "D",
+            "latex": "$5.8\\,\\text{m/s}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Perpendicular addition: $\\sqrt{25 + 9} = \\sqrt{34}$."
+      },
+      {
+        "mcqId": "P02-MCQ06",
+        "stemLatex": "For uniform circular motion with $v = 4\\,\\text{m/s}$, $r = 2\\,\\text{m}$: the acceleration magnitude is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$8\\,\\text{m/s}^2$ inward"
+          },
+          {
+            "id": "B",
+            "latex": "$8\\,\\text{m/s}^2$ outward"
+          },
+          {
+            "id": "C",
+            "latex": "$2\\,\\text{m/s}^2$ inward"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$a_c = v^2/r = 8\\,\\text{m/s}^2$, radially inward even though speed is constant."
+      },
+      {
+        "mcqId": "P02-MCQ07",
+        "stemLatex": "A body moves with $v$-$t$ graph: $+4\\,\\text{m/s}$ for $2\\,\\text{s}$, then $-4\\,\\text{m/s}$ for $2\\,\\text{s}$. Displacement and distance are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$ and $16\\,\\text{m}$"
+          },
+          {
+            "id": "B",
+            "latex": "$16\\,\\text{m}$ and $16\\,\\text{m}$"
+          },
+          {
+            "id": "C",
+            "latex": "$0$ and $8\\,\\text{m}$"
+          },
+          {
+            "id": "D",
+            "latex": "$-16\\,\\text{m}$ and $16\\,\\text{m}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Signed areas cancel ($0$); unsigned areas add ($8 + 8 = 16\\,\\text{m}$)."
+      },
+      {
+        "mcqId": "P02-MCQ08",
+        "stemLatex": "A body moves along a STRAIGHT line with speed $v$ and tangential acceleration $a$. Then $\\frac{dv}{dx}$ equals $\\frac{a}{v}$ because:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$a = \\frac{dv}{dt}$ and $v = \\frac{dx}{dt}$"
+          },
+          {
+            "id": "B",
+            "latex": "$a$ is constant"
+          },
+          {
+            "id": "C",
+            "latex": "$v$ is constant"
+          },
+          {
+            "id": "D",
+            "latex": "of Newton's third law"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Chain rule in 1D: $\\frac{dv}{dt} = \\frac{dv}{dx}\\frac{dx}{dt} = \\frac{dv}{dx}\\,v$, so $\\frac{dv}{dx} = \\frac{a}{v}$."
+      },
+      {
+        "mcqId": "P02-MCQ09",
+        "stemLatex": "The range of a projectile is maximum at launch angle:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$30°$"
+          },
+          {
+            "id": "B",
+            "latex": "$45°$"
+          },
+          {
+            "id": "C",
+            "latex": "$60°$"
+          },
+          {
+            "id": "D",
+            "latex": "$90°$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\sin 2\\theta$ peaks at $2\\theta = 90°$: $R_{\\max} = u^2/g$."
+      },
+      {
+        "mcqId": "P02-MCQ10",
+        "stemLatex": "In non-uniform circular motion with $a_c = 8$ and $a_t = 6$ (orthogonal), the net acceleration is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$10\\,\\text{m/s}^2$"
+          },
+          {
+            "id": "B",
+            "latex": "$14\\,\\text{m/s}^2$"
+          },
+          {
+            "id": "C",
+            "latex": "$2\\,\\text{m/s}^2$"
+          },
+          {
+            "id": "D",
+            "latex": "$48\\,\\text{m/s}^2$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\sqrt{64 + 36} = 10$ — orthogonal components add in quadrature."
+      }
+    ],
+    "memoryHooks": [
+      "Slope of $x$-$t$ is $v$; slope of $v$-$t$ is $a$.",
+      "Signed area = displacement; |area| = distance.",
+      "$s_n = u + \\frac{a}{2}(2n-1)$ — odd numbers $1, 3, 5\\dots$",
+      "$R$ peaks at $45°$; complementary angles share $R$.",
+      "$H_1/H_2 = \\tan^2\\theta$ for complementary launches.",
+      "Apex: $v_y = 0$, $v_x$ alive, $a = g$ down.",
+      "$\\vec{v}_{AB} = \\vec{v}_A - \\vec{v}_B$.",
+      "$a_c = v^2/r$ always inward; $a_{\\text{net}} = \\sqrt{a_c^2 + a_t^2}$.",
+      "$v\\frac{dv}{dx}$ for acceleration as a function of position."
+    ],
+    "commonMistakes": [
+      "Reporting signed area as total distance.",
+      "Claiming velocity is zero at the projectile apex.",
+      "Applying SUVAT to non-uniform acceleration.",
+      "Forgetting $\\tan^2\\theta$ (not $\\tan\\theta$) in height ratios.",
+      "Adding relative velocities as scalars.",
+      "Drawing $a_c$ outward.",
+      "Using $s_n$ formula with $n$ instead of $(2n-1)$.",
+      "Rushing the final unit conversion after a correct setup."
+    ],
+    "examChecklist": [
+      "Convert graphs to slopes/areas with signs accounted.",
+      "Pick SUVAT only for constant $a$.",
+      "Use $s_n$ for nth-second questions.",
+      "Projectile: quote $R$, $H$, $T$ and the complementary-angle pair.",
+      "State apex conditions ($v_y = 0$).",
+      "Relative velocity by vector subtraction.",
+      "Circular: $a_c$ inward, combine with $a_t$ in quadrature.",
+      "Sanity-check the order of magnitude at the end."
+    ],
+    "furtherReading": [
+      {
+        "book": "Fundamentals of Physics",
+        "author": "Halliday, Resnick & Walker",
+        "chapters": "Motion in 1D/2D + circular motion chapters",
+        "note": "Kinematics fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

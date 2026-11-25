@@ -34,80 +34,339 @@
       }
     ],
     "keyFormulas": [
-      { "sfId": "C03-SF01", "label": "Ionic Product of Water", "latex": "$K_w = [\\text{H}^+][\\text{OH}^-] = 10^{-14}$ at $25^{\\circ}\\text{C}$", "use": "Holds in EVERY aqueous solution — acids included." },
-      { "sfId": "C03-SF02", "label": "pH Definition & the 14 Bridge", "latex": "$pH = -\\log_{10}[\\text{H}^+], \\quad pH + pOH = 14$ ($25^{\\circ}\\text{C}$)", "use": "One log away from any concentration; pOH pairs through the 14 bridge." },
-      { "sfId": "C03-SF03", "label": "Ionization Constants", "latex": "$K_a = \\frac{[\\text{H}^+][\\text{A}^-]}{[\\text{HA}]}, \\qquad K_b = \\frac{[\\text{BH}^+][\\text{OH}^-]}{[\\text{B}]}$", "use": "Equilibrium ratios — only equilibrium values may enter." },
-      { "sfId": "C03-SF04", "label": "Conjugate Pair Product", "latex": "$K_a \\cdot K_b = K_w$", "use": "Find the missing constant of any conjugate pair instantly." },
-      { "sfId": "C03-SF05", "label": "p-Scale Definitions", "latex": "$pK_a = -\\log_{10}K_a, \\quad pK_w = 14$", "use": "Lower $pK_a$ = stronger acid; smaller $pK_b$ = stronger base." },
-      { "sfId": "C03-SF06", "label": "Ostwald Dilution Law", "latex": "$K_a = \\frac{C\\alpha^2}{1 - \\alpha} \\approx C\\alpha^2 \\; (\\alpha \\ll 1)$", "use": "Weak-electrolyte ionization; connects $\\alpha$, $C$ and $K_a$." },
-      { "sfId": "C03-SF07", "label": "Weak-Acid Hydrogen Ion", "latex": "$[\\text{H}^+] \\approx \\sqrt{K_a C}, \\quad \\alpha = \\sqrt{\\dfrac{K_a}{C}}$", "use": "The weak-acid workhorse — never substitute $[\\text{H}^+] = C$ here." },
-      { "sfId": "C03-SF08", "label": "Henderson-Hasselbalch (Acidic Buffer)", "latex": "$pH = pK_a + \\log_{10}\\dfrac{[\\text{salt}]}{[\\text{acid}]}", "use": "Acidic buffer pH; ratio $10 \\Rightarrow +1$, ratio $0.1 \\Rightarrow -1$." },
-      { "sfId": "C03-SF09", "label": "Basic Buffer Form", "latex": "$pOH = pK_b + \\log_{10}\\dfrac{[\\text{salt}]}{[\\text{base}]}", "use": "e.g. $\\text{NH}_4\\text{OH}/\\text{NH}_4\\text{Cl}$ — run pOH first, then pH = 14 − pOH." },
-      { "sfId": "C03-SF10", "label": "Anion Hydrolysis (WA + SB Salt)", "latex": "$K_h = \\dfrac{K_w}{K_a}, \\quad pH = \\dfrac{1}{2}\\left(pK_w + pK_a + \\log_{10} C\\right)$", "use": "Salts of weak acid + strong base are basic — the anion hydrolyzes." },
-      { "sfId": "C03-SF11", "label": "Cation Hydrolysis (WB + SA Salt)", "latex": "$K_h = \\dfrac{K_w}{K_b}, \\quad pH = \\dfrac{1}{2}\\left(pK_w - pK_b + \\log_{10} C\\right)$", "use": "Salts of weak base + strong acid are acidic — the cation hydrolyzes." },
-      { "sfId": "C03-SF12", "label": "Normality & Equivalence", "latex": "$N = n_f \\times M, \\qquad N_1V_1 = N_2V_2$", "use": "Reactive capacity per litre; the endpoint law of every titration." },
-      { "sfId": "C03-SF13", "label": "Molarity & Dilution", "latex": "$M = \\dfrac{n_{\\text{mol}}}{V(\\text{L})}, \\qquad M_1V_1 = M_2V_2$", "use": "Moles conserved through dilution (temperature-dependent concentration)." },
-      { "sfId": "C03-SF14", "label": "Solubility Product & Stoichiometry", "latex": "$A_xB_y: \\; K_{sp} = [A^{y+}]^x[B^{x-}]^y; \\quad AB: K_{sp} = S^2, \\; AB_2: K_{sp} = 4S^3$", "use": "Convert between solubility $S$ and $K_{sp}$ via the ion count." },
-      { "sfId": "C03-SF15", "label": "Precipitation Decision ($Q$ vs $K_{sp}$)", "latex": "$Q < K_{sp}$: dissolves; $Q = K_{sp}$: saturated; $Q > K_{sp}$: precipitate", "use": "Compute $Q$ from MIXED (diluted) concentrations before comparing." }
+      {
+        "sfId": "C03-SF01",
+        "label": "Ionic Product of Water",
+        "latex": "$K_w = [\\text{H}^+][\\text{OH}^-] = 10^{-14}$ at $25^{\\circ}\\text{C}$",
+        "use": "Holds in EVERY aqueous solution — acids included."
+      },
+      {
+        "sfId": "C03-SF02",
+        "label": "pH Definition & the 14 Bridge",
+        "latex": "$pH = -\\log_{10}[\\text{H}^+], \\quad pH + pOH = 14$ ($25^{\\circ}\\text{C}$)",
+        "use": "One log away from any concentration; pOH pairs through the 14 bridge."
+      },
+      {
+        "sfId": "C03-SF03",
+        "label": "Ionization Constants",
+        "latex": "$K_a = \\frac{[\\text{H}^+][\\text{A}^-]}{[\\text{HA}]}, \\qquad K_b = \\frac{[\\text{BH}^+][\\text{OH}^-]}{[\\text{B}]}$",
+        "use": "Equilibrium ratios — only equilibrium values may enter."
+      },
+      {
+        "sfId": "C03-SF04",
+        "label": "Conjugate Pair Product",
+        "latex": "$K_a \\cdot K_b = K_w$",
+        "use": "Find the missing constant of any conjugate pair instantly."
+      },
+      {
+        "sfId": "C03-SF05",
+        "label": "p-Scale Definitions",
+        "latex": "$pK_a = -\\log_{10}K_a, \\quad pK_w = 14$",
+        "use": "Lower $pK_a$ = stronger acid; smaller $pK_b$ = stronger base."
+      },
+      {
+        "sfId": "C03-SF06",
+        "label": "Ostwald Dilution Law",
+        "latex": "$K_a = \\frac{C\\alpha^2}{1 - \\alpha} \\approx C\\alpha^2 \\; (\\alpha \\ll 1)$",
+        "use": "Weak-electrolyte ionization; connects $\\alpha$, $C$ and $K_a$."
+      },
+      {
+        "sfId": "C03-SF07",
+        "label": "Weak-Acid Hydrogen Ion",
+        "latex": "$[\\text{H}^+] \\approx \\sqrt{K_a C}, \\quad \\alpha = \\sqrt{\\dfrac{K_a}{C}}$",
+        "use": "The weak-acid workhorse — never substitute $[\\text{H}^+] = C$ here."
+      },
+      {
+        "sfId": "C03-SF08",
+        "label": "Henderson-Hasselbalch (Acidic Buffer)",
+        "latex": "$pH = pK_a + \\log_{10}\\dfrac{[\\text{salt}]}{[\\text{acid}]}",
+        "use": "Acidic buffer pH; ratio $10 \\Rightarrow +1$, ratio $0.1 \\Rightarrow -1$."
+      },
+      {
+        "sfId": "C03-SF09",
+        "label": "Basic Buffer Form",
+        "latex": "$pOH = pK_b + \\log_{10}\\dfrac{[\\text{salt}]}{[\\text{base}]}",
+        "use": "e.g. $\\text{NH}_4\\text{OH}/\\text{NH}_4\\text{Cl}$ — run pOH first, then pH = 14 − pOH."
+      },
+      {
+        "sfId": "C03-SF10",
+        "label": "Anion Hydrolysis (WA + SB Salt)",
+        "latex": "$K_h = \\dfrac{K_w}{K_a}, \\quad pH = \\dfrac{1}{2}\\left(pK_w + pK_a + \\log_{10} C\\right)$",
+        "use": "Salts of weak acid + strong base are basic — the anion hydrolyzes."
+      },
+      {
+        "sfId": "C03-SF11",
+        "label": "Cation Hydrolysis (WB + SA Salt)",
+        "latex": "$K_h = \\dfrac{K_w}{K_b}, \\quad pH = \\dfrac{1}{2}\\left(pK_w - pK_b + \\log_{10} C\\right)$",
+        "use": "Salts of weak base + strong acid are acidic — the cation hydrolyzes."
+      },
+      {
+        "sfId": "C03-SF12",
+        "label": "Normality & Equivalence",
+        "latex": "$N = n_f \\times M, \\qquad N_1V_1 = N_2V_2$",
+        "use": "Reactive capacity per litre; the endpoint law of every titration."
+      },
+      {
+        "sfId": "C03-SF13",
+        "label": "Molarity & Dilution",
+        "latex": "$M = \\dfrac{n_{\\text{mol}}}{V(\\text{L})}, \\qquad M_1V_1 = M_2V_2$",
+        "use": "Moles conserved through dilution (temperature-dependent concentration)."
+      },
+      {
+        "sfId": "C03-SF14",
+        "label": "Solubility Product & Stoichiometry",
+        "latex": "$A_xB_y: \\; K_{sp} = [A^{y+}]^x[B^{x-}]^y; \\quad AB: K_{sp} = S^2, \\; AB_2: K_{sp} = 4S^3$",
+        "use": "Convert between solubility $S$ and $K_{sp}$ via the ion count."
+      },
+      {
+        "sfId": "C03-SF15",
+        "label": "Precipitation Decision ($Q$ vs $K_{sp}$)",
+        "latex": "$Q < K_{sp}$: dissolves; $Q = K_{sp}$: saturated; $Q > K_{sp}$: precipitate",
+        "use": "Compute $Q$ from MIXED (diluted) concentrations before comparing."
+      }
     ],
     "keyDefinitions": [
-      { "defId": "C03-DEF01", "term": "Arrhenius Acid / Base", "definition": "An acid increases $[\\text{H}^+]$ and a base increases $[\\text{OH}^-]$ in aqueous solution — the water-bound, narrowest definition." },
-      { "defId": "C03-DEF02", "term": "Brønsted-Lowry Acid / Base", "definition": "An acid donates a proton, a base accepts one; every such reaction exchanges $\\text{H}^+$ between two couples." },
-      { "defId": "C03-DEF03", "term": "Conjugate Acid-Base Pair", "definition": "Two species differing by exactly one transferable $\\text{H}^+$ (e.g. $\\text{CH}_3\\text{COOH}/\\text{CH}_3\\text{COO}^-$); strong acid ↔ weak conjugate base." },
-      { "defId": "C03-DEF04", "term": "Amphiprotic Species", "definition": "A species that can both donate and accept a proton — e.g. $\\text{HCO}_3^-$, $\\text{H}_2\\text{O}$, $\\text{H}_2\\text{PO}_4^-$." },
-      { "defId": "C03-DEF05", "term": "Lewis Acid / Base", "definition": "An electron-pair ACCEPTOR (acid) and electron-pair DONOR (base) — the widest definition; covers species with no hydrogen at all ($\\text{BF}_3$)." },
-      { "defId": "C03-DEF06", "term": "Degree of Ionization ($\\alpha$)", "definition": "The fraction of dissolved electrolyte actually split into ions; rises with dilution for weak electrolytes, equals 1 for strong ones." },
-      { "defId": "C03-DEF07", "term": "Buffer Solution", "definition": "A weak partner + its salt mixture that resists pH change on small dilution or small acid/base addition; capacity is maximal at equal partner concentrations." },
-      { "defId": "C03-DEF08", "term": "Common-Ion Effect", "definition": "The backward shift of a weak electrolyte's ionization (or a salt's solubility) caused by adding a soluble source of an ion it already produces." },
-      { "defId": "C03-DEF09", "term": "Hydrolysis of a Salt", "definition": "The reaction of a salt's ion with water that shifts pH — anion hydrolysis makes basic solutions, cation hydrolysis makes acidic ones; salts of two strong parents do not hydrolyze." },
-      { "defId": "C03-DEF10", "term": "Solubility Product ($K_{sp}$) & Ionic Product ($Q$)", "definition": "$K_{sp}$: the ion-concentration product of a saturated solution (a temperature constant). $Q$: the same product from any actual concentrations; $Q > K_{sp}$ means precipitation." },
-      { "defId": "C03-DEF11", "term": "Normality & n-Factor", "definition": "Normality = molarity × $n_f$, where $n_f$ is the reactive units per formula (H⁺ delivered, OH⁻ delivered, or electrons transferred) in the reaction actually happening." }
+      {
+        "defId": "C03-DEF01",
+        "term": "Arrhenius Acid / Base",
+        "definition": "An acid increases $[\\text{H}^+]$ and a base increases $[\\text{OH}^-]$ in aqueous solution — the water-bound, narrowest definition."
+      },
+      {
+        "defId": "C03-DEF02",
+        "term": "Brønsted-Lowry Acid / Base",
+        "definition": "An acid donates a proton, a base accepts one; every such reaction exchanges $\\text{H}^+$ between two couples."
+      },
+      {
+        "defId": "C03-DEF03",
+        "term": "Conjugate Acid-Base Pair",
+        "definition": "Two species differing by exactly one transferable $\\text{H}^+$ (e.g. $\\text{CH}_3\\text{COOH}/\\text{CH}_3\\text{COO}^-$); strong acid ↔ weak conjugate base."
+      },
+      {
+        "defId": "C03-DEF04",
+        "term": "Amphiprotic Species",
+        "definition": "A species that can both donate and accept a proton — e.g. $\\text{HCO}_3^-$, $\\text{H}_2\\text{O}$, $\\text{H}_2\\text{PO}_4^-$."
+      },
+      {
+        "defId": "C03-DEF05",
+        "term": "Lewis Acid / Base",
+        "definition": "An electron-pair ACCEPTOR (acid) and electron-pair DONOR (base) — the widest definition; covers species with no hydrogen at all ($\\text{BF}_3$)."
+      },
+      {
+        "defId": "C03-DEF06",
+        "term": "Degree of Ionization ($\\alpha$)",
+        "definition": "The fraction of dissolved electrolyte actually split into ions; rises with dilution for weak electrolytes, equals 1 for strong ones."
+      },
+      {
+        "defId": "C03-DEF07",
+        "term": "Buffer Solution",
+        "definition": "A weak partner + its salt mixture that resists pH change on small dilution or small acid/base addition; capacity is maximal at equal partner concentrations."
+      },
+      {
+        "defId": "C03-DEF08",
+        "term": "Common-Ion Effect",
+        "definition": "The backward shift of a weak electrolyte's ionization (or a salt's solubility) caused by adding a soluble source of an ion it already produces."
+      },
+      {
+        "defId": "C03-DEF09",
+        "term": "Hydrolysis of a Salt",
+        "definition": "The reaction of a salt's ion with water that shifts pH — anion hydrolysis makes basic solutions, cation hydrolysis makes acidic ones; salts of two strong parents do not hydrolyze."
+      },
+      {
+        "defId": "C03-DEF10",
+        "term": "Solubility Product ($K_{sp}$) & Ionic Product ($Q$)",
+        "definition": "$K_{sp}$: the ion-concentration product of a saturated solution (a temperature constant). $Q$: the same product from any actual concentrations; $Q > K_{sp}$ means precipitation."
+      },
+      {
+        "defId": "C03-DEF11",
+        "term": "Normality & n-Factor",
+        "definition": "Normality = molarity × $n_f$, where $n_f$ is the reactive units per formula (H⁺ delivered, OH⁻ delivered, or electrons transferred) in the reaction actually happening."
+      }
     ],
     "comparisons": [
       {
         "cmpId": "C03-CMP01",
         "title": "Arrhenius vs Brønsted-Lowry vs Lewis",
-        "columns": ["Aspect", "Arrhenius", "Brønsted-Lowry", "Lewis"],
+        "columns": [
+          "Aspect",
+          "Arrhenius",
+          "Brønsted-Lowry",
+          "Lewis"
+        ],
         "rows": [
-          { "label": "Acid is…", "values": ["$\\text{H}^+$ raiser in water", "Proton ($\\text{H}^+$) donor", "Electron-pair acceptor"] },
-          { "label": "Base is…", "values": ["$\\text{OH}^-$ raiser in water", "Proton ($\\text{H}^+$) acceptor", "Electron-pair donor"] },
-          { "label": "Needs water?", "values": ["Yes — aqueous only", "No — any medium", "No — any medium"] },
-          { "label": "Scope", "values": ["Narrowest", "Wider (covers non-OH bases like $\\text{NH}_3$)", "Widest (covers $\\text{BF}_3$ etc., no proton needed)"] },
-          { "label": "Example acid + base", "values": ["$\\text{HCl}$ + $\\text{NaOH}$", "$\\text{HCl}$ + $\\text{NH}_3$", "$\\text{BF}_3$ + $\\text{NH}_3$"] }
+          {
+            "label": "Acid is…",
+            "values": [
+              "$\\text{H}^+$ raiser in water",
+              "Proton ($\\text{H}^+$) donor",
+              "Electron-pair acceptor"
+            ]
+          },
+          {
+            "label": "Base is…",
+            "values": [
+              "$\\text{OH}^-$ raiser in water",
+              "Proton ($\\text{H}^+$) acceptor",
+              "Electron-pair donor"
+            ]
+          },
+          {
+            "label": "Needs water?",
+            "values": [
+              "Yes — aqueous only",
+              "No — any medium",
+              "No — any medium"
+            ]
+          },
+          {
+            "label": "Scope",
+            "values": [
+              "Narrowest",
+              "Wider (covers non-OH bases like $\\text{NH}_3$)",
+              "Widest (covers $\\text{BF}_3$ etc., no proton needed)"
+            ]
+          },
+          {
+            "label": "Example acid + base",
+            "values": [
+              "$\\text{HCl}$ + $\\text{NaOH}$",
+              "$\\text{HCl}$ + $\\text{NH}_3$",
+              "$\\text{BF}_3$ + $\\text{NH}_3$"
+            ]
+          }
         ]
       },
       {
         "cmpId": "C03-CMP02",
         "title": "Strong vs Weak Electrolyte",
-        "columns": ["Feature", "Strong (HCl, HNO₃, NaOH, NaCl)", "Weak (CH₃COOH, NH₃, H₂CO₃)"],
+        "columns": [
+          "Feature",
+          "Strong (HCl, HNO₃, NaOH, NaCl)",
+          "Weak (CH₃COOH, NH₃, H₂CO₃)"
+        ],
         "rows": [
-          { "label": "Ionization", "values": ["Essentially complete", "Partial — governed by $K_a$ or $K_b$"] },
-          { "label": "Degree $\\alpha$", "values": ["$\\approx 1$ at ordinary dilution", "$\\ll 1$; grows on dilution by $\\sqrt{K_a/C}$"] },
-          { "label": "Source of $[\\text{H}^+]$", "values": ["Directly $n_f \\times C$", "$\\sqrt{K_a C}$ (must use the constant)"] },
-          { "label": "Equilibrium written?", "values": ["Not needed", "Yes — ICE table with one unknown"] },
-          { "label": "Conductivity", "values": ["High (many ions)", "Low (few ions)"] }
+          {
+            "label": "Ionization",
+            "values": [
+              "Essentially complete",
+              "Partial — governed by $K_a$ or $K_b$"
+            ]
+          },
+          {
+            "label": "Degree $\\alpha$",
+            "values": [
+              "$\\approx 1$ at ordinary dilution",
+              "$\\ll 1$; grows on dilution by $\\sqrt{K_a/C}$"
+            ]
+          },
+          {
+            "label": "Source of $[\\text{H}^+]$",
+            "values": [
+              "Directly $n_f \\times C$",
+              "$\\sqrt{K_a C}$ (must use the constant)"
+            ]
+          },
+          {
+            "label": "Equilibrium written?",
+            "values": [
+              "Not needed",
+              "Yes — ICE table with one unknown"
+            ]
+          },
+          {
+            "label": "Conductivity",
+            "values": [
+              "High (many ions)",
+              "Low (few ions)"
+            ]
+          }
         ]
       },
       {
         "cmpId": "C03-CMP03",
         "title": "Salt Hydrolysis Outcomes",
-        "columns": ["Parents", "Example", "Solution Nature", "Why"],
+        "columns": [
+          "Parents",
+          "Example",
+          "Solution Nature",
+          "Why"
+        ],
         "rows": [
-          { "label": "Strong acid + strong base", "values": ["$\\text{NaCl}$", "Neutral ($pH = 7$ at $25^{\\circ}\\text{C}$)", "Neither ion hydrolyzes"] },
-          { "label": "Weak acid + strong base", "values": ["$\\text{CH}_3\\text{COONa}$", "Basic ($pH > 7$)", "Anion hydrolyzes: $K_h = K_w/K_a$"] },
-          { "label": "Weak base + strong acid", "values": ["$\\text{NH}_4\\text{Cl}$", "Acidic ($pH < 7$)", "Cation hydrolyzes: $K_h = K_w/K_b$"] },
-          { "label": "Weak acid + weak base", "values": ["$\\text{CH}_3\\text{COONH}_4$", "Near-neutral; sign set by $K_a$ vs $K_b$", "Both ions hydrolyze — bigger constant wins"] }
+          {
+            "label": "Strong acid + strong base",
+            "values": [
+              "$\\text{NaCl}$",
+              "Neutral ($pH = 7$ at $25^{\\circ}\\text{C}$)",
+              "Neither ion hydrolyzes"
+            ]
+          },
+          {
+            "label": "Weak acid + strong base",
+            "values": [
+              "$\\text{CH}_3\\text{COONa}$",
+              "Basic ($pH > 7$)",
+              "Anion hydrolyzes: $K_h = K_w/K_a$"
+            ]
+          },
+          {
+            "label": "Weak base + strong acid",
+            "values": [
+              "$\\text{NH}_4\\text{Cl}$",
+              "Acidic ($pH < 7$)",
+              "Cation hydrolyzes: $K_h = K_w/K_b$"
+            ]
+          },
+          {
+            "label": "Weak acid + weak base",
+            "values": [
+              "$\\text{CH}_3\\text{COONH}_4$",
+              "Near-neutral; sign set by $K_a$ vs $K_b$",
+              "Both ions hydrolyze — bigger constant wins"
+            ]
+          }
         ]
       },
       {
         "cmpId": "C03-CMP04",
         "title": "Molarity vs Normality vs Molality",
-        "columns": ["Property", "Molarity ($M$)", "Normality ($N$)", "Molality ($m$)"],
+        "columns": [
+          "Property",
+          "Molarity ($M$)",
+          "Normality ($N$)",
+          "Molality ($m$)"
+        ],
         "rows": [
-          { "label": "Definition", "values": ["mol solute / L solution", "equivalents / L solution ($= n_f M$)", "mol solute / kg SOLVENT"] },
-          { "label": "Temperature dependence", "values": ["Changes (volume expands)", "Changes (volume-based)", "Independent (mass-based)"] },
-          { "label": "Relation", "values": ["—", "$N = n_f \\times M$", "independent of $M$ in general"] },
-          { "label": "Typical use", "values": ["General concentration work", "Titration endpoints ($N_1V_1 = N_2V_2$)", "Colligative-property calculations"] }
+          {
+            "label": "Definition",
+            "values": [
+              "mol solute / L solution",
+              "equivalents / L solution ($= n_f M$)",
+              "mol solute / kg SOLVENT"
+            ]
+          },
+          {
+            "label": "Temperature dependence",
+            "values": [
+              "Changes (volume expands)",
+              "Changes (volume-based)",
+              "Independent (mass-based)"
+            ]
+          },
+          {
+            "label": "Relation",
+            "values": [
+              "—",
+              "$N = n_f \\times M$",
+              "independent of $M$ in general"
+            ]
+          },
+          {
+            "label": "Typical use",
+            "values": [
+              "General concentration work",
+              "Titration endpoints ($N_1V_1 = N_2V_2$)",
+              "Colligative-property calculations"
+            ]
+          }
         ]
       }
     ],
@@ -116,120 +375,260 @@
         "mcqId": "C03-MCQ01",
         "stemLatex": "The pH of a $10^{-3}\\text{ M}$ aqueous $\\text{HCl}$ solution at $25^{\\circ}\\text{C}$ is:",
         "options": [
-          { "id": "A", "latex": "$3$" },
-          { "id": "B", "latex": "$11$" },
-          { "id": "C", "latex": "$2$" },
-          { "id": "D", "latex": "$7$" }
+          {
+            "id": "A",
+            "latex": "$3$"
+          },
+          {
+            "id": "B",
+            "latex": "$11$"
+          },
+          {
+            "id": "C",
+            "latex": "$2$"
+          },
+          {
+            "id": "D",
+            "latex": "$7$"
+          }
         ],
-        "correct": ["A"],
+        "correct": [
+          "A"
+        ],
         "explanation": "$\\text{HCl}$ is a strong monobasic acid: $[\\text{H}^+] = 10^{-3}\\text{ M}$ directly, so $pH = -\\log(10^{-3}) = 3$."
       },
       {
         "mcqId": "C03-MCQ02",
         "stemLatex": "The conjugate base of $\\text{H}_2\\text{PO}_4^-$ is:",
         "options": [
-          { "id": "A", "latex": "$\\text{H}_3\\text{PO}_4$" },
-          { "id": "B", "latex": "$\\text{HPO}_4^{2-}$" },
-          { "id": "C", "latex": "$\\text{PO}_4^{3-}$" },
-          { "id": "D", "latex": "$\\text{H}_2\\text{PO}_4^+$" }
+          {
+            "id": "A",
+            "latex": "$\\text{H}_3\\text{PO}_4$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{HPO}_4^{2-}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{PO}_4^{3-}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{H}_2\\text{PO}_4^+$"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "A conjugate base = the species after donating one $\\text{H}^+$: remove one H and the charge falls by one, $\\text{H}_2\\text{PO}_4^- \\to \\text{HPO}_4^{2-}$."
       },
       {
         "mcqId": "C03-MCQ03",
         "stemLatex": "When a weak acid solution is diluted, which combination is correct?",
         "options": [
-          { "id": "A", "latex": "$\\alpha$ decreases, $K_a$ constant" },
-          { "id": "B", "latex": "$\\alpha$ increases, $K_a$ constant" },
-          { "id": "C", "latex": "$\\alpha$ increases, $K_a$ increases" },
-          { "id": "D", "latex": "$\\alpha$ decreases, $K_a$ decreases" }
+          {
+            "id": "A",
+            "latex": "$\\alpha$ decreases, $K_a$ constant"
+          },
+          {
+            "id": "B",
+            "latex": "$\\alpha$ increases, $K_a$ constant"
+          },
+          {
+            "id": "C",
+            "latex": "$\\alpha$ increases, $K_a$ increases"
+          },
+          {
+            "id": "D",
+            "latex": "$\\alpha$ decreases, $K_a$ decreases"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "Ostwald: $\\alpha = \\sqrt{K_a/C}$ — dilution lowers $C$, raising $\\alpha$, but equilibrium constants change only with temperature, never with dilution."
       },
       {
         "mcqId": "C03-MCQ04",
         "stemLatex": "For an acidic buffer, $\\frac{[\\text{salt}]}{[\\text{acid}]} = 10$. The pH exceeds $pK_a$ by:",
         "options": [
-          { "id": "A", "latex": "$1$" },
-          { "id": "B", "latex": "$10$" },
-          { "id": "C", "latex": "$0$" },
-          { "id": "D", "latex": "$-1$" }
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$10$"
+          },
+          {
+            "id": "C",
+            "latex": "$0$"
+          },
+          {
+            "id": "D",
+            "latex": "$-1$"
+          }
         ],
-        "correct": ["A"],
+        "correct": [
+          "A"
+        ],
         "explanation": "Henderson-Hasselbalch: $pH = pK_a + \\log_{10}(10) = pK_a + 1$. Ratio $0.1$ would give $-1$; ratio $1$ gives $0$."
       },
       {
         "mcqId": "C03-MCQ05",
         "stemLatex": "An aqueous solution of $\\text{NH}_4\\text{Cl}$ is:",
         "options": [
-          { "id": "A", "latex": "basic, because $\\text{Cl}^-$ hydrolyzes" },
-          { "id": "B", "latex": "acidic, because $\\text{NH}_4^+$ hydrolyzes" },
-          { "id": "C", "latex": "neutral, because both parents are strong" },
-          { "id": "D", "latex": "amphoteric" }
+          {
+            "id": "A",
+            "latex": "basic, because $\\text{Cl}^-$ hydrolyzes"
+          },
+          {
+            "id": "B",
+            "latex": "acidic, because $\\text{NH}_4^+$ hydrolyzes"
+          },
+          {
+            "id": "C",
+            "latex": "neutral, because both parents are strong"
+          },
+          {
+            "id": "D",
+            "latex": "amphoteric"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "$\\text{NH}_4\\text{Cl}$ = weak base ($\\text{NH}_4\\text{OH}$) + strong acid ($\\text{HCl}$): the cation hydrolyzes ($K_h = K_w/K_b$), releasing $\\text{H}^+$ — acidic."
       },
       {
         "mcqId": "C03-MCQ06",
         "stemLatex": "The solubility of $\\text{AgCl}$ in $0.1\\text{ M }\\text{AgNO}_3$ compared with pure water is:",
         "options": [
-          { "id": "A", "latex": "higher" },
-          { "id": "B", "latex": "lower" },
-          { "id": "C", "latex": "identical" },
-          { "id": "D", "latex": "zero" }
+          {
+            "id": "A",
+            "latex": "higher"
+          },
+          {
+            "id": "B",
+            "latex": "lower"
+          },
+          {
+            "id": "C",
+            "latex": "identical"
+          },
+          {
+            "id": "D",
+            "latex": "zero"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "Common-ion effect: the added $\\text{Ag}^+$ forces $K_{sp} = [\\text{Ag}^+][\\text{Cl}^-]$ to be met with a much smaller $[\\text{Cl}^-]$ — solubility drops (it is suppressed, not zero)."
       },
       {
         "mcqId": "C03-MCQ07",
         "stemLatex": "Given $K_{sp}(\\text{AgCl}) = 1.8 \\times 10^{-10}$, the solubility of $\\text{AgCl}$ in pure water is approximately:",
         "options": [
-          { "id": "A", "latex": "$1.34 \\times 10^{-5}\\text{ M}$" },
-          { "id": "B", "latex": "$1.8 \\times 10^{-10}\\text{ M}$" },
-          { "id": "C", "latex": "$1.34 \\times 10^{-10}\\text{ M}$" },
-          { "id": "D", "latex": "$1.8 \\times 10^{-5}\\text{ M}$" }
+          {
+            "id": "A",
+            "latex": "$1.34 \\times 10^{-5}\\text{ M}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1.8 \\times 10^{-10}\\text{ M}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1.34 \\times 10^{-10}\\text{ M}$"
+          },
+          {
+            "id": "D",
+            "latex": "$1.8 \\times 10^{-5}\\text{ M}$"
+          }
         ],
-        "correct": ["A"],
+        "correct": [
+          "A"
+        ],
         "explanation": "$AB$-type salt: $K_{sp} = S^2$, so $S = \\sqrt{1.8 \\times 10^{-10}} \\approx 1.34 \\times 10^{-5}\\text{ M}$."
       },
       {
         "mcqId": "C03-MCQ08",
         "stemLatex": "The normality of a $0.1\\text{ M }\\text{H}_2\\text{SO}_4$ solution (complete ionization) is:",
         "options": [
-          { "id": "A", "latex": "$0.1\\text{ N}$" },
-          { "id": "B", "latex": "$0.05\\text{ N}$" },
-          { "id": "C", "latex": "$0.2\\text{ N}$" },
-          { "id": "D", "latex": "$0.3\\text{ N}$" }
+          {
+            "id": "A",
+            "latex": "$0.1\\text{ N}$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.05\\text{ N}$"
+          },
+          {
+            "id": "C",
+            "latex": "$0.2\\text{ N}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.3\\text{ N}$"
+          }
         ],
-        "correct": ["C"],
+        "correct": [
+          "C"
+        ],
         "explanation": "$N = n_f \\times M$ with $n_f = 2$ (two deliverable $\\text{H}^+$): $N = 2 \\times 0.1 = 0.2\\text{ N}$."
       },
       {
         "mcqId": "C03-MCQ09",
         "stemLatex": "A buffer has maximum buffer capacity when:",
         "options": [
-          { "id": "A", "latex": "$[\\text{salt}] \\gg [\\text{acid}]$" },
-          { "id": "B", "latex": "$[\\text{salt}] = [\\text{acid}]$" },
-          { "id": "C", "latex": "$[\\text{acid}] = 0$" },
-          { "id": "D", "latex": "$pH = 7$ always" }
+          {
+            "id": "A",
+            "latex": "$[\\text{salt}] \\gg [\\text{acid}]$"
+          },
+          {
+            "id": "B",
+            "latex": "$[\\text{salt}] = [\\text{acid}]$"
+          },
+          {
+            "id": "C",
+            "latex": "$[\\text{acid}] = 0$"
+          },
+          {
+            "id": "D",
+            "latex": "$pH = 7$ always"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "At the 1:1 recipe Henderson-Hasselbalch gives $pH = pK_a$, and equal moles absorb added acid or base symmetrically — the balanced point of maximum resistance."
       },
       {
         "mcqId": "C03-MCQ10",
         "stemLatex": "Which of the following is a Lewis acid?",
         "options": [
-          { "id": "A", "latex": "$\\text{NH}_3$" },
-          { "id": "B", "latex": "$\\text{OH}^-$" },
-          { "id": "C", "latex": "$\\text{BF}_3$" },
-          { "id": "D", "latex": "$\\text{H}_2\\text{O}$ (as donor)" }
+          {
+            "id": "A",
+            "latex": "$\\text{NH}_3$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\text{OH}^-$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\text{BF}_3$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\text{H}_2\\text{O}$ (as donor)"
+          }
         ],
-        "correct": ["C"],
+        "correct": [
+          "C"
+        ],
         "explanation": "$\\text{BF}_3$ is electron-deficient at boron and accepts a lone pair — a Lewis acid with no proton to donate. $\\text{NH}_3$, $\\text{OH}^-$ and water-as-donor are electron-pair sources."
       }
     ],
@@ -281,7 +680,7 @@
     "provenance": {
       "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
       "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
-      "reviewedAt": "pending (drafted 2026-11-25)"
+      "reviewedAt": "pending (drafted 2025-11-25 pilot; still awaiting owner sign-off)"
     }
   }
 }

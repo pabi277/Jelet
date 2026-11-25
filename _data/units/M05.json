@@ -176,7 +176,623 @@
       "channelName": "Math Crash Course",
       "language": "en",
       "scopeNote": "Unit vectors, projection, dot product, cross product and geometric areas"
+    },
+    {
+      "title": "Vectors Algebra Class 12 | One Shot | JEE 2023 | IIT JEE | Arvind Kalia Sir",
+      "url": "https://www.youtube.com/watch?v=sKIbVUTlveE",
+      "videoId": "sKIbVUTlveE",
+      "duration": "170 min",
+      "durationMinutes": 170,
+      "provider": "YouTube · Vedantu JEE",
+      "channelName": "Vedantu JEE",
+      "language": "en",
+      "scopeNote": "Complete vector algebra: products of vectors, triple products and vector equations."
+    },
+    {
+      "title": "Units, Dimensions & Vectors One Shot by Anu Gupta Sir | JEE Main and Advanced Physics",
+      "url": "https://www.youtube.com/watch?v=fgpd4Gp8n7M",
+      "videoId": "fgpd4Gp8n7M",
+      "duration": "441 min",
+      "durationMinutes": 441,
+      "provider": "YouTube · ALLEN JEE",
+      "channelName": "ALLEN JEE",
+      "language": "en",
+      "scopeNote": "ALLEN marathon; the vectors portion runs from 3:43:22 (addition, dot, cross, components)."
+    },
+    {
+      "title": "Vector Algebra In One Shot | CBSE Class 12 in One Shot | Harsh Sir | Vedantu Math",
+      "url": "https://www.youtube.com/watch?v=uaRChObAaqk",
+      "videoId": "uaRChObAaqk",
+      "duration": "76 min",
+      "durationMinutes": 76,
+      "provider": "YouTube · Vedantu JEE Made Ejee",
+      "channelName": "Vedantu JEE Made Ejee",
+      "language": "en",
+      "scopeNote": "Compact vector-algebra revision with board-level solved sums."
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M05-PRD01",
+        "heading": "Magnitude, Unit Vectors & Direction Cosines",
+        "proseLatex": "For $\\vec{r} = x\\hat{i} + y\\hat{j} + z\\hat{k}$: $|\\vec{r}| = \\sqrt{x^2+y^2+z^2}$ and $\\hat{r} = \\vec{r}/|\\vec{r}|$. Direction cosines $(l, m, n) = (\\cos\\alpha, \\cos\\beta, \\cos\\gamma)$ always satisfy $l^2 + m^2 + n^2 = 1$. Micro-check: $\\vec{r} = 2\\hat{i} - \\hat{j} + 2\\hat{k}$ has $|\\vec{r}| = 3$ and $\\hat{r} = \\left(\\frac{2}{3}, -\\frac{1}{3}, \\frac{2}{3}\\right)$; squares sum to $1$."
+      },
+      {
+        "prdId": "M05-PRD02",
+        "heading": "Dot Product: Orthogonality Test & Projection",
+        "proseLatex": "$\\vec{a}\\cdot\\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta = a_1b_1 + a_2b_2 + a_3b_3$ is a scalar; $\\vec{a}\\perp\\vec{b} \\iff \\vec{a}\\cdot\\vec{b} = 0$. Projection of $\\vec{a}$ ON $\\vec{b}$ divides by $|\\vec{b}|$ (not $|\\vec{a}|$): $\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}$. Micro-check: $\\vec{a} = (1, 2, 3)$, $\\vec{b} = (4, -2, 0)$: $\\vec{a}\\cdot\\vec{b} = 4 - 4 + 0 = 0$ — perpendicular."
+      },
+      {
+        "prdId": "M05-PRD03",
+        "heading": "Cross Product: Orientation & Area",
+        "proseLatex": "$\\vec{a}\\times\\vec{b} = |\\vec{a}||\\vec{b}|\\sin\\theta\\,\\hat{n}$ is anti-commutative ($\\vec{b}\\times\\vec{a} = -\\vec{a}\\times\\vec{b}$) and vanishes exactly for nonzero collinear vectors. $|\\vec{a}\\times\\vec{b}|$ is the parallelogram area on adjacent sides $\\vec{a}, \\vec{b}$; the triangle area is $\\frac{1}{2}|\\vec{a}\\times\\vec{b}|$. Micro-check: $\\vec{a} = \\hat{i} + \\hat{j}$, $\\vec{b} = \\hat{i} - \\hat{j}$: $\\vec{a}\\times\\vec{b} = -2\\hat{k}$, so areas $2$ and $1$."
+      },
+      {
+        "prdId": "M05-PRD04",
+        "heading": "Lagrange's Identity: Dot + Cross Without $\\theta$",
+        "proseLatex": "$|\\vec{a}\\times\\vec{b}|^2 + (\\vec{a}\\cdot\\vec{b})^2 = |\\vec{a}|^2|\\vec{b}|^2$ converts between dot and cross magnitudes with no angle in sight. Micro-check: $|\\vec{a}| = 3$, $|\\vec{b}| = 4$, $\\theta = 60°$: $\\vec{a}\\cdot\\vec{b} = 6$, so $|\\vec{a}\\times\\vec{b}| = \\sqrt{144 - 36} = \\sqrt{108} = 6\\sqrt{3}$ — exactly $12\\sin 60°$."
+      },
+      {
+        "prdId": "M05-PRD05",
+        "heading": "Scalar Triple Product: Volume & Coplanarity",
+        "proseLatex": "$[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = \\vec{a}\\cdot(\\vec{b}\\times\\vec{c})$ is the $3\\times 3$ component determinant: the signed parallelepiped volume. $[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = 0$ is the exact coplanarity condition, and cyclic shifts preserve it: $[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = [\\vec{b}\\;\\vec{c}\\;\\vec{a}] = [\\vec{c}\\;\\vec{a}\\;\\vec{b}]$. Micro-check: $[\\vec{a}+\\vec{b},\\ \\vec{b}+\\vec{c},\\ \\vec{c}+\\vec{a}] = 2[\\vec{a}\\;\\vec{b}\\;\\vec{c}]$ — double, never zero (unless the original is)."
+      },
+      {
+        "prdId": "M05-PRD06",
+        "heading": "Vector Triple Product: BAC-CAB (and Non-Associativity)",
+        "proseLatex": "$\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = (\\vec{a}\\cdot\\vec{c})\\vec{b} - (\\vec{a}\\cdot\\vec{b})\\vec{c}$ — the BAC-CAB expansion always lands in the plane of $\\vec{b}$ and $\\vec{c}$. The brackets matter: $\\vec{a}\\times(\\vec{b}\\times\\vec{c}) \\neq (\\vec{a}\\times\\vec{b})\\times\\vec{c}$ in general. Micro-check: $\\vec{a} = \\hat{i}$, $\\vec{b} = \\hat{j}$, $\\vec{c} = \\hat{i} + \\hat{j}$: $\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = (1)\\hat{j} - (0)\\vec{c} = \\hat{j}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M05-SF01",
+        "label": "Magnitude & unit vector",
+        "latex": "|\\vec{r}| = \\sqrt{x^2+y^2+z^2};\\quad \\hat{r} = \\frac{\\vec{r}}{|\\vec{r}|}",
+        "use": "Direction of a vector."
+      },
+      {
+        "sfId": "M05-SF02",
+        "label": "Direction-cosine identity",
+        "latex": "l^2 + m^2 + n^2 = 1",
+        "use": "Cosines of one direction."
+      },
+      {
+        "sfId": "M05-SF03",
+        "label": "Dot product",
+        "latex": "\\vec{a}\\cdot\\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta = \\textstyle\\sum a_i b_i",
+        "use": "Scalar result."
+      },
+      {
+        "sfId": "M05-SF04",
+        "label": "Orthogonality test",
+        "latex": "\\vec{a}\\perp\\vec{b} \\iff \\vec{a}\\cdot\\vec{b} = 0",
+        "use": "Zero dot product."
+      },
+      {
+        "sfId": "M05-SF05",
+        "label": "Projection of $\\vec{a}$ on $\\vec{b}$",
+        "latex": "\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}",
+        "use": "Divide by the ON-vector's length."
+      },
+      {
+        "sfId": "M05-SF06",
+        "label": "Cross product magnitude",
+        "latex": "|\\vec{a}\\times\\vec{b}| = |\\vec{a}||\\vec{b}|\\sin\\theta",
+        "use": "Anti-commutative vector."
+      },
+      {
+        "sfId": "M05-SF07",
+        "label": "Parallelogram / triangle area",
+        "latex": "|\\vec{a}\\times\\vec{b}|;\\quad \\frac{1}{2}|\\vec{a}\\times\\vec{b}|",
+        "use": "Adjacent-side areas."
+      },
+      {
+        "sfId": "M05-SF08",
+        "label": "Lagrange's identity",
+        "latex": "|\\vec{a}\\times\\vec{b}|^2 + (\\vec{a}\\cdot\\vec{b})^2 = |\\vec{a}|^2|\\vec{b}|^2",
+        "use": "Angle-free conversion."
+      },
+      {
+        "sfId": "M05-SF09",
+        "label": "Scalar triple product",
+        "latex": "[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = \\vec{a}\\cdot(\\vec{b}\\times\\vec{c})",
+        "use": "Component determinant."
+      },
+      {
+        "sfId": "M05-SF10",
+        "label": "Coplanarity condition",
+        "latex": "[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = 0",
+        "use": "Zero volume."
+      },
+      {
+        "sfId": "M05-SF11",
+        "label": "Cyclic invariance",
+        "latex": "[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = [\\vec{b}\\;\\vec{c}\\;\\vec{a}] = [\\vec{c}\\;\\vec{a}\\;\\vec{b}]",
+        "use": "Even permutations keep sign."
+      },
+      {
+        "sfId": "M05-SF12",
+        "label": "BAC-CAB rule",
+        "latex": "\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = (\\vec{a}\\cdot\\vec{c})\\vec{b} - (\\vec{a}\\cdot\\vec{b})\\vec{c}",
+        "use": "Vector triple product."
+      },
+      {
+        "sfId": "M05-SF13",
+        "label": "Sum-cycle triple product",
+        "latex": "[\\vec{a}+\\vec{b},\\ \\vec{b}+\\vec{c},\\ \\vec{c}+\\vec{a}] = 2[\\vec{a}\\;\\vec{b}\\;\\vec{c}]",
+        "use": "Classic JELET identity."
+      },
+      {
+        "sfId": "M05-SF14",
+        "label": "Difference-cycle triple product",
+        "latex": "[\\vec{a}-\\vec{b},\\ \\vec{b}-\\vec{c},\\ \\vec{c}-\\vec{a}] = 0",
+        "use": "Always coplanar."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M05-DEF01",
+        "term": "Unit vector",
+        "definition": "Vector of length 1 along the given direction: $\\vec{r}/|\\vec{r}|$."
+      },
+      {
+        "defId": "M05-DEF02",
+        "term": "Direction cosines",
+        "definition": "Cosines of the angles a direction makes with the axes; satisfy $l^2+m^2+n^2 = 1$."
+      },
+      {
+        "defId": "M05-DEF03",
+        "term": "Scalar (dot) product",
+        "definition": "Scalar $|\\vec{a}||\\vec{b}|\\cos\\theta$; zero exactly for perpendicular nonzero vectors."
+      },
+      {
+        "defId": "M05-DEF04",
+        "term": "Projection",
+        "definition": "Component of $\\vec{a}$ along $\\vec{b}$: $\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}$."
+      },
+      {
+        "defId": "M05-DEF05",
+        "term": "Vector (cross) product",
+        "definition": "Anti-commutative vector $|\\vec{a}||\\vec{b}|\\sin\\theta\\,\\hat{n}$; zero for collinear vectors."
+      },
+      {
+        "defId": "M05-DEF06",
+        "term": "Scalar triple product",
+        "definition": "Signed volume $\\vec{a}\\cdot(\\vec{b}\\times\\vec{c})$ of the parallelepiped on three vectors."
+      },
+      {
+        "defId": "M05-DEF07",
+        "term": "Coplanar vectors",
+        "definition": "Triple product zero — the three vectors share one plane."
+      },
+      {
+        "defId": "M05-DEF08",
+        "term": "Vector triple product",
+        "definition": "$\\vec{a}\\times(\\vec{b}\\times\\vec{c})$, expanded by BAC-CAB; not associative."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M05-CMP01",
+        "title": "Dot vs cross product",
+        "columns": [
+          "Aspect",
+          "$\\vec{a}\\cdot\\vec{b}$",
+          "$\\vec{a}\\times\\vec{b}$"
+        ],
+        "rows": [
+          {
+            "label": "Result type",
+            "values": [
+              "scalar",
+              "vector"
+            ]
+          },
+          {
+            "label": "Commutativity",
+            "values": [
+              "yes",
+              "anti ($\\vec{b}\\times\\vec{a} = -\\vec{a}\\times\\vec{b}$)"
+            ]
+          },
+          {
+            "label": "Zero condition",
+            "values": [
+              "perpendicular",
+              "collinear"
+            ]
+          },
+          {
+            "label": "Trig factor",
+            "values": [
+              "$\\cos\\theta$",
+              "$\\sin\\theta$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M05-CMP02",
+        "title": "Scalar vs vector triple product",
+        "columns": [
+          "Aspect",
+          "$[\\vec{a}\\;\\vec{b}\\;\\vec{c}]$",
+          "$\\vec{a}\\times(\\vec{b}\\times\\vec{c})$"
+        ],
+        "rows": [
+          {
+            "label": "Result type",
+            "values": [
+              "scalar",
+              "vector"
+            ]
+          },
+          {
+            "label": "Geometry",
+            "values": [
+              "parallelepiped volume",
+              "lies in plane of $\\vec{b}, \\vec{c}$"
+            ]
+          },
+          {
+            "label": "Zero meaning",
+            "values": [
+              "coplanar",
+              "no general zero rule"
+            ]
+          },
+          {
+            "label": "Key identity",
+            "values": [
+              "cyclic invariance",
+              "BAC-CAB"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M05-CMP03",
+        "title": "Parallelogram vs triangle area",
+        "columns": [
+          "Figure",
+          "Formula",
+          "Sides used"
+        ],
+        "rows": [
+          {
+            "label": "Parallelogram",
+            "values": [
+              "$|\\vec{a}\\times\\vec{b}|$",
+              "adjacent $\\vec{a}, \\vec{b}$"
+            ]
+          },
+          {
+            "label": "Triangle",
+            "values": [
+              "$\\frac{1}{2}|\\vec{a}\\times\\vec{b}|$",
+              "adjacent $\\vec{a}, \\vec{b}$"
+            ]
+          },
+          {
+            "label": "Triangle (diagonal form)",
+            "values": [
+              "$\\frac{1}{2}|\\vec{a}\\times\\vec{b}|$",
+              "$\\vec{a}, \\vec{b}$ as diagonals' halves"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M05-MCQ01",
+        "stemLatex": "The magnitude of $\\vec{r} = 2\\hat{i} - \\hat{j} + 2\\hat{k}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3$"
+          },
+          {
+            "id": "B",
+            "latex": "$5$"
+          },
+          {
+            "id": "C",
+            "latex": "$9$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{5}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\sqrt{4 + 1 + 4} = 3$; the unit vector is $\\left(\\frac{2}{3}, -\\frac{1}{3}, \\frac{2}{3}\\right)$."
+      },
+      {
+        "mcqId": "M05-MCQ02",
+        "stemLatex": "For $\\vec{a} = (1, 2, 3)$ and $\\vec{b} = (4, -2, 0)$, the vectors are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "parallel"
+          },
+          {
+            "id": "B",
+            "latex": "perpendicular"
+          },
+          {
+            "id": "C",
+            "latex": "at $60°$"
+          },
+          {
+            "id": "D",
+            "latex": "at $45°$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\vec{a}\\cdot\\vec{b} = 4 - 4 + 0 = 0$: zero dot product means perpendicular."
+      },
+      {
+        "mcqId": "M05-MCQ03",
+        "stemLatex": "The projection of $\\vec{a} = 3\\hat{i} + 4\\hat{j}$ on $\\vec{b} = 2\\hat{i}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$3$"
+          },
+          {
+            "id": "B",
+            "latex": "$6$"
+          },
+          {
+            "id": "C",
+            "latex": "$5$"
+          },
+          {
+            "id": "D",
+            "latex": "$1.5$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|} = \\frac{6}{2} = 3$ — divide by $|\\vec{b}|$, not $|\\vec{a}|$."
+      },
+      {
+        "mcqId": "M05-MCQ04",
+        "stemLatex": "The area of the parallelogram on $\\vec{a} = \\hat{i} + \\hat{j}$ and $\\vec{b} = \\hat{i} - \\hat{j}$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$4$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{2}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\vec{a}\\times\\vec{b} = -2\\hat{k}$, magnitude $2$; the triangle on the same sides would be $1$."
+      },
+      {
+        "mcqId": "M05-MCQ05",
+        "stemLatex": "If $|\\vec{a}| = 3$, $|\\vec{b}| = 4$ and $\\theta = 60°$, then $|\\vec{a}\\times\\vec{b}|$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$6\\sqrt{3}$"
+          },
+          {
+            "id": "B",
+            "latex": "$6$"
+          },
+          {
+            "id": "C",
+            "latex": "$12\\sqrt{3}$"
+          },
+          {
+            "id": "D",
+            "latex": "$3\\sqrt{3}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$12\\sin 60° = 12 \\cdot \\frac{\\sqrt{3}}{2} = 6\\sqrt{3}$ (Lagrange check: $\\sqrt{144-36} = \\sqrt{108}$)."
+      },
+      {
+        "mcqId": "M05-MCQ06",
+        "stemLatex": "Using Lagrange's identity with $|\\vec{a}| = 2$, $|\\vec{b}| = 5$, $\\vec{a}\\cdot\\vec{b} = 6$: $|\\vec{a}\\times\\vec{b}|$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$8$"
+          },
+          {
+            "id": "B",
+            "latex": "$6$"
+          },
+          {
+            "id": "C",
+            "latex": "$10$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{136}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$|\\vec{a}\\times\\vec{b}|^2 = 100 - 36 = 64 \\Rightarrow |\\vec{a}\\times\\vec{b}| = 8$."
+      },
+      {
+        "mcqId": "M05-MCQ07",
+        "stemLatex": "If $[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = 12$, then $[\\vec{a}+\\vec{b},\\ \\vec{b}+\\vec{c},\\ \\vec{c}+\\vec{a}]$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$12$"
+          },
+          {
+            "id": "B",
+            "latex": "$24$"
+          },
+          {
+            "id": "C",
+            "latex": "$6$"
+          },
+          {
+            "id": "D",
+            "latex": "$36$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "The sum-cycle identity doubles the value: $2 \\times 12 = 24$."
+      },
+      {
+        "mcqId": "M05-MCQ08",
+        "stemLatex": "Three nonzero vectors are coplanar exactly when:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = 0$"
+          },
+          {
+            "id": "B",
+            "latex": "$[\\vec{a}\\;\\vec{b}\\;\\vec{c}] = 1$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\vec{a}\\cdot\\vec{b} = 0$"
+          },
+          {
+            "id": "D",
+            "latex": "$|\\vec{a}\\times\\vec{b}| = |\\vec{c}|$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Zero scalar triple product = zero parallelepiped volume = coplanar."
+      },
+      {
+        "mcqId": "M05-MCQ09",
+        "stemLatex": "With $\\vec{a} = \\hat{i}$, $\\vec{b} = \\hat{j}$, $\\vec{c} = \\hat{i} + \\hat{j}$, the value of $\\vec{a}\\times(\\vec{b}\\times\\vec{c})$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\hat{i}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\hat{j}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\hat{k}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\vec{0}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "BAC-CAB: $(\\vec{a}\\cdot\\vec{c})\\vec{b} - (\\vec{a}\\cdot\\vec{b})\\vec{c} = 1\\cdot\\hat{j} - 0 = \\hat{j}$."
+      },
+      {
+        "mcqId": "M05-MCQ10",
+        "stemLatex": "$[\\vec{a}-\\vec{b},\\ \\vec{b}-\\vec{c},\\ \\vec{c}-\\vec{a}]$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$ always"
+          },
+          {
+            "id": "B",
+            "latex": "$2[\\vec{a}\\;\\vec{b}\\;\\vec{c}]$"
+          },
+          {
+            "id": "C",
+            "latex": "$[\\vec{a}\\;\\vec{b}\\;\\vec{c}]$"
+          },
+          {
+            "id": "D",
+            "latex": "$-[\\vec{a}\\;\\vec{b}\\;\\vec{c}]$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "The difference cycle is always coplanar (each vector is the negative sum of the other two)."
+      }
+    ],
+    "memoryHooks": [
+      "Dot = scalar $\\cos\\theta$; cross = vector $\\sin\\theta$.",
+      "Projection divides by the ON vector: $\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}$.",
+      "Cross zero $\\to$ collinear; dot zero $\\to$ perpendicular.",
+      "Half cross for triangle areas.",
+      "Lagrange: cross² + dot² = product of squared lengths.",
+      "Triple product = 3×3 determinant = signed volume.",
+      "Cyclic shifts preserve; swapping two flips sign.",
+      "Sum cycle doubles: $[a+b, b+c, c+a] = 2[a\\,b\\,c]$; difference cycle dies.",
+      "BAC-CAB: $\\vec{a}\\times(\\vec{b}\\times\\vec{c}) = (\\vec{a}\\cdot\\vec{c})\\vec{b} - (\\vec{a}\\cdot\\vec{b})\\vec{c}$.",
+      "Vector triple product is NOT associative — brackets are law."
+    ],
+    "commonMistakes": [
+      "Dividing the projection by $|\\vec{a}|$ instead of $|\\vec{b}|$.",
+      "Treating $\\vec{a}\\times(\\vec{b}\\times\\vec{c})$ and $(\\vec{a}\\times\\vec{b})\\times\\vec{c}$ as equal.",
+      "Forgetting the triangle's $\\frac{1}{2}$ factor on the cross product.",
+      "Using cyclic shifts on odd permutations (sign flips!).",
+      "Quoting $[\\vec{a}-\\vec{b}, \\vec{b}-\\vec{c}, \\vec{c}-\\vec{a}] = 2[\\vec{a}\\;\\vec{b}\\;\\vec{c}]$ (it is $0$).",
+      "Dropping the direction cosines' $l^2 + m^2 + n^2 = 1$ check.",
+      "Sign errors in the $3\\times 3$ determinant expansion.",
+      "Calling BAC-CAB 'BAC-CAB' and writing $(\\vec{a}\\cdot\\vec{b})\\vec{c}$ first."
+    ],
+    "examChecklist": [
+      "Compute magnitude + unit vector in one step.",
+      "Verify $l^2 + m^2 + n^2 = 1$ on any direction-cosine answer.",
+      "Use dot $= 0$ / cross $= 0$ as perpendicular/collinear tests.",
+      "Divide projections by $|\\vec{b}|$.",
+      "Parallelogram vs triangle: keep the $\\frac{1}{2}$ straight.",
+      "Deploy Lagrange's identity when $\\theta$ is unknown.",
+      "Coplanarity $\\iff$ triple product $= 0$.",
+      "Know $[a+b, b+c, c+a] = 2[a\\,b\\,c]$ and the zero difference cycle.",
+      "Expand vector triple products with BAC-CAB only.",
+      "State non-associativity of the vector triple product when asked."
+    ],
+    "furtherReading": [
+      {
+        "book": "A Textbook of Vector Calculus",
+        "author": "Shanti Narayan",
+        "chapters": "Vector algebra chapters (products, triple products)",
+        "note": "Vector-product fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

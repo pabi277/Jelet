@@ -34,7 +34,7 @@ const read = (rel) => fs.readFileSync(path.join(ROOT, rel), "utf8");
 const PILOT_UNITS = ["M01", "C03", "E05"];
 // Batch 1 (owner-approved pace): joins the pilot with the same v2 anatomy +
 // video-enrichment contract (plan §3.4 batch order).
-const PACKED_UNITS = [...PILOT_UNITS, "M02", "M03", "M07", "M11", "P08", "P12", "P14", "P15", "C01", "C04", "C06", "C07", "E01", "E02", "E03", "E04", "E06", "E07", "E08"];
+const PACKED_UNITS = [...PILOT_UNITS, "M02", "M03", "M07", "M11", "P08", "P12", "P14", "P15", "C01", "C04", "C06", "C07", "E01", "E02", "E03", "E04", "E06", "E07", "E08", "M04", "M05", "M06", "M08", "M09", "M10", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "P09", "P10", "P11", "P13", "C02", "C05", "C08"];
 
 test("Lesson: study tab is valid, leads the tab sequence, with calm empty state", () => {
   const learnJs = read("assets/js/views/learn.js");

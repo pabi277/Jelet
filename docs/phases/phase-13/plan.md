@@ -376,9 +376,16 @@ Batch scope unchanged: videos for batches 1–5 are enriched per-batch, not now.
   drafts + shipped units (2026-11-25). Evidence in
   `batch-C01-C04-C06-C07.md`. The SymPy sweep caught and fixed a real C04
   MCQ explanation error (Caro's-acid peroxo tally) before ship.
-- **Batch 4 (E01–E04 + E06–E08) shipped** with the full v2 anatomy + per-batch
-  video enrichment; evidence in `batch-E01-E02-E03-E04-E06-E07-E08.md`;
-  awaiting owner sign-off. The B4 sweep ran 41/41 after a pre-sweep
-  self-review fix (E06: I_E = (1+β)I_B = 50·I_B, not 51·I_B). Study Packs
-  validated: 22/42.
-- Next: Batch 5 = fill to 42 on owner approval.
+- **Batch 4 (E01–E04 + E06–E08) shipped and owner-signed-off** ("Continue the
+  last batch") — `provenance.reviewedBy/reviewedAt` stamped owner-approved in
+  drafts + shipped units (2026-11-25). Evidence in
+  `batch-E01-E02-E03-E04-E06-E07-E08.md`. The B4 sweep ran 41/41 after a
+  pre-sweep self-review fix (E06: I_E = (1+β)I_B = 50·I_B, not 51·I_B).
+- **Batch 5 (final: fill to 42) shipped** ("Continue the last batch") —
+  remaining 20 units: M04–M06, M08–M10, P01–P07, P09–P11, P13, C02, C05,
+  C08. Same cadence: drafts → sweep → per-unit video enrichment (3+ new
+  each) → apply → gates → evidence. Evidence in
+  `batch-M04-M10-P01-P13-C02-C05-C08.md`. The pre-sweep self-review caught a
+  real P02 MCQ stem error (dv/dx = a/v is the straight-line chain rule, not
+  a projectile identity). Study Packs shipped: **42/42**. Provenance for the
+  20 new units ships `pending` until owner sign-off.

@@ -1,0 +1,560 @@
+{
+  "unitId": "M09",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M09-PRD01",
+        "heading": "Standard Forms: $f'/f$ and the Arctangent Family",
+        "proseLatex": "$\\int\\frac{f'(x)}{f(x)}\\,dx = \\ln|f(x)| + C$ and $\\int\\frac{dx}{x^2+a^2} = \\frac{1}{a}\\tan^{-1}\\frac{x}{a} + C$ kill whole question classes on sight. Micro-check: $\\int\\frac{2x}{x^2+1}dx = \\ln(x^2+1) + C$ (numerator is half the derivative of the denominator's inside)."
+      },
+      {
+        "prdId": "M09-PRD02",
+        "heading": "By Parts, ILATE & the $e^x[f + f']$ Cancellation",
+        "proseLatex": "$\\int u\\,dv = uv - \\int v\\,du$ with $u$ chosen by ILATE (Inverse-trig, Log, Algebraic, Trig, Exponential). The JELET favourite: $\\int e^x[f(x) + f'(x)]\\,dx = e^x f(x) + C$. Micro-check: $\\int e^x(\\sin x + \\cos x)\\,dx = e^x\\sin x + C$ since $\\frac{d}{dx}\\sin x = \\cos x$."
+      },
+      {
+        "prdId": "M09-PRD03",
+        "heading": "King's Rule & the Ratio Shortcut",
+        "proseLatex": "$\\int_a^b f(x)\\,dx = \\int_a^b f(a+b-x)\\,dx$; adding the two gives $2I$. When $f(a+b-x) = f(x)$, the ratio $\\int_a^b\\frac{f(x)}{f(x)+f(a+b-x)}\\,dx$ collapses to $\\frac{b-a}{2}$. Micro-check: $\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x + \\cos x}dx = \\frac{\\pi/2}{2} = \\frac{\\pi}{4}$."
+      },
+      {
+        "prdId": "M09-PRD04",
+        "heading": "Odd & Even Integrand Symmetry on $[-a, a]$",
+        "proseLatex": "$f(-x) = -f(x)$ (odd) integrates to $0$ over $[-a, a]$; $f(-x) = f(x)$ (even) doubles over $[0, a]$. Micro-check: $\\int_{-1}^{1} x^3\\,dx = 0$ but $\\int_{-1}^{1} x^2\\,dx = \\frac{2}{3}$."
+      },
+      {
+        "prdId": "M09-PRD05",
+        "heading": "Leibniz Integral Rule (Variable Limits)",
+        "proseLatex": "$F(x) = \\int_{g(x)}^{h(x)} f(t)\\,dt \\Rightarrow F'(x) = f(h(x))h'(x) - f(g(x))g'(x)$ — the chain-rule factors are mandatory, and this is the tool for integral-type $0/0$ limits. Micro-check: $\\frac{d}{dx}\\int_0^{x^2}\\cos t\\,dt = 2x\\cos(x^2)$, not $\\cos(x^2)$."
+      },
+      {
+        "prdId": "M09-PRD06",
+        "heading": "Geometric Area: Absolutize and Split",
+        "proseLatex": "Area between $y = f(x)$ and $y = g(x)$ on $[a, b]$ is $\\int_a^b|f - g|\\,dx$ — split at every crossing; the plain integral can cancel to zero. Micro-check: area under $\\sin x$ on $[0, 2\\pi]$: $\\int_0^{2\\pi}|\\sin x|\\,dx = 4$, while $\\int_0^{2\\pi}\\sin x\\,dx = 0$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "M09-SF01",
+        "label": "Log form",
+        "latex": "\\int\\frac{f'(x)}{f(x)}\\,dx = \\ln|f(x)| + C",
+        "use": "Numerator = derivative of inside."
+      },
+      {
+        "sfId": "M09-SF02",
+        "label": "Arctangent form",
+        "latex": "\\int\\frac{dx}{x^2+a^2} = \\frac{1}{a}\\tan^{-1}\\frac{x}{a} + C",
+        "use": "Quadratic denominator."
+      },
+      {
+        "sfId": "M09-SF03",
+        "label": "Integration by parts",
+        "latex": "\\int u\\,dv = uv - \\int v\\,du",
+        "use": "Choose $u$ by ILATE."
+      },
+      {
+        "sfId": "M09-SF04",
+        "label": "ILATE order",
+        "latex": "Inverse, Log, Algebraic, Trig, Exponential",
+        "use": "Priority for $u$."
+      },
+      {
+        "sfId": "M09-SF05",
+        "label": "$e^x[f + f']$ cancellation",
+        "latex": "\\int e^x[f(x)+f'(x)]\\,dx = e^x f(x) + C",
+        "use": "Instant JELET form."
+      },
+      {
+        "sfId": "M09-SF06",
+        "label": "King's rule",
+        "latex": "\\int_a^b f(x)\\,dx = \\int_a^b f(a+b-x)\\,dx",
+        "use": "Reflection trick."
+      },
+      {
+        "sfId": "M09-SF07",
+        "label": "Ratio shortcut",
+        "latex": "\\int_a^b\\frac{f(x)}{f(x)+f(a+b-x)}\\,dx = \\frac{b-a}{2}",
+        "use": "When $f(a+b-x) = f(x)$."
+      },
+      {
+        "sfId": "M09-SF08",
+        "label": "Odd integrand",
+        "latex": "\\int_{-a}^{a} f(x)\\,dx = 0",
+        "use": "$f(-x) = -f(x)$."
+      },
+      {
+        "sfId": "M09-SF09",
+        "label": "Even integrand",
+        "latex": "\\int_{-a}^{a} f(x)\\,dx = 2\\int_0^a f(x)\\,dx",
+        "use": "$f(-x) = f(x)$."
+      },
+      {
+        "sfId": "M09-SF10",
+        "label": "Leibniz integral rule",
+        "latex": "F'(x) = f(h)h' - f(g)g'",
+        "use": "Variable-limit differentiation."
+      },
+      {
+        "sfId": "M09-SF11",
+        "label": "Area between curves",
+        "latex": "\\int_a^b|f(x)-g(x)|\\,dx",
+        "use": "Split at crossings."
+      },
+      {
+        "sfId": "M09-SF12",
+        "label": "Wallis-type reduction",
+        "latex": "\\int_0^{\\pi/2}\\sin^n x\\,dx = \\frac{n-1}{n}\\cdot\\frac{n-3}{n-2}\\cdots",
+        "use": "Even $n$ ends $\\times\\frac{\\pi}{2}$; odd ends $\\times 1$."
+      },
+      {
+        "sfId": "M09-SF13",
+        "label": "$|\\sin x|$ area",
+        "latex": "\\int_0^{2\\pi}|\\sin x|\\,dx = 4",
+        "use": "Four half-loops."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "M09-DEF01",
+        "term": "Antiderivative",
+        "definition": "Function whose derivative is the integrand, $+C$."
+      },
+      {
+        "defId": "M09-DEF02",
+        "term": "Integration by parts",
+        "definition": "$\\int u\\,dv = uv - \\int v\\,du$; $u$ chosen by ILATE."
+      },
+      {
+        "defId": "M09-DEF03",
+        "term": "ILATE",
+        "definition": "Priority ladder for picking $u$ in by-parts integrals."
+      },
+      {
+        "defId": "M09-DEF04",
+        "term": "King's property",
+        "definition": "Definite integral unchanged under $x \\to a + b - x$."
+      },
+      {
+        "defId": "M09-DEF05",
+        "term": "Odd / even integrand",
+        "definition": "Sign-flipping / sign-preserving symmetry under $x \\to -x$."
+      },
+      {
+        "defId": "M09-DEF06",
+        "term": "Leibniz integral rule",
+        "definition": "Differentiation of an integral with variable limits."
+      },
+      {
+        "defId": "M09-DEF07",
+        "term": "Geometric (bounded) area",
+        "definition": "$\\int|f - g|$: absolute area, splitting at curve crossings."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "M09-CMP01",
+        "title": "Plain integral vs geometric area",
+        "columns": [
+          "Aspect",
+          "$\\int_a^b f\\,dx$",
+          "$\\int_a^b|f|\\,dx$"
+        ],
+        "rows": [
+          {
+            "label": "Sign",
+            "values": [
+              "signed",
+              "always $\\ge 0$"
+            ]
+          },
+          {
+            "label": "$\\sin x$ on $[0, 2\\pi]$",
+            "values": [
+              "$0$",
+              "$4$"
+            ]
+          },
+          {
+            "label": "Use",
+            "values": [
+              "net accumulation",
+              "bounded-area questions"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M09-CMP02",
+        "title": "King's rule vs odd/even symmetry",
+        "columns": [
+          "Aspect",
+          "King's rule",
+          "Odd/even"
+        ],
+        "rows": [
+          {
+            "label": "Interval",
+            "values": [
+              "any $[a, b]$",
+              "symmetric $[-a, a]$"
+            ]
+          },
+          {
+            "label": "Tool",
+            "values": [
+              "reflection $x \\to a+b-x$",
+              "sign parity"
+            ]
+          },
+          {
+            "label": "Typical payoff",
+            "values": [
+              "ratio $\\to \\frac{b-a}{2}$",
+              "instant $0$ or doubling"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "M09-CMP03",
+        "title": "By-parts choices",
+        "columns": [
+          "Integral type",
+          "Pick $u$ as",
+          "Reason"
+        ],
+        "rows": [
+          {
+            "label": "$x e^x$",
+            "values": [
+              "$x$ (Algebraic)",
+              "ILATE beats Exponential"
+            ]
+          },
+          {
+            "label": "$\\ln x$",
+            "values": [
+              "$\\ln x$ (Log)",
+              "log must be differentiated away"
+            ]
+          },
+          {
+            "label": "$e^x(f + f')$",
+            "values": [
+              "none needed",
+              "cancellation form"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "M09-MCQ01",
+        "stemLatex": "$\\int\\frac{2x}{x^2+1}\\,dx$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\ln(x^2+1) + C$"
+          },
+          {
+            "id": "B",
+            "latex": "$x^2 + 1 + C$"
+          },
+          {
+            "id": "C",
+            "latex": "$2\\ln x + C$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\tan^{-1}x + C$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Numerator is $f'$ for $f = x^2 + 1$: log form."
+      },
+      {
+        "mcqId": "M09-MCQ02",
+        "stemLatex": "$\\int\\frac{dx}{x^2+4}\\,dx$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{1}{2}\\tan^{-1}\\frac{x}{2} + C$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\tan^{-1}\\frac{x}{2} + C$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\tan^{-1}2x + C$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{1}{4}\\tan^{-1}\\frac{x}{2} + C$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$a = 2$: $\\frac{1}{a}\\tan^{-1}(x/a)$."
+      },
+      {
+        "mcqId": "M09-MCQ03",
+        "stemLatex": "$\\int e^x(\\sin x + \\cos x)\\,dx$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$e^x\\sin x + C$"
+          },
+          {
+            "id": "B",
+            "latex": "$e^x\\cos x + C$"
+          },
+          {
+            "id": "C",
+            "latex": "$e^x(\\sin x - \\cos x) + C$"
+          },
+          {
+            "id": "D",
+            "latex": "$x e^x + C$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$f = \\sin x$, $f' = \\cos x$: cancellation form gives $e^x f$."
+      },
+      {
+        "mcqId": "M09-MCQ04",
+        "stemLatex": "$\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x + \\cos x}\\,dx$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{\\pi}{4}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{\\pi}{2}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{\\pi}{8}$"
+          },
+          {
+            "id": "D",
+            "latex": "$1$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "Ratio shortcut: $\\frac{b-a}{2} = \\frac{\\pi/2}{2} = \\frac{\\pi}{4}$."
+      },
+      {
+        "mcqId": "M09-MCQ05",
+        "stemLatex": "$\\int_{-2}^{2} x^3\\,dx$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$4$"
+          },
+          {
+            "id": "C",
+            "latex": "$8$"
+          },
+          {
+            "id": "D",
+            "latex": "$16$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$x^3$ is odd: the symmetric integral is $0$."
+      },
+      {
+        "mcqId": "M09-MCQ06",
+        "stemLatex": "$\\frac{d}{dx}\\int_0^{x^2}\\cos t\\,dt$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\cos(x^2)$"
+          },
+          {
+            "id": "B",
+            "latex": "$2x\\cos(x^2)$"
+          },
+          {
+            "id": "C",
+            "latex": "$2x\\sin(x^2)$"
+          },
+          {
+            "id": "D",
+            "latex": "$x^2\\cos x$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Leibniz with $h = x^2$: chain factor $h' = 2x$."
+      },
+      {
+        "mcqId": "M09-MCQ07",
+        "stemLatex": "The area between $y = x$ and $y = x^2$ on $[0, 1]$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{1}{6}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{1}{3}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{1}{2}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{5}{6}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\int_0^1(x - x^2)\\,dx = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6}$."
+      },
+      {
+        "mcqId": "M09-MCQ08",
+        "stemLatex": "The area enclosed by $y = \\sin x$ and the $x$-axis on $[0, 2\\pi]$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$2$"
+          },
+          {
+            "id": "C",
+            "latex": "$4$"
+          },
+          {
+            "id": "D",
+            "latex": "$4\\pi$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Geometric area needs $|\\sin x|$: two loops of $2$ each $\\to 4$."
+      },
+      {
+        "mcqId": "M09-MCQ09",
+        "stemLatex": "$\\int_0^{\\pi/2}\\sin^2 x\\,dx$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{\\pi}{2}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{\\pi}{4}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{2}{\\pi}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Wallis with $n = 2$: $\\frac{1}{2}\\cdot\\frac{\\pi}{2} = \\frac{\\pi}{4}$ (equivalently $\\sin^2 = \\frac{1-\\cos 2x}{2}$)."
+      },
+      {
+        "mcqId": "M09-MCQ10",
+        "stemLatex": "$\\int_0^{\\pi} x\\sin x\\,dx$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\pi$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\pi$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{\\pi}{2}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "King: $I = \\int_0^{\\pi}(\\pi - x)\\sin x\\,dx$; $2I = \\pi\\int_0^{\\pi}\\sin x\\,dx = 2\\pi \\Rightarrow I = \\pi$."
+      }
+    ],
+    "memoryHooks": [
+      "Numerator $=$ inside-derivative? Log it.",
+      "$\\frac{1}{x^2+a^2}$? $\\frac{1}{a}\\tan^{-1}\\frac{x}{a}$.",
+      "ILATE: Inverse, Log, Algebraic, Trig, Exponential.",
+      "$e^x[f + f'] \\to e^x f$ — recognize and skip work.",
+      "King: reflect, add, halve.",
+      "Ratio $\\frac{f}{f + \\text{reflection}}$ lands on $\\frac{b-a}{2}$.",
+      "Odd kills, even doubles on $[-a, a]$.",
+      "Leibniz: multiply by the LIMIT's derivative, both ends.",
+      "Area questions: absolutize and split at crossings.",
+      "$\\sin x$ over a full period: net $0$, area $4$."
+    ],
+    "commonMistakes": [
+      "Reporting $\\int_0^{2\\pi}\\sin x\\,dx = 0$ as the bounded area.",
+      "Dropping chain-rule factors in Leibniz differentiation.",
+      "Substituting $t = \\tan x$ across $x = \\pi/2$ without splitting.",
+      "Using L'Hospital-style limits on integrals without the Leibniz rule.",
+      "Wrong ILATE pick (exponential as $u$).",
+      "Forgetting $+C$ on indefinite integrals.",
+      "Applying even-doubling to odd integrands.",
+      "Wallis ladder sign errors for odd $n$."
+    ],
+    "examChecklist": [
+      "Spot $f'/f$ and $\\frac{1}{x^2+a^2}$ forms on sight.",
+      "Choose $u$ by ILATE for every by-parts question.",
+      "Recognize $e^x[f + f']$ and answer instantly.",
+      "Reflect with King's rule when the interval ratio appears.",
+      "Exploit odd/even symmetry before computing anything.",
+      "Leibniz: $f(h)h' - f(g)g'$ with both chain factors.",
+      "Geometric area: $|f - g|$ with splits at crossings.",
+      "Wallis for even/odd powers of $\\sin$ on $[0, \\pi/2]$.",
+      "Split definite integrals at interior discontinuities."
+    ],
+    "furtherReading": [
+      {
+        "book": "Integral Calculus",
+        "author": "Shanti Narayan & P. K. Mittal",
+        "chapters": "Indefinite + definite integral chapters",
+        "note": "Integration fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

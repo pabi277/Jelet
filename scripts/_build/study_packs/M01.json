@@ -34,80 +34,335 @@
       }
     ],
     "keyFormulas": [
-      { "sfId": "M01-SF01", "label": "Transpose Laws & Reversal", "latex": "$(A^T)^T = A,\\; (A \\pm B)^T = A^T \\pm B^T,\\; (AB)^T = B^T A^T$", "use": "Reverse the order whenever a product is transposed." },
-      { "sfId": "M01-SF02", "label": "Unique Symmetric + Skew Split", "latex": "$A = \\underbrace{\\tfrac{1}{2}(A + A^T)}_{\\text{symmetric}} + \\underbrace{\\tfrac{1}{2}(A - A^T)}_{\\text{skew}}$", "use": "Decompose any square matrix; identify each part on sight." },
-      { "sfId": "M01-SF03", "label": "Commutator Skew Theorem", "latex": "$A^T = A,\\; B^T = B \\implies (AB - BA)^T = -(AB - BA)$", "use": "Difference of products of symmetric matrices is always skew-symmetric." },
-      { "sfId": "M01-SF04", "label": "Scalar-Multiple Determinant", "latex": "$|kA| = k^n |A|$", "use": "Apply the order $n$ before the value of $k$ (order 3, $k=2$: factor 8)." },
-      { "sfId": "M01-SF05", "label": "Product & Transpose Determinants", "latex": "$|AB| = |A|\\,|B|, \\qquad |A^T| = |A|$", "use": "Split products; transpose never changes the determinant." },
-      { "sfId": "M01-SF06", "label": "Inverse Determinant", "latex": "$|A^{-1}| = \\dfrac{1}{|A|}$", "use": "Determinant of an inverse is the reciprocal (non-singular only)." },
-      { "sfId": "M01-SF07", "label": "Odd-Order Skew Determinant", "latex": "$A^T = -A,\\; n \\text{ odd} \\implies |A| = 0$", "use": "Quote directly — never expand the determinant." },
-      { "sfId": "M01-SF08", "label": "Triangular/Diagonal Determinant", "latex": "$|A| = a_{11} a_{22} \\cdots a_{nn}$ (triangular or diagonal $A$)", "use": "Read the answer off the diagonal — zero expansion time." },
-      { "sfId": "M01-SF09", "label": "Adjoint Identity", "latex": "$A \\cdot \\operatorname{adj}A = \\operatorname{adj}A \\cdot A = |A| I_n$", "use": "The engine of every adjoint question; also verifies your adjoint arithmetic." },
-      { "sfId": "M01-SF10", "label": "Inverse via Adjoint", "latex": "$A^{-1} = \\dfrac{\\operatorname{adj}A}{|A|} \\quad (|A| \\neq 0)$", "use": "Compute $|A|$ first; singular means stop — no inverse exists." },
-      { "sfId": "M01-SF11", "label": "Determinant of the Adjoint", "latex": "$|\\operatorname{adj}A| = |A|^{n-1}$", "use": "One-step numerical questions (order 3, $|A|=5$ → $25$)." },
-      { "sfId": "M01-SF12", "label": "Adjoint of the Adjoint", "latex": "$\\operatorname{adj}(\\operatorname{adj}A) = |A|^{\\,n-2} A$", "use": "Substitute $A \\to \\operatorname{adj}A$ in the adjoint identity." },
-      { "sfId": "M01-SF13", "label": "Order-2 Adjoint Shortcut", "latex": "$\\operatorname{adj}\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix} = \\begin{bmatrix} d & -b \\\\ -c & a \\end{bmatrix}$", "use": "Swap diagonal, negate off-diagonal — skip cofactors entirely." },
-      { "sfId": "M01-SF14", "label": "Orthogonal Matrix Test", "latex": "$AA^T = A^T A = I \\implies A^{-1} = A^T,\\; |A| = \\pm 1$", "use": "One equation certifies orthogonality and pins the determinant." },
-      { "sfId": "M01-SF15", "label": "Cayley-Hamilton Characteristic Equations", "latex": "$\\text{order }2:\\; \\lambda^2 - (\\operatorname{tr}A)\\lambda + |A| = 0; \\quad \\text{order }3:\\; \\lambda^3 - (\\operatorname{tr}A)\\lambda^2 + (\\Sigma\\text{ principal minors})\\lambda - |A| = 0$", "use": "Substitute $A$ to crush high powers; divide by $A$ to express $A^{-1}$." },
-      { "sfId": "M01-SF16", "label": "Trace Laws (Cyclic Product)", "latex": "$\\operatorname{tr}(kA) = k\\operatorname{tr}A, \\quad \\operatorname{tr}(A+B) = \\operatorname{tr}A + \\operatorname{tr}B, \\quad \\operatorname{tr}(AB) = \\operatorname{tr}(BA)$", "use": "Cyclic trace holds even when $AB \\neq BA$ — free one-mark checks." }
+      {
+        "sfId": "M01-SF01",
+        "label": "Transpose Laws & Reversal",
+        "latex": "$(A^T)^T = A,\\; (A \\pm B)^T = A^T \\pm B^T,\\; (AB)^T = B^T A^T$",
+        "use": "Reverse the order whenever a product is transposed."
+      },
+      {
+        "sfId": "M01-SF02",
+        "label": "Unique Symmetric + Skew Split",
+        "latex": "$A = \\underbrace{\\tfrac{1}{2}(A + A^T)}_{\\text{symmetric}} + \\underbrace{\\tfrac{1}{2}(A - A^T)}_{\\text{skew}}$",
+        "use": "Decompose any square matrix; identify each part on sight."
+      },
+      {
+        "sfId": "M01-SF03",
+        "label": "Commutator Skew Theorem",
+        "latex": "$A^T = A,\\; B^T = B \\implies (AB - BA)^T = -(AB - BA)$",
+        "use": "Difference of products of symmetric matrices is always skew-symmetric."
+      },
+      {
+        "sfId": "M01-SF04",
+        "label": "Scalar-Multiple Determinant",
+        "latex": "$|kA| = k^n |A|$",
+        "use": "Apply the order $n$ before the value of $k$ (order 3, $k=2$: factor 8)."
+      },
+      {
+        "sfId": "M01-SF05",
+        "label": "Product & Transpose Determinants",
+        "latex": "$|AB| = |A|\\,|B|, \\qquad |A^T| = |A|$",
+        "use": "Split products; transpose never changes the determinant."
+      },
+      {
+        "sfId": "M01-SF06",
+        "label": "Inverse Determinant",
+        "latex": "$|A^{-1}| = \\dfrac{1}{|A|}$",
+        "use": "Determinant of an inverse is the reciprocal (non-singular only)."
+      },
+      {
+        "sfId": "M01-SF07",
+        "label": "Odd-Order Skew Determinant",
+        "latex": "$A^T = -A,\\; n \\text{ odd} \\implies |A| = 0$",
+        "use": "Quote directly — never expand the determinant."
+      },
+      {
+        "sfId": "M01-SF08",
+        "label": "Triangular/Diagonal Determinant",
+        "latex": "$|A| = a_{11} a_{22} \\cdots a_{nn}$ (triangular or diagonal $A$)",
+        "use": "Read the answer off the diagonal — zero expansion time."
+      },
+      {
+        "sfId": "M01-SF09",
+        "label": "Adjoint Identity",
+        "latex": "$A \\cdot \\operatorname{adj}A = \\operatorname{adj}A \\cdot A = |A| I_n$",
+        "use": "The engine of every adjoint question; also verifies your adjoint arithmetic."
+      },
+      {
+        "sfId": "M01-SF10",
+        "label": "Inverse via Adjoint",
+        "latex": "$A^{-1} = \\dfrac{\\operatorname{adj}A}{|A|} \\quad (|A| \\neq 0)$",
+        "use": "Compute $|A|$ first; singular means stop — no inverse exists."
+      },
+      {
+        "sfId": "M01-SF11",
+        "label": "Determinant of the Adjoint",
+        "latex": "$|\\operatorname{adj}A| = |A|^{n-1}$",
+        "use": "One-step numerical questions (order 3, $|A|=5$ → $25$)."
+      },
+      {
+        "sfId": "M01-SF12",
+        "label": "Adjoint of the Adjoint",
+        "latex": "$\\operatorname{adj}(\\operatorname{adj}A) = |A|^{\\,n-2} A$",
+        "use": "Substitute $A \\to \\operatorname{adj}A$ in the adjoint identity."
+      },
+      {
+        "sfId": "M01-SF13",
+        "label": "Order-2 Adjoint Shortcut",
+        "latex": "$\\operatorname{adj}\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix} = \\begin{bmatrix} d & -b \\\\ -c & a \\end{bmatrix}$",
+        "use": "Swap diagonal, negate off-diagonal — skip cofactors entirely."
+      },
+      {
+        "sfId": "M01-SF14",
+        "label": "Orthogonal Matrix Test",
+        "latex": "$AA^T = A^T A = I \\implies A^{-1} = A^T,\\; |A| = \\pm 1$",
+        "use": "One equation certifies orthogonality and pins the determinant."
+      },
+      {
+        "sfId": "M01-SF15",
+        "label": "Cayley-Hamilton Characteristic Equations",
+        "latex": "$\\text{order }2:\\; \\lambda^2 - (\\operatorname{tr}A)\\lambda + |A| = 0; \\quad \\text{order }3:\\; \\lambda^3 - (\\operatorname{tr}A)\\lambda^2 + (\\Sigma\\text{ principal minors})\\lambda - |A| = 0$",
+        "use": "Substitute $A$ to crush high powers; divide by $A$ to express $A^{-1}$."
+      },
+      {
+        "sfId": "M01-SF16",
+        "label": "Trace Laws (Cyclic Product)",
+        "latex": "$\\operatorname{tr}(kA) = k\\operatorname{tr}A, \\quad \\operatorname{tr}(A+B) = \\operatorname{tr}A + \\operatorname{tr}B, \\quad \\operatorname{tr}(AB) = \\operatorname{tr}(BA)$",
+        "use": "Cyclic trace holds even when $AB \\neq BA$ — free one-mark checks."
+      }
     ],
     "keyDefinitions": [
-      { "defId": "M01-DEF01", "term": "Matrix & Order", "definition": "An ordered rectangular array $[a_{ij}]$ of $m$ rows and $n$ columns; $m \\times n$ is its order and $mn$ is its element count." },
-      { "defId": "M01-DEF02", "term": "Diagonal / Scalar / Identity Matrix", "definition": "Square matrix with off-diagonal entries zero (diagonal); a diagonal matrix with equal diagonal entries $k$ (scalar); the scalar matrix with $k = 1$, denoted $I_n$ (identity)." },
-      { "defId": "M01-DEF03", "term": "Symmetric Matrix", "definition": "A square matrix with $A^T = A$, equivalently $a_{ij} = a_{ji}$ for all $i, j$." },
-      { "defId": "M01-DEF04", "term": "Skew-Symmetric Matrix", "definition": "A square matrix with $A^T = -A$, equivalently $a_{ij} = -a_{ji}$; every diagonal entry is $0$." },
-      { "defId": "M01-DEF05", "term": "Singular / Non-Singular", "definition": "A square matrix is singular when $|A| = 0$ (no inverse) and non-singular when $|A| \\neq 0$ (inverse exists)." },
-      { "defId": "M01-DEF06", "term": "Minor & Cofactor", "definition": "The minor $M_{ij}$ is the determinant left after deleting row $i$ and column $j$; the cofactor is $C_{ij} = (-1)^{i+j} M_{ij}$." },
-      { "defId": "M01-DEF07", "term": "Adjoint", "definition": "The transpose of the cofactor matrix of a square matrix; it satisfies $A\\,\\operatorname{adj}A = |A|I_n$ whether or not $A$ is invertible." },
-      { "defId": "M01-DEF08", "term": "Orthogonal Matrix", "definition": "A real square matrix with $AA^T = A^T A = I$; equivalently its rows (and columns) form an orthonormal set and $|A| = \\pm 1$." },
-      { "defId": "M01-DEF09", "term": "Trace", "definition": "The sum of the diagonal entries of a square matrix; cyclic under products: $\\operatorname{tr}(AB) = \\operatorname{tr}(BA)$." },
-      { "defId": "M01-DEF10", "term": "Idempotent / Involutory / Nilpotent", "definition": "Matrix power families: idempotent $A^2 = A$; involutory $A^2 = I$ (self-inverse); nilpotent $A^k = O$ for some $k$ (always singular)." }
+      {
+        "defId": "M01-DEF01",
+        "term": "Matrix & Order",
+        "definition": "An ordered rectangular array $[a_{ij}]$ of $m$ rows and $n$ columns; $m \\times n$ is its order and $mn$ is its element count."
+      },
+      {
+        "defId": "M01-DEF02",
+        "term": "Diagonal / Scalar / Identity Matrix",
+        "definition": "Square matrix with off-diagonal entries zero (diagonal); a diagonal matrix with equal diagonal entries $k$ (scalar); the scalar matrix with $k = 1$, denoted $I_n$ (identity)."
+      },
+      {
+        "defId": "M01-DEF03",
+        "term": "Symmetric Matrix",
+        "definition": "A square matrix with $A^T = A$, equivalently $a_{ij} = a_{ji}$ for all $i, j$."
+      },
+      {
+        "defId": "M01-DEF04",
+        "term": "Skew-Symmetric Matrix",
+        "definition": "A square matrix with $A^T = -A$, equivalently $a_{ij} = -a_{ji}$; every diagonal entry is $0$."
+      },
+      {
+        "defId": "M01-DEF05",
+        "term": "Singular / Non-Singular",
+        "definition": "A square matrix is singular when $|A| = 0$ (no inverse) and non-singular when $|A| \\neq 0$ (inverse exists)."
+      },
+      {
+        "defId": "M01-DEF06",
+        "term": "Minor & Cofactor",
+        "definition": "The minor $M_{ij}$ is the determinant left after deleting row $i$ and column $j$; the cofactor is $C_{ij} = (-1)^{i+j} M_{ij}$."
+      },
+      {
+        "defId": "M01-DEF07",
+        "term": "Adjoint",
+        "definition": "The transpose of the cofactor matrix of a square matrix; it satisfies $A\\,\\operatorname{adj}A = |A|I_n$ whether or not $A$ is invertible."
+      },
+      {
+        "defId": "M01-DEF08",
+        "term": "Orthogonal Matrix",
+        "definition": "A real square matrix with $AA^T = A^T A = I$; equivalently its rows (and columns) form an orthonormal set and $|A| = \\pm 1$."
+      },
+      {
+        "defId": "M01-DEF09",
+        "term": "Trace",
+        "definition": "The sum of the diagonal entries of a square matrix; cyclic under products: $\\operatorname{tr}(AB) = \\operatorname{tr}(BA)$."
+      },
+      {
+        "defId": "M01-DEF10",
+        "term": "Idempotent / Involutory / Nilpotent",
+        "definition": "Matrix power families: idempotent $A^2 = A$; involutory $A^2 = I$ (self-inverse); nilpotent $A^k = O$ for some $k$ (always singular)."
+      }
     ],
     "comparisons": [
       {
         "cmpId": "M01-CMP01",
         "title": "Symmetric vs Skew-Symmetric vs Orthogonal",
-        "columns": ["Aspect", "Symmetric", "Skew-Symmetric", "Orthogonal"],
+        "columns": [
+          "Aspect",
+          "Symmetric",
+          "Skew-Symmetric",
+          "Orthogonal"
+        ],
         "rows": [
-          { "label": "Defining equation", "values": ["$A^T = A$", "$A^T = -A$", "$AA^T = A^T A = I$"] },
-          { "label": "Diagonal entries", "values": ["Any values", "All zero", "No fixed rule"] },
-          { "label": "Determinant", "values": ["Any real value", "$0$ when order is odd; perfect square (even order)", "Always $\\pm 1$"] },
-          { "label": "Inverse", "values": ["Only if $|A| \\neq 0$", "Only if $|A| \\neq 0$ (never for odd order)", "$A^{-1} = A^T$ always"] },
-          { "label": "Example", "values": ["$\\begin{bmatrix} 2 & 3 \\\\ 3 & 5 \\end{bmatrix}$", "$\\begin{bmatrix} 0 & 1 \\\\ -1 & 0 \\end{bmatrix}$", "$\\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$"] }
+          {
+            "label": "Defining equation",
+            "values": [
+              "$A^T = A$",
+              "$A^T = -A$",
+              "$AA^T = A^T A = I$"
+            ]
+          },
+          {
+            "label": "Diagonal entries",
+            "values": [
+              "Any values",
+              "All zero",
+              "No fixed rule"
+            ]
+          },
+          {
+            "label": "Determinant",
+            "values": [
+              "Any real value",
+              "$0$ when order is odd; perfect square (even order)",
+              "Always $\\pm 1$"
+            ]
+          },
+          {
+            "label": "Inverse",
+            "values": [
+              "Only if $|A| \\neq 0$",
+              "Only if $|A| \\neq 0$ (never for odd order)",
+              "$A^{-1} = A^T$ always"
+            ]
+          },
+          {
+            "label": "Example",
+            "values": [
+              "$\\begin{bmatrix} 2 & 3 \\\\ 3 & 5 \\end{bmatrix}$",
+              "$\\begin{bmatrix} 0 & 1 \\\\ -1 & 0 \\end{bmatrix}$",
+              "$\\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$"
+            ]
+          }
         ]
       },
       {
         "cmpId": "M01-CMP02",
         "title": "Singular vs Non-Singular",
-        "columns": ["Aspect", "Singular ($|A| = 0$)", "Non-Singular ($|A| \\neq 0$)"],
+        "columns": [
+          "Aspect",
+          "Singular ($|A| = 0$)",
+          "Non-Singular ($|A| \\neq 0$)"
+        ],
         "rows": [
-          { "label": "Inverse $A^{-1}$", "values": ["Does not exist", "$A^{-1} = \\operatorname{adj}A / |A|$"] },
-          { "label": "Adjoint identity reads", "values": ["$A\\,\\operatorname{adj}A = O$", "$A\\,\\operatorname{adj}A = |A| I$"] },
-          { "label": "Rows/columns", "values": ["Linearly dependent", "Linearly independent"] },
-          { "label": "System $Ax = b$", "values": ["No unique solution route via $A^{-1}$", "Unique solution $x = A^{-1}b$"] }
+          {
+            "label": "Inverse $A^{-1}$",
+            "values": [
+              "Does not exist",
+              "$A^{-1} = \\operatorname{adj}A / |A|$"
+            ]
+          },
+          {
+            "label": "Adjoint identity reads",
+            "values": [
+              "$A\\,\\operatorname{adj}A = O$",
+              "$A\\,\\operatorname{adj}A = |A| I$"
+            ]
+          },
+          {
+            "label": "Rows/columns",
+            "values": [
+              "Linearly dependent",
+              "Linearly independent"
+            ]
+          },
+          {
+            "label": "System $Ax = b$",
+            "values": [
+              "No unique solution route via $A^{-1}$",
+              "Unique solution $x = A^{-1}b$"
+            ]
+          }
         ]
       },
       {
         "cmpId": "M01-CMP03",
         "title": "Idempotent vs Involutory vs Nilpotent",
-        "columns": ["Test", "Idempotent", "Involutory", "Nilpotent"],
+        "columns": [
+          "Test",
+          "Idempotent",
+          "Involutory",
+          "Nilpotent"
+        ],
         "rows": [
-          { "label": "Power condition", "values": ["$A^2 = A$", "$A^2 = I$", "$A^k = O$ for some $k$"] },
-          { "label": "Determinant $|A|$", "values": ["$0$ or $1$", "$\\pm 1$", "$0$ (always singular)"] },
-          { "label": "Inverse", "values": ["Exists only when $|A| = 1$", "$A$ itself", "Never exists"] },
-          { "label": "Example", "values": ["$\\begin{bmatrix} 1 & 0 \\\\ 0 & 0 \\end{bmatrix}$", "$\\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$", "$\\begin{bmatrix} 0 & 1 \\\\ 0 & 0 \\end{bmatrix}$"] }
+          {
+            "label": "Power condition",
+            "values": [
+              "$A^2 = A$",
+              "$A^2 = I$",
+              "$A^k = O$ for some $k$"
+            ]
+          },
+          {
+            "label": "Determinant $|A|$",
+            "values": [
+              "$0$ or $1$",
+              "$\\pm 1$",
+              "$0$ (always singular)"
+            ]
+          },
+          {
+            "label": "Inverse",
+            "values": [
+              "Exists only when $|A| = 1$",
+              "$A$ itself",
+              "Never exists"
+            ]
+          },
+          {
+            "label": "Example",
+            "values": [
+              "$\\begin{bmatrix} 1 & 0 \\\\ 0 & 0 \\end{bmatrix}$",
+              "$\\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$",
+              "$\\begin{bmatrix} 0 & 1 \\\\ 0 & 0 \\end{bmatrix}$"
+            ]
+          }
         ]
       },
       {
         "cmpId": "M01-CMP04",
         "title": "adj A vs A⁻¹",
-        "columns": ["Aspect", "$\\operatorname{adj}A$", "$A^{-1}$"],
+        "columns": [
+          "Aspect",
+          "$\\operatorname{adj}A$",
+          "$A^{-1}$"
+        ],
         "rows": [
-          { "label": "Exists for", "values": ["Every square matrix", "Only non-singular matrices ($|A| \\neq 0$)"] },
-          { "label": "Formula", "values": ["Cofactor matrix transposed", "$\\operatorname{adj}A / |A|$"] },
-          { "label": "Order-2 construction", "values": ["Swap diagonal, negate off-diagonal", "Same, then divide by $|A|$"] },
-          { "label": "Determinant", "values": ["$|\\operatorname{adj}A| = |A|^{n-1}$", "$|A^{-1}| = 1/|A|$"] },
-          { "label": "Composition", "values": ["$\\operatorname{adj}(\\operatorname{adj}A) = |A|^{n-2}A$", "$A^{-1}$ of a product reverses: $(AB)^{-1} = B^{-1}A^{-1}$"] }
+          {
+            "label": "Exists for",
+            "values": [
+              "Every square matrix",
+              "Only non-singular matrices ($|A| \\neq 0$)"
+            ]
+          },
+          {
+            "label": "Formula",
+            "values": [
+              "Cofactor matrix transposed",
+              "$\\operatorname{adj}A / |A|$"
+            ]
+          },
+          {
+            "label": "Order-2 construction",
+            "values": [
+              "Swap diagonal, negate off-diagonal",
+              "Same, then divide by $|A|$"
+            ]
+          },
+          {
+            "label": "Determinant",
+            "values": [
+              "$|\\operatorname{adj}A| = |A|^{n-1}$",
+              "$|A^{-1}| = 1/|A|$"
+            ]
+          },
+          {
+            "label": "Composition",
+            "values": [
+              "$\\operatorname{adj}(\\operatorname{adj}A) = |A|^{n-2}A$",
+              "$A^{-1}$ of a product reverses: $(AB)^{-1} = B^{-1}A^{-1}$"
+            ]
+          }
         ]
       }
     ],
@@ -116,120 +371,260 @@
         "mcqId": "M01-MCQ01",
         "stemLatex": "If $A$ is a $3 \\times 3$ matrix with $|A| = 3$, then $|2A|$ equals:",
         "options": [
-          { "id": "A", "latex": "$6$" },
-          { "id": "B", "latex": "$12$" },
-          { "id": "C", "latex": "$24$" },
-          { "id": "D", "latex": "$3$" }
+          {
+            "id": "A",
+            "latex": "$6$"
+          },
+          {
+            "id": "B",
+            "latex": "$12$"
+          },
+          {
+            "id": "C",
+            "latex": "$24$"
+          },
+          {
+            "id": "D",
+            "latex": "$3$"
+          }
         ],
-        "correct": ["C"],
+        "correct": [
+          "C"
+        ],
         "explanation": "$|kA| = k^n|A|$ with $n = 3$: $|2A| = 2^3 \\cdot 3 = 8 \\times 3 = 24$. The order is applied before the scalar."
       },
       {
         "mcqId": "M01-MCQ02",
         "stemLatex": "The determinant of every odd-order real skew-symmetric matrix is:",
         "options": [
-          { "id": "A", "latex": "$1$" },
-          { "id": "B", "latex": "$0$" },
-          { "id": "C", "latex": "$-1$" },
-          { "id": "D", "latex": "a non-zero perfect square" }
+          {
+            "id": "A",
+            "latex": "$1$"
+          },
+          {
+            "id": "B",
+            "latex": "$0$"
+          },
+          {
+            "id": "C",
+            "latex": "$-1$"
+          },
+          {
+            "id": "D",
+            "latex": "a non-zero perfect square"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "$|A^T| = |-A| = (-1)^n|A| = -|A|$ for odd $n$, so $|A| = -|A|$ forces $|A| = 0$. (Even-order skew determinants are perfect squares, not this case.)"
       },
       {
         "mcqId": "M01-MCQ03",
         "stemLatex": "The adjoint of $\\begin{bmatrix} 3 & 1 \\\\ 2 & 4 \\end{bmatrix}$ is:",
         "options": [
-          { "id": "A", "latex": "$\\begin{bmatrix} 4 & -1 \\\\ -2 & 3 \\end{bmatrix}$" },
-          { "id": "B", "latex": "$\\begin{bmatrix} 3 & -1 \\\\ -2 & 4 \\end{bmatrix}$" },
-          { "id": "C", "latex": "$\\begin{bmatrix} 4 & 1 \\\\ 2 & 3 \\end{bmatrix}$" },
-          { "id": "D", "latex": "$\\begin{bmatrix} -4 & 1 \\\\ 2 & -3 \\end{bmatrix}$" }
+          {
+            "id": "A",
+            "latex": "$\\begin{bmatrix} 4 & -1 \\\\ -2 & 3 \\end{bmatrix}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\begin{bmatrix} 3 & -1 \\\\ -2 & 4 \\end{bmatrix}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\begin{bmatrix} 4 & 1 \\\\ 2 & 3 \\end{bmatrix}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\begin{bmatrix} -4 & 1 \\\\ 2 & -3 \\end{bmatrix}$"
+          }
         ],
-        "correct": ["A"],
+        "correct": [
+          "A"
+        ],
         "explanation": "Order-2 shortcut: swap the diagonal ($3 \\leftrightarrow 4$), negate the off-diagonal ($1 \\to -1$, $2 \\to -2$). No cofactor expansion needed."
       },
       {
         "mcqId": "M01-MCQ04",
         "stemLatex": "If $A$ is a $3 \\times 3$ matrix with $|A| = 5$, then $|\\operatorname{adj}A|$ equals:",
         "options": [
-          { "id": "A", "latex": "$5$" },
-          { "id": "B", "latex": "$25$" },
-          { "id": "C", "latex": "$125$" },
-          { "id": "D", "latex": "$\\sqrt{5}$" }
+          {
+            "id": "A",
+            "latex": "$5$"
+          },
+          {
+            "id": "B",
+            "latex": "$25$"
+          },
+          {
+            "id": "C",
+            "latex": "$125$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\sqrt{5}$"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "$|\\operatorname{adj}A| = |A|^{n-1} = 5^2 = 25$. (Check with the engine: $|A \\cdot \\operatorname{adj}A| = 5 \\times 25 = 125 = |A|^3$.)"
       },
       {
         "mcqId": "M01-MCQ05",
         "stemLatex": "If $A$ and $B$ are real symmetric matrices of the same order, then $AB - BA$ is always:",
         "options": [
-          { "id": "A", "latex": "symmetric" },
-          { "id": "B", "latex": "skew-symmetric" },
-          { "id": "C", "latex": "the zero matrix" },
-          { "id": "D", "latex": "orthogonal" }
+          {
+            "id": "A",
+            "latex": "symmetric"
+          },
+          {
+            "id": "B",
+            "latex": "skew-symmetric"
+          },
+          {
+            "id": "C",
+            "latex": "the zero matrix"
+          },
+          {
+            "id": "D",
+            "latex": "orthogonal"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "$(AB - BA)^T = B^TA^T - A^TB^T = BA - AB = -(AB - BA)$ using $A^T = A$, $B^T = B$. Note $AB - BA$ need not be $O$ — that needs $AB = BA$."
       },
       {
         "mcqId": "M01-MCQ06",
         "stemLatex": "For matrices $A$, $B$, $C$ of compatible orders, $(ABC)^T$ equals:",
         "options": [
-          { "id": "A", "latex": "$A^T B^T C^T$" },
-          { "id": "B", "latex": "$C^T B^T A^T$" },
-          { "id": "C", "latex": "$B^T A^T C^T$" },
-          { "id": "D", "latex": "$C^T A^T B^T$" }
+          {
+            "id": "A",
+            "latex": "$A^T B^T C^T$"
+          },
+          {
+            "id": "B",
+            "latex": "$C^T B^T A^T$"
+          },
+          {
+            "id": "C",
+            "latex": "$B^T A^T C^T$"
+          },
+          {
+            "id": "D",
+            "latex": "$C^T A^T B^T$"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "Transpose reversal law applied twice: $(ABC)^T = ((AB)C)^T = C^T(AB)^T = C^TB^TA^T$."
       },
       {
         "mcqId": "M01-MCQ07",
         "stemLatex": "If $A$ is an orthogonal $3 \\times 3$ matrix with $|A| = -1$, then $|2A|$ equals:",
         "options": [
-          { "id": "A", "latex": "$-2$" },
-          { "id": "B", "latex": "$8$" },
-          { "id": "C", "latex": "$-8$" },
-          { "id": "D", "latex": "$2$" }
+          {
+            "id": "A",
+            "latex": "$-2$"
+          },
+          {
+            "id": "B",
+            "latex": "$8$"
+          },
+          {
+            "id": "C",
+            "latex": "$-8$"
+          },
+          {
+            "id": "D",
+            "latex": "$2$"
+          }
         ],
-        "correct": ["C"],
+        "correct": [
+          "C"
+        ],
         "explanation": "Orthogonality fixes $|A| = \\pm 1$ (given $-1$); then $|2A| = 2^3|A| = 8 \\times (-1) = -8$."
       },
       {
         "mcqId": "M01-MCQ08",
         "stemLatex": "A $2 \\times 2$ matrix $A$ has $\\operatorname{tr}(A) = 3$ and $|A| = 2$. By Cayley-Hamilton, $A^2$ equals:",
         "options": [
-          { "id": "A", "latex": "$3A + 2I$" },
-          { "id": "B", "latex": "$3A - 2I$" },
-          { "id": "C", "latex": "$-3A + 2I$" },
-          { "id": "D", "latex": "$2A - 3I$" }
+          {
+            "id": "A",
+            "latex": "$3A + 2I$"
+          },
+          {
+            "id": "B",
+            "latex": "$3A - 2I$"
+          },
+          {
+            "id": "C",
+            "latex": "$-3A + 2I$"
+          },
+          {
+            "id": "D",
+            "latex": "$2A - 3I$"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "Characteristic equation: $\\lambda^2 - 3\\lambda + 2 = 0$. Substituting $A$: $A^2 - 3A + 2I = O$, so $A^2 = 3A - 2I$. Dividing by $A$ also gives $A^{-1} = \\frac{1}{2}(3I - A)$."
       },
       {
         "mcqId": "M01-MCQ09",
         "stemLatex": "If $A$ is a non-zero idempotent matrix ($A^2 = A$), then $|A|$ can be:",
         "options": [
-          { "id": "A", "latex": "any real number" },
-          { "id": "B", "latex": "$0$ or $1$ only" },
-          { "id": "C", "latex": "$1$ only" },
-          { "id": "D", "latex": "$-1$ or $1$ only" }
+          {
+            "id": "A",
+            "latex": "any real number"
+          },
+          {
+            "id": "B",
+            "latex": "$0$ or $1$ only"
+          },
+          {
+            "id": "C",
+            "latex": "$1$ only"
+          },
+          {
+            "id": "D",
+            "latex": "$-1$ or $1$ only"
+          }
         ],
-        "correct": ["B"],
+        "correct": [
+          "B"
+        ],
         "explanation": "Determinants of $A^2 = A$ give $|A|^2 = |A|$, so $|A|(|A| - 1) = 0$: the determinant is $0$ or $1$ (e.g. $\\operatorname{diag}(1,0)$ has $|A| = 0$, $I$ has $|A| = 1$)."
       },
       {
         "mcqId": "M01-MCQ10",
         "stemLatex": "For square matrices $A$ and $B$ of the same order, $\\operatorname{tr}(AB) - \\operatorname{tr}(BA)$ equals:",
         "options": [
-          { "id": "A", "latex": "$0$" },
-          { "id": "B", "latex": "$\\operatorname{tr}(A)\\operatorname{tr}(B)$" },
-          { "id": "C", "latex": "$\\operatorname{tr}(A - B)$" },
-          { "id": "D", "latex": "not determined in general" }
+          {
+            "id": "A",
+            "latex": "$0$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\operatorname{tr}(A)\\operatorname{tr}(B)$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\operatorname{tr}(A - B)$"
+          },
+          {
+            "id": "D",
+            "latex": "not determined in general"
+          }
         ],
-        "correct": ["A"],
+        "correct": [
+          "A"
+        ],
         "explanation": "Trace is cyclic: $\\operatorname{tr}(AB) = \\operatorname{tr}(BA)$ always — even when the products themselves differ ($AB \\neq BA$)."
       }
     ],
@@ -287,7 +682,7 @@
     "provenance": {
       "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
       "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
-      "reviewedAt": "pending (drafted 2026-11-25)"
+      "reviewedAt": "pending (drafted 2025-11-25 pilot; still awaiting owner sign-off)"
     }
   }
 }

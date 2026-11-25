@@ -1,0 +1,560 @@
+{
+  "unitId": "P07",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P07-PRD01",
+        "heading": "Surface Tension as Force AND Energy",
+        "proseLatex": "$S = \\frac{F}{\\ell}$ ($\\text{N/m}$) equals isothermal surface energy per unit area $\\frac{W}{\\Delta A}$ ($\\text{J/m}^2$), dimension $[MT^{-2}]$. A liquid DROP in air has ONE surface; a SOAP FILM/BUBBLE has TWO. Micro-check: raising a soap film's area by $0.02\\,\\text{m}^2$ (both surfaces) with $S = 0.03$: $W = 2\\times0.03\\times0.02 = 1.2\\,\\text{mJ}$."
+      },
+      {
+        "prdId": "P07-PRD02",
+        "heading": "Coalescence: Droplets Merge, Heat Comes Out",
+        "proseLatex": "$n$ droplets of radius $r$ merge into one of radius $R = n^{1/3}r$ (volume conservation). Total surface area DROPS ($n\\times4\\pi r^2 \\to 4\\pi n^{2/3}r^2$), so surface energy decreases and energy is RELEASED (warming). Micro-check: $n = 8$: $R = 2r$, area ratio $= \\frac{8}{4} = 2$ — halves."
+      },
+      {
+        "prdId": "P07-PRD03",
+        "heading": "Young–Laplace Excess Pressure",
+        "proseLatex": "Concave side sits at higher pressure. Liquid drop in air or air bubble in water (ONE interface): $\\Delta P = \\frac{2S}{R}$. Soap bubble in air (TWO interfaces): $\\Delta P = \\frac{4S}{R}$. Micro-check: $S = 0.025$, $R = 0.05$: bubble $\\Delta P = 2\\,\\text{Pa}$, drop $\\Delta P = 1\\,\\text{Pa}$."
+      },
+      {
+        "prdId": "P07-PRD04",
+        "heading": "Small Bubble Beats Big Bubble",
+        "proseLatex": "Since $\\Delta P \\propto 1/R$, the smaller bubble has HIGHER internal pressure: connect a small and a large soap bubble by a tube and air flows from SMALL to LARGE — the small shrinks, the large grows. Micro-check: $R$ halves $\\Rightarrow \\Delta P$ doubles."
+      },
+      {
+        "prdId": "P07-PRD05",
+        "heading": "Angle of Contact & Jurin's Capillary Rise",
+        "proseLatex": "Wetting liquids ($\\theta < 90°$, water-on-clean-glass $\\approx 0°$): concave meniscus, RISE. Non-wetting ($\\theta > 90°$, mercury-glass $\\approx 135°$): convex meniscus, DEPRESS. Height $h = \\frac{2S\\cos\\theta}{r\\rho g}$. Micro-check: water, $S = 0.07$, $r = 0.5\\,\\text{mm}$, $\\rho = 1000$: $h = \\frac{0.14}{0.0005\\times10^4} = 0.028\\,\\text{m} = 2.8\\,\\text{cm}$."
+      },
+      {
+        "prdId": "P07-PRD06",
+        "heading": "Tube of Insufficient Length: Never a Fountain",
+        "proseLatex": "If the tube is shorter than $h$, water does NOT overflow: the meniscus FLATTENS — its radius of curvature grows so that $h'R_{\\text{meniscus}} = \\text{const}$ (product of height and curvature radius is fixed). Micro-check: halve the protruding length $\\Rightarrow$ meniscus radius doubles."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P07-SF01",
+        "label": "Surface tension (force form)",
+        "latex": "S = \\frac{F}{\\ell}",
+        "use": "Force per unit length."
+      },
+      {
+        "sfId": "P07-SF02",
+        "label": "Surface energy",
+        "latex": "S = \\frac{W}{\\Delta A}",
+        "use": "Energy per new area; $[MT^{-2}]$."
+      },
+      {
+        "sfId": "P07-SF03",
+        "label": "Drop/bubble work",
+        "latex": "W = S\\Delta A\\ (1\\ \\text{surface});\\ 2S\\Delta A\\ (2\\ \\text{surfaces})",
+        "use": "Film doubles the cost."
+      },
+      {
+        "sfId": "P07-SF04",
+        "label": "Coalescence radius",
+        "latex": "R = n^{1/3}\\,r",
+        "use": "Volume conservation."
+      },
+      {
+        "sfId": "P07-SF05",
+        "label": "Excess pressure (1 surface)",
+        "latex": "\\Delta P = \\frac{2S}{R}",
+        "use": "Drop in air, air bubble in water."
+      },
+      {
+        "sfId": "P07-SF06",
+        "label": "Excess pressure (2 surfaces)",
+        "latex": "\\Delta P = \\frac{4S}{R}",
+        "use": "Soap bubble in air."
+      },
+      {
+        "sfId": "P07-SF07",
+        "label": "Capillary rise (Jurin)",
+        "latex": "h = \\frac{2S\\cos\\theta}{r\\rho g}",
+        "use": "Rise for wetting, depress for $\\theta > 90°$."
+      },
+      {
+        "sfId": "P07-SF08",
+        "label": "Insufficient-length rule",
+        "latex": "h'\\,R_{\\text{meniscus}} = \\text{const}",
+        "use": "Meniscus flattens, no overflow."
+      },
+      {
+        "sfId": "P07-SF09",
+        "label": "Work to split a drop",
+        "latex": "W = 4\\pi r^2 S\\ (\\text{into two equal drops adds } 4\\pi r^2 S)",
+        "use": "Area bookkeeping."
+      },
+      {
+        "sfId": "P07-SF10",
+        "label": "Energy released on coalescence",
+        "latex": "\\Delta E = 4\\pi r^2 S\\,(n - n^{2/3})",
+        "use": "Positive: heat released."
+      },
+      {
+        "sfId": "P07-SF11",
+        "label": "Force on a wire frame",
+        "latex": "F = S\\times 2\\ell\\ (\\text{film})",
+        "use": "Both surfaces pull; $S\\ell$ for one."
+      },
+      {
+        "sfId": "P07-SF12",
+        "label": "Jurin height-radius product",
+        "latex": "h\\,r = \\frac{2S\\cos\\theta}{\\rho g} = \\text{const}",
+        "use": "Doubling $r$ halves $h$."
+      },
+      {
+        "sfId": "P07-SF13",
+        "label": "Splitting one drop into two",
+        "latex": "W = 4\\pi r^2 S\\,(2^{1/3} - 1)",
+        "use": "Area increase $\\times$ $S$."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P07-DEF01",
+        "term": "Surface tension",
+        "definition": "Force per unit length = surface energy per unit area."
+      },
+      {
+        "defId": "P07-DEF02",
+        "term": "Angle of contact",
+        "definition": "Angle between the solid surface and the liquid meniscus tangent; $< 90°$ wetting."
+      },
+      {
+        "defId": "P07-DEF03",
+        "term": "Excess pressure",
+        "definition": "Extra pressure inside a curved liquid surface: $\\frac{2S}{R}$ or $\\frac{4S}{R}$."
+      },
+      {
+        "defId": "P07-DEF04",
+        "term": "Capillary rise",
+        "definition": "Height $h$ a wetting liquid climbs against gravity in a tube."
+      },
+      {
+        "defId": "P07-DEF05",
+        "term": "Meniscus",
+        "definition": "The curved free surface of a liquid in a tube (concave or convex)."
+      },
+      {
+        "defId": "P07-DEF06",
+        "term": "Surface energy",
+        "definition": "Isothermal work per unit new free surface; numerically equal to $S$."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P07-CMP01",
+        "title": "Drop vs soap bubble",
+        "columns": [
+          "Aspect",
+          "Liquid drop (air)",
+          "Soap bubble (air)"
+        ],
+        "rows": [
+          {
+            "label": "Interfaces",
+            "values": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "label": "Excess pressure",
+            "values": [
+              "$\\frac{2S}{R}$",
+              "$\\frac{4S}{R}$"
+            ]
+          },
+          {
+            "label": "Surface area",
+            "values": [
+              "$4\\pi R^2$",
+              "$8\\pi R^2$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P07-CMP02",
+        "title": "Wetting vs non-wetting",
+        "columns": [
+          "Aspect",
+          "Wetting ($\\theta < 90°$)",
+          "Non-wetting ($\\theta > 90°$)"
+        ],
+        "rows": [
+          {
+            "label": "Meniscus",
+            "values": [
+              "concave",
+              "convex"
+            ]
+          },
+          {
+            "label": "Capillary action",
+            "values": [
+              "rises",
+              "depressed"
+            ]
+          },
+          {
+            "label": "$\\cos\\theta$",
+            "values": [
+              "positive",
+              "negative"
+            ]
+          },
+          {
+            "label": "Example",
+            "values": [
+              "water on glass",
+              "mercury on glass"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P07-CMP03",
+        "title": "Small vs large connected bubbles",
+        "columns": [
+          "Aspect",
+          "Small bubble",
+          "Large bubble"
+        ],
+        "rows": [
+          {
+            "label": "$\\Delta P$",
+            "values": [
+              "higher ($1/R$)",
+              "lower"
+            ]
+          },
+          {
+            "label": "Air flow",
+            "values": [
+              "loses air",
+              "gains air"
+            ]
+          },
+          {
+            "label": "Outcome",
+            "values": [
+              "shrinks",
+              "grows"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P07-MCQ01",
+        "stemLatex": "The excess pressure inside a soap bubble of radius $R$ (tension $S$) is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{2S}{R}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{4S}{R}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{S}{R}$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\frac{8S}{R}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Two interfaces double the single-surface $\\frac{2S}{R}$."
+      },
+      {
+        "mcqId": "P07-MCQ02",
+        "stemLatex": "An air bubble just inside a liquid has excess pressure:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\frac{2S}{R}$"
+          },
+          {
+            "id": "B",
+            "latex": "$\\frac{4S}{R}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\frac{S}{R}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "ONE air–liquid interface: $\\frac{2S}{R}$ — the classic trap."
+      },
+      {
+        "mcqId": "P07-MCQ03",
+        "stemLatex": "Eight identical droplets (radius $r$) coalesce. The big drop's radius is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2r$"
+          },
+          {
+            "id": "B",
+            "latex": "$4r$"
+          },
+          {
+            "id": "C",
+            "latex": "$8r$"
+          },
+          {
+            "id": "D",
+            "latex": "$r\\sqrt{8}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$R = n^{1/3}r = 2r$ by volume conservation."
+      },
+      {
+        "mcqId": "P07-MCQ04",
+        "stemLatex": "On coalescence of droplets, surface energy:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "increases, absorbing heat"
+          },
+          {
+            "id": "B",
+            "latex": "decreases, releasing heat"
+          },
+          {
+            "id": "C",
+            "latex": "stays constant"
+          },
+          {
+            "id": "D",
+            "latex": "doubles"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Total area shrinks ($n \\to n^{2/3}$ scaling): energy released."
+      },
+      {
+        "mcqId": "P07-MCQ05",
+        "stemLatex": "A small and a large soap bubble are connected by a tube. Air flows:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "from large to small"
+          },
+          {
+            "id": "B",
+            "latex": "from small to large"
+          },
+          {
+            "id": "C",
+            "latex": "no flow"
+          },
+          {
+            "id": "D",
+            "latex": "oscillates forever"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\Delta P \\propto 1/R$: higher pressure in the smaller bubble drives flow into the larger."
+      },
+      {
+        "mcqId": "P07-MCQ06",
+        "stemLatex": "Capillary rise of water ($S = 0.07\\,\\text{N/m}$, $\\theta = 0°$) in a $0.5\\,\\text{mm}$ radius tube ($\\rho = 1000$, $g = 10$) is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2.8\\,\\text{cm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$5.6\\,\\text{cm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1.4\\,\\text{cm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$14\\,\\text{cm}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$h = \\frac{2\\times0.07}{0.0005\\times10^4} = 0.028\\,\\text{m}$."
+      },
+      {
+        "mcqId": "P07-MCQ07",
+        "stemLatex": "Mercury in a glass capillary ($\\theta \\approx 135°$):",
+        "options": [
+          {
+            "id": "A",
+            "latex": "rises with concave meniscus"
+          },
+          {
+            "id": "B",
+            "latex": "depressed with convex meniscus"
+          },
+          {
+            "id": "C",
+            "latex": "rises with convex meniscus"
+          },
+          {
+            "id": "D",
+            "latex": "no effect"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\cos\\theta < 0$: negative $h$, convex meniscus, depression."
+      },
+      {
+        "mcqId": "P07-MCQ08",
+        "stemLatex": "Water in a capillary shorter than the Jurin height $h$ will:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "overflow as a fountain"
+          },
+          {
+            "id": "B",
+            "latex": "rise to the top and stop; meniscus flattens"
+          },
+          {
+            "id": "C",
+            "latex": "not rise at all"
+          },
+          {
+            "id": "D",
+            "latex": "oscillate"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Insufficient length: meniscus radius grows, $h'R = \\text{const}$ — never overflows."
+      },
+      {
+        "mcqId": "P07-MCQ09",
+        "stemLatex": "The dimensions of surface tension are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$[MT^{-2}]$"
+          },
+          {
+            "id": "B",
+            "latex": "$[MT^{-1}]$"
+          },
+          {
+            "id": "C",
+            "latex": "$[ML^{-1}T^{-1}]$"
+          },
+          {
+            "id": "D",
+            "latex": "$[MLT^{-2}]$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\text{N/m} = [MT^{-2}]$ — same as surface energy per area."
+      },
+      {
+        "mcqId": "P07-MCQ10",
+        "stemLatex": "Work needed to blow a soap bubble from radius $0$ to $R$ (tension $S$) is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$4\\pi R^2S$"
+          },
+          {
+            "id": "B",
+            "latex": "$8\\pi R^2S$"
+          },
+          {
+            "id": "C",
+            "latex": "$16\\pi R^2S$"
+          },
+          {
+            "id": "D",
+            "latex": "$2\\pi R^2S$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Two surfaces: $W = S\\times8\\pi R^2$."
+      }
+    ],
+    "memoryHooks": [
+      "Tension = N/m = J/m² = $[MT^{-2}]$.",
+      "Drop 1 surface ($2S/R$); soap bubble 2 ($4S/R$).",
+      "Air bubble in water: ONE interface — trap.",
+      "$R = n^{1/3}r$ on coalescence; heat released.",
+      "$\\Delta P \\propto 1/R$: small bubble wins, air flows small $\\to$ large.",
+      "Wetting rises ($\\theta < 90°$); mercury depresses.",
+      "$h = \\frac{2S\\cos\\theta}{r\\rho g}$.",
+      "Insufficient length: meniscus flattens, never a fountain."
+    ],
+    "commonMistakes": [
+      "Using $\\frac{4S}{R}$ for a drop or an in-liquid air bubble.",
+      "Reversing the small/large bubble flow direction.",
+      "Quoting $\\frac{2S}{R}$ for a soap bubble in air (it is $\\frac{4S}{R}$).",
+      "Expecting overflow from a short capillary tube.",
+      "Forgetting BOTH surfaces of a soap film in work/energy counts.",
+      "Sign error in $\\cos\\theta$ for non-wetting liquids.",
+      "Quoting surface-tension dimensions as $[MLT^{-2}]$.",
+      "Assuming coalescence absorbs heat."
+    ],
+    "examChecklist": [
+      "Count interfaces (1 vs 2) before quoting excess pressure.",
+      "Count free interfaces (1 vs 2) before any pressure or work question.",
+      "Apply $R = n^{1/3}r$ and the energy-release argument.",
+      "Predict small-to-large air flow with $\\Delta P = 4S/R$.",
+      "Jurin's law with the $\\cos\\theta$ sign.",
+      "Insufficient-length: $h'R_{\\text{meniscus}} = \\text{const}$.",
+      "Energy per new area: $S\\Delta A$ (double for films).",
+      "Apply $F = 2S\\ell$ on wire frames (film).",
+      "Compute $\\Delta E$ released in coalescence."
+    ],
+    "furtherReading": [
+      {
+        "book": "Properties of Matter",
+        "author": "R. Murugeshan",
+        "chapters": "Surface tension chapter",
+        "note": "Surface-tension fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}
