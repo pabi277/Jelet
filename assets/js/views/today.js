@@ -528,7 +528,7 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
 
   // Quick Action: AI Doubt Solver
   $("#qaAiDoubtBtn", root).addEventListener("click", () => {
-    if (openAiTutor) openAiTutor({ mode: "general", manifest });
+    if (openAiTutor) openAiTutor({ mode: "general", manifest, origin: "Today Dashboard" });
   });
 
   // Quick Action: Daily 10-Q (balanced 4 Maths + 3 Physics + 2 Chem + 1 FEEE PYQ sampler)

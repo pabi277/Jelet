@@ -63,9 +63,14 @@ try {
   await page.evaluate(async () => {
     const db = await import("./assets/js/db/indexeddb.js");
     const { scoreAttempt } = await import("./assets/js/core/scoring.js");
+    const { computeMockAnalytics } = await import("./assets/js/core/stats.js");
     const paper = await (await fetch("./_data/papers/2025.json")).json();
     const questions = paper.questions;
-    await db.put("attempts", { ...scoreAttempt(questions, {}), attemptId: "browser-test", kind: "mock", mode: "independent", paperId: "jelet-2025", title: "Browser test mock", submittedAt: new Date().toISOString(), elapsedMs: 7200000, questionIds: questions.map(q => q.id) });
+    const attempt = { ...scoreAttempt(questions, {}), attemptId: "browser-test", kind: "mock", mode: "independent", paperId: "jelet-2025", title: "Browser test mock", submittedAt: new Date().toISOString(), elapsedMs: 7200000, questionIds: questions.map(q => q.id) };
+    // Real timed-mock analytics (questionTimes captured) — regression fixture for
+    // the Results Time Analysis block (formatDurationClock import in results.js).
+    attempt.analytics = computeMockAnalytics(attempt, questions, Object.fromEntries(questions.map((q, i) => [q.id, 20000 + i * 1000])));
+    await db.put("attempts", attempt);
   });
   for (const width of [360, 1440]) {
     await page.setViewport({ width, height: width === 360 ? 800 : 900 });
@@ -73,6 +78,7 @@ try {
       await page.goto(base + route, { waitUntil: "networkidle0" });
       await page.waitForSelector("main .card", { timeout: 10000 }).catch(async e => { console.error(route, await page.$eval("main", n => n.textContent), errors); throw e; });
       if (route.includes("browser-test")) {
+        assert.match(await page.$eval("#resultsAnalyticsSection", n => n.textContent), /Time Analysis/);
         await page.click("#shareResultBtn");
         await page.waitForSelector("#shareResultPreview svg");
         assert.ok(!(await page.$eval("#shareResultPreview", n => n.textContent)).includes("Time taken"));

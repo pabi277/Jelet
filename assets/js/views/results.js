@@ -45,6 +45,7 @@ import {
   el,
   icon,
   showToast,
+  formatDurationClock,
   outcomeBadgeHtml,
   buildSolutionBlock,
   hydrateQuestionFigures,
@@ -489,6 +490,7 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
                     studentSelected: item.selected || [],
                     studentOutcome: item.outcome,
                     studentScoreText: formatTwelfths(item.twelfths, { signed: true }),
+                    origin: "Results Review",
                   })
               : null,
           })
@@ -544,6 +546,7 @@ export async function renderResultsView(main, attemptId, { openAiTutor } = {}) {
             studentSelected: item.selected || [],
             studentOutcome: item.outcome,
             studentScoreText: formatTwelfths(item.twelfths, { signed: true }),
+            origin: "Results Review",
           });
         });
       }

@@ -241,7 +241,7 @@ export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
 
   $("#learnFloatingAiBtn", root).addEventListener("click", () => {
     if (openAiTutor) {
-      openAiTutor({ mode: "general", manifest });
+      openAiTutor({ mode: "general", manifest, origin: "Learn Explorer" });
     }
   });
 
@@ -503,6 +503,8 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
                 mode: "lesson",
                 unit,
                 formula: kf,
+                origin: "Unit Lesson",
+                section: sec.heading,
               });
             }
           });
@@ -648,7 +650,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
         btn.addEventListener("click", () => {
           const kf = unitFormulas.find((f) => f.formulaId === btn.dataset.fid);
           if (openAiTutor && kf) {
-            openAiTutor({ mode: "lesson", unit, formula: kf });
+            openAiTutor({ mode: "lesson", unit, formula: kf, origin: "Unit Formula Sheet" });
           }
         });
       });
@@ -733,7 +735,9 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
           solBox.innerHTML = "";
           solBox.appendChild(
             buildSolutionBlock(q, sol, {
-              onAskAi: openAiTutor ? (question, solution) => openAiTutor({ question, solution }) : null,
+              onAskAi: openAiTutor
+                ? (question, solution) => openAiTutor({ question, solution, origin: "Unit PYQs" })
+                : null,
             })
           );
           solBox.hidden = false;
@@ -992,7 +996,7 @@ export async function renderFormulaSheet(main, { openAiTutor } = {}) {
       card.querySelectorAll(".js-f-ai").forEach((btn) => {
         btn.addEventListener("click", () => {
           const kf = formulas.find((f) => f.formulaId === btn.dataset.fid);
-          if (openAiTutor && kf) openAiTutor({ mode: "lesson", unit: u, formula: kf });
+          if (openAiTutor && kf) openAiTutor({ mode: "lesson", unit: u, formula: kf, origin: "Formula Sheet" });
         });
       });
 

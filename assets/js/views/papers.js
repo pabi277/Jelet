@@ -435,7 +435,10 @@ function buildLibraryQuestionCard(paper, q, bookmarksMap, { onBookmarkChange, op
     solSlot.innerHTML = "";
     solSlot.appendChild(
       buildSolutionBlock(q, sol, {
-        onAskAi: openAiTutor ? (question, solution) => openAiTutor({ question, solution, paperTitle: paper.meta.title }) : null,
+        onAskAi: openAiTutor
+          ? (question, solution) =>
+              openAiTutor({ question, solution, paperTitle: paper.meta.title, origin: "Papers Reader" })
+          : null,
       })
     );
     solSlot.hidden = false;

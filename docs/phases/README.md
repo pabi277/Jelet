@@ -5,7 +5,7 @@ Two kinds of documents live here:
 
 | Kind | File | Meaning |
 | :--- | :--- | :--- |
-| **Record** | `phase-NN/record.md` | Work **already done, verified and gated** (Phase 01 → 10). |
+| **Record** | `phase-NN/record.md` | Work **already done, verified and gated** (Phase 01 → 11). |
 | **Plan** | `phase-NN/plan.md` | Work **researched and specified but NOT yet written as code**. Execute step-by-step, then write the matching `record.md`. |
 
 ---
@@ -23,7 +23,7 @@ Two kinds of documents live here:
 | 08 | BYOK AI Doubt Tutor | ✅ Done | `phase-08/record.md` |
 | 09 | Offline PWA + encrypted sync | ✅ Done | `phase-09/record.md` |
 | 10 | Accessibility, zoom, device QA, release | ✅ Done | `phase-10/record.md` |
-| **11** | **AI Tutor: Option Detection, Section Context & History** (+ 1 blocking bug fix) | 📋 Researched — awaiting execution | **`phase-11/plan.md`** |
+| **11** | **AI Tutor: Option Detection, Section Context & History** (+ 1 blocking bug fix) | ✅ Done | `phase-11/record.md` |
 | **12** | **Phone UI Compaction: Today & You/Settings (disclosure pattern)** | 📋 Researched — awaiting execution | **`phase-12/plan.md`** |
 | **13** | **Learn Enrichment from Private Reference Books (AI-assisted, copyright-safe)** | 📋 Researched — awaiting execution | **`phase-13/plan.md`** |
 | 14+ | Practice-set content expansion (legacy "Phase 11+" row of `docs/05`) | ⏳ Not started | (owner renumbers on approval — see note below) |
