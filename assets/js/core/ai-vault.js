@@ -527,6 +527,29 @@ async function readEventStream(response, isGemini, onChunk) {
   } finally { reader.releaseLock(); }
 }
 
+// Only the explicitly started loopback server marks its document. Hosted
+// deployments (including preview hosts) must never send credentials to a relay.
+export function localNvidiaRelayAvailable() {
+  return typeof location !== "undefined" && location.protocol === "http:" &&
+    ["localhost", "127.0.0.1"].includes(location.hostname) &&
+    typeof document !== "undefined" &&
+    !!document.querySelector('meta[name="jelet-nvidia-local-relay"][content="1"]');
+}
+
+async function nvidiaTransportEndpoint(req, signal) {
+  if (req.provider !== "nvidia" || !localNvidiaRelayAvailable()) return req.endpoint;
+  // A stale cached shell must not cause a POST to an unrelated static server.
+  try {
+    const response = await fetch("/__jelet_nvidia_relay__/health", {cache: "no-store", signal});
+    const status = await response.json();
+    if (!response.ok || status.service !== "jelet-nvidia-local-relay" || status.version !== 1) throw new Error();
+    return "/__jelet_nvidia_relay__/chat/completions";
+  } catch (error) {
+    if (signal.aborted) throw error;
+    throw new AiProviderError("Local NVIDIA relay unavailable. Restart the local server.", {kind: "network"});
+  }
+}
+
 /** Execute exactly the previewed body; deadline covers fetch AND response parsing. */
 export async function sendBuiltAiRequest(req, { signal, timeoutMs = 45000, onChunk = () => {} } = {}) {
   validateAiProvider(req?.provider);
@@ -545,7 +568,8 @@ export async function sendBuiltAiRequest(req, { signal, timeoutMs = 45000, onChu
   try {
     return await Promise.race([
       (async () => {
-        const res = await fetch(endpoint, { method: "POST", headers: req.headers,
+        const transportEndpoint = await nvidiaTransportEndpoint(req, controller.signal);
+        const res = await fetch(transportEndpoint, { method: "POST", headers: req.headers,
           body: req.bodyString, signal: controller.signal });
         const isGemini = req.provider === "gemini";
         if (res.ok && req.streaming && /text\/event-stream/i.test(res.headers.get("content-type") || "")) {
@@ -557,7 +581,8 @@ export async function sendBuiltAiRequest(req, { signal, timeoutMs = 45000, onChu
         if (!res.ok) {
           const classification = classifyProviderError(res.status, JSON.stringify(json), res.headers);
           const note = classification.kind === "auth" && req.provider === "nvidia"
-            ? " NVIDIA nvapi keys can expire after six months; renew at build.nvidia.com." : "";
+            ? " NVIDIA nvapi keys can expire after six months; renew at build.nvidia.com."
+            : classification.kind === "not-found" ? " The model or endpoint may be unavailable; check your provider and model." : "";
           const error = new AiProviderError(`Provider HTTP ${res.status}.${note}`, classification, res.status);
           error.usage = usage;
           throw error;
@@ -579,6 +604,16 @@ export async function sendBuiltAiRequest(req, { signal, timeoutMs = 45000, onChu
       }),
     ]);
   } catch (error) {
+    // Browsers deliberately hide CORS/network details from JavaScript. Do not
+    // misdiagnose a blocked request as an invalid key or leak endpoint/keys.
+    if (error instanceof TypeError) {
+      const message = req.provider === "nvidia"
+        ? "Could not reach NVIDIA from this browser. NVIDIA may block direct browser requests (CORS), or the network may be unavailable; the key was not verified."
+        : "Could not reach the provider from this browser. Check your connection or browser network restrictions; the key was not verified.";
+      const safeError = new AiProviderError(message, { kind: "network", retryAfterMs: null });
+      if (received) safeError.partialText = received;
+      throw safeError;
+    }
     if (received) error.partialText = received;
     throw error;
   } finally {

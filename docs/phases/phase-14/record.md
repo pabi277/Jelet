@@ -96,3 +96,19 @@ not a live-service certification.
 
 No `_data/` or `scoring.js` changes. The timed-mock lock, immutable grounding,
 local vault isolation and offline fallback remain in force. No PR or merge.
+
+### Follow-up: NVIDIA browser connectivity and chat presentation (2026-11-25)
+
+- Reworked the phone-first tutor conversation and composer, with escaped rich
+  text and math formatting; added distinct NVIDIA network/CORS, auth and model
+  diagnostics. Browser network failures alone do not prove CORS or validate a key.
+- With owner approval, added an **optional loopback-only** Termux server that
+  serves the app and relays NVIDIA POSTs exclusively to NVIDIA over HTTPS. It
+  does not log or persist keys or prompts. Static/hosted deployments and other
+  providers remain direct; request preview remains the exact transmitted body.
+- Verification: 166 Node tests and 4 Python relay tests pass; token/link and
+  corpus checks pass (400 questions, 42 units, 109 figures); independent SymPy
+  re-verification passes for 400 solutions; responsive audit 43/43 and community
+  audit 58 pass with zero console errors. A real Chromium browser exercised
+  loopback relay streaming against a **mocked** NVIDIA upstream. No real NVIDIA
+  key or live NVIDIA inference was tested.

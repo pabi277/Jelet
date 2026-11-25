@@ -42,8 +42,31 @@ The app is a **zero-build, 100% static, installable offline PWA**. Preview it
 locally with:
 
 ```bash
-python3 -m http.server 8000   # then open http://localhost:8000/
+python3 -m http.server 8000 --bind 127.0.0.1   # then open http://localhost:8000/
 ```
+
+### Optional NVIDIA relay on your own phone (Termux)
+
+NVIDIA may block direct browser requests through CORS even when a key is valid.
+An optional server can serve JELET and relay NVIDIA requests from your phone to
+NVIDIA over HTTPS. In Termux, from this repository directory:
+
+```bash
+pkg install python -y
+python scripts/serve_local.py
+```
+
+Open **http://localhost:8000/** in the browser on the same phone, choose NVIDIA
+in **You & AI**, save/unlock your key, and use **Test Connection**. Leave Termux
+running while using NVIDIA; press Ctrl+C to stop. Use `--port 8001` and the
+corresponding localhost URL if port 8000 is in use. The relay listens only on
+127.0.0.1, accepts same-origin requests, forwards only to NVIDIA, and does not
+store or log keys or prompts. NVIDIA still receives your key and request under
+its own terms. Other AI providers remain direct; static/hosted versions never
+use this relay. If the test fails, the model, key, network, quota or provider
+availability may also be responsible. Do not expose this server to a network or
+use a remote proxy. Browser storage is specific to the exact origin (including
+port), so you may need to set up your key again locally.
 
 It deploys to **any static host** (GitHub Pages, Netlify, Vercel, Cloudflare
 Pages, S3, Termux) — see **[`DEPLOY.md`](./DEPLOY.md)** for per-host steps,

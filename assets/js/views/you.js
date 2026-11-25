@@ -24,6 +24,7 @@ import { computeHubSnapshot } from "../core/stats.js";
 import { sparklineSvg } from "../core/charts.js";
 import {
   AI_PROVIDERS,
+  localNvidiaRelayAvailable,
   CURATED_AI_MODELS,
   hasAiDefaultUpgradeNotice,
   normalizeGenerationSettings,
@@ -248,6 +249,7 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
         </div>
 
         <p class="card__meta" id="aiModelFreeTierNote"></p>
+        <p class="card__meta" id="aiNvidiaBrowserNote" hidden>NVIDIA may block direct browser requests (CORS), even with a valid key. For an optional local-only Termux relay, see the README. A connection failure does not verify your key.</p>
         <div class="form-field" id="aiCustomModelWrap" ${vault.useCustomModel ? "" : "hidden"}>
           <label class="form-label" for="aiCustomModelInput">Custom Model Name (blank falls back to provider default)</label>
           <input type="text" class="input-field mono" id="aiCustomModelInput" placeholder="e.g. gemini-2.5-pro, llama-3.1-8b-instant, deepseek/deepseek-chat…" value="${escapeHtml(vault.customModel || "")}" autocomplete="off" />
@@ -742,6 +744,11 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     }
     modeSelect.value = vault.useCustomModel ? "custom" : effectiveModel === pCfg.defaultModel ? "default" : `model:${effectiveModel}`;
     $("#aiCustomModelWrap", root).hidden = !vault.useCustomModel;
+    const nvidiaNote = $("#aiNvidiaBrowserNote", root);
+    nvidiaNote.hidden = pCfg.id !== "nvidia";
+    nvidiaNote.textContent = localNvidiaRelayAvailable()
+      ? "Local-only NVIDIA relay selected on this device. Your key and prompt pass through the local server to NVIDIA; neither is stored or logged by the relay."
+      : "NVIDIA may block direct browser requests (CORS), even with a valid key. For an optional local-only Termux relay, see the README. A connection failure does not verify your key.";
     $("#aiModelFreeTierNote", root).textContent = vault.useCustomModel
       ? "Custom models may not be free or available. Test after saving."
       : models.find(m => m.id === effectiveModel)?.freeTierNote || "Saved model: check current availability and free-tier limits with your provider.";
@@ -887,7 +894,7 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
       model: base.model,
       apiKey: typed || base.apiKey,
     };
-    diag.textContent = `Testing direct browser connection to ${AI_PROVIDERS[p]?.label || p}…`;
+    diag.textContent = `Testing connection to ${AI_PROVIDERS[p]?.label || p}…`;
     try {
       const res = await testAiConnection(testVault);
       diag.textContent = `✔ Connected to ${res.model} (${res.latencyMs} ms) — zero study data sent.`;

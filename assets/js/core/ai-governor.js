@@ -81,6 +81,7 @@ export function classifyProviderError(status, bodyText = '', headers = {}, now =
     else kind = 'per-minute';
   } else if (status === 401 || status === 403) kind = 'auth';
   else if (status === 400) kind = 'bad-request';
+  else if (status === 404) kind = 'not-found';
   else if (status === 408 || status >= 500 && status <= 599) kind = 'server';
   else if (!status || status instanceof Error) kind = 'network';
   return { kind, retryAfterMs };

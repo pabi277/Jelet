@@ -192,6 +192,9 @@ try {
     });
     await tutor.waitForSelector('#aiComposerInput');
     assert.equal(await tutor.$eval('#aiChatThread', n => n.getAttribute('aria-live')), 'polite');
+    assert.equal(await tutor.$$eval('.ai-suggestions', nodes => nodes.length), 1, 'exactly one suggestions control');
+    assert.ok(await tutor.$eval('#aiComposerInput', n => n.getBoundingClientRect().height >= 48));
+    assert.ok(await tutor.$eval('#aiChatThread .ai-msg__bubble', n => parseFloat(getComputedStyle(n).fontSize) >= 15));
     await tutor.type('#aiComposerInput', 'Keep this draft');
     await tutor.evaluate(() => { window.originalShell = document.querySelector('.ai-tutor-wrap'); window.originalThread = document.querySelector('#aiChatThread'); window.originalComposer = document.querySelector('#aiComposerInput'); });
     await tutor.click('.ai-preset-chip');
@@ -531,6 +534,39 @@ try {
     assert.equal(state.providers.gemini.count,1);
     assert.equal(state.ledger.gemini.requests,1);
     checks++;
+    await ctx.close();
+  }
+  // NVIDIA browser network failures must not claim the key is invalid.
+  {
+    const ctx = await browser.createBrowserContext(), p = await ctx.newPage();
+    p.on('pageerror', e => errors.push(e.message));
+    p.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+    await p.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}]);
+    await p.goto(base+'#/you',{waitUntil:'networkidle0'});
+    await p.evaluate(()=>{
+      localStorage.setItem('jelet_ai_vault_v1',JSON.stringify({provider:'nvidia',model:'nvidia/nemotron-3.5-lightning-30b-a3b',apiKey:'nvapi-fixture-secret',acceptedWelcomeVersion:1}));
+      const original=window.fetch; window.nvidiaRequests=0;
+      window.fetch=(url, options)=>{if(String(url).startsWith('https://integrate.api.nvidia.com/')){window.nvidiaRequests++;return Promise.reject(new TypeError('Failed to fetch'));} return original(url,options);};
+    });
+    await p.reload({waitUntil:'networkidle0'});
+    await p.evaluate(()=>{
+      const original=window.fetch; window.nvidiaRequests=0;
+      window.fetch=(url, options)=>{if(String(url).startsWith('https://integrate.api.nvidia.com/')){window.nvidiaRequests++;return Promise.reject(new TypeError('Failed to fetch'));} return original(url,options);};
+    });
+    assert.equal(await p.$eval('#aiNvidiaBrowserNote',n=>n.hidden),false);
+    await p.click('#testAiConnBtn');
+    await p.waitForFunction(()=>document.querySelector('#aiConnDiagnostic')?.textContent.includes('CORS'));
+    const diagnostic=await p.$eval('#aiConnDiagnostic',n=>n.textContent);
+    assert.match(diagnostic,/key was not verified/i);
+    assert.ok(!diagnostic.includes('nvapi-fixture-secret'));
+    await p.evaluate(async()=> (await import('./assets/js/app.js')).openAiTutorContext({origin:'NVIDIA fixture'}));
+    await p.waitForSelector('#aiComposerInput');
+    await p.type('#aiComposerInput','Explain this');
+    await p.$eval('#aiComposerForm',n=>n.requestSubmit());
+    await p.waitForFunction(()=>document.querySelector('#aiRequestState')?.textContent.includes('CORS'));
+    assert.match(await p.$eval('#aiRequestState',n=>n.textContent),/key was not verified/i);
+    assert.match(await p.$eval('#aiChatThread',n=>n.textContent),/Offline Fallback/);
+    checks += 2;
     await ctx.close();
   }
   // 14A live-request governor fixture: never contact a real provider.

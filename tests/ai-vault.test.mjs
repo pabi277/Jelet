@@ -315,3 +315,60 @@ test('Gemini captures total usage and token truncation', async () => {
   try { const r=await sendBuiltAiRequest(req); assert.equal(r.truncated,true); assert.deepEqual(r.usage,{promptTokens:5,outputTokens:7,totalTokens:12}); }
   finally {globalThis.fetch=old;}
 });
+
+test('NVIDIA browser network failure reports possible CORS without exposing keys', async () => {
+  const previous = globalThis.fetch;
+  const req = buildAiRequestPayload({vault:{provider:'nvidia',apiKey:'nvapi-secret-fixture'},systemPrompt:'grounding',userMessage:'hello'});
+  globalThis.fetch = async () => { throw new TypeError('Failed to fetch nvapi-secret-fixture'); };
+  try {
+    await assert.rejects(()=>sendBuiltAiRequest(req), error=>error.classification?.kind === 'network' && /CORS/.test(error.message) && /not verified/.test(error.message) && !error.message.includes('nvapi-secret-fixture'));
+  } finally { globalThis.fetch = previous; }
+});
+
+test('provider 404 indicates model or endpoint problem without exposing response body', async () => {
+  const previous = globalThis.fetch;
+  const req = buildAiRequestPayload({vault:{provider:'nvidia',apiKey:'nvapi-secret-fixture'},systemPrompt:'grounding',userMessage:'hello'});
+  globalThis.fetch = async () => new Response(JSON.stringify({error:{message:'private provider detail'}}),{status:404});
+  try {
+    await assert.rejects(()=>sendBuiltAiRequest(req), error=>error.status === 404 && error.classification.kind === 'not-found' && /model or endpoint/i.test(error.message) && !error.message.includes('private provider detail'));
+  } finally { globalThis.fetch = previous; }
+});
+
+test('NVIDIA relay only on explicitly marked loopback document, preserves exact body', async () => {
+  const oldFetch = globalThis.fetch, oldLocation = globalThis.location, oldDocument = globalThis.document;
+  const calls = [];
+  try {
+    globalThis.location = {protocol:'http:', hostname:'localhost'};
+    globalThis.document = {querySelector: () => ({})};
+    globalThis.fetch = async (url, options) => {
+      calls.push({url, options});
+      if (url.endsWith('/health')) return new Response(JSON.stringify({service:'jelet-nvidia-local-relay',version:1}), {status:200});
+      return new Response(JSON.stringify({choices:[{message:{content:'OK'}}]}), {status:200, headers:{'Content-Type':'application/json'}});
+    };
+    const req = buildAiRequestPayload({vault:{provider:'nvidia',apiKey:'private-key'},systemPrompt:'test',history:[],userMessage:'secret prompt'});
+    await sendBuiltAiRequest(req);
+    assert.equal(calls[0].options.cache, 'no-store');
+    assert.equal(calls[1].url, '/__jelet_nvidia_relay__/chat/completions');
+    assert.equal(calls[1].options.body, req.bodyString);
+    assert.equal(calls[1].options.headers.Authorization, 'Bearer private-key');
+    calls.length = 0;
+    globalThis.location = {protocol:'https:',hostname:'example.com'};
+    await sendBuiltAiRequest(req);
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].url, 'https://integrate.api.nvidia.com/v1/chat/completions');
+    calls.length = 0;
+    globalThis.location = {protocol:'http:',hostname:'localhost'};
+    globalThis.document = {querySelector: () => null};
+    await sendBuiltAiRequest(req);
+    assert.equal(calls[0].url, 'https://integrate.api.nvidia.com/v1/chat/completions');
+    calls.length = 0;
+    globalThis.document = {querySelector: () => ({})};
+    globalThis.fetch = async (url, options) => { calls.push({url, options}); return new Response('{}'); };
+    await assert.rejects(sendBuiltAiRequest(req), /relay unavailable/i);
+    assert.equal(calls.length, 1);
+  } finally {
+    globalThis.fetch = oldFetch;
+    if (oldLocation === undefined) delete globalThis.location; else globalThis.location = oldLocation;
+    if (oldDocument === undefined) delete globalThis.document; else globalThis.document = oldDocument;
+  }
+});

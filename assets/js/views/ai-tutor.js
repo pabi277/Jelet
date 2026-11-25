@@ -17,7 +17,7 @@ import {
   loadSolutionForQuestion,
   getQuestionIndex,
 } from "../core/data-loader.js";
-import { renderLatex, escapeHtml, stripLatexForSearch } from "../core/math.js";
+import { renderPureLatex, escapeHtml, stripLatexForSearch } from "../core/math.js";
 import { formatTwelfths, scoreQuestion, isVoidedQuestion } from "../core/scoring.js";
 import {
   AI_PROVIDERS,
@@ -265,19 +265,66 @@ export async function buildOfflineCorpusReply({ context = {}, userPrompt, langua
   ].join("\n\n");
 }
 
-/** Convert lightweight `**bold**` + `\n\n` paragraphs + KaTeX `$...$` to clean safe HTML. */
-function renderTutorBubbleHtml(markdownLike) {
-  const paragraphs = String(markdownLike || "").split(/\n{2,}/);
-  return paragraphs
-    .map((para) => {
-      const lines = para.split("\n").map((line) => {
-        // Render LaTeX safely (escapes non-math HTML) then bold **...**
-        const withMath = renderLatex(line);
-        return withMath.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-      });
-      return `<p class="ai-msg-para">${lines.join("<br />")}</p>`;
-    })
-    .join("");
+/** Format model prose without interpreting model-supplied HTML. Math is kept
+ * separate from markdown so emphasis never mutates KaTeX-generated markup. */
+function renderTutorInline(value) {
+  const source = String(value || "");
+  const tokens = /\$\$[\s\S]+?\$\$|\$(?:\\.|[^$\\])+\$|\\\([\s\S]+?\\\)|`[^`\n]+`|\*\*[^*\n]+\*\*|\*[^*\n]+\*/g;
+  let result = "", last = 0, match;
+  while ((match = tokens.exec(source))) {
+    result += escapeHtml(source.slice(last, match.index));
+    const part = match[0];
+    if (part.startsWith("$$")) result += renderPureLatex(part.slice(2, -2), true);
+    else if (part.startsWith("$")) result += renderPureLatex(part.slice(1, -1));
+    else if (part.startsWith("\\(")) result += renderPureLatex(part.slice(2, -2));
+    else if (part.startsWith("`")) result += `<code>${escapeHtml(part.slice(1, -1))}</code>`;
+    else if (part.startsWith("**")) result += `<strong>${renderTutorInline(part.slice(2, -2))}</strong>`;
+    else result += `<em>${renderTutorInline(part.slice(1, -1))}</em>`;
+    last = tokens.lastIndex;
+  }
+  return result + escapeHtml(source.slice(last));
+}
+
+/** Safe lightweight Markdown + KaTeX, including multi-line display math. */
+export function renderTutorBubbleHtml(markdownLike) {
+  const lines = String(markdownLike || "").replace(/\r\n?/g, "\n").split("\n");
+  const html = [], paragraph = [];
+  let list = null;
+  function flushParagraph() {
+    if (paragraph.length) html.push(`<div class="ai-msg-para">${paragraph.map(renderTutorInline).join("<br>")}</div>`);
+    paragraph.length = 0;
+  }
+  function closeList() { if (list) { html.push(`</${list}>`); list = null; } }
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i], trimmed = line.trim();
+    if (!trimmed) { flushParagraph(); closeList(); continue; }
+    const display = trimmed.startsWith("$$") ? ["$$", "$$"] : trimmed.startsWith("\\[") ? ["\\[", "\\]"] : null;
+    if (display) {
+      flushParagraph(); closeList();
+      let math = trimmed.slice(display[0].length), end = math.indexOf(display[1]);
+      while (end < 0 && i + 1 < lines.length) { math += `\n${lines[++i]}`; end = math.indexOf(display[1]); }
+      if (end >= 0) {
+        html.push(renderPureLatex(math.slice(0, end), true));
+        const trailing = math.slice(end + display[1].length).trim();
+        if (trailing) paragraph.push(trailing);
+      } else paragraph.push(display[0] + math);
+      continue;
+    }
+    const heading = /^(#{1,4})\s+(.+)$/.exec(trimmed);
+    if (heading) { flushParagraph(); closeList(); html.push(`<div class="ai-msg-heading">${renderTutorInline(heading[2])}</div>`); continue; }
+    if (/^(?:-{3,}|\*{3,}|_{3,})$/.test(trimmed)) { flushParagraph(); closeList(); html.push('<hr class="ai-msg-divider">'); continue; }
+    const item = /^(?:([-*+])\s+|(\d+)\.\s+)(.+)$/.exec(trimmed);
+    if (item) {
+      flushParagraph();
+      const type = item[2] ? "ol" : "ul";
+      if (list !== type) { closeList(); list = type; html.push(`<${type} class="ai-msg-list">`); }
+      html.push(`<li>${renderTutorInline(item[3])}</li>`);
+      continue;
+    }
+    closeList(); paragraph.push(line);
+  }
+  flushParagraph(); closeList();
+  return html.join("");
 }
 
 export function initAiTutor({ openOverlay, closeAllSheets }) {
@@ -342,9 +389,12 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     else if (kind === "storage") message = "Device quota storage is unavailable — Offline Corpus answer shown. Enable browser storage to use live AI safely.";
     else if (kind === "locked") message = "Encrypted key is locked — unlock it in You & AI. Offline Corpus is available.";
     else if (kind === "bad-request") message = "The provider rejected this request — check your model in AI settings.";
+    else if (kind === "not-found") message = "The model or endpoint is unavailable — check the model and provider in AI settings.";
     else if (kind === "window-expired") message = "Recovery window expired — Offline Corpus answer shown.";
     else if (kind === "offline") message = "Offline Corpus selected.";
-    else message = "Could not reach the provider — Offline answer shown.";
+    else message = requestState.provider === "nvidia"
+      ? "Could not reach NVIDIA — a browser CORS restriction or network problem may be blocking the request. Your key was not verified; Offline Corpus is available."
+      : "Could not reach the provider — Offline answer shown.";
     const waiting = kind === "pacing" || kind === "retry";
     if (slot.dataset.kind === kind && slot.querySelector("[data-state-message]")) {
       slot.querySelector("[data-state-message]").textContent = message;
@@ -439,7 +489,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     slot.innerHTML = `
       <div class="worked-example stack-xs">
         <strong>Before you ask (${escapeHtml(provider.label)} BYOK)</strong>
-        <div class="card__meta">• Direct from your browser to <strong>${escapeHtml(provider.label)}</strong> using your saved key — no middleman server.</div>
+        <div class="card__meta">• Your saved key and message go to <strong>${escapeHtml(provider.label)}</strong>. NVIDIA may use the optional local-only relay if you started it on this device; otherwise requests go directly from your browser.</div>
         <div class="card__meta">• Only this question context and your message are sent — never your mock history or CGPA.</div>
         <div class="card__meta">• AI can still slip on algebra — the <strong>Official WBJEEB Key &amp; Verified Solution</strong> always win.</div>
         <div class="cluster-xs" style="margin-top:var(--space-2xs)">
@@ -557,7 +607,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
   function renderComposerState() {
     const button = $("#aiSendBtn", body);
     if (button) {
-      button.textContent = activeAbortController?.signal.aborted ? "Stopping…" : activeAbortController ? "Stop" : "Ask";
+      button.textContent = activeAbortController?.signal.aborted ? "Stopping…" : activeAbortController ? "Stop" : "Send";
       button.disabled = Boolean(activeAbortController?.signal.aborted);
     }
     const suggestions = $(".ai-suggestions", body);
@@ -974,7 +1024,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     const byok = Boolean(vault.apiKey?.trim());
     const provider = AI_PROVIDERS[vault.provider] || AI_PROVIDERS.gemini;
     if (modeBadge) {
-      modeBadge.className = byok ? "badge badge--brand" : "pill";
+      modeBadge.className = "ai-header-status";
       modeBadge.textContent = vault.keyLocked ? "Key locked · Offline" : byok ? `${provider.label} · BYOK` : "Corpus Tutor · Offline";
     }
     const hint = $("#aiTokenHint", body);
@@ -1100,7 +1150,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     const pInfo = AI_PROVIDERS[vault.provider] || AI_PROVIDERS.gemini;
 
     if (modeBadge) {
-      modeBadge.className = byokActive ? "badge badge--brand" : "pill";
+      modeBadge.className = "ai-header-status";
       modeBadge.textContent = vault.keyLocked ? "Key locked · Offline" : byokActive
         ? `${pInfo.label} · BYOK`
         : "Corpus Tutor · Offline";
@@ -1205,11 +1255,11 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
         <form class="ai-composer" id="aiComposerForm">
           <input type="text" class="input-field" id="aiComposerInput" placeholder="${
             byokActive
-              ? "Ask follow-up doubt on this topic…"
-              : "Ask any JELET topic or tap a chip…"
+              ? "Ask a follow-up doubt…"
+              : "Ask a JELET doubt…"
           }" autocomplete="off" />
           <button type="submit" class="btn btn--primary btn--sm" id="aiSendBtn">
-            ${activeAbortController ? "Stop" : "Ask"}
+            ${activeAbortController ? "Stop" : "Send"}
           </button>
         </form>
         <div class="card__meta" id="aiTokenHint">${byokActive ? `~${estimateTokens(sysPrompt) + chatHistory.reduce((n, m) => n + estimateTokens(m.text), 0) + estimateTokens(visibleDraft)} tokens this ask${pacingLeft === null ? "" : ` · ${pacingLeft} left before pacing`}` : "0 tokens · offline corpus"}</div>`;
