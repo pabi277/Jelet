@@ -24,8 +24,12 @@ export function benchmarkSubmission(attempt, consent = false) {
   if (!isShareableMock(attempt) || !paperYear(attempt) || attempt.totalTwelfths < -240 || attempt.totalTwelfths > 1440) {
     throw new Error("Select an independent official-paper full mock with a valid score.");
   }
+  const accuracy = mockAccuracy(attempt);
+  const counts = ["correct", "partial", "incorrect"].map(key => attempt.counts?.[key] ?? 0);
+  if (counts.some(c => !Number.isInteger(c) || c < 0) || counts.reduce((a, b) => a + b, 0) > 100 ||
+      !Number.isInteger(accuracy) || accuracy < 0 || accuracy > 100) throw new Error("This mock has invalid accuracy counts; no submission sent.");
   // Whitelist: no attempt/session ID, title, timestamp, profile, key or device ID.
-  return { marks: attempt.totalTwelfths / 12, accuracy: mockAccuracy(attempt), paperYear: paperYear(attempt) };
+  return { marks: attempt.totalTwelfths / 12, accuracy, paperYear: paperYear(attempt) };
 }
 
 /** Validate exact-score frequency histogram and current UTC week. Never infer a CDF from a mean. */

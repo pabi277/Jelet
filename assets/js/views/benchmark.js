@@ -11,7 +11,7 @@ export async function mountBenchmark(root, attempt = null) {
   let busy = false;
   let eligible = false;
   try { benchmarkSubmission(attempt, true); eligible = true; } catch { /* no eligible mock */ }
-  const card = el(`<section class="card stack-s" aria-label="Anonymous peer benchmark">
+  const card = el(`<section class="card stack-s community-card" aria-label="Anonymous peer benchmark">
     <h3 class="card__title">This week's benchmark</h3>
     <p class="card__meta">Optional comparison with real, self-reported full-mock submissions received this UTC week (Monday–Sunday), across paper years. Submissions are not unique students, verified scores, official ranks or a representative sample.</p>
     <label class="stack-xs">Benchmark endpoint base URL<input type="url" class="input-field" id="benchmarkUrl" placeholder="https://your-provider.example"></label>
@@ -21,7 +21,8 @@ export async function mountBenchmark(root, attempt = null) {
     <p class="card__meta" id="benchmarkStatus" role="status"></p>
     <p class="card__meta" id="benchmarkComparison"></p>
     <p class="card__meta" id="benchmarkPayload"></p>
-    <label class="cluster-xs"><input type="checkbox" id="benchmarkConsent"> Contribute anonymously (this mock only)</label>
+    <p class="card__meta" id="benchmarkReceipt"></p>
+    <label class="community-toggle"><input type="checkbox" id="benchmarkConsent"> Contribute anonymously (this mock only)</label>
     <button type="button" class="btn btn--primary" id="benchmarkSubmit">Contribute this mock</button>
     <p class="card__meta">Only marks, accuracy and paper-year leave this device. No name, email, profile, attempt ID, device ID or API key. Contributions cannot be withdrawn from an append-only aggregate. No background uploads or offline queue.</p>
   </section>`);
@@ -41,6 +42,7 @@ export async function mountBenchmark(root, attempt = null) {
   const receiptKey = () => `benchmarkReceipt:${base}:${weekStartUtc()}:${attempt?.attemptId}`;
   async function updateSent() {
     sent = sent || Boolean(eligible && await db.get("meta", receiptKey()));
+    $("#benchmarkReceipt", card).textContent = sent ? "Already contributed this mock this week from this device. No repeat submission will be sent." : "";
     submit.disabled = busy || !eligible || !consent.checked || sent;
   }
   await updateSent();
@@ -75,11 +77,13 @@ export async function mountBenchmark(root, attempt = null) {
     status.textContent = base ? "Endpoint saved locally. Nothing sent. Choose Load to fetch." : "Benchmark not configured — local study is unaffected.";
   }));
   $("#benchmarkLoad", card).addEventListener("click", () => run(async () => {
+    if (benchmarkEndpoint($("#benchmarkUrl", card).value) !== base) throw new Error("Save your edited endpoint before contacting it.");
     aggregate = await fetchBenchmark(base);
     display();
   }));
   submit.addEventListener("click", () => run(async () => {
     if (sent) throw new Error("Already contributed this mock this week from this device.");
+    if (benchmarkEndpoint($("#benchmarkUrl", card).value) !== base) throw new Error("Save your edited endpoint before contributing.");
     await contributeBenchmark(base, attempt, consent.checked);
     sent = true;
     submit.disabled = true;

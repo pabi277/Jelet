@@ -2487,3 +2487,15 @@
 
 
 
+
+/* Phase 10: optional community controls retain phone-sized tap targets. */
+.community-card { min-width: 0; overflow-wrap: anywhere; }
+.community-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: var(--tap-min);
+  cursor: pointer;
+}
+.community-toggle input { flex-shrink: 0; accent-color: var(--brand-primary); }
+.community-card summary { min-height: var(--tap-min); cursor: pointer; }

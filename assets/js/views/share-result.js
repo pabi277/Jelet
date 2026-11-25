@@ -3,12 +3,12 @@ import { resultSummary, resultCardSvg } from "../core/share-result.js";
 import { $, el } from "../core/ui.js";
 
 export function mountResultShare(root, attempt) {
-  const card = el(`<section class="card stack-s" aria-label="Share a study result">
+  const card = el(`<section class="card stack-s community-card" aria-label="Share a study result">
     <h3 class="card__title">Share your result</h3>
     <p class="card__meta">Generated on this device. Nothing is uploaded. No name, profile, answers or API keys are included.</p>
     <button class="btn btn--ghost" type="button" id="shareResultBtn" aria-expanded="false">Share</button>
     <div id="shareResultPanel" class="stack-s" hidden>
-      <label class="cluster-xs"><input id="shareFullToggle" type="checkbox"> Full breakdown (paper, time, accuracy trend and section scores)</label>
+      <label class="community-toggle"><input id="shareFullToggle" type="checkbox"> Full breakdown (paper, time, accuracy trend and section scores)</label>
       <p class="card__meta">Default: score + accuracy only. Review the exact card before downloading.</p>
       <div id="shareResultPreview" class="figure-frame"></div>
       <button class="btn btn--primary" type="button" id="downloadResultBtn">Download SVG card</button>

@@ -534,6 +534,12 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
 
         <p class="card__meta" id="syncOffNote" style="margin:0">Sync is off — your data stays on this device.</p>
       </section>
+
+      <section class="card stack-s community-card" id="youContributeSection" aria-label="Open-source contributions">
+        <h3 class="card__title">Contribute</h3>
+        <p class="card__meta">JELET Study Hub is open source. Verified question contributions, corrections and improvements are welcome — follow the repository's accuracy and original-content guidelines. Participation is optional; no study data is submitted here.</p>
+        <a class="btn btn--ghost" href="https://github.com/pabi277/Jelet" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Explore the project on GitHub</a>
+      </section>
     </div>
   `);
 

@@ -6,7 +6,7 @@ import { $, el } from "../core/ui.js";
 const lines = value => value.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
 
 export async function mountStudyBuddies(root, manifest, encodedInvite = null) {
-  const card = el(`<section class="card stack-s" aria-label="Study buddies">
+  const card = el(`<section class="card stack-s community-card" aria-label="Study buddies">
     <h3 class="card__title">Study buddies</h3>
     <p class="card__meta">Share a group name, focus topics and a study plan — no account, chat, live membership or automatic peer updates. Group state is per-device unless you explicitly use encrypted study sync or a backup. Local edits do not notify buddies: share an updated invite to pass them on.</p>
     <div id="buddyInvitePreview" class="stack-s"></div>

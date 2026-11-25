@@ -58,6 +58,12 @@ test("optional reference benchmark endpoint is empty until valid explicit POSTs,
       assert.equal(benchmarkPosition(901, aggregate).equal, 2);
       for (const method of ["PUT", "DELETE", "PATCH"]) assert.equal((await fetch(url, { method })).status, 405);
     });
+    await t.test("only this week's receipt events are included, never past/future records", async () => {
+      const insert = spawnSync("python3", ["-c", `import sqlite3,sys\nfrom datetime import datetime,timedelta,timezone\nnow=datetime.now(timezone.utc)\nstart=(now-timedelta(days=now.weekday())).replace(hour=0,minute=0,second=0,microsecond=0)\nwith sqlite3.connect(sys.argv[1]) as db:\n for stamp in [start-timedelta(microseconds=1), start+timedelta(days=7)]:\n  db.execute('INSERT INTO submissions VALUES (0,0,2025,?)',(stamp.isoformat(),))\n`, database], { encoding: "utf8" });
+      assert.equal(insert.status, 0, insert.stderr);
+      const body = validateBenchmark(await (await fetch(url)).json());
+      assert.equal(body.count, 3);
+    });
     await stop();
     url = await start();
     await t.test("restart preserves append-only rows and database contains only contract fields", async () => {

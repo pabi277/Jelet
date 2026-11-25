@@ -158,3 +158,7 @@ test("groups are included only in the explicit encrypted study sync scope", () =
   const payload = sanitizeForSync({ meta: [{ key: "app", studyGroups: [group()] }, { key: "benchmark", baseUrl: "private" }] });
   assert.deepEqual(payload.meta, [{ key: "app", studyGroups: [group()] }]);
 });
+
+test("corrupted accuracy counts cannot enter benchmark submissions", () => {
+  for (const counts of [{ correct: Infinity }, { correct: 101 }, { correct: -1 }, { correct: 1.5 }, { correct: 80, partial: 21 }, { correct: "60" }]) assert.throws(() => benchmarkSubmission(mock({ counts }), true));
+});

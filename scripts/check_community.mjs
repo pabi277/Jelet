@@ -90,6 +90,9 @@ try {
     await page.waitForSelector("#benchmarkUrl");
     assert.match(await page.$eval("#benchmarkStatus", n => n.textContent), /not configured/);
     await page.type("#benchmarkUrl", base);
+    await page.click("#benchmarkLoad");
+    await page.waitForFunction(() => document.querySelector("#benchmarkStatus").textContent.includes("Save your edited endpoint"));
+    assert.equal(benchmarkRequests.length, 0, "unsaved URL cannot silently contact old endpoint");
     await page.click("#benchmarkSave");
     await page.waitForFunction(() => document.querySelector("#benchmarkStatus").textContent.includes("saved locally"));
     assert.equal(benchmarkRequests.length, 0);
@@ -164,7 +167,14 @@ try {
       await page.click('#benchmarkLoad');
       await page.waitForFunction(() => document.querySelector('#benchmarkStatus').textContent.includes('Offline'));
     }
-    if (route === '#/you') await page.waitForSelector('.js-buddy-edit');
+    if (route === '#/you') {
+      await page.waitForSelector('.js-buddy-edit');
+      await page.$eval('.js-buddy-edit', form => { form.parentElement.open = true; form.querySelector('[name="plan"]').value = 'C01'; });
+      await page.click('.js-buddy-edit button');
+      await page.waitForFunction(() => document.querySelector('#buddyStatus').textContent.includes('Local plan saved'));
+      assert.match(await page.$eval('#buddyGroups', n => n.textContent), /C01/);
+      checks++;
+    }
     checks++;
   }
   assert.equal(benchmarkRequests.length, priorRequests, 'offline actions send nothing');
