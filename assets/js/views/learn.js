@@ -12,6 +12,8 @@ import {
   loadManifest,
   loadAllUnits,
   loadUnit,
+  loadStudyPack,
+  loadStudyPackIndex,
   getQuestionIndex,
   loadSolutionsForQuestions,
 } from "../core/data-loader.js";
@@ -51,10 +53,11 @@ const SUBJECT_ICONS = {
 export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
   main.innerHTML = `<div class="view"><p class="view__placeholder">Loading 42-unit JELET syllabus…</p></div>`;
 
-  const [manifest, allUnits, progressMap] = await Promise.all([
+  const [manifest, allUnits, progressMap, studyPackIndex] = await Promise.all([
     loadManifest(),
     loadAllUnits(),
     getUnitProgressMap(),
+    loadStudyPackIndex(),
   ]);
 
   const initialSubj = query?.get("subject")?.toUpperCase() || null;
@@ -73,7 +76,8 @@ export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
       .join(" ");
     return {
       unit: u,
-      searchBlob: `${u.unitId} ${u.officialCode} ${u.title} ${formulasText}`.toLowerCase(),
+      studySearchText: stripLatexForSearch(studyPackIndex[u.unitId] || ""),
+      searchBlob: `${u.unitId} ${u.officialCode} ${u.title} ${formulasText} ${stripLatexForSearch(studyPackIndex[u.unitId] || "")}`.toLowerCase(),
     };
   });
 
@@ -145,7 +149,9 @@ export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
     if (activeFilter === "revised" && status !== "revised") return false;
     if (activeFilter === "high" && u.examFrequency !== "high") return false;
     if (searchQuery.trim()) {
-      return entry.searchBlob.includes(searchQuery.trim().toLowerCase());
+      const term = stripLatexForSearch(searchQuery);
+      return entry.searchBlob.includes(term) ||
+        (Boolean(term) && term.split(/\s+/).every((word) => entry.studySearchText.includes(word)));
     }
     return true;
   }
@@ -306,7 +312,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
   );
   let solutionsCache = null;
   const requestedTab = String(query?.get?.("tab") || "").toLowerCase();
-  const validTabs = new Set(["workbook", "formulas", "pyqs", "videos"]);
+  const validTabs = new Set(["workbook", "study", "formulas", "pyqs", "videos"]);
   let activeTab = validTabs.has(requestedTab) ? requestedTab : "workbook";
 
   const isBookmarkedInit = Boolean(bookmarksMap.get(unit.unitId)?.bookmarked);
@@ -435,6 +441,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
     row.innerHTML = "";
     const tabs = [
       { id: "workbook", label: "Workbook" },
+      { id: "study", label: "Study Pack" },
       { id: "formulas", label: `Formulas (${unitFormulas.length})` },
       { id: "pyqs", label: `Verified PYQs (${unitPyqs.length})` },
       { id: "videos", label: `Videos (${(unit.videoLectures || []).length})` },
@@ -452,9 +459,50 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
     }
   }
 
+  let tabRenderVersion = 0;
+
   async function renderTabContent() {
+    const renderVersion = ++tabRenderVersion;
     const slot = $("#lessonBodySlot", root);
     slot.innerHTML = "";
+
+    if (activeTab === "study") {
+      slot.innerHTML = `<div class="card"><p class="card__meta" role="status">Loading Study Pack…</p></div>`;
+      let pack;
+      try {
+        pack = await loadStudyPack(unit.unitId);
+      } catch {
+        if (renderVersion !== tabRenderVersion || !root.isConnected) return;
+        slot.innerHTML = `<div class="card stack-s"><p class="card__meta">This Study Pack could not be loaded. Your Workbook, Formulas and PYQs are still available.</p><button type="button" class="btn btn--ghost" id="studyRetryBtn">Try again</button></div>`;
+        $("#studyRetryBtn", slot).addEventListener("click", renderTabContent);
+        return;
+      }
+      // Do not replace a newer tab after an in-flight lazy fetch completes.
+      if (renderVersion !== tabRenderVersion || !root.isConnected) return;
+      if (!pack) {
+        slot.innerHTML = `<section class="card stack-s"><h2 class="card__title">Study Pack</h2><p>Study Pack for this unit is being authored — every pack is originally written and verified before shipping. Meanwhile: Workbook · Formulas · PYQs above.</p></section>`;
+        return;
+      }
+      const list = (items) => `<ul>${items.map((text) => `<li>${renderLatex(text)}</li>`).join("")}</ul>`;
+      slot.innerHTML = `
+        <section class="stack-s"><h2 class="card__title">Concept Primer</h2>
+          ${pack.conceptPrimer.map((p) => `<article class="worked-example stack-s" id="${escapeHtml(p.prdId)}"><h3 class="card__title">${escapeHtml(p.heading)}</h3><div>${renderLatex(p.proseLatex, { preserveNewlines: true })}</div></article>`).join("")}
+        </section>
+        <section class="stack-s"><h2 class="card__title">Memory Hooks</h2>
+          ${pack.memoryHooks.map((text) => `<div class="lesson-formula-card">${renderLatex(text)}</div>`).join("")}
+        </section>
+        <section class="exam-trap stack-s"><h2 class="card__title">Common Mistakes</h2>${list(pack.commonMistakes)}</section>
+        <details class="card tiebreak-details" open><summary>Exam Checklist</summary>${list(pack.examChecklist)}</details>
+        <section class="card stack-s"><h2 class="card__title">Further Reading</h2>
+          ${pack.furtherReading.length ? pack.furtherReading.map((r) => `<div><strong>${escapeHtml(r.book)}</strong> · ${escapeHtml(r.author)} · Chapters ${escapeHtml(r.chapters)}<p>${escapeHtml(r.note)}</p></div>`).join("") : `<p class="card__meta">Reading pointers will be added when available.</p>`}
+        </section>
+        <p class="card__meta">${escapeHtml(pack.provenance.draftedBy)} · reviewed by ${escapeHtml(pack.provenance.reviewedBy)} ${escapeHtml(pack.provenance.reviewedAt)}</p>
+        <button type="button" class="btn btn--ghost" id="studyReportBtn">Report a problem with this pack</button>`;
+      $("#studyReportBtn", slot).addEventListener("click", () => {
+        showToast("Local-only feedback: note the issue in your Workbook personal note. Nothing was sent.");
+      });
+      return;
+    }
 
     if (activeTab === "workbook") {
       const renderedExampleIds = new Set();
@@ -681,6 +729,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
       if (!solutionsCache) {
         slot.innerHTML = `<div class="card"><p class="card__meta">Loading ${unitPyqs.length} verified PYQs &amp; SymPy solutions…</p></div>`;
         solutionsCache = await loadSolutionsForQuestions(unitPyqs);
+        if (renderVersion !== tabRenderVersion || !root.isConnected) return;
         slot.innerHTML = "";
       }
 

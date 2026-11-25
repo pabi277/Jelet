@@ -51,6 +51,129 @@ def load_json(path):
     with open(path, "r") as f:
         return json.load(f)
 
+# Phase 13: packs are independently reviewed, lazy-loaded sidecars. Also validate
+# the additive inline field for backwards compatibility; never allow both.
+CANONICAL_UNITS = {f"{prefix}{i:02}" for prefix, n in
+                   (("M", 11), ("P", 15), ("C", 8), ("E", 8)) for i in range(1, n + 1)}
+PACK_KEYS = {"conceptPrimer", "memoryHooks", "commonMistakes", "examChecklist",
+             "furtherReading", "provenance"}
+
+
+def nonempty(value):
+    return isinstance(value, str) and bool(value.strip())
+
+
+def validate_study_pack(pack, unit_id):
+    """Structural/review gate, not a substitute for owner or mathematical review."""
+    label = f"{unit_id}: studyPack"
+    check(unit_id in CANONICAL_UNITS, f"{label}: outside 42-id registry")
+    if not isinstance(pack, dict):
+        check(False, f"{label}: must be an object")
+        return
+    check(set(pack) == PACK_KEYS, f"{label}: require known keys only: {sorted(PACK_KEYS)}")
+    primers = pack.get("conceptPrimer")
+    check(isinstance(primers, list) and 2 <= len(primers) <= 4,
+          f"{label}: conceptPrimer requires 2–4 entries")
+    ids = set()
+    for item in primers if isinstance(primers, list) else []:
+        if not isinstance(item, dict):
+            check(False, f"{label}: primer must be an object")
+            continue
+        check(set(item) == {"prdId", "heading", "proseLatex"}, f"{label}: invalid primer keys")
+        pid = item.get("prdId")
+        check(isinstance(pid, str) and bool(re.fullmatch(re.escape(unit_id) + r"-PRD[0-9]{2}", pid)),
+              f"{label}: invalid prdId {pid!r}")
+        if isinstance(pid, str):
+            check(pid not in ids, f"{label}: duplicate prdId {pid}")
+            ids.add(pid)
+        for field in ("heading", "proseLatex"):
+            check(nonempty(item.get(field)), f"{label}: primer {field} must be non-empty")
+    for field in ("memoryHooks", "commonMistakes", "examChecklist"):
+        items = pack.get(field)
+        check(isinstance(items, list) and bool(items) and all(nonempty(v) for v in items),
+              f"{label}: {field} requires non-empty strings")
+    reading = pack.get("furtherReading")
+    check(isinstance(reading, list), f"{label}: furtherReading must be an array")
+    for item in reading if isinstance(reading, list) else []:
+        if not isinstance(item, dict):
+            check(False, f"{label}: furtherReading entry must be an object")
+            continue
+        check(set(item) == {"book", "author", "chapters", "note"}, f"{label}: invalid reading keys")
+        for field in ("book", "author", "chapters", "note"):
+            value = item.get(field)
+            check(nonempty(value), f"{label}: reading {field} must be non-empty text")
+            if isinstance(value, str):
+                check(not re.search(r"(?:[/\\]|https?:|drive\.google|docs\.google|(?:^|\s)[A-Za-z]:|\.(?:pdf|epub|zip)\b)", value, re.I),
+                      f"{label}: reading {field} must not contain file paths or URLs")
+        check(isinstance(item.get("chapters"), str) and
+              bool(re.fullmatch(r"[0-9]+(?:[ ,–—-]+[0-9]+)*", item["chapters"])),
+              f"{label}: chapters must contain chapter numbers only")
+    provenance = pack.get("provenance")
+    if not isinstance(provenance, dict):
+        check(False, f"{label}: provenance must be an object")
+        return
+    check(set(provenance) == {"draftedBy", "reviewedBy", "reviewedAt"}, f"{label}: invalid provenance keys")
+    check(provenance.get("draftedBy") == "AI-assisted draft", f"{label}: draftedBy must honestly identify AI assistance")
+    check(nonempty(provenance.get("reviewedBy")), f"{label}: reviewedBy must be non-empty")
+    try:
+        from datetime import date
+        value = provenance.get("reviewedAt", "")
+        check(isinstance(value, str) and date.fromisoformat(value).isoformat() == value,
+              f"{label}: reviewedAt must be YYYY-MM-DD")
+    except (ValueError, TypeError):
+        check(False, f"{label}: reviewedAt must be YYYY-MM-DD")
+
+
+def study_pack_search_text(pack):
+    """Keep the index derived, complete, and free of book metadata/provenance."""
+    text = " ".join([
+        "concept primer memory hook common mistake exam checklist",
+        *[str(item.get(key, "")) for item in pack.get("conceptPrimer", [])
+          if isinstance(item, dict) for key in ("heading", "proseLatex")],
+        *[v for key in ("memoryHooks", "commonMistakes", "examChecklist")
+          for v in pack.get(key, []) if isinstance(v, str)],
+    ])
+    # Index facts, not a second prose payload: unique terms retain complete
+    # search coverage. Learn matches multiword queries against these terms.
+    text = re.sub(r"\\(?:text|mathrm|operatorname|mathbf|mathit)\{([^}]*)\}", r" \1 ", text)
+    text = re.sub(r"\\[a-zA-Z]+", " ", text)
+    return " ".join(dict.fromkeys(re.findall(r"[^\W_]+(?:['’][^\W_]+)*", text.lower())))
+
+
+def check_study_packs(manifest):
+    registry = [u["unitId"] for u in manifest.get("units", [])]
+    check(len(registry) == 42 and set(registry) == CANONICAL_UNITS,
+          "StudyPack: manifest must use the exact 42-id registry")
+    packs = {}
+    for path in sorted(glob.glob(os.path.join(DATA, "units", "*.json"))):
+        name = os.path.basename(path)
+        if name == "studypack-index.json":
+            continue
+        sidecar = name.endswith(".studyPack.json")
+        uid = name.removesuffix(".studyPack.json") if sidecar else name.removesuffix(".json")
+        doc = load_json(path)
+        check(uid in CANONICAL_UNITS, f"{name}: outside 42-id registry")
+        if not isinstance(doc, dict):
+            check(False, f"{name}: must be an object")
+            continue
+        if sidecar or "studyPack" in doc:
+            pack = doc if sidecar else doc["studyPack"]
+            check(uid not in packs, f"{uid}: duplicate inline/sidecar studyPack")
+            packs[uid] = pack
+            validate_study_pack(pack, uid)
+    index_path = os.path.join(DATA, "units", "studypack-index.json")
+    if not os.path.isfile(index_path):
+        check(False, "StudyPack: missing studypack-index.json")
+        return
+    check(os.path.getsize(index_path) <= 65536, "StudyPack: search index exceeds 64 KiB lightweight budget")
+    index = load_json(index_path)
+    # Avoid deriving from malformed input; validation failures above still fail.
+    if not errors:
+        expected = {uid: study_pack_search_text(pack) for uid, pack in sorted(packs.items())}
+        check(index == expected, "StudyPack: stale/invalid search index; run scripts/build_studypack_index.py")
+    print(f"✓ Study packs: {len(packs)} (review/schema/index checked)")
+
+
 # Control characters that must never appear in a parsed JSON string value.
 CONTROL_CHAR_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\t]")
 # A CR anywhere, or a LF glued to a letter, means "\right" / "\neq" / "\nu"
@@ -200,6 +323,8 @@ def main():
         for pid in unit.get("pyqIds", []):
             check(pid in all_qids, f"{unit_id}: pyqId {pid} not found in papers")
     print(f"✓ Units: {unit_count}/42 files present")
+
+    check_study_packs(manifest)
 
     # 4. Solutions
     for paper_entry in manifest.get("papers", []):

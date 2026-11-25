@@ -50,6 +50,7 @@ const ROUTES = [
   { name: "Papers library", hash: "#/papers" },
   { name: "You & AI", hash: "#/you" },
   { name: "Unit lesson P02", hash: "#/learn/P02" },
+  { name: "Unit Study Pack P02", hash: "#/learn/P02?tab=study" },
   { name: "Unit formulas P02", hash: "#/learn/P02?tab=formulas" },
   { name: "Unit videos P02", hash: "#/learn/P02?tab=videos" },
   { name: "Paper reader 2025", hash: "#/papers/jelet-2025" },
@@ -84,7 +85,7 @@ const MIME = {
 /* ------------------------------------------------------------------ *
  * Static file server (relative-path app; serves repo root)
  * ------------------------------------------------------------------ */
-function startServer() {
+function startServer(prefix = "/") {
   return new Promise((resolveServe) => {
     const server = http.createServer(async (req, res) => {
       try {
@@ -93,6 +94,11 @@ function startServer() {
           res.writeHead(204).end();
           return;
         }
+        if (!urlPath.startsWith(prefix)) {
+          res.writeHead(404).end();
+          return;
+        }
+        urlPath = "/" + urlPath.slice(prefix.length);
         if (urlPath.endsWith("/")) urlPath += "index.html";
         const filePath = path.join(ROOT, path.normalize(urlPath).replace(/^([.][.][/\\])+/, ""));
         if (!filePath.startsWith(ROOT)) {
@@ -505,4 +511,8 @@ async function main() {
   return 0;
 }
 
-process.exit(await main());
+export { startServer, resolveBrowser };
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  process.exit(await main());
+}

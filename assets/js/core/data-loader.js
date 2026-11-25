@@ -17,6 +17,8 @@ const _cache = {
   papers: new Map(),
   solutions: new Map(),
   units: new Map(),
+  studyPacks: new Map(),
+  studyPackIndex: null,
   practiceSets: new Map(),
   practiceSolutions: new Map(),
   svgs: new Map(),
@@ -302,6 +304,51 @@ export async function loadUnit(unitId) {
   const data = normalizeUnit(raw);
   _cache.units.set(id, data);
   return data;
+}
+
+/** Lightweight derived search text only; never fetches full packs. */
+export async function loadStudyPackIndex() {
+  if (_cache.studyPackIndex) return _cache.studyPackIndex;
+  try {
+    const index = await fetchJson("./_data/units/studypack-index.json");
+    if (!index || typeof index !== "object" || Array.isArray(index)) return {};
+    _cache.studyPackIndex = index;
+    return index;
+  } catch {
+    // Older deployments/offline first visits must not block Learn. Retry later.
+    return {};
+  }
+}
+
+/** Called only on opening Study Pack. Successful packs share the unit cache
+ * with the tutor; absent packs are normal, transient failures remain retryable.
+ */
+export async function loadStudyPack(unitId) {
+  const id = String(unitId).toUpperCase();
+  const manifest = await loadManifest();
+  if (!(manifest.units || []).some((u) => u.unitId === id)) return null;
+  const unit = await loadUnit(id);
+  if (unit.studyPack) return unit.studyPack; // legacy inline support
+  if (_cache.studyPacks.has(id)) return _cache.studyPacks.get(id);
+  const index = await loadStudyPackIndex();
+  if (!Object.hasOwn(index, id)) return null;
+  // Another caller may have started the request while the index was loading.
+  if (_cache.studyPacks.has(id)) return _cache.studyPacks.get(id);
+  const pending = (async () => {
+    const res = await fetch(`./_data/units/${id}.studyPack.json`);
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(`Failed to load Study Pack (HTTP ${res.status})`);
+    const pack = await res.json();
+    unit.studyPack = pack;
+    return pack;
+  })();
+  _cache.studyPacks.set(id, pending);
+  try {
+    return await pending;
+  } catch (error) {
+    _cache.studyPacks.delete(id);
+    throw error;
+  }
 }
 
 /** Load all 42 canonical syllabus unit workbooks (`M01`..`E08`). */

@@ -18,7 +18,7 @@
  * works identically on a subpath deploy (e.g. `/Jelet/`) per AGENTS.md §3.5.
  */
 
-const SW_VERSION = "jelet-v3-sw-13";
+const SW_VERSION = "jelet-v3-sw-14";
 const SHELL_CACHE = `jelet-shell-${SW_VERSION}`;
 const RUNTIME_CACHE = `jelet-runtime-${SW_VERSION}`;
 
@@ -76,6 +76,7 @@ async function collectCorpusUrls() {
     if (!manifestRes.ok) return urls;
     const manifest = await manifestRes.json();
     urls.add("./_data/manifest.json");
+    urls.add("./_data/units/studypack-index.json");
 
     for (const p of manifest.papers || []) {
       if (p.dataFile) urls.add(p.dataFile);

@@ -207,10 +207,15 @@ export function buildGroundTruthSystemPrompt({
   }
 
   if (unit) {
+    const pack = unit.studyPack;
+    const packTips = pack?.provenance?.reviewedBy?.trim()
+      ? `Memory hooks: ${(pack.memoryHooks || []).join(" | ").slice(0, 180)} | Common mistakes: ${(pack.commonMistakes || []).join(" | ").slice(0, 180)}`.slice(0, 400)
+      : "";
     return [
       "You are the JELET Study Hub AI Doubt Tutor helping a West Bengal Diploma Engineering student targeting Jadavpur University.",
       "",
       "IMMUTABLE SYLLABUS GROUND TRUTH:",
+      packTips,
       `- Unit: ${unit.unitId} (${unit.officialCode}) — ${unit.title}`,
       formula ? `- Selected Formula (${formula.label}): ${formula.latex}` : "",
       formula?.aiExplainContext ? `- Derivation Focus: ${formula.aiExplainContext}` : "",

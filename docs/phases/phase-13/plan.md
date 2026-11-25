@@ -1,7 +1,10 @@
 # Phase 13 PLAN — Learn Enrichment from Private Reference Books (AI-Assisted, Copyright-Safe)
 
-> **Status:** 📋 Research complete · **zero code written** · **owner sign-off required
-> before any `_data/` change** (`AGENTS.md` §5.5).
+> **Status (2026-11-25):** Infrastructure approved and implemented; no study packs
+> published. See [`record.md`](record.md) for the approved separate-file storage,
+> compact search index, verification evidence, and pending pilot/owner checkpoints.
+> The design below is the original research plan; the record supersedes its
+> in-place storage proposal. Pilot content still requires actual owner review.
 > **Previous:** Phase 12 (`phase-12/plan.md`) · **Next:** legacy content row of
 > `docs/05` → becomes Phase 14+ on approval.
 > **Research basis:** live Google Drive inventory (2026-11-25) + `docs/06` vault guide +
