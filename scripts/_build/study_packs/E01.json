@@ -1,0 +1,643 @@
+{
+  "unitId": "E01",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "E01-PRD01",
+        "heading": "PMMC vs Moving-Iron: What Each Meter Reads",
+        "proseLatex": "A Permanent-Magnet Moving-Coil meter develops deflecting torque $T_d = NBIA \\propto I$, so it reads the AVERAGE (DC component) of any waveform — a pure sinusoid gives zero net deflection, however large its amplitude. A Moving-Iron meter develops $T_d = \\frac{1}{2}I^2\\frac{dL}{d\\theta} \\propto I^2$ on both half-cycles, so it reads TRUE RMS on AC and DC alike, on a non-linear (cramped-at-start) scale. Micro-check: $i(t) = 2 + 3\\sqrt{2}\\sin(\\omega t)$: PMMC reads $2\\ \\text{A}$, MI reads $\\sqrt{2^2 + 3^2} = \\sqrt{13} \\approx 3.61\\ \\text{A}$."
+      },
+      {
+        "prdId": "E01-PRD02",
+        "heading": "Electrodynamometer and the Wattmeter",
+        "proseLatex": "The electrodynamometer replaces the permanent magnet with two coils (fixed field + moving pressure coil); its torque depends on the product of the two currents, so with the current coil in series and the pressure coil across the load it indicates REAL average power $P = VI\\cos\\phi$ on either AC or DC. It is the standard for wattmeter calibration precisely because it reads true DC-equivalent power on AC. Micro-check: $V = 230\\ \\text{V}$, $I = 10\\ \\text{A}$, $\\cos\\phi = 0.8$: the wattmeter shows $230 \\times 10 \\times 0.8 = 1840\\ \\text{W}$."
+      },
+      {
+        "prdId": "E01-PRD03",
+        "heading": "Shunts and Multipliers: Extending Meter Ranges",
+        "proseLatex": "Ideal ammeter: $R_A = 0$ (series connection — never across a source, or it shorts it). Ideal voltmeter: $R_V = \\infty$ (parallel connection). To extend a coil ($I_g$, $R_g$) to $I = m I_g$, add a low manganin shunt $R_{\\text{sh}} = \\frac{R_g}{m-1}$ in PARALLEL; to extend $V_g = I_g R_g$ to $V = m V_g$, add a multiplier $R_s = (m-1)R_g$ in SERIES. Micro-check: $1\\ \\text{mA}$, $50\\ \\Omega$ coil as a $0$–$10\\ \\text{V}$ voltmeter: $V_g = 0.05\\ \\text{V}$, $m = 200$, $R_s = 199 \\times 50 = 9950\\ \\Omega$."
+      },
+      {
+        "prdId": "E01-PRD04",
+        "heading": "Voltmeter Sensitivity: the Ω/V Figure of Merit",
+        "proseLatex": "Voltmeter sensitivity $S_V = \\frac{1}{I_{\\text{fsd}}}\\ \\Omega/\\text{V}$ counts how many ohms of internal resistance ride on every volt of range. A HIGHER $\\Omega/\\text{V}$ meter draws less current from the circuit, so it produces LESS loading error — the low-sensitivity voltmeter 'lies' on high-resistance dividers. Micro-check: a $1000\\ \\Omega/\\text{V}$ meter on its $100\\ \\text{V}$ range has $R_V = 100\\ \\text{k}\\Omega$; on a $100\\ \\text{k}\\Omega$ source divider it halves the reading — pick the $1000\\ \\Omega/\\text{V}$ meter."
+      },
+      {
+        "prdId": "E01-PRD05",
+        "heading": "Resistance Bridges: Match the Range",
+        "proseLatex": "Wheatstone bridge ($R_1 R_4 = R_2 R_3$ at null, galvanometer as null detector) handles MEDIUM resistances ($1\\ \\Omega$–$100\\ \\text{k}\\Omega$). Below $1\\ \\Omega$, lead and contact resistances corrupt Wheatstone — Kelvin's DOUBLE bridge removes them with a second ratio arm. Above $100\\ \\text{k}\\Omega$ (insulation resistance), the Megger (hand-driven or electronic high-voltage ohmmeter) or loss-of-charge method applies. Micro-check: a $0.5\\ \\Omega$ shunt resistance goes to Kelvin, never plain Wheatstone."
+      },
+      {
+        "prdId": "E01-PRD06",
+        "heading": "AC Bridges and Their Specialities",
+        "proseLatex": "Every AC bridge balances on $Z_1 Z_4 = Z_2 Z_3$ (both magnitude AND phase). Maxwell's inductance–capacitance bridge ($L_1 = R_2 R_3 C_4$) suits medium-$Q$ coils; Hay's bridge handles HIGH-$Q$ coils; Schering measures capacitance and dielectric loss (high-voltage cables, insulators); Wien bridge measures FREQUENCY ($f = \\frac{1}{2\\pi\\sqrt{R_1 R_2 C_1 C_2}}$, the RC oscillator heart). Micro-check: a coil with $Q > 10$ goes to Hay's, not Maxwell."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "E01-SF01",
+        "label": "PMMC deflecting torque",
+        "latex": "$T_d = NBIA \\propto I$",
+        "use": "Uniform scale; reads DC average only."
+      },
+      {
+        "sfId": "E01-SF02",
+        "label": "Moving-iron torque",
+        "latex": "$T_d = \\frac{1}{2}I^2\\frac{dL}{d\\theta} \\propto I^2$",
+        "use": "Non-linear scale; true RMS on AC and DC."
+      },
+      {
+        "sfId": "E01-SF03",
+        "label": "RMS of DC + sinusoid",
+        "latex": "$I_{\\text{rms}} = \\sqrt{I_0^2 + \\sum \\frac{I_m^2}{2}}$",
+        "use": "MI reading on composite waveforms."
+      },
+      {
+        "sfId": "E01-SF04",
+        "label": "Wattmeter power",
+        "latex": "$P = VI\\cos\\phi$",
+        "use": "Electrodynamometer reads real power."
+      },
+      {
+        "sfId": "E01-SF05",
+        "label": "Ammeter shunt",
+        "latex": "$R_{\\text{sh}} = \\frac{I_g R_g}{I - I_g} = \\frac{R_g}{m - 1}$",
+        "use": "Parallel low resistance extends current range."
+      },
+      {
+        "sfId": "E01-SF06",
+        "label": "Voltmeter multiplier",
+        "latex": "$R_s = \\frac{V}{I_g} - R_g = (m - 1)R_g$",
+        "use": "Series high resistance extends voltage range."
+      },
+      {
+        "sfId": "E01-SF07",
+        "label": "Multiplying factor",
+        "latex": "$m = \\frac{I}{I_g} = \\frac{V}{V_g}$",
+        "use": "Range extension factor of the coil."
+      },
+      {
+        "sfId": "E01-SF08",
+        "label": "Voltmeter sensitivity",
+        "latex": "$S_V = \\frac{1}{I_{\\text{fsd}}}\\ \\Omega/\\text{V}$",
+        "use": "Higher $\\Omega/\\text{V}$ = less loading error."
+      },
+      {
+        "sfId": "E01-SF09",
+        "label": "Wheatstone null",
+        "latex": "$\\frac{R_1}{R_2} = \\frac{R_3}{R_4}$, i.e. $R_1 R_4 = R_2 R_3$",
+        "use": "Medium resistance ($1\\ \\Omega$–$100\\ \\text{k}\\Omega$)."
+      },
+      {
+        "sfId": "E01-SF10",
+        "label": "General AC bridge",
+        "latex": "$Z_1 Z_4 = Z_2 Z_3$",
+        "use": "Balance in magnitude and phase."
+      },
+      {
+        "sfId": "E01-SF11",
+        "label": "Maxwell bridge",
+        "latex": "$L_1 = R_2 R_3 C_4$",
+        "use": "Medium-$Q$ coil inductance."
+      },
+      {
+        "sfId": "E01-SF12",
+        "label": "Wien bridge frequency",
+        "latex": "$f = \\frac{1}{2\\pi\\sqrt{R_1 R_2 C_1 C_2}}$",
+        "use": "Frequency measurement and RC oscillators."
+      },
+      {
+        "sfId": "E01-SF13",
+        "label": "Shunt current split",
+        "latex": "$I_{\\text{sh}} = I - I_g$;\\ $\\frac{I_g}{I_{\\text{sh}}} = \\frac{R_{\\text{sh}}}{R_g}$",
+        "use": "Current divider inside the ammeter."
+      },
+      {
+        "sfId": "E01-SF14",
+        "label": "Ideal meter resistances",
+        "latex": "$R_A = 0\\ (\\text{series});\\quad R_V = \\infty\\ (\\text{parallel})$",
+        "use": "Ideal loading assumptions."
+      },
+      {
+        "sfId": "E01-SF15",
+        "label": "Kelvin double bridge role",
+        "latex": "$R_x < 1\\ \\Omega \\to$ Kelvin; $>100\\ \\text{k}\\Omega \\to$ Megger",
+        "use": "Bridge-to-range mapping."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "E01-DEF01",
+        "term": "PMMC instrument",
+        "definition": "Permanent-magnet moving-coil meter; deflecting torque $NBIA$; uniform scale, eddy-current damped, DC average only."
+      },
+      {
+        "defId": "E01-DEF02",
+        "term": "Moving-iron instrument",
+        "definition": "Meter whose torque $\\propto I^2\\frac{dL}{d\\theta}$; reads true RMS on AC and DC; air-friction damped; cramped scale."
+      },
+      {
+        "defId": "E01-DEF03",
+        "term": "Electrodynamometer",
+        "definition": "Two-coil instrument whose torque uses the product of coil currents; the standard wattmeter ($P = VI\\cos\\phi$)."
+      },
+      {
+        "defId": "E01-DEF04",
+        "term": "Shunt",
+        "definition": "Low manganin resistance in parallel with a PMMC coil to extend its current range ($R_{\\text{sh}} = R_g/(m-1)$)."
+      },
+      {
+        "defId": "E01-DEF05",
+        "term": "Multiplier",
+        "definition": "High resistance in series with a PMMC coil to extend its voltage range ($R_s = (m-1)R_g$)."
+      },
+      {
+        "defId": "E01-DEF06",
+        "term": "Voltmeter sensitivity",
+        "definition": "$\\Omega/\\text{V}$ figure $= 1/I_{\\text{fsd}}$; higher sensitivity means smaller circuit loading."
+      },
+      {
+        "defId": "E01-DEF07",
+        "term": "Loading error",
+        "definition": "Reading shift caused by the meter drawing current from the measured circuit (worst for low-$\\Omega/\\text{V}$ voltmeters)."
+      },
+      {
+        "defId": "E01-DEF08",
+        "term": "Kelvin double bridge",
+        "definition": "Modified Wheatstone with a second ratio arm that cancels lead/contact resistance; for resistances below $1\\ \\Omega$."
+      },
+      {
+        "defId": "E01-DEF09",
+        "term": "Megger",
+        "definition": "High-voltage insulation tester for resistances above $\\sim 100\\ \\text{k}\\Omega$."
+      },
+      {
+        "defId": "E01-DEF10",
+        "term": "Damping",
+        "definition": "Mechanism (eddy-current for PMMC, air-friction for MI) that brings the pointer to rest quickly without oscillation."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "E01-CMP01",
+        "title": "PMMC vs Moving-Iron",
+        "columns": [
+          "Aspect",
+          "PMMC",
+          "Moving-Iron"
+        ],
+        "rows": [
+          {
+            "label": "Torque law",
+            "values": [
+              "$T_d = NBIA \\propto I$",
+              "$\\propto I^2\\frac{dL}{d\\theta}$"
+            ]
+          },
+          {
+            "label": "Reading",
+            "values": [
+              "DC average (0 on pure AC)",
+              "true RMS on AC and DC"
+            ]
+          },
+          {
+            "label": "Scale",
+            "values": [
+              "uniform/linear",
+              "non-linear (cramped at start)"
+            ]
+          },
+          {
+            "label": "Damping",
+            "values": [
+              "eddy-current",
+              "air-friction"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E01-CMP02",
+        "title": "Shunt vs multiplier",
+        "columns": [
+          "Aspect",
+          "Ammeter shunt",
+          "Voltmeter multiplier"
+        ],
+        "rows": [
+          {
+            "label": "Connection",
+            "values": [
+              "parallel with coil",
+              "series with coil"
+            ]
+          },
+          {
+            "label": "Formula",
+            "values": [
+              "$R_{\\text{sh}} = \\frac{R_g}{m-1}$",
+              "$R_s = (m-1)R_g$"
+            ]
+          },
+          {
+            "label": "Material/resistance",
+            "values": [
+              "low (manganin)",
+              "high"
+            ]
+          },
+          {
+            "label": "Ideal-meter value",
+            "values": [
+              "$R_A = 0$",
+              "$R_V = \\infty$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E01-CMP03",
+        "title": "Bridge by resistance range",
+        "columns": [
+          "Range",
+          "Instrument",
+          "Note"
+        ],
+        "rows": [
+          {
+            "label": "$< 1\\ \\Omega$ (low)",
+            "values": [
+              "Kelvin double bridge",
+              "kills lead/contact error"
+            ]
+          },
+          {
+            "label": "$1\\ \\Omega$–$100\\ \\text{k}\\Omega$",
+            "values": [
+              "Wheatstone",
+              "$R_1 R_4 = R_2 R_3$"
+            ]
+          },
+          {
+            "label": "$> 100\\ \\text{k}\\Omega$ (insulation)",
+            "values": [
+              "Megger / loss-of-charge",
+              "high-voltage test"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E01-CMP04",
+        "title": "AC bridge specialities",
+        "columns": [
+          "Bridge",
+          "Measures",
+          "Best for"
+        ],
+        "rows": [
+          {
+            "label": "Maxwell L–C",
+            "values": [
+              "inductance $L_1 = R_2 R_3 C_4$",
+              "medium-$Q$ coils"
+            ]
+          },
+          {
+            "label": "Hay's",
+            "values": [
+              "inductance",
+              "high-$Q$ coils"
+            ]
+          },
+          {
+            "label": "Schering",
+            "values": [
+              "capacitance + dielectric loss",
+              "HV cables/insulators"
+            ]
+          },
+          {
+            "label": "Wien",
+            "values": [
+              "frequency",
+              "RC oscillators"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "E01-MCQ01",
+        "stemLatex": "Current $i(t) = 2 + 3\\sqrt{2}\\sin(\\omega t)\\ \\text{A}$ flows through a PMMC ammeter in series with a moving-iron ammeter. The readings are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2\\ \\text{A}$ and $5\\ \\text{A}$"
+          },
+          {
+            "id": "B",
+            "latex": "$2\\ \\text{A}$ and $3.61\\ \\text{A}$"
+          },
+          {
+            "id": "C",
+            "latex": "$5\\ \\text{A}$ and $5\\ \\text{A}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0\\ \\text{A}$ and $3.61\\ \\text{A}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "PMMC reads the DC average $= 2\\ \\text{A}$; MI reads true RMS $= \\sqrt{2^2 + 3^2} = \\sqrt{13} \\approx 3.61\\ \\text{A}$."
+      },
+      {
+        "mcqId": "E01-MCQ02",
+        "stemLatex": "A PMMC ammeter is connected to a purely sinusoidal AC source of peak $10\\ \\text{A}$. Its steady reading is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$10\\ \\text{A}$"
+          },
+          {
+            "id": "B",
+            "latex": "$7.07\\ \\text{A}$"
+          },
+          {
+            "id": "C",
+            "latex": "$6.37\\ \\text{A}$"
+          },
+          {
+            "id": "D",
+            "latex": "$0\\ \\text{A}$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "PMMC responds to the average over a cycle; a pure sinusoid has zero average, so the pointer stays at zero despite the 10 A peak."
+      },
+      {
+        "mcqId": "E01-MCQ03",
+        "stemLatex": "A $1\\ \\text{mA}$, $50\\ \\Omega$ PMMC movement is converted into a $0$–$5\\ \\text{V}$ voltmeter. The series multiplier is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$4950\\ \\Omega$"
+          },
+          {
+            "id": "B",
+            "latex": "$5000\\ \\Omega$"
+          },
+          {
+            "id": "C",
+            "latex": "$495\\ \\Omega$"
+          },
+          {
+            "id": "D",
+            "latex": "$5050\\ \\Omega$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$V_g = 1\\ \\text{mA} \\times 50\\ \\Omega = 0.05\\ \\text{V}$, $m = 5/0.05 = 100$, $R_s = (100-1) \\times 50 = 4950\\ \\Omega$."
+      },
+      {
+        "mcqId": "E01-MCQ04",
+        "stemLatex": "A $1\\ \\text{mA}$, $100\\ \\Omega$ coil must read up to $1\\ \\text{A}$. The required shunt is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.1\\ \\Omega$"
+          },
+          {
+            "id": "B",
+            "latex": "$1\\ \\Omega$"
+          },
+          {
+            "id": "C",
+            "latex": "$10\\ \\Omega$"
+          },
+          {
+            "id": "D",
+            "latex": "$0.01\\ \\Omega$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$m = \\frac{1\\ \\text{A}}{1\\ \\text{mA}} = 1000$; $R_{\\text{sh}} = \\frac{R_g}{m-1} = \\frac{100}{999} \\approx 0.1\\ \\Omega$."
+      },
+      {
+        "mcqId": "E01-MCQ05",
+        "stemLatex": "Which voltmeter produces the LEAST loading error on a high-resistance circuit?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$100\\ \\Omega/\\text{V}$"
+          },
+          {
+            "id": "B",
+            "latex": "$500\\ \\Omega/\\text{V}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1000\\ \\Omega/\\text{V}$"
+          },
+          {
+            "id": "D",
+            "latex": "$20\\ \\text{k}\\Omega/\\text{V}$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "Higher $\\Omega/\\text{V}$ means lower $I_{\\text{fsd}}$ and less current drawn from the circuit — the $20\\ \\text{k}\\Omega/\\text{V}$ meter loads it least."
+      },
+      {
+        "mcqId": "E01-MCQ06",
+        "stemLatex": "An electrodynamometer wattmeter connected to a load reads:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "apparent power $VI$"
+          },
+          {
+            "id": "B",
+            "latex": "$|VI|$ regardless of phase"
+          },
+          {
+            "id": "C",
+            "latex": "real power $VI\\cos\\phi$"
+          },
+          {
+            "id": "D",
+            "latex": "reactive power $VI\\sin\\phi$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "The dynamometer torque uses the product of current-coil and pressure-coil currents with the phase angle — it indicates true average power."
+      },
+      {
+        "mcqId": "E01-MCQ07",
+        "stemLatex": "The resistance of a busbar joint, expected below $0.5\\ \\Omega$, is best measured with a:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "Wheatstone bridge"
+          },
+          {
+            "id": "B",
+            "latex": "Kelvin double bridge"
+          },
+          {
+            "id": "C",
+            "latex": "Schering bridge"
+          },
+          {
+            "id": "D",
+            "latex": "Megger"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Low resistances need Kelvin's double bridge to eliminate lead and contact resistance; Megger is for insulation-level resistances."
+      },
+      {
+        "mcqId": "E01-MCQ08",
+        "stemLatex": "A Wheatstone bridge is balanced. If the supply and galvanometer are interchanged between the OPPOSITE corner pairs, the bridge:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "becomes unbalanced"
+          },
+          {
+            "id": "B",
+            "latex": "stays balanced"
+          },
+          {
+            "id": "C",
+            "latex": "reads half"
+          },
+          {
+            "id": "D",
+            "latex": "burns the galvanometer"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "The balance condition is symmetric in the corner products — swapping supply and detector across opposite corners leaves a balanced bridge balanced."
+      },
+      {
+        "mcqId": "E01-MCQ09",
+        "stemLatex": "A coil of quality factor $Q \\approx 20$ (low loss) has its inductance measured most accurately by:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "Maxwell's L–C bridge"
+          },
+          {
+            "id": "B",
+            "latex": "Hay's bridge"
+          },
+          {
+            "id": "C",
+            "latex": "Wien bridge"
+          },
+          {
+            "id": "D",
+            "latex": "Kelvin bridge"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Hay's bridge is designed for HIGH-$Q$ coils; Maxwell suits medium-$Q$, Wien measures frequency."
+      },
+      {
+        "mcqId": "E01-MCQ10",
+        "stemLatex": "An ammeter is mistakenly connected IN PARALLEL across a battery. The likely consequence is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "no current flows"
+          },
+          {
+            "id": "B",
+            "latex": "reading is doubled"
+          },
+          {
+            "id": "C",
+            "latex": "near short-circuit current flows through the meter"
+          },
+          {
+            "id": "D",
+            "latex": "the meter reads voltage"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "An ammeter's resistance is nearly zero — across a source it behaves like a short circuit and draws destructive current."
+      }
+    ],
+    "memoryHooks": [
+      "PMMC averages, MI squares-and-averages: DC-average vs true RMS.",
+      "Pure AC through a PMMC = zero — no matter how big the peak.",
+      "Shunt divides the current; multiplier multiplies the volts.",
+      "$R_{\\text{sh}} = R_g/(m-1)$ parallel, $R_s = (m-1)R_g$ series.",
+      "More $\\Omega/\\text{V}$, less lie: sensitivity fights loading error.",
+      "Ammeter in series, voltmeter in parallel — reversed, the ammeter shorts.",
+      "Kelvin below one ohm, Megger above hundred k.",
+      "Maxwell for medium-Q, Hay for high-Q, Schering for capacitors, Wien for frequency.",
+      "Balanced Wheatstone shrugs at a supply–galvanometer swap.",
+      "Dynamometer reads the $\\cos\\phi$ that others miss."
+    ],
+    "commonMistakes": [
+      "Expecting a PMMC meter to show RMS on AC (it shows the average — zero for pure AC).",
+      "Using $\\sqrt{2}$-scaled peak twice: RMS of DC + AC is $\\sqrt{I_0^2 + I_m^2/2}$.",
+      "Writing $R_{\\text{sh}} = (m-1)R_g$ (that's the multiplier) instead of $R_g/(m-1)$.",
+      "Claiming a lower $\\Omega/\\text{V}$ voltmeter is better (it loads the circuit more).",
+      "Measuring sub-ohm resistances with a plain Wheatstone bridge.",
+      "Confusing Maxwell (medium-Q) with Hay's (high-Q) bridge.",
+      "Forgetting that MI works on DC too (it reads RMS there as well).",
+      "Connecting an ammeter across a supply 'to measure the voltage'.",
+      "Breaking a balanced bridge by swapping supply and galvanometer — it stays balanced."
+    ],
+    "examChecklist": [
+      "Decide DC-average (PMMC) vs true-RMS (MI) before any waveform question.",
+      "Split composite RMS as $\\sqrt{I_0^2 + \\sum I_m^2/2}$.",
+      "Convert $I_g R_g$ to $V_g$ first; find $m$; then apply the shunt/multiplier formula.",
+      "State the shunt connection (parallel) and multiplier connection (series).",
+      "Quote sensitivity in $\\Omega/\\text{V}$ and link it to loading error.",
+      "Map resistance magnitude to Kelvin / Wheatstone / Megger.",
+      "Recite the AC-bridge roster: Maxwell, Hay's, Schering, Wien.",
+      "Use $Z_1 Z_4 = Z_2 Z_3$ for any AC-bridge balance.",
+      "Wattmeter questions: answer with $VI\\cos\\phi$, not $VI$.",
+      "Remember the balanced-bridge swap invariance.",
+      "Never place an ammeter in parallel with a source."
+    ],
+    "furtherReading": [
+      {
+        "book": "A Course in Electrical and Electronic Measurements and Instrumentation",
+        "author": "A. K. Sawhney",
+        "chapters": "Electromechanical indicating instruments + bridges chapters",
+        "note": "Electromechanical indicating instruments and bridge practice — the fact base this pack compresses; pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

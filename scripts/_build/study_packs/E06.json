@@ -1,0 +1,658 @@
+{
+  "unitId": "E06",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "E06-PRD01",
+        "heading": "Band Gaps and the Negative Temperature Coefficient",
+        "proseLatex": "Room-temperature band gaps: $E_g \\approx 0.72\\ \\text{eV}$ (Ge) and $1.12\\ \\text{eV}$ (Si). Heat shakes more electrons across the gap, so resistance FALLS as temperature rises — semiconductors carry a NEGATIVE temperature coefficient of resistance (metals the opposite). Micro-check: Ge conducts measurably better than Si at the same doping precisely because its smaller gap frees more carriers."
+      },
+      {
+        "prdId": "E06-PRD02",
+        "heading": "Doping: Donors, Acceptors and Neutrality",
+        "proseLatex": "Pentavalent Group-15 donors (P, As, Sb) create $n$-type (electron majority; fixed positive donor ions); trivalent Group-13 acceptors (B, Al, Ga, In) create $p$-type. Both crystals remain ELECTRICALLY NEUTRAL — '$n$-type' names the majority MOBILE carrier, never a net charge. Micro-check: a phosphorus atom donates one electron and stays as an immobile $\\text{P}^+$ ion — the charges cancel."
+      },
+      {
+        "prdId": "E06-PRD03",
+        "heading": "Mass-Action Law and Conductivity",
+        "proseLatex": "At equilibrium, $n \\cdot p = n_i^2$ holds in intrinsic AND doped material: heavy doping of one carrier starves the other. Drift conductivity $\\sigma = q(n\\mu_n + p\\mu_p)$, and the thermal voltage $V_T = \\frac{kT}{q} \\approx 26\\ \\text{mV}$ at 300 K recurs in every diode/transistor equation. Micro-check: Si ($n_i = 1.5\\times10^{10}\\ \\text{cm}^{-3}$) doped $N_D = 2.25\\times10^{15}$: $p_0 = \\frac{2.25\\times10^{20}}{2.25\\times10^{15}} = 10^5\\ \\text{cm}^{-3}$ — ten orders below the majority."
+      },
+      {
+        "prdId": "E06-PRD04",
+        "heading": "The p-n Junction and Its Bias Behaviour",
+        "proseLatex": "Cut-in voltage $\\approx 0.7\\ \\text{V}$ (Si), $0.3\\ \\text{V}$ (Ge), falling $\\sim 2\\ \\text{mV}/^\\circ\\text{C}$. Forward bias NARROWS the depletion layer (current flows exponentially); reverse bias WIDENS it — the voltage-dependent junction capacitance $C_j$ is the varactor's tuning mechanism. Micro-check: double forward voltage and the forward current multiplies ~tenfold per $60\\ \\text{mV}$ — the diode law's steepness."
+      },
+      {
+        "prdId": "E06-PRD05",
+        "heading": "Zener Regulation and the Rectifier Benchmarks",
+        "proseLatex": "A heavily doped Zener works in REVERSE BREAKDOWN as a shunt regulator: clamped voltage, absorbing current swings. Rectifier roster: Half-Wave — $\\eta_{\\max} = 40.6\\%$, ripple factor $1.21$, ripple frequency $f$; Centre-Tap Full-Wave — $81.2\\%$, RF $0.482$, $2f$, but PIV $= 2V_m$ per diode; Bridge Full-Wave — $81.2\\%$, $2f$, and the gentler PIV $= V_m$. Micro-check: at $V_m = 50\\ \\text{V}$, CT diodes must survive $100\\ \\text{V}$ reverse; bridge diodes only $50\\ \\text{V}$."
+      },
+      {
+        "prdId": "E06-PRD06",
+        "heading": "BJT, MOSFET and CMOS Logic",
+        "proseLatex": "A BJT is a bipolar CURRENT-controlled device: $I_E = I_B + I_C$. In the ACTIVE region (E-B forward, C-B reverse) it amplifies with $\\beta = \\frac{I_C}{I_B} = \\frac{\\alpha}{1-\\alpha}$; cutoff (both reverse) and saturation (both forward) are the switch states. A MOSFET is unipolar, VOLTAGE-controlled with near-infinite gate impedance; CMOS pairs a PMOS pull-up with NMOS pull-down for near-zero static power and rail-to-rail noise margins. Micro-check: $\\alpha = 0.98$: $\\beta = 49$ and $I_E = (1+\\beta)I_B = 50\\,I_B$ — the base current is the tiny remainder."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "E06-SF01",
+        "label": "Band gaps (300 K)",
+        "latex": "$E_g(\\text{Ge}) \\approx 0.72\\ \\text{eV};\\quad E_g(\\text{Si}) \\approx 1.12\\ \\text{eV}$",
+        "use": "Negative temperature coefficient follows."
+      },
+      {
+        "sfId": "E06-SF02",
+        "label": "Mass-action law",
+        "latex": "$n \\cdot p = n_i^2$",
+        "use": "Holds in intrinsic and doped material."
+      },
+      {
+        "sfId": "E06-SF03",
+        "label": "Minority concentration",
+        "latex": "$p_0 = \\frac{n_i^2}{N_D}$ ($n$-type); $n_0 = \\frac{n_i^2}{N_A}$ ($p$-type)",
+        "use": "Doping starves the other carrier."
+      },
+      {
+        "sfId": "E06-SF04",
+        "label": "Drift conductivity",
+        "latex": "$\\sigma = q(n\\mu_n + p\\mu_p)$",
+        "use": "Both carriers conduct."
+      },
+      {
+        "sfId": "E06-SF05",
+        "label": "Thermal voltage",
+        "latex": "$V_T = \\frac{kT}{q} \\approx 26\\ \\text{mV}$ at 300 K",
+        "use": "Diode-law constant."
+      },
+      {
+        "sfId": "E06-SF06",
+        "label": "Cut-in voltages",
+        "latex": "$\\sim 0.7\\ \\text{V}$ (Si), $\\sim 0.3\\ \\text{V}$ (Ge), $-2\\ \\text{mV}/^\\circ\\text{C}$",
+        "use": "Junction turn-on benchmarks."
+      },
+      {
+        "sfId": "E06-SF07",
+        "label": "Rectifier efficiency",
+        "latex": "$\\text{HWR}: 40.6\\%;\\quad \\text{FWR (CT, bridge)}: 81.2\\%$",
+        "use": "Maximum rectification ratios."
+      },
+      {
+        "sfId": "E06-SF08",
+        "label": "Ripple factor",
+        "latex": "$\\text{HWR}: 1.21;\\quad \\text{FWR}: 0.482$",
+        "use": "AC residue in the output."
+      },
+      {
+        "sfId": "E06-SF09",
+        "label": "Ripple frequency",
+        "latex": "$\\text{HWR}: f;\\quad \\text{FWR}: 2f$",
+        "use": "Full-wave doubles the ripple rate."
+      },
+      {
+        "sfId": "E06-SF10",
+        "label": "PIV benchmarks",
+        "latex": "$\\text{HWR}: V_m;\\quad \\text{CT-FWR}: 2V_m;\\quad \\text{Bridge}: V_m$",
+        "use": "Diode survival rating."
+      },
+      {
+        "sfId": "E06-SF11",
+        "label": "BJT current sum",
+        "latex": "$I_E = I_B + I_C$",
+        "use": "Charge bookkeeping."
+      },
+      {
+        "sfId": "E06-SF12",
+        "label": "Gains $\\alpha, \\beta$",
+        "latex": "$\\beta = \\frac{\\alpha}{1-\\alpha};\\quad \\alpha = \\frac{\\beta}{\\beta+1}$",
+        "use": "CB vs CE conversion."
+      },
+      {
+        "sfId": "E06-SF13",
+        "label": "Leakage amplification",
+        "latex": "$I_{CEO} = (1+\\beta)I_{CBO}$",
+        "use": "CE leakage exceeds CB leakage."
+      },
+      {
+        "sfId": "E06-SF14",
+        "label": "Active-region bias",
+        "latex": "E-B forward, C-B reverse (cutoff: both reverse; saturation: both forward)",
+        "use": "Region-of-operation test."
+      },
+      {
+        "sfId": "E06-SF15",
+        "label": "CMOS merit",
+        "latex": "Static power $\\approx 0$; rail-to-rail noise margins",
+        "use": "PMOS pull-up + NMOS pull-down."
+      },
+      {
+        "sfId": "E06-SF16",
+        "label": "Varactor behaviour",
+        "latex": "$C_j$ falls as reverse bias rises",
+        "use": "Voltage-controlled capacitance."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "E06-DEF01",
+        "term": "Intrinsic semiconductor",
+        "definition": "Pure crystal where $n = p = n_i$; conductivity rises with temperature."
+      },
+      {
+        "defId": "E06-DEF02",
+        "term": "Donor / acceptor doping",
+        "definition": "Group-15 substitution $\\to n$-type (electron majority); Group-13 $\\to p$-type (hole majority)."
+      },
+      {
+        "defId": "E06-DEF03",
+        "term": "Majority / minority carrier",
+        "definition": "The abundant carrier of a doped region vs the mass-action-starved one."
+      },
+      {
+        "defId": "E06-DEF04",
+        "term": "Depletion layer",
+        "definition": "Region stripped of mobile carriers; widens under reverse bias, narrows under forward."
+      },
+      {
+        "defId": "E06-DEF05",
+        "term": "Cut-in (barrier) voltage",
+        "definition": "Forward voltage at which diode current becomes appreciable ($0.7$ V Si, $0.3$ V Ge)."
+      },
+      {
+        "defId": "E06-DEF06",
+        "term": "Zener regulator",
+        "definition": "Reverse-biased heavily doped diode holding a near-constant voltage across a shunt load."
+      },
+      {
+        "defId": "E06-DEF07",
+        "term": "Ripple factor",
+        "definition": "Ratio of AC (rms) component to DC component of rectifier output."
+      },
+      {
+        "defId": "E06-DEF08",
+        "term": "PIV",
+        "definition": "Peak Inverse Voltage — the maximum reverse voltage a rectifier diode must survive."
+      },
+      {
+        "defId": "E06-DEF09",
+        "term": "$\\alpha$ and $\\beta$",
+        "definition": "Common-base current gain $I_C/I_E < 1$; common-base-to-CE gain $\\beta = \\alpha/(1-\\alpha)$."
+      },
+      {
+        "defId": "E06-DEF10",
+        "term": "CMOS",
+        "definition": "Complementary MOSFET logic — PMOS pull-up + NMOS pull-down, near-zero static dissipation."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "E06-CMP01",
+        "title": "n-type vs p-type",
+        "columns": [
+          "Aspect",
+          "$n$-type",
+          "$p$-type"
+        ],
+        "rows": [
+          {
+            "label": "Dopant",
+            "values": [
+              "pentavalent (P, As, Sb)",
+              "trivalent (B, Al, Ga, In)"
+            ]
+          },
+          {
+            "label": "Majority carrier",
+            "values": [
+              "electrons",
+              "holes"
+            ]
+          },
+          {
+            "label": "Net crystal charge",
+            "values": [
+              "neutral",
+              "neutral"
+            ]
+          },
+          {
+            "label": "Fixed ion",
+            "values": [
+              "positive donor",
+              "negative acceptor"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E06-CMP02",
+        "title": "Rectifier benchmarks",
+        "columns": [
+          "Parameter",
+          "Half-wave",
+          "Centre-tap FW",
+          "Bridge FW"
+        ],
+        "rows": [
+          {
+            "label": "$\\eta_{\\max}$",
+            "values": [
+              "$40.6\\%$",
+              "$81.2\\%$",
+              "$81.2\\%$"
+            ]
+          },
+          {
+            "label": "Ripple factor",
+            "values": [
+              "1.21",
+              "0.482",
+              "0.482"
+            ]
+          },
+          {
+            "label": "Ripple frequency",
+            "values": [
+              "$f$",
+              "$2f$",
+              "$2f$"
+            ]
+          },
+          {
+            "label": "PIV",
+            "values": [
+              "$V_m$",
+              "$2V_m$",
+              "$V_m$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E06-CMP03",
+        "title": "BJT vs MOSFET",
+        "columns": [
+          "Aspect",
+          "BJT",
+          "MOSFET"
+        ],
+        "rows": [
+          {
+            "label": "Control",
+            "values": [
+              "current-controlled (bipolar)",
+              "voltage-controlled (unipolar)"
+            ]
+          },
+          {
+            "label": "Carriers",
+            "values": [
+              "electrons AND holes",
+              "majority carriers only"
+            ]
+          },
+          {
+            "label": "Input impedance",
+            "values": [
+              "moderate ($I_B$ needed)",
+              "$\\approx \\infty$ ($I_G \\approx 0$)"
+            ]
+          },
+          {
+            "label": "Regions",
+            "values": [
+              "cutoff / active / saturation",
+              "cutoff / triode / saturation"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E06-CMP04",
+        "title": "BJT operating regions",
+        "columns": [
+          "Region",
+          "E-B junction",
+          "C-B junction",
+          "Use"
+        ],
+        "rows": [
+          {
+            "label": "Active",
+            "values": [
+              "forward",
+              "reverse",
+              "amplification"
+            ]
+          },
+          {
+            "label": "Saturation",
+            "values": [
+              "forward",
+              "forward",
+              "closed switch"
+            ]
+          },
+          {
+            "label": "Cutoff",
+            "values": [
+              "reverse",
+              "reverse",
+              "open switch"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "E06-MCQ01",
+        "stemLatex": "Silicon ($n_i = 1.5\\times10^{10}\\ \\text{cm}^{-3}$) is doped with $N_D = 2.25\\times10^{15}\\ \\text{cm}^{-3}$. The equilibrium hole concentration is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2.25\\times10^{15}\\ \\text{cm}^{-3}$"
+          },
+          {
+            "id": "B",
+            "latex": "$10^5\\ \\text{cm}^{-3}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1.5\\times10^{10}\\ \\text{cm}^{-3}$"
+          },
+          {
+            "id": "D",
+            "latex": "$10^{10}\\ \\text{cm}^{-3}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$p_0 = \\frac{n_i^2}{N_D} = \\frac{2.25\\times10^{20}}{2.25\\times10^{15}} = 10^5\\ \\text{cm}^{-3}$ — mass-action starves the minority."
+      },
+      {
+        "mcqId": "E06-MCQ02",
+        "stemLatex": "An $n$-type semiconductor crystal is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "negatively charged"
+          },
+          {
+            "id": "B",
+            "latex": "positively charged"
+          },
+          {
+            "id": "C",
+            "latex": "electrically neutral"
+          },
+          {
+            "id": "D",
+            "latex": "charged depending on doping"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Mobile electrons are balanced by fixed positive donor ions — neutrality holds for every doping."
+      },
+      {
+        "mcqId": "E06-MCQ03",
+        "stemLatex": "A transistor has $\\alpha = 0.96$. Its $\\beta$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "48"
+          },
+          {
+            "id": "B",
+            "latex": "24"
+          },
+          {
+            "id": "C",
+            "latex": "96"
+          },
+          {
+            "id": "D",
+            "latex": "0.04"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\beta = \\frac{\\alpha}{1-\\alpha} = \\frac{0.96}{0.04} = 24$."
+      },
+      {
+        "mcqId": "E06-MCQ04",
+        "stemLatex": "For a bridge rectifier vs a centre-tapped full-wave rectifier, the diode PIV respectively is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$V_m$, $V_m$"
+          },
+          {
+            "id": "B",
+            "latex": "$2V_m$, $V_m$"
+          },
+          {
+            "id": "C",
+            "latex": "$V_m$, $2V_m$"
+          },
+          {
+            "id": "D",
+            "latex": "$2V_m$, $2V_m$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Bridge diodes see only $V_m$; centre-tap diodes see $2V_m$ — the bridge's quiet advantage."
+      },
+      {
+        "mcqId": "E06-MCQ05",
+        "stemLatex": "The ripple frequency of a full-wave rectifier fed at 50 Hz is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "25 Hz"
+          },
+          {
+            "id": "B",
+            "latex": "50 Hz"
+          },
+          {
+            "id": "C",
+            "latex": "100 Hz"
+          },
+          {
+            "id": "D",
+            "latex": "200 Hz"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Both half-cycles conduct: $f_{\\text{ripple}} = 2f = 100\\ \\text{Hz}$ (a half-wave rectifier stays at 50 Hz)."
+      },
+      {
+        "mcqId": "E06-MCQ06",
+        "stemLatex": "The maximum theoretical rectification efficiency of a half-wave rectifier is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$81.2\\%$"
+          },
+          {
+            "id": "B",
+            "latex": "$50\\%$"
+          },
+          {
+            "id": "C",
+            "latex": "$40.6\\%$"
+          },
+          {
+            "id": "D",
+            "latex": "$100\\%$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "HWR tops out at $40.6\\%$; full-wave doubles it to $81.2\\%$."
+      },
+      {
+        "mcqId": "E06-MCQ07",
+        "stemLatex": "A Zener diode used as a voltage regulator operates in:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "forward bias"
+          },
+          {
+            "id": "B",
+            "latex": "reverse breakdown"
+          },
+          {
+            "id": "C",
+            "latex": "cutoff"
+          },
+          {
+            "id": "D",
+            "latex": "saturation"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Heavily doped, it clamps at its breakdown voltage while shunting load — regulation lives in reverse breakdown."
+      },
+      {
+        "mcqId": "E06-MCQ08",
+        "stemLatex": "The cut-in voltage of a silicon diode at room temperature is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$0.3\\ \\text{V}$"
+          },
+          {
+            "id": "B",
+            "latex": "$0.7\\ \\text{V}$"
+          },
+          {
+            "id": "C",
+            "latex": "$1.12\\ \\text{V}$"
+          },
+          {
+            "id": "D",
+            "latex": "$26\\ \\text{mV}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\approx 0.7\\ \\text{V}$ for Si ($0.3\\ \\text{V}$ Ge), falling about $2\\ \\text{mV}/^\\circ\\text{C}$ with heat."
+      },
+      {
+        "mcqId": "E06-MCQ09",
+        "stemLatex": "A MOSFET differs from a BJT chiefly because it is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "current-controlled and bipolar"
+          },
+          {
+            "id": "B",
+            "latex": "voltage-controlled with near-infinite gate impedance"
+          },
+          {
+            "id": "C",
+            "latex": "a minority-carrier device"
+          },
+          {
+            "id": "D",
+            "latex": "always slower"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "MOSFETs are unipolar, voltage-controlled; $I_G \\approx 0$ — no steady gate current."
+      },
+      {
+        "mcqId": "E06-MCQ10",
+        "stemLatex": "The main reason CMOS logic dissipates almost no static power is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "high supply voltage"
+          },
+          {
+            "id": "B",
+            "latex": "one network conducts per input state, never both"
+          },
+          {
+            "id": "C",
+            "latex": "large transistors"
+          },
+          {
+            "id": "D",
+            "latex": "low frequency"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "The PMOS pull-up and NMOS pull-down never conduct simultaneously in a static state — the supply sees no direct path."
+      }
+    ],
+    "memoryHooks": [
+      "Ge 0.72, Si 1.12 — smaller gap, earlier conduction.",
+      "Heat frees carriers: semiconductors fall in resistance.",
+      "Donors give electrons (n), acceptors give holes (p) — crystal stays neutral.",
+      "$np = n_i^2$: feed one carrier, starve the other.",
+      "0.7 Si, 0.3 Ge; −2 mV per degree.",
+      "HWR 40.6, FWR 81.2; ripple 1.21 vs 0.482.",
+      "CT pays double PIV ($2V_m$); the bridge pays $V_m$.",
+      "Zener regulates by breaking down in reverse.",
+      "$\\beta = \\alpha/(1-\\alpha)$; $I_E = (1+\\beta)I_B$.",
+      "CMOS: never both networks on — static power ~0."
+    ],
+    "commonMistakes": [
+      "Calling an n-type crystal negatively charged.",
+      "Using $n_i$ instead of $n_i^2$ in the mass-action division.",
+      "Swapping donor (n) and acceptor (p) dopants.",
+      "Assigning PIV $= 2V_m$ to bridge rectifiers (that's centre-tap).",
+      "Quoting FWR efficiency as $40.6\\%$ (that's HWR).",
+      "Expecting a Zener to regulate in forward bias.",
+      "Writing $\\beta = \\alpha/(1+\\alpha)$.",
+      "Forgetting the $-2\\ \\text{mV}/^\\circ\\text{C}$ drift of cut-in voltage.",
+      "Claiming MOSFETs need steady gate current."
+    ],
+    "examChecklist": [
+      "Recite $E_g$ for Ge/Si and the negative temperature coefficient.",
+      "State neutrality of doped crystals before carrier talk.",
+      "Apply $np = n_i^2$ for minority concentration; keep exponents straight.",
+      "Quote cut-in voltages and their temperature drift.",
+      "Map every rectifier to $\\eta$, RF, ripple frequency and PIV.",
+      "Zener = reverse-breakdown shunt regulator.",
+      "Convert $\\alpha \\leftrightarrow \\beta$; carry $I_E = I_B + I_C$.",
+      "Name the three BJT regions with junction biases.",
+      "Contrast BJT (current, bipolar) with MOSFET (voltage, unipolar).",
+      "Justify CMOS low static power by the complementary pair.",
+      "Use $V_T \\approx 26\\ \\text{mV}$ wherever the diode law appears."
+    ],
+    "furtherReading": [
+      {
+        "book": "Electronic Devices and Circuits",
+        "author": "J. Millman, C. C. Halkias",
+        "chapters": "Semiconductor physics + diode/BJT chapters",
+        "note": "Mass-action, junction behaviour and device families — pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

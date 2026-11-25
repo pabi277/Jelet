@@ -164,7 +164,667 @@
       "channelName": "Ekeeda",
       "language": "en",
       "scopeNote": "Lorentz motor action, back-EMF self-regulation, torque-speed & induction slip"
+    },
+    {
+      "title": "🔥 Electrical Machine - 1st | Unit-2 : DC Motor | One Shot | Polytechnic 3rd Semester 🔥",
+      "url": "https://www.youtube.com/watch?v=bbFViGUVPmk",
+      "videoId": "bbFViGUVPmk",
+      "duration": "192 min",
+      "durationMinutes": 192,
+      "provider": "YouTube · Polytechnic Pathshala",
+      "channelName": "Polytechnic Pathshala",
+      "language": "hi",
+      "scopeNote": "DC motor full-unit one-shot (polytechnic): back EMF, torque, speed control, numericals + PYQs"
+    },
+    {
+      "title": "Torque slip characteristics of three phase induction motor | Easy explanation- hindi | With notes",
+      "url": "https://www.youtube.com/watch?v=EKuDko6d3iA",
+      "videoId": "EKuDko6d3iA",
+      "duration": "9 min",
+      "durationMinutes": 9,
+      "provider": "YouTube · Electrical Yaar",
+      "channelName": "Electrical Yaar",
+      "language": "hi",
+      "scopeNote": "Torque-slip characteristics: low/medium/high-slip regions, breakdown torque, rotor-resistance effect"
+    },
+    {
+      "title": "ডিসি মোটর কিভাবে কাজ করে? Working Principle of DC Motor in Bangla। #dcmotor",
+      "url": "https://www.youtube.com/watch?v=IdHOgiVhR8E",
+      "videoId": "IdHOgiVhR8E",
+      "duration": "5 min",
+      "durationMinutes": 5,
+      "provider": "YouTube · GK Teach Bangla",
+      "channelName": "GK Teach Bangla",
+      "language": "bn",
+      "scopeNote": "DC motor working principle in Bangla (animated) — commutator, force on conductors"
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "E03-PRD01",
+        "heading": "Back-EMF and the Motor KVL",
+        "proseLatex": "A DC motor's rotating armature generates back-EMF $E_b = \\frac{\\Phi Z N P}{60 A} \\propto \\Phi N$ ($P$ poles, $Z$ conductors, $A$ parallel paths). Motor KVL: $V = E_b + I_a R_a$ (a generator writes $E_g = V + I_a R_a$ — the sign is the tell). $E_b$ self-regulates: $I_a = \\frac{V - E_b}{R_a}$; at standstill $N = 0 \\Rightarrow E_b = 0$, so starting current is huge — hence the 3-point/4-point STARTER. Micro-check: $V = 240\\ \\text{V}$, $R_a = 0.5\\ \\Omega$, $I_a = 30\\ \\text{A}$: $E_b = 240 - 15 = 225\\ \\text{V}$."
+      },
+      {
+        "prdId": "E03-PRD02",
+        "heading": "Lap vs Wave Winding and Torque",
+        "proseLatex": "LAP winding: $A = P$ paths — high current, low voltage (thick conductors). WAVE winding: $A = 2$ — high voltage, low current. Electromagnetic torque $T_a = \\frac{E_b I_a}{\\omega} \\propto \\Phi I_a$, and speed obeys $N \\propto \\frac{V - I_a R_a}{\\Phi}$: weaken the flux and the motor speeds UP (flux loss is a runaway hazard for shunt machines too). Micro-check: at constant power $E_b I_a$, halving $\\Phi$ roughly doubles $N$."
+      },
+      {
+        "prdId": "E03-PRD03",
+        "heading": "DC Shunt Motor: the Constant-Speed Workhorse",
+        "proseLatex": "Shunt field $\\Phi \\approx$ constant, so $T_a \\propto I_a$ (linear) and speed barely falls from no-load to full load — ideal for LATHES and machine tools. Field-weakening control pushes speed above base speed; accidentally losing shunt-field excitation makes $\\Phi \\to 0$ and $N \\to \\infty$: dangerous overspeed. Micro-check: torque doubling from $10\\ \\text{N·m}$ to $20\\ \\text{N·m}$ roughly doubles $I_a$ (linear law)."
+      },
+      {
+        "prdId": "E03-PRD04",
+        "heading": "DC Series Motor: Traction Torque, Runaway Risk",
+        "proseLatex": "Series field carries $I_f = I_a$, so before saturation $\\Phi \\propto I_a$ and $T_a \\propto I_a^2$ — enormous starting torque for TRACTION, cranes and hoists. The same law is fatal at no-load: $I_a \\to 0 \\Rightarrow \\Phi \\to 0 \\Rightarrow N \\to \\infty$ (runaway) — a series motor MUST NEVER start unloaded. After saturation $T \\propto I_a$ (linear region). Micro-check: doubling $I_a$ (unsaturated) multiplies torque four-fold."
+      },
+      {
+        "prdId": "E03-PRD05",
+        "heading": "Synchronous Speed, Slip and Rotor Frequency",
+        "proseLatex": "A $P$-pole stator fed at $f$ Hz sweeps the field around at $N_s = \\frac{120f}{P}$ rpm. An induction motor runs below it at slip $s = \\frac{N_s - N}{N_s}$ ($s = 1$ at standstill, $0.02$–$0.05$ at full load), and rotor currents oscillate at $f_r = sf$. Micro-check: $N_s = 1500$, $N = 1440$: $s = 0.04$, $f_r = 2\\ \\text{Hz}$ — the rotor 'sees' 2 Hz, not 50 Hz."
+      },
+      {
+        "prdId": "E03-PRD06",
+        "heading": "Air-Gap Power Split and the 1-φ Capacitor Start",
+        "proseLatex": "Air-gap power divides $P_{\\text{ag}} : P_{\\text{rcu}} : P_m = 1 : s : (1-s)$ — rotor copper loss is exactly $s\\,P_{\\text{ag}}$, which is why low slip means high efficiency. A single-phase winding produces only a PULSATING field: zero starting torque, NOT self-starting. Ceiling fans and pumps add an auxiliary winding in series with a phase-splitting CAPACITOR, creating a second field in quadrature — the start of a rotating field. Micro-check: $P_{\\text{ag}} = 1000\\ \\text{W}$ at $s = 0.04$: rotor copper loss $40\\ \\text{W}$, mechanical $960\\ \\text{W}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "E03-SF01",
+        "label": "Back-EMF",
+        "latex": "$E_b = \\frac{\\Phi Z N P}{60 A} \\propto \\Phi N$",
+        "use": "Generated EMF in the rotating armature."
+      },
+      {
+        "sfId": "E03-SF02",
+        "label": "Motor KVL",
+        "latex": "$V = E_b + I_a R_a$ (generator: $E_g = V + I_a R_a$)",
+        "use": "Sign tells motor from generator."
+      },
+      {
+        "sfId": "E03-SF03",
+        "label": "Armature current",
+        "latex": "$I_a = \\frac{V - E_b}{R_a}$",
+        "use": "Self-regulating; huge at start."
+      },
+      {
+        "sfId": "E03-SF04",
+        "label": "Speed law",
+        "latex": "$N \\propto \\frac{V - I_a R_a}{\\Phi}$",
+        "use": "Flux weakening raises speed."
+      },
+      {
+        "sfId": "E03-SF05",
+        "label": "Electromagnetic torque",
+        "latex": "$T_a = \\frac{E_b I_a}{\\omega} \\propto \\Phi I_a$",
+        "use": "$\\omega = \\frac{2\\pi N}{60}$."
+      },
+      {
+        "sfId": "E03-SF06",
+        "label": "Winding path counts",
+        "latex": "$A = P$ (lap), $A = 2$ (wave)",
+        "use": "Lap: high current; wave: high voltage."
+      },
+      {
+        "sfId": "E03-SF07",
+        "label": "Shunt torque law",
+        "latex": "$T \\propto I_a$ ($\\Phi$ constant)",
+        "use": "Linear; constant-speed drives."
+      },
+      {
+        "sfId": "E03-SF08",
+        "label": "Series torque law",
+        "latex": "$T \\propto I_a^2$ (unsaturated)",
+        "use": "Huge starting torque; traction."
+      },
+      {
+        "sfId": "E03-SF09",
+        "label": "Synchronous speed",
+        "latex": "$N_s = \\frac{120 f}{P}$",
+        "use": "Revolving-field speed in rpm."
+      },
+      {
+        "sfId": "E03-SF10",
+        "label": "Slip",
+        "latex": "$s = \\frac{N_s - N}{N_s}$",
+        "use": "$s = 1$ standstill; $0.02$–$0.05$ full load."
+      },
+      {
+        "sfId": "E03-SF11",
+        "label": "Rotor frequency",
+        "latex": "$f_r = s f$",
+        "use": "2 Hz at 4% slip on 50 Hz."
+      },
+      {
+        "sfId": "E03-SF12",
+        "label": "Air-gap power split",
+        "latex": "$P_{\\text{ag}} : P_{\\text{rcu}} : P_m = 1 : s : (1-s)$",
+        "use": "Rotor loss $= s P_{\\text{ag}}$."
+      },
+      {
+        "sfId": "E03-SF13",
+        "label": "Starting requirement (DC)",
+        "latex": "$E_b = 0$ at $N = 0 \\Rightarrow$ starter needed",
+        "use": "3-point/4-point starters limit $I_a$."
+      },
+      {
+        "sfId": "E03-SF14",
+        "label": "1-φ starting torque",
+        "latex": "$T_{\\text{start}} = 0$ (single winding)",
+        "use": "Not self-starting."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "E03-DEF01",
+        "term": "Back-EMF ($E_b$)",
+        "definition": "EMF the rotating armature induces on itself; opposes the applied voltage in a motor."
+      },
+      {
+        "defId": "E03-DEF02",
+        "term": "Lap winding",
+        "definition": "Armature winding with $A = P$ parallel paths — high current, low voltage machines."
+      },
+      {
+        "defId": "E03-DEF03",
+        "term": "Wave winding",
+        "definition": "Armature winding with $A = 2$ parallel paths — high voltage, low current machines."
+      },
+      {
+        "defId": "E03-DEF04",
+        "term": "DC shunt motor",
+        "definition": "Field in parallel with armature; near-constant flux; linear torque; flat speed; machine tools."
+      },
+      {
+        "defId": "E03-DEF05",
+        "term": "DC series motor",
+        "definition": "Field in series carrying $I_a$; $T \\propto I_a^2$ unsaturated; traction; never starts unloaded."
+      },
+      {
+        "defId": "E03-DEF06",
+        "term": "Starter",
+        "definition": "Series resistance gear (3-point/4-point) limiting starting armature current while $E_b = 0$."
+      },
+      {
+        "defId": "E03-DEF07",
+        "term": "Synchronous speed $N_s$",
+        "definition": "Speed of the stator's revolving field, $120f/P$ rpm."
+      },
+      {
+        "defId": "E03-DEF08",
+        "term": "Slip",
+        "definition": "Fractional lag of rotor speed behind synchronous speed, $s = (N_s - N)/N_s$."
+      },
+      {
+        "defId": "E03-DEF09",
+        "term": "Rotor frequency",
+        "definition": "$f_r = sf$ — the frequency of rotor currents; 1–3 Hz at full load, $f$ at standstill."
+      },
+      {
+        "defId": "E03-DEF10",
+        "term": "Capacitor-start (split-phase)",
+        "definition": "Single-phase induction-motor scheme: auxiliary winding + series capacitor gives quadrature fields and starting torque."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "E03-CMP01",
+        "title": "DC shunt vs DC series motor",
+        "columns": [
+          "Aspect",
+          "Shunt motor",
+          "Series motor"
+        ],
+        "rows": [
+          {
+            "label": "Flux",
+            "values": [
+              "nearly constant",
+              "$\\propto I_a$ (unsaturated)"
+            ]
+          },
+          {
+            "label": "Torque law",
+            "values": [
+              "$T \\propto I_a$",
+              "$T \\propto I_a^2$"
+            ]
+          },
+          {
+            "label": "Speed profile",
+            "values": [
+              "flat (quasi-constant)",
+              "dangerous rise at light load"
+            ]
+          },
+          {
+            "label": "No-load",
+            "values": [
+              "safe",
+              "NEVER — runaway"
+            ]
+          },
+          {
+            "label": "Application",
+            "values": [
+              "lathes, machine tools",
+              "traction, cranes, hoists"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E03-CMP02",
+        "title": "Lap vs wave winding",
+        "columns": [
+          "Aspect",
+          "Lap",
+          "Wave"
+        ],
+        "rows": [
+          {
+            "label": "Parallel paths",
+            "values": [
+              "$A = P$",
+              "$A = 2$"
+            ]
+          },
+          {
+            "label": "Best for",
+            "values": [
+              "high current, low voltage",
+              "high voltage, low current"
+            ]
+          },
+          {
+            "label": "Conductors",
+            "values": [
+              "thicker",
+              "thinner"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E03-CMP03",
+        "title": "Induction motor at standstill vs full load",
+        "columns": [
+          "Quantity",
+          "Standstill ($s=1$)",
+          "Full load ($s \\approx 0.04$)"
+        ],
+        "rows": [
+          {
+            "label": "Rotor frequency $f_r$",
+            "values": [
+              "$= f$ (50 Hz)",
+              "$\\approx 2$ Hz"
+            ]
+          },
+          {
+            "label": "Rotor EMF",
+            "values": [
+              "maximum",
+              "small ($s\\,E_2$)"
+            ]
+          },
+          {
+            "label": "Rotor copper loss",
+            "values": [
+              "$= P_{\\text{ag}}$ (all of it)",
+              "$\\approx 4\\%$ of $P_{\\text{ag}}$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E03-CMP04",
+        "title": "1-φ vs 3-φ induction starting",
+        "columns": [
+          "Aspect",
+          "Single-phase (one winding)",
+          "With capacitor start"
+        ],
+        "rows": [
+          {
+            "label": "Field",
+            "values": [
+              "pulsating",
+              "rotating (two quadrature fields)"
+            ]
+          },
+          {
+            "label": "Starting torque",
+            "values": [
+              "zero",
+              "non-zero (self-starting)"
+            ]
+          },
+          {
+            "label": "Typical use",
+            "values": [
+              "(won't start alone)",
+              "ceiling fans, pumps"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "E03-MCQ01",
+        "stemLatex": "A $240\\ \\text{V}$ DC shunt motor ($R_a = 0.5\\ \\Omega$) draws $I_a = 30\\ \\text{A}$ at $1000\\ \\text{rpm}$. If $I_a$ rises to $60\\ \\text{A}$ at constant flux, the new speed is approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1000\\ \\text{rpm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$933\\ \\text{rpm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$900\\ \\text{rpm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$1070\\ \\text{rpm}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$E_{b1} = 240 - 15 = 225\\ \\text{V}$, $E_{b2} = 240 - 30 = 210\\ \\text{V}$; $N_2 = 1000 \\times \\frac{210}{225} \\approx 933\\ \\text{rpm}$."
+      },
+      {
+        "mcqId": "E03-MCQ02",
+        "stemLatex": "The synchronous speed of a 6-pole, 50 Hz induction motor is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$1500\\ \\text{rpm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1000\\ \\text{rpm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$750\\ \\text{rpm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$3000\\ \\text{rpm}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$N_s = \\frac{120 \\times 50}{6} = 1000\\ \\text{rpm}$."
+      },
+      {
+        "mcqId": "E03-MCQ03",
+        "stemLatex": "A 4-pole, 50 Hz induction motor runs at $1425\\ \\text{rpm}$. Slip and rotor current frequency are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5\\%$, $2.5\\ \\text{Hz}$"
+          },
+          {
+            "id": "B",
+            "latex": "$4\\%$, $2\\ \\text{Hz}$"
+          },
+          {
+            "id": "C",
+            "latex": "$5\\%$, $5\\ \\text{Hz}$"
+          },
+          {
+            "id": "D",
+            "latex": "$10\\%$, $5\\ \\text{Hz}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$N_s = 1500$; $s = \\frac{75}{1500} = 0.05$; $f_r = 0.05 \\times 50 = 2.5\\ \\text{Hz}$."
+      },
+      {
+        "mcqId": "E03-MCQ04",
+        "stemLatex": "An electric traction drive is best served by a:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "DC shunt motor"
+          },
+          {
+            "id": "B",
+            "latex": "DC series motor"
+          },
+          {
+            "id": "C",
+            "latex": "synchronous motor at constant speed"
+          },
+          {
+            "id": "D",
+            "latex": "single-phase motor without auxiliary winding"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Series motor's $T \\propto I_a^2$ gives the huge starting torque traction demands (with load always present)."
+      },
+      {
+        "mcqId": "E03-MCQ05",
+        "stemLatex": "A DC shunt motor's field flux accidentally weakens. Its speed:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "falls proportionally"
+          },
+          {
+            "id": "B",
+            "latex": "stays the same"
+          },
+          {
+            "id": "C",
+            "latex": "rises (possible runaway)"
+          },
+          {
+            "id": "D",
+            "latex": "reverses"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$N \\propto \\frac{V - I_aR_a}{\\Phi}$: with $\\Phi \\to 0$, speed rises dangerously — a lost shunt field is a runaway hazard."
+      },
+      {
+        "mcqId": "E03-MCQ06",
+        "stemLatex": "A DC series motor must never be started at no-load because:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$I_a$ becomes excessive"
+          },
+          {
+            "id": "B",
+            "latex": "$\\Phi \\to 0$ and speed runs away"
+          },
+          {
+            "id": "C",
+            "latex": "the field shorts"
+          },
+          {
+            "id": "D",
+            "latex": "the starter fails"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Without load, $I_a \\to 0 \\Rightarrow \\Phi \\to 0 \\Rightarrow N \\to \\infty$ — destructive runaway."
+      },
+      {
+        "mcqId": "E03-MCQ07",
+        "stemLatex": "A DC armature designed for HIGH CURRENT, LOW VOLTAGE service uses:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "wave winding ($A = 2$)"
+          },
+          {
+            "id": "B",
+            "latex": "lap winding ($A = P$)"
+          },
+          {
+            "id": "C",
+            "latex": "frog-leg winding"
+          },
+          {
+            "id": "D",
+            "latex": "no winding"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Lap winding provides $P$ parallel paths — many paths share the current; wave ($A = 2$) suits high voltage."
+      },
+      {
+        "mcqId": "E03-MCQ08",
+        "stemLatex": "The rotor copper loss of an induction motor at slip $s$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$(1-s)P_{\\text{ag}}$"
+          },
+          {
+            "id": "B",
+            "latex": "$s\\,P_{\\text{ag}}$"
+          },
+          {
+            "id": "C",
+            "latex": "$s^2 P_{\\text{ag}}$"
+          },
+          {
+            "id": "D",
+            "latex": "$P_{\\text{ag}}/s$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "The air-gap power splits $1 : s : (1-s)$ — rotor copper loss is exactly $s$ of air-gap power."
+      },
+      {
+        "mcqId": "E03-MCQ09",
+        "stemLatex": "A single-phase induction motor with one main winding cannot start by itself because its field is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "rotating at $N_s$"
+          },
+          {
+            "id": "B",
+            "latex": "pulsating (zero starting torque)"
+          },
+          {
+            "id": "C",
+            "latex": "too weak"
+          },
+          {
+            "id": "D",
+            "latex": "three-phase"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "One winding gives a pulsating field — starting torque is zero; an auxiliary capacitor phase-split makes it self-starting."
+      },
+      {
+        "mcqId": "E03-MCQ10",
+        "stemLatex": "Why does a DC motor need a starter?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "to warm the field"
+          },
+          {
+            "id": "B",
+            "latex": "$E_b = 0$ at start makes $I_a = V/R_a$ huge"
+          },
+          {
+            "id": "C",
+            "latex": "to reverse the armature"
+          },
+          {
+            "id": "D",
+            "latex": "to increase back-EMF"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "At standstill there is no back-EMF; only $R_a$ (fractions of an ohm) would limit current — the starter adds series resistance."
+      }
+    ],
+    "memoryHooks": [
+      "Motor $V = E_b + I_aR_a$; generator $E_g = V + I_aR_a$ — sign is the species.",
+      "Lap = $P$ paths (current-hungry); wave = 2 (voltage-hungry).",
+      "Shunt: torque linear, speed flat — the lathe motor.",
+      "Series: torque squared, traction, but never naked (no-load runaway).",
+      "$N_s = 120f/P$ — 120 counts both directions of travel.",
+      "$s = 1$ parked, $s\\approx 0.04$ cruising; rotor hums at $sf$.",
+      "Air-gap pie: $1 : s : (1-s)$ — rotor loses exactly $s$ of it.",
+      "Field weakened, speed up — flux is the brake.",
+      "One winding pulsates; the capacitor's twin makes it turn.",
+      "Starter exists because $E_b$ takes time to wake up."
+    ],
+    "commonMistakes": [
+      "Writing generator KVL for a motor (or vice versa).",
+      "Using $A = P$ for wave windings (it's lap; wave is $A = 2$).",
+      "Claiming a series motor is safe at no-load.",
+      "Interpolating shunt speed linearly in $I_a$ instead of in $E_b$.",
+      "Saying $f_r = f$ at full load (it is $sf$, a few Hz).",
+      "Confusing $N_s$ formula constants ($\\frac{120f}{P}$, not $\\frac{60f}{P}$).",
+      "Assigning rotor copper loss as $(1-s)P_{\\text{ag}}$ (that's mechanical power).",
+      "Forgetting the capacitor in single-phase start discussions.",
+      "Reading $T \\propto I_a^2$ for shunt motors."
+    ],
+    "examChecklist": [
+      "Fix the KVL sign: motor $V = E_b + I_aR_a$.",
+      "Compute $E_b$ first in every DC-motor speed problem; ratio speeds via $E_b$ at constant $\\Phi$.",
+      "Choose lap ($A = P$, current) vs wave ($A = 2$, voltage) by service.",
+      "Quote torque laws: shunt linear, series squared (unsaturated).",
+      "Justify the starter with $E_b = 0$ at $N = 0$.",
+      "Never allow a series motor to run unloaded.",
+      "Compute $N_s = 120f/P$, slip, and $f_r = sf$ in one breath.",
+      "Split air-gap power $1 : s : (1-s)$ and read rotor loss as $sP_{\\text{ag}}$.",
+      "State the 1-φ zero-starting-torque fact and the capacitor cure.",
+      "Link field weakening to overspeed in shunt machines.",
+      "Use $\\omega = 2\\pi N/60$ when converting torque-power."
+    ],
+    "furtherReading": [
+      {
+        "book": "Electrical Machinery",
+        "author": "P. S. Dhogal",
+        "chapters": "DC machines + induction motor chapters",
+        "note": "Back-EMF, characteristics and slip mechanics — pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

@@ -160,7 +160,672 @@
       "channelName": "Ekeeda",
       "language": "en",
       "scopeNote": "Mutual induction, RMS EMF equation, turns ratio, losses & efficiency"
+    },
+    {
+      "title": "BTEUP 3rd Semester Electrical Machine-1 | Unit-1 Transformers One Shot Video By Raceva Engineering",
+      "url": "https://www.youtube.com/watch?v=0xg2tytnCOw",
+      "videoId": "0xg2tytnCOw",
+      "duration": "171 min",
+      "durationMinutes": 171,
+      "provider": "YouTube · RACEVA ENGINEERING",
+      "channelName": "RACEVA ENGINEERING",
+      "language": "hi",
+      "scopeNote": "Full transformer one-shot for polytechnic diploma: principle, EMF equation, tests"
+    },
+    {
+      "title": "OC and SC Test - Single Phase Transformer - Electrical Machines 2",
+      "url": "https://www.youtube.com/watch?v=0d4Qr1-MYOw",
+      "videoId": "0d4Qr1-MYOw",
+      "duration": "12 min",
+      "durationMinutes": 12,
+      "provider": "YouTube · Ekeeda",
+      "channelName": "Ekeeda",
+      "language": "en",
+      "scopeNote": "OC and SC tests on a single-phase transformer — losses, equivalent parameters"
+    },
+    {
+      "title": "E.M.F Equation এর সূত্র সমূহ Transformer Bangla Lecture AC Machine | Tech Lab Bangladesh",
+      "url": "https://www.youtube.com/watch?v=t-tn5nK2xc0",
+      "videoId": "t-tn5nK2xc0",
+      "duration": "8 min",
+      "durationMinutes": 8,
+      "provider": "YouTube · TECH LAB BANGLADESH ENGINEERING",
+      "channelName": "TECH LAB BANGLADESH ENGINEERING",
+      "language": "bn",
+      "scopeNote": "Transformer EMF-equation formulas lecture in Bangla (diploma/AC machines series)"
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "E02-PRD01",
+        "heading": "A Static AC Machine — Never DC",
+        "proseLatex": "A transformer is STATIC (no rotating parts) and transfers AC power between circuits at UNCHANGED frequency. Pure DC on the primary induces zero back-EMF ($d\\Phi/dt = 0$), leaving only the small winding resistance $R_1$ to limit current — the primary burns out. Frequency in $= $ frequency out, always. Micro-check: DC excitation on a $220\\ \\text{V}$ primary with $R_1 = 5\\ \\Omega$ would try to draw $44\\ \\text{A}$ continuously — that's the burnout."
+      },
+      {
+        "prdId": "E02-PRD02",
+        "heading": "The EMF Equation and the V/f Law",
+        "proseLatex": "Sinusoidal core flux $\\Phi(t) = \\Phi_m\\sin(2\\pi f t)$ induces RMS EMF $E = 4.44 f N \\Phi_m = 4.44 f N B_m A_c$, where $4.44 = \\sqrt{2}\\pi$ bundles the form factor $1.11$. Ideal relations: $\\frac{E_2}{E_1} = \\frac{N_2}{N_1} = \\frac{I_1}{I_2}$, and an impedance seen from the primary is $Z_1' = \\left(\\frac{N_1}{N_2}\\right)^2 Z_2$. Because $E_1 \\approx V_1$, the core flux obeys $\\Phi_m \\propto \\frac{V_1}{f}$ — hold $V/f$ constant and $B_m$ stays constant. Micro-check: $220\\ \\text{V}$, $50\\ \\text{Hz}$, $N = 100$: $\\Phi_m = \\frac{220}{4.44 \\times 50 \\times 100} \\approx 9.9\\ \\text{mWb}$."
+      },
+      {
+        "prdId": "E02-PRD03",
+        "heading": "Core Losses: Laminations vs Silicon",
+        "proseLatex": "Core (iron) loss $P_i = P_h + P_e$ is measured by the OPEN-CIRCUIT test (rated voltage, LV side) and stays essentially constant from no-load to full-load. Hysteresis loss $P_h \\propto B_m^{1.6} f$ falls when HIGH-SILICON CRGO steel ($3$–$4\\%\\ \\text{Si}$) is used; eddy-current loss $P_e \\propto B_m^2 f^2 t^2$ falls when the core is built from THIN INSULATED LAMINATIONS ($0.35$–$0.5\\ \\text{mm}$). Micro-check: halving lamination thickness cuts $P_e$ four-fold ($t^2$) but barely touches $P_h$."
+      },
+      {
+        "prdId": "E02-PRD04",
+        "heading": "Copper Loss and the OC/SC Test Pair",
+        "proseLatex": "Copper loss $P_{\\text{cu}} = x^2 P_{\\text{cu,fl}}$ scales with the SQUARE of the fractional load $x$ and is measured by the SHORT-CIRCUIT test (rated current, HV side). The pair gives the loss model without loading the transformer: OC $\\to$ $P_i$ (wattmeter reads core loss), SC $\\to$ $P_{\\text{cu,fl}}$ (wattmeter reads full-load copper loss). Micro-check: at half load ($x = 0.5$) copper loss is $0.25\\,P_{\\text{cu,fl}}$ — a quarter, not a half."
+      },
+      {
+        "prdId": "E02-PRD05",
+        "heading": "Efficiency and the Maximum-Efficiency Load",
+        "proseLatex": "Rating is in kVA because core loss depends on $V$ and copper loss on $I$ — neither cares about the load power factor. At load fraction $x$: $\\eta = \\frac{xS\\cos\\phi_2}{xS\\cos\\phi_2 + P_i + x^2 P_{\\text{cu,fl}}}$, maximized when variable copper loss equals constant iron loss: $x^2 P_{\\text{cu,fl}} = P_i \\Rightarrow x_{\\eta\\max} = \\sqrt{P_i/P_{\\text{cu,fl}}}$, at unity power factor. Micro-check: $P_i = 1\\ \\text{kW}$, $P_{\\text{cu,fl}} = 4\\ \\text{kW}$: $x = 0.5$ — maximum efficiency at half load."
+      },
+      {
+        "prdId": "E02-PRD06",
+        "heading": "Voltage Regulation and Its Sign",
+        "proseLatex": "Voltage regulation measures the secondary-terminal drop from no-load to full load: $\\text{VR} \\approx I_2 R_{02}\\cos\\phi_2 \\pm I_2 X_{02}\\sin\\phi_2$ — plus for lagging loads, minus for leading. It can be ZERO only on a LEADING (capacitive) power factor, and negative regulation (terminal voltage rising on load) is possible at sufficiently leading pf. Micro-check: a heavily capacitive load can make the two terms cancel — VR $= 0$ on leading pf, never on lagging."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "E02-SF01",
+        "label": "EMF equation",
+        "latex": "$E = 4.44 f N \\Phi_m = 4.44 f N B_m A_c$",
+        "use": "RMS EMF per winding; $4.44 = \\sqrt{2}\\pi$."
+      },
+      {
+        "sfId": "E02-SF02",
+        "label": "Ideal turns relations",
+        "latex": "$\\frac{E_2}{E_1} = \\frac{N_2}{N_1} = \\frac{I_1}{I_2}$",
+        "use": "Voltage steps up, current steps down."
+      },
+      {
+        "sfId": "E02-SF03",
+        "label": "Referred impedance",
+        "latex": "$Z_1' = \\left(\\frac{N_1}{N_2}\\right)^2 Z_2$",
+        "use": "Move load impedance across windings."
+      },
+      {
+        "sfId": "E02-SF04",
+        "label": "Constant-flux law",
+        "latex": "$\\Phi_m \\propto \\frac{V_1}{f}$;\\ keep $V/f$ constant",
+        "use": "Hold $B_m$ when frequency varies."
+      },
+      {
+        "sfId": "E02-SF05",
+        "label": "Hysteresis loss",
+        "latex": "$P_h \\propto B_m^{1.6} f$ — cut by silicon (CRGO)",
+        "use": "Steinmetz-type scaling."
+      },
+      {
+        "sfId": "E02-SF06",
+        "label": "Eddy-current loss",
+        "latex": "$P_e \\propto B_m^2 f^2 t^2$ — cut by thin laminations",
+        "use": "$t$ = lamination thickness."
+      },
+      {
+        "sfId": "E02-SF07",
+        "label": "Copper loss vs load",
+        "latex": "$P_{\\text{cu}} = x^2 P_{\\text{cu,fl}}$",
+        "use": "Quadratic in fractional load $x$."
+      },
+      {
+        "sfId": "E02-SF08",
+        "label": "OC / SC test mapping",
+        "latex": "$\\text{OC (rated } V, \\text{ LV side)} \\to P_i;\\quad \\text{SC (rated } I, \\text{ HV side)} \\to P_{\\text{cu,fl}}$",
+        "use": "Loss separation without load."
+      },
+      {
+        "sfId": "E02-SF09",
+        "label": "Efficiency at load $x$",
+        "latex": "$\\eta = \\frac{xS\\cos\\phi_2}{xS\\cos\\phi_2 + P_i + x^2 P_{\\text{cu,fl}}}$",
+        "use": "kVA rating $S$, load pf $\\cos\\phi_2$."
+      },
+      {
+        "sfId": "E02-SF10",
+        "label": "Maximum-efficiency condition",
+        "latex": "$x^2 P_{\\text{cu,fl}} = P_i \\Rightarrow x_{\\eta\\max} = \\sqrt{P_i/P_{\\text{cu,fl}}}$",
+        "use": "Copper loss = iron loss, unity pf."
+      },
+      {
+        "sfId": "E02-SF11",
+        "label": "kVA at maximum efficiency",
+        "latex": "$S_{\\eta\\max} = S_{\\text{rated}}\\sqrt{\\frac{P_i}{P_{\\text{cu,fl}}}}$",
+        "use": "Where the machine is most efficient."
+      },
+      {
+        "sfId": "E02-SF12",
+        "label": "Voltage regulation",
+        "latex": "$\\text{VR} \\approx I_2 R_{02}\\cos\\phi_2 \\pm I_2 X_{02}\\sin\\phi_2$",
+        "use": "$+$ lagging, $-$ leading."
+      },
+      {
+        "sfId": "E02-SF13",
+        "label": "Frequency invariance",
+        "latex": "$f_2 = f_1$",
+        "use": "Transformer never changes frequency."
+      },
+      {
+        "sfId": "E02-SF14",
+        "label": "kVA rating logic",
+        "latex": "Rating $= S$ (kVA), not kW",
+        "use": "Losses depend on $V$ and $I$, not pf."
+      },
+      {
+        "sfId": "E02-SF15",
+        "label": "All-day efficiency",
+        "latex": "$\\eta_{\\text{all-day}} = \\frac{\\text{kWh out (24 h)}}{\\text{kWh in (24 h)}}$",
+        "use": "Energy ratio for distribution transformers."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "E02-DEF01",
+        "term": "Transformer",
+        "definition": "Static device transferring AC power between circuits by mutual induction at unchanged frequency."
+      },
+      {
+        "defId": "E02-DEF02",
+        "term": "Mutual induction",
+        "definition": "EMF induced in one winding by the changing flux created by another winding's current."
+      },
+      {
+        "defId": "E02-DEF03",
+        "term": "Core (iron) loss",
+        "definition": "$P_h + P_e$ in the magnetic core; essentially constant with load; measured by OC test."
+      },
+      {
+        "defId": "E02-DEF04",
+        "term": "Copper loss",
+        "definition": "$I^2R$ loss in windings; varies as $x^2$ of load; measured by SC test."
+      },
+      {
+        "defId": "E02-DEF05",
+        "term": "CRGO steel",
+        "definition": "Cold-rolled grain-oriented silicon steel ($3$–$4\\%$ Si) used to cut hysteresis loss."
+      },
+      {
+        "defId": "E02-DEF06",
+        "term": "Open-circuit test",
+        "definition": "Rated voltage on LV side, secondary open: wattmeter + ammeter read core loss and magnetizing current."
+      },
+      {
+        "defId": "E02-DEF07",
+        "term": "Short-circuit test",
+        "definition": "Low-voltage SC test at rated current (HV side): wattmeter reads full-load copper loss; gives $Z_{02}, R_{02}, X_{02}$."
+      },
+      {
+        "defId": "E02-DEF08",
+        "term": "Voltage regulation",
+        "definition": "Percent change of secondary terminal voltage from no-load to full load; $\\approx 0$ possible only on leading pf."
+      },
+      {
+        "defId": "E02-DEF09",
+        "term": "All-day efficiency",
+        "definition": "24-hour kWh output ÷ kWh input — the figure of merit for distribution transformers."
+      },
+      {
+        "defId": "E02-DEF10",
+        "term": "kVA rating",
+        "definition": "Product $V I$ the transformer can carry; used because losses are pf-independent."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "E02-CMP01",
+        "title": "OC test vs SC test",
+        "columns": [
+          "Aspect",
+          "Open-circuit test",
+          "Short-circuit test"
+        ],
+        "rows": [
+          {
+            "label": "Excitation",
+            "values": [
+              "rated voltage",
+              "rated current (reduced voltage)"
+            ]
+          },
+          {
+            "label": "Side",
+            "values": [
+              "LV",
+              "HV"
+            ]
+          },
+          {
+            "label": "Wattmeter reads",
+            "values": [
+              "core loss $P_i$",
+              "copper loss $P_{\\text{cu,fl}}$"
+            ]
+          },
+          {
+            "label": "Also gives",
+            "values": [
+              "magnetizing branch",
+              "$Z_{02}, R_{02}, X_{02}$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E02-CMP02",
+        "title": "Hysteresis vs eddy-current loss",
+        "columns": [
+          "Aspect",
+          "Hysteresis $P_h$",
+          "Eddy $P_e$"
+        ],
+        "rows": [
+          {
+            "label": "Scaling",
+            "values": [
+              "$\\propto B_m^{1.6} f$",
+              "$\\propto B_m^2 f^2 t^2$"
+            ]
+          },
+          {
+            "label": "Cured by",
+            "values": [
+              "silicon in steel (CRGO)",
+              "thin insulated laminations"
+            ]
+          },
+          {
+            "label": "Nature",
+            "values": [
+              "domain re-magnetizing",
+              "circulating currents in core"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E02-CMP03",
+        "title": "Load-loss behaviour",
+        "columns": [
+          "Load fraction $x$",
+          "Copper loss",
+          "Iron loss"
+        ],
+        "rows": [
+          {
+            "label": "No load ($x=0$)",
+            "values": [
+              "0",
+              "$P_i$"
+            ]
+          },
+          {
+            "label": "Half load",
+            "values": [
+              "$\\frac{1}{4}P_{\\text{cu,fl}}$",
+              "$P_i$"
+            ]
+          },
+          {
+            "label": "Full load",
+            "values": [
+              "$P_{\\text{cu,fl}}$",
+              "$P_i$"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E02-CMP04",
+        "title": "Regulation sign by power factor",
+        "columns": [
+          "Load pf",
+          "Regulation",
+          "Special case"
+        ],
+        "rows": [
+          {
+            "label": "Lagging",
+            "values": [
+              "positive",
+              "$+$ term dominates"
+            ]
+          },
+          {
+            "label": "Unity",
+            "values": [
+              "small positive",
+              "$I_2 R_{02}$ only"
+            ]
+          },
+          {
+            "label": "Leading",
+            "values": [
+              "can be zero or negative",
+              "capacitive pf cancels the drop"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "E02-MCQ01",
+        "stemLatex": "A $440/220\\ \\text{V}$, $50\\ \\text{Hz}$ transformer has $N_2 = 110$. The primary turns and peak flux are approximately:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$N_1 = 220$, $\\Phi_m \\approx 9\\ \\text{mWb}$"
+          },
+          {
+            "id": "B",
+            "latex": "$N_1 = 55$, $\\Phi_m \\approx 18\\ \\text{mWb}$"
+          },
+          {
+            "id": "C",
+            "latex": "$N_1 = 440$, $\\Phi_m \\approx 9\\ \\text{mWb}$"
+          },
+          {
+            "id": "D",
+            "latex": "$N_1 = 220$, $\\Phi_m \\approx 18\\ \\text{mWb}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$N_1 = 110 \\times \\frac{440}{220} = 220$; $\\Phi_m = \\frac{220}{4.44 \\times 50 \\times 110} = \\frac{220}{24420} \\approx 9\\ \\text{mWb}$."
+      },
+      {
+        "mcqId": "E02-MCQ02",
+        "stemLatex": "If both the supply voltage and frequency of a transformer are doubled ($V/f$ unchanged), the core flux density:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "doubles"
+          },
+          {
+            "id": "B",
+            "latex": "halves"
+          },
+          {
+            "id": "C",
+            "latex": "stays constant"
+          },
+          {
+            "id": "D",
+            "latex": "quadruples"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$\\Phi_m \\propto V/f$: doubling both keeps $V/f$ — and hence $B_m$ — constant (only losses change)."
+      },
+      {
+        "mcqId": "E02-MCQ03",
+        "stemLatex": "Thin laminations are used in a transformer core to reduce:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "hysteresis loss"
+          },
+          {
+            "id": "B",
+            "latex": "eddy-current loss"
+          },
+          {
+            "id": "C",
+            "latex": "copper loss"
+          },
+          {
+            "id": "D",
+            "latex": "leakage reactance"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$P_e \\propto t^2$: thinner laminations slash eddy currents. Silicon content cuts hysteresis — the classic swap trap."
+      },
+      {
+        "mcqId": "E02-MCQ04",
+        "stemLatex": "The open-circuit test is performed on the LV side at rated voltage; its wattmeter reads:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "copper loss at full load"
+          },
+          {
+            "id": "B",
+            "latex": "core (iron) loss"
+          },
+          {
+            "id": "C",
+            "latex": "stray loss"
+          },
+          {
+            "id": "D",
+            "latex": "half of total loss"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "With the secondary open, input power feeds only the magnetizing branch — the wattmeter reads the constant core loss."
+      },
+      {
+        "mcqId": "E02-MCQ05",
+        "stemLatex": "At half load, the copper loss of a transformer is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "half of full-load copper loss"
+          },
+          {
+            "id": "B",
+            "latex": "one-fourth of full-load copper loss"
+          },
+          {
+            "id": "C",
+            "latex": "equal to core loss"
+          },
+          {
+            "id": "D",
+            "latex": "double"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$P_{\\text{cu}} = x^2 P_{\\text{cu,fl}} = 0.25\\,P_{\\text{cu,fl}}$ at $x = 0.5$ — a quarter, while iron loss is unchanged."
+      },
+      {
+        "mcqId": "E02-MCQ06",
+        "stemLatex": "A $200\\ \\text{kVA}$ transformer has $P_i = 2\\ \\text{kW}$ and $P_{\\text{cu,fl}} = 8\\ \\text{kW}$. Maximum efficiency occurs at:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$200\\ \\text{kVA}$"
+          },
+          {
+            "id": "B",
+            "latex": "$100\\ \\text{kVA}$"
+          },
+          {
+            "id": "C",
+            "latex": "$50\\ \\text{kVA}$"
+          },
+          {
+            "id": "D",
+            "latex": "$141\\ \\text{kVA}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$x = \\sqrt{2/8} = 0.5 \\Rightarrow S_{\\eta\\max} = 0.5 \\times 200 = 100\\ \\text{kVA}$ (copper loss $2\\ \\text{kW}$ = iron loss)."
+      },
+      {
+        "mcqId": "E02-MCQ07",
+        "stemLatex": "A transformer is rated in kVA rather than kW because:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "kW sounds smaller"
+          },
+          {
+            "id": "B",
+            "latex": "losses depend on $V$ and $I$, independent of load pf"
+          },
+          {
+            "id": "C",
+            "latex": "kVA guarantees unity pf"
+          },
+          {
+            "id": "D",
+            "latex": "standards require it"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Core loss depends on voltage, copper loss on current — neither involves $\\cos\\phi_2$, so the rating is pf-free kVA."
+      },
+      {
+        "mcqId": "E02-MCQ08",
+        "stemLatex": "Applying rated DC voltage to a transformer primary:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "gives rated secondary DC"
+          },
+          {
+            "id": "B",
+            "latex": "induces zero back-EMF and can burn the primary"
+          },
+          {
+            "id": "C",
+            "latex": "is the standard OC test"
+          },
+          {
+            "id": "D",
+            "latex": "reduces core loss to zero"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "DC gives $d\\Phi/dt = 0$, hence no back-EMF; the small $R_1$ alone limits a destructive current."
+      },
+      {
+        "mcqId": "E02-MCQ09",
+        "stemLatex": "Zero voltage regulation of a transformer can occur only when the load power factor is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "unity"
+          },
+          {
+            "id": "B",
+            "latex": "lagging"
+          },
+          {
+            "id": "C",
+            "latex": "leading"
+          },
+          {
+            "id": "D",
+            "latex": "zero"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Only a leading (capacitive) pf lets the $-I_2 X_{02}\\sin\\phi_2$ term cancel the resistive drop — never on lagging loads."
+      },
+      {
+        "mcqId": "E02-MCQ10",
+        "stemLatex": "A load impedance $Z_2 = 8\\ \\Omega$ on the secondary of a $N_1/N_2 = 2$ step-down transformer appears at the primary as:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2\\ \\Omega$"
+          },
+          {
+            "id": "B",
+            "latex": "$4\\ \\Omega$"
+          },
+          {
+            "id": "C",
+            "latex": "$16\\ \\Omega$"
+          },
+          {
+            "id": "D",
+            "latex": "$32\\ \\Omega$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "$Z_1' = (N_1/N_2)^2 Z_2 = 4 \\times 8 = 32\\ \\Omega$ — impedances refer with the SQUARE of the turns ratio."
+      }
+    ],
+    "memoryHooks": [
+      "Static, AC-only, frequency-unchanged — DC burns the primary.",
+      "$4.44 = \\sqrt{2}\\pi$: the EMF equation's fingerprint.",
+      "$V/f$ held, $B_m$ held.",
+      "Silicon tames hysteresis; laminations starve eddy currents.",
+      "OC on LV reads iron; SC on HV reads copper.",
+      "Half load, quarter copper — $x^2$ never $x$.",
+      "Max efficiency when copper = iron: $x = \\sqrt{P_i/P_{\\text{cu,fl}}}$.",
+      "kVA not kW — losses ignore the power factor.",
+      "Zero regulation lives on leading pf only.",
+      "Impedance refers with $(N_1/N_2)^2$ — square, always square."
+    ],
+    "commonMistakes": [
+      "Swapping the cures: silicon is for hysteresis, laminations for eddy currents.",
+      "Reading copper loss at half load as half instead of a quarter.",
+      "Doing the OC test on the HV side (it belongs on LV) or SC on LV.",
+      "Writing the EMF constant as 4.15 or 4.0 instead of $4.44 = \\sqrt{2}\\pi$.",
+      "Rating a transformer in kW.",
+      "Expecting frequency conversion across a transformer.",
+      "Referring impedance with the turns ratio instead of its square.",
+      "Claiming zero regulation on lagging power factor.",
+      "Applying DC to the primary 'to test resistance' without a current limit."
+    ],
+    "examChecklist": [
+      "Confirm AC excitation before any transformer calculation.",
+      "EMF equation: $E = 4.44 f N \\Phi_m$; convert $\\Phi_m$ to/from mWb cleanly.",
+      "Use $N_2/N_1 = E_2/E_1 = I_1/I_2$ and $Z' = (N_1/N_2)^2 Z$.",
+      "Justify the kVA rating via pf-independent losses.",
+      "Pair each loss with its cure: Si $\\to$ $P_h$, laminations $\\to$ $P_e$.",
+      "State OC = LV/rated $V$/$P_i$ and SC = HV/rated $I$/$P_{\\text{cu,fl}}$.",
+      "Scale copper loss as $x^2$; keep iron loss constant.",
+      "Find $x_{\\eta\\max} = \\sqrt{P_i/P_{\\text{cu,fl}}}$ and the kVA there.",
+      "Fix the regulation sign: $+$ lag, $-$ lead; zero only on leading pf.",
+      "Quote $\\Phi_m \\propto V/f$ for any frequency-change question.",
+      "Remember $f_2 = f_1$ and the DC burnout hazard."
+    ],
+    "furtherReading": [
+      {
+        "book": "Electrical Machinery",
+        "author": "P. S. Dhogal",
+        "chapters": "Single-phase transformer chapters",
+        "note": "EMF equation, OC/SC testing and efficiency/regulation — pointer only, no content copied."
+      },
+      {
+        "book": "NCERT Class 12 Physics Part I",
+        "author": "NCERT",
+        "chapters": "Unit 6 (Electromagnetic Induction & AC), transformer section",
+        "note": "Mutual-induction and ideal-transformer basics behind primer 1–2."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

@@ -158,7 +158,686 @@
       "channelName": "EzEd Channel",
       "language": "en",
       "scopeNote": "AND/OR/NOT/XOR/XNOR truth tables, Boolean laws & NAND/NOR universal gate realization"
+    },
+    {
+      "title": "Logic Gates and Boolean Algebra | Digital Electronics Crash Course | GATE EE/ECE/IN/CS 2023",
+      "url": "https://www.youtube.com/watch?v=nd8u89qMetU",
+      "videoId": "nd8u89qMetU",
+      "duration": "118 min",
+      "durationMinutes": 118,
+      "provider": "YouTube · BYJU'S Exam Prep GATE & ESE: EE,EC,IN,CS",
+      "channelName": "BYJU'S Exam Prep GATE & ESE: EE,EC,IN,CS",
+      "language": "en",
+      "scopeNote": "Boolean theorems, De Morgan, duals, consensus theorem + GATE PYQs (crash course)"
+    },
+    {
+      "title": "NUMBER SYSTEM CONVERSION in HINDI || BINARY to DECIMAL || HEXADECIMAL to DECIMAL || OCTAL to DECIMAL",
+      "url": "https://www.youtube.com/watch?v=jCHy0QOKG0A",
+      "videoId": "jCHy0QOKG0A",
+      "duration": "10 min",
+      "durationMinutes": 10,
+      "provider": "YouTube · EduPoint",
+      "channelName": "EduPoint",
+      "language": "hi",
+      "scopeNote": "Number-system conversions: binary/decimal/hexadecimal/octal algorithms"
+    },
+    {
+      "title": "Explain JK Flip-Flop - Circuit and Truth Table in Digital Electronics",
+      "url": "https://www.youtube.com/watch?v=Vv1QsOIHOac",
+      "videoId": "Vv1QsOIHOac",
+      "duration": "15 min",
+      "durationMinutes": 15,
+      "provider": "YouTube · CS Engineering Gyan",
+      "channelName": "CS Engineering Gyan",
+      "language": "hi",
+      "scopeNote": "JK flip-flop: NAND circuit, truth table, toggle condition, SR invalid-state cure"
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "E08-PRD01",
+        "heading": "Ranges: Unsigned vs 2's Complement",
+        "proseLatex": "An $n$-bit unsigned word spans $0$ to $2^n - 1$; the same bits as $n$-bit 2's complement span $-2^{n-1}$ to $+(2^{n-1}-1)$ — $-128$ to $+127$ for 8 bits (one more negative than positive). 2's complement $=$ 1's complement $+ 1$. Micro-check: $8$ bits hold $256$ patterns: $0\\dots255$ unsigned, or $-128\\dots+127$ signed — the asymmetric extra negative is $-128$."
+      },
+      {
+        "prdId": "E08-PRD02",
+        "heading": "Radix Conversions on Sight",
+        "proseLatex": "Binary $\\to$ decimal: sum position weights. Decimal $\\to$ binary: divide by 2, collect remainders bottom-up. Hex groups 4 bits (nibble), octal groups 3. Micro-check: $(1011)_2 = 8+2+1 = 11$; $13_{10} = (1101)_2$; $(1101)_2 = (D)_{16}$; $255 = (FF)_{16}$."
+      },
+      {
+        "prdId": "E08-PRD03",
+        "heading": "Boolean Identities That Kill Whole Lines",
+        "proseLatex": "Absorption: $A + AB = A$. Redundancy: $A + \\bar{A}B = A + B$. Distributive: $A + BC = (A+B)(A+C)$. Consensus: $AB + \\bar{A}C + BC = AB + \\bar{A}C$ (the $BC$ term is redundant). De Morgan: $\\overline{AB} = \\bar{A} + \\bar{B}$, $\\overline{A+B} = \\bar{A}\\bar{B}$ — break the line, change the sign. Micro-check: $Y = A\\bar{B} + AB + \\bar{A}B = A + \\bar{A}B = A + B$ — two steps, done."
+      },
+      {
+        "prdId": "E08-PRD04",
+        "heading": "XOR/XNOR: Parity and Equality Detectors",
+        "proseLatex": "XOR $A\\oplus B = \\bar{A}B + A\\bar{B}$ is an odd-parity detector and controlled inverter: $A\\oplus 0 = A$, $A\\oplus 1 = \\bar{A}$, $A\\oplus A = 0$. XNOR tests equality. For an ODD number of inputs, $A\\oplus B\\oplus C = A\\odot B\\odot C$; they are complements only for EVEN input counts. Micro-check: $1\\oplus 0\\oplus 1 = 0$ and $1\\odot 0\\odot 1 = 0$ — identical, as promised for 3 inputs."
+      },
+      {
+        "prdId": "E08-PRD05",
+        "heading": "Universal Gates: the Minimum NAND/NOR Count Table",
+        "proseLatex": "NAND and NOR are universal. Minimum 2-input realizations: via NAND — NOT 1, AND 2, OR 3, XOR 4, XNOR 5; via NOR — NOT 1, OR 2, AND 3, XOR 5, XNOR 4 (XOR and XNOR SWAP between the families — the trap). A half adder needs 5 NANDs (or 5 NORs). Micro-check: OR from NANDs: invert both inputs (2 NANDs) then one more NAND — 3 total."
+      },
+      {
+        "prdId": "E08-PRD06",
+        "heading": "Adders, MUXes and Counters",
+        "proseLatex": "Half adder: $\\text{Sum} = A\\oplus B$, $\\text{Carry} = AB$. Full adder: $\\text{Sum} = A\\oplus B\\oplus C_{\\text{in}}$, $\\text{Carry} = AB + BC_{\\text{in}} + CA_{\\text{in}}$. A $2^n{:}1$ MUX (universal combinational block) needs $n$ select lines. Sequentially: JK cures SR's invalid $S=R=1$ state by toggling; a T flip-flop divides frequency by 2 per stage; a MOD-$M$ counter ($M \\le 2^N$) needs $N = \\lceil\\log_2 M\\rceil$ flip-flops and outputs $f_{\\text{out}} = f_{\\text{clk}}/M$. Micro-check: MOD-10 needs $4$ FFs ($2^4 = 16 \\ge 10$); MOD-10 followed by 3 T-FFs on $16\\ \\text{MHz}$: $\\frac{16\\ \\text{MHz}}{10\\times8} = 200\\ \\text{kHz}$."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "E08-SF01",
+        "label": "Unsigned range",
+        "latex": "$0$ to $2^n - 1$",
+        "use": "All $2^n$ patterns are positive."
+      },
+      {
+        "sfId": "E08-SF02",
+        "label": "2's complement range",
+        "latex": "$-2^{n-1}$ to $+(2^{n-1}-1)$",
+        "use": "8 bits: $-128$ to $+127$."
+      },
+      {
+        "sfId": "E08-SF03",
+        "label": "2's complement construction",
+        "latex": "2's comp $= 1$'s comp $+ 1$",
+        "use": "Negation recipe."
+      },
+      {
+        "sfId": "E08-SF04",
+        "label": "De Morgan's laws",
+        "latex": "$\\overline{AB} = \\bar{A} + \\bar{B};\\quad \\overline{A+B} = \\bar{A}\\bar{B}$",
+        "use": "Break the line, change the sign."
+      },
+      {
+        "sfId": "E08-SF05",
+        "label": "Absorption",
+        "latex": "$A + AB = A$",
+        "use": "One-line simplification."
+      },
+      {
+        "sfId": "E08-SF06",
+        "label": "Redundancy / covering law",
+        "latex": "$A + \\bar{A}B = A + B$",
+        "use": "The single most-used identity."
+      },
+      {
+        "sfId": "E08-SF07",
+        "label": "Distributive",
+        "latex": "$A + BC = (A+B)(A+C)$",
+        "use": "SOP $\\leftrightarrow$ POS bridge."
+      },
+      {
+        "sfId": "E08-SF08",
+        "label": "Consensus",
+        "latex": "$AB + \\bar{A}C + BC = AB + \\bar{A}C$",
+        "use": "Drop the redundant term."
+      },
+      {
+        "sfId": "E08-SF09",
+        "label": "XOR identity set",
+        "latex": "$A\\oplus 0 = A;\\ A\\oplus 1 = \\bar{A};\\ A\\oplus A = 0$",
+        "use": "Parity and controlled inverter."
+      },
+      {
+        "sfId": "E08-SF10",
+        "label": "Odd-input parity rule",
+        "latex": "$A\\oplus B\\oplus C = A\\odot B\\odot C$ (odd inputs)",
+        "use": "Complement only for even counts."
+      },
+      {
+        "sfId": "E08-SF11",
+        "label": "NAND minimum counts",
+        "latex": "NOT, AND, OR, XOR, XNOR $= (1, 2, 3, 4, 5)$",
+        "use": "2-input NAND family."
+      },
+      {
+        "sfId": "E08-SF12",
+        "label": "NOR minimum counts",
+        "latex": "NOT, OR, AND, XOR, XNOR $= (1, 2, 3, 5, 4)$",
+        "use": "XOR/XNOR swap vs NAND."
+      },
+      {
+        "sfId": "E08-SF13",
+        "label": "Half adder",
+        "latex": "$\\text{Sum} = A\\oplus B;\\ \\text{Carry} = AB$",
+        "use": "5 NANDs or 5 NORs."
+      },
+      {
+        "sfId": "E08-SF14",
+        "label": "Full adder",
+        "latex": "$S = A\\oplus B\\oplus C_{\\text{in}};\\ C_{\\text{out}} = AB + BC_{\\text{in}} + CA_{\\text{in}}$",
+        "use": "Two half adders + OR."
+      },
+      {
+        "sfId": "E08-SF15",
+        "label": "MUX select lines",
+        "latex": "$2^n{:}1$ MUX needs $n$ selects",
+        "use": "8:1 needs 3; 16:1 needs 4."
+      },
+      {
+        "sfId": "E08-SF16",
+        "label": "Counter modulus",
+        "latex": "$N_{\\text{FF}} = \\lceil\\log_2 M\\rceil;\\quad f_{\\text{out}} = \\frac{f_{\\text{clk}}}{M}$",
+        "use": "MOD-10 uses 4 FFs."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "E08-DEF01",
+        "term": "2's complement",
+        "definition": "Weighted binary code with $-2^{n-1}$ for the MSB; single zero, asymmetric range."
+      },
+      {
+        "defId": "E08-DEF02",
+        "term": "1's complement",
+        "definition": "Bitwise inversion; has $+0$ and $-0$; add 1 to get 2's complement."
+      },
+      {
+        "defId": "E08-DEF03",
+        "term": "De Morgan's theorems",
+        "definition": "Complement of an AND/OR equals the OR/AND of complements — 'break the line, change the sign'."
+      },
+      {
+        "defId": "E08-DEF04",
+        "term": "XOR (exclusive-OR)",
+        "definition": "Output 1 when an odd number of inputs are 1; the sum bit of adders."
+      },
+      {
+        "defId": "E08-DEF05",
+        "term": "Universal gate",
+        "definition": "NAND or NOR: any logic function can be built from it alone."
+      },
+      {
+        "defId": "E08-DEF06",
+        "term": "Half adder",
+        "definition": "Two-input adder: XOR sum, AND carry; no carry-in."
+      },
+      {
+        "defId": "E08-DEF07",
+        "term": "Full adder",
+        "definition": "Three-input adder with carry-in; sum = 3-way XOR, majority carry."
+      },
+      {
+        "defId": "E08-DEF08",
+        "term": "Multiplexer",
+        "definition": "$2^n{:}1$ data selector steered by $n$ select lines; universal combinational block."
+      },
+      {
+        "defId": "E08-DEF09",
+        "term": "JK flip-flop",
+        "definition": "Clocked bistable; $J = K = 1$ toggles — cures the SR invalid state."
+      },
+      {
+        "defId": "E08-DEF10",
+        "term": "MOD-$M$ counter",
+        "definition": "Counts $M$ states then recycles; divides clock frequency by $M$."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "E08-CMP01",
+        "title": "Unsigned vs 2's complement (8 bits)",
+        "columns": [
+          "Aspect",
+          "Unsigned",
+          "2's complement"
+        ],
+        "rows": [
+          {
+            "label": "Range",
+            "values": [
+              "$0$ to $255$",
+              "$-128$ to $+127$"
+            ]
+          },
+          {
+            "label": "Zero representations",
+            "values": [
+              "one",
+              "one"
+            ]
+          },
+          {
+            "label": "MSB meaning",
+            "values": [
+              "weight $+128$",
+              "weight $-128$"
+            ]
+          },
+          {
+            "label": "Negation",
+            "values": [
+              "n/a",
+              "invert bits, add 1"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E08-CMP02",
+        "title": "NAND vs NOR minimum counts (2-input)",
+        "columns": [
+          "Gate",
+          "Via NAND",
+          "Via NOR"
+        ],
+        "rows": [
+          {
+            "label": "NOT",
+            "values": [
+              "1",
+              "1"
+            ]
+          },
+          {
+            "label": "AND / OR",
+            "values": [
+              "2 / 3",
+              "3 / 2"
+            ]
+          },
+          {
+            "label": "XOR / XNOR",
+            "values": [
+              "4 / 5",
+              "5 / 4"
+            ]
+          },
+          {
+            "label": "Half adder",
+            "values": [
+              "5",
+              "5"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E08-CMP03",
+        "title": "Half adder vs full adder",
+        "columns": [
+          "Aspect",
+          "Half adder",
+          "Full adder"
+        ],
+        "rows": [
+          {
+            "label": "Inputs",
+            "values": [
+              "$A, B$",
+              "$A, B, C_{\\text{in}}$"
+            ]
+          },
+          {
+            "label": "Sum",
+            "values": [
+              "$A\\oplus B$",
+              "$A\\oplus B\\oplus C_{\\text{in}}$"
+            ]
+          },
+          {
+            "label": "Carry",
+            "values": [
+              "$AB$",
+              "$AB + BC_{\\text{in}} + CA_{\\text{in}}$"
+            ]
+          },
+          {
+            "label": "Build",
+            "values": [
+              "2 gates",
+              "2 half adders + OR"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E08-CMP04",
+        "title": "SR vs JK flip-flop",
+        "columns": [
+          "Aspect",
+          "SR",
+          "JK"
+        ],
+        "rows": [
+          {
+            "label": "$S = R = 1$ / $J = K = 1$",
+            "values": [
+              "invalid (forbidden)",
+              "toggle $Q^+ = \\bar{Q}$"
+            ]
+          },
+          {
+            "label": "Validity",
+            "values": [
+              "restricted inputs",
+              "all inputs valid"
+            ]
+          },
+          {
+            "label": "Role",
+            "values": [
+              "basic latch logic",
+              "counter/T-flip-flop core"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "E08-MCQ01",
+        "stemLatex": "The decimal value of binary $1011$ is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$9$"
+          },
+          {
+            "id": "B",
+            "latex": "$11$"
+          },
+          {
+            "id": "C",
+            "latex": "$13$"
+          },
+          {
+            "id": "D",
+            "latex": "$15$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$8 + 0 + 2 + 1 = 11$."
+      },
+      {
+        "mcqId": "E08-MCQ02",
+        "stemLatex": "An 8-bit 2's complement signed integer spans:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$-127$ to $+128$"
+          },
+          {
+            "id": "B",
+            "latex": "$-128$ to $+127$"
+          },
+          {
+            "id": "C",
+            "latex": "$-255$ to $+255$"
+          },
+          {
+            "id": "D",
+            "latex": "$0$ to $255$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Range is $-2^{n-1}$ to $2^{n-1}-1$: $-128$ to $+127$ — one extra negative value ($-128$)."
+      },
+      {
+        "mcqId": "E08-MCQ03",
+        "stemLatex": "Simplify $Y = A\\bar{B} + AB + \\bar{A}B$:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$A + B$"
+          },
+          {
+            "id": "B",
+            "latex": "$AB$"
+          },
+          {
+            "id": "C",
+            "latex": "$A\\oplus B$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\overline{A+B}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$A(\\bar{B}+B) + \\bar{A}B = A + \\bar{A}B = A + B$ via the covering law."
+      },
+      {
+        "mcqId": "E08-MCQ04",
+        "stemLatex": "By De Morgan, $\\overline{A + \\bar{B}}$ equals:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$\\bar{A}B$"
+          },
+          {
+            "id": "B",
+            "latex": "$A\\bar{B}$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\bar{A} + B$"
+          },
+          {
+            "id": "D",
+            "latex": "$\\bar{A}\\bar{B}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\overline{A + \\bar{B}} = \\bar{A}\\cdot\\overline{\\bar{B}} = \\bar{A}B$ — break the line, change the sign."
+      },
+      {
+        "mcqId": "E08-MCQ05",
+        "stemLatex": "The minimum number of 2-input NAND gates to realize XOR is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "2"
+          },
+          {
+            "id": "B",
+            "latex": "3"
+          },
+          {
+            "id": "C",
+            "latex": "4"
+          },
+          {
+            "id": "D",
+            "latex": "5"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "XOR needs 4 NANDs; XNOR needs 5 — and the two numbers swap for NOR (5 and 4)."
+      },
+      {
+        "mcqId": "E08-MCQ06",
+        "stemLatex": "For three inputs, $A\\oplus B\\oplus C$ and $A\\odot B\\odot C$ are:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "always complements"
+          },
+          {
+            "id": "B",
+            "latex": "always equal"
+          },
+          {
+            "id": "C",
+            "latex": "equal only if inputs are even in count"
+          },
+          {
+            "id": "D",
+            "latex": "unrelated"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "For an ODD number of inputs (3 here), XOR and XNOR cascades are identical."
+      },
+      {
+        "mcqId": "E08-MCQ07",
+        "stemLatex": "The number of select lines a $16{:}1$ multiplexer needs is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "2"
+          },
+          {
+            "id": "B",
+            "latex": "3"
+          },
+          {
+            "id": "C",
+            "latex": "4"
+          },
+          {
+            "id": "D",
+            "latex": "16"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$2^n = 16 \\Rightarrow n = 4$ select lines."
+      },
+      {
+        "mcqId": "E08-MCQ08",
+        "stemLatex": "A MOD-10 (decade) counter requires how many flip-flops?",
+        "options": [
+          {
+            "id": "A",
+            "latex": "3"
+          },
+          {
+            "id": "B",
+            "latex": "4"
+          },
+          {
+            "id": "C",
+            "latex": "5"
+          },
+          {
+            "id": "D",
+            "latex": "10"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$2^3 = 8 < 10 \\le 16 = 2^4$ — four flip-flops, three states unused."
+      },
+      {
+        "mcqId": "E08-MCQ09",
+        "stemLatex": "A $32\\ \\text{MHz}$ clock feeds a MOD-16 counter cascaded with 2 T flip-flops ($T=1$). The output frequency is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$2\\ \\text{MHz}$"
+          },
+          {
+            "id": "B",
+            "latex": "$1\\ \\text{MHz}$"
+          },
+          {
+            "id": "C",
+            "latex": "$500\\ \\text{kHz}$"
+          },
+          {
+            "id": "D",
+            "latex": "$250\\ \\text{kHz}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Total modulus $= 16 \\times 4 = 64$; $f_{\\text{out}} = \\frac{32\\ \\text{MHz}}{64} = 500\\ \\text{kHz}$."
+      },
+      {
+        "mcqId": "E08-MCQ10",
+        "stemLatex": "In a JK flip-flop with $J = K = 1$, the next state is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$Q^+ = 0$"
+          },
+          {
+            "id": "B",
+            "latex": "$Q^+ = 1$"
+          },
+          {
+            "id": "C",
+            "latex": "$Q^+ = \\bar{Q}$ (toggle)"
+          },
+          {
+            "id": "D",
+            "latex": "invalid"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "JK's toggle at $J = K = 1$ is exactly the cure for SR's forbidden state."
+      }
+    ],
+    "memoryHooks": [
+      "$2^n - 1$ unsigned; $-2^{n-1}\\dots 2^{n-1}-1$ signed — the lonely $-128$.",
+      "Hex = 4-bit nibbles; octal = 3-bit groups.",
+      "Break the line, change the sign — De Morgan in five words.",
+      "$A + \\bar{A}B = A + B$ — the covering law wins most simplifications.",
+      "Consensus term $BC$ always drops.",
+      "NAND family: 1-2-3-4-5; NOR family swaps XOR/XNOR to 5-4.",
+      "$A\\oplus 1$ flips, $A\\oplus 0$ keeps, $A\\oplus A$ zeroes.",
+      "Odd inputs: XOR = XNOR.",
+      "$2^n{:}1$ MUX: $n$ select lines.",
+      "MOD-$M$: $\\lceil\\log_2 M\\rceil$ flip-flops; frequency divided by $M$."
+    ],
+    "commonMistakes": [
+      "Quoting the 8-bit signed range as $-127$ to $+128$.",
+      "Skipping the $+1$ in 2's complement construction.",
+      "Applying XOR/XNOR complement rules to odd input counts.",
+      "Swapping the NAND (4, 5) and NOR (5, 4) XOR/XNOR counts.",
+      "Giving a MOD-10 counter 5 flip-flops.",
+      "Forgetting the unused states in a non-power-of-2 modulus.",
+      "Dropping the consensus term's conditions before deleting it.",
+      "Using $2^n - 1$ range for signed numbers.",
+      "Writing the full-adder carry without all three product terms."
+    ],
+    "examChecklist": [
+      "Convert binary/hex/decimal on sight; group nibbles for hex.",
+      "State both ranges for a given bit-width before answering.",
+      "Negate with 1's complement $+1$.",
+      "Apply De Morgan in one line ('break the line, change the sign').",
+      "Reach for absorption/covering/consensus before K-maps.",
+      "Know $A\\oplus 1 = \\bar{A}$, $A\\oplus A = 0$.",
+      "Recite the NAND (1,2,3,4,5) vs NOR (1,2,3,5,4) count table.",
+      "Check parity rules: XOR = XNOR for odd input counts.",
+      "Full adder: 3-way XOR sum, majority carry.",
+      "$2^n{:}1$ MUX needs $n$ selects.",
+      "Counter questions: $\\lceil\\log_2 M\\rceil$ FFs, $f_{\\text{out}} = f_{\\text{clk}}/M$."
+    ],
+    "furtherReading": [
+      {
+        "book": "Digital Design",
+        "author": "M. Morris Mano",
+        "chapters": "Number systems, Boolean algebra, combinational/sequential chapters",
+        "note": "Gate counts, adders and counters — pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

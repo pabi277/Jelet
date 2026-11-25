@@ -1,0 +1,650 @@
+{
+  "unitId": "E07",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "E07-PRD01",
+        "heading": "Ideal OP-AMP Specs — and the Real 741",
+        "proseLatex": "Ideal: $A_{\\text{OL}} = \\infty$, $R_{\\text{in}} = \\infty$ (so $i_+ = i_- = 0$), $R_{\\text{out}} = 0$, BW $= \\infty$, CMRR $= \\infty$, slew rate $= \\infty$. Practical IC 741: $A_{\\text{OL}} \\sim 10^5$, $R_{\\text{in}} \\sim 2\\ \\text{M}\\Omega$, $R_{\\text{out}} \\sim 75\\ \\Omega$, SR $\\approx 0.5\\ \\text{V}/\\mu\\text{s}$. Micro-check: with $A_{\\text{OL}} = 10^5$, holding $v_o = 10\\ \\text{V}$ linearly needs $v_d \\approx 100\\ \\mu\\text{V}$ — the virtual short in the flesh."
+      },
+      {
+        "prdId": "E07-PRD02",
+        "heading": "CMRR and Slew Rate",
+        "proseLatex": "$\\text{CMRR} = \\left|\\frac{A_d}{A_{\\text{cm}}}\\right|$, quoted as $20\\log_{10}(\\cdot)$ dB — rejection of the common signal both inputs share. Slew rate $\\text{SR} = \\left|\\frac{dv_o}{dt}\\right|_{\\max}$ caps the largest undistorted sine: $2\\pi f V_m \\le \\text{SR} \\Rightarrow f_{\\max} = \\frac{\\text{SR}}{2\\pi V_m}$. Micro-check: SR $= 0.5\\ \\text{V}/\\mu\\text{s}$, $V_m = 5\\ \\text{V}$: $f_{\\max} = \\frac{0.5\\times10^6}{2\\pi\\times5} \\approx 15.9\\ \\text{kHz}$."
+      },
+      {
+        "prdId": "E07-PRD03",
+        "heading": "Virtual Short: Bought Only by Negative Feedback",
+        "proseLatex": "With NEGATIVE feedback (output to the $-$ input) and huge $A_{\\text{OL}}$, the differential input is driven to nearly zero: $v_- = v_+$, and with $R_{\\text{in}} = \\infty$ no input current flows. Grounding $v_+$ makes $v_-$ a VIRTUAL GROUND. POSITIVE feedback (to $+$) destroys the virtual short — the output saturates and hysteresis rules instead. Micro-check: every linear op-amp circuit you solve starts by writing $v_- = v_+$ and KCL at that node."
+      },
+      {
+        "prdId": "E07-PRD04",
+        "heading": "Inverting Amplifier and the Virtual Ground",
+        "proseLatex": "With $v_+ = 0$: $v_o = -\\frac{R_f}{R_1}v_{\\text{in}}$; the input resistance is exactly $R_1$ (the source looks into the virtual ground). The summing amplifier extends this: $v_o = -R_f\\left(\\frac{v_1}{R_1} + \\frac{v_2}{R_2}\\right)$ — a weighted summer whose weights are resistor ratios. Micro-check: $R_f = 10\\ \\text{k}\\Omega$, $R_1 = 2\\ \\text{k}\\Omega$: gain $-5$, and the source sees $2\\ \\text{k}\\Omega$."
+      },
+      {
+        "prdId": "E07-PRD05",
+        "heading": "Non-Inverting Amplifier and the Buffer",
+        "proseLatex": "The signal drives $v_+$ directly: $v_o = \\left(1 + \\frac{R_f}{R_1}\\right)v_{\\text{in}}$ — gain at least $+1$, high input impedance (the source never sees a resistor ladder). $R_f = 0$, $R_1 = \\infty$ collapse it to the voltage follower / buffer ($A_v = +1$): high-$Z$ to low-$Z$ impedance matching without amplification. Micro-check: $R_1 = 2\\ \\text{k}\\Omega$, $R_f = 8\\ \\text{k}\\Omega$: gain $+5$; $v_{\\text{in}} = 2\\ \\text{V}$ on $\\pm15\\ \\text{V}$ rails $\\Rightarrow v_o = +10\\ \\text{V}$, still linear."
+      },
+      {
+        "prdId": "E07-PRD06",
+        "heading": "Integrators, Differentiators, Comparators and Schmitt Triggers",
+        "proseLatex": "Replace $R_f$ with $C$: inverting integrator $v_o = -\\frac{1}{RC}\\int v_{\\text{in}}dt$ — square wave in, TRIANGLE out (a low-pass flavour). Swap R and C: differentiator $v_o = -RC\\frac{dv_{\\text{in}}}{dt}$ (high-pass, noise-hungry). Open-loop or positive feedback drives $v_o$ to $\\pm V_{\\text{sat}}$: a bare comparator switches at one threshold, while the Schmitt trigger adds HYSTERESIS ($V_{\\text{UTP}} \\ne V_{\\text{LTP}}$) for noise immunity — sine in, clean square out. Micro-check: integrator on a square wave: flat top integrates to a ramp — triangle."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "E07-SF01",
+        "label": "Ideal op-amp set",
+        "latex": "$A_{\\text{OL}} = \\infty$, $R_{\\text{in}} = \\infty$, $R_{\\text{out}} = 0$, BW $= \\infty$, CMRR $= \\infty$, SR $= \\infty$",
+        "use": "The design fiction that makes analysis one-line."
+      },
+      {
+        "sfId": "E07-SF02",
+        "label": "Virtual short",
+        "latex": "$v_- = v_+$ with $i_- = i_+ = 0$ — only under negative feedback",
+        "use": "Every linear circuit's first line."
+      },
+      {
+        "sfId": "E07-SF03",
+        "label": "Inverting gain",
+        "latex": "$v_o = -\\frac{R_f}{R_1}v_{\\text{in}}$; input resistance $= R_1$",
+        "use": "Virtual ground at $v_ -$."
+      },
+      {
+        "sfId": "E07-SF04",
+        "label": "Non-inverting gain",
+        "latex": "$v_o = \\left(1 + \\frac{R_f}{R_1}\\right)v_{\\text{in}}$",
+        "use": "Magnitude never below $+1$."
+      },
+      {
+        "sfId": "E07-SF05",
+        "label": "Summing amplifier",
+        "latex": "$v_o = -R_f\\left(\\frac{v_1}{R_1} + \\frac{v_2}{R_2}\\right)$",
+        "use": "Weighted adder at the virtual ground."
+      },
+      {
+        "sfId": "E07-SF06",
+        "label": "Buffer",
+        "latex": "$R_f = 0$, $R_1 = \\infty \\Rightarrow A_v = +1$",
+        "use": "Impedance matching stage."
+      },
+      {
+        "sfId": "E07-SF07",
+        "label": "CMRR",
+        "latex": "$\\text{CMRR} = \\left|\\frac{A_d}{A_{\\text{cm}}}\\right|$; $\\text{dB} = 20\\log_{10}(\\cdot)$",
+        "use": "Common-mode rejection."
+      },
+      {
+        "sfId": "E07-SF08",
+        "label": "Slew-rate limit",
+        "latex": "$2\\pi f V_m \\le \\text{SR} \\Rightarrow f_{\\max} = \\frac{\\text{SR}}{2\\pi V_m}$",
+        "use": "Largest undistorted sine."
+      },
+      {
+        "sfId": "E07-SF09",
+        "label": "Integrator",
+        "latex": "$v_o(t) = -\\frac{1}{RC}\\int v_{\\text{in}}\\,dt$",
+        "use": "Square $\\to$ triangle; low-pass."
+      },
+      {
+        "sfId": "E07-SF10",
+        "label": "Differentiator",
+        "latex": "$v_o(t) = -RC\\,\\frac{dv_{\\text{in}}}{dt}$",
+        "use": "Triangle $\\to$ square; high-pass."
+      },
+      {
+        "sfId": "E07-SF11",
+        "label": "Comparator",
+        "latex": "Open loop: $v_o = \\pm V_{\\text{sat}}$ by the sign of $v_d$",
+        "use": "Single-threshold switching."
+      },
+      {
+        "sfId": "E07-SF12",
+        "label": "Schmitt hysteresis",
+        "latex": "$V_{\\text{UTP}} \\ne V_{\\text{LTP}}$ via positive feedback",
+        "use": "Noise immunity."
+      },
+      {
+        "sfId": "E07-SF13",
+        "label": "Gain–bandwidth product",
+        "latex": "$|A_{\\text{CL}}| \\cdot f_{\\text{CL}} = f_t = $ const",
+        "use": "Closed-loop bandwidth trades with gain."
+      },
+      {
+        "sfId": "E07-SF14",
+        "label": "741 snapshot",
+        "latex": "$A_{\\text{OL}} \\sim 10^5$, $R_{\\text{in}} \\sim 2\\ \\text{M}\\Omega$, $R_{\\text{out}} \\sim 75\\ \\Omega$, SR $\\approx 0.5\\ \\text{V}/\\mu\\text{s}$",
+        "use": "The practical reference numbers."
+      },
+      {
+        "sfId": "E07-SF15",
+        "label": "Rail clipping",
+        "latex": "$-V_{\\text{sat}} \\le v_o \\le +V_{\\text{sat}}$ (rails bound the output)",
+        "use": "Check linearity after every gain."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "E07-DEF01",
+        "term": "Operational amplifier",
+        "definition": "High-gain differential DC amplifier intended for closed-loop feedback operation."
+      },
+      {
+        "defId": "E07-DEF02",
+        "term": "Virtual short",
+        "definition": "Condition $v_- \\approx v_+$ with zero input current, forced by high gain under negative feedback."
+      },
+      {
+        "defId": "E07-DEF03",
+        "term": "Virtual ground",
+        "definition": "Virtual short with $v_+$ grounded: $v_- \\approx 0$ though no current flows to earth."
+      },
+      {
+        "defId": "E07-DEF04",
+        "term": "CMRR",
+        "definition": "Ratio of differential to common-mode gain, $|A_d/A_{\\text{cm}}|$, usually in dB."
+      },
+      {
+        "defId": "E07-DEF05",
+        "term": "Slew rate",
+        "definition": "Maximum output voltage slope, $|dv_o/dt|_{\\max}$, limiting large-signal speed."
+      },
+      {
+        "defId": "E07-DEF06",
+        "term": "Voltage follower",
+        "definition": "Unity-gain non-inverting buffer; impedance transformer."
+      },
+      {
+        "defId": "E07-DEF07",
+        "term": "Comparator",
+        "definition": "Open-loop stage swinging to $\\pm V_{\\text{sat}}$ according to the differential input sign."
+      },
+      {
+        "defId": "E07-DEF08",
+        "term": "Schmitt trigger",
+        "definition": "Positive-feedback comparator with hysteresis thresholds $V_{\\text{UTP}}$ and $V_{\\text{LTP}}$."
+      },
+      {
+        "defId": "E07-DEF09",
+        "term": "Hysteresis",
+        "definition": "Two different switching thresholds depending on direction of travel — noise rejection."
+      },
+      {
+        "defId": "E07-DEF10",
+        "term": "Gain–bandwidth product",
+        "definition": "Constant $f_t$: closed-loop gain times its bandwidth."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "E07-CMP01",
+        "title": "Inverting vs non-inverting amplifier",
+        "columns": [
+          "Aspect",
+          "Inverting",
+          "Non-inverting"
+        ],
+        "rows": [
+          {
+            "label": "Gain",
+            "values": [
+              "$-R_f/R_1$ (any magnitude)",
+              "$1 + R_f/R_1$ ($\\ge 1$)"
+            ]
+          },
+          {
+            "label": "Input resistance",
+            "values": [
+              "$R_1$ (virtual ground)",
+              "very high ($v_+$ direct)"
+            ]
+          },
+          {
+            "label": "Phase",
+            "values": [
+              "$180^\\circ$ inverted",
+              "in-phase"
+            ]
+          },
+          {
+            "label": "Signal enters",
+            "values": [
+              "$R_1$ into $v_-$",
+              "$v_+$ directly"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E07-CMP02",
+        "title": "Integrator vs differentiator",
+        "columns": [
+          "Aspect",
+          "Integrator",
+          "Differentiator"
+        ],
+        "rows": [
+          {
+            "label": "Feedback element",
+            "values": [
+              "capacitor $C$",
+              "input element $C$"
+            ]
+          },
+          {
+            "label": "Output",
+            "values": [
+              "$-\\frac{1}{RC}\\int v_{\\text{in}}dt$",
+              "$-RC\\,dv_{\\text{in}}/dt$"
+            ]
+          },
+          {
+            "label": "Wave conversion",
+            "values": [
+              "square $\\to$ triangle",
+              "triangle $\\to$ square / spike"
+            ]
+          },
+          {
+            "label": "Filter flavour",
+            "values": [
+              "low-pass",
+              "high-pass (noise-hungry)"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E07-CMP03",
+        "title": "Comparator vs Schmitt trigger",
+        "columns": [
+          "Aspect",
+          "Comparator (open loop)",
+          "Schmitt trigger"
+        ],
+        "rows": [
+          {
+            "label": "Feedback",
+            "values": [
+              "none",
+              "positive"
+            ]
+          },
+          {
+            "label": "Thresholds",
+            "values": [
+              "single",
+              "two: $V_{\\text{UTP}} \\ne V_{\\text{LTP}}$"
+            ]
+          },
+          {
+            "label": "Noise behaviour",
+            "values": [
+              "multiple false trips",
+              "hysteresis immunity"
+            ]
+          },
+          {
+            "label": "Output",
+            "values": [
+              "$\\pm V_{\\text{sat}}$",
+              "clean square from a sine"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "E07-CMP04",
+        "title": "Ideal vs IC 741",
+        "columns": [
+          "Parameter",
+          "Ideal",
+          "IC 741 (practical)"
+        ],
+        "rows": [
+          {
+            "label": "$A_{\\text{OL}}$",
+            "values": [
+              "$\\infty$",
+              "$\\sim 10^5$"
+            ]
+          },
+          {
+            "label": "$R_{\\text{in}}$",
+            "values": [
+              "$\\infty$",
+              "$\\sim 2\\ \\text{M}\\Omega$"
+            ]
+          },
+          {
+            "label": "$R_{\\text{out}}$",
+            "values": [
+              "$0$",
+              "$\\sim 75\\ \\Omega$"
+            ]
+          },
+          {
+            "label": "Slew rate",
+            "values": [
+              "$\\infty$",
+              "$\\approx 0.5\\ \\text{V}/\\mu\\text{s}$"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "E07-MCQ01",
+        "stemLatex": "An op-amp has $A_d = 10^5$ and $A_{\\text{cm}} = 1$. Its CMRR in dB is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$60\\ \\text{dB}$"
+          },
+          {
+            "id": "B",
+            "latex": "$100\\ \\text{dB}$"
+          },
+          {
+            "id": "C",
+            "latex": "$120\\ \\text{dB}$"
+          },
+          {
+            "id": "D",
+            "latex": "$20\\ \\text{dB}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$20\\log_{10}(10^5/1) = 20 \\times 5 = 100\\ \\text{dB}$."
+      },
+      {
+        "mcqId": "E07-MCQ02",
+        "stemLatex": "In a non-inverting amplifier with $\\pm 12\\ \\text{V}$ rails, $R_1 = 2\\ \\text{k}\\Omega$, $R_f = 18\\ \\text{k}\\Omega$, $v_{\\text{in}} = 2\\ \\text{V}$: the output is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+20\\ \\text{V}$"
+          },
+          {
+            "id": "B",
+            "latex": "$+12\\ \\text{V}$"
+          },
+          {
+            "id": "C",
+            "latex": "$+10\\ \\text{V}$"
+          },
+          {
+            "id": "D",
+            "latex": "$-12\\ \\text{V}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Gain $= 1 + 18/2 = 10$, so an ideal output of $20\\ \\text{V}$ — but the rails clip it at $+12\\ \\text{V}$ (saturation)."
+      },
+      {
+        "mcqId": "E07-MCQ03",
+        "stemLatex": "The input resistance seen by the source in an inverting amplifier is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$R_f$"
+          },
+          {
+            "id": "B",
+            "latex": "$R_1$"
+          },
+          {
+            "id": "C",
+            "latex": "$\\infty$"
+          },
+          {
+            "id": "D",
+            "latex": "$R_1 \\parallel R_f$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "The source drives $R_1$ into the virtual ground — input resistance is exactly $R_1$."
+      },
+      {
+        "mcqId": "E07-MCQ04",
+        "stemLatex": "An op-amp integrator fed a square wave outputs:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "square wave"
+          },
+          {
+            "id": "B",
+            "latex": "triangular wave"
+          },
+          {
+            "id": "C",
+            "latex": "spikes"
+          },
+          {
+            "id": "D",
+            "latex": "DC"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Integration of a constant segment is a ramp — flat tops become ramps, giving a triangle."
+      },
+      {
+        "mcqId": "E07-MCQ05",
+        "stemLatex": "The virtual-short condition $v_- = v_+$ is valid only when the op-amp has:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "positive feedback"
+          },
+          {
+            "id": "B",
+            "latex": "open-loop operation"
+          },
+          {
+            "id": "C",
+            "latex": "negative feedback and high $A_{\\text{OL}}$"
+          },
+          {
+            "id": "D",
+            "latex": "no power supply"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "Negative feedback pulls the differential input to ~zero; positive feedback saturates the output and breaks the short."
+      },
+      {
+        "mcqId": "E07-MCQ06",
+        "stemLatex": "A 741 has SR $= 0.5\\ \\text{V}/\\mu\\text{s}$. The highest undistorted sine frequency at $V_m = 5\\ \\text{V}$ is about:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$15.9\\ \\text{kHz}$"
+          },
+          {
+            "id": "B",
+            "latex": "$31.8\\ \\text{kHz}$"
+          },
+          {
+            "id": "C",
+            "latex": "$5\\ \\text{kHz}$"
+          },
+          {
+            "id": "D",
+            "latex": "$159\\ \\text{kHz}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$f_{\\max} = \\frac{\\text{SR}}{2\\pi V_m} = \\frac{0.5\\times10^6}{2\\pi \\times 5} \\approx 15.9\\ \\text{kHz}$."
+      },
+      {
+        "mcqId": "E07-MCQ07",
+        "stemLatex": "The closed-loop gain of a non-inverting amplifier can NEVER have magnitude:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "greater than 1"
+          },
+          {
+            "id": "B",
+            "latex": "equal to 1"
+          },
+          {
+            "id": "C",
+            "latex": "less than 1"
+          },
+          {
+            "id": "D",
+            "latex": "exactly $2$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$1 + R_f/R_1 \\ge 1$ always — unity is its floor (the buffer); the inverting gain can be any magnitude."
+      },
+      {
+        "mcqId": "E07-MCQ08",
+        "stemLatex": "A Schmitt trigger differs from a simple comparator because it:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "uses negative feedback"
+          },
+          {
+            "id": "B",
+            "latex": "has two distinct thresholds $V_{\\text{UTP}} \\ne V_{\\text{LTP}}$"
+          },
+          {
+            "id": "C",
+            "latex": "amplifies linearly"
+          },
+          {
+            "id": "D",
+            "latex": "removes hysteresis"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Positive feedback splits the switching thresholds — hysteresis gives noise immunity."
+      },
+      {
+        "mcqId": "E07-MCQ09",
+        "stemLatex": "The voltage follower (buffer) is used mainly to:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "amplify signals 100x"
+          },
+          {
+            "id": "B",
+            "latex": "match a high-impedance source to a low-impedance load"
+          },
+          {
+            "id": "C",
+            "latex": "invert the signal"
+          },
+          {
+            "id": "D",
+            "latex": "limit slew rate"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$A_v = +1$ but $Z_{\\text{in}}$ huge, $Z_{\\text{out}}$ tiny — it passes voltage without loading the source."
+      },
+      {
+        "mcqId": "E07-MCQ10",
+        "stemLatex": "The gain–bandwidth product of an op-amp means that raising closed-loop gain:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "raises bandwidth proportionally"
+          },
+          {
+            "id": "B",
+            "latex": "lowers bandwidth proportionally"
+          },
+          {
+            "id": "C",
+            "latex": "keeps bandwidth fixed"
+          },
+          {
+            "id": "D",
+            "latex": "removes the bandwidth limit"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$|A_{\\text{CL}}| f_{\\text{CL}} = f_t$ (constant): gain costs bandwidth, one-for-one."
+      }
+    ],
+    "memoryHooks": [
+      "Ideal six-pack: gain, $R_{\\text{in}}$, BW, CMRR, SR all $\\infty$; $R_{\\text{out}} = 0$.",
+      "No virtual short without negative feedback — check the $R_f$ node first.",
+      "Inverting looks into $R_1$; non-inverting looks into infinity.",
+      "$1 + R_f/R_1$ never dips below one.",
+      "Gain $\\times$ bandwidth $= f_t$ — pay for one with the other.",
+      "Integrator squares to triangles; differentiator is the noise magnet.",
+      "Schmitt = comparator + hysteresis: two thresholds, one clean square.",
+      "$f_{\\max} = \\text{SR}/2\\pi V_m$ — slew decides the biggest clean sine.",
+      "Rails are the ceiling: $\\pm V_{\\text{sat}}$ clips before the math does.",
+      "741: $10^5$, $2\\ \\text{M}\\Omega$, $75\\ \\Omega$, $0.5\\ \\text{V}/\\mu\\text{s}$."
+    ],
+    "commonMistakes": [
+      "Applying the virtual short under positive feedback (Schmitt/comparator).",
+      "Forgetting the rail clip: ideal math giving $20\\ \\text{V}$ on $\\pm12\\ \\text{V}$ rails.",
+      "Dropping the $+1$ in $1 + R_f/R_1$.",
+      "Calling the inverting input resistance $\\infty$ (it is $R_1$).",
+      "Writing $f_{\\max} = \\text{SR}/V_m$ without the $2\\pi$.",
+      "Expecting a differentiator to clean noise (it amplifies it).",
+      "Swapping $V_{\\text{UTP}}$/$V_{\\text{LTP}}$ roles or claiming they are equal.",
+      "Treating CMRR as a linear ratio in a dB answer.",
+      "Using an integrator as a high-pass filter."
+    ],
+    "examChecklist": [
+      "Check the feedback path: negative $\\to$ virtual short; positive $\\to$ saturation.",
+      "Solve linear circuits with $v_- = v_+$ and KCL at the node.",
+      "Quote gains: $-R_f/R_1$ (inv), $1+R_f/R_1$ (non-inv), $+1$ (buffer).",
+      "State the inverting stage's input resistance $= R_1$.",
+      "Test the answer against $\\pm V_{\\text{sat}}$ rails before finalizing.",
+      "Compute CMRR in dB with $20\\log_{10}|A_d/A_{\\text{cm}}|$.",
+      "Apply the slew-rate ceiling $f_{\\max} = \\text{SR}/2\\pi V_m$.",
+      "Match waveform conversions: integrator square$\\to$triangle.",
+      "Distinguish comparator (one threshold) from Schmitt (two).",
+      "Recall the 741 numbers as the practical counterweight.",
+      "Use $|A_{\\text{CL}}|f_{\\text{CL}} = f_t$ for bandwidth trades."
+    ],
+    "furtherReading": [
+      {
+        "book": "Op-Amps and Linear Integrated Circuits",
+        "author": "R. A. Gayakwad",
+        "chapters": "Ideal op-amp + basic linear/nonlinear circuit chapters",
+        "note": "Virtual-ground method, 741 specs and waveform circuits — pointer only, no content copied."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}
