@@ -58,7 +58,7 @@ export async function renderLearnExplorer(main, query, { openAiTutor } = {}) {
   ]);
 
   const initialSubj = query?.get("subject")?.toUpperCase() || null;
-  const expandedSubjects = new Set(initialSubj ? [initialSubj] : ["MATH"]);
+  const expandedSubjects = new Set(initialSubj ? [initialSubj] : []);
   let searchQuery = "";
   let activeFilter = "all"; // "all" | "studying" | "revised" | "high"
 

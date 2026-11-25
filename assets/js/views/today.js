@@ -140,7 +140,6 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
         weakAreas.subjects.length === 1 ? "" : "s"
       } · worst ${weakAreas.subjects[0].accuracyPct}%`
     : "Practice to generate insights";
-  const subjectsSummaryStatus = `${totalRevisedUnits}/42 units revised`;
 
   const root = el(`
     <div class="view stack-m today-dashboard">
@@ -265,25 +264,36 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
         <div id="todayMistakeDueListSlot" class="stack-xs" ${dueMistakes.length > 0 ? "" : "hidden"}></div>
       </section>
 
-      <!-- Mock History Summary (Phase 08 · Phase 12 disclosure) -->
+      <!-- 2x2 Subject Mastery Grid (07-today-dashboard.png & 08-modern-web-dashboard.png — always open) -->
+      <section class="stack-xs" id="todaySubjectsSection" aria-label="Your subjects">
+        <div class="row-between">
+          <h3 class="section-heading">Your Subjects</h3>
+          <a href="#/learn" class="card__meta" style="text-decoration:none">42-Unit Syllabus ›</a>
+        </div>
+        <div class="today-subjects-grid" id="todaySubjectsGrid"></div>
+      </section>
+
+      <!-- Mock History Summary (Phase 08 · Phase 12 compact disclosure, closed by default) -->
       <details class="disclose" id="discloseTodayMock">
         <summary class="disclose__summary">
           <span class="disclose__title">Mock History</span>
           <span class="disclose__status" id="todaySumMock">${escapeHtml(mockSummaryStatus)}</span>
         </summary>
         <section class="card stack-s" id="todayMockHistoryCard" aria-label="Mock history summary">
-          <div class="row-between">
-            <h3 class="section-heading" style="margin:0">Mock History</h3>
-            <a href="#/you" class="card__meta" style="text-decoration:none">All mocks ›</a>
-          </div>
           ${
             mockHistory.empty
-              ? `<p class="card__meta" style="margin:0">No timed mocks yet — start a 2-hour mock from Papers to track score, accuracy &amp; completion-time trends.</p>`
+              ? `<div class="row-between" style="gap:var(--space-s);align-items:flex-start">
+                  <p class="card__meta" style="margin:0">No timed mocks yet — start a 2-hour mock from Papers to track score, accuracy &amp; completion-time trends.</p>
+                  <a href="#/you" class="card__meta" style="text-decoration:none;white-space:nowrap">All mocks ›</a>
+                </div>`
               : `
             <div class="today-mock-summary stack-xs">
               <div class="row-between">
                 <span class="card__meta">Best score</span>
-                <strong class="mono">${mockHistory.bests.bestScore ? formatTwelfths(mockHistory.bests.bestScore.totalTwelfths) + " / 120" : "—"}</strong>
+                <div class="cluster-xs">
+                  <strong class="mono">${mockHistory.bests.bestScore ? formatTwelfths(mockHistory.bests.bestScore.totalTwelfths) + " / 120" : "—"}</strong>
+                  <a href="#/you" class="card__meta" style="text-decoration:none">All mocks ›</a>
+                </div>
               </div>
               ${sparklineSvg(mockHistory.trends.score, { width: 240, height: 40, ariaLabel: "Mock score trend" })}
               <div class="row-between">
@@ -295,43 +305,18 @@ export async function renderTodayDashboard(main, { openAiTutor } = {}) {
         </section>
       </details>
 
-      <!-- Weak Areas & Per-Subject / Per-Unit Accuracy Breakdown (Phase 07 · Slice 1 · Phase 12 disclosure) -->
+      <!-- Weak Areas & Per-Subject / Per-Unit Accuracy Breakdown (Phase 07 · Phase 12 compact disclosure, closed by default) -->
       <details class="disclose" id="discloseTodayWeak">
         <summary class="disclose__summary">
           <span class="disclose__title">Weak Areas</span>
           <span class="disclose__status" id="todaySumWeak">${escapeHtml(weakSummaryStatus)}</span>
         </summary>
         <section class="stack-xs" id="todayWeakAreasSection" aria-label="Weak areas and accuracy breakdown">
-          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
-            <h3 class="section-heading">Weak Areas</h3>
-            <span class="pill">Min ${WEAK_AREA_MIN_ATTEMPTS} attempts · Worst first</span>
-          </div>
           <div id="todayWeakAreasSlot" class="stack-s"></div>
-        </section>
-      </details>
-
-      <!-- 2x2 Subject Mastery Grid (07-today-dashboard.png & 08-modern-web-dashboard.png · Phase 12 disclosure) -->
-      <details class="disclose" id="discloseTodaySubjects">
-        <summary class="disclose__summary">
-          <span class="disclose__title">Your Subjects</span>
-          <span class="disclose__status" id="todaySumSubjects">${escapeHtml(subjectsSummaryStatus)}</span>
-        </summary>
-        <section class="stack-xs" aria-label="Your subjects">
-          <div class="row-between">
-            <h3 class="section-heading">Your Subjects</h3>
-            <a href="#/learn" class="card__meta" style="text-decoration:none">42-Unit Syllabus ›</a>
-          </div>
-          <div class="today-subjects-grid" id="todaySubjectsGrid"></div>
         </section>
       </details>
     </div>
   `);
-
-  if (typeof window !== "undefined" && window.matchMedia?.("(min-width: 768px)")?.matches) {
-    root.querySelectorAll(".disclose").forEach((d) => {
-      d.open = true;
-    });
-  }
 
   main.innerHTML = "";
   main.appendChild(root);

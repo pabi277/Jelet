@@ -152,7 +152,118 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
         <span>100% Local-First on Your Device · API key stays isolated and NEVER enters backups.</span>
       </div>
 
-      <!-- Readiness Snapshot (Phase 07 · Slice 4 — Explicitly-Labeled Estimate Only · Phase 12 disclosure) -->
+      <!-- Card 1: JU Target & Diploma CGPA Check (13-phone-you-ai-and-ju-hub.png — always open, no disclosure header) -->
+      <section class="card stack-s" id="youJuSection">
+        <h3 class="card__title" style="margin:0">JU Target &amp; Diploma CGPA Check</h3>
+        <p class="card__meta">WBSCTE Diploma → WBJEEB Percentage &amp; Jadavpur University lateral-entry eligibility (§2.0 Notification).</p>
+
+        <div class="form-grid-2">
+          <label class="form-field">
+            <span class="form-label">Your Name (optional)</span>
+            <input type="text" class="input-field" id="profNameInput" placeholder="e.g. Pabitra" value="${escapeHtml(profile.name)}" />
+          </label>
+          <label class="form-field">
+            <span class="form-label">Target College &amp; Department</span>
+            <input type="text" class="input-field" id="profTargetInput" placeholder="e.g. Jadavpur Univ. CSE, KGEC IT, JGEC EE…" value="${escapeHtml(profile.targetBranch)}" />
+          </label>
+          <label class="form-field">
+            <span class="form-label">Diploma CGPA (10-point scale)</span>
+            <input type="number" step="0.01" min="4" max="10" class="input-field mono" id="profCgpaInput" placeholder="e.g. 9.35" value="${escapeHtml(profile.diplomaCgpa)}" />
+          </label>
+          <label class="form-field">
+            <span class="form-label">Counselling Category</span>
+            <select class="input-select" id="profCategorySelect">
+              ${["General", "General-EWS", "OBC-A", "OBC-B", "SC", "ST", "PwD"]
+                .map(
+                  (c) =>
+                    `<option value="${escapeHtml(c)}" ${profile.category === c ? "selected" : ""}>${escapeHtml(c)}</option>`
+                )
+                .join("")}
+            </select>
+          </label>
+        </div>
+
+        <div id="cgpaEligibilitySlot"></div>
+
+        <details class="tiebreak-details">
+          <summary>Historical JU Seat Matrix &amp; Safe Target Scores (2024–2026)</summary>
+          <div class="stack-xs" style="margin-top:var(--space-s)">
+            ${JU_BENCHMARKS.map(
+              (b) => `
+              <div class="row-between" style="flex-wrap:wrap;padding:var(--space-2xs) 0;border-bottom:1px solid var(--border-subtle)">
+                <div>
+                  <strong>${escapeHtml(b.branch)}</strong>
+                  <div class="card__meta">${escapeHtml(b.campus)} · ~${b.seats} seats · ${escapeHtml(b.openGmr)}</div>
+                </div>
+                <span class="mono badge badge--brand">${escapeHtml(b.safeRangeText)}</span>
+              </div>`
+            ).join("")}
+          </div>
+        </details>
+      </section>
+
+      <!-- Card 2: CodeC BYOK AI Tutor Vault (13-phone-you-ai-and-ju-hub.png — always open, no disclosure header) -->
+      <section class="card stack-s" id="youAiSection">
+        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+          <div>
+            <h3 class="card__title" style="margin:0">Codec BYOK AI Tutor</h3>
+            <p class="card__meta">Optional — Offline Corpus Tutor works without any key.</p>
+          </div>
+          <span class="pill" id="aiVaultStatusPill"></span>
+        </div>
+
+        <div class="mono card__meta" id="aiMaskedKeyLine"></div>
+
+        <div class="form-grid-2">
+          <label class="form-field">
+            <span class="form-label">Provider</span>
+            <select class="input-select" id="aiProviderSelect">
+              ${Object.values(AI_PROVIDERS)
+                .map(
+                  (p) =>
+                    `<option value="${p.id}" ${vault.provider === p.id ? "selected" : ""}>${escapeHtml(p.label)}</option>`
+                )
+                .join("")}
+            </select>
+          </label>
+          <label class="form-field">
+            <span class="form-label">Model</span>
+            <select class="input-select" id="aiModelModeSelect">
+              <option value="default" id="aiDefaultModelOpt" ${!vault.useCustomModel ? "selected" : ""}>Default (${escapeHtml(activeProviderCfg.defaultModel)})</option>
+              <option value="custom" ${vault.useCustomModel ? "selected" : ""}>Custom model</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="form-field" id="aiCustomModelWrap" ${vault.useCustomModel ? "" : "hidden"}>
+          <label class="form-label" for="aiCustomModelInput">Custom Model Name (blank falls back to provider default)</label>
+          <input type="text" class="input-field mono" id="aiCustomModelInput" placeholder="e.g. gemini-2.5-pro, llama-3.1-8b-instant, deepseek/deepseek-chat…" value="${escapeHtml(vault.customModel || "")}" autocomplete="off" />
+        </div>
+
+        <label class="form-field">
+          <span class="form-label">Personal API Key (stored only on this device)</span>
+          <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
+        </label>
+
+        <div class="cluster-xs">
+          <button type="button" class="btn btn--primary btn--sm" id="saveAiKeyBtn">Save Key</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="testAiConnBtn">Test Connection</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="clearAiKeyBtn">Clear Key</button>
+        </div>
+        <div id="aiConnDiagnostic" class="card__meta"></div>
+
+        <div class="toggle-row">
+          <div>
+            <strong>Preview prompt before sending</strong>
+            <div class="card__meta">Inspect exact model &amp; JSON payload in Codec AI Tutor</div>
+          </div>
+          <button type="button" class="switch-btn" id="aiPreviewToggleBtn" role="switch" aria-checked="${Boolean(vault.previewPrompt)}">
+            <span class="switch-btn__thumb"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Readiness Snapshot (Phase 07 · Slice 4 — compact disclosure below JU & AI, closed by default) -->
       <details class="disclose" id="discloseReadiness">
         <summary class="disclose__summary">
           <span class="disclose__title">Study readiness</span>
@@ -222,7 +333,7 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
         </section>
       </details>
 
-      <!-- Mock History & Trends (Phase 08 · Phase 12 disclosure) -->
+      <!-- Mock History & Trends (Phase 08 · compact disclosure below JU & AI, closed by default) -->
       <details class="disclose" id="discloseMockHistory">
         <summary class="disclose__summary">
           <span class="disclose__title">Mock history</span>
@@ -307,137 +418,13 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
         </section>
       </details>
 
-      <!-- Card 1: JU Target & Diploma CGPA Check (13-phone-you-ai-and-ju-hub.png · Phase 12 disclosure) -->
-      <details class="disclose" id="discloseJu">
-        <summary class="disclose__summary">
-          <span class="disclose__title">JU Target &amp; CGPA</span>
-          <span class="disclose__status" id="sumJU">Not set</span>
-        </summary>
-        <section class="card stack-s" id="youJuSection">
-          <h3 class="card__title" style="margin:0">JU Target &amp; Diploma CGPA Check</h3>
-          <p class="card__meta">WBSCTE Diploma → WBJEEB Percentage &amp; Jadavpur University lateral-entry eligibility (§2.0 Notification).</p>
-
-          <div class="form-grid-2">
-            <label class="form-field">
-              <span class="form-label">Your Name (optional)</span>
-              <input type="text" class="input-field" id="profNameInput" placeholder="e.g. Pabitra" value="${escapeHtml(profile.name)}" />
-            </label>
-            <label class="form-field">
-              <span class="form-label">Target College &amp; Department</span>
-              <input type="text" class="input-field" id="profTargetInput" placeholder="e.g. Jadavpur Univ. CSE, KGEC IT, JGEC EE…" value="${escapeHtml(profile.targetBranch)}" />
-            </label>
-            <label class="form-field">
-              <span class="form-label">Diploma CGPA (10-point scale)</span>
-              <input type="number" step="0.01" min="4" max="10" class="input-field mono" id="profCgpaInput" placeholder="e.g. 9.35" value="${escapeHtml(profile.diplomaCgpa)}" />
-            </label>
-            <label class="form-field">
-              <span class="form-label">Counselling Category</span>
-              <select class="input-select" id="profCategorySelect">
-                ${["General", "General-EWS", "OBC-A", "OBC-B", "SC", "ST", "PwD"]
-                  .map(
-                    (c) =>
-                      `<option value="${escapeHtml(c)}" ${profile.category === c ? "selected" : ""}>${escapeHtml(c)}</option>`
-                  )
-                  .join("")}
-              </select>
-            </label>
-          </div>
-
-          <div id="cgpaEligibilitySlot"></div>
-
-          <details class="tiebreak-details">
-            <summary>Historical JU Seat Matrix &amp; Safe Target Scores (2024–2026)</summary>
-            <div class="stack-xs" style="margin-top:var(--space-s)">
-              ${JU_BENCHMARKS.map(
-                (b) => `
-                <div class="row-between" style="flex-wrap:wrap;padding:var(--space-2xs) 0;border-bottom:1px solid var(--border-subtle)">
-                  <div>
-                    <strong>${escapeHtml(b.branch)}</strong>
-                    <div class="card__meta">${escapeHtml(b.campus)} · ~${b.seats} seats · ${escapeHtml(b.openGmr)}</div>
-                  </div>
-                  <span class="mono badge badge--brand">${escapeHtml(b.safeRangeText)}</span>
-                </div>`
-              ).join("")}
-            </div>
-          </details>
-        </section>
-      </details>
-
-      <!-- Card 2: CodeC BYOK AI Tutor Vault (13-phone-you-ai-and-ju-hub.png · Phase 12 disclosure) -->
-      <details class="disclose" id="discloseAi">
-        <summary class="disclose__summary">
-          <span class="disclose__title">AI Tutor (BYOK)</span>
-          <span class="disclose__status" id="sumAI">Offline corpus mode</span>
-        </summary>
-        <section class="card stack-s" id="youAiSection">
-          <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
-            <div>
-              <h3 class="card__title" style="margin:0">Codec BYOK AI Tutor</h3>
-              <p class="card__meta">Optional — Offline Corpus Tutor works without any key.</p>
-            </div>
-            <span class="pill" id="aiVaultStatusPill"></span>
-          </div>
-
-          <div class="mono card__meta" id="aiMaskedKeyLine"></div>
-
-          <div class="form-grid-2">
-            <label class="form-field">
-              <span class="form-label">Provider</span>
-              <select class="input-select" id="aiProviderSelect">
-                ${Object.values(AI_PROVIDERS)
-                  .map(
-                    (p) =>
-                      `<option value="${p.id}" ${vault.provider === p.id ? "selected" : ""}>${escapeHtml(p.label)}</option>`
-                  )
-                  .join("")}
-              </select>
-            </label>
-            <label class="form-field">
-              <span class="form-label">Model</span>
-              <select class="input-select" id="aiModelModeSelect">
-                <option value="default" id="aiDefaultModelOpt" ${!vault.useCustomModel ? "selected" : ""}>Default (${escapeHtml(activeProviderCfg.defaultModel)})</option>
-                <option value="custom" ${vault.useCustomModel ? "selected" : ""}>Custom model</option>
-              </select>
-            </label>
-          </div>
-
-          <div class="form-field" id="aiCustomModelWrap" ${vault.useCustomModel ? "" : "hidden"}>
-            <label class="form-label" for="aiCustomModelInput">Custom Model Name (blank falls back to provider default)</label>
-            <input type="text" class="input-field mono" id="aiCustomModelInput" placeholder="e.g. gemini-2.5-pro, llama-3.1-8b-instant, deepseek/deepseek-chat…" value="${escapeHtml(vault.customModel || "")}" autocomplete="off" />
-          </div>
-
-          <label class="form-field">
-            <span class="form-label">Personal API Key (stored only on this device)</span>
-            <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
-          </label>
-
-          <div class="cluster-xs">
-            <button type="button" class="btn btn--primary btn--sm" id="saveAiKeyBtn">Save Key</button>
-            <button type="button" class="btn btn--ghost btn--sm" id="testAiConnBtn">Test Connection</button>
-            <button type="button" class="btn btn--ghost btn--sm" id="clearAiKeyBtn">Clear Key</button>
-          </div>
-          <div id="aiConnDiagnostic" class="card__meta"></div>
-
-          <div class="toggle-row">
-            <div>
-              <strong>Preview prompt before sending</strong>
-              <div class="card__meta">Inspect exact model &amp; JSON payload in Codec AI Tutor</div>
-            </div>
-            <button type="button" class="switch-btn" id="aiPreviewToggleBtn" role="switch" aria-checked="${Boolean(vault.previewPrompt)}">
-              <span class="switch-btn__thumb"></span>
-            </button>
-          </div>
-        </section>
-      </details>
-
-      <!-- Card 3: My Activity (01-settings.png — real IndexedDB counts, 0 on fresh device · Phase 12 disclosure) -->
+      <!-- Card 3: My Activity (01-settings.png — real IndexedDB counts, 0 on fresh device · compact disclosure, closed by default) -->
       <details class="disclose" id="discloseActivity">
         <summary class="disclose__summary">
           <span class="disclose__title">My Activity</span>
           <span class="disclose__status" id="sumActivity">${snapshot.savedBookmarks.length} bookmark${snapshot.savedBookmarks.length === 1 ? "" : "s"} · ${snapshot.recentlyVisitedUnits.length} recent unit${snapshot.recentlyVisitedUnits.length === 1 ? "" : "s"}</span>
         </summary>
-        <section class="stack-xs" id="youActivitySection">
-          <h3 class="section-heading">My Activity</h3>
+        <section class="stack-xs" id="youActivitySection" aria-label="My activity">
           <div class="today-subjects-grid">
             <button type="button" class="card activity-tile" id="openBookmarksTile">
               <span class="quick-action-card__icon" data-tone="brand">${icon("icon-bookmark")}</span>
@@ -606,11 +593,7 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     </div>
   `);
 
-  if (typeof window !== "undefined" && window.matchMedia?.("(min-width: 1024px)")?.matches) {
-    root.querySelectorAll(".disclose").forEach((d) => {
-      d.open = true;
-    });
-  } else if (invite !== null) {
+  if (invite !== null) {
     const comm = $("#discloseCommunity", root);
     if (comm) comm.open = true;
   }
@@ -625,20 +608,14 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
 
   function renderCgpaStatus() {
     const slot = $("#cgpaEligibilitySlot", root);
-    const sumJu = $("#sumJU", root);
     if (profile.diplomaCgpa === "" || profile.diplomaCgpa === null) {
       slot.innerHTML = `<span class="pill">Enter your WBSCTE Diploma CGPA above to check WBJEEB % &amp; JU eligibility</span>`;
-      if (sumJu) sumJu.textContent = "Not set";
       return;
     }
     const res = evaluateDiplomaEligibility(profile.diplomaCgpa, profile.category);
     if (!res.valid) {
       slot.innerHTML = `<span class="badge badge--wrong">Enter a valid CGPA between 4.00 and 10.00</span>`;
-      if (sumJu) sumJu.textContent = "Invalid CGPA";
       return;
-    }
-    if (sumJu) {
-      sumJu.textContent = `${res.percentage.toFixed(1)}% · ${res.eligible ? "Eligible" : "Below cutoff"}`;
     }
     if (res.eligible) {
       slot.innerHTML = `
@@ -696,10 +673,6 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     const pill = $("#aiVaultStatusPill", root);
     pill.className = hasKey ? "badge badge--correct" : "pill";
     pill.textContent = hasKey ? `${pCfg.label} · Key Saved` : "Offline Corpus Mode";
-    const sumAi = $("#sumAI", root);
-    if (sumAi) {
-      sumAi.textContent = hasKey ? `${pCfg.label} · Key saved` : "Offline corpus mode";
-    }
     $("#aiMaskedKeyLine", root).textContent = `Key: ${maskApiKey(vault.apiKey)} · Model: ${effectiveModel}`;
     const defaultOpt = $("#aiDefaultModelOpt", root);
     if (defaultOpt) {
