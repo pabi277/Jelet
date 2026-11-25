@@ -17,6 +17,13 @@ Checks:
  10. No orphaned figure SVGs (every SVG is referenced by a stem or option figure).
  11. Unit mapping consistency: each question appears in exactly one unit's pyqIds,
      equal to its own unitId.
+ 12. Phase 13 `studyPack` validation: every unit file carrying the optional
+     `studyPack` block must use known keys only, well-formed primer/reading/
+     provenance entries, unit-wide-unique `prdId`s, a non-empty provenance
+     chain, and further-reading pointers that stay title/chapter-only (no URLs,
+     file paths, or Drive references). Every `_data/units/*.json` file must also
+     belong to the 42-id manifest registry — an orphan unit file may never
+     carry a studyPack.
 
 Exit code 0 = all gates pass, 1 = failure.
 """
@@ -39,6 +46,24 @@ VOIDED = {"2022": {7}, "2023": {6, 46, 88, 94}, "2024": {49, 58}, "2025": {41, 7
 REQUIRED_Q_FIELDS = {"id", "qNumber", "subjectId", "unitId", "category",
                      "fullTwelfths", "negativeTwelfths", "pdfPage",
                      "stemLatex", "options", "key", "difficulty", "tags"}
+
+# ---------------------------------------------------------------------------
+# Phase 13: optional per-unit `studyPack` schema (docs/phases/phase-13/plan.md
+# §2.1 / §2.2). Additive and backward compatible: absent = no checks; present =
+# strictly validated (never trust an unvalidated addition to _data/).
+# ---------------------------------------------------------------------------
+STUDY_PACK_KEYS = {"conceptPrimer", "memoryHooks", "commonMistakes",
+                   "examChecklist", "furtherReading", "provenance"}
+STUDY_PACK_PRIMER_KEYS = {"prdId", "heading", "proseLatex"}
+STUDY_PACK_READING_KEYS = {"book", "author", "chapters", "note"}
+STUDY_PACK_PROVENANCE_KEYS = {"draftedBy", "reviewedBy", "reviewedAt"}
+# furtherReading must stay a title/chapter pointer only: no URLs, no Drive
+# links or folder/file IDs, no local file paths, no book file extensions
+# (Zero-Copyright GitHub Law, AGENTS.md §5.2).
+STUDY_PACK_SOURCE_RE = re.compile(
+    r"(?i)(https?://|www\.|drive\.google|docs\.google|\.pdf\b|\.zip\b|\.epub\b"
+    r"|\.7z\b|[A-Za-z]:[\\/]|/[A-Za-z0-9_\-]+[\\/])"
+)
 
 errors = []
 warnings = []
@@ -82,6 +107,77 @@ def check_control_chars():
                     ctx = text[max(0, m.start() - 12):m.end() + 12]
                     check(False, f"{rel}: control char {m.group()!r} at {jpath}: {ctx!r}")
     print(f"✓ Control chars: {hits} found across {len(files)} JSON files (json.loads-parsed)")
+
+def _require_str(value, label, unit_id):
+    check(isinstance(value, str) and value.strip(),
+          f"{unit_id}: studyPack {label} must be a non-empty string")
+
+
+def validate_study_pack(unit_id, unit):
+    """Gate 12 (Phase 13 §2.2): validate the optional per-unit studyPack block."""
+    sp = unit.get("studyPack")
+    if sp is None:
+        return
+    check(isinstance(sp, dict), f"{unit_id}: studyPack must be an object")
+    if not isinstance(sp, dict):
+        return
+    unknown = sorted(set(sp) - STUDY_PACK_KEYS)
+    missing = sorted(STUDY_PACK_KEYS - set(sp))
+    check(not unknown, f"{unit_id}: studyPack has unknown key(s) {unknown} (allowed: {sorted(STUDY_PACK_KEYS)})")
+    check(not missing, f"{unit_id}: studyPack is missing key(s) {missing}")
+
+    # conceptPrimer: 2-4 items, exact key set, prdId obeys <unitId>-PRDnn and is
+    # unique across the unit (catches copy-paste drift between batch-authored packs).
+    primer = sp.get("conceptPrimer")
+    prd_ids = []
+    if isinstance(primer, list) and 2 <= len(primer) <= 4:
+        for i, item in enumerate(primer):
+            ok = isinstance(item, dict) and set(item) == STUDY_PACK_PRIMER_KEYS
+            check(ok, f"{unit_id}: studyPack.conceptPrimer[{i}] must have exactly {sorted(STUDY_PACK_PRIMER_KEYS)}")
+            if ok:
+                for field in ("prdId", "heading", "proseLatex"):
+                    _require_str(item[field], f"conceptPrimer[{i}].{field}", unit_id)
+                prd = item.get("prdId")
+                if isinstance(prd, str):
+                    check(bool(re.fullmatch(rf"{re.escape(unit_id)}-PRD\d{{2}}", prd)),
+                          f"{unit_id}: primer prdId {prd!r} does not match the {unit_id}-PRDnn convention")
+                    prd_ids.append(prd)
+    else:
+        check(False, f"{unit_id}: studyPack.conceptPrimer must be a list of 2-4 primer items")
+    dupes = sorted({p for p in prd_ids if prd_ids.count(p) > 1})
+    check(not dupes, f"{unit_id}: duplicate studyPack prdId(s) {dupes}")
+
+    # memoryHooks / commonMistakes / examChecklist: flat lists of short strings.
+    for list_key in ("memoryHooks", "commonMistakes", "examChecklist"):
+        value = sp.get(list_key)
+        ok = isinstance(value, list) and 2 <= len(value) <= 12 and all(
+            isinstance(v, str) and v.strip() for v in value
+        )
+        check(ok, f"{unit_id}: studyPack.{list_key} must be a list of 2-12 non-empty strings")
+
+    # furtherReading: 1-6 pointers, exact key set, no URL/path/Drive leakage.
+    reading = sp.get("furtherReading")
+    if isinstance(reading, list) and 1 <= len(reading) <= 6:
+        for i, item in enumerate(reading):
+            ok = isinstance(item, dict) and set(item) == STUDY_PACK_READING_KEYS
+            check(ok, f"{unit_id}: studyPack.furtherReading[{i}] must have exactly {sorted(STUDY_PACK_READING_KEYS)}")
+            if ok:
+                for field in ("book", "author", "chapters", "note"):
+                    _require_str(item[field], f"furtherReading[{i}].{field}", unit_id)
+                    if isinstance(item[field], str):
+                        check(not STUDY_PACK_SOURCE_RE.search(item[field]),
+                              f"{unit_id}: furtherReading[{i}].{field} looks like a URL, file path or Drive pointer — book titles and chapter numbers only")
+    else:
+        check(False, f"{unit_id}: studyPack.furtherReading must be a list of 1-6 reading pointers")
+
+    # provenance: honest chain, nothing blank.
+    prov = sp.get("provenance")
+    ok = isinstance(prov, dict) and set(prov) == STUDY_PACK_PROVENANCE_KEYS
+    check(ok, f"{unit_id}: studyPack.provenance must have exactly {sorted(STUDY_PACK_PROVENANCE_KEYS)}")
+    if ok:
+        for field in ("draftedBy", "reviewedBy", "reviewedAt"):
+            _require_str(prov[field], f"provenance.{field}", unit_id)
+
 
 def main():
     # 1. Manifest
@@ -185,6 +281,7 @@ def main():
 
     # 3. Unit files
     unit_count = 0
+    study_pack_units = []
     for unit_meta in manifest.get("units", []):
         unit_id = unit_meta["unitId"]
         unit_path = os.path.join(DATA, "units", f"{unit_id}.json")
@@ -199,7 +296,23 @@ def main():
         # Validate pyqIds exist
         for pid in unit.get("pyqIds", []):
             check(pid in all_qids, f"{unit_id}: pyqId {pid} not found in papers")
+        # Gate 12: optional studyPack block (validated only when present)
+        validate_study_pack(unit_id, unit)
+        if unit.get("studyPack") is not None:
+            study_pack_units.append(unit_id)
     print(f"✓ Units: {unit_count}/42 files present")
+    if study_pack_units:
+        print(f"✓ Study Packs: {len(study_pack_units)}/42 validated ({', '.join(study_pack_units)})")
+
+    # 3b. Unit-file registry: every JSON under _data/units must belong to the
+    #     42-id manifest registry — an orphan/stray unit file must never carry
+    #     a studyPack (or any truth) outside the canonical set.
+    manifest_unit_ids = {u.get("unitId") for u in manifest.get("units", [])}
+    for unit_path in sorted(glob.glob(os.path.join(DATA, "units", "*.json"))):
+        stem = os.path.splitext(os.path.basename(unit_path))[0]
+        check(stem in manifest_unit_ids,
+              f"Unit file {os.path.relpath(unit_path, ROOT)} is not in the 42-unit manifest registry")
+
 
     # 4. Solutions
     for paper_entry in manifest.get("papers", []):

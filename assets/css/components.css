@@ -2763,3 +2763,130 @@
   }
 }
 
+/* ------------------------------------------------------------------ *
+ * Study Pack (Lesson tab · Phase 13) — per-block visual identity:
+ * intro = brand-tinted banner, primers = worked-example tint cards,
+ * hooks = compact chip grid, mistakes = amber caution list, checklist
+ * = tick list, further reading = quiet dashed footnote block.
+ * Base is phone-first; tablet+ widens the hook grid via min-width.
+ * ------------------------------------------------------------------ */
+.study-pack-intro {
+  background: var(--brand-tint);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--brand-primary);
+  border-radius: var(--radius-m);
+  padding: var(--space-m);
+}
+
+.study-pack-intro__lede {
+  margin: 0;
+  font-size: var(--fs-caption);
+  line-height: var(--lh-prose);
+  color: var(--text-secondary);
+}
+
+.study-block-title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  flex-wrap: wrap;
+  font-size: var(--fs-body);
+  color: var(--text-primary);
+}
+
+.study-block-title__meta {
+  font-size: var(--fs-caption);
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.study-primer {
+  border-left: 3px solid var(--brand-primary);
+}
+
+.study-primer__heading {
+  color: var(--brand-primary);
+}
+
+.study-hook-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xs);
+}
+
+@media (min-width: 768px) {
+  .study-hook-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.study-hook {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-xs);
+}
+
+.study-hook__idx {
+  padding-top: var(--space-3xs);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--fig-secondary);
+}
+
+.study-hook__text {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-prose);
+  color: var(--fig-node);
+}
+
+.study-checklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.study-check-item {
+  position: relative;
+  padding-left: var(--space-l);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-prose);
+  color: var(--text-primary);
+}
+
+.study-check-item::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 700;
+  color: var(--status-correct-fg);
+}
+
+.study-reading {
+  background: var(--bg-surface-subtle);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-m);
+  padding: var(--space-s);
+}
+
+.study-reading__book {
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.study-reading__note {
+  margin: var(--space-3xs) 0 0;
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+
+.study-provenance {
+  margin: 0;
+  padding-top: var(--space-2xs);
+  border-top: 1px solid var(--border-subtle);
+}

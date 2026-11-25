@@ -182,5 +182,61 @@
       "scopeNote": "Arrhenius/Bronsted/Lewis acids & bases, Kw, pH/pOH calculations & neutralizations"
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "C03-PRD01",
+        "heading": "Equilibrium Is a Standoff, Not a Stoppage",
+        "proseLatex": "Picture two opposite reactions running at the same speed: products form exactly as fast as they break back down, so concentrations freeze while molecules keep colliding — dynamic, never dead. The balance point is measured by an equilibrium constant: for $aA + bB \\rightleftharpoons cC + dD$, $K_c = \\frac{[C]^c[D]^d}{[A]^a[B]^b}$ (products over reactants, each raised to its coefficient). The value of $K$ depends ONLY on temperature — a catalyst, a pressure change or a concentration change shifts the position of the balance but never the constant itself. Reverse the equation and $K$ inverts ($\\frac{1}{K}$); multiply the equation by $n$ and $K$ is raised to the power $n$; and for gas reactions $K_p = K_c(RT)^{\\Delta n}$, where $\\Delta n$ counts gaseous moles, products minus reactants."
+      },
+      {
+        "prdId": "C03-PRD02",
+        "heading": "Le Chatelier in One Breath",
+        "proseLatex": "Disturb a balanced reaction and it shifts so as to cancel the disturbance: add a reactant and the forward direction wins; squeeze a gas mixture and it slides toward the side with fewer gas moles; heat an exothermic reaction and it shifts backward, because heat behaves like a product. For electrolytes the same law becomes the common-ion effect: a salt that shares an ion with a weak acid or base suppresses its ionization. Ostwald's dilution law says it precisely — $K_a = \\frac{C\\alpha^2}{1 - \\alpha} \\approx C\\alpha^2$ for weak electrolytes — so dilution RAISES the degree of ionization $\\alpha$ while the constant $K_a$ stays put at a given temperature."
+      },
+      {
+        "prdId": "C03-PRD03",
+        "heading": "$K_{sp}$ — the Give-Up Point of a Salt",
+        "proseLatex": "For a sparingly soluble salt $A_xB_y \\rightleftharpoons xA^{y+} + yB^{x-}$, the solubility product is $K_{sp} = [A^{y+}]^x[B^{x-}]^y$, written with saturated-solution (equilibrium) concentrations. Everything reduces to one comparison between the ionic product $Q$ (computed from whatever concentrations actually exist right now) and $K_{sp}$: $Q < K_{sp}$ means unsaturated and more can dissolve; $Q = K_{sp}$ means saturated, exactly at the edge; $Q > K_{sp}$ means a precipitate forms until $Q$ falls back to $K_{sp}$. That single comparison answers every 'will it precipitate?' question, and common ions or pH changes push solubility down through the same Le Chatelier logic."
+      }
+    ],
+    "memoryHooks": [
+      "$K$ changes only with temperature — everything else merely shifts the position, never the constant.",
+      "Reverse the equation → $K$ flips to $\\frac{1}{K}$; multiply the equation by $n$ → $K$ becomes $K^n$.",
+      "$K_p = K_c (RT)^{\\Delta n}$ — count only GAS moles, products minus reactants.",
+      "$pH + pOH = 14$ at $25^{\\circ}\\text{C}$, and $K_a \\cdot K_b = K_w$ for any conjugate pair.",
+      "Buffer recipe: weak partner + its salt; when $[\\text{salt}] = [\\text{acid}]$, $pH = pK_a$ exactly.",
+      "Lower $pK_a$ = stronger acid; and $Q > K_{sp}$ means 'precipitate now'."
+    ],
+    "commonMistakes": [
+      "Using the strong-acid shortcut on weak acids: for $\\text{CH}_3\\text{COOH}$, $[\\text{H}^+] \\neq C$ — go through $K_a$ and $\\alpha$ (Ostwald) or you will grossly overstate $[\\text{H}^+]$.",
+      "Confusing the degree of ionization $\\alpha$ with the ionization constant $K_a$: dilution raises $\\alpha$ but $K_a$ stays fixed at a given temperature.",
+      "Plugging concentrations into $K$ before the ICE table has reached its equilibrium row — only equilibrium values belong in the constant.",
+      "Writing $K_p = K_c(RT)^{+\\Delta n}$ blindly — the SIGN of $\\Delta n$ decides whether $K_p$ comes out larger or smaller than $K_c$.",
+      "Comparing $Q$ with $K_{sp}$ using initial and equilibrium concentrations mixed together — both quantities must be computed on the same basis (for mixing questions, the diluted concentrations)."
+    ],
+    "examChecklist": [
+      "Classify first: strong or weak electrolyte? It decides whether $[\\text{H}^+]$ comes from $C$ directly or from $K_a$ and $\\alpha$.",
+      "Write the balanced equation and count $\\Delta n$ (gas moles only) before touching $K_p$ or $K_c$.",
+      "Set up the ICE table with a single unknown $x$ and keep every entry in mol/L.",
+      "At $25^{\\circ}\\text{C}$: $K_w = 10^{-14}$, $pH + pOH = 14$, neutral $pH = 7$ — and remember this trio is temperature-bound.",
+      "Buffer questions: identify the weak partner and its salt, then apply Henderson–Hasselbalch directly.",
+      "Conjugate pairs: pick the missing constant via $K_a \\cdot K_b = K_w$, never guess both.",
+      "Precipitation questions: compute $Q$ from the MIXED (diluted) concentrations, then compare against $K_{sp}$."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 11 Chemistry, Part I",
+        "author": "NCERT",
+        "chapters": "Unit 6 (Equilibrium)",
+        "note": "For the full chemical-equilibrium groundwork — $K_c$, $K_p$, Le Chatelier, and the ionic-equilibrium half with pH, buffers and $K_{sp}$ — behind this unit's acid-base content."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

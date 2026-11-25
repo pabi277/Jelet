@@ -196,8 +196,15 @@ async function resolveBrowser() {
   const sparticuz = resolveOptionalPkg("@sparticuz/chromium");
   if (sparticuz) {
     try {
-      const pkgJsonPath = require.resolve("@sparticuz/chromium/package.json", { paths: [sparticuz.root] });
-      const pkgRoot = path.dirname(pkgJsonPath);
+      // Newer @sparticuz/chromium releases block the './package.json' subpath in
+      // their `exports` map — walk up from the resolved entry to the package
+      // root that owns bin/ instead.
+      let pkgRoot = path.dirname(sparticuz.entry);
+      for (let i = 0; i < 6 && !fs.existsSync(path.join(pkgRoot, "bin")); i++) {
+        const parent = path.dirname(pkgRoot);
+        if (parent === pkgRoot) break;
+        pkgRoot = parent;
+      }
       const sparticuzMod = await import(pathToFileURL(sparticuz.entry).href);
       const chromium = sparticuzMod.default || sparticuzMod;
       const execPath = await chromium.executablePath();

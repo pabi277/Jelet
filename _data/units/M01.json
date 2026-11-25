@@ -229,5 +229,67 @@
       "scopeNote": "Transpose, cofactors, adjoint and inverse of order-3 matrices"
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "M01-PRD01",
+        "heading": "What a Matrix Really Is",
+        "proseLatex": "Think of a matrix as a tidy rectangular box of numbers: $m$ rows and $n$ columns, written $A = [a_{ij}]_{m \\times n}$, where the entry $a_{ij}$ sits in row $i$ and column $j$. The order $(m \\times n)$ is its address — a $3 \\times 2$ matrix has 3 rows, 2 columns and $3 \\times 2 = 6$ elements, so even a total element count like 18 pins down the possible orders. Two matrices are equal only when the orders match AND every corresponding entry matches; that single idea lets one matrix equation hide several ordinary equations at once, which is exactly how JELET frames 'find the unknowns' questions."
+      },
+      {
+        "prdId": "M01-PRD02",
+        "heading": "Special Squares You Must Recognise on Sight",
+        "proseLatex": "Once rows equal columns, a hierarchy of special matrices opens up, and each step is a restriction of the last: diagonal (all off-diagonal entries $0$) → scalar (a diagonal matrix with equal diagonal entries $k$) → identity $I$ (the scalar matrix with $k = 1$), plus the zero matrix $O$. For any square matrix the main diagonal $a_{11}, a_{22}, \\ldots, a_{nn}$ is the spine everything hangs on: the transpose flips entries across it, the determinant expands along it, and the symmetric / skew-symmetric classification simply compares the two sides of that spine — $A^T = A$ versus $A^T = -A$."
+      },
+      {
+        "prdId": "M01-PRD03",
+        "heading": "Why Invertibility Hangs on the Determinant",
+        "proseLatex": "The inverse $A^{-1} = \\frac{1}{|A|}\\operatorname{adj}A$ exists only when $|A| \\neq 0$; such a matrix is called non-singular. Intuition: a singular matrix squashes space — two different inputs can land on the same output, so no operation can faithfully 'undo' it. Every inverse question therefore begins with one silent move: compute $|A|$ first, and stop if it is zero. After that, Cayley–Hamilton is the power-crusher: a matrix satisfies its own characteristic equation, so any high power $A^2, A^3, \\ldots$ can be rewritten in terms of $A$ and $I$ — for a $2 \\times 2$ matrix, $\\lambda^2 - (\\operatorname{tr}A)\\lambda + |A| = 0$ turns into $A^2 = (\\operatorname{tr}A)A - |A|I$ on the spot."
+      }
+    ],
+    "memoryHooks": [
+      "Transpose reverses order: $(AB)^T = B^T A^T$ — undo in reverse, like taking off shoes before socks.",
+      "$\\operatorname{adj}A$: cofactors first, flip (transpose) last.",
+      "$A^{-1} = \\frac{\\operatorname{adj}A}{|A|}$ — no determinant, no inverse: $|A| = 0$ means stop.",
+      "Symmetric part $= \\frac{1}{2}(A + A^T)$, skew part $= \\frac{1}{2}(A - A^T)$ — plus for symmetric, minus for skew.",
+      "$2 \\times 2$ inverse shortcut: swap the main diagonal, negate the off-diagonal, divide by $|A|$.",
+      "Cayley–Hamilton: the matrix obeys its own characteristic equation — replace $\\lambda$ by $A$ to crush big powers."
+    ],
+    "commonMistakes": [
+      "Multiplying in the wrong order: $AB$ needs rows of the LEFT matrix into columns of the RIGHT matrix — swapping the operands silently changes every entry, and $AB \\neq BA$ in general.",
+      "Building the cofactor matrix but forgetting the final transpose while forming $\\operatorname{adj}A$.",
+      "Attempting $\\operatorname{adj}A$ or $A^{-1}$ for a rectangular matrix — only square matrices carry an adjoint and an inverse.",
+      "Chaining determinants without the two standard facts: $|A^T| = |A|$ and $|A^{-1}| = \\frac{1}{|A|}$.",
+      "Dropping the alternating sign $(-1)^{i+j}$ while computing cofactors — one flipped sign ruins both $\\operatorname{adj}A$ and $|A|$."
+    ],
+    "examChecklist": [
+      "Write the order of every matrix before multiplying — inner orders must agree, outer orders give the result.",
+      "Decompose on sight: $\\frac{1}{2}(A + A^T)$ is symmetric, $\\frac{1}{2}(A - A^T)$ is skew-symmetric, and their sum rebuilds $A$.",
+      "Scalar-multiple law: $|kA| = k^n |A|$ — apply the order $n$ before plugging values.",
+      "Odd-order skew-symmetric $\\Rightarrow |A| = 0$; quote it without expanding.",
+      "For $A^{-1}$: compute $|A|$, then cofactors; self-check with $A \\cdot \\operatorname{adj}A = |A| I$.",
+      "Cayley–Hamilton: write the characteristic polynomial first, substitute $A$, isolate the power (or $A^{-1}$) you need.",
+      "Sanity-check one entry of the final matrix by an independent route (trace or determinant of the result)."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Mathematics, Part I",
+        "author": "NCERT",
+        "chapters": "Ch. 3 (Matrices)",
+        "note": "For unhurried drilling of matrix algebra, transpose laws and the special-matrix hierarchy before attempting PYQ speed rounds."
+      },
+      {
+        "book": "NCERT Class 12 Mathematics, Part I",
+        "author": "NCERT",
+        "chapters": "Ch. 4 (Determinants)",
+        "note": "For the determinant → minor → cofactor ladder that feeds the adjoint and inverse machinery used throughout this unit."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

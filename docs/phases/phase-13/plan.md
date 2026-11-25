@@ -1,7 +1,11 @@
 # Phase 13 PLAN — Learn Enrichment from Private Reference Books (AI-Assisted, Copyright-Safe)
 
-> **Status:** 📋 Research complete · **zero code written** · **owner sign-off required
-> before any `_data/` change** (`AGENTS.md` §5.5).
+> **Status:** 🚧 **Execution started (2026-11-25).** Gate extension (§2.2),
+> Study Pack tab + empty state (§2.3), AI-tutor grounding (§2.4) and the pilot
+> batch `M01`/`C03`/`E05` (§3 ①–⑥) are shipped on branch
+> `arena/75454728-jelet` — evidence: `phase-13/batch-M01-C03-E05.md`.
+> **Awaiting owner spot-check & sign-off (§4 step 5) before batches 1–5 and
+> before any merge** (`AGENTS.md` §5.5).
 > **Previous:** Phase 12 (`phase-12/plan.md`) · **Next:** legacy content row of
 > `docs/05` → becomes Phase 14+ on approval.
 > **Research basis:** live Google Drive inventory (2026-11-25, **re-verified after the

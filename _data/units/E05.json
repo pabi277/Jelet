@@ -147,5 +147,61 @@
       "scopeNote": "RMS/form factor, phasors, RLC impedance, series resonance, Q-factor & AC power"
     }
   ],
-  "practiceSetIds": []
+  "practiceSetIds": [],
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "E05-PRD01",
+        "heading": "Why AC Needs an RMS — Heat Is the Referee",
+        "proseLatex": "A sinusoidal current is negative for half of every cycle, so its plain average over a full period is ZERO — yet it still lights lamps, because heating goes as $i^2$, which is always positive. The root-mean-square value is the DC current that would deliver the same heating: square it, average it, take the square root — hence $I_{\\text{rms}} = \\frac{i_m}{\\sqrt{2}} \\approx 0.707\\, i_m$ for a sine. Unless a question states otherwise, every AC meter reading and every power formula speaks RMS (mains '220 V' is an RMS value; its peak is $220\\sqrt{2} \\approx 311\\text{ V}$). The mean value is quoted over a HALF cycle for the same full-cycle-cancellation reason: $\\frac{2 i_m}{\\pi} \\approx 0.637\\, i_m$."
+      },
+      {
+        "prdId": "E05-PRD02",
+        "heading": "L and C Fight the Change — One Lags, One Leads",
+        "proseLatex": "An inductor opposes any change in current (its back-emf follows Lenz's law), so in a pure inductor the current LAGS the voltage by $90^{\\circ}$, and the opposition it offers is $X_L = \\omega L$, which GROWS with frequency. A capacitor opposes any change in voltage (the current must charge it first), so the current LEADS by $90^{\\circ}$, and its opposition $X_C = \\frac{1}{\\omega C}$ SHRINKS as frequency rises. Because those two phase shifts point in opposite directions, $X_L$ and $X_C$ partially cancel in a series circuit: $Z = \\sqrt{R^2 + (X_L - X_C)^2}$. This is also why series branch voltages must never be added arithmetically — they are out of phase, and only their phasor (Pythagorean) sum equals the source voltage."
+      },
+      {
+        "prdId": "E05-PRD03",
+        "heading": "Resonance and the Power Factor — AC Behaves Like DC",
+        "proseLatex": "At $\\omega_0 = \\frac{1}{\\sqrt{LC}}$ the two reactances match ($X_L = X_C$) and cancel completely: impedance collapses to its minimum $Z = R$, current peaks, and the power factor hits unity — for that one frequency the circuit behaves like a pure resistor. The price of the cancellation is voltage magnification: at resonance $V_L = V_C = Q V_S$, where $Q = \\frac{\\omega_0 L}{R}$ measures how sharply the circuit selects its frequency (higher $Q$, taller and narrower peak). Away from resonance, real power still flows only through the resistance: $P = V I \\cos\\phi$. A pure $L$ or $C$ draws 'wattless' current ($\\cos\\phi = 0$) — it borrows energy and hands it all back, net zero over a cycle."
+      }
+    ],
+    "memoryHooks": [
+      "The four sine numbers: RMS $= 0.707\\,V_m$, half-cycle average $= 0.637\\,V_m$, form factor $= 1.11$, peak factor $= 1.414$.",
+      "ELI the ICE man: in L (ELI), voltage E leads current I; in C (ICE), current I leads voltage E.",
+      "$X_L = \\omega L$ climbs with frequency; $X_C = \\frac{1}{\\omega C}$ dives — they cross at resonance.",
+      "Series resonance trio: $Z$ minimum $= R$, current maximum, power factor $= 1$.",
+      "$\\omega = 2\\pi f$ — convert to angular form BEFORE computing any reactance.",
+      "Real power lives in $R$ only: $P = VI\\cos\\phi = I^2 R$, with $\\cos\\phi = \\frac{R}{Z}$."
+    ],
+    "commonMistakes": [
+      "Mixing peak and RMS: inserting $V_m$ or $i_m$ into $P = VI\\cos\\phi$ — power formulas accept RMS values only.",
+      "Adding $X_L$ and $X_C$ as if both were positive: the net reactance is $X_L - X_C$, and its SIGN decides whether the circuit is net-inductive (current lags) or net-capacitive (current leads).",
+      "Reporting 'average value of AC is zero' and then refusing to compute the half-cycle mean when a question explicitly asks for the average (mean) value.",
+      "Treating an ideal inductor or capacitor as a power consumer — each returns every joule it borrows; the average power over a cycle is zero and only $R$ dissipates.",
+      "Quoting $Q = \\frac{\\omega_0 L}{R}$ while forgetting the same $R$ sits in the equivalent form $Q = \\frac{1}{\\omega_0 C R}$ — dropping $R$ (or using $L$ and $C$ inconsistently) inflates the factor."
+    ],
+    "examChecklist": [
+      "Open every AC question by fixing the vocabulary: $v = V_m \\sin \\omega t$, $\\omega = 2\\pi f$, $T = \\frac{1}{f}$.",
+      "Know which factor is which: form factor $= \\frac{\\text{RMS}}{\\text{average}} = 1.11$, peak (crest) factor $= \\frac{V_m}{V_{\\text{rms}}} = 1.414$ for a sine.",
+      "For any series RLC: sketch the impedance triangle ($R$, $X_L - X_C$, hypotenuse $Z$) before computing $\\phi$ or the power factor.",
+      "State the resonance set together: $f_0 = \\frac{1}{2\\pi\\sqrt{LC}}$, $Z_{\\min} = R$, $Q = \\frac{\\omega_0 L}{R} = \\frac{1}{\\omega_0 C R}$.",
+      "Power questions: $P = VI\\cos\\phi$ with RMS magnitudes, where $\\phi$ is the angle between V and I phasors.",
+      "Quote units deliberately: reactances in $\\Omega$ after the $\\omega$ conversion; bandwidth flagged as rad/s ($\\Delta\\omega = \\frac{R}{L}$) or Hz ($\\Delta f = \\frac{R}{2\\pi L}$).",
+      "Reject any series-RLC answer with $Z < R$ — outside resonance $Z$ can never dip below $R$."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Physics, Part I",
+        "author": "NCERT",
+        "chapters": "Ch. 7 (Alternating Current)",
+        "note": "For the element-by-element build-up — resistor, inductor, capacitor, then series RLC — that leads to phasors, resonance and the power factor used in this unit."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
 }

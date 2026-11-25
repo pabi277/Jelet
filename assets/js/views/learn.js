@@ -306,7 +306,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
   );
   let solutionsCache = null;
   const requestedTab = String(query?.get?.("tab") || "").toLowerCase();
-  const validTabs = new Set(["workbook", "formulas", "pyqs", "videos"]);
+  const validTabs = new Set(["workbook", "study", "formulas", "pyqs", "videos"]);
   let activeTab = validTabs.has(requestedTab) ? requestedTab : "workbook";
 
   const isBookmarkedInit = Boolean(bookmarksMap.get(unit.unitId)?.bookmarked);
@@ -435,6 +435,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
     row.innerHTML = "";
     const tabs = [
       { id: "workbook", label: "Workbook" },
+      { id: "study", label: "Study Pack" },
       { id: "formulas", label: `Formulas (${unitFormulas.length})` },
       { id: "pyqs", label: `Verified PYQs (${unitPyqs.length})` },
       { id: "videos", label: `Videos (${(unit.videoLectures || []).length})` },
@@ -580,6 +581,138 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
         showToast("Unit note saved locally");
       });
       slot.appendChild(noteCard);
+      return;
+    }
+
+    if (activeTab === "study") {
+      // Phase 13 — Study Pack tab (docs/phases/phase-13/plan.md §2.3).
+      // Per-block visual identity (owner refinement, unit-model reference §6):
+      // primers = worked-example tint cards, hooks = compact chip grid,
+      // mistakes = amber caution list, checklist = tick list, reading = quiet
+      // footnote block — never five identical cards, never raw JSON.
+      const sp = unit.studyPack;
+      if (!sp || typeof sp !== "object" || !Array.isArray(sp.conceptPrimer) || !sp.conceptPrimer.length) {
+        // Calm empty state — units whose pack has not shipped yet.
+        slot.appendChild(
+          el(`
+            <section class="card stack-xs">
+              <div class="cluster-xs">
+                ${icon("icon-spark")}
+                <strong>Study Pack (${escapeHtml(unit.unitId)})</strong>
+              </div>
+              <p class="card__meta" style="margin:0">
+                Study Pack for this unit is being authored — every pack is originally written and verified before shipping. Meanwhile: Workbook · Formulas · PYQs above.
+              </p>
+            </section>
+          `)
+        );
+        return;
+      }
+
+      const prov = sp.provenance || {};
+      const provPending = /^pending/i.test(String(prov.reviewedBy || ""));
+      const provText = provPending
+        ? "AI-assisted draft · owner review pending"
+        : `AI-assisted draft · reviewed by ${prov.reviewedBy || "owner"} · ${prov.reviewedAt || ""}`.trim();
+
+      const primerHtml = sp.conceptPrimer
+        .map(
+          (p) => `
+          <article class="worked-example study-primer stack-xs">
+            <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+              <strong class="study-primer__heading">${escapeHtml(p.heading || "")}</strong>
+              ${p.prdId ? `<span class="mono pill">${escapeHtml(p.prdId)}</span>` : ""}
+            </div>
+            <div class="lesson-prose">${renderLatex(p.proseLatex || "", { preserveNewlines: true })}</div>
+          </article>
+        `
+        )
+        .join("");
+
+      const hooksHtml = (sp.memoryHooks || [])
+        .map(
+          (h, i) => `
+          <div class="lesson-formula-card study-hook">
+            <span class="mono study-hook__idx">H${i + 1}</span>
+            <div class="study-hook__text">${renderLatex(h)}</div>
+          </div>
+        `
+        )
+        .join("");
+
+      const mistakesHtml = (sp.commonMistakes || [])
+        .map((m) => `<li style="margin-top:var(--space-2xs)">${renderLatex(m)}</li>`)
+        .join("");
+
+      const checklistHtml = (sp.examChecklist || [])
+        .map((item) => `<li class="study-check-item">${renderLatex(item)}</li>`)
+        .join("");
+
+      // Long checklists collapse behind the shared tiebreak-details disclosure.
+      const checklistBlock =
+        (sp.examChecklist || []).length > 8
+          ? `<details class="tiebreak-details"><summary>Exam-Day Checklist (${(sp.examChecklist || []).length} checks)</summary><ul class="study-checklist">${checklistHtml}</ul></details>`
+          : `<section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-check")} Exam-Day Checklist</h3>
+              <ul class="study-checklist">${checklistHtml}</ul>
+            </section>`;
+
+      const readingHtml = (sp.furtherReading || [])
+        .map(
+          (r) => `
+          <div class="study-reading__item">
+            <div class="study-reading__book">${escapeHtml(r.book || "")}</div>
+            <div class="card__meta">${escapeHtml([r.author, r.chapters].filter(Boolean).join(" · "))}</div>
+            <p class="study-reading__note">${escapeHtml(r.note || "")}</p>
+          </div>
+        `
+        )
+        .join("");
+
+      slot.appendChild(
+        el(`
+          <div class="stack-m">
+            <section class="study-pack-intro stack-xs">
+              <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
+                <div class="cluster-xs">
+                  ${icon("icon-spark")}
+                  <strong>${escapeHtml(unit.unitId)} Study Pack</strong>
+                </div>
+                <span class="mono pill">${escapeHtml(unit.officialCode)}</span>
+              </div>
+              <p class="study-pack-intro__lede" style="margin:0">
+                ${escapeHtml(unit.title)} — plain-words primers, recall hooks, mistake radar and a last-minute checklist in one compact pass.
+              </p>
+            </section>
+
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-learn")} Concept Primer <span class="study-block-title__meta">plain words before the maths</span></h3>
+              ${primerHtml}
+            </section>
+
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-bolt")} Memory Hooks <span class="study-block-title__meta">one-line recall aids</span></h3>
+              <div class="study-hook-grid">${hooksHtml}</div>
+            </section>
+
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-alert")} Common Mistakes <span class="study-block-title__meta">self-inflicted slips — board-designed traps live in the Workbook tab</span></h3>
+              <div class="exam-trap stack-xs">
+                <ul style="margin:0;padding-left:var(--space-l)">${mistakesHtml}</ul>
+              </div>
+            </section>
+
+            ${checklistBlock}
+
+            <section class="stack-xs">
+              <h3 class="study-block-title">${icon("icon-bookmark")} Read Further <span class="study-block-title__meta">title &amp; chapter pointers only</span></h3>
+              <div class="study-reading stack-xs">${readingHtml}</div>
+            </section>
+
+            <p class="card__meta study-provenance">${escapeHtml(provText)}</p>
+          </div>
+        `)
+      );
       return;
     }
 
