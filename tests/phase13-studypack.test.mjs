@@ -32,7 +32,7 @@ const read = (rel) => fs.readFileSync(path.join(ROOT, rel), "utf8");
 
 const PILOT_UNITS = ["M01", "C03", "E05"];
 
-test("Lesson: study tab is valid, ordered after Workbook, with calm empty state", () => {
+test("Lesson: study tab is valid, leads the tab sequence, with calm empty state", () => {
   const learnJs = read("assets/js/views/learn.js");
 
   assert.ok(
@@ -40,17 +40,27 @@ test("Lesson: study tab is valid, ordered after Workbook, with calm empty state"
     "validTabs gains 'study' so ?tab=study deep links work"
   );
 
-  const workbookIdx = learnJs.indexOf('{ id: "workbook", label: "Workbook" }');
-  const studyIdx = learnJs.indexOf('{ id: "study", label: "Study Pack" }');
-  const formulasIdx = learnJs.indexOf("{ id: \"formulas\", label: `Formulas (${unitFormulas.length})` }");
-  assert.ok(studyIdx > workbookIdx, "Study Pack tab sits after Workbook");
-  assert.ok(formulasIdx > studyIdx, "Study Pack tab sits before Formulas");
+  // Owner-approved tab sequence (plan Amendment B §5): Study Pack → Videos →
+  // Formulas → Workbook → Verified PYQs.
+  const order = [
+    ['study', '{ id: "study", label: "Study Pack" }'],
+    ["videos", '{ id: "videos", label: `Videos (${(unit.videoLectures || []).length})` }'],
+    ["formulas", '{ id: "formulas", label: `Formulas (${unitFormulas.length})` }'],
+    ["workbook", '{ id: "workbook", label: "Workbook" }'],
+    ["pyqs", '{ id: "pyqs", label: `Verified PYQs (${unitPyqs.length})` }'],
+  ];
+  let prev = -1;
+  for (const [name, needle] of order) {
+    const idx = learnJs.indexOf(needle);
+    assert.ok(idx > prev, `tab sequence: ${name} renders ${prev === -1 ? "first" : "after previous tab"}`);
+    prev = idx;
+  }
 
   assert.ok(
     learnJs.includes(
-      "Study Pack for this unit is being authored — every pack is originally written and verified before shipping. Meanwhile: Workbook · Formulas · PYQs above."
+      "Study Pack for this unit is being authored — every pack is originally written and verified before shipping. Meanwhile: Videos · Formulas · Workbook · PYQs above."
     ),
-    "calm empty-state copy present for units without a pack"
+    "calm empty-state copy present for units without a pack (updated tab order)"
   );
 });
 
@@ -172,7 +182,8 @@ test("AI Tutor: studyPack grounds hooks + mistakes only, capped, legacy prompt u
 
 test("Pilot data v2: M01, C03, E05 carry the full anatomy; the other 39 do not", () => {
   for (const unitId of PILOT_UNITS) {
-    const sp = JSON.parse(read(`_data/units/${unitId}.json`)).studyPack;
+    const unit = JSON.parse(read(`_data/units/${unitId}.json`));
+    const sp = unit.studyPack;
     assert.ok(sp && typeof sp === "object", `${unitId} ships a studyPack`);
 
     assert.deepEqual(
@@ -223,6 +234,19 @@ test("Pilot data v2: M01, C03, E05 carry the full anatomy; the other 39 do not",
     const flat = JSON.stringify(sp.furtherReading).toLowerCase();
     assert.ok(!flat.includes("http") && !flat.includes(".pdf") && !flat.includes(".zip"), `${unitId} furtherReading is pointer-only`);
     assert.ok(sp.provenance.draftedBy && sp.provenance.reviewedBy && sp.provenance.reviewedAt, `${unitId} provenance chain recorded`);
+
+    // Owner-approved video enrichment (Amendment B §5): every pilot unit carries
+    // 4+ curated, real lectures across languages (bn/en/hi), each with a
+    // YouTube id, deep link, channel and an exam-relevant scope note.
+    const videos = unit.videoLectures || [];
+    assert.ok(videos.length >= 4, `${unitId} carries 4+ curated video lectures (${videos.length})`);
+    for (const v of videos) {
+      assert.ok(/^[\w-]{11}$/.test(v.videoId || ""), `${unitId} video ${v.videoId} has a well-formed YouTube id`);
+      assert.equal(v.url, `https://www.youtube.com/watch?v=${v.videoId}`, `${unitId} video URL matches its id`);
+      assert.ok(["bn", "en", "hi"].includes(v.language), `${unitId} video language tagged (bn/en/hi)`);
+      assert.ok(v.channelName && v.scopeNote, `${unitId} video carries channel + exam-relevant scope note`);
+    }
+    assert.ok(new Set(videos.map((v) => v.videoId)).size === videos.length, `${unitId} video ids unique`);
   }
 
   const manifest = JSON.parse(read("_data/manifest.json"));

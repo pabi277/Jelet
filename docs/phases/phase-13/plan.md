@@ -340,3 +340,22 @@ Each batch = author → gates → sign-off → `batch-<units>.md` evidence → n
 * ❌ Ship any field without owner review; no "unverified" disclaimers in UI.
 * ❌ Auto-load anything from Drive at runtime — the app never talks to Google Drive;
   books are used **only during authoring**, offline from the shipped app.
+
+## 7. Amendment B addendum — post-v2 owner minor changes (2026-11-25)
+
+Owner approved Study Pack v2 ("Thats good") with two minor changes; both are
+required before owner re-review of the pilot and both are now implemented:
+
+1. **Tab sequence fixed** to `Study Pack → Videos → Formulas → Workbook →
+   Verified PYQs` in `learn.js` (was Study Pack last). Empty-state copy for the
+   39 non-pilot units updated to point at the tabs that already exist.
+   `?tab=study` deep link unchanged.
+2. **Exam-relevant video enrichment (pilot units only).** Each pilot unit's
+   `videoLectures[]` grew from 1 lecture to a small exam-oriented set
+   (M01 → 4, C03 → 5, E05 → 4), spanning Bengali/Hindi/English channels, each
+   entry with a one-line exam-relevant `scopeNote`. Metadata law honoured: every
+   ID verified live via YouTube oEmbed (title + channel) and every duration
+   taken from the YouTube watch page `Length` header — never invented
+   (`tests/app-integrity.test.mjs` per-video gate stays green).
+
+Batch scope unchanged: videos for batches 1–5 are enriched per-batch, not now.

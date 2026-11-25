@@ -434,11 +434,11 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
     const row = $("#lessonTabsRow", root);
     row.innerHTML = "";
     const tabs = [
-      { id: "workbook", label: "Workbook" },
       { id: "study", label: "Study Pack" },
-      { id: "formulas", label: `Formulas (${unitFormulas.length})` },
-      { id: "pyqs", label: `Verified PYQs (${unitPyqs.length})` },
       { id: "videos", label: `Videos (${(unit.videoLectures || []).length})` },
+      { id: "formulas", label: `Formulas (${unitFormulas.length})` },
+      { id: "workbook", label: "Workbook" },
+      { id: "pyqs", label: `Verified PYQs (${unitPyqs.length})` },
     ];
     for (const t of tabs) {
       const b = el(
@@ -601,7 +601,7 @@ export async function renderUnitLesson(main, unitIdParam, { openAiTutor, query }
                 <strong>Study Pack (${escapeHtml(unit.unitId)})</strong>
               </div>
               <p class="card__meta" style="margin:0">
-                Study Pack for this unit is being authored — every pack is originally written and verified before shipping. Meanwhile: Workbook · Formulas · PYQs above.
+                Study Pack for this unit is being authored — every pack is originally written and verified before shipping. Meanwhile: Videos · Formulas · Workbook · PYQs above.
               </p>
             </section>
           `)

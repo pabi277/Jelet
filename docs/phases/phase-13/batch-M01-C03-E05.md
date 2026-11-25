@@ -103,3 +103,45 @@ Content-span notes:
 2. Sign off → `provenance.reviewedBy/reviewedAt` stamped in the drafts and
    re-applied; evidence updated.
 3. Approve batches 1–5 (39 units) with the same template.
+
+## Addendum — owner minor changes (2026-11-25)
+
+### Tab sequence (learn.js)
+
+Lesson tabs render in the owner-specified order `Study Pack → Videos →
+Formulas → Workbook → Verified PYQs`; browser check confirms the ordered
+sequence on M01/C03/E05 (pilot) and M02 (empty state, non-pilot).
+
+### Video enrichment (pilot units)
+
+All IDs verified via YouTube oEmbed; all durations read from the YouTube watch
+page `Length` header (oEmbed does not expose duration). Format unchanged:
+`duration: "NN min"` + integer `durationMinutes`.
+
+| Unit | ID | Lecture (channel, language) | Length |
+|---|---|---|---|
+| M01 | 8sWzGgj-4Wc | (pre-existing) Matrices one shot | 18 min |
+| M01 | 41Zst_NjNSU | Matrices & Determinants full revision (IITians Care, en) | 49 min |
+| M01 | ssguxpJIhZM | Adjoint & inverse 2×2/3×3 quick problems (Let's Unlock Maths, en) | 11 min |
+| M01 | sEp7_soozdw | ম্যাট্রিক্স ও নির্ণায়ক full class (SOE Bangla, bn) | 28 min |
+| C03 | pbb1L64_qsA | (pre-existing) Ionic equilibrium intro | 14 min |
+| C03 | IMrQFibBq9g | Ionic equilibrium one shot: pH, hydrolysis, buffers, Ksp (PW Class 11 Science, hi) | 278 min |
+| C03 | zQFDh2lzXh4 | Ionic equilibrium marathon incl. buffer/Ksp (Pankaj Sir Chemistry, hi) | 60 min |
+| C03 | rpvUz3lGLl8 | Buffer solutions lecture L5 (Pankaj Sir Chemistry, hi) | 75 min |
+| C03 | J7a_DJ5a_1U | আয়নিক সাম্যবস্থায় important questions (SOE Bangla, bn) | 80 min |
+| E05 | 2GvqQvohP2k | (pre-existing) Alternating current basics | 24 min |
+| E05 | 54chkXMDIcI | AC one shot: RMS, reactance, LCR, resonance, transformer (PHYSICS with Umesh Rajoria, hi) | 302 min |
+| E05 | MmgR1lyuhIg | LCR circuit & resonance JEE session (Vedantu JEE, en) | 36 min |
+| E05 | Kr0UiVF-tPI | পরিবর্তী প্রবাহ LC oscillation + LCR part 3 (Physics Study Online In Bengali, bn) | 67 min |
+
+Every added entry carries a one-line exam-relevant `scopeNote` tying it to the
+unit's Study Pack scope. Zero auto-loaded iframes unchanged (facade + external
+deep links only). SW bumped `jelet-v3-sw-15`.
+
+### Post-addendum gate results (all green)
+
+- `node --test` 130/130 (incl. tab-sequence ordered-needle + pilot video checks)
+- `verify_corpus.py` PASS (400q/42u/109 SVG, packs 3/42)
+- `check_tokens_and_links.mjs` PASS (327 files)
+- `check_responsive.mjs` 43/43 · `check_community.mjs` 23 · bespoke study-pack
+  browser check 46/46 · tab+videos browser check (pilot assertions) 22/22

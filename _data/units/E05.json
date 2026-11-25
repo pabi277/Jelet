@@ -145,6 +145,39 @@
       "channelName": "The Organic Chemistry Tutor",
       "language": "en",
       "scopeNote": "RMS/form factor, phasors, RLC impedance, series resonance, Q-factor & AC power"
+    },
+    {
+      "title": "Alternating Current ONE SHOT 🔥 | Complete Chapter | Class 12 Physics | NEET | JEE",
+      "url": "https://www.youtube.com/watch?v=54chkXMDIcI",
+      "videoId": "54chkXMDIcI",
+      "duration": "302 min",
+      "durationMinutes": 302,
+      "provider": "YouTube · PHYSICS with Umesh Rajoria",
+      "channelName": "PHYSICS with Umesh Rajoria",
+      "language": "hi",
+      "scopeNote": "Complete Ch. 7 revision in one lecture: RMS/mean values → phasors → RLC → resonance → power factor."
+    },
+    {
+      "title": "Alternating Current (AC) | LCR Circuit and Resonance | Class 12 | JEE Main 2021 | JEEt Lo 2021",
+      "url": "https://www.youtube.com/watch?v=MmgR1lyuhIg",
+      "videoId": "MmgR1lyuhIg",
+      "duration": "36 min",
+      "durationMinutes": 36,
+      "provider": "YouTube · Vedantu JEE",
+      "channelName": "Vedantu JEE",
+      "language": "en",
+      "scopeNote": "Exam-speed solving of LCR circuits, resonance and power factor — PYQ-style technique."
+    },
+    {
+      "title": "পরিবর্তী প্রবাহ II ALTERNATING CURRENT II CIRCUIT THEORY II CLASS 12 II PART - 3 II PHYSICS",
+      "url": "https://www.youtube.com/watch?v=Kr0UiVF-tPI",
+      "videoId": "Kr0UiVF-tPI",
+      "duration": "67 min",
+      "durationMinutes": 67,
+      "provider": "YouTube · Physics Study Online With PP",
+      "channelName": "Physics Study Online With PP",
+      "language": "bn",
+      "scopeNote": "Bengali circuit theory: L-C oscillations, oscillatory frequency and series LCR calculations."
     }
   ],
   "practiceSetIds": [],

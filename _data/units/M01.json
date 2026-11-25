@@ -227,6 +227,39 @@
       "channelName": "Profound Education",
       "language": "en",
       "scopeNote": "Transpose, cofactors, adjoint and inverse of order-3 matrices"
+    },
+    {
+      "title": "Lecture 12 Matrices |Questions on Inverse| Characteristic eqn| Cayley Hamilton Theorem| IITians Care",
+      "url": "https://www.youtube.com/watch?v=41Zst_NjNSU",
+      "videoId": "41Zst_NjNSU",
+      "duration": "49 min",
+      "durationMinutes": 49,
+      "provider": "YouTube · IITians Care",
+      "channelName": "IITians Care",
+      "language": "en",
+      "scopeNote": "Exam-style drills: adjoint/inverse questions, characteristic equation and Cayley-Hamilton applications."
+    },
+    {
+      "title": "Inverse of Matrix By Cayley Hamilton Theorem",
+      "url": "https://www.youtube.com/watch?v=ssguxpJIhZM",
+      "videoId": "ssguxpJIhZM",
+      "duration": "11 min",
+      "durationMinutes": 11,
+      "provider": "YouTube · Let's Unlock Maths",
+      "channelName": "Let's Unlock Maths",
+      "language": "en",
+      "scopeNote": "A⁻¹ of a 3×3 matrix via Cayley-Hamilton — the power-crusher method JELET questions reward."
+    },
+    {
+      "title": "MATRICES | Class 12 Matrix | Chapter -3 | adjoint Matrix & inverse Matrix | part-02",
+      "url": "https://www.youtube.com/watch?v=sEp7_soozdw",
+      "videoId": "sEp7_soozdw",
+      "duration": "28 min",
+      "durationMinutes": 28,
+      "provider": "YouTube · SOE Bangla",
+      "channelName": "SOE Bangla",
+      "language": "bn",
+      "scopeNote": "Bengali walkthrough of adjoint and inverse matrices for WBCHSE/diploma students."
     }
   ],
   "practiceSetIds": [],
