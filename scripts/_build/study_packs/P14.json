@@ -1,0 +1,650 @@
+{
+  "unitId": "P14",
+  "studyPack": {
+    "conceptPrimer": [
+      {
+        "prdId": "P14-PRD01",
+        "heading": "Lensmaker's Formula: Where Focus Comes From",
+        "proseLatex": "A thin lens of glass index $n_g$ in a surrounding medium $n_m$ has $\\frac{1}{f} = \\left(\\frac{n_g}{n_m} - 1\\right)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right)$. Focus exists only when the refractive-index CONTRAST is non-zero — in matched media a lens goes blind ($f \\to \\infty$). For an equiconvex lens in air ($R_1 = +R$, $R_2 = -R$), $\\frac{1}{f} = \\left(n_g - 1\\right)\\frac{2}{R}$. Micro-check: equiconvex with $R = 20\\ \\text{cm}$, $n_g = 1.5$ in air: $\\frac{1}{f} = 0.5 \\times \\tfrac{2}{20} = \\tfrac{1}{20}$, so $f = +20\\ \\text{cm}$."
+      },
+      {
+        "prdId": "P14-PRD02",
+        "heading": "Immersion: Same Lens, New Focus",
+        "proseLatex": "In a denser surrounding medium the contrast $\\frac{n_g}{n_m} - 1$ shrinks, so $|f|$ GROWS: a lens weakens in water. The standard clean pair is $n_g = 1.5$ in water ($n_m = \\tfrac{4}{3}$): the contrast drops from $\\tfrac{1}{2}$ to $\\tfrac{1}{8}$ — exactly $\\tfrac{1}{4}$ of the power, so focal length becomes $4f_{\\text{air}}$. If $n_m > n_g$ the lens even flips behaviour. Micro-check: the $R = 20\\ \\text{cm}$ equiconvex above gains $f = 4 \\times 20 = 80\\ \\text{cm}$ underwater."
+      },
+      {
+        "prdId": "P14-PRD03",
+        "heading": "Thin-Lens Equation and Its Magnification",
+        "proseLatex": "The lens equation carries a MINUS: $\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$, with Cartesian signs ($u < 0$ for real objects). Magnification is $m = +\\frac{v}{u}$ — no minus sign, unlike mirrors. Converging lenses give real inverted images for objects beyond $f$, virtual upright magnified ones inside $f$ (the magnifier regime); a diverging lens always shrinks virtually. Micro-check: $f = +10\\ \\text{cm}$, $u = -15\\ \\text{cm}$: $\\frac{1}{v} = \\tfrac{1}{10} - \\tfrac{1}{15} = \\tfrac{1}{30} \\Rightarrow v = +30\\ \\text{cm}$, real, and $m = +\\tfrac{30}{-15} = -2$ — inverted, doubled."
+      },
+      {
+        "prdId": "P14-PRD04",
+        "heading": "Cutting Lenses: Transverse vs Horizontal",
+        "proseLatex": "Cutting an equiconvex lens of focal length $f$ TRANSVERSELY (perpendicular to the axis, into two plano-convex halves) turns each half into $f' = 2f$ — power halves, aperture halves. Cutting HORIZONTALLY along the principal axis only splits the aperture: each piece still has focal length $f$. Either way a full image still forms — intensity, not existence, is what aperture controls. Micro-check: an $f = 10\\ \\text{cm}$ equiconvex cut transversely yields two $f = 20\\ \\text{cm}$ plano-convex lenses."
+      },
+      {
+        "prdId": "P14-PRD05",
+        "heading": "Optical Power, Combinations and Silvered Lenses",
+        "proseLatex": "Power $P = \\frac{1}{f\\ (\\text{metres})} = \\frac{100}{f\\ (\\text{cm})}$ dioptres — the unit trap lives here ($f = 20\\ \\text{cm} \\Rightarrow P = +5\\ \\text{D}$, never $+0.05$). Coaxial thin lenses combine as $P_{\\text{eq}} = P_1 + P_2 - d P_1P_2$; in contact ($d = 0$) powers simply add, and a real-plus-virtual pair can cancel. A lens silvered on one face acts as a mirror: $\\frac{1}{F} = \\frac{2}{f_{\\text{lens}}} + \\frac{1}{f_{\\text{mirror}}}$. Micro-check: $P_1 = +4\\ \\text{D}$ touching $P_2 = -2\\ \\text{D}$ gives $P_{\\text{eq}} = +2\\ \\text{D}$, i.e. $f = +50\\ \\text{cm}$."
+      },
+      {
+        "prdId": "P14-PRD06",
+        "heading": "The $D \\ge 4f$ Screen Rule and Displacement Method",
+        "proseLatex": "A converging lens can throw a real image on a screen only when object and screen are separated by $D \\ge 4f$; at exactly $D = 4f$ the lens sits at the midpoint with a single (same-size) image. For $D > 4f$ there are TWO positions giving sharp images, and the displacement method reads $f = \\frac{D^2 - d^2}{4D}$ from the separation $d$ of those positions. Micro-check: $f = 25\\ \\text{cm}$ demands at least $4 \\times 25 = 100\\ \\text{cm} = 1\\ \\text{m}$ between object and screen."
+      }
+    ],
+    "keyFormulas": [
+      {
+        "sfId": "P14-SF01",
+        "label": "Lensmaker's formula",
+        "latex": "$\\frac{1}{f} = \\left(\\frac{n_g}{n_m} - 1\\right)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right)$",
+        "use": "Focus from index contrast and curvatures."
+      },
+      {
+        "sfId": "P14-SF02",
+        "label": "Equiconvex in air",
+        "latex": "$\\frac{1}{f} = \\left(n_g - 1\\right)\\frac{2}{R}$",
+        "use": "The standard symmetric-lens numeric."
+      },
+      {
+        "sfId": "P14-SF03",
+        "label": "Water immersion factor",
+        "latex": "$n_g = 1.5,\\ n_m = \\tfrac{4}{3} \\Rightarrow \\tfrac{1}{f_{\\text{water}}} = \\tfrac{1}{4}\\,\\tfrac{1}{f_{\\text{air}}}$",
+        "use": "$f_{\\text{water}} = 4 f_{\\text{air}}$ for the clean pair."
+      },
+      {
+        "sfId": "P14-SF04",
+        "label": "Thin-lens equation",
+        "latex": "$\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$",
+        "use": "MINUS sign — mirrors carry PLUS."
+      },
+      {
+        "sfId": "P14-SF05",
+        "label": "Lens magnification",
+        "latex": "$m = +\\frac{v}{u}$",
+        "use": "No minus sign, unlike the mirror rule."
+      },
+      {
+        "sfId": "P14-SF06",
+        "label": "Transverse cut",
+        "latex": "$f \\to 2f$ per plano-convex half",
+        "use": "Power halves with the aperture."
+      },
+      {
+        "sfId": "P14-SF07",
+        "label": "Horizontal cut",
+        "latex": "$f$ unchanged, aperture reduced",
+        "use": "Splitting along the axis keeps focus."
+      },
+      {
+        "sfId": "P14-SF08",
+        "label": "Dioptre power",
+        "latex": "$P = \\frac{1}{f(\\text{m})} = \\frac{100}{f(\\text{cm})}$",
+        "use": "Metres first — the unit trap."
+      },
+      {
+        "sfId": "P14-SF09",
+        "label": "Coaxial combination",
+        "latex": "$P_{\\text{eq}} = P_1 + P_2 - d P_1 P_2$",
+        "use": "Separation $d$ in metres."
+      },
+      {
+        "sfId": "P14-SF10",
+        "label": "Lenses in contact",
+        "latex": "$P_{\\text{eq}} = P_1 + P_2$",
+        "use": "$d = 0$ special case; can cancel."
+      },
+      {
+        "sfId": "P14-SF11",
+        "label": "Silvered lens",
+        "latex": "$\\frac{1}{F} = \\frac{2}{f_{\\text{lens}}} + \\frac{1}{f_{\\text{mirror}}}$",
+        "use": "Lens plus mirror face acts as one mirror."
+      },
+      {
+        "sfId": "P14-SF12",
+        "label": "Minimum screen separation",
+        "latex": "$D \\ge 4f$",
+        "use": "Real image on a screen needs the gap."
+      },
+      {
+        "sfId": "P14-SF13",
+        "label": "Displacement method",
+        "latex": "$f = \\frac{D^2 - d^2}{4D}$",
+        "use": "Two sharp positions, separation $d$."
+      },
+      {
+        "sfId": "P14-SF14",
+        "label": "Half-aperture image",
+        "latex": "Blocked half $\\Rightarrow$ complete image, lower intensity",
+        "use": "Aperture trades brightness, never completeness."
+      },
+      {
+        "sfId": "P14-SF15",
+        "label": "Magnifier regime",
+        "latex": "$u < f \\Rightarrow$ virtual, upright, $|m| > 1$",
+        "use": "Convex lens as a magnifying glass."
+      }
+    ],
+    "keyDefinitions": [
+      {
+        "defId": "P14-DEF01",
+        "term": "Thin lens",
+        "definition": "A lens whose thickness is negligible against $f$, so refractions happen at one plane."
+      },
+      {
+        "defId": "P14-DEF02",
+        "term": "Converging (convex) lens",
+        "definition": "Parallel rays meet at the focus; $f > 0$ in Cartesian convention."
+      },
+      {
+        "defId": "P14-DEF03",
+        "term": "Diverging (concave) lens",
+        "definition": "Parallel rays spread as if from the focus; $f < 0$."
+      },
+      {
+        "defId": "P14-DEF04",
+        "term": "Optical centre",
+        "definition": "The interior point through which rays pass undeviated and undisplaced."
+      },
+      {
+        "defId": "P14-DEF05",
+        "term": "Aperture",
+        "definition": "The effective diameter gathering light; sets image brightness, not completeness."
+      },
+      {
+        "defId": "P14-DEF06",
+        "term": "Dioptre",
+        "definition": "Unit of lens power: inverse focal length in metres; converging positive, diverging negative."
+      },
+      {
+        "defId": "P14-DEF07",
+        "term": "Principal axis",
+        "definition": "The line through both centres of curvature and the optical centre."
+      },
+      {
+        "defId": "P14-DEF08",
+        "term": "Real image (lens)",
+        "definition": "Formed by actual ray convergence on the far side; projectable and inverted."
+      },
+      {
+        "defId": "P14-DEF09",
+        "term": "Virtual image (lens)",
+        "definition": "Seen through the lens on the object side; upright, not projectable."
+      },
+      {
+        "defId": "P14-DEF10",
+        "term": "Silvered lens",
+        "definition": "A lens with one face silvered, equivalent to a curved mirror combining both refractions and reflection."
+      }
+    ],
+    "comparisons": [
+      {
+        "cmpId": "P14-CMP01",
+        "title": "Convex vs Concave Lens Behaviour",
+        "columns": [
+          "Aspect",
+          "Convex (converging)",
+          "Concave (diverging)"
+        ],
+        "rows": [
+          {
+            "label": "Sign of $f$",
+            "values": [
+              "Positive",
+              "Negative"
+            ]
+          },
+          {
+            "label": "Real image possible?",
+            "values": [
+              "Yes, object beyond $f$",
+              "Never (real objects)"
+            ]
+          },
+          {
+            "label": "Image for $u < f$",
+            "values": [
+              "Virtual, upright, magnified",
+              "Virtual, upright, diminished"
+            ]
+          },
+          {
+            "label": "Common role",
+            "values": [
+              "Camera, projector, magnifier",
+              "Peepholes, spectacle correction"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P14-CMP02",
+        "title": "Transverse vs Horizontal Cut of an Equiconvex Lens",
+        "columns": [
+          "Aspect",
+          "Transverse cut (across axis)",
+          "Horizontal cut (along axis)"
+        ],
+        "rows": [
+          {
+            "label": "Each piece focal length",
+            "values": [
+              "$2f$",
+              "$f$ unchanged"
+            ]
+          },
+          {
+            "label": "Power",
+            "values": [
+              "Halves",
+              "Unchanged"
+            ]
+          },
+          {
+            "label": "Aperture",
+            "values": [
+              "Halves",
+              "Halves"
+            ]
+          },
+          {
+            "label": "Image formed",
+            "values": [
+              "Full image, dimmer, farther focus",
+              "Full image, dimmer, same focus"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P14-CMP03",
+        "title": "Lens in Air vs Water ($n_g = 1.5$)",
+        "columns": [
+          "Aspect",
+          "Air ($n_m = 1$)",
+          "Water ($n_m = 4/3$)"
+        ],
+        "rows": [
+          {
+            "label": "Contrast term",
+            "values": [
+              "$\\tfrac{1}{2}$",
+              "$\\tfrac{1}{8}$"
+            ]
+          },
+          {
+            "label": "Equiconvex $R = 20\\ \\text{cm}$",
+            "values": [
+              "$f = 20\\ \\text{cm}$",
+              "$f = 80\\ \\text{cm}$"
+            ]
+          },
+          {
+            "label": "Power",
+            "values": [
+              "$+5\\ \\text{D}$",
+              "$+1.25\\ \\text{D}$"
+            ]
+          },
+          {
+            "label": "Mirror contrast",
+            "values": [
+              "Mirror: $f$ never changes",
+              "Mirror: $f$ never changes"
+            ]
+          }
+        ]
+      },
+      {
+        "cmpId": "P14-CMP04",
+        "title": "Mirrors vs Lenses — Equation & Magnification Signs",
+        "columns": [
+          "Feature",
+          "Mirror",
+          "Lens"
+        ],
+        "rows": [
+          {
+            "label": "Governing equation",
+            "values": [
+              "$\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$",
+              "$\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$"
+            ]
+          },
+          {
+            "label": "Magnification",
+            "values": [
+              "$m = -\\frac{v}{u}$",
+              "$m = +\\frac{v}{u}$"
+            ]
+          },
+          {
+            "label": "Water effect",
+            "values": [
+              "None",
+              "$|f|$ grows with $n_m$"
+            ]
+          },
+          {
+            "label": "Power concept",
+            "values": [
+              "Rarely used",
+              "$P = 1/f$ central to numerics"
+            ]
+          }
+        ]
+      }
+    ],
+    "mcqSelfTest": [
+      {
+        "mcqId": "P14-MCQ01",
+        "stemLatex": "A convex lens has focal length $20\\ \\text{cm}$. Its power is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+0.05\\ \\text{D}$"
+          },
+          {
+            "id": "B",
+            "latex": "$+2\\ \\text{D}$"
+          },
+          {
+            "id": "C",
+            "latex": "$+5\\ \\text{D}$"
+          },
+          {
+            "id": "D",
+            "latex": "$+20\\ \\text{D}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$P = \\frac{100}{f(\\text{cm})} = \\frac{100}{20} = +5\\ \\text{D}$. Forgetting the metre conversion picks the $0.05$ trap."
+      },
+      {
+        "mcqId": "P14-MCQ02",
+        "stemLatex": "An equiconvex lens ($n_g = 1.5$) has radii $20\\ \\text{cm}$ each surface. Its focal length in air is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$10\\ \\text{cm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$20\\ \\text{cm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$40\\ \\text{cm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$80\\ \\text{cm}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$\\frac{1}{f} = (1.5 - 1)\\left(\\tfrac{1}{20} + \\tfrac{1}{20}\\right) = 0.5 \\times \\tfrac{1}{10} = \\tfrac{1}{20} \\Rightarrow f = +20\\ \\text{cm}$."
+      },
+      {
+        "mcqId": "P14-MCQ03",
+        "stemLatex": "The same lens ($f_{\\text{air}} = 20\\ \\text{cm}$) is immersed in water ($n_m = \\tfrac{4}{3}$). Its new focal length is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5\\ \\text{cm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$15\\ \\text{cm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$40\\ \\text{cm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$80\\ \\text{cm}$"
+          }
+        ],
+        "correct": [
+          "D"
+        ],
+        "explanation": "Contrast drops from $\\tfrac12$ to $\\tfrac18$ — one quarter of the power — so $f_{\\text{water}} = 4 \\times 20 = 80\\ \\text{cm}$."
+      },
+      {
+        "mcqId": "P14-MCQ04",
+        "stemLatex": "An equiconvex lens of focal length $10\\ \\text{cm}$ is cut transversely into two plano-convex halves. Each half has focal length:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$5\\ \\text{cm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$10\\ \\text{cm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$20\\ \\text{cm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$40\\ \\text{cm}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "A transverse cut doubles each piece's focal length: $2 \\times 10 = 20\\ \\text{cm}$ (power halves with the aperture)."
+      },
+      {
+        "mcqId": "P14-MCQ05",
+        "stemLatex": "An object is $15\\ \\text{cm}$ from a converging lens of focal length $10\\ \\text{cm}$. The image is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$30\\ \\text{cm}$ on the far side, real, twice the size, inverted"
+          },
+          {
+            "id": "B",
+            "latex": "$6\\ \\text{cm}$ on the far side, virtual"
+          },
+          {
+            "id": "C",
+            "latex": "$30\\ \\text{cm}$ on the object side, upright"
+          },
+          {
+            "id": "D",
+            "latex": "$25\\ \\text{cm}$ on the far side, same size"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$\\frac{1}{v} = \\tfrac{1}{10} - \\tfrac{1}{15} = \\tfrac{1}{30} \\Rightarrow v = +30\\ \\text{cm}$; $m = +\\tfrac{30}{-15} = -2$ — real, inverted, doubled."
+      },
+      {
+        "mcqId": "P14-MCQ06",
+        "stemLatex": "Two thin lenses of powers $+4\\ \\text{D}$ and $-2\\ \\text{D}$ are placed in contact. The combined focal length is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+50\\ \\text{cm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$-50\\ \\text{cm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$+6\\ \\text{cm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$+100\\ \\text{cm}$"
+          }
+        ],
+        "correct": [
+          "A"
+        ],
+        "explanation": "$P_{\\text{eq}} = 4 - 2 = +2\\ \\text{D}$, so $f = \\tfrac{1}{2}\\ \\text{m} = +50\\ \\text{cm}$."
+      },
+      {
+        "mcqId": "P14-MCQ07",
+        "stemLatex": "The lower half of a lens aperture is painted black. The image formed is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "only the upper half of the object"
+          },
+          {
+            "id": "B",
+            "latex": "complete but fainter"
+          },
+          {
+            "id": "C",
+            "latex": "complete and equally bright"
+          },
+          {
+            "id": "D",
+            "latex": "no image at all"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "Every part of the aperture contributes to EVERY image point — blocking half only halves the brightness, never the completeness."
+      },
+      {
+        "mcqId": "P14-MCQ08",
+        "stemLatex": "The minimum distance between an object and a screen for a sharp image via a $25\\ \\text{cm}$ convex lens is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$25\\ \\text{cm}$"
+          },
+          {
+            "id": "B",
+            "latex": "$50\\ \\text{cm}$"
+          },
+          {
+            "id": "C",
+            "latex": "$100\\ \\text{cm}$"
+          },
+          {
+            "id": "D",
+            "latex": "$125\\ \\text{cm}$"
+          }
+        ],
+        "correct": [
+          "C"
+        ],
+        "explanation": "$D_{\\min} = 4f = 100\\ \\text{cm} = 1\\ \\text{m}$, with the lens exactly midway and a same-size image."
+      },
+      {
+        "mcqId": "P14-MCQ09",
+        "stemLatex": "An object lies $5\\ \\text{cm}$ from a convex lens of focal length $10\\ \\text{cm}$. The image is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "real, inverted at $10\\ \\text{cm}$"
+          },
+          {
+            "id": "B",
+            "latex": "virtual, upright, magnified, on the object side"
+          },
+          {
+            "id": "C",
+            "latex": "real, diminished"
+          },
+          {
+            "id": "D",
+            "latex": "at infinity"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$u < f$ is the magnifier regime: $\\frac{1}{v} = \\tfrac{1}{10} - \\tfrac{1}{5} = -\\tfrac{1}{10} \\Rightarrow v = -10\\ \\text{cm}$, virtual, upright, magnified."
+      },
+      {
+        "mcqId": "P14-MCQ10",
+        "stemLatex": "Two coaxial lenses of powers $+5\\ \\text{D}$ each are separated by $4\\ \\text{cm}$. The equivalent power is:",
+        "options": [
+          {
+            "id": "A",
+            "latex": "$+10\\ \\text{D}$"
+          },
+          {
+            "id": "B",
+            "latex": "$+9\\ \\text{D}$"
+          },
+          {
+            "id": "C",
+            "latex": "$+8\\ \\text{D}$"
+          },
+          {
+            "id": "D",
+            "latex": "$+6\\ \\text{D}$"
+          }
+        ],
+        "correct": [
+          "B"
+        ],
+        "explanation": "$P_{\\text{eq}} = 5 + 5 - (0.04)(5)(5) = 10 - 1 = +9\\ \\text{D}$ — remember $d$ enters in METRES."
+      }
+    ],
+    "memoryHooks": [
+      "Lensmaker's lesson: no index contrast, no focus — matched media blind the lens.",
+      "Water weakens lenses: $1.5$ glass in $4/3$ water makes $f$ four times longer.",
+      "Lens equation carries the MINUS; mirror equation the PLUS.",
+      "Lens magnification is $+v/u$ — one sign fewer than the mirror.",
+      "Transverse cut doubles $f$; horizontal cut only slices aperture.",
+      "Dioptres eat metres: $20\\ \\text{cm}$ is $+5\\ \\text{D}$, never $+0.05$.",
+      "Contact powers add; separated powers lose $dP_1P_2$.",
+      "A blocked half-aperture still forms a full image — just dimmer.",
+      "Screen experiments need $D \\ge 4f$; exactly $4f$ gives one same-size image.",
+      "Inside the focus, a convex lens turns magnifier."
+    ],
+    "commonMistakes": [
+      "Feeding centimetres into $P = 1/f$ — dioptres demand metres.",
+      "Writing the lens equation with the mirror's plus sign.",
+      "Attaching the mirror's minus sign to lens magnification ($m = +v/u$).",
+      "Saying a water-immersed lens keeps $f$ — that is true only for mirrors.",
+      "Claiming a transverse cut leaves $f$ unchanged (each plano-convex half is $2f$).",
+      "Using $P_{\\text{eq}} = P_1 + P_2$ when a separation $d$ is given.",
+      "Forgetting $d$ in metres inside $dP_1P_2$.",
+      "Expecting a half-painted lens to form a half image.",
+      "Setting up a screen experiment at $D < 4f$ and hunting for a sharp image that cannot exist."
+    ],
+    "examChecklist": [
+      "Apply the lensmaker formula with $R_1 > 0$, $R_2 < 0$ for convex surfaces.",
+      "Immersion numerics: recompute the contrast $\\frac{n_g}{n_m} - 1$ first.",
+      "Write Cartesian signs for $u$, $v$, $f$ before solving $\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$.",
+      "Report images with position + nature + size (all three).",
+      "Convert $f$ to metres before any dioptre arithmetic.",
+      "Coaxial combinations: powers add only at $d = 0$; otherwise subtract $dP_1P_2$.",
+      "Cut-lens questions: identify transverse vs horizontal before applying the rule.",
+      "Screen problems: check $D \\ge 4f$ first, then the displacement formula if needed.",
+      "Half-aperture answers: complete image, reduced intensity — always.",
+      "Magnifier regime: confirm $u < f$ before promising upright magnification.",
+      "Re-verify one power/focal-length pair ($P = 100/f_{\\text{cm}}$)."
+    ],
+    "furtherReading": [
+      {
+        "book": "NCERT Class 12 Physics, Part II",
+        "author": "NCERT",
+        "chapters": "Ch. 9 (Ray Optics and Optical Instruments), §9.4",
+        "note": "Refraction at spherical surfaces, the lensmaker formula, thin-lens equation and power combinations behind this pack."
+      }
+    ],
+    "provenance": {
+      "draftedBy": "AI-assisted draft (Phase 13 content pipeline)",
+      "reviewedBy": "pending — owner spot-check required before merge (phase-13 plan §3 step 7)",
+      "reviewedAt": "pending (drafted 2026-11-25)"
+    }
+  }
+}

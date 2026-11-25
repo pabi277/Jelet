@@ -18,7 +18,7 @@
  *      5-6 primers, 12-18 formulas (unique sfIds), 6-12 definitions, 3-4
  *      comparison tables (columns[0] is the label column), 8-10 MCQs with
  *      honest A-D keys, 8-12 hooks/mistakes/checklist, clean provenance; the
- *      other 38 units ship NO studyPack (batch isolation).
+ *      other 34 units ship NO studyPack (batch isolation).
  */
 
 import test from "node:test";
@@ -34,7 +34,7 @@ const read = (rel) => fs.readFileSync(path.join(ROOT, rel), "utf8");
 const PILOT_UNITS = ["M01", "C03", "E05"];
 // Batch 1 (owner-approved pace): joins the pilot with the same v2 anatomy +
 // video-enrichment contract (plan §3.4 batch order).
-const PACKED_UNITS = [...PILOT_UNITS, "M02", "M03", "M07", "M11"];
+const PACKED_UNITS = [...PILOT_UNITS, "M02", "M03", "M07", "M11", "P08", "P12", "P14", "P15"];
 
 test("Lesson: study tab is valid, leads the tab sequence, with calm empty state", () => {
   const learnJs = read("assets/js/views/learn.js");
@@ -184,7 +184,7 @@ test("AI Tutor: studyPack grounds hooks + mistakes only, capped, legacy prompt u
   assert.equal(summarizeStudyPackForTutor(null), "");
 });
 
-test("Pilot + batch-1 data v2: 7 units carry the full anatomy; the other 38 do not", () => {
+test("Pilot + batch 1-2 data v2: 11 units carry the full anatomy; the other 34 do not", () => {
   for (const unitId of PACKED_UNITS) {
     const unit = JSON.parse(read(`_data/units/${unitId}.json`));
     const sp = unit.studyPack;

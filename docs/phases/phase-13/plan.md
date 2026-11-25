@@ -363,7 +363,12 @@ Batch scope unchanged: videos for batches 1–5 are enriched per-batch, not now.
 ### 3.4 status update (2026-11-25)
 
 - Pilot v2 (`d044860`) + minor changes (`c460da3`) owner-approved ("Thats good").
-- **Batch 1 (M02/M03/M07/M11) shipped** with the full v2 anatomy + per-batch
-  video enrichment; evidence in `batch-M02-M03-M07-M11.md`; awaiting owner
-  sign-off. Study Packs validated: 7/42.
-- Next: Batch 2 = P08/P12/P14/P15 on owner approval.
+- **Batch 1 (M02/M03/M07/M11) shipped and owner-signed-off** ("Thats good on
+  every front") — `provenance.reviewedBy/reviewedAt` stamped owner-approved in
+  drafts + shipped units (2026-11-25). Evidence in
+  `batch-M02-M03-M07-M11.md`.
+- **Batch 2 (P08/P12/P14/P15) shipped** with the full v2 anatomy + per-batch
+  video enrichment; evidence in `batch-P08-P12-P14-P15.md`; awaiting owner
+  sign-off. The SymPy sweep caught and fixed a real P14 MCQ error (equivalent
+  power) before ship. Study Packs validated: 11/42.
+- Next: Batch 3 = C01/C04/C06/C07 on owner approval.
