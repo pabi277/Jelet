@@ -342,7 +342,7 @@ export async function render() {
       const cleanup = await renderTodayDashboard(main, { openAiTutor: openAiTutorContext });
       setViewCleanup(cleanup);
     } else if (route.view === "you") {
-      await renderYouHub(main, { onThemeToggle: toggleTheme });
+      await renderYouHub(main, { onThemeToggle: toggleTheme, invite: route.query.get("invite") });
     } else {
       renderPlaceholder(main, route.view);
     }

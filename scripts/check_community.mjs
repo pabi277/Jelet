@@ -52,7 +52,7 @@ const chromiumRoot = path.dirname(require.resolve("@sparticuz/chromium/package.j
 const archive = path.join(libDir, "libs.tar");
 await fs.writeFile(archive, zlib.brotliDecompressSync(await fs.readFile(path.join(chromiumRoot, "bin/al2023.tar.br"))));
 execFileSync("tar", ["-xf", archive, "-C", libDir]);
-const browser = await puppeteer.launch({ executablePath: await chromium.executablePath(), args: chromium.args, headless: "shell", env: { ...process.env, LD_LIBRARY_PATH: path.join(libDir, "lib") } });
+const browser = await puppeteer.launch({ executablePath: await chromium.executablePath(), args: chromium.args.filter(arg => arg !== "--single-process"), headless: "shell", env: { ...process.env, LD_LIBRARY_PATH: path.join(libDir, "lib") } });
 let checks = 0;
 try {
   const page = await browser.newPage();
@@ -85,7 +85,7 @@ try {
     }
   }
   assert.equal(benchmarkRequests.length, 0, "no automatic benchmark traffic");
-  if (await page.$("#benchmarkUrl")) {
+  { // Benchmark E2E must run, never silently skip.
     await page.goto(base + "#/results/browser-test", { waitUntil: "networkidle0" });
     await page.waitForSelector("#benchmarkUrl");
     assert.match(await page.$eval("#benchmarkStatus", n => n.textContent), /not configured/);
@@ -109,6 +109,65 @@ try {
     for (const request of benchmarkRequests) { assert.equal(request.cookie, undefined); assert.equal(request.referer, undefined); }
     checks++;
   }
+  await page.goto(base + "#/you", { waitUntil: "networkidle0" });
+  await page.waitForSelector("#buddyCreateForm");
+  await page.$eval("#buddyCreateForm", form => { form.parentElement.open = true; });
+  await page.type('[name="groupName"]', 'Browser buddies');
+  await page.type('[name="groupTopic"]', 'Optics focus');
+  await page.click('#buddyCreateForm button');
+  await page.waitForSelector('.js-buddy-edit');
+  await page.$eval('.js-buddy-edit', form => { form.parentElement.open = true; });
+  await page.type('.js-buddy-edit [name="topics"]', 'Waves\nOptics');
+  await page.type('.js-buddy-edit [name="plan"]', 'P02\nM01');
+  await page.click('.js-buddy-edit button');
+  await page.waitForFunction(() => document.querySelector('#buddyStatus').textContent.includes('Local plan saved'));
+  await page.click('.js-buddy-share');
+  const inviteUrl = await page.$eval('#buddyInviteLink', n => n.value);
+  const recipient = await browser.createBrowserContext();
+  const buddy = await recipient.newPage();
+  buddy.on('pageerror', e => errors.push(e.message));
+  buddy.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+  await buddy.setViewport({ width: 360, height: 800 });
+  await buddy.goto(inviteUrl, { waitUntil: 'networkidle0' });
+  await buddy.waitForSelector('#buddyJoin');
+  assert.match(await buddy.$eval('#buddyGroups', n => n.textContent), /No groups joined/);
+  await buddy.click('#buddyJoin');
+  await buddy.waitForSelector('.js-buddy-edit');
+  assert.match(await buddy.$eval('#buddyGroups', n => n.textContent), /P02/);
+  await buddy.goto(inviteUrl, { waitUntil: 'networkidle0' });
+  await buddy.waitForSelector('#buddyJoin');
+  await buddy.click('#buddyJoin');
+  await buddy.waitForFunction(() => document.querySelector('#buddyStatus').textContent.includes('Already joined'));
+  assert.equal((await buddy.$$('.js-buddy-edit')).length, 1);
+  await buddy.goto(base + '#/you?invite=invalid!', { waitUntil: 'networkidle0' });
+  await buddy.waitForFunction(() => document.querySelector('#buddyStatus')?.textContent.includes('Invalid'));
+  checks += 3;
+  await recipient.close();
+  await page.setViewport({ width: 360, height: 800 });
+  for (const route of ['#/', '#/results/browser-test', '#/you', '#/papers']) {
+    await page.goto(base + route, { waitUntil: 'networkidle0' });
+    await page.waitForSelector('main .card');
+    await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
+    if (route.includes('browser-test')) await page.click('#shareResultBtn');
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `200% text ${route}: overflow`);
+    checks++;
+  }
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.setOfflineMode(true);
+  const priorRequests = benchmarkRequests.length;
+  for (const route of ['#/', '#/results/browser-test', '#/you', '#/papers']) {
+    await page.goto(base + route, { waitUntil: 'load' });
+    await page.waitForSelector('main .card');
+    if (route.includes('browser-test')) {
+      await page.click('#shareResultBtn');
+      await page.waitForSelector('#shareResultPreview svg');
+      await page.click('#benchmarkLoad');
+      await page.waitForFunction(() => document.querySelector('#benchmarkStatus').textContent.includes('Offline'));
+    }
+    if (route === '#/you') await page.waitForSelector('.js-buddy-edit');
+    checks++;
+  }
+  assert.equal(benchmarkRequests.length, priorRequests, 'offline actions send nothing');
   assert.deepEqual(errors, [], "console/page errors");
   console.log(`Community browser audit: ${checks} route/viewport checks PASS; zero console errors`);
 } finally {

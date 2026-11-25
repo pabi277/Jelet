@@ -42,6 +42,8 @@ const SHELL_ASSETS = [
   "./assets/js/core/charts.js",
   "./assets/js/core/share-result.js",
   "./assets/js/core/benchmark.js",
+  "./assets/js/core/study-groups.js",
+  "./assets/js/views/study-buddies.js",
   "./assets/js/views/benchmark.js",
   "./assets/js/views/share-result.js",
   "./assets/js/core/ui.js",

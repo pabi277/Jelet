@@ -308,3 +308,35 @@ Apply body-size limits and aggregate resource/rate caps without persistent user 
 Anonymous submissions cannot be made Sybil-proof; do not claim fraud-proof ranking.
 Consider suppressing comparison for small cohorts as a future contract version;
 exact score histograms inherently disclose frequencies even for small samples.
+
+## Local result cards and Study buddies
+
+- **SVG results:** independent full mocks offer Share; default export includes only
+  marks, exact twelfths and accuracy. Explicit full breakdown adds the canonical
+  paper label, recorded time (or “not recorded”), accuracy trend versus the previous
+  independent mock, and available subject scores. Trend reuses the readiness
+  ±5-percentage-point accuracy threshold, not a prediction of exam rank; no previous
+  mock means insufficient data, not an invented improvement. The SVG embeds resolved
+  theme colors with no external font/image dependencies. No profile, custom attempt
+  title, answers, timestamps or API key enters the card. Download is generated
+  locally and clearly marked “Study result · JELET Study Hub” / not official WBJEEB.
+- **Study buddies:** `#/you?invite=<base64url UTF-8 JSON>` carries only version, random
+  group invite ID, group name, shared topic, up to ten peer-provided focus topics and
+  a plan of canonical unit IDs. No user identity or automatic device identifier.
+  The URL fragment is decoded locally; preview + **Join locally** is required to
+  save it. Malformed/oversized/unknown-version invites cannot create records. Same-ID
+  joins preserve existing local edits, so links cannot silently overwrite a plan.
+- Invites are **readable and forwardable, not encrypted or access-controlled**.
+  There is no server member roster, chat, presence, verification of who supplied a
+  topic, live collaboration, membership notification, or synchronization between
+  buddies. Enter only topics that peers actually shared. Unit plans are locally
+  editable; a freshly prepared invite conveys the current copy to a new recipient.
+  Existing members keep their local edits on repeat joins (they must edit locally
+  to adopt a revised plan). “Leave locally” does not revoke a previously sent invite.
+- Groups live in `meta/app.studyGroups` in IndexedDB, per-device by default. They
+  participate in **explicit encrypted study sync** / ordinary study backup like
+  other app settings; sync applies the existing **whole app-record LWW** rule, not
+  collaborative per-group merging. This is multi-device sync for the same student's
+  study state, **not** a group backend or a reason to share a sync passphrase with
+  buddies. Topic/invite state is limited to 30 local groups; no new data schema or
+  backend is necessary.

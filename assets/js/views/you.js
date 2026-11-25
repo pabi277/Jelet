@@ -8,6 +8,7 @@
  *                                        Offline Pack & About/Sources
  */
 
+import { mountStudyBuddies } from "./study-buddies.js";
 import { mountBenchmark } from "./benchmark.js";
 import { getAllAttempts } from "../core/stats.js";
 import { isShareableMock } from "../core/share-result.js";
@@ -46,7 +47,7 @@ import {
 } from "../db/sync.js";
 import { $, el, icon, showToast, formatDurationClock } from "../core/ui.js";
 
-export async function renderYouHub(main, { onThemeToggle } = {}) {
+export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) {
   main.innerHTML = `<div class="view"><p class="view__placeholder">Loading local vault…</p></div>`;
 
   const manifest = await loadManifest();
@@ -541,6 +542,7 @@ export async function renderYouHub(main, { onThemeToggle } = {}) {
   const latestMock = (await getAllAttempts()).filter(isShareableMock)
     .sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)))[0];
   await mountBenchmark(root, latestMock);
+  await mountStudyBuddies(root, manifest, invite);
 
   function renderCgpaStatus() {
     const slot = $("#cgpaEligibilitySlot", root);

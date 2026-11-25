@@ -120,3 +120,41 @@ test("benchmark config and local receipts never enter encrypted study sync", () 
   const sanitized = sanitizeForSync({ meta: [{ key: "benchmark", baseUrl: "https://private-endpoint.test" }, { key: "benchmarkReceipt:private", acceptedAt: "today" }] });
   assert.deepEqual(sanitized.meta, []);
 });
+
+import { normalizeGroup, encodeGroupInvite, decodeGroupInvite, groupInviteUrl, joinStudyGroup } from "../assets/js/core/study-groups.js";
+const group = patch => ({ v: 1, id: "invite-test-123", name: "JELET 2028 · বন্ধুরা", topic: "Physics focus", topics: ["Optics", "Waves"], plan: ["P02", "M01"], ...patch });
+
+test("study invites round-trip Unicode and carry only the explicit shared group fields", () => {
+  const encoded = encodeGroupInvite(group({ profile: { name: "PRIVATE" }, apiKey: "SECRET", members: [{ email: "private@test" }] }));
+  assert.deepEqual(decodeGroupInvite(encoded), group());
+  assert.ok(!JSON.stringify(decodeGroupInvite(encoded)).includes("PRIVATE"));
+  assert.ok(!JSON.stringify(decodeGroupInvite(encoded)).includes("SECRET"));
+  const url = new URL(groupInviteUrl(group(), "https://user.github.io/Jelet/?secret=private#/you"));
+  assert.equal(url.pathname, "/Jelet/");
+  assert.equal(url.search, "");
+  assert.equal(decodeGroupInvite(new URLSearchParams(url.hash.split("?")[1]).get("invite")).name, group().name);
+});
+
+test("invalid/oversized study invites never become group state", () => {
+  for (const value of ["", "!bad", "a".repeat(10001), "YWJj", btoa('{}'), Buffer.from(JSON.stringify(group({ v: 2 }))).toString("base64url")]) assert.throws(() => decodeGroupInvite(value));
+  for (const patch of [{ name: "" }, { topic: "x".repeat(121) }, { name: "x\u0000y" }, { plan: ["P16"] }, { plan: ["M12"] }, { plan: ["E09"] }, { plan: ["C09"] }, { topics: Array(11).fill("X") }, { id: "<script>" }]) assert.throws(() => normalizeGroup(group(patch)));
+  assert.deepEqual(normalizeGroup(group({ plan: ["P02", "P02"] })).plan, ["P02"]);
+});
+
+test("group join is explicit, idempotent and preserves local plans on repeat invite", () => {
+  const incoming = decodeGroupInvite(encodeGroupInvite(group()));
+  const original = [];
+  assert.deepEqual(original, [], "decode has no persistence side effect");
+  const joined = joinStudyGroup(original, incoming);
+  assert.equal(original.length, 0);
+  assert.equal(joined.length, 1);
+  const edited = [{ ...joined[0], plan: ["C01"] }];
+  assert.deepEqual(joinStudyGroup(edited, incoming), edited);
+  assert.equal(joinStudyGroup(joined, group({ id: "another-group" })).length, 2);
+  assert.throws(() => joinStudyGroup(Array.from({ length: 30 }, (_, i) => group({ id: `other-id-${i}` })), incoming), /full/);
+});
+
+test("groups are included only in the explicit encrypted study sync scope", () => {
+  const payload = sanitizeForSync({ meta: [{ key: "app", studyGroups: [group()] }, { key: "benchmark", baseUrl: "private" }] });
+  assert.deepEqual(payload.meta, [{ key: "app", studyGroups: [group()] }]);
+});
