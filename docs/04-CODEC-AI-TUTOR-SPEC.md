@@ -23,7 +23,9 @@
      * `OpenRouter` *(Optional)*
      * `NVIDIA NIM` *(Optional; direct browser CORS may fail, optional local-only relay available)*
    * **Save & Test Connection:** Clicking **`Test Connection`** sends a fixed minimal request (`maxOutputTokens: 8`, prompt `"Reply with OK"`, zero user study data) and displays exact HTTP status / latency (`Connected · 340 ms`) or human-readable quota/invalid-key diagnostics.
-   * **Clear Key:** Single-tap wipe of `jelet_ai_vault_v1` + in-memory chat history.
+   * **Multiple keys (owner decision, 2026-11-26):** Save up to 20 keys in the isolated vault, including multiple keys per provider. The legacy single key retains its original provider. The user chooses Auto or a specific key in You & AI or the compact chat selector. Auto tries another key **only within the same provider and model** after authentication, quota or rate-limit rejection; manual selection never switches. No switching after partial output, on network, model, or generic server errors. Every attempt remains under the same provider-wide atomic pacing/daily budget, at most two automatic retries, and the 70-second window (including Retry-After). Account quotas and costs may be shared or different. Test Connection tests only the currently selected key. Successful auto switching becomes the starting key for future sends. The prompt body remains byte-identical to the preview on each attempt.
+   * **Passphrase:** Protect encrypts all saved keys together. Adding or removing a protected key requires the passphrase and re-encrypts the collection. No plaintext keys enter IndexedDB, backup, sync or logs. Unlock is tab-local.
+   * **Remove key / Clear All Keys:** Remove individual keys in You & AI; clearing all resets the vault after confirmation.
 
 ---
 

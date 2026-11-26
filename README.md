@@ -45,6 +45,18 @@ locally with:
 python3 -m http.server 8000 --bind 127.0.0.1   # then open http://localhost:8000/
 ```
 
+### Multiple AI keys
+
+In **You & AI**, select a provider and add keys one at a time. Choose **Auto
+switch** or a specific key there or in the tutor composer. Auto only tries
+another key for the same provider and model after a rejected key, quota or
+rate-limit error; manual selection does not switch. App pacing and daily limits
+still apply across all keys for that provider, and keys may share a provider
+quota or have different costs. The connection test checks the currently active
+key only. All keys stay in the isolated local vault, outside backups and sync.
+Optional passphrase protection encrypts all of them; enter the passphrase to add
+or remove a key from a protected vault. Unlocking remains tab-local.
+
 ### Optional NVIDIA relay on your own phone (Termux)
 
 NVIDIA may block direct browser requests through CORS even when a key is valid.

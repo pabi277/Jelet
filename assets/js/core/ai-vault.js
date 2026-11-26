@@ -166,28 +166,94 @@ async function decryptEnvelope(envelope, passphrase) {
     return new TextDecoder().decode(plain);
   } catch { throw new Error("Unable to unlock key. Check the passphrase or encrypted data."); }
 }
-/** Encrypt an existing or replacement key; never overwrites storage on failure. */
+const keyMetadata = keys => keys.map(({id, provider, label}) => ({id, provider, label}));
+function unpackKeys(secret, parsed) {
+  if (!secret) return [];
+  try {
+    const data = JSON.parse(secret);
+    if (data?.format === "jelet-key-ring-v1" && Array.isArray(data.keys)) return data.keys;
+  } catch { /* legacy envelope contains a single raw key */ }
+  return [{id:"legacy", provider:parsed.keyLegacyProvider || parsed.provider || "gemini", label:"Key 1", secret}];
+}
+async function storeProtectedKeys(keys, passphrase, storage, raw, saved) {
+  if (typeof passphrase !== "string" || passphrase.length < 8) throw new Error("Use a passphrase of at least 8 characters.");
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveWrapKey(passphrase, salt, WRAP_ITERATIONS);
+  const secret = JSON.stringify({format:"jelet-key-ring-v1", keys});
+  const ciphertext = await crypto.subtle.encrypt({name:"AES-GCM",iv,additionalData:WRAP_AAD}, key, new TextEncoder().encode(secret));
+  const envelope = {version:1,algorithm:"AES-GCM",kdf:"PBKDF2-SHA256",iterations:WRAP_ITERATIONS,
+    salt:toBase64(salt),iv:toBase64(iv),ciphertext:toBase64(ciphertext)};
+  if (storage.getItem(AI_VAULT_STORAGE_KEY) !== raw) throw new Error("Vault changed in another tab. Please try again.");
+  const next = {...saved, apiKey:"", vaultKeys:[], keyMetadata:keyMetadata(keys), keyEnvelope:envelope};
+  delete next.keyLocked;
+  storage.setItem(AI_VAULT_STORAGE_KEY, JSON.stringify(next));
+  unlockedKeys.set(storage, {ciphertext:envelope.ciphertext, secret});
+  vaultChanged(storage);
+}
+/** Encrypt all keys; legacy single-key envelopes are upgraded on change. */
 export async function protectAiKey(passphrase, storage = globalThis.localStorage, replacementKey = null) {
   if (!storage?.getItem || !storage?.setItem) throw new Error("Local storage is unavailable.");
   if (typeof passphrase !== "string" || passphrase.length < 8) throw new Error("Use a passphrase of at least 8 characters.");
   const raw = storage.getItem(AI_VAULT_STORAGE_KEY);
   if (!raw) throw new Error("Save an API key before protecting it.");
   const saved = JSON.parse(raw);
-  let secret = saved.apiKey || "";
-  if (saved.keyEnvelope) secret = await decryptEnvelope(saved.keyEnvelope, passphrase);
-  if (replacementKey !== null) secret = String(replacementKey).trim();
-  if (!secret) throw new Error("Save an API key before protecting it.");
-  const salt = crypto.getRandomValues(new Uint8Array(16));
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const key = await deriveWrapKey(passphrase, salt, WRAP_ITERATIONS);
-  const ciphertext = await crypto.subtle.encrypt({name:"AES-GCM",iv,additionalData:WRAP_AAD}, key, new TextEncoder().encode(secret));
-  const envelope = {version:1,algorithm:"AES-GCM",kdf:"PBKDF2-SHA256",iterations:WRAP_ITERATIONS,
-    salt:toBase64(salt),iv:toBase64(iv),ciphertext:toBase64(ciphertext)};
-  if (storage.getItem(AI_VAULT_STORAGE_KEY) !== raw) throw new Error("Vault changed in another tab. Please try again.");
-  storage.setItem(AI_VAULT_STORAGE_KEY, JSON.stringify({...saved, apiKey:"", keyEnvelope:envelope}));
-  unlockedKeys.set(storage, {ciphertext:envelope.ciphertext, secret});
-  vaultChanged(storage);
+  const old = saved.keyEnvelope ? unpackKeys(await decryptEnvelope(saved.keyEnvelope, passphrase), saved) : readAiVault(storage).vaultKeys;
+  const keys = old.map(k => ({...k}));
+  if (replacementKey !== null) {
+    const selected = selectedKey(keys, saved.provider || "gemini", saved.keySelection);
+    if (selected) selected.secret = String(replacementKey).trim();
+    else keys.push({id:crypto.randomUUID(),provider:saved.provider || "gemini",label:"Key 1",secret:String(replacementKey).trim()});
+  }
+  if (!keys.length || keys.some(k => !k.secret)) throw new Error("Save an API key before protecting it.");
+  await storeProtectedKeys(keys, passphrase, storage, raw, saved);
 }
+function selectedKey(keys, provider, selection = {}) {
+  const options = keys.filter(k => k.provider === provider);
+  return options.find(k => k.id === selection?.[provider]) || options[0] || null;
+}
+/** Add or remove keys; modifying an encrypted ring requires its passphrase. */
+export async function updateAiKeys({add, removeId, passphrase = ""}, storage = globalThis.localStorage) {
+  if (!storage?.getItem || !storage?.setItem) throw new Error("Local storage is unavailable.");
+  const raw = storage.getItem(AI_VAULT_STORAGE_KEY);
+  const saved = raw ? JSON.parse(raw) : {...DEFAULT_VAULT};
+  let keys = saved.keyEnvelope ? unpackKeys(await decryptEnvelope(saved.keyEnvelope, passphrase), saved) : readAiVault(storage).vaultKeys;
+  keys = keys.map(k => ({...k}));
+  if (add) {
+    validateAiProvider(add.provider);
+    const secret = String(add.secret || "").trim();
+    if (!secret) throw new Error("Paste an API key first.");
+    if (keys.some(k => k.provider === add.provider && k.secret === secret)) throw new Error("This key is already saved for this provider.");
+    if (keys.length >= 20) throw new Error("Maximum 20 saved keys.");
+    const used = new Set(keys.filter(k => k.provider === add.provider).map(k => k.label));
+    let n = 1; while (used.has(`Key ${n}`)) n++;
+    keys.push({id:crypto.randomUUID(),provider:add.provider,label:`Key ${n}`,secret});
+  }
+  if (removeId) {
+    keys = keys.filter(k => k.id !== removeId);
+    const selections = {...(saved.keySelection || {})}, modes = {...(saved.keyModes || {})};
+    for (const [provider, id] of Object.entries(selections)) {
+      if (id === removeId) { delete selections[provider]; modes[provider] = "auto"; }
+    }
+    saved.keySelection = selections;
+    saved.keyModes = modes;
+  }
+  if (saved.keyEnvelope) await storeProtectedKeys(keys, passphrase, storage, raw, saved);
+  else {
+    if (storage.getItem(AI_VAULT_STORAGE_KEY) !== raw) throw new Error("Vault changed in another tab. Please try again.");
+    storage.setItem(AI_VAULT_STORAGE_KEY, JSON.stringify({...saved,apiKey:"",vaultKeys:keys}));
+    vaultChanged(storage);
+  }
+}
+export function selectAiKey(provider, choice, storage = globalThis.localStorage) {
+  validateAiProvider(provider);
+  const current = readAiVault(storage);
+  const keys = current.vaultKeys.filter(k => k.provider === provider);
+  if (choice !== "auto" && !keys.some(k => k.id === choice)) throw new Error("Select a saved key.");
+  writeAiVault({keyModes:{...(current.keyModes || {}),[provider]:choice === "auto" ? "auto" : "manual"},
+    keySelection:{...(current.keySelection || {}),...(choice === "auto" ? {} : {[provider]:choice})}}, storage);
+}
+
 /** Unlock for this tab only; a reload requires the passphrase again. */
 export async function unlockAiKey(passphrase, storage = globalThis.localStorage) {
   const raw = storage?.getItem(AI_VAULT_STORAGE_KEY);
@@ -206,11 +272,11 @@ export function lockAiKey(storage = globalThis.localStorage) {
 /** Read isolated AI vault from `localStorage` (safe in Node tests where localStorage may be absent). */
 export function readAiVault(storage = globalThis.localStorage) {
   if (!storage || typeof storage.getItem !== "function") {
-    return { ...DEFAULT_VAULT };
+    return { ...DEFAULT_VAULT, vaultKeys: [] };
   }
   try {
     const raw = storage.getItem(AI_VAULT_STORAGE_KEY);
-    if (!raw) return { ...DEFAULT_VAULT };
+    if (!raw) return { ...DEFAULT_VAULT, vaultKeys: [] };
     const parsed = JSON.parse(raw);
     const provider =
       parsed.provider === undefined || parsed.provider === null || parsed.provider === ""
@@ -227,12 +293,17 @@ export function readAiVault(storage = globalThis.localStorage) {
       ? customModel.trim() || legacyDefaultModel
       : (typeof parsed.model === "string" ? parsed.model.trim() : "") || legacyDefaultModel;
     const session = unlockedKeys.get(storage);
-    const apiKey = parsed.keyEnvelope ? (session?.ciphertext === parsed.keyEnvelope.ciphertext ? session.secret : "") : (parsed.apiKey || "");
+    const unlocked = parsed.keyEnvelope && session?.ciphertext === parsed.keyEnvelope.ciphertext;
+    const vaultKeys = parsed.keyEnvelope
+      ? (unlocked ? unpackKeys(session.secret, parsed) : (parsed.keyMetadata || []).map(k => ({...k, secret:""})))
+      : (Array.isArray(parsed.vaultKeys) ? parsed.vaultKeys : (parsed.apiKey ? [{id:"legacy",provider, label:"Key 1",secret:parsed.apiKey}] : []));
+    const apiKey = selectedKey(vaultKeys, provider, parsed.keySelection)?.secret || "";
     return {
       ...DEFAULT_VAULT,
       ...parsed,
       apiKey,
-      keyLocked: Boolean(parsed.keyEnvelope && !apiKey),
+      vaultKeys,
+      keyLocked: Boolean(parsed.keyEnvelope && !unlocked),
       provider,
       defaultsVersion: Object.hasOwn(parsed, "defaultsVersion") ? parsed.defaultsVersion : 1,
       useCustomModel,
@@ -242,26 +313,35 @@ export function readAiVault(storage = globalThis.localStorage) {
       ...normalizeGenerationSettings(parsed),
     };
   } catch {
-    return { ...DEFAULT_VAULT };
+    return { ...DEFAULT_VAULT, vaultKeys: [] };
   }
 }
 
 /** Save isolated AI vault patch to `localStorage`. */
 export function writeAiVault(patch, storage = globalThis.localStorage) {
   const previous = readAiVault(storage);
-  if (Object.hasOwn(patch, "keyEnvelope")) throw new Error("Use the encrypted-key controls to change protection.");
-  const merged = { ...previous, ...patch };
+  if (Object.hasOwn(patch, "keyEnvelope") || Object.hasOwn(patch, "vaultKeys")) throw new Error("Use the encrypted-key controls to change protection.");
   if (previous.keyEnvelope && Object.hasOwn(patch, "apiKey") && patch.apiKey !== previous.apiKey) throw new Error("Unlock and use the passphrase to replace a protected key.");
-  const sessionKey = merged.apiKey;
+  const merged = { ...previous, ...patch };
+  let keys = previous.vaultKeys.map(k => ({...k}));
+  if (!previous.keyEnvelope && Object.hasOwn(patch, "apiKey")) {
+    const key = selectedKey(keys, merged.provider, merged.keySelection);
+    if (key) key.secret = patch.apiKey;
+    else if (patch.apiKey) keys.push({id:keys.some(k => k.id === "legacy") ? `legacy-${merged.provider}` : "legacy",provider:merged.provider,label:"Key 1",secret:patch.apiKey});
+    keys = keys.filter(k => k.secret);
+  }
   delete merged.keyLocked;
-  if (merged.keyEnvelope) merged.apiKey = "";
+  merged.apiKey = "";
+  if (previous.keyEnvelope && !previous.keyMetadata && !previous.keyLegacyProvider) merged.keyLegacyProvider = previous.provider;
+  merged.vaultKeys = previous.keyEnvelope ? [] : keys;
   merged.model = resolveEffectiveModel(merged);
   Object.assign(merged, normalizeGenerationSettings(merged));
   if (storage && typeof storage.setItem === "function") {
     storage.setItem(AI_VAULT_STORAGE_KEY, JSON.stringify(merged));
     vaultChanged(storage);
+    return readAiVault(storage);
   }
-  return { ...merged, apiKey: merged.keyEnvelope ? sessionKey : merged.apiKey };
+  return {...merged, vaultKeys:keys, apiKey:selectedKey(keys, merged.provider, merged.keySelection)?.secret || ""};
 }
 
 /** Wipe API key and reset isolated AI vault. */
@@ -271,7 +351,7 @@ export function clearAiVault(storage = globalThis.localStorage) {
     unlockedKeys.delete(storage);
     vaultChanged(storage);
   }
-  return { ...DEFAULT_VAULT };
+  return { ...DEFAULT_VAULT, vaultKeys: [] };
 }
 
 /** Mask an API key for UI display (e.g. `AIza••••••7xQ`). */
@@ -525,6 +605,18 @@ async function readEventStream(response, isGemini, onChunk) {
     // complete answer: expose Continue instead of silently claiming success.
     return {text, usage, truncated: finish === "MAX_TOKENS" || finish === "length" || (!finish && !doneMarker)};
   } finally { reader.releaseLock(); }
+}
+
+/** Change only the credential, retaining the byte-exact previewed body. */
+export function withAiRequestKey(request, secret) {
+  validateAiProvider(request.provider);
+  if (request.provider === "gemini") {
+    const endpoint = new URL(request.endpoint);
+    if (endpoint.origin !== "https://generativelanguage.googleapis.com") throw new Error("Unsupported provider endpoint.");
+    endpoint.searchParams.set("key", secret);
+    return {...request, endpoint:endpoint.toString()};
+  }
+  return {...request, headers:{...request.headers, Authorization:`Bearer ${secret}`}};
 }
 
 // Only the explicitly started loopback server marks its document. Hosted

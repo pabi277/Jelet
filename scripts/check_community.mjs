@@ -194,11 +194,12 @@ try {
     assert.equal(await tutor.$eval('#aiChatThread', n => n.getAttribute('aria-live')), 'polite');
     assert.equal(await tutor.$$eval('.ai-suggestions', nodes => nodes.length), 1, 'exactly one suggestions control');
     assert.ok(await tutor.$eval('#aiComposerInput', n => n.getBoundingClientRect().height >= 48));
-    assert.ok(await tutor.$eval('#aiChatThread .ai-msg__bubble', n => parseFloat(getComputedStyle(n).fontSize) >= 15));
     await tutor.type('#aiComposerInput', 'Keep this draft');
     await tutor.evaluate(() => { window.originalShell = document.querySelector('.ai-tutor-wrap'); window.originalThread = document.querySelector('#aiChatThread'); window.originalComposer = document.querySelector('#aiComposerInput'); });
+    await tutor.click('#aiSuggestionsToggle');
     await tutor.click('.ai-preset-chip');
     await tutor.waitForSelector('.ai-msg--typing', {timeout:10000});
+    assert.ok(await tutor.$eval('#aiChatThread .ai-msg__bubble', n => parseFloat(getComputedStyle(n).fontSize) >= 15));
     assert.equal(await tutor.$eval('#aiComposerInput', n => n.value), 'Keep this draft');
     assert.equal(await tutor.evaluate(() => window.originalShell === document.querySelector('.ai-tutor-wrap') && window.originalThread === document.querySelector('#aiChatThread') && window.originalComposer === document.querySelector('#aiComposerInput')), true, 'shell, thread and composer remain mounted when generation starts');
     assert.equal(await tutor.$eval('.ai-suggestions', n => n.hidden), true);
@@ -396,6 +397,10 @@ try {
     await settings.$eval('#aiPreviewToggleBtn', n => n.click());
     assert.match(await settings.$eval('.ai-prompt-preview summary', n => n.textContent), /gemini-3.1-flash-lite/);
     await settings.select('#aiProviderSelect','nvidia');
+    assert.match(await settings.$eval('#aiSheetModeBadge', n => n.textContent), /Offline/);
+    await settings.$eval('#aiKeyInput', n => { n.value='nvidia-fixture-key'; });
+    await settings.$eval('#saveAiKeyBtn', n => n.click());
+    await settings.waitForFunction(() => document.querySelector('#aiSheetModeBadge')?.textContent.includes('NVIDIA'));
     assert.match(await settings.$eval('#aiSheetModeBadge', n => n.textContent), /NVIDIA/);
     assert.match(await settings.$eval('.ai-prompt-preview summary', n => n.textContent), /nemotron/);
     assert.equal(await settings.$eval('#aiComposerInput', n => n.value),'Unsent draft survives');
@@ -535,6 +540,52 @@ try {
     assert.equal(state.ledger.gemini.requests,1);
     checks++;
     await ctx.close();
+  }
+  // Multiple keys: UI setup, same-provider failover, exact preview and manual mode.
+  {
+    const ctx = await browser.createBrowserContext(), p = await ctx.newPage();
+    p.on('pageerror', e => errors.push(e.message));
+    await p.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
+    await p.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}]);
+    await p.goto(base+'#/you',{waitUntil:'networkidle0'});
+    await p.select('#aiProviderSelect','nvidia');
+    await p.type('#aiKeyInput','bad-fixture-key'); await p.click('#saveAiKeyBtn');
+    await p.waitForFunction(()=>document.querySelectorAll('[data-remove-ai-key]').length===1);
+    await p.type('#aiKeyInput','good-fixture-key'); await p.click('#saveAiKeyBtn');
+    await p.waitForFunction(()=>document.querySelectorAll('[data-remove-ai-key]').length===2);
+    assert.equal(await p.$eval('#aiKeyChoice',n=>n.value),'auto');
+    await p.evaluate(async()=>{
+      const ai=await import('./assets/js/core/ai-vault.js'); ai.writeAiVault({acceptedWelcomeVersion:1,previewPrompt:true});
+      const original=window.fetch; window.multiSends=[];
+      window.fetch=(url, options)=>{
+        if(String(url).startsWith('https://integrate.api.nvidia.com/')) {
+          window.multiSends.push({auth:options.headers.Authorization, body:options.body, preview:document.querySelector('#promptJsonPre')?.textContent});
+          if(options.headers.Authorization.endsWith('bad-fixture-key')) return Promise.resolve(new Response('{}',{status:401,headers:{'Content-Type':'application/json'}}));
+          return Promise.resolve(new Response(JSON.stringify({choices:[{message:{content:'Multi-key fixture answer'},finish_reason:'stop'}]}),{status:200,headers:{'Content-Type':'application/json'}}));
+        }
+        return original(url,options);
+      };
+      (await import('./assets/js/app.js')).openAiTutorContext({origin:'Multi key fixture'});
+    });
+    await p.waitForSelector('#aiChatKeyChoice');
+    assert.equal(await p.$eval('#aiChatKeyChoice',n=>n.options.length),3);
+    await p.type('#aiComposerInput','Explain the circuit'); await p.$eval('#aiComposerForm',n=>n.requestSubmit());
+    await p.waitForFunction(()=>document.querySelector('#aiChatThread')?.textContent.includes('Multi-key fixture answer'),{timeout:12000});
+    const sends=await p.evaluate(()=>window.multiSends);
+    assert.deepEqual(sends.map(x=>x.auth),['Bearer bad-fixture-key','Bearer good-fixture-key']);
+    assert.ok(sends.every(x=>x.body===x.preview && !x.body.includes('fixture-key')));
+    const vault=await p.evaluate(async()=> (await import('./assets/js/core/ai-vault.js')).readAiVault());
+    assert.equal(vault.apiKey,'good-fixture-key');
+    const first=vault.vaultKeys.find(k=>k.secret==='bad-fixture-key');
+    await p.select('#aiChatKeyChoice',first.id);
+    assert.equal(await p.evaluate(async()=> (await import('./assets/js/core/ai-vault.js')).readAiVault().keyModes.nvidia),'manual');
+    await p.evaluate(async()=>{const db=await import('./assets/js/db/indexeddb.js'); const rec=await db.get('meta','aiGovernor');rec.providers.nvidia.sends=[]; await db.put('meta',rec);});
+    await p.type('#aiComposerInput','Manual key'); await p.$eval('#aiComposerForm',n=>n.requestSubmit());
+    await p.waitForFunction(()=>document.querySelector('#aiRequestState')?.textContent.includes('invalid or expired'),{timeout:12000});
+    assert.equal(await p.evaluate(()=>window.multiSends.length),3);
+    const database=await p.evaluate(async()=>JSON.stringify(await (await import('./assets/js/db/indexeddb.js')).collectStores()));
+    assert.ok(!database.includes('bad-fixture-key') && !database.includes('good-fixture-key'));
+    checks += 3; await ctx.close();
   }
   // NVIDIA browser network failures must not claim the key is invalid.
   {

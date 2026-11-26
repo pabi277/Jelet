@@ -25,8 +25,10 @@ import {
   WELCOME_VERSION,
   readAiVault,
   writeAiVault,
+  selectAiKey,
   buildGroundTruthSystemPrompt,
   buildAiRequestPayload,
+  withAiRequestKey,
 } from "../core/ai-vault.js";
 import { $, el, icon, showToast } from "../core/ui.js";
 import { sendGovernedAiRequest, loadGovernor } from "../core/ai-governor-runtime.js";
@@ -348,7 +350,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
   let thinking = false; // show the "thinking" bubble while a reply is being produced
   let streaming = null; // partial live text for the current exchange
   let typing = null; // in-progress typewriter reveal { text, source, tokens, idx, wordsPerTick, timer }
-  let suggestionsOpen = true; // preset-chip row visibility (collapsible to save phone space)
+  let suggestionsOpen = false; // compact by default; expand when needed
 
   /**
    * Persist the current conversation into the device-local aiHistory record.
@@ -381,7 +383,8 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       const left = Math.ceil(requestState.remainingMs / 1000);
       message = kind === "pacing" ? `Free-tier pacing — next ask in ${seconds}s · Offline Corpus at ${left}s`
         : `Retrying in ${seconds}s · falls back to Offline Corpus at ${left}s`;
-    } else if (kind === "daily-warn") message = `Approximately ${requestState.remaining} free asks left today.`;
+    } else if (kind === "switching-key") message = `Switching to ${requestState.label} after a key or quota error…`;
+    else if (kind === "daily-warn") message = `Approximately ${requestState.remaining} free asks left today.`;
     else if (kind === "daily-quota") message = "Free daily quota used up — resets at midnight · Offline Corpus answers today.";
     else if (kind === "auth") message = requestState.provider === "nvidia"
       ? "Key looks invalid or expired — NVIDIA free nvapi keys expire after 6 months; renew at build.nvidia.com."
@@ -610,6 +613,8 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       button.textContent = activeAbortController?.signal.aborted ? "Stopping…" : activeAbortController ? "Stop" : "Send";
       button.disabled = Boolean(activeAbortController?.signal.aborted);
     }
+    const keyChoice = $("#aiChatKeyChoice", body);
+    if (keyChoice) keyChoice.disabled = Boolean(thinking || typing || activeAbortController);
     const suggestions = $(".ai-suggestions", body);
     if (suggestions) suggestions.hidden = Boolean(thinking || typing || activeAbortController);
     const row = $("#aiChipsRow", body);
@@ -951,10 +956,10 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     if (input) input.value = "";
     pendingWelcomeAction = null;
     historyOpen = false;
-    suggestionsOpen = true;
+    suggestionsOpen = false;
     const thread = $("#aiChatThread", body);
     if (thread) {
-      thread.innerHTML = `<div class="ai-msg ai-msg--assistant" id="aiThreadWelcome"><div class="ai-msg__meta">${icon("icon-spark")} Grounded in Official WBJEEB Corpus</div><div class="ai-msg__bubble">Tap any chip below or type a question.</div></div>`;
+      thread.innerHTML = `<div class="ai-empty" id="aiThreadWelcome"><strong>What would you<br>like to learn?</strong><p>Grounded in verified JELET material</p></div>`;
     }
     renderRequestState();
     renderWelcome();
@@ -1026,6 +1031,13 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     if (modeBadge) {
       modeBadge.className = "ai-header-status";
       modeBadge.textContent = vault.keyLocked ? "Key locked · Offline" : byok ? `${provider.label} · BYOK` : "Corpus Tutor · Offline";
+    }
+    const keyChoice = $("#aiChatKeyChoice", body);
+    if (keyChoice) {
+      keyChoice.setAttribute("aria-label", `Choose API key for ${provider.label}`);
+      const keys = vault.vaultKeys.filter(k => k.provider === vault.provider);
+      keyChoice.innerHTML = `<option value="auto">Auto · ${escapeHtml(keys.find(k => k.id === vault.keySelection?.[vault.provider])?.label || keys[0]?.label || provider.label)}</option>` + keys.map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)} · ${escapeHtml(provider.label)}</option>`).join("");
+      keyChoice.value = vault.keyModes?.[vault.provider] === "manual" && keys.some(k => k.id === vault.keySelection?.[vault.provider]) ? vault.keySelection[vault.provider] : "auto";
     }
     const hint = $("#aiTokenHint", body);
     if (hint && !byok) hint.textContent = "0 tokens · offline corpus";
@@ -1119,8 +1131,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     }
 
     // Auto-seed only for genuinely new threads; restore never duplicates it.
-    const willSeed = !restored && ((activeContext.mode === "formula" && activeContext.formula) || Boolean(activeContext.question));
-    suggestionsOpen = !willSeed && chatHistory.length === 0;
+    suggestionsOpen = false;
     openOverlay(sheet);
     if (sheet.dataset.pinned === "true" && matchMedia("(min-width: 1024px)").matches) document.getElementById("sheetOverlay")?.classList.remove("is-open");
     startKeyboardFit();
@@ -1253,14 +1264,16 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
 
         <!-- Composer Row -->
         <form class="ai-composer" id="aiComposerForm">
-          <input type="text" class="input-field" id="aiComposerInput" placeholder="${
-            byokActive
-              ? "Ask a follow-up doubt…"
-              : "Ask a JELET doubt…"
-          }" autocomplete="off" />
-          <button type="submit" class="btn btn--primary btn--sm" id="aiSendBtn">
-            ${activeAbortController ? "Stop" : "Send"}
-          </button>
+          <input type="text" class="input-field" id="aiComposerInput" placeholder="${chatHistory.length ? "Ask a follow-up…" : "Ask a JELET doubt…"}" autocomplete="off" />
+          <div class="ai-composer__toolbar">
+            <label class="ai-composer__key"><span class="ai-visually-hidden">Choose API key</span>
+              <select id="aiChatKeyChoice" aria-label="Choose API key for ${escapeHtml(pInfo.label)}">
+                <option value="auto">Auto · ${escapeHtml(vault.vaultKeys.filter(k => k.provider === vault.provider).find(k => k.id === vault.keySelection?.[vault.provider])?.label || vault.vaultKeys.find(k => k.provider === vault.provider)?.label || pInfo.label)}</option>
+                ${vault.vaultKeys.filter(k => k.provider === vault.provider).map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)} · ${escapeHtml(pInfo.label)}</option>`).join("")}
+              </select>
+            </label>
+            <button type="submit" class="btn btn--primary btn--sm" id="aiSendBtn">${activeAbortController ? "Stop" : "Send"}</button>
+          </div>
         </form>
         <div class="card__meta" id="aiTokenHint">${byokActive ? `~${estimateTokens(sysPrompt) + chatHistory.reduce((n, m) => n + estimateTokens(m.text), 0) + estimateTokens(visibleDraft)} tokens this ask${pacingLeft === null ? "" : ` · ${pacingLeft} left before pacing`}` : "0 tokens · offline corpus"}</div>`;
 
@@ -1277,7 +1290,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     const wrap = el(`
       <div class="ai-tutor-wrap">
         <!-- Scoped Context Card -->
-        <div class="ai-context-card">
+        <div class="ai-context-card" ${q || u || f || activeContext.origin ? "" : "hidden"}>
           <div class="row-between" style="gap:var(--space-xs)">
             <strong class="ai-context-card__title">${escapeHtml(contextTitle)}</strong>
 
@@ -1310,17 +1323,11 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     const thread = $("#aiChatThread", wrap);
     if (!chatHistory.length) {
       thread.innerHTML = `
-        <div class="ai-msg ai-msg--assistant" id="aiThreadWelcome">
-          <div class="ai-msg__meta">${icon("icon-spark")} Grounded in Official WBJEEB Corpus</div>
-          <div class="ai-msg__bubble">
-            Tap any chip below or type a question. ${
-              byokActive
-                ? `Your personal <strong>${escapeHtml(pInfo.label)}</strong> key is active with immutable answer-key grounding.`
-                : `Running in <strong>100% Offline Corpus Mode</strong> using SymPy-verified solutions (or add a free Gemini/Groq key in <a href="#/you" id="jumpToYouVaultLink">You &amp; AI</a>).`
-            }
-          </div>
-        </div>
-      `;
+        <div class="ai-empty" id="aiThreadWelcome">
+          <strong>What would you<br>like to learn?</strong>
+          <p>${byokActive ? `${escapeHtml(pInfo.label)} · grounded in verified JELET material` : 'Offline Corpus · verified JELET material'}</p>
+          ${byokActive ? '' : '<a href="#/you" id="jumpToYouVaultLink">Set up an AI key in You &amp; AI</a>'}
+        </div>`;
       $("#jumpToYouVaultLink", thread)?.addEventListener("click", () => {
         closeTutor();
       });
@@ -1364,6 +1371,14 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     const inputEl = $("#aiComposerInput", wrap);
     inputEl?.addEventListener("input", () => {
       composerDraft = inputEl.value;
+      updatePreview();
+    });
+
+    const chatKeyChoice = $("#aiChatKeyChoice", wrap);
+    const providerKeys = vault.vaultKeys.filter(k => k.provider === vault.provider);
+    chatKeyChoice.value = vault.keyModes?.[vault.provider] === "manual" && providerKeys.some(k => k.id === vault.keySelection?.[vault.provider]) ? vault.keySelection[vault.provider] : "auto";
+    chatKeyChoice.addEventListener("change", () => {
+      selectAiKey(readAiVault().provider, chatKeyChoice.value);
       updatePreview();
     });
 
@@ -1453,12 +1468,25 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     if (thisExchange !== exchangeId) return;
 
     try {
-      const req = buildAiRequestPayload({ vault, systemPrompt: sysPrompt, history: priorTurns, userMessage: userText, stream: true });
+      const candidates = vault.vaultKeys.filter(k => k.provider === vault.provider && k.secret);
+      let activeKey = candidates.find(k => k.secret === vault.apiKey) || candidates[0];
+      const firstKeyId = activeKey?.id;
+      const triedKeys = new Set(activeKey ? [activeKey.id] : []);
+      const makeInitial = () => buildAiRequestPayload({ vault:{...vault,apiKey:activeKey?.secret || vault.apiKey}, systemPrompt: sysPrompt, history: priorTurns, userMessage: userText, stream: true });
+      const req = makeInitial();
       const result = await sendGovernedAiRequest({
         request: req,
         signal: controller.signal,
+        onKeyFailure: (failedRequest) => {
+          if (vault.keyModes?.[vault.provider] === "manual") return null;
+          const next = candidates.find(k => !triedKeys.has(k.id));
+          if (!next) return null;
+          activeKey = next;
+          triedKeys.add(next.id);
+          return {request:withAiRequestKey(failedRequest, next.secret), label:next.label};
+        },
         buildContinuation: (partial) => buildAiRequestPayload({
-          vault, systemPrompt: sysPrompt,
+          vault:{...vault,apiKey:activeKey?.secret || vault.apiKey}, systemPrompt: sysPrompt,
           history: [...priorTurns, { role: "user", text: userText }, { role: "assistant", text: partial }],
           userMessage: "Continue exactly where you stopped, without repeating the previous text.",
           stream: true,
@@ -1481,6 +1509,12 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
         },
       });
       if (thisExchange !== exchangeId) return;
+      if (activeKey && activeKey.id !== firstKeyId) {
+        const current = readAiVault();
+        if (current.provider === vault.provider && current.keyModes?.[vault.provider] !== "manual" && current.vaultKeys.some(k => k.id === activeKey.id)) {
+          writeAiVault({keySelection:{...(current.keySelection || {}), [vault.provider]:activeKey.id}});
+        }
+      }
       activeAbortController = null;
       if (requestState?.kind !== "daily-warn") requestState = null;
       if (streaming) {

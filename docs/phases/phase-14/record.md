@@ -112,3 +112,20 @@ local vault isolation and offline fallback remain in force. No PR or merge.
   audit 58 pass with zero console errors. A real Chromium browser exercised
   loopback relay streaming against a **mocked** NVIDIA upstream. No real NVIDIA
   key or live NVIDIA inference was tested.
+
+### Follow-up: multiple keys and compact chat (2026-11-26)
+
+- Added per-provider key collections with Auto/manual selection in You & AI and
+  the chat composer. Auto switches within the same provider and model only on
+  authentication, quota or rate-limit failures, before partial output, subject
+  to the existing two-retry/70-second budget and provider-wide governor. It
+  remembers the last successful key; manual mode never auto-switches.
+- Migrates legacy single-key vaults, including old encrypted envelopes; optional
+  passphrase encryption covers the entire key ring. Protected additions/removals
+  require the passphrase. No keys are stored in IndexedDB, backups or sync.
+- Refined the empty conversation and composer using the supplied mobile reference;
+  suggestions start collapsed. Test Connection uses only the selected starting key.
+- Verification: 172 Node tests, 4 local-relay tests, token/link, corpus and SymPy
+  checks passed; responsive audit 43/43 and community audit 61 checks passed.
+  Browser fixtures tested auto/manual selection, credential switching and exact
+  preview bodies against a mocked provider, not real NVIDIA credentials.

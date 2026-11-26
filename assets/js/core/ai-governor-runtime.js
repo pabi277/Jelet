@@ -127,7 +127,7 @@ function sleep(ms, signal) {
  * otherwise successful initial response. No secrets or prompts enter the ledger.
  * Injected dependencies make timing and fetch-count assertions deterministic.
  */
-export async function sendGovernedAiRequest({ request, buildContinuation, signal, onState = () => {}, onRequest = () => {}, onChunk = () => {},
+export async function sendGovernedAiRequest({ request, buildContinuation, signal, onState = () => {}, onRequest = () => {}, onChunk = () => {}, onKeyFailure = () => null,
   reserve = reserveGovernorSend, saveUsage = storeGovernorUsage, saveError = storeGovernorError,
   send = sendBuiltAiRequest, now = Date.now, wait = sleep, random = Math.random } = {}) {
   let req = request, recoveryStart = null, attempts = 0, combined = '', usage = null, latency = 0;
@@ -191,6 +191,20 @@ export async function sendGovernedAiRequest({ request, buildContinuation, signal
       if (remaining() <= 0) throw new GovernorError('window-expired', 'Recovery window expired.', { partialText: combined });
       const classification = error?.classification || { kind: 'network', retryAfterMs: null };
       try { await saveError(req.provider, classification.kind, now()); } catch { /* best effort */ }
+      // Switch only for explicit credential/quota failures, never after partial
+      // output, and count every switch against the existing retry budget.
+      if (['auth', 'daily-quota', 'per-minute'].includes(classification.kind) && attempts < 2) {
+        begin();
+        if (classification.retryAfterMs == null || classification.retryAfterMs < remaining()) {
+          const alternative = onKeyFailure(req, classification);
+          if (alternative?.request && alternative.request.provider === req.provider && alternative.request.bodyString === req.bodyString) {
+            attempts++;
+            req = alternative.request;
+            onState({kind:'switching-key', label:alternative.label || 'another key'});
+            continue;
+          }
+        }
+      }
       const delay = nextRetryMs(attempts++, classification, null, random, now());
       if (delay === null) throw new GovernorError(classification.kind, error?.message || 'Provider unavailable.', { partialText: combined });
       await waitFor(delay, 'retry');

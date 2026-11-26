@@ -34,6 +34,8 @@ import {
   protectAiKey,
   unlockAiKey,
   lockAiKey,
+  updateAiKeys,
+  selectAiKey,
   maskApiKey,
   resolveEffectiveModel,
   testAiConnection,
@@ -274,19 +276,25 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
         <p class="card__meta">More output and history can use more of your free token quota. Higher temperature makes answers less predictable.</p>
 
         <label class="form-field">
-          <span class="form-label">Personal API Key (stored only on this device)</span>
+          <span class="form-label">Active key for this provider</span>
+          <select class="input-select" id="aiKeyChoice" aria-label="Active AI key"></select>
+        </label>
+        <div id="aiSavedKeys" class="stack-xs"></div>
+        <p class="card__meta">Auto tries another saved key for this provider after a quota, rate-limit or rejected-key error. Provider-wide app pacing and daily limits still apply. Different keys can have different costs or shared account quotas.</p>
+        <label class="form-field">
+          <span class="form-label">Add API key for selected provider (stored only on this device)</span>
           <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
         </label>
 
         <div class="cluster-xs">
-          <button type="button" class="btn btn--primary btn--sm" id="saveAiKeyBtn">Save Key</button>
+          <button type="button" class="btn btn--primary btn--sm" id="saveAiKeyBtn">Add Key</button>
           <button type="button" class="btn btn--ghost btn--sm" id="testAiConnBtn">Test Connection</button>
-          <button type="button" class="btn btn--ghost btn--sm" id="clearAiKeyBtn">Clear Key</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="clearAiKeyBtn">Clear All Keys</button>
         </div>
         <div id="aiConnDiagnostic" class="card__meta" role="status"></div>
         <div class="worked-example stack-xs">
           <strong>Protect your API key with a passphrase</strong>
-          <p class="card__meta">Saved keys are unencrypted until you choose Protect key. Optional AES-GCM protection unlocks only in this tab until it is locked or reloaded. Do not forget your passphrase: it cannot be recovered. This does not protect against malicious code while the vault is unlocked.</p>
+          <p class="card__meta">All saved keys are unencrypted until you choose Protect key. To add or remove keys in a protected vault, enter the passphrase below first. Optional AES-GCM protection unlocks only in this tab until it is locked or reloaded. Do not forget your passphrase: it cannot be recovered. This does not protect against malicious code while the vault is unlocked.</p>
           <label class="form-field"><span class="form-label">Passphrase (at least 8 characters)</span><input type="password" class="input-field" id="aiKeyPassphrase" autocomplete="new-password" /></label>
           <label class="form-field"><span class="form-label">Confirm passphrase when protecting</span><input type="password" class="input-field" id="aiKeyPassphraseConfirm" autocomplete="new-password" /></label>
           <div class="cluster-xs">
@@ -727,6 +735,11 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     $("#aiMaxOutputTokens", root).value = vault.maxOutputTokens;
     $("#aiHistoryTurns", root).value = vault.historyTurns;
     $("#aiDefaultUpgradeNotice", root).hidden = !hasAiDefaultUpgradeNotice();
+    const providerKeys = vault.vaultKeys.filter(k => k.provider === vault.provider);
+    const choice = $("#aiKeyChoice", root);
+    choice.innerHTML = `<option value="auto">Auto switch${providerKeys.length ? ` · ${escapeHtml(providerKeys.find(k => k.id === vault.keySelection?.[vault.provider])?.label || providerKeys[0].label)}` : ""}</option>` + providerKeys.map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)}</option>`).join("");
+    choice.value = vault.keyModes?.[vault.provider] === "manual" && providerKeys.some(k => k.id === vault.keySelection?.[vault.provider]) ? vault.keySelection[vault.provider] : "auto";
+    $("#aiSavedKeys", root).innerHTML = providerKeys.map(k => `<div class="row-between"><span class="card__meta">${escapeHtml(k.label)} · ${vault.keyLocked ? "Locked" : escapeHtml(maskApiKey(k.secret))}</span><button type="button" class="btn btn--ghost btn--sm" data-remove-ai-key="${escapeHtml(k.id)}" aria-label="Remove ${escapeHtml(k.label)}">Remove</button></div>`).join("") || '<span class="card__meta">No keys saved for this provider.</span>';
     const pill = $("#aiVaultStatusPill", root);
     pill.className = hasKey ? "badge badge--correct" : "pill";
     pill.textContent = vault.keyLocked ? "Key locked · Offline" : hasKey ? `${pCfg.label} · Key Saved` : "Offline Corpus Mode";
@@ -811,6 +824,21 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     showToast("AI model preference saved");
   });
 
+  $("#aiKeyChoice", root).addEventListener("change", event => {
+    selectAiKey(readAiVault().provider, event.target.value);
+    syncAiVaultDom();
+  });
+  $("#aiSavedKeys", root).addEventListener("click", async event => {
+    const id = event.target.closest("[data-remove-ai-key]")?.dataset.removeAiKey;
+    if (!id) return;
+    try {
+      await updateAiKeys({removeId:id, passphrase:$("#aiKeyPassphrase", root).value});
+      $("#aiKeyPassphrase", root).value = "";
+      syncAiVaultDom();
+      $("#aiConnDiagnostic", root).textContent = "Key removed.";
+    } catch (error) { $("#aiConnDiagnostic", root).textContent = error.message; }
+  });
+
   $("#saveAiKeyBtn", root).addEventListener("click", async () => {
     const val = $("#aiKeyInput", root).value.trim();
     const p = $("#aiProviderSelect", root).value;
@@ -818,21 +846,16 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
       $("#aiConnDiagnostic", root).textContent = `✗ Unknown provider "${p}". Choose Google Gemini, Groq, OpenRouter, or NVIDIA NIM.`;
       return;
     }
-    const current = readAiVault();
-    if (!val && !current.apiKey && !current.keyEnvelope) {
-      persistModelControls();
-      showToast("Paste an API key first (model preference saved)");
-      return;
-    }
+    if (!val) { showToast("Paste an API key first"); return; }
     persistModelControls();
-    if (val && current.keyEnvelope) {
-      try { await protectAiKey($("#aiKeyPassphrase", root).value, undefined, val); }
-      catch (error) { $("#aiProtectionStatus", root).textContent = error.message; return; }
+    try {
+      await updateAiKeys({add:{provider:p,secret:val}, passphrase:$("#aiKeyPassphrase", root).value});
+      $("#aiKeyInput", root).value = "";
       $("#aiKeyPassphrase", root).value = "";
-    } else if (val) writeAiVault({ apiKey: val });
-    $("#aiKeyInput", root).value = "";
-    syncAiVaultDom();
-    showToast(val ? "API key & model saved in isolated local vault" : "AI model preference saved");
+      syncAiVaultDom();
+      showToast("API key added to isolated local vault");
+    } catch (error) { $("#aiConnDiagnostic", root).textContent = error.message; }
+
   });
 
   $("#protectAiKeyBtn", root).addEventListener("click", async () => {
@@ -869,12 +892,13 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
   });
 
   $("#clearAiKeyBtn", root).addEventListener("click", () => {
+    if (!window.confirm("Remove all saved AI keys and reset AI settings on this device?")) return;
     clearAiVault();
     $("#aiKeyInput", root).value = "";
     $("#aiKeyPassphrase", root).value = "";
     $("#aiKeyPassphraseConfirm", root).value = "";
     $("#aiCustomModelInput", root).value = "";
-    $("#aiConnDiagnostic", root).textContent = "API key cleared. Offline Corpus Tutor remains active.";
+    $("#aiConnDiagnostic", root).textContent = "All API keys cleared. Offline Corpus Tutor remains active.";
     syncAiVaultDom();
     showToast("Isolated AI vault cleared");
   });

@@ -18,7 +18,7 @@
  * works identically on a subpath deploy (e.g. `/Jelet/`) per AGENTS.md §3.5.
  */
 
-const SW_VERSION = "jelet-v3-sw-27";
+const SW_VERSION = "jelet-v3-sw-28";
 const SHELL_CACHE = `jelet-shell-${SW_VERSION}`;
 const RUNTIME_CACHE = `jelet-runtime-${SW_VERSION}`;
 
