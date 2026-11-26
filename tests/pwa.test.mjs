@@ -183,14 +183,24 @@ test("index.html wires the manifest and app.js registers the SW safely", () => {
 
 test("No external CDN requests: KaTeX, fonts, and assets are fully vendored", () => {
   const html = read("index.html");
-  // Every linked stylesheet/script in index.html must be a local relative path.
+  // Every linked stylesheet/script in index.html must be a local relative
+  // path — except self-referential SEO metadata (canonical/OG/Twitter URL),
+  // which must use the deploy origin (never a third-party host).
   const linkRe = /(?:href|src)\s*=\s*"([^"]+)"/g;
   let m;
   while ((m = linkRe.exec(html))) {
+    const value = m[1];
+    const isSelfRefSeo = value.startsWith("https://pabi277.github.io/Jelet/");
     assert.ok(
-      m[1].startsWith("./") || m[1].startsWith("#"),
-      `index.html asset must be relative: ${m[1]}`
+      value.startsWith("./") || value.startsWith("#") || isSelfRefSeo,
+      `index.html asset must be relative (or self-referential SEO): ${value}`
     );
+    if (isSelfRefSeo) {
+      assert.ok(
+        value.startsWith("https://pabi277.github.io/Jelet/"),
+        `SEO URL must point at the deploy origin: ${value}`
+      );
+    }
   }
 
   const css = [read("assets/css/shell.css"), read("assets/css/components.css")].join("\n");

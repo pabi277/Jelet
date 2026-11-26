@@ -3217,3 +3217,146 @@
 .ai-saved-key-row { gap: var(--space-xs); }
 .ai-saved-key-row .card__meta { min-width: 0; overflow-wrap: anywhere; }
 .ai-saved-key-row .btn { flex: 0 0 auto; }
+
+/* ==========================================================================
+   Compact AI settings (You & AI · #youAiSection) — phone-first, tokens only
+   --------------------------------------------------------------------------
+   Essentials stay visible (provider/model/language/preview/keys); advanced
+   generation, passphrase protection and usage counters collapse into nested
+   <details class="ai-advanced"> rows (closed by default) so the card fits
+   above the fold on 360px phones without losing any control or tap target.
+   Distinct from the top-level `.disclose` pattern (Phase 12) on purpose:
+   these are sub-sections inside an always-open card, not page disclosures.
+   ========================================================================== */
+.card--compact {
+  padding: var(--space-s) var(--space-m);
+}
+
+.ai-compact-head {
+  flex-wrap: nowrap;
+  gap: var(--space-xs);
+}
+
+.ai-compact-title {
+  font-size: var(--fs-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-compact-sub {
+  margin: 0;
+}
+
+.ai-masked-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-notice {
+  padding: var(--space-xs) var(--space-s);
+  font-size: var(--fs-caption);
+}
+
+.form-grid-2--compact {
+  gap: var(--space-xs);
+}
+
+.ai-preview-field {
+  justify-content: flex-end;
+}
+
+.ai-preview-row {
+  min-height: var(--tap-min);
+  padding: 0;
+}
+
+.ai-advanced {
+  min-width: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  background: var(--bg-surface-subtle);
+}
+
+.ai-advanced__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: var(--tap-min);
+  padding: var(--space-2xs) var(--space-s);
+  border-radius: var(--radius-m);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease;
+}
+
+.ai-advanced__summary:hover {
+  background: var(--brand-tint);
+}
+
+.ai-advanced__summary::-webkit-details-marker {
+  display: none;
+}
+
+.ai-advanced__summary::marker {
+  content: "";
+}
+
+.ai-advanced__title {
+  flex: 0 0 auto;
+  max-width: 62%;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-advanced__status {
+  flex: 1 1 0%;
+  min-width: 0;
+  text-align: right;
+  font-size: var(--fs-micro);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-advanced__summary::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-right: var(--space-3xs);
+  border-right: 2px solid var(--text-muted);
+  border-bottom: 2px solid var(--text-muted);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+.ai-advanced[open] > .ai-advanced__summary::after {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.ai-advanced__body {
+  padding: 0 var(--space-s) var(--space-s);
+}
+
+.ai-saved-key-row {
+  padding: var(--space-2xs) var(--space-xs);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-s);
+  background: var(--bg-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-advanced__summary,
+  .ai-advanced__summary::after {
+    transition: none;
+  }
+}

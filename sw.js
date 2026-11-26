@@ -7,18 +7,32 @@
  *   - Best-effort precache of the verified `_data/` corpus (manifest, papers,
  *     solutions, 42 units, and every referenced SVG figure) so the full
  *     study brain is available offline after one online install.
- *   - Runtime stale-while-revalidate for same-origin GETs (figures, fonts,
- *     any lazy-loaded corpus file) — first visit caches, later visits are
- *     instant and offline-safe.
+ *   - Runtime network-first for same-origin GETs (shell, corpus, figures,
+ *     fonts): online users ALWAYS get the fresh deploy — never the old
+ *     cache — while offline users transparently fall back to the cached
+ *     shell/corpus. Every successful network response refreshes the cache.
  *   - Navigations are network-first with a cached shell fallback.
+ *   - `version.json` is network-only (never cached) so update checks can
+ *     never see a stale build stamp.
  *   - Cross-origin requests (BYOK AI providers, YouTube facade) and all
  *     non-GET requests pass straight through — never cached, never blocked.
+ *
+ * Update & data-safety contract (see `assets/js/core/update-manager.js`):
+ *   - A new deploy bumps `SW_VERSION` (via `scripts/bump_version.mjs`).
+ *     The new worker precaches fresh assets, purges ALL old caches on
+ *     activate, and claims clients. Open tabs receive `controllerchange`
+ *     and safely reload to the new shell.
+ *   - This worker NEVER touches IndexedDB (`jelet_hub_v1`), localStorage
+ *     (AI vault), or sessionStorage — only Cache Storage. Reloading to a
+ *     new version therefore cannot lose study data.
+ *   - The page tells this worker to activate early via a `SKIP_WAITING`
+ *     message (see the `message` listener below).
  *
  * All cache paths are relative (`./assets/...`, `./_data/...`) so the SW
  * works identically on a subpath deploy (e.g. `/Jelet/`) per AGENTS.md §3.5.
  */
 
-const SW_VERSION = "jelet-v3-sw-30";
+const SW_VERSION = "jelet-v3-sw-31";
 const SHELL_CACHE = `jelet-shell-${SW_VERSION}`;
 const RUNTIME_CACHE = `jelet-runtime-${SW_VERSION}`;
 
@@ -48,6 +62,7 @@ const SHELL_ASSETS = [
   "./assets/js/views/benchmark.js",
   "./assets/js/views/share-result.js",
   "./assets/js/core/ui.js",
+  "./assets/js/core/update-manager.js",
   "./assets/js/core/ai-vault.js",
   "./assets/js/core/ai-governor.js",
   "./assets/js/core/ai-governor-runtime.js",
@@ -168,6 +183,10 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     (async () => {
+      // Purge EVERY old cache (previous SW versions) so no tab can keep
+      // relying on stale shell/corpus after an update. Only the current
+      // version's two caches survive. IndexedDB / localStorage are never
+      // touched here — study data is untouched by design.
       const keep = new Set([SHELL_CACHE, RUNTIME_CACHE]);
       const keys = await caches.keys();
       await Promise.all(
@@ -180,30 +199,38 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-/** Stale-while-revalidate for cacheable same-origin GETs. */
+// The page (update-manager.js) asks a waiting worker to activate early so
+// open tabs move to the new version without waiting for all tabs to close.
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
+/**
+ * Network-first for cacheable same-origin GETs: online = always fresh
+ * (never the old cache), offline = cached shell/corpus fallback. Every
+ * successful network response refreshes the runtime cache for next time.
+ */
 async function handleRuntime(request) {
   const cache = await caches.open(RUNTIME_CACHE);
-  const cached = await cache.match(request);
-
-  const networkFetch = fetch(request)
-    .then((res) => {
-      if (res && res.ok) {
-        cache.put(request, res.clone()).catch(() => {});
-      }
-      return res;
-    })
-    .catch(() => null);
-
-  if (cached) {
-    return cached;
+  try {
+    const res = await fetch(request);
+    if (res && res.ok) {
+      cache.put(request, res.clone()).catch(() => {});
+    }
+    return res;
+  } catch {
+    const cached = await cache.match(request);
+    if (cached) return cached;
+    const shellCached = await caches.match(request, { cacheName: SHELL_CACHE });
+    if (shellCached) return shellCached;
+    return new Response("Offline and not cached.", {
+      status: 504,
+      statusText: "Offline",
+      headers: { "Content-Type": "text/plain" },
+    });
   }
-  const res = await networkFetch;
-  if (res) return res;
-  return new Response("Offline and not cached.", {
-    status: 504,
-    statusText: "Offline",
-    headers: { "Content-Type": "text/plain" },
-  });
 }
 
 self.addEventListener("fetch", (event) => {
@@ -214,12 +241,19 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET" || request.cache === "no-store") return;
 
   let origin = null;
+  let pathname = "";
   try {
-    origin = new URL(request.url).origin;
+    const url = new URL(request.url);
+    origin = url.origin;
+    pathname = url.pathname || "";
   } catch {
     return;
   }
   if (origin !== self.location.origin) return;
+
+  // version.json is network-only: update checks must never see a stale
+  // build stamp from either cache.
+  if (pathname.endsWith("/version.json")) return;
 
   // Navigations: network-first, fall back to the cached app shell.
   if (request.mode === "navigate") {

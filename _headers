@@ -1,0 +1,34 @@
+# JELET Study Hub (v3) — deployment headers (Netlify / Cloudflare Pages)
+# Static PWA: no build step. These headers keep updates fresh (no stale
+# cache) while letting versioned-ish assets cache briefly with revalidation.
+# GitHub Pages ignores this file — see DEPLOY.md for the Pages equivalent
+# (Pages serves index.html/sw.js/version.json with must-revalidate by
+# default; the SW itself is network-first, so updates still apply).
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+  Service-Worker-Allowed: /
+
+/version.json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/manifest.webmanifest
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/assets/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/_data/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/*.png
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Frame-Options: SAMEORIGIN

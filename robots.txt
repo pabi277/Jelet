@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pabi277.github.io/Jelet/sitemap.xml
