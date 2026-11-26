@@ -18,7 +18,7 @@
  * works identically on a subpath deploy (e.g. `/Jelet/`) per AGENTS.md §3.5.
  */
 
-const SW_VERSION = "jelet-v3-sw-21";
+const SW_VERSION = "jelet-v3-sw-30";
 const SHELL_CACHE = `jelet-shell-${SW_VERSION}`;
 const RUNTIME_CACHE = `jelet-runtime-${SW_VERSION}`;
 
@@ -49,6 +49,8 @@ const SHELL_ASSETS = [
   "./assets/js/views/share-result.js",
   "./assets/js/core/ui.js",
   "./assets/js/core/ai-vault.js",
+  "./assets/js/core/ai-governor.js",
+  "./assets/js/core/ai-governor-runtime.js",
   "./assets/js/core/tutor-context.js",
   "./assets/js/db/indexeddb.js",
   "./assets/js/db/backup.js",

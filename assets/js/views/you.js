@@ -24,14 +24,25 @@ import { computeHubSnapshot } from "../core/stats.js";
 import { sparklineSvg } from "../core/charts.js";
 import {
   AI_PROVIDERS,
+  localNvidiaRelayAvailable,
+  CURATED_AI_MODELS,
+  hasAiDefaultUpgradeNotice,
+  normalizeGenerationSettings,
   readAiVault,
   writeAiVault,
   clearAiVault,
+  protectAiKey,
+  unlockAiKey,
+  lockAiKey,
+  updateAiKeys,
+  selectAiKey,
   maskApiKey,
   resolveEffectiveModel,
   testAiConnection,
 } from "../core/ai-vault.js";
-import { getMeta, setMeta } from "../db/indexeddb.js";
+import { getGovernorDashboard } from "../core/ai-governor.js";
+import { loadGovernor } from "../core/ai-governor-runtime.js";
+import { getMeta, setMeta, onSync } from "../db/indexeddb.js";
 import {
   exportBackup,
   downloadBackup,
@@ -213,6 +224,10 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
         </div>
 
         <div class="mono card__meta" id="aiMaskedKeyLine"></div>
+        <div id="aiDefaultUpgradeNotice" class="worked-example" ${hasAiDefaultUpgradeNotice() ? "" : "hidden"}>
+          A new free-tier Gemini default is available (gemini-3.1-flash-lite). Your saved provider, model and preview choice are unchanged.
+          <button type="button" class="btn btn--ghost btn--sm" id="dismissAiDefaultNotice">Dismiss</button>
+        </div>
 
         <div class="form-grid-2">
           <label class="form-field">
@@ -235,22 +250,60 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
           </label>
         </div>
 
+        <p class="card__meta" id="aiModelFreeTierNote"></p>
+        <p class="card__meta" id="aiNvidiaBrowserNote" hidden>NVIDIA may block direct browser requests (CORS), even with a valid key. For an optional local-only Termux relay, see the README. A connection failure does not verify your key.</p>
         <div class="form-field" id="aiCustomModelWrap" ${vault.useCustomModel ? "" : "hidden"}>
           <label class="form-label" for="aiCustomModelInput">Custom Model Name (blank falls back to provider default)</label>
           <input type="text" class="input-field mono" id="aiCustomModelInput" placeholder="e.g. gemini-2.5-pro, llama-3.1-8b-instant, deepseek/deepseek-chat…" value="${escapeHtml(vault.customModel || "")}" autocomplete="off" />
+          <span class="card__meta">Test the connection after saving a custom model.</span>
         </div>
 
         <label class="form-field">
-          <span class="form-label">Personal API Key (stored only on this device)</span>
+          <span class="form-label">Tutor language</span>
+          <select class="input-select" id="aiLanguageSelect">
+            <option value="English" ${vault.preferredLanguage === "English" ? "selected" : ""}>English</option>
+            <option value="Bengali" ${vault.preferredLanguage === "Bengali" ? "selected" : ""}>বাংলা</option>
+            <option value="Hinglish" ${vault.preferredLanguage === "Hinglish" ? "selected" : ""}>Hinglish</option>
+            <option value="Simple English" ${vault.preferredLanguage === "Simple English" ? "selected" : ""}>Simple English</option>
+          </select>
+        </label>
+
+        <div class="form-grid-2">
+          <label class="form-field"><span class="form-label">Temperature (0–1)</span><input class="input-field" id="aiTemperature" type="number" min="0" max="1" step="0.1" value="${vault.temperature}" /></label>
+          <label class="form-field"><span class="form-label">Max output tokens (256–4096)</span><input class="input-field" id="aiMaxOutputTokens" type="number" min="256" max="4096" step="1" value="${vault.maxOutputTokens}" /></label>
+          <label class="form-field"><span class="form-label">History turns (2–8)</span><input class="input-field" id="aiHistoryTurns" type="number" min="2" max="8" step="1" value="${vault.historyTurns}" /></label>
+        </div>
+        <p class="card__meta">More output and history can use more of your free token quota. Higher temperature makes answers less predictable.</p>
+
+        <label class="form-field">
+          <span class="form-label">Active key for this provider</span>
+          <select class="input-select" id="aiKeyChoice" aria-label="Active AI key"></select>
+        </label>
+        <div id="aiSavedKeys" class="stack-xs"></div>
+        <p class="card__meta">The model shown beside Gemini keys is the current provider model, not a model assigned to an individual key. Auto tries another saved key for this provider after a quota, rate-limit or rejected-key error. Provider-wide app pacing and daily limits still apply. Different keys can have different costs or shared account quotas.</p>
+        <label class="form-field">
+          <span class="form-label">Add API key for selected provider (stored only on this device)</span>
           <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
         </label>
 
         <div class="cluster-xs">
-          <button type="button" class="btn btn--primary btn--sm" id="saveAiKeyBtn">Save Key</button>
+          <button type="button" class="btn btn--primary btn--sm" id="saveAiKeyBtn">Add Key</button>
           <button type="button" class="btn btn--ghost btn--sm" id="testAiConnBtn">Test Connection</button>
-          <button type="button" class="btn btn--ghost btn--sm" id="clearAiKeyBtn">Clear Key</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="clearAiKeyBtn">Clear All Keys</button>
         </div>
-        <div id="aiConnDiagnostic" class="card__meta"></div>
+        <div id="aiConnDiagnostic" class="card__meta" role="status"></div>
+        <div class="worked-example stack-xs">
+          <strong>Protect your API key with a passphrase</strong>
+          <p class="card__meta">All saved keys are unencrypted until you choose Protect key. To add or remove keys in a protected vault, enter the passphrase below first. Optional AES-GCM protection unlocks only in this tab until it is locked or reloaded. Do not forget your passphrase: it cannot be recovered. This does not protect against malicious code while the vault is unlocked.</p>
+          <label class="form-field"><span class="form-label">Passphrase (at least 8 characters)</span><input type="password" class="input-field" id="aiKeyPassphrase" autocomplete="new-password" /></label>
+          <label class="form-field"><span class="form-label">Confirm passphrase when protecting</span><input type="password" class="input-field" id="aiKeyPassphraseConfirm" autocomplete="new-password" /></label>
+          <div class="cluster-xs">
+            <button type="button" class="btn btn--ghost btn--sm" id="protectAiKeyBtn">Protect key</button>
+            <button type="button" class="btn btn--ghost btn--sm" id="unlockAiKeyBtn">Unlock key</button>
+            <button type="button" class="btn btn--ghost btn--sm" id="lockAiKeyBtn">Lock key</button>
+          </div>
+          <div class="card__meta" id="aiProtectionStatus" role="status"></div>
+        </div>
 
         <div class="toggle-row">
           <div>
@@ -260,6 +313,11 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
           <button type="button" class="switch-btn" id="aiPreviewToggleBtn" role="switch" aria-checked="${Boolean(vault.previewPrompt)}">
             <span class="switch-btn__thumb"></span>
           </button>
+        </div>
+        <div class="stack-xs" aria-label="Free-tier usage on this device">
+          <strong>Free-tier usage (this device)</strong>
+          <div id="aiUsageDashboard" class="stack-xs" aria-live="polite">Loading local counters…</div>
+          <p class="card__meta">Resets at local midnight. App pacing and daily budgets are conservative estimates, not provider guarantees. Counters stay on this device, are never synced, and contain no question content.</p>
         </div>
       </section>
 
@@ -670,41 +728,89 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     const hasKey = Boolean(vault.apiKey && vault.apiKey.trim());
     const pCfg = AI_PROVIDERS[vault.provider] || AI_PROVIDERS.gemini;
     const effectiveModel = resolveEffectiveModel(vault);
+    $("#aiProviderSelect", root).value = vault.provider;
+    $("#aiCustomModelInput", root).value = vault.customModel || "";
+    $("#aiLanguageSelect", root).value = vault.preferredLanguage;
+    $("#aiTemperature", root).value = vault.temperature;
+    $("#aiMaxOutputTokens", root).value = vault.maxOutputTokens;
+    $("#aiHistoryTurns", root).value = vault.historyTurns;
+    $("#aiDefaultUpgradeNotice", root).hidden = !hasAiDefaultUpgradeNotice();
+    const providerKeys = vault.vaultKeys.filter(k => k.provider === vault.provider);
+    const choice = $("#aiKeyChoice", root);
+    const keyName = k => `${k.label}${vault.provider === "gemini" ? ` · ${effectiveModel}` : ""}`;
+    choice.innerHTML = `<option value="auto">Auto switch${providerKeys.length ? ` · ${escapeHtml(keyName(providerKeys.find(k => k.id === vault.keySelection?.[vault.provider]) || providerKeys[0]))}` : ""}</option>` + providerKeys.map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(keyName(k))}</option>`).join("");
+    choice.value = vault.keyModes?.[vault.provider] === "manual" && providerKeys.some(k => k.id === vault.keySelection?.[vault.provider]) ? vault.keySelection[vault.provider] : "auto";
+    $("#aiSavedKeys", root).innerHTML = providerKeys.map(k => `<div class="row-between ai-saved-key-row"><span class="card__meta">${escapeHtml(keyName(k))} · ${vault.keyLocked ? "Locked" : escapeHtml(maskApiKey(k.secret))}</span><button type="button" class="btn btn--ghost btn--sm" data-remove-ai-key="${escapeHtml(k.id)}" aria-label="Remove ${escapeHtml(k.label)}">Remove</button></div>`).join("") || '<span class="card__meta">No keys saved for this provider.</span>';
     const pill = $("#aiVaultStatusPill", root);
     pill.className = hasKey ? "badge badge--correct" : "pill";
-    pill.textContent = hasKey ? `${pCfg.label} · Key Saved` : "Offline Corpus Mode";
-    $("#aiMaskedKeyLine", root).textContent = `Key: ${maskApiKey(vault.apiKey)} · Model: ${effectiveModel}`;
-    const defaultOpt = $("#aiDefaultModelOpt", root);
-    if (defaultOpt) {
-      defaultOpt.textContent = `Default (${pCfg.defaultModel})`;
-    }
+    pill.textContent = vault.keyLocked ? "Key locked · Offline" : hasKey ? `${pCfg.label} · Key Saved` : "Offline Corpus Mode";
+    $("#aiMaskedKeyLine", root).textContent = `Key: ${vault.keyLocked ? "Encrypted and locked" : maskApiKey(vault.apiKey)} · Model: ${effectiveModel}`;
+    $("#aiProtectionStatus", root).textContent = vault.keyEnvelope ? (vault.keyLocked ? "Encrypted key is locked in this tab." : "Encrypted key is unlocked in this tab.") : "Key is not passphrase-protected.";
+    $("#unlockAiKeyBtn", root).disabled = !vault.keyEnvelope || !vault.keyLocked;
+    $("#lockAiKeyBtn", root).disabled = !vault.keyEnvelope || vault.keyLocked;
     const modeSelect = $("#aiModelModeSelect", root);
-    if (modeSelect) {
-      modeSelect.value = vault.useCustomModel ? "custom" : "default";
+    const models = CURATED_AI_MODELS[pCfg.id] || [];
+    modeSelect.innerHTML = `<option value="default">Default (${escapeHtml(pCfg.defaultModel)})</option>` +
+      models.filter(m => m.id !== pCfg.defaultModel).map(m => `<option value="model:${escapeHtml(m.id)}">${escapeHtml(m.id)}</option>`).join("") +
+      `<option value="custom">Custom model</option>`;
+    if (!vault.useCustomModel && effectiveModel !== pCfg.defaultModel && !models.some(m => m.id === effectiveModel)) {
+      modeSelect.insertAdjacentHTML("beforeend", `<option value="model:${escapeHtml(effectiveModel)}">Saved (${escapeHtml(effectiveModel)})</option>`);
     }
-    const customWrap = $("#aiCustomModelWrap", root);
-    if (customWrap) {
-      customWrap.hidden = !vault.useCustomModel;
-    }
+    modeSelect.value = vault.useCustomModel ? "custom" : effectiveModel === pCfg.defaultModel ? "default" : `model:${effectiveModel}`;
+    $("#aiCustomModelWrap", root).hidden = !vault.useCustomModel;
+    const nvidiaNote = $("#aiNvidiaBrowserNote", root);
+    nvidiaNote.hidden = pCfg.id !== "nvidia";
+    nvidiaNote.textContent = localNvidiaRelayAvailable()
+      ? "Local-only NVIDIA relay selected on this device. Your key and prompt pass through the local server to NVIDIA; neither is stored or logged by the relay."
+      : "NVIDIA may block direct browser requests (CORS), even with a valid key. For an optional local-only Termux relay, see the README. A connection failure does not verify your key.";
+    $("#aiModelFreeTierNote", root).textContent = vault.useCustomModel
+      ? "Custom models may not be free or available. Test after saving."
+      : models.find(m => m.id === effectiveModel)?.freeTierNote || "Saved model: check current availability and free-tier limits with your provider.";
     $("#aiPreviewToggleBtn", root).setAttribute("aria-checked", String(Boolean(vault.previewPrompt)));
   }
 
-  function persistModelControls() {
+  function persistModelControls({ providerChanged = false } = {}) {
     const p = $("#aiProviderSelect", root).value;
-    const useCustomModel = $("#aiModelModeSelect", root).value === "custom";
+    const selection = providerChanged ? "default" : $("#aiModelModeSelect", root).value;
+    const useCustomModel = selection === "custom";
     const customModel = $("#aiCustomModelInput", root).value.trim();
     const defaultModel = AI_PROVIDERS[p]?.defaultModel || AI_PROVIDERS.gemini.defaultModel;
-    writeAiVault({
-      provider: p,
-      useCustomModel,
-      customModel,
-      model: useCustomModel ? customModel || defaultModel : defaultModel,
-    });
+    const model = useCustomModel ? customModel || defaultModel : selection.startsWith("model:") ? selection.slice(6) : defaultModel;
+    writeAiVault({ provider: p, useCustomModel, customModel, model });
     syncAiVaultDom();
   }
 
+  async function renderAiUsage() {
+    const slot = $("#aiUsageDashboard", root);
+    if (!slot) return;
+    try {
+      const state = await loadGovernor();
+      if (!slot.isConnected) return;
+      slot.innerHTML = getGovernorDashboard(state).map(row => {
+        const last = row.lastError ? ` · last error: ${escapeHtml(row.lastError.kind)}${Number.isFinite(row.lastError.at) ? ` (${escapeHtml(new Date(row.lastError.at).toLocaleString())})` : ""}` : " · no recorded error";
+        return `<div class="card__meta"><strong>${escapeHtml(AI_PROVIDERS[row.provider].label)}</strong>: ${row.requests} / ${row.dailyMax} asks today (warn ${row.dailyWarn}) · ${row.totalTokens} tokens (provider reported; may be incomplete)${last}<br>${row.rpm} asks/min · ${row.minGapMs / 1000}s minimum gap</div>`;
+      }).join("");
+    } catch { slot.textContent = "Local usage counters are unavailable."; }
+  }
+  void renderAiUsage();
+  const unsubscribeUsage = onSync(notice => {
+    if (!root.isConnected) { unsubscribeUsage(); return; }
+    if (notice?.store === "meta" && notice?.key === "aiGovernor") void renderAiUsage();
+  });
+  $("#dismissAiDefaultNotice", root)?.addEventListener("click", () => {
+    writeAiVault({ defaultUpgradeNoticeSeen: true });
+    $("#aiDefaultUpgradeNotice", root).hidden = true;
+  });
+  for (const [id, field] of [["aiTemperature", "temperature"], ["aiMaxOutputTokens", "maxOutputTokens"], ["aiHistoryTurns", "historyTurns"]]) {
+    $("#" + id, root).addEventListener("change", event => {
+      const normalized = normalizeGenerationSettings({ ...readAiVault(), [field]: event.target.value });
+      writeAiVault(normalized);
+      event.target.value = normalized[field];
+    });
+  }
+
   $("#aiProviderSelect", root).addEventListener("change", () => {
-    persistModelControls();
+    persistModelControls({ providerChanged: true });
   });
 
   $("#aiModelModeSelect", root).addEventListener("change", () => {
@@ -719,38 +825,81 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     showToast("AI model preference saved");
   });
 
-  $("#saveAiKeyBtn", root).addEventListener("click", () => {
+  $("#aiKeyChoice", root).addEventListener("change", event => {
+    selectAiKey(readAiVault().provider, event.target.value);
+    syncAiVaultDom();
+  });
+  $("#aiSavedKeys", root).addEventListener("click", async event => {
+    const id = event.target.closest("[data-remove-ai-key]")?.dataset.removeAiKey;
+    if (!id) return;
+    try {
+      await updateAiKeys({removeId:id, passphrase:$("#aiKeyPassphrase", root).value});
+      $("#aiKeyPassphrase", root).value = "";
+      syncAiVaultDom();
+      $("#aiConnDiagnostic", root).textContent = "Key removed.";
+    } catch (error) { $("#aiConnDiagnostic", root).textContent = error.message; }
+  });
+
+  $("#saveAiKeyBtn", root).addEventListener("click", async () => {
     const val = $("#aiKeyInput", root).value.trim();
     const p = $("#aiProviderSelect", root).value;
-    const useCustomModel = $("#aiModelModeSelect", root).value === "custom";
-    const customModel = $("#aiCustomModelInput", root).value.trim();
     if (!AI_PROVIDERS[p]) {
-      $("#aiConnDiagnostic", root).textContent = `✗ Unknown provider "${p}". Choose Google Gemini, Groq, or OpenRouter.`;
+      $("#aiConnDiagnostic", root).textContent = `✗ Unknown provider "${p}". Choose Google Gemini, Groq, OpenRouter, or NVIDIA NIM.`;
       return;
     }
-    if (!val && !readAiVault().apiKey) {
+    if (!val) { showToast("Paste an API key first"); return; }
+    persistModelControls();
+    try {
+      await updateAiKeys({add:{provider:p,secret:val}, passphrase:$("#aiKeyPassphrase", root).value});
+      $("#aiKeyInput", root).value = "";
+      $("#aiKeyPassphrase", root).value = "";
+      syncAiVaultDom();
+      showToast("API key added to isolated local vault");
+    } catch (error) { $("#aiConnDiagnostic", root).textContent = error.message; }
+
+  });
+
+  $("#protectAiKeyBtn", root).addEventListener("click", async () => {
+    const status = $("#aiProtectionStatus", root);
+    const pass = $("#aiKeyPassphrase", root).value;
+    const confirm = $("#aiKeyPassphraseConfirm", root).value;
+    if (pass !== confirm) { status.textContent = "Passphrases do not match."; return; }
+    const typed = $("#aiKeyInput", root).value.trim();
+    try {
       persistModelControls();
-      showToast("Paste an API key first (model preference saved)");
-      return;
-    }
-    const patch = {
-      provider: p,
-      useCustomModel,
-      customModel,
-      model: useCustomModel ? customModel || AI_PROVIDERS[p].defaultModel : AI_PROVIDERS[p].defaultModel,
-    };
-    if (val) patch.apiKey = val;
-    writeAiVault(patch);
-    $("#aiKeyInput", root).value = "";
+      await protectAiKey(pass, undefined, typed || null);
+      $("#aiKeyInput", root).value = "";
+      $("#aiKeyPassphrase", root).value = "";
+      $("#aiKeyPassphraseConfirm", root).value = "";
+      syncAiVaultDom();
+      status.textContent = "Key encrypted and unlocked in this tab. Reload or lock it when finished.";
+    } catch (error) { status.textContent = error.message; }
+  });
+  $("#unlockAiKeyBtn", root).addEventListener("click", async () => {
+    const status = $("#aiProtectionStatus", root);
+    try {
+      await unlockAiKey($("#aiKeyPassphrase", root).value);
+      $("#aiKeyPassphrase", root).value = "";
+      $("#aiKeyPassphraseConfirm", root).value = "";
+      syncAiVaultDom();
+      status.textContent = "Encrypted key unlocked in this tab.";
+    } catch (error) { status.textContent = error.message; }
+  });
+  $("#lockAiKeyBtn", root).addEventListener("click", () => {
+    lockAiKey();
+    $("#aiKeyPassphrase", root).value = "";
+    $("#aiKeyPassphraseConfirm", root).value = "";
     syncAiVaultDom();
-    showToast(val ? "API key & model saved in isolated local vault" : "AI model preference saved");
   });
 
   $("#clearAiKeyBtn", root).addEventListener("click", () => {
+    if (!window.confirm("Remove all saved AI keys and reset AI settings on this device?")) return;
     clearAiVault();
     $("#aiKeyInput", root).value = "";
+    $("#aiKeyPassphrase", root).value = "";
+    $("#aiKeyPassphraseConfirm", root).value = "";
     $("#aiCustomModelInput", root).value = "";
-    $("#aiConnDiagnostic", root).textContent = "API key cleared. Offline Corpus Tutor remains active.";
+    $("#aiConnDiagnostic", root).textContent = "All API keys cleared. Offline Corpus Tutor remains active.";
     syncAiVaultDom();
     showToast("Isolated AI vault cleared");
   });
@@ -767,15 +916,24 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
       provider: p,
       useCustomModel,
       customModel,
+      model: base.model,
       apiKey: typed || base.apiKey,
     };
-    diag.textContent = `Testing direct browser connection to ${AI_PROVIDERS[p]?.label || p}…`;
+    const selected = base.vaultKeys.find(k => k.provider === p && k.secret && k.secret === base.apiKey);
+    const keyLabel = typed ? "pasted key (not saved)" : selected?.label || "no saved key";
+    const route = p === "nvidia" ? (localNvidiaRelayAvailable() ? "local relay" : "direct browser") : "direct browser";
+    diag.textContent = `Testing ${keyLabel} via ${route}…`;
     try {
       const res = await testAiConnection(testVault);
-      diag.textContent = `✔ Connected to ${res.model} (${res.latencyMs} ms) — zero study data sent.`;
+      diag.textContent = `✔ ${keyLabel} via ${route}: connected to ${res.model} (${res.latencyMs} ms) — zero study data sent.`;
     } catch (err) {
-      diag.textContent = `✗ Connection failed: ${err.message}`;
+      diag.textContent = `✗ ${keyLabel} via ${route}: ${err.message}`;
     }
+  });
+
+  $("#aiLanguageSelect", root).addEventListener("change", (event) => {
+    writeAiVault({ preferredLanguage: event.target.value });
+    showToast("Tutor language saved on this device");
   });
 
   $("#aiPreviewToggleBtn", root).addEventListener("click", () => {

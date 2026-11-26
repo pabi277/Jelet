@@ -1,6 +1,10 @@
 # Phase 14 PLAN — AI Tutor Dedicated Phase: Request Governor, Sheet UI Rebuild & AI Settings
 
-> **Status:** 📋 Research complete · **zero code written** · awaiting owner go-ahead.
+> **Status:** execution in progress; see `record.md` for implemented behavior and gates.
+> **2026-11-25 execution decisions:** owner delegated technical choices for
+> concurrency, auto-seeding and streaming and requested key encryption. Use
+> atomic IndexedDB reservations (fail closed to offline when unavailable),
+> offline auto-seeds, real SSE streaming, and optional passphrase-protected keys.
 > **Previous:** Phase 13 (Learn enrichment — owner-blocked, unrelated) ·
 > **Research basis:** [`docs/09-AI-PHASE-RESEARCH-AUDIT.md`](../../09-AI-PHASE-RESEARCH-AUDIT.md)
 > (line-level audit of all 6 AI modules + 12 call sites, Nov 2026) + live provider
@@ -113,8 +117,9 @@ Node-testable, no DOM. All state device-local under a new **meta** record
 ### 2.2 Wire the governor into `ai-vault.js` + `ai-tutor.js` (behavior)
 
 1. **Gate every BYOK send** (`handleAsk`, auto-seed, chips): call `canSendNow` first.
-   * `min-gap`/`rpm` → show "Free-tier pacing: next ask in Ns" state (14B renders it);
-     auto-seed **queues** instead of firing (replaces the silent quota spend).
+   * `min-gap`/`rpm` → show "Free-tier pacing: next ask in Ns" state (14B renders it).
+     Auto-seeds use Offline Corpus instead of sending or queuing a BYOK request
+     (delegated decision, 2026-11-25); explicit asks remain governor-gated.
    * `daily-warn` → send, but surface "≈N paid-free asks left today" hint.
    * `daily-block` → **no request**; straight to the quota state card with
      Retry-at-midnight / Offline-corpus / Change-model actions.
@@ -300,7 +305,7 @@ screen, find history"* instead of replacing the chat thread in place. Rebuild:
 * **Keyboard-fit interplay:** drawer sits above the composer within the sheet; the
   visual-viewport keyboard fit logic is untouched.
 
-### 3.5 Streaming (owner-decision item, self-contained)
+### 3.5 Streaming (delegated decision: enable, 2026-11-25)
 
 * If approved: Gemini `:streamGenerateContent?alt=sse` and OpenAI-compat
   `stream: true` in `sendBuiltAiRequest` (SSE parse via `ReadableStream` reader;
@@ -429,7 +434,7 @@ local-midnight reset note, and the pacing/budget rules in plain words — rows f
 four providers (Gemini · Groq · OpenRouter · NVIDIA NIM). Privacy line: counters
 live only on this device, never synced, never contain question content.
 
-### 4.6 Passphrase wrap (owner question #5)
+### 4.6 Passphrase wrap (owner requested, 2026-11-25)
 
 If approved: optional AES-GCM passphrase wrap of `jelet_ai_vault_v1` via WebCrypto
 ("Remember on this device" toggle; session-unlock prompt when unwrapped key absent).
@@ -449,7 +454,7 @@ it optional).
 
 ### 4.8 14C acceptance gate
 
-- [ ] In-sheet settings change model/provider without losing conversation or draft.
+- [ ] Settings in You change model/provider without losing a pinned conversation or draft (supersedes the earlier in-sheet wording).
 - [ ] Generation settings clamp + byte-exact preview green.
 - [ ] Four language modes render correct prompt lines; offline replies still work.
 - [ ] Usage dashboard shows ledger numbers exactly; zero sync of governor/vault.
@@ -468,7 +473,7 @@ gate files were modified for it. On owner approval, execution order is
 after every slice, and a `record.md` per the phase-map law. The owner's
 2026-11-25 decisions (settings-in-`#/you` · 70 s retry-before-cut law · NVIDIA NIM
 provider · `gemini-3.1-flash-lite` default · preview OFF) are incorporated above.
-Still open before execution: true SSE streaming now vs deferred (audit §9.1),
-auto-seed behavior with a saved key (§9.2), daily budget numbers beyond the
-conservative §2.1 defaults (§9.3), `maxOutputTokens` default (§9.4), passphrase
-wrap (§9.5). Numbering "Phase 14" assumed — shout if a different number is wanted.
+This paragraph described the original pre-execution questions. Streaming and
+auto-seed choices were delegated by the owner and key encryption requested on
+2026-11-25. Conservative budget values and 1024 output tokens remain the chosen
+defaults; see `record.md` for current execution and limitations.

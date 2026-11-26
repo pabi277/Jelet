@@ -320,10 +320,12 @@ async function withStore(store, mode, fn, extra = {}) {
     if (mode !== "readonly") {
       broadcast({ store, type: "mutate", memory: true, ...extra });
     }
-    return result && result.__req ? result.__req.result : result;
+    return result && Object.hasOwn(result, "__req") ? result.__req : result;
   }
 
   const db = await openDB();
+  // openDB may enter memory mode on this very call (e.g. storage blocked).
+  if (_memoryMode) return withStore(store, mode, fn, extra);
   return new Promise((resolve, reject) => {
     const tx = db.transaction(store, mode);
     const os = tx.objectStore(store);

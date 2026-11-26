@@ -17,18 +17,22 @@ import {
   loadSolutionForQuestion,
   getQuestionIndex,
 } from "../core/data-loader.js";
-import { renderLatex, escapeHtml, stripLatexForSearch } from "../core/math.js";
+import { renderPureLatex, escapeHtml, stripLatexForSearch } from "../core/math.js";
 import { formatTwelfths, scoreQuestion, isVoidedQuestion } from "../core/scoring.js";
 import {
   AI_PROVIDERS,
+  resolveEffectiveModel,
   WELCOME_VERSION,
   readAiVault,
   writeAiVault,
+  selectAiKey,
   buildGroundTruthSystemPrompt,
   buildAiRequestPayload,
-  sendBuiltAiRequest,
+  withAiRequestKey,
 } from "../core/ai-vault.js";
 import { $, el, icon, showToast } from "../core/ui.js";
+import { sendGovernedAiRequest, loadGovernor } from "../core/ai-governor-runtime.js";
+import { PROVIDER_LIMITS, estimateTokens } from "../core/ai-governor.js";
 import { normalizeTutorContext, tutorContextKey } from "../core/tutor-context.js";
 import { getQuestionStatsMap } from "../core/stats.js";
 import {
@@ -61,11 +65,29 @@ export async function buildOfflineCorpusReply({ context = {}, userPrompt, langua
 
   // 1. Question-grounded Tutor
   if (q) {
+    if (promptLower.includes("similar") && promptLower.includes("pyq")) {
+      const relatedId = (unit?.pyqIds || []).find(id => id !== q.id);
+      const related = relatedId ? (await getQuestionIndex()).get(relatedId) : null;
+      if (related) return [`**Related PYQ (${related.year} Q${related.qNumber}, ${related.unitId}):**`, related.stemLatex,
+        ...(related.options || []).map(option => `${option.id}) ${option.latex}`)].join("\n\n");
+      return "No other verified PYQ is available for this unit in the offline corpus.";
+    }
     const keyStr = (q.key?.correct || []).join(", ");
     const selected = context.selected || [];
     const sc =
       context.scoreResult ||
       (selected.length ? scoreQuestion(q, selected) : null);
+    if (!wantBengali && (languageMode === "Hinglish" || languageMode === "Simple English")) {
+      const hinglish = languageMode === "Hinglish";
+      const answer = isVoidedQuestion(q)
+        ? (hinglish ? `Yeh question board ne withdraw kiya hai. Sabko +${q.category === 2 ? "2.00" : "1.00"} marks milte hain.` : `The board withdrew this question. Everyone gets +${q.category === 2 ? "2.00" : "1.00"} marks.`)
+        : (hinglish ? `Official answer: **(${keyStr})**. Apna answer isi se compare karo.` : `The official answer is **(${keyStr})**. Compare your choice with this key.`);
+      const score = selected.length && sc && !isVoidedQuestion(q)
+        ? (hinglish ? `Aapka choice: **(${selected.join(", ")})**. Result: ${sc.outcome}; marks: ${formatTwelfths(sc.twelfths)}.` : `You chose **(${selected.join(", ")})**. Result: ${sc.outcome}; marks: ${formatTwelfths(sc.twelfths)}.`) : "";
+      const steps = (sol?.steps || []).map(s => `**${hinglish ? "Step" : "Step"} ${s.stepNumber} (${s.title}):** ${s.bodyLatex}`).join("\n\n");
+      return [answer, score, sol?.conceptSummary ? `**${hinglish ? "Idea" : "Main idea"}:** ${sol.conceptSummary}` : "", steps,
+        hinglish ? "Verified corpus ka maths aur solution English mein diya hai." : "The verified corpus steps and maths remain in English."].filter(Boolean).join("\n\n");
+    }
     const stepsMd = (sol?.steps || [])
       .map(
         (s) =>
@@ -245,19 +267,66 @@ export async function buildOfflineCorpusReply({ context = {}, userPrompt, langua
   ].join("\n\n");
 }
 
-/** Convert lightweight `**bold**` + `\n\n` paragraphs + KaTeX `$...$` to clean safe HTML. */
-function renderTutorBubbleHtml(markdownLike) {
-  const paragraphs = String(markdownLike || "").split(/\n{2,}/);
-  return paragraphs
-    .map((para) => {
-      const lines = para.split("\n").map((line) => {
-        // Render LaTeX safely (escapes non-math HTML) then bold **...**
-        const withMath = renderLatex(line);
-        return withMath.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-      });
-      return `<p class="ai-msg-para">${lines.join("<br />")}</p>`;
-    })
-    .join("");
+/** Format model prose without interpreting model-supplied HTML. Math is kept
+ * separate from markdown so emphasis never mutates KaTeX-generated markup. */
+function renderTutorInline(value) {
+  const source = String(value || "");
+  const tokens = /\$\$[\s\S]+?\$\$|\$(?:\\.|[^$\\])+\$|\\\([\s\S]+?\\\)|`[^`\n]+`|\*\*[^*\n]+\*\*|\*[^*\n]+\*/g;
+  let result = "", last = 0, match;
+  while ((match = tokens.exec(source))) {
+    result += escapeHtml(source.slice(last, match.index));
+    const part = match[0];
+    if (part.startsWith("$$")) result += renderPureLatex(part.slice(2, -2), true);
+    else if (part.startsWith("$")) result += renderPureLatex(part.slice(1, -1));
+    else if (part.startsWith("\\(")) result += renderPureLatex(part.slice(2, -2));
+    else if (part.startsWith("`")) result += `<code>${escapeHtml(part.slice(1, -1))}</code>`;
+    else if (part.startsWith("**")) result += `<strong>${renderTutorInline(part.slice(2, -2))}</strong>`;
+    else result += `<em>${renderTutorInline(part.slice(1, -1))}</em>`;
+    last = tokens.lastIndex;
+  }
+  return result + escapeHtml(source.slice(last));
+}
+
+/** Safe lightweight Markdown + KaTeX, including multi-line display math. */
+export function renderTutorBubbleHtml(markdownLike) {
+  const lines = String(markdownLike || "").replace(/\r\n?/g, "\n").split("\n");
+  const html = [], paragraph = [];
+  let list = null;
+  function flushParagraph() {
+    if (paragraph.length) html.push(`<div class="ai-msg-para">${paragraph.map(renderTutorInline).join("<br>")}</div>`);
+    paragraph.length = 0;
+  }
+  function closeList() { if (list) { html.push(`</${list}>`); list = null; } }
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i], trimmed = line.trim();
+    if (!trimmed) { flushParagraph(); closeList(); continue; }
+    const display = trimmed.startsWith("$$") ? ["$$", "$$"] : trimmed.startsWith("\\[") ? ["\\[", "\\]"] : null;
+    if (display) {
+      flushParagraph(); closeList();
+      let math = trimmed.slice(display[0].length), end = math.indexOf(display[1]);
+      while (end < 0 && i + 1 < lines.length) { math += `\n${lines[++i]}`; end = math.indexOf(display[1]); }
+      if (end >= 0) {
+        html.push(renderPureLatex(math.slice(0, end), true));
+        const trailing = math.slice(end + display[1].length).trim();
+        if (trailing) paragraph.push(trailing);
+      } else paragraph.push(display[0] + math);
+      continue;
+    }
+    const heading = /^(#{1,4})\s+(.+)$/.exec(trimmed);
+    if (heading) { flushParagraph(); closeList(); html.push(`<div class="ai-msg-heading">${renderTutorInline(heading[2])}</div>`); continue; }
+    if (/^(?:-{3,}|\*{3,}|_{3,})$/.test(trimmed)) { flushParagraph(); closeList(); html.push('<hr class="ai-msg-divider">'); continue; }
+    const item = /^(?:([-*+])\s+|(\d+)\.\s+)(.+)$/.exec(trimmed);
+    if (item) {
+      flushParagraph();
+      const type = item[2] ? "ol" : "ul";
+      if (list !== type) { closeList(); list = type; html.push(`<${type} class="ai-msg-list">`); }
+      html.push(`<li>${renderTutorInline(item[3])}</li>`);
+      continue;
+    }
+    closeList(); paragraph.push(line);
+  }
+  flushParagraph(); closeList();
+  return html.join("");
 }
 
 export function initAiTutor({ openOverlay, closeAllSheets }) {
@@ -269,12 +338,21 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
   let activeContext = {};
   let chatHistory = []; // [{ role: "user"|"assistant", text: string, source: string }]
   let activeAbortController = null;
+  let exchangeId = 0;
+  let offlineRequested = false;
+  let composerDraft = "";
+  let requestState = null;
+  let retryText = "";
+  let opener = null;
   let pendingWelcomeAction = null;
+  let pendingGeminiOffer = null; // memory-only, tied to the current exchange
   let historyOpen = false; // history panel visibility (Gap C)
   let activeHistoryKey = null; // tutorContextKey for the open conversation
   let thinking = false; // show the "thinking" bubble while a reply is being produced
+  let streaming = null; // partial live text for the current exchange
   let typing = null; // in-progress typewriter reveal { text, source, tokens, idx, wordsPerTick, timer }
-  let suggestionsOpen = true; // preset-chip row visibility (collapsible to save phone space)
+  let suggestionsOpen = false; // compact by default; expand when needed
+  let contextOpen = false;
 
   /**
    * Persist the current conversation into the device-local aiHistory record.
@@ -282,18 +360,218 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
    */
   async function persistCurrentSession() {
     if (!activeHistoryKey) return;
+    const snapshot = {
+      key: activeHistoryKey, title: sessionTitle(activeContext),
+      context: sessionContext(activeContext), messages: chatHistory.map(message => ({ ...message })),
+    };
     try {
       const record = await loadAiHistory();
-      const next = upsertSession(record, {
-        key: activeHistoryKey,
-        title: sessionTitle(activeContext),
-        context: sessionContext(activeContext),
-        messages: chatHistory,
-      });
+      const next = upsertSession(record, snapshot);
       await persistAiHistory(next);
     } catch {
       /* history persistence is best-effort */
     }
+  }
+
+  function renderRequestState() {
+    const slot = $("#aiRequestState", body);
+    if (!slot) return;
+    if (!requestState) { slot.hidden = true; slot.textContent = ""; delete slot.dataset.kind; renderComposerState(); return; }
+    slot.hidden = false;
+    const kind = requestState.kind;
+    if (kind === "confirm-gemini") {
+      const offer = pendingGeminiOffer;
+      if (!offer?.prepared) { requestState = null; renderRequestState(); return; }
+      const prep = offer.prepared;
+      slot.dataset.kind = kind;
+      slot.innerHTML = `<strong>Send this question to Google Gemini?</strong>
+        <span data-gemini-question></span>
+        <span>The question, relevant chat history and JELET context will be sent to Google using ${escapeHtml(prep.request.model)} and ${escapeHtml(prep.keyLabel)}. Provider terms and costs may differ. Your selected provider will not change.</span>
+        <div class="cluster-xs"><button type="button" class="btn btn--primary btn--sm" data-confirm-gemini>Send to Gemini</button><button type="button" class="btn btn--ghost btn--sm" data-cancel-gemini>Cancel</button></div>
+        <details ${readAiVault().previewPrompt ? "open" : ""}><summary>Preview exact Gemini request</summary><pre class="ai-prompt-pre mono" data-gemini-preview></pre></details>`;
+      $("[data-gemini-question]", slot).textContent = `Question: ${offer.userText.length > 160 ? offer.userText.slice(0, 160) + "…" : offer.userText}`;
+      $("[data-gemini-preview]", slot).textContent = prep.request.bodyString;
+      $("[data-confirm-gemini]", slot).addEventListener("click", () => {
+        if (activeAbortController || location.hash.startsWith("#/exam/") || !sheet.classList.contains("is-open")) return;
+        const current = readAiVault();
+        const keys = current.vaultKeys.filter(k => k.provider === "gemini" && k.secret);
+        const selected = keys.find(k => k.id === current.keySelection?.gemini) || keys[0];
+        if (current.keyLocked || Number(current.acceptedWelcomeVersion || 0) < WELCOME_VERSION || !selected || selected.id !== prep.keyId || selected.secret !== prep.vault.apiKey) {
+          pendingGeminiOffer.prepared = null;
+          requestState = {kind:"gemini-key-changed"}; renderRequestState(); return;
+        }
+        const snapshot = pendingGeminiOffer;
+        pendingGeminiOffer = null;
+        void handleAsk(snapshot.userText, {geminiFallback:snapshot});
+      });
+      $("[data-cancel-gemini]", slot).addEventListener("click", () => {
+        offer.prepared = null;
+        requestState = offer.originalState;
+        renderRequestState();
+      });
+      renderComposerState();
+      return;
+    }
+    let message = "";
+    if (kind === "pacing" || kind === "retry") {
+      const seconds = Math.ceil(requestState.retryInMs / 1000);
+      const left = Math.ceil(requestState.remainingMs / 1000);
+      message = kind === "pacing" ? `Free-tier pacing — next ask in ${seconds}s · Offline Corpus at ${left}s`
+        : `Retrying in ${seconds}s · falls back to Offline Corpus at ${left}s`;
+    } else if (kind === "switching-key") message = `Switching to ${requestState.label} after a key or quota error…`;
+    else if (kind === "daily-warn") message = `Approximately ${requestState.remaining} free asks left today.`;
+    else if (kind === "daily-quota") message = "Free daily quota used up — resets at midnight · Offline Corpus answers today.";
+    else if (kind === "auth") message = requestState.provider === "nvidia"
+      ? "NVIDIA rejected authentication or access. Test the selected key and check its validity, permissions and model access in You & AI."
+      : "Key or access rejected — check your key and model permissions in You & AI.";
+    else if (kind === "local-relay") message = "The local NVIDIA relay could not complete the request. Restart the relay and check the connection; the key was not verified.";
+    else if (kind === "gemini-key-changed") message = "Gemini key or agreement changed, or the key is locked. Check You & AI or start a new question to accept the agreement.";
+    else if (kind === "gemini-unavailable") message = "Add and unlock a Gemini key in You & AI before sending to Gemini.";
+    else if (kind === "storage") message = "Device quota storage is unavailable — Offline Corpus answer shown. Enable browser storage to use live AI safely.";
+    else if (kind === "locked") message = "Encrypted key is locked — unlock it in You & AI. Offline Corpus is available.";
+    else if (kind === "bad-request") message = "The provider rejected this request — check your model in AI settings.";
+    else if (kind === "not-found") message = "The model or endpoint is unavailable — check the model and provider in AI settings.";
+    else if (kind === "window-expired") message = "Recovery window expired — Offline Corpus answer shown.";
+    else if (kind === "offline") message = "Offline Corpus selected.";
+    else message = requestState.provider === "nvidia"
+      ? "Could not reach NVIDIA — a browser CORS restriction or network problem may be blocking the request. Your key was not verified; Offline Corpus is available."
+      : "Could not reach the provider — Offline answer shown.";
+    const waiting = kind === "pacing" || kind === "retry";
+    if (slot.dataset.kind === kind && slot.querySelector("[data-state-message]")) {
+      slot.querySelector("[data-state-message]").textContent = message;
+      renderComposerState();
+      return;
+    }
+    slot.dataset.kind = kind;
+    const showSettings = !waiting && kind !== "daily-warn" && kind !== "offline";
+    slot.innerHTML = `<span data-state-message>${escapeHtml(message)}</span>${waiting ? '<button type="button" class="btn btn--ghost btn--sm" data-use-offline>Use Offline Corpus now</button>' : ''}${showSettings ? '<a href="#/you" data-ai-settings>AI settings →</a>' : ''}${pendingGeminiOffer && !waiting && kind !== "offline" ? '<button type="button" class="btn btn--ghost btn--sm" data-try-gemini>Try Gemini…</button>' : ''}${["network", "server", "window-expired"].includes(kind) ? '<button type="button" class="btn btn--ghost btn--sm" data-retry>Retry</button>' : ''}`;
+    $("[data-use-offline]", slot)?.addEventListener("click", () => { offlineRequested = true; activeAbortController?.abort(); });
+    $("[data-ai-settings]", slot)?.addEventListener("click", () => closeTutor());
+    $("[data-try-gemini]", slot)?.addEventListener("click", prepareGeminiFallback);
+    $("[data-retry]", slot)?.addEventListener("click", () => { if (retryText) void handleAsk(retryText); });
+    renderComposerState();
+  }
+
+  // Both the live builder and the preview use exactly the same grounding inputs.
+  function currentSystemPrompt(vault) {
+    const q = activeContext.question || null;
+    return buildGroundTruthSystemPrompt({
+      question: q, solution: activeContext.solution, unit: activeContext.unit || null,
+      formula: activeContext.formula || null,
+      paperTitle: activeContext.paperTitle || (q ? `JELET ${q.year}` : ""),
+      studentSelected: activeContext.selected || [],
+      studentOutcome: activeContext.scoreResult?.outcome || null,
+      studentScoreText: activeContext.scoreResult
+        ? formatTwelfths(activeContext.scoreResult.twelfths, { signed: true }) : "",
+      languageMode: vault.preferredLanguage || "English",
+      origin: activeContext.origin, sectionHeading: activeContext.section,
+    });
+  }
+
+  function prepareGeminiFallback() {
+    if (!pendingGeminiOffer || activeAbortController || location.hash.startsWith("#/exam/")) return;
+    const current = readAiVault();
+    const keys = current.vaultKeys.filter(k => k.provider === "gemini" && k.secret);
+    const selected = keys.find(k => k.id === current.keySelection?.gemini) || keys[0];
+    if (current.keyLocked || !selected) { requestState = {kind:"gemini-unavailable"}; renderRequestState(); return; }
+    const vault = {...current, provider:"gemini", model:AI_PROVIDERS.gemini.defaultModel,
+      useCustomModel:false, customModel:"", apiKey:selected.secret};
+    const request = buildAiRequestPayload({vault, systemPrompt:pendingGeminiOffer.systemPrompt,
+      history:pendingGeminiOffer.priorTurns, userMessage:pendingGeminiOffer.userText, stream:true});
+    pendingGeminiOffer.prepared = {vault, request, keyId:selected.id, keyLabel:selected.label};
+    requestState = {kind:"confirm-gemini"};
+    renderRequestState();
+  }
+
+  function updatePreview(built = null) {
+    const slot = $("#aiPreviewSlot", body);
+    const vault = readAiVault();
+    let details = $(".ai-prompt-preview", body);
+    if (slot && vault.previewPrompt && !details) {
+      slot.innerHTML = `<details class="tiebreak-details ai-prompt-preview" hidden>
+        <summary></summary><div class="stack-xs" style="margin-top:var(--space-xs)">
+        <div class="row-between"><span class="card__meta mono ai-preview-endpoint"></span><button type="button" class="btn btn--ghost btn--sm" id="copyPromptJsonBtn">Copy JSON</button></div>
+        <pre class="ai-prompt-pre mono" id="promptJsonPre"></pre></div></details>`;
+      details = $(".ai-prompt-preview", slot);
+      $("#copyPromptJsonBtn", slot).addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText($("#promptJsonPre", slot)?.textContent || ""); showToast("Exact request JSON copied"); }
+        catch { showToast("Prompt JSON ready above"); }
+      });
+    }
+    if (slot && !vault.previewPrompt) { slot.innerHTML = ""; details = null; }
+    const pre = $("#promptJsonPre", body);
+    const input = $("#aiComposerInput", body);
+    const draft = input?.value || "";
+    const sysPrompt = currentSystemPrompt(vault);
+    const hint = $("#aiTokenHint", body);
+    if (hint && vault.apiKey?.trim()) {
+      const tokens = estimateTokens(sysPrompt) + chatHistory.reduce((n, m) => n + estimateTokens(m.text), 0) + estimateTokens(draft);
+      hint.textContent = `~${tokens} tokens this ask`;
+      // Refresh this device's actual current rolling-window count best-effort.
+      void loadGovernor().then(record => {
+        if (!hint.isConnected) return;
+        const now = Date.now();
+        const sends = record?.providers?.[vault.provider]?.sends;
+        const used = Array.isArray(sends) ? sends.filter(t => Number.isFinite(t) && t > now - 60000 && t <= now).length : 0;
+        const left = PROVIDER_LIMITS[vault.provider] ? Math.max(0, PROVIDER_LIMITS[vault.provider].rpm - used) : null;
+        if (left !== null) hint.textContent = `~${tokens} tokens this ask · ${left} left before pacing`;
+      }).catch(() => {});
+    }
+    if (!pre || !details) return;
+    const pInfo = AI_PROVIDERS[built?.provider || vault.provider] || AI_PROVIDERS.gemini;
+    if (built || !activeAbortController) {
+      $("summary", details).textContent = `Check prompt before sending (${built?.providerLabel || pInfo.label} · ${built?.model || resolveEffectiveModel(vault)})`;
+      $(".ai-preview-endpoint", details).textContent = pInfo.endpointHint;
+    }
+    if (built) {
+      details.hidden = false;
+      pre.textContent = built.bodyString;
+      return;
+    }
+    // Do not replace the preview of an in-flight POST with a new unsent draft.
+    if (activeAbortController || thinking) return;
+    details.hidden = !draft.trim();
+    if (!draft.trim()) return;
+    try {
+      pre.textContent = buildAiRequestPayload({ vault, systemPrompt: sysPrompt,
+        history: chatHistory.map(m => ({ role: m.role, text: m.text })), userMessage: draft, stream: true }).bodyString;
+    } catch { /* offline mode remains available */ }
+  }
+
+  function renderWelcome() {
+    const slot = $("#aiWelcomeSlot", body);
+    if (!slot) return;
+    if (!pendingWelcomeAction) { slot.innerHTML = ""; return; }
+    const provider = AI_PROVIDERS[readAiVault().provider] || AI_PROVIDERS.gemini;
+    slot.innerHTML = `
+      <div class="worked-example stack-xs">
+        <strong>Before you ask (${escapeHtml(provider.label)} BYOK)</strong>
+        <div class="card__meta">• Your saved key and message go to <strong>${escapeHtml(provider.label)}</strong>. NVIDIA may use the optional local-only relay if you started it on this device; otherwise requests go directly from your browser.</div>
+        <div class="card__meta">• Only this question context and your message are sent — never your mock history or CGPA.</div>
+        <div class="card__meta">• AI can still slip on algebra — the <strong>Official WBJEEB Key &amp; Verified Solution</strong> always win.</div>
+        <div class="cluster-xs" style="margin-top:var(--space-2xs)">
+          <button type="button" class="btn btn--ghost btn--sm" id="cancelWelcomeBtn">Use Offline Mode</button>
+          <button type="button" class="btn btn--primary btn--sm" id="acceptWelcomeBtn">Got it, send</button>
+        </div>
+      </div>`;
+    $("#cancelWelcomeBtn", slot).addEventListener("click", () => {
+      const message = pendingWelcomeAction; pendingWelcomeAction = null; renderWelcome();
+      void handleAsk(message, { forceOfflineFirst: true });
+    });
+    $("#acceptWelcomeBtn", slot).addEventListener("click", () => {
+      writeAiVault({ acceptedWelcomeVersion: WELCOME_VERSION });
+      const message = pendingWelcomeAction; pendingWelcomeAction = null; renderWelcome();
+      void handleAsk(message);
+    });
+  }
+
+  function showThinking() {
+    const thread = $("#aiChatThread", body);
+    if (!thread) return;
+    const follow = nearThreadBottom(thread);
+    thread.appendChild(el(`<div class="ai-msg ai-msg--assistant ai-msg--thinking"><div class="ai-msg__meta">${icon("icon-spark")} Codec Tutor</div><div class="ai-msg__bubble"><span class="ai-visually-hidden" role="status">Tutor is preparing a reply.</span><span class="ai-thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span></div></div>`));
+    if (follow) thread.scrollTop = thread.scrollHeight;
+    renderComposerState();
   }
 
   /** Relative-time label for a stored session's updatedAt. */
@@ -337,47 +615,155 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
   /** Commit the in-progress typewriter to chat history WITHOUT re-rendering. */
   function commitTyping() {
     if (!typing) return;
-    const { text, source } = typing;
+    const { text, source, truncated } = typing;
     if (typing.timer) clearInterval(typing.timer);
     typing = null;
-    chatHistory.push({ role: "assistant", text, source });
+    chatHistory.push({ role: "assistant", text, source, ...(truncated ? { truncated: true } : {}) });
     void persistCurrentSession();
   }
 
-  /** Finish typing: commit the full message, clear state, re-render + persist. */
-  function finalizeTyping() {
-    if (!typing) return;
-    commitTyping();
-    clearThinking();
-    void renderTutorBody();
+  function nearThreadBottom(thread) {
+    return !thread || thread.scrollHeight <= thread.clientHeight ||
+      (thread.scrollTop + thread.clientHeight) / thread.scrollHeight >= 0.9;
   }
 
-  /**
-   * Reveal an assistant reply word-by-word (the "typing" feel). The full text
-   * is committed to chat history only once the reveal completes, so the
-   * byte-exact preview and history persistence always see the complete message.
-   */
-  function startTyping(text, source) {
+  /** A typewriter tick updates only the current bubble, never the composer. */
+  function updateTypingBubble() {
+    if (!typing) return;
+    const thread = $("#aiChatThread", body);
+    const bubble = $(".ai-msg--typing .ai-msg__bubble", thread || body);
+    if (!thread || !bubble) return;
+    const follow = nearThreadBottom(thread);
+    bubble.innerHTML = `${renderTutorBubbleHtml(typing.tokens.slice(0, typing.idx).join(""))}<span class="ai-typing-cursor" aria-hidden="true"></span>`;
+    if (follow) thread.scrollTop = thread.scrollHeight;
+    const latest = $("#aiJumpLatest", body);
+    if (latest) latest.hidden = nearThreadBottom(thread);
+  }
+
+  function messageNode(msg) {
+    const item = el(`
+      <div class="ai-msg ai-msg--${msg.role}">
+        <div class="ai-msg__meta">${msg.role === "user" ? "You" : `${icon("icon-spark")} ${escapeHtml(msg.source || "Codec Tutor")} <button type="button" class="btn btn--ghost btn--sm ai-copy-reply">Copy</button><button type="button" class="btn btn--ghost btn--sm ai-regenerate-reply">Regenerate</button>`}</div>
+        <div class="ai-msg__bubble">${msg.role === "user" ? escapeHtml(msg.text) : renderTutorBubbleHtml(msg.text)}${msg.truncated ? '<button type="button" class="chip ai-continue-chip">Continue ▸</button>' : ''}</div>
+      </div>`);
+    item.querySelector(".ai-copy-reply")?.addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(msg.text); showToast("Answer copied"); }
+      catch { showToast("Could not copy answer"); }
+    });
+    item.querySelector(".ai-regenerate-reply")?.addEventListener("click", () => {
+      const index = chatHistory.indexOf(msg);
+      const previous = chatHistory.slice(0, index).reverse().find(turn => turn.role === "user");
+      if (previous) void handleAsk(previous.text);
+    });
+    item.querySelector(".ai-continue-chip")?.addEventListener("click", () => {
+      void handleAsk("Continue the previous answer exactly where it stopped, without repeating it.", { continueFrom: msg });
+    });
+    return item;
+  }
+
+  function renderComposerState() {
+    const button = $("#aiSendBtn", body);
+    if (button) {
+      button.textContent = activeAbortController?.signal.aborted ? "Stopping…" : activeAbortController ? "Stop" : "Send";
+      button.disabled = Boolean(activeAbortController?.signal.aborted);
+    }
+    const keyChoice = $("#aiChatKeyChoice", body);
+    if (keyChoice) keyChoice.disabled = Boolean(thinking || typing || activeAbortController);
+    const suggestions = $(".ai-suggestions", body);
+    if (suggestions) suggestions.hidden = Boolean(thinking || typing || activeAbortController);
+    const row = $("#aiChipsRow", body);
+    if (row) row.hidden = !suggestionsOpen || Boolean(thinking || typing || activeAbortController);
+    const input = $("#aiComposerInput", body);
+    if (input) input.disabled = Boolean(activeAbortController && ["pacing", "retry"].includes(requestState?.kind));
+    const toggle = $("#aiSuggestionsToggle", body);
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", String(suggestionsOpen));
+      const chevron = $(".ai-suggestions-chev", toggle);
+      if (chevron) chevron.textContent = suggestionsOpen ? "▾" : "▸";
+    }
+  }
+
+  function appendMessage(msg, replacing = null) {
+    const thread = $("#aiChatThread", body);
+    if (!thread) return;
+    const follow = nearThreadBottom(thread);
+    const node = messageNode(msg);
+    $("#aiThreadWelcome", thread)?.remove();
+    if (replacing && replacing.parentElement === thread) replacing.replaceWith(node);
+    else thread.appendChild(node);
+    if (follow) thread.scrollTop = thread.scrollHeight;
+    const latest = $("#aiJumpLatest", body);
+    if (latest) latest.hidden = nearThreadBottom(thread);
+  }
+
+  function showLiveText(text, source) {
+    const thread = $("#aiChatThread", body);
+    if (!thread) return;
+    const follow = nearThreadBottom(thread);
+    let node = $(".ai-msg--streaming", thread);
+    if (!node) {
+      node = el(`<div class="ai-msg ai-msg--assistant ai-msg--streaming" aria-live="off" aria-label="Tutor is composing a reply"><div class="ai-msg__meta">${icon("icon-spark")} ${escapeHtml(source)}</div><div class="ai-msg__bubble"></div></div>`);
+      const thinkingNode = $(".ai-msg--thinking", thread);
+      if (thinkingNode) thinkingNode.replaceWith(node); else thread.appendChild(node);
+    }
+    streaming = {text, source};
+    $(".ai-msg__bubble", node).innerHTML = renderTutorBubbleHtml(text);
+    if (follow) thread.scrollTop = thread.scrollHeight;
+    const latest = $("#aiJumpLatest", body);
+    if (latest) latest.hidden = nearThreadBottom(thread);
+  }
+  function saveInterruptedLive() {
+    if (streaming?.text) {
+      chatHistory.push({role:"assistant", text:streaming.text, source:"Live response · stopped", truncated:true});
+      void persistCurrentSession();
+    }
+    streaming = null;
+    $(".ai-msg--streaming", body)?.remove();
+  }
+
+  /** Finish without replacing the composer, even while history is open. */
+  function finalizeTyping() {
+    if (!typing) return;
+    const current = $(".ai-msg--typing", body);
+    commitTyping();
+    clearThinking();
+    suggestionsOpen = false;
+    appendMessage(chatHistory[chatHistory.length - 1], current);
+    renderComposerState();
+    updatePreview();
+  }
+
+  /** Reveal words into just one bubble; all sibling nodes remain mounted. */
+  function startTyping(text, source, { truncated = false } = {}) {
     clearThinking();
     cancelTyping();
     const fullText = String(text ?? "");
-    if (!fullText) {
-      finalizeTyping();
-      return;
-    }
+    const thinkingNode = $(".ai-msg--thinking", body);
+    if (!fullText) { thinkingNode?.remove(); renderComposerState(); return; }
     if (prefersReducedMotion()) {
-      chatHistory.push({ role: "assistant", text: fullText, source: source || "" });
-      typing = null;
-      void renderTutorBody();
+      const msg = { role: "assistant", text: fullText, source: source || "", ...(truncated ? { truncated: true } : {}) };
+      chatHistory.push(msg);
+      suggestionsOpen = false;
+      appendMessage(msg, thinkingNode);
+      renderComposerState();
+      renderRequestState();
+      updatePreview();
       void persistCurrentSession();
       return;
     }
     const tokens = fullText.match(/\S+\s*|\s+/g) || [fullText];
-    // Bound the total reveal to ~30 ticks so long replies don't drag on.
     const wordsPerTick = Math.max(1, Math.round(tokens.length / 30));
-    const state = { text: fullText, source: source || "", tokens, idx: 0, wordsPerTick, timer: null };
+    const state = { text: fullText, source: source || "", truncated, tokens, idx: 0, wordsPerTick, timer: null };
     typing = state;
-    renderTutorBody();
+    const thread = $("#aiChatThread", body);
+    if (thread) {
+      const follow = nearThreadBottom(thread);
+      const tItem = el(`<div class="ai-msg ai-msg--assistant ai-msg--typing" aria-live="off" aria-label="Tutor is composing a reply"><div class="ai-msg__meta">${icon("icon-spark")} ${escapeHtml(state.source || "Codec Tutor")}</div><div class="ai-msg__bubble"><span class="ai-typing-cursor" aria-hidden="true"></span></div></div>`);
+      if (thinkingNode) thinkingNode.replaceWith(tItem); else thread.appendChild(tItem);
+      if (follow) thread.scrollTop = thread.scrollHeight;
+    }
+    renderComposerState();
+    renderRequestState();
     state.timer = setInterval(() => {
       state.idx += state.wordsPerTick;
       if (state.idx >= state.tokens.length) {
@@ -387,7 +773,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
         return;
       }
       typing = state;
-      renderTutorBody();
+      updateTypingBubble();
     }, 22);
   }
 
@@ -417,9 +803,10 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     fitSheetForKeyboard();
     if (_keyboardFitHandler) return;
     _keyboardFitHandler = () => {
-      fitSheetForKeyboard();
       const threadEl = document.getElementById("aiChatThread");
-      if (threadEl) threadEl.scrollTop = threadEl.scrollHeight;
+      const follow = nearThreadBottom(threadEl);
+      fitSheetForKeyboard();
+      if (threadEl && follow) threadEl.scrollTop = threadEl.scrollHeight;
     };
     window.visualViewport.addEventListener("resize", _keyboardFitHandler);
     window.visualViewport.addEventListener("scroll", _keyboardFitHandler);
@@ -454,10 +841,10 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
             : "";
           return `
             <div class="ai-history-row" data-key="${escapeAttr(s.key)}">
-              <div class="ai-history-row__main">
-                <div class="ai-history-row__title">${escapeHtml(s.title)}</div>
-                <div class="ai-history-row__snippet">${escapeHtml(snippet)}</div>
-              </div>
+              <button type="button" class="ai-history-row__main">
+                <span class="ai-history-row__title">${escapeHtml(s.title)}</span>
+                <span class="ai-history-row__snippet">${escapeHtml(snippet)}</span>
+              </button>
               <span class="ai-history-row__time">${escapeHtml(relativeTime(s.updatedAt))}</span>
               <button type="button" class="ai-history-row__del" data-del="${escapeAttr(s.key)}" aria-label="Delete conversation">×</button>
             </div>`;
@@ -466,14 +853,91 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     }
     return `
       <div class="ai-history-panel">
+        <label class="form-field"><span class="form-label">Search conversations</span><input id="aiHistorySearch" class="input-field" type="search" autocomplete="off" placeholder="Search history" /></label>
         <div class="row-between" style="gap:var(--space-xs)">
           <strong class="ai-context-card__title">Conversation history</strong>
           <button type="button" class="btn btn--ghost btn--sm" id="aiHistoryNewBtn">${icon("icon-refresh")} New chat</button>
         </div>
-        <div class="ai-history-list">${rowsHtml}</div>
+        <div class="ai-history-list">${rowsHtml}<div class="ai-history-empty" id="aiHistoryNoMatch" hidden>No matching conversations.</div></div>
         <p class="card__meta">Stored only on this device · never synced · API keys never included.</p>
         <button type="button" class="btn btn--ghost btn--sm" id="aiHistoryClearAllBtn">Clear all history</button>
       </div>`;
+  }
+
+  let historyLayer = null;
+  function closeHistoryDrawer({ returnFocus = true } = {}) {
+    historyOpen = false;
+    historyBtn?.setAttribute("aria-expanded", "false");
+    sheet?.classList.remove("ai-history-open");
+    const closingLayer = historyLayer;
+    historyLayer = null;
+    if (closingLayer) {
+      if (prefersReducedMotion()) closingLayer.remove();
+      else {
+        closingLayer.classList.add("is-closing");
+        closingLayer.setAttribute("aria-hidden", "true");
+        closingLayer.inert = true;
+        const remove = () => closingLayer.remove();
+        closingLayer.querySelector(".ai-history-drawer")?.addEventListener("animationend", remove, { once: true });
+        setTimeout(remove, 300);
+      }
+    }
+    if (returnFocus && sheet?.classList.contains("is-open")) historyBtn?.focus();
+  }
+
+  async function refreshHistoryDrawer(query = "") {
+    const html = await buildHistoryPanel();
+    if (!historyOpen || !historyLayer) return;
+    const dialog = $(".ai-history-drawer", historyLayer);
+    dialog.innerHTML = html;
+    const search = $("#aiHistorySearch", dialog);
+    search.value = query;
+    const filter = () => {
+      const term = search.value.trim().toLocaleLowerCase();
+      const rows = [...dialog.querySelectorAll(".ai-history-row")];
+      let visible = 0;
+      for (const row of rows) {
+        const match = row.querySelector(".ai-history-row__main").textContent.toLocaleLowerCase().includes(term);
+        row.hidden = !match;
+        if (match) visible++;
+      }
+      $("#aiHistoryNoMatch", dialog).hidden = !term || visible > 0;
+    };
+    search.addEventListener("input", filter);
+    filter();
+    dialog.querySelectorAll(".ai-history-row").forEach(row => {
+      row.querySelector(".ai-history-row__main")?.addEventListener("click", async () => {
+        const key = row.dataset.key;
+        closeHistoryDrawer({ returnFocus: false });
+        await openStoredSession(key);
+      });
+      row.querySelector("[data-del]")?.addEventListener("click", async () => {
+        const record = await loadAiHistory();
+        await persistAiHistory(deleteSession(record, row.dataset.key));
+        await refreshHistoryDrawer(search.value);
+      });
+    });
+    $("#aiHistoryNewBtn", dialog)?.addEventListener("click", () => {
+      closeHistoryDrawer({ returnFocus: false });
+      void newConversation();
+    });
+    $("#aiHistoryClearAllBtn", dialog)?.addEventListener("click", async () => {
+      await persistAiHistory(clearHistory());
+      await refreshHistoryDrawer(search.value);
+    });
+    search.focus();
+  }
+
+  async function openHistoryDrawer() {
+    if (historyOpen) return;
+    sheet.querySelectorAll(".ai-history-layer.is-closing").forEach(layer => layer.remove());
+    historyOpen = true;
+    historyBtn?.setAttribute("aria-expanded", "true");
+    sheet.classList.add("ai-history-open");
+    historyLayer = el(`<div class="ai-history-layer"><button type="button" class="ai-history-scrim" aria-label="Close conversation history" tabindex="-1"></button><aside id="aiHistoryDrawer" class="ai-history-drawer" role="dialog" aria-modal="true" aria-label="Conversation history"></aside></div>`);
+    sheet.appendChild(historyLayer);
+    $(".ai-history-scrim", historyLayer).addEventListener("click", () => closeHistoryDrawer());
+    await refreshHistoryDrawer();
   }
 
   /** Find a formula by id across a unit's sections/notes keyFormulas. */
@@ -523,6 +987,13 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
 
   /** New chat: clear the current session's messages, then seed a fresh thread. */
   async function newConversation() {
+    exchangeId++;
+    activeAbortController?.abort();
+    streaming = null;
+    $(".ai-msg--streaming", body)?.remove();
+    cancelTyping();
+    clearThinking();
+    activeAbortController = null;
     if (activeHistoryKey) {
       try {
         const record = await loadAiHistory();
@@ -532,11 +1003,25 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       }
     }
     chatHistory = [];
+    requestState = null;
+    retryText = "";
+    composerDraft = "";
+    const input = $("#aiComposerInput", body);
+    if (input) input.value = "";
     pendingWelcomeAction = null;
+    pendingGeminiOffer = null;
     historyOpen = false;
-    await renderTutorBody();
+    suggestionsOpen = false;
+    const thread = $("#aiChatThread", body);
+    if (thread) {
+      thread.innerHTML = `<div class="ai-empty" id="aiThreadWelcome"><strong>What would you<br>like to learn?</strong><p>Grounded in verified JELET material</p></div>`;
+    }
+    renderRequestState();
+    renderWelcome();
+    renderComposerState();
+    updatePreview();
     if (activeContext.mode === "formula" && activeContext.formula) {
-      await handleAsk(`Explain ${activeContext.formula.label} step by step`, { forceOfflineFirst: !hasByokKey() });
+      await handleAsk(`Explain ${activeContext.formula.label} step by step`, { forceOfflineFirst: true });
     } else if (activeContext.question) {
       const hasWrong =
         activeContext.selected?.length &&
@@ -549,7 +1034,10 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     }
   }
 
-  function closeTutor() {
+  function closeTutor({ closeOverlay = true, restoreFocus = true } = {}) {
+    pendingGeminiOffer = null;
+    closeHistoryDrawer({ returnFocus: false });
+    exchangeId++;
     if (activeAbortController) {
       activeAbortController.abort();
       activeAbortController = null;
@@ -557,20 +1045,111 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     // Finalize any in-progress typewriter, then persist the conversation
     // (best-effort) before the sheet closes.
     commitTyping();
+    saveInterruptedLive();
     clearThinking();
     void persistCurrentSession();
     stopKeyboardFit();
-    closeAllSheets();
+    if (closeOverlay) closeAllSheets({ skipTutor: true });
+    if (restoreFocus && opener?.isConnected && typeof opener.focus === "function") opener.focus();
+    opener = null;
   }
 
-  closeBtn?.addEventListener("click", closeTutor);
+  // Capture Escape before the generic sheet handler so cancellation and focus
+  // return go through the tutor's own cleanup path.
+  document.addEventListener("keydown", (event) => {
+    if (!sheet?.classList.contains("is-open")) return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (historyOpen) closeHistoryDrawer();
+      else if (contextOpen) {
+        contextOpen = false;
+        const panel = $("#aiContextPanel", body);
+        if (panel) panel.hidden = true;
+        const trigger = document.getElementById("aiContextInfoBtn");
+        trigger?.setAttribute("aria-expanded", "false");
+        trigger?.setAttribute("aria-label", "Show tutor context");
+        trigger?.focus();
+      } else closeTutor();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    if (!historyOpen && sheet.dataset.pinned === "true" && matchMedia("(min-width: 1024px)").matches) return;
+    const focusRoot = historyOpen ? $(".ai-history-drawer", historyLayer) : sheet;
+    const focusable = [...focusRoot.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], summary, [tabindex]:not([tabindex="-1"])')]
+      .filter(node => node.getClientRects().length && !node.closest('[hidden], [inert], [aria-hidden="true"]'));
+    if (!focusable.length) { event.preventDefault(); return; }
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (event.shiftKey && (document.activeElement === first || !focusRoot.contains(document.activeElement))) {
+      event.preventDefault(); last.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || !focusRoot.contains(document.activeElement))) {
+      event.preventDefault(); first.focus();
+    }
+  }, true);
+
+  function refreshVaultForOpenSheet() {
+    if (!sheet?.classList.contains("is-open")) return;
+    const vault = readAiVault();
+    const byok = Boolean(vault.apiKey?.trim());
+    const provider = AI_PROVIDERS[vault.provider] || AI_PROVIDERS.gemini;
+    if (modeBadge) {
+      modeBadge.className = "ai-header-status";
+      modeBadge.textContent = vault.keyLocked ? "Key locked · Offline" : byok ? `${provider.label} · BYOK` : "Corpus Tutor · Offline";
+    }
+    const keyChoice = $("#aiChatKeyChoice", body);
+    if (keyChoice) {
+      const model = resolveEffectiveModel(vault);
+      keyChoice.setAttribute("aria-label", `Choose API key for ${provider.label}, model ${model}`);
+      const keys = vault.vaultKeys.filter(k => k.provider === vault.provider);
+      keyChoice.innerHTML = `<option value="auto">Auto · ${escapeHtml(keys.find(k => k.id === vault.keySelection?.[vault.provider])?.label || keys[0]?.label || provider.label)} · ${escapeHtml(model)}</option>` + keys.map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)} · ${escapeHtml(model)}</option>`).join("");
+      keyChoice.value = vault.keyModes?.[vault.provider] === "manual" && keys.some(k => k.id === vault.keySelection?.[vault.provider]) ? vault.keySelection[vault.provider] : "auto";
+    }
+    const hint = $("#aiTokenHint", body);
+    if (hint && !byok) hint.textContent = "0 tokens · offline corpus";
+    updatePreview();
+  }
+  window.addEventListener("jelet-ai-vault-change", refreshVaultForOpenSheet);
+  window.addEventListener("storage", event => { if (event.key === "jelet_ai_vault_v1") refreshVaultForOpenSheet(); });
+
+  closeBtn?.addEventListener("click", () => closeTutor());
+  const contextInfoBtn = document.getElementById("aiContextInfoBtn");
+  contextInfoBtn?.addEventListener("click", () => {
+    const panel = $("#aiContextPanel", body);
+    if (!panel) return;
+    contextOpen = !contextOpen;
+    panel.hidden = !contextOpen;
+    contextInfoBtn.setAttribute("aria-expanded", String(contextOpen));
+    contextInfoBtn.setAttribute("aria-label", contextOpen ? "Hide tutor context" : "Show tutor context");
+  });
+  const pinBtn = document.getElementById("aiPinBtn");
+  pinBtn?.addEventListener("click", () => {
+    const pinned = sheet.dataset.pinned !== "true";
+    sheet.dataset.pinned = String(pinned);
+    pinBtn.setAttribute("aria-pressed", String(pinned));
+    sheet.setAttribute("aria-modal", String(!pinned));
+    pinBtn.textContent = pinned ? "Unpin" : "Pin";
+    const overlay = document.getElementById("sheetOverlay");
+    if (overlay && matchMedia("(min-width: 1024px)").matches) overlay.classList.toggle("is-open", !pinned);
+  });
+  let swipeStart = null;
+  const handle = sheet?.querySelector(".bottom-sheet__handle");
+  handle?.addEventListener("pointerdown", event => {
+    if (event.pointerType === "touch" && !matchMedia("(min-width: 1024px)").matches) {
+      swipeStart = event.clientY;
+      handle.setPointerCapture(event.pointerId);
+    }
+  });
+  handle?.addEventListener("pointerup", event => {
+    if (swipeStart !== null && event.clientY - swipeStart > 80) closeTutor();
+    swipeStart = null;
+  });
+  handle?.addEventListener("pointercancel", () => { swipeStart = null; });
 
   // History panel toggle (Gap C) — button lives in the static sheet header.
   const historyBtn = document.getElementById("aiHistoryBtn");
   historyBtn?.addEventListener("click", async () => {
-    historyOpen = !historyOpen;
-    historyBtn.setAttribute("aria-expanded", String(historyOpen));
-    await renderTutorBody();
+    if (historyOpen) closeHistoryDrawer();
+    else await openHistoryDrawer();
   });
 
   async function openTutor(ctx = {}) {
@@ -580,10 +1159,21 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       return;
     }
 
-    // Discard any in-progress typing from a previous (closing) conversation.
+    if (!sheet.classList.contains("is-open")) opener = document.activeElement;
+    exchangeId++;
+    activeAbortController?.abort();
+    activeAbortController = null;
+
+    // Preserve the completed text of a previous conversation before switching.
+    saveInterruptedLive();
+    if (typing) commitTyping();
     cancelTyping();
     clearThinking();
 
+    // Context is available from the header but starts closed for every conversation.
+    contextOpen = false;
+    document.getElementById("aiContextInfoBtn")?.setAttribute("aria-expanded", "false");
+    document.getElementById("aiContextInfoBtn")?.setAttribute("aria-label", "Show tutor context");
     // Canonical context: accept both caller naming styles forever (Bug A fix).
     activeContext = normalizeTutorContext(ctx);
     if (activeContext.question && !activeContext.solution) {
@@ -595,8 +1185,11 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
 
     // History (Gap C): restore a prior conversation for this exact context.
     activeHistoryKey = tutorContextKey(activeContext);
-    historyOpen = false;
+    closeHistoryDrawer({ returnFocus: false });
+    requestState = null;
+    retryText = "";
     pendingWelcomeAction = null;
+    pendingGeminiOffer = null;
     let restored = false;
     try {
       const record = await loadAiHistory();
@@ -606,6 +1199,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
           role: m.role,
           text: m.text,
           source: m.source || "",
+          ...(m.truncated ? { truncated: true } : {}),
         }));
         restored = true;
       } else {
@@ -615,25 +1209,18 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       chatHistory = [];
     }
 
+    // Auto-seed only for genuinely new threads; restore never duplicates it.
+    suggestionsOpen = false;
     openOverlay(sheet);
+    if (sheet.dataset.pinned === "true" && matchMedia("(min-width: 1024px)").matches) document.getElementById("sheetOverlay")?.classList.remove("is-open");
     startKeyboardFit();
     await renderTutorBody();
-
-    // Auto-seed only for genuinely new threads — a restored conversation keeps
-    // its own history (no duplicate seed).
-    const willSeed =
-      !restored &&
-      ((activeContext.mode === "formula" && activeContext.formula) || Boolean(activeContext.question));
-
-    // Preset suggestions stay open only for a genuinely empty thread; once a
-    // reply exists (seeded or restored) they collapse to save phone space.
-    suggestionsOpen = !willSeed && chatHistory.length === 0;
-    if (!suggestionsOpen) await renderTutorBody();
+    $("#aiComposerInput", body)?.focus({ preventScroll: true });
 
     if (!restored) {
       // Auto-seed initial helpful context summary if opened on a specific question or formula!
       if (activeContext.mode === "formula" && activeContext.formula) {
-        await handleAsk(`Explain ${activeContext.formula.label} step by step`, { forceOfflineFirst: !hasByokKey() });
+        await handleAsk(`Explain ${activeContext.formula.label} step by step`, { forceOfflineFirst: true });
       } else if (activeContext.question) {
         const hasWrong =
           activeContext.selected?.length &&
@@ -647,19 +1234,14 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     }
   }
 
-  function hasByokKey() {
-    const v = readAiVault();
-    return Boolean(v.apiKey && v.apiKey.trim());
-  }
-
-  async function renderTutorBody(draftMessage = "Explain step by step") {
+  async function renderTutorBody(draftMessage = "") {
     const vault = readAiVault();
     const byokActive = Boolean(vault.apiKey && vault.apiKey.trim());
     const pInfo = AI_PROVIDERS[vault.provider] || AI_PROVIDERS.gemini;
 
     if (modeBadge) {
-      modeBadge.className = byokActive ? "badge badge--brand" : "pill";
-      modeBadge.textContent = byokActive
+      modeBadge.className = "ai-header-status";
+      modeBadge.textContent = vault.keyLocked ? "Key locked · Offline" : byokActive
         ? `${pInfo.label} · BYOK`
         : "Corpus Tutor · Offline";
     }
@@ -706,116 +1288,93 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       }
     }
 
-    const sysPrompt = buildGroundTruthSystemPrompt({
-      question: q,
-      solution: activeContext.solution,
-      unit: u,
-      formula: f,
-      paperTitle: activeContext.paperTitle || (q ? `JELET ${q.year}` : ""),
-      studentSelected: activeContext.selected || [],
-      studentOutcome: activeContext.scoreResult?.outcome || null,
-      studentScoreText: activeContext.scoreResult
-        ? formatTwelfths(activeContext.scoreResult.twelfths, { signed: true })
-        : "",
-      languageMode: vault.preferredLanguage || "English",
-      origin: activeContext.origin,
-      sectionHeading: activeContext.section,
-    });
+    const sysPrompt = currentSystemPrompt(vault);
 
-    let previewReq = null;
-    let previewError = null;
-    try {
-      previewReq = buildAiRequestPayload({
-        vault,
-        systemPrompt: sysPrompt,
-        history: chatHistory.map((m) => ({ role: m.role, text: m.text })),
-        userMessage: draftMessage,
-      });
-    } catch (err) {
-      previewError = err.message;
+    let pacingLeft = null;
+    if (byokActive && PROVIDER_LIMITS[vault.provider]) {
+      try {
+        const governor = await loadGovernor();
+        const now = Date.now();
+        const sends = governor?.providers?.[vault.provider]?.sends || [];
+        const used = Array.isArray(sends) ? sends.filter(t => Number.isFinite(t) && t > now - 60000 && t <= now).length : 0;
+        pacingLeft = Math.max(0, PROVIDER_LIMITS[vault.provider].rpm - used);
+      } catch { /* counters are best-effort */ }
     }
-
+    const visibleDraft = $("#aiComposerInput", body)?.value || composerDraft;
     const chips = q
       ? [
           "Why was my option wrong?",
           "Step-by-step derivation",
           "Exam shortcut & traps",
+          "Explain in simpler words",
+          "Give me a similar PYQ",
           "বাংলায় বলো (Bengali)",
         ]
       : [
           "Key formulas & traps",
           "Step-by-step intuition",
+          "Explain in simpler words",
+          "Give me a similar PYQ",
           "বাংলায় বলো (Bengali)",
         ];
 
-    // History panel replaces the chat thread + chips + composer while open (Gap C).
-    const threadSectionHtml = historyOpen
-      ? await buildHistoryPanel()
-      : `
+    // History is an overlay; this conversation remains mounted underneath it.
+    const threadSectionHtml = `
         <!-- Chat Thread -->
-        <div class="ai-chat-thread" id="aiChatThread"></div>
-
-        <!-- Preset Prompt Chips (collapsible to save phone space) -->
-        <div class="ai-suggestions">
-          <button type="button" class="btn btn--ghost btn--sm ai-suggestions-toggle" id="aiSuggestionsToggle" aria-expanded="${suggestionsOpen}">
-            <span class="ai-suggestions-label">Suggestions</span>
-            <span class="ai-suggestions-chev" aria-hidden="true">${suggestionsOpen ? "\u25BE" : "\u25B8"}</span>
-          </button>
-          <div class="chip-row ai-chips-row" id="aiChipsRow" ${suggestionsOpen ? "" : "hidden"}>
-            ${chips
-              .map(
-                (c) =>
-                  `<button type="button" class="chip ai-preset-chip" data-prompt="${escapeHtml(c)}">${escapeHtml(c)}</button>`
-              )
-              .join("")}
-          </div>
+        <div class="ai-thread-region">
+          <div class="ai-chat-thread" id="aiChatThread" role="log" aria-live="polite"></div>
+          <button type="button" class="btn btn--ghost ai-jump-latest" id="aiJumpLatest" aria-label="Jump to latest message" title="Jump to latest message" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v13M6 12l6 6 6-6"/></svg></button>
         </div>
+        <div id="aiRequestState" class="ai-state-card" role="status" aria-live="polite" hidden></div>
 
-        <!-- Composer Row -->
+        <!-- Presets expand above the composer; the toggle shares its toolbar. -->
+        <div class="chip-row ai-chips-row" id="aiChipsRow" ${suggestionsOpen && !thinking && !typing && !activeAbortController ? "" : "hidden"}>
+          ${chips.map(c => `<button type="button" class="chip ai-preset-chip" data-prompt="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join("")}
+        </div>
         <form class="ai-composer" id="aiComposerForm">
-          <input type="text" class="input-field" id="aiComposerInput" placeholder="${
-            byokActive
-              ? "Ask follow-up doubt on this topic…"
-              : "Ask any JELET topic or tap a chip…"
-          }" autocomplete="off" />
-          <button type="submit" class="btn btn--primary btn--sm" id="aiSendBtn">
-            ${activeAbortController ? "Stop" : "Ask"}
-          </button>
-        </form>`;
+          <div class="ai-composer__input-row">
+            <input type="text" class="input-field" id="aiComposerInput" placeholder="${chatHistory.length ? "Ask a follow-up…" : "Ask a JELET doubt…"}" autocomplete="off" />
+            <button type="submit" class="btn btn--primary btn--sm" id="aiSendBtn">${activeAbortController ? "Stop" : "Send"}</button>
+          </div>
+          <div class="ai-composer__toolbar">
+            <div class="ai-suggestions" ${thinking || typing || activeAbortController ? "hidden" : ""}>
+              <button type="button" class="btn btn--ghost btn--sm ai-suggestions-toggle" id="aiSuggestionsToggle" aria-expanded="${suggestionsOpen}" aria-controls="aiChipsRow">
+                <span class="ai-suggestions-label">Suggestions</span><span class="ai-suggestions-chev" aria-hidden="true">${suggestionsOpen ? "\u25BE" : "\u25B8"}</span>
+              </button>
+            </div>
+            <label class="ai-composer__key"><span class="ai-visually-hidden">Choose API key</span>
+              <select id="aiChatKeyChoice" aria-label="Choose API key for ${escapeHtml(pInfo.label)}, model ${escapeHtml(resolveEffectiveModel(vault))}">
+                <option value="auto">Auto · ${escapeHtml(vault.vaultKeys.filter(k => k.provider === vault.provider).find(k => k.id === vault.keySelection?.[vault.provider])?.label || vault.vaultKeys.find(k => k.provider === vault.provider)?.label || pInfo.label)} · ${escapeHtml(resolveEffectiveModel(vault))}</option>
+                ${vault.vaultKeys.filter(k => k.provider === vault.provider).map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)} · ${escapeHtml(resolveEffectiveModel(vault))}</option>`).join("")}
+              </select>
+            </label>
+          </div>
+        </form>
+        <div class="card__meta" id="aiTokenHint">${byokActive ? `~${estimateTokens(sysPrompt) + chatHistory.reduce((n, m) => n + estimateTokens(m.text), 0) + estimateTokens(visibleDraft)} tokens this ask${pacingLeft === null ? "" : ` · ${pacingLeft} left before pacing`}` : "0 tokens · offline corpus"}</div>`;
 
+    const oldInput = $("#aiComposerInput", body);
+    const draftValue = oldInput ? oldInput.value : composerDraft;
+    composerDraft = draftValue;
+    const hadInputFocus = oldInput && document.activeElement === oldInput;
+    const selectionStart = hadInputFocus ? oldInput.selectionStart : null;
+    const selectionEnd = hadInputFocus ? oldInput.selectionEnd : null;
+    const oldThread = $("#aiChatThread", body);
+    const wasNearBottom = nearThreadBottom(oldThread);
+    const oldScrollTop = oldThread?.scrollTop || 0;
     body.innerHTML = "";
     const wrap = el(`
       <div class="ai-tutor-wrap">
         <!-- Scoped Context Card -->
-        <div class="ai-context-card">
+        <div class="ai-context-card" id="aiContextPanel" role="region" aria-label="Tutor context" ${contextOpen ? "" : "hidden"}>
           <div class="row-between" style="gap:var(--space-xs)">
             <strong class="ai-context-card__title">${escapeHtml(contextTitle)}</strong>
-            <div class="segmented" style="padding:2px">
-              <button type="button" class="segmented__btn lang-btn ${vault.preferredLanguage !== "Bengali" ? "is-active" : ""}" data-lang="English" style="min-height:28px;padding:2px 8px">EN</button>
-              <button type="button" class="segmented__btn lang-btn ${vault.preferredLanguage === "Bengali" ? "is-active" : ""}" data-lang="Bengali" style="min-height:28px;padding:2px 8px">বাংলা</button>
-            </div>
+
           </div>
           <p class="card__meta">${escapeHtml(contextMeta)}</p>
         </div>
 
-        <!-- Collapsible Byte-Exact Prompt Preview (12-phone-codec-ai-tutor.png & docs/04 §4) -->
-        ${
-          vault.previewPrompt && previewReq
-            ? `
-          <details class="tiebreak-details ai-prompt-preview">
-            <summary>Check prompt before sending (${escapeHtml(pInfo.label)} · ${escapeHtml(previewReq.model)})</summary>
-            <div class="stack-xs" style="margin-top:var(--space-xs)">
-              <div class="row-between">
-                <span class="card__meta mono">${escapeHtml(pInfo.endpointHint)}</span>
-                <button type="button" class="btn btn--ghost btn--sm" id="copyPromptJsonBtn" style="min-height:28px;padding:2px 8px">Copy JSON</button>
-              </div>
-              <pre class="ai-prompt-pre mono" id="promptJsonPre">${escapeHtml(previewReq.bodyString)}</pre>
-            </div>
-          </details>`
-            : vault.previewPrompt && previewError && byokActive
-            ? `<div class="exam-trap">${escapeHtml(previewError)} — Offline Corpus Tutor remains active.</div>`
-            : ""
-        }
+        <!-- Byte-exact preview mounts here only when enabled in You. -->
+        <div id="aiPreviewSlot"></div>
 
         <!-- One-time "Before you ask" Agreement Card (docs/04 §3) -->
         <div id="aiWelcomeSlot"></div>
@@ -825,174 +1384,91 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     `);
 
     body.appendChild(wrap);
+    contextInfoBtn?.setAttribute("aria-expanded", String(contextOpen));
+    contextInfoBtn?.setAttribute("aria-label", contextOpen ? "Hide tutor context" : "Show tutor context");
+    const restoredInput = $("#aiComposerInput", wrap);
+    if (restoredInput) {
+      restoredInput.value = draftValue;
+      if (hadInputFocus) {
+        restoredInput.focus({ preventScroll: true });
+        if (selectionStart !== null) restoredInput.setSelectionRange(selectionStart, selectionEnd);
+      }
+    }
 
     // Populate chat thread (skipped while the history panel is open)
-    if (!historyOpen) {
+    {
     const thread = $("#aiChatThread", wrap);
     if (!chatHistory.length) {
       thread.innerHTML = `
-        <div class="ai-msg ai-msg--assistant">
-          <div class="ai-msg__meta">${icon("icon-spark")} Grounded in Official WBJEEB Corpus</div>
-          <div class="ai-msg__bubble">
-            Tap any chip below or type a question. ${
-              byokActive
-                ? `Your personal <strong>${escapeHtml(pInfo.label)}</strong> key is active with immutable answer-key grounding.`
-                : `Running in <strong>100% Offline Corpus Mode</strong> using SymPy-verified solutions (or add a free Gemini/Groq key in <a href="#/you" id="jumpToYouVaultLink">You &amp; AI</a>).`
-            }
-          </div>
-        </div>
-      `;
+        <div class="ai-empty" id="aiThreadWelcome">
+          <strong>What would you<br>like to learn?</strong>
+          <p>${byokActive ? `${escapeHtml(pInfo.label)} · grounded in verified JELET material` : 'Offline Corpus · verified JELET material'}</p>
+          ${byokActive ? '' : '<a href="#/you" id="jumpToYouVaultLink">Set up an AI key in You &amp; AI</a>'}
+        </div>`;
       $("#jumpToYouVaultLink", thread)?.addEventListener("click", () => {
         closeTutor();
       });
     } else {
-      for (const msg of chatHistory) {
-        const item = el(`
-          <div class="ai-msg ai-msg--${msg.role}">
-            <div class="ai-msg__meta">${
-              msg.role === "user" ? "You" : `${icon("icon-spark")} ${escapeHtml(msg.source || "Codec Tutor")}`
-            }</div>
-            <div class="ai-msg__bubble">${
-              msg.role === "user" ? escapeHtml(msg.text) : renderTutorBubbleHtml(msg.text)
-            }</div>
-          </div>
-        `);
-        thread.appendChild(item);
-      }
-      thread.scrollTop = thread.scrollHeight;
+      for (const msg of chatHistory) thread.appendChild(messageNode(msg));
     }
 
     // In-flight reply: thinking bubble, or a word-by-word typewriter bubble.
     if (typing) {
       const revealed = typing.tokens.slice(0, typing.idx).join("");
       const tItem = el(`
-        <div class="ai-msg ai-msg--assistant ai-msg--typing">
+        <div class="ai-msg ai-msg--assistant ai-msg--typing" aria-live="off" aria-label="Tutor is composing a reply">
           <div class="ai-msg__meta">${icon("icon-spark")} ${escapeHtml(typing.source || "Codec Tutor")}</div>
           <div class="ai-msg__bubble">${renderTutorBubbleHtml(revealed)}<span class="ai-typing-cursor" aria-hidden="true"></span></div>
         </div>
       `);
       thread.appendChild(tItem);
-      thread.scrollTop = thread.scrollHeight;
     } else if (thinking) {
       const tItem = el(`
         <div class="ai-msg ai-msg--assistant ai-msg--thinking">
           <div class="ai-msg__meta">${icon("icon-spark")} Codec Tutor</div>
-          <div class="ai-msg__bubble"><span class="ai-thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span></div>
+          <div class="ai-msg__bubble"><span class="ai-visually-hidden" role="status">Tutor is preparing a reply.</span><span class="ai-thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span></div>
         </div>
       `);
       thread.appendChild(tItem);
-      thread.scrollTop = thread.scrollHeight;
     }
-    }
-
-    // History panel interactions (Gap C)
-    if (historyOpen) {
-      const panel = $(".ai-history-panel", wrap);
-      panel
-        ?.querySelectorAll(".ai-history-row")
-        .forEach((row) => {
-          row.addEventListener("click", async (ev) => {
-            if (ev.target.closest("[data-del]")) return;
-            await openStoredSession(row.dataset.key);
-          });
-        });
-      panel
-        ?.querySelectorAll("[data-del]")
-        .forEach((btn) => {
-          btn.addEventListener("click", async (ev) => {
-            ev.stopPropagation();
-            const record = await loadAiHistory();
-            await persistAiHistory(deleteSession(record, btn.dataset.del));
-            await renderTutorBody();
-          });
-        });
-      $("#aiHistoryNewBtn", wrap)?.addEventListener("click", () => {
-        void newConversation();
-      });
-      $("#aiHistoryClearAllBtn", wrap)?.addEventListener("click", async () => {
-        const record = await loadAiHistory();
-        await persistAiHistory(clearHistory());
-        await renderTutorBody();
-      });
+    thread.scrollTop = wasNearBottom ? thread.scrollHeight : oldScrollTop;
+    const latest = $("#aiJumpLatest", wrap);
+    const syncLatest = () => { latest.hidden = nearThreadBottom(thread); };
+    thread.addEventListener("scroll", syncLatest);
+    latest.addEventListener("click", () => { thread.scrollTop = thread.scrollHeight; syncLatest(); });
+    syncLatest();
     }
 
-    // One-time "Before you ask" card if pending first BYOK call
-    if (pendingWelcomeAction) {
-      const wSlot = $("#aiWelcomeSlot", wrap);
-      wSlot.innerHTML = `
-        <div class="worked-example stack-xs">
-          <strong>Before you ask (${escapeHtml(pInfo.label)} BYOK)</strong>
-          <div class="card__meta">• Direct from your browser to <strong>${escapeHtml(pInfo.label)}</strong> using your saved key — no middleman server.</div>
-          <div class="card__meta">• Only this question context and your message are sent — never your mock history or CGPA.</div>
-          <div class="card__meta">• AI can still slip on algebra — the <strong>Official WBJEEB Key &amp; Verified Solution</strong> always win.</div>
-          <div class="cluster-xs" style="margin-top:var(--space-2xs)">
-            <button type="button" class="btn btn--ghost btn--sm" id="cancelWelcomeBtn">Use Offline Mode</button>
-            <button type="button" class="btn btn--primary btn--sm" id="acceptWelcomeBtn">Got it, send</button>
-          </div>
-        </div>
-      `;
-      $("#cancelWelcomeBtn", wSlot).addEventListener("click", async () => {
-        const msg = pendingWelcomeAction;
-        pendingWelcomeAction = null;
-        await handleAsk(msg, { forceOfflineFirst: true });
-      });
-      $("#acceptWelcomeBtn", wSlot).addEventListener("click", async () => {
-        writeAiVault({ acceptedWelcomeVersion: WELCOME_VERSION });
-        const msg = pendingWelcomeAction;
-        pendingWelcomeAction = null;
-        await handleAsk(msg);
-      });
-    }
+    renderRequestState();
 
-    // Copy JSON preview button
-    $("#copyPromptJsonBtn", wrap)?.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(previewReq.bodyString);
-        showToast("Exact request JSON copied");
-      } catch {
-        showToast("Prompt JSON ready above");
-      }
-    });
+    renderWelcome();
 
-    // Live update JSON preview as student types!
+    updatePreview();
+
     const inputEl = $("#aiComposerInput", wrap);
     inputEl?.addEventListener("input", () => {
-      const pre = $("#promptJsonPre", wrap);
-      if (!pre) return;
-      try {
-        const updated = buildAiRequestPayload({
-          vault: readAiVault(),
-          systemPrompt: sysPrompt,
-          history: chatHistory.map((m) => ({ role: m.role, text: m.text })),
-          userMessage: inputEl.value || draftMessage,
-        });
-        pre.textContent = updated.bodyString;
-      } catch {
-        // Offline corpus path stays unaffected if custom provider config is invalid.
-      }
+      composerDraft = inputEl.value;
+      updatePreview();
     });
 
-    // Language switch
-    wrap.querySelectorAll(".lang-btn").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        writeAiVault({ preferredLanguage: btn.dataset.lang });
-        await renderTutorBody(inputEl?.value || draftMessage);
-      });
+    const chatKeyChoice = $("#aiChatKeyChoice", wrap);
+    const providerKeys = vault.vaultKeys.filter(k => k.provider === vault.provider);
+    chatKeyChoice.value = vault.keyModes?.[vault.provider] === "manual" && providerKeys.some(k => k.id === vault.keySelection?.[vault.provider]) ? vault.keySelection[vault.provider] : "auto";
+    chatKeyChoice.addEventListener("change", () => {
+      selectAiKey(readAiVault().provider, chatKeyChoice.value);
+      updatePreview();
     });
 
     // Suggestions toggle — collapse the preset chips to reclaim phone space.
     $("#aiSuggestionsToggle", wrap)?.addEventListener("click", () => {
       suggestionsOpen = !suggestionsOpen;
-      renderTutorBody(inputEl?.value || draftMessage);
+      renderComposerState();
     });
 
     // Preset chips
     wrap.querySelectorAll(".ai-preset-chip").forEach((chip) => {
       chip.addEventListener("click", () => {
         const p = chip.dataset.prompt;
-        if (p.includes("বাংলা")) {
-          writeAiVault({ preferredLanguage: "Bengali" });
-        }
         handleAsk(p);
       });
     });
@@ -1002,97 +1478,167 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       e.preventDefault();
       if (activeAbortController) {
         activeAbortController.abort();
-        activeAbortController = null;
-        await renderTutorBody();
+        renderComposerState();
         return;
       }
+      if (thinking) return;
       const val = inputEl.value.trim();
       if (!val) return;
       inputEl.value = "";
+      composerDraft = "";
       await handleAsk(val);
     });
   }
 
-  async function handleAsk(userText, { forceOfflineFirst = false } = {}) {
-    const vault = readAiVault();
+  async function handleAsk(userText, { forceOfflineFirst = false, continueFrom = null, geminiFallback = null } = {}) {
+    if (location.hash.startsWith("#/exam/")) { closeTutor(); return; }
+    if (activeAbortController || thinking) return;
+    const vault = geminiFallback ? geminiFallback.prepared.vault : readAiVault();
     const byokReady = Boolean(vault.apiKey && vault.apiKey.trim()) && !forceOfflineFirst;
 
     // Enforce one-time "Before you ask" welcome agreement before first BYOK call!
     if (byokReady && Number(vault.acceptedWelcomeVersion || 0) < WELCOME_VERSION) {
       pendingWelcomeAction = userText;
-      await renderTutorBody(userText);
+      renderWelcome();
       return;
     }
 
+    pendingGeminiOffer = null;
+    requestState = vault.keyLocked && !forceOfflineFirst ? { kind: "locked" } : null;
+    retryText = userText;
     // If a previous reply is still being typed out, commit it first.
     if (typing) finalizeTyping();
 
-    chatHistory.push({ role: "user", text: userText });
+    const userTurn = { role: "user", text: userText };
+    if (!geminiFallback) {
+      chatHistory.push(userTurn);
+      appendMessage(userTurn);
+    }
+    renderRequestState();
 
     if (!byokReady) {
       // Thinking bubble while the offline reply is computed, then type it out.
+      const thisExchange = ++exchangeId;
       thinking = true;
-      await renderTutorBody(userText);
+      showThinking();
       const reply = await buildOfflineCorpusReply({
         context: activeContext,
         userPrompt: userText,
         languageMode: vault.preferredLanguage || "English",
       });
+      if (thisExchange !== exchangeId) return;
       startTyping(reply, "SymPy & WBJEEB Corpus");
       return;
     }
 
     // Live BYOK Request with byte-exact payload & AbortController
-    const q = activeContext.question || null;
-    const u = activeContext.unit || null;
-    const f = activeContext.formula || null;
-    const sysPrompt = buildGroundTruthSystemPrompt({
-      question: q,
-      solution: activeContext.solution,
-      unit: u,
-      formula: f,
-      paperTitle: activeContext.paperTitle || (q ? `JELET ${q.year}` : ""),
-      studentSelected: activeContext.selected || [],
-      studentOutcome: activeContext.scoreResult?.outcome || null,
-      studentScoreText: activeContext.scoreResult
-        ? formatTwelfths(activeContext.scoreResult.twelfths, { signed: true })
-        : "",
-      languageMode: vault.preferredLanguage || "English",
-      origin: activeContext.origin,
-      sectionHeading: activeContext.section,
-    });
+    const sysPrompt = geminiFallback ? geminiFallback.systemPrompt : currentSystemPrompt(vault);
 
-    const priorTurns = chatHistory
-      .slice(0, -1)
+    const continuationIndex = continueFrom ? chatHistory.indexOf(continueFrom) : -1;
+    const priorTurns = geminiFallback ? geminiFallback.priorTurns : (continuationIndex >= 0 ? chatHistory.slice(0, continuationIndex + 1) : chatHistory.slice(0, -1))
       .map((m) => ({ role: m.role, text: m.text }));
 
     activeAbortController = new AbortController();
+    const controller = activeAbortController;
+    const thisExchange = ++exchangeId;
+    const originalContext = activeContext;
+    offlineRequested = false;
     thinking = true;
-    await renderTutorBody(userText);
+    showThinking();
+    if (thisExchange !== exchangeId) return;
 
     try {
-      const req = buildAiRequestPayload({
-        vault,
-        systemPrompt: sysPrompt,
-        history: priorTurns,
-        userMessage: userText,
+      const candidates = vault.vaultKeys.filter(k => k.provider === vault.provider && k.secret);
+      let activeKey = candidates.find(k => k.secret === vault.apiKey) || candidates[0];
+      const firstKeyId = activeKey?.id;
+      const triedKeys = new Set(activeKey ? [activeKey.id] : []);
+      const makeInitial = () => buildAiRequestPayload({ vault:{...vault,apiKey:activeKey?.secret || vault.apiKey}, systemPrompt: sysPrompt, history: priorTurns, userMessage: userText, stream: true });
+      const req = geminiFallback ? geminiFallback.prepared.request : makeInitial();
+      const result = await sendGovernedAiRequest({
+        request: req,
+        signal: controller.signal,
+        onKeyFailure: (failedRequest) => {
+          if (vault.keyModes?.[vault.provider] === "manual") return null;
+          const next = candidates.find(k => !triedKeys.has(k.id));
+          if (!next) return null;
+          activeKey = next;
+          triedKeys.add(next.id);
+          return {request:withAiRequestKey(failedRequest, next.secret), label:next.label};
+        },
+        buildContinuation: (partial) => buildAiRequestPayload({
+          vault:{...vault,apiKey:activeKey?.secret || vault.apiKey}, systemPrompt: sysPrompt,
+          history: [...priorTurns, { role: "user", text: userText }, { role: "assistant", text: partial }],
+          userMessage: "Continue exactly where you stopped, without repeating the previous text.",
+          stream: true,
+        }),
+        onRequest: (built) => {
+          if (thisExchange !== exchangeId) return;
+          if (["pacing", "retry"].includes(requestState?.kind)) {
+            requestState = null;
+            renderRequestState();
+          }
+          updatePreview(built);
+        },
+        onChunk: (text) => {
+          if (thisExchange === exchangeId) showLiveText(text, `${req.providerLabel} (${req.model})`);
+        },
+        onState: (state) => {
+          if (thisExchange !== exchangeId) return;
+          requestState = state;
+          renderRequestState();
+        },
       });
-      const llmReply = await sendBuiltAiRequest(req, {
-        signal: activeAbortController.signal,
-      });
+      if (thisExchange !== exchangeId) return;
+      if (activeKey && activeKey.id !== firstKeyId) {
+        const current = readAiVault();
+        if (current.provider === vault.provider && current.keyModes?.[vault.provider] !== "manual" && current.vaultKeys.some(k => k.id === activeKey.id)) {
+          writeAiVault({keySelection:{...(current.keySelection || {}), [vault.provider]:activeKey.id}});
+        }
+      }
       activeAbortController = null;
-      startTyping(llmReply, `${req.providerLabel} (${req.model})`);
+      if (requestState?.kind !== "daily-warn") requestState = null;
+      if (streaming) {
+        const node = $(".ai-msg--streaming", body);
+        streaming = null;
+        clearThinking();
+        const message = {role:"assistant", text:result.text, source:`${req.providerLabel} (${req.model})`, ...(result.truncated ? {truncated:true} : {})};
+        chatHistory.push(message);
+        suggestionsOpen = false;
+        appendMessage(message, node);
+        renderComposerState(); renderRequestState(); updatePreview();
+        void persistCurrentSession();
+      } else startTyping(result.text, `${req.providerLabel} (${req.model})`, { truncated: result.truncated });
     } catch (err) {
+      if (thisExchange !== exchangeId) return;
       activeAbortController = null;
-      if (err.name === "AbortError") {
+      streaming = null;
+      $(".ai-msg--streaming", body)?.remove();
+      if (err.name === "AbortError" && !offlineRequested) {
+        if (err.partialText) {
+          const partial = { role: "assistant", text: err.partialText, source: "Live response · stopped", truncated: true };
+          chatHistory.push(partial);
+          const thinkingNode = $(".ai-msg--thinking", body);
+          if (thinkingNode) thinkingNode.before(messageNode(partial)); else appendMessage(partial);
+        }
+        requestState = null;
         startTyping("*Generation stopped.*", "Cancelled");
       } else {
-        const fallback = await buildOfflineCorpusReply({
-          context: activeContext,
-          userPrompt: userText,
-          languageMode: vault.preferredLanguage || "English",
-        });
-        startTyping(`*Live provider error (${err.message}) — showing Verified Offline Corpus breakdown instead:*\n\n${fallback}`, "Offline Fallback · Corpus Verified");
+        const fallback = await buildOfflineCorpusReply({ context: originalContext, userPrompt: userText,
+          languageMode: vault.preferredLanguage || "English" });
+        if (thisExchange !== exchangeId) return;
+        if (err.partialText) {
+          const partial = { role: "assistant", text: err.partialText, source: "Live response · incomplete", truncated: true };
+          chatHistory.push(partial);
+          const thinkingNode = $(".ai-msg--thinking", body);
+          // Keep the incomplete live text before the offline fallback in the log.
+          if (thinkingNode) thinkingNode.before(messageNode(partial));
+          else appendMessage(partial);
+        }
+        requestState = { kind: offlineRequested ? "offline" : (err.kind || "network"), provider: vault.provider };
+        if (!offlineRequested && vault.provider === "nvidia" && err.kind !== "storage") {
+          pendingGeminiOffer = {userText, systemPrompt:sysPrompt, priorTurns, originalState:{...requestState}};
+        }
+        startTyping(fallback, "Offline Fallback · Corpus Verified");
       }
     }
   }

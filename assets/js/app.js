@@ -116,6 +116,7 @@ const SUBJECTS = [
 
 let _activeViewCleanup = null;
 let _aiTutorOpener = null;
+let _aiTutorCloser = null;
 let _rendering = false;
 
 export function registerAiTutorOpener(fn) {
@@ -218,8 +219,12 @@ export function closeSheet(sheet) {
   }
 }
 
-export function closeAllSheets() {
-  document.querySelectorAll(".bottom-sheet.is-open").forEach((s) => closeSheet(s));
+export function closeAllSheets({ skipTutor = false, keepPinnedAi = false } = {}) {
+  const aiSheet = $("#aiSheet");
+  const keep = keepPinnedAi && aiSheet?.dataset.pinned === "true" &&
+    typeof matchMedia === "function" && matchMedia("(min-width: 1024px)").matches;
+  if (!skipTutor && !keep && aiSheet?.classList.contains("is-open")) _aiTutorCloser?.();
+  document.querySelectorAll(".bottom-sheet.is-open").forEach((s) => { if (!(keep && s === aiSheet)) closeSheet(s); });
 }
 
 /* ------------------------------------------------------------------ *
@@ -311,7 +316,7 @@ export async function render() {
       try { _activeViewCleanup(); } catch (_) { /* ignore */ }
       _activeViewCleanup = null;
     }
-    closeAllSheets();
+    closeAllSheets({ keepPinnedAi: !location.hash.startsWith("#/exam/") });
 
     const route = parseRoute(location.hash);
     setActiveShell(route);
@@ -372,6 +377,7 @@ async function init() {
 
   const tutor = initAiTutor({ openOverlay: openSheet, closeAllSheets });
   registerAiTutorOpener(tutor.openTutor);
+  _aiTutorCloser = () => tutor.closeTutor({ closeOverlay: false, restoreFocus: false });
 
   try {
     await openDB();

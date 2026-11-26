@@ -10,6 +10,8 @@
  *   3. One-time "Before you ask" agreement version tracking (`WELCOME_VERSION = 1`).
  */
 
+import { PROVIDER_LIMITS, estimateTokens, trimHistoryByBudget, classifyProviderError } from "./ai-governor.js";
+
 export const AI_VAULT_STORAGE_KEY = "jelet_ai_vault_v1";
 export const WELCOME_VERSION = 1;
 
@@ -17,7 +19,7 @@ export const AI_PROVIDERS = {
   gemini: {
     id: "gemini",
     label: "Google Gemini",
-    defaultModel: "gemini-2.5-flash",
+    defaultModel: "gemini-3.1-flash-lite",
     endpointHint: "generativelanguage.googleapis.com",
   },
   groq: {
@@ -25,6 +27,12 @@ export const AI_PROVIDERS = {
     label: "Groq",
     defaultModel: "llama-3.3-70b-versatile",
     endpointHint: "api.groq.com/openai/v1/chat/completions",
+  },
+  nvidia: {
+    id: "nvidia",
+    label: "NVIDIA NIM (Free)",
+    defaultModel: "nvidia/nemotron-3.5-lightning-30b-a3b",
+    endpointHint: "integrate.api.nvidia.com/v1/chat/completions",
   },
   openrouter: {
     id: "openrouter",
@@ -34,21 +42,71 @@ export const AI_PROVIDERS = {
   },
 };
 
+// Offline-safe suggestions: provider availability and free-tier limits can change.
+export const CURATED_AI_MODELS = Object.freeze({
+  gemini: [
+    { id: "gemini-3.1-flash-lite", freeTierNote: "Recommended free-tier starting point; availability and quotas vary by account and region. EU, UK and Switzerland users should check current free-tier access." },
+    { id: "gemini-2.5-flash-lite", freeTierNote: "Flash-Lite alternative; check your AI Studio quota." },
+    { id: "gemini-2.5-flash", freeTierNote: "Free daily limits can be lower; check AI Studio before choosing." },
+  ],
+  groq: [
+    { id: "llama-3.3-70b-versatile", freeTierNote: "General-purpose model; free-tier quotas vary." },
+    { id: "llama-3.1-8b-instant", freeTierNote: "Smaller, fast model; check your Groq dashboard for limits." },
+  ],
+  openrouter: [
+    { id: "google/gemini-2.5-flash", freeTierNote: "Existing OpenRouter default may be paid; check provider pricing before sending." },
+    { id: "openrouter/free", freeTierNote: "Free model router; the selected underlying model and availability can change." },
+    { id: "google/gemma-3-27b-it:free", freeTierNote: "Free endpoint when available; provider limits and availability can change." },
+  ],
+  nvidia: [
+    { id: "nvidia/nemotron-3.5-lightning-30b-a3b", freeTierNote: "NVIDIA catalog lists a free endpoint; availability can change." },
+    { id: "meta/llama-3.3-70b-instruct", freeTierNote: "NVIDIA lists this model, but its free endpoint is deprecated; a partner endpoint may be needed." },
+  ],
+});
+export const AI_LANGUAGES = Object.freeze(["English", "Bengali", "Hinglish", "Simple English"]);
+const finiteClamp = (value, min, max, fallback, integer = false) => {
+  const n = value === "" || value == null ? NaN : Number(value);
+  const clamped = Number.isFinite(n) ? Math.max(min, Math.min(max, n)) : fallback;
+  return integer ? Math.round(clamped) : clamped;
+};
+export function normalizeGenerationSettings(vault = {}) {
+  return {
+    temperature: finiteClamp(vault.temperature, 0, 1, 0.2),
+    maxOutputTokens: finiteClamp(vault.maxOutputTokens, 256, 4096, 1024, true),
+    historyTurns: finiteClamp(vault.historyTurns, 2, 8, 8, true),
+  };
+}
+
+// Only saved pre-upgrade vaults get the notice; reading never changes their choices.
+export function hasAiDefaultUpgradeNotice(storage = globalThis.localStorage) {
+  try {
+    const raw = storage?.getItem(AI_VAULT_STORAGE_KEY);
+    if (!raw) return false;
+    const parsed = JSON.parse(raw);
+    return !parsed.defaultUpgradeNoticeSeen && Number(parsed.defaultsVersion || 1) < 2;
+  } catch { return false; }
+}
+
 export const DEFAULT_VAULT = {
   provider: "gemini",
-  model: "gemini-2.5-flash",
+  defaultsVersion: 2,
+  model: "gemini-3.1-flash-lite",
   useCustomModel: false,
   customModel: "",
   apiKey: "",
-  previewPrompt: true,
+  previewPrompt: false,
   acceptedWelcomeVersion: 0,
   preferredLanguage: "English",
+  temperature: 0.2,
+  maxOutputTokens: 1024,
+  historyTurns: 8,
 };
 
 const KNOWN_ENDPOINT_ORIGINS = [
   "https://generativelanguage.googleapis.com/",
   "https://api.groq.com/",
   "https://openrouter.ai/",
+  "https://integrate.api.nvidia.com/",
 ];
 
 /**
@@ -59,7 +117,7 @@ export function validateAiProvider(providerId) {
   const id = String(providerId ?? "").trim();
   if (!id || !Object.prototype.hasOwnProperty.call(AI_PROVIDERS, id)) {
     throw new Error(
-      `Unknown AI provider "${id || "(empty)"}". Supported providers: Google Gemini (gemini), Groq (groq), OpenRouter (openrouter).`
+      `Unknown AI provider "${id || "(empty)"}". Supported providers: Google Gemini (gemini), Groq (groq), OpenRouter (openrouter), NVIDIA NIM (nvidia).`
     );
   }
   return AI_PROVIDERS[id];
@@ -76,20 +134,149 @@ export function resolveEffectiveModel(vault = {}) {
     : AI_PROVIDERS.gemini;
   if (vault.useCustomModel) {
     const custom = typeof vault.customModel === "string" ? vault.customModel.trim() : "";
-    return custom || providerCfg.defaultModel;
+    return custom || (typeof vault.model === "string" && vault.model.trim()) || providerCfg.defaultModel;
   }
   const explicit = typeof vault.model === "string" ? vault.model.trim() : "";
   return explicit || providerCfg.defaultModel;
 }
 
+// Decrypted keys exist only in this tab's module memory, never storage/sessionStorage.
+const unlockedKeys = new WeakMap();
+const WRAP_ITERATIONS = 310000;
+const WRAP_AAD = new TextEncoder().encode("jelet-ai-vault-key-v1");
+const toBase64 = bytes => btoa(String.fromCharCode(...new Uint8Array(bytes)));
+const fromBase64 = value => Uint8Array.from(atob(value), c => c.charCodeAt(0));
+function vaultChanged(storage) {
+  if (storage === globalThis.localStorage && typeof window !== "undefined") window.dispatchEvent(new Event("jelet-ai-vault-change"));
+}
+async function deriveWrapKey(passphrase, salt, iterations) {
+  if (!globalThis.crypto?.subtle) throw new Error("Key encryption requires Web Crypto in a secure browser context.");
+  const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(passphrase), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", hash: "SHA-256", salt, iterations }, material,
+    { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+}
+async function decryptEnvelope(envelope, passphrase) {
+  if (envelope?.version !== 1 || envelope?.algorithm !== "AES-GCM" || envelope?.kdf !== "PBKDF2-SHA256" ||
+      envelope.iterations !== WRAP_ITERATIONS) throw new Error("Unsupported encrypted key format.");
+  try {
+    const salt = fromBase64(envelope.salt), iv = fromBase64(envelope.iv), ciphertext = fromBase64(envelope.ciphertext);
+    if (salt.length !== 16 || iv.length !== 12 || ciphertext.length < 17) throw new Error("Invalid envelope");
+    const key = await deriveWrapKey(passphrase, salt, envelope.iterations);
+    const plain = await crypto.subtle.decrypt({name:"AES-GCM", iv, additionalData:WRAP_AAD}, key, ciphertext);
+    return new TextDecoder().decode(plain);
+  } catch { throw new Error("Unable to unlock key. Check the passphrase or encrypted data."); }
+}
+const keyMetadata = keys => keys.map(({id, provider, label}) => ({id, provider, label}));
+function unpackKeys(secret, parsed) {
+  if (!secret) return [];
+  try {
+    const data = JSON.parse(secret);
+    if (data?.format === "jelet-key-ring-v1" && Array.isArray(data.keys)) return data.keys;
+  } catch { /* legacy envelope contains a single raw key */ }
+  return [{id:"legacy", provider:parsed.keyLegacyProvider || parsed.provider || "gemini", label:"Key 1", secret}];
+}
+async function storeProtectedKeys(keys, passphrase, storage, raw, saved) {
+  if (typeof passphrase !== "string" || passphrase.length < 8) throw new Error("Use a passphrase of at least 8 characters.");
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveWrapKey(passphrase, salt, WRAP_ITERATIONS);
+  const secret = JSON.stringify({format:"jelet-key-ring-v1", keys});
+  const ciphertext = await crypto.subtle.encrypt({name:"AES-GCM",iv,additionalData:WRAP_AAD}, key, new TextEncoder().encode(secret));
+  const envelope = {version:1,algorithm:"AES-GCM",kdf:"PBKDF2-SHA256",iterations:WRAP_ITERATIONS,
+    salt:toBase64(salt),iv:toBase64(iv),ciphertext:toBase64(ciphertext)};
+  if (storage.getItem(AI_VAULT_STORAGE_KEY) !== raw) throw new Error("Vault changed in another tab. Please try again.");
+  const next = {...saved, apiKey:"", vaultKeys:[], keyMetadata:keyMetadata(keys), keyEnvelope:envelope};
+  delete next.keyLocked;
+  storage.setItem(AI_VAULT_STORAGE_KEY, JSON.stringify(next));
+  unlockedKeys.set(storage, {ciphertext:envelope.ciphertext, secret});
+  vaultChanged(storage);
+}
+/** Encrypt all keys; legacy single-key envelopes are upgraded on change. */
+export async function protectAiKey(passphrase, storage = globalThis.localStorage, replacementKey = null) {
+  if (!storage?.getItem || !storage?.setItem) throw new Error("Local storage is unavailable.");
+  if (typeof passphrase !== "string" || passphrase.length < 8) throw new Error("Use a passphrase of at least 8 characters.");
+  const raw = storage.getItem(AI_VAULT_STORAGE_KEY);
+  if (!raw) throw new Error("Save an API key before protecting it.");
+  const saved = JSON.parse(raw);
+  const old = saved.keyEnvelope ? unpackKeys(await decryptEnvelope(saved.keyEnvelope, passphrase), saved) : readAiVault(storage).vaultKeys;
+  const keys = old.map(k => ({...k}));
+  if (replacementKey !== null) {
+    const selected = selectedKey(keys, saved.provider || "gemini", saved.keySelection);
+    if (selected) selected.secret = String(replacementKey).trim();
+    else keys.push({id:crypto.randomUUID(),provider:saved.provider || "gemini",label:"Key 1",secret:String(replacementKey).trim()});
+  }
+  if (!keys.length || keys.some(k => !k.secret)) throw new Error("Save an API key before protecting it.");
+  await storeProtectedKeys(keys, passphrase, storage, raw, saved);
+}
+function selectedKey(keys, provider, selection = {}) {
+  const options = keys.filter(k => k.provider === provider);
+  return options.find(k => k.id === selection?.[provider]) || options[0] || null;
+}
+/** Add or remove keys; modifying an encrypted ring requires its passphrase. */
+export async function updateAiKeys({add, removeId, passphrase = ""}, storage = globalThis.localStorage) {
+  if (!storage?.getItem || !storage?.setItem) throw new Error("Local storage is unavailable.");
+  const raw = storage.getItem(AI_VAULT_STORAGE_KEY);
+  const saved = raw ? JSON.parse(raw) : {...DEFAULT_VAULT};
+  let keys = saved.keyEnvelope ? unpackKeys(await decryptEnvelope(saved.keyEnvelope, passphrase), saved) : readAiVault(storage).vaultKeys;
+  keys = keys.map(k => ({...k}));
+  if (add) {
+    validateAiProvider(add.provider);
+    const secret = String(add.secret || "").trim();
+    if (!secret) throw new Error("Paste an API key first.");
+    if (keys.some(k => k.provider === add.provider && k.secret === secret)) throw new Error("This key is already saved for this provider.");
+    if (keys.length >= 20) throw new Error("Maximum 20 saved keys.");
+    const used = new Set(keys.filter(k => k.provider === add.provider).map(k => k.label));
+    let n = 1; while (used.has(`Key ${n}`)) n++;
+    keys.push({id:crypto.randomUUID(),provider:add.provider,label:`Key ${n}`,secret});
+  }
+  if (removeId) {
+    keys = keys.filter(k => k.id !== removeId);
+    const selections = {...(saved.keySelection || {})}, modes = {...(saved.keyModes || {})};
+    for (const [provider, id] of Object.entries(selections)) {
+      if (id === removeId) { delete selections[provider]; modes[provider] = "auto"; }
+    }
+    saved.keySelection = selections;
+    saved.keyModes = modes;
+  }
+  if (saved.keyEnvelope) await storeProtectedKeys(keys, passphrase, storage, raw, saved);
+  else {
+    if (storage.getItem(AI_VAULT_STORAGE_KEY) !== raw) throw new Error("Vault changed in another tab. Please try again.");
+    storage.setItem(AI_VAULT_STORAGE_KEY, JSON.stringify({...saved,apiKey:"",vaultKeys:keys}));
+    vaultChanged(storage);
+  }
+}
+export function selectAiKey(provider, choice, storage = globalThis.localStorage) {
+  validateAiProvider(provider);
+  const current = readAiVault(storage);
+  const keys = current.vaultKeys.filter(k => k.provider === provider);
+  if (choice !== "auto" && !keys.some(k => k.id === choice)) throw new Error("Select a saved key.");
+  writeAiVault({keyModes:{...(current.keyModes || {}),[provider]:choice === "auto" ? "auto" : "manual"},
+    keySelection:{...(current.keySelection || {}),...(choice === "auto" ? {} : {[provider]:choice})}}, storage);
+}
+
+/** Unlock for this tab only; a reload requires the passphrase again. */
+export async function unlockAiKey(passphrase, storage = globalThis.localStorage) {
+  const raw = storage?.getItem(AI_VAULT_STORAGE_KEY);
+  const saved = raw ? JSON.parse(raw) : null;
+  if (!saved?.keyEnvelope) throw new Error("No encrypted key is stored on this device.");
+  const secret = await decryptEnvelope(saved.keyEnvelope, passphrase);
+  if (storage.getItem(AI_VAULT_STORAGE_KEY) !== raw) throw new Error("Vault changed in another tab. Please try again.");
+  unlockedKeys.set(storage, {ciphertext:saved.keyEnvelope.ciphertext, secret});
+  vaultChanged(storage);
+}
+export function lockAiKey(storage = globalThis.localStorage) {
+  if (storage) unlockedKeys.delete(storage);
+  vaultChanged(storage);
+}
+
 /** Read isolated AI vault from `localStorage` (safe in Node tests where localStorage may be absent). */
 export function readAiVault(storage = globalThis.localStorage) {
   if (!storage || typeof storage.getItem !== "function") {
-    return { ...DEFAULT_VAULT };
+    return { ...DEFAULT_VAULT, vaultKeys: [] };
   }
   try {
     const raw = storage.getItem(AI_VAULT_STORAGE_KEY);
-    if (!raw) return { ...DEFAULT_VAULT };
+    if (!raw) return { ...DEFAULT_VAULT, vaultKeys: [] };
     const parsed = JSON.parse(raw);
     const provider =
       parsed.provider === undefined || parsed.provider === null || parsed.provider === ""
@@ -99,39 +286,72 @@ export function readAiVault(storage = globalThis.localStorage) {
       ? AI_PROVIDERS[provider]
       : AI_PROVIDERS.gemini;
     const useCustomModel = Boolean(parsed.useCustomModel);
+    // A pre-upgrade vault with omitted values used the former defaults.
+    const legacyDefaultModel = provider === "gemini" ? "gemini-2.5-flash" : knownCfg.defaultModel;
     const customModel = typeof parsed.customModel === "string" ? parsed.customModel : "";
     const effectiveModel = useCustomModel
-      ? customModel.trim() || knownCfg.defaultModel
-      : (typeof parsed.model === "string" ? parsed.model.trim() : "") || knownCfg.defaultModel;
+      ? customModel.trim() || legacyDefaultModel
+      : (typeof parsed.model === "string" ? parsed.model.trim() : "") || legacyDefaultModel;
+    const session = unlockedKeys.get(storage);
+    const unlocked = parsed.keyEnvelope && session?.ciphertext === parsed.keyEnvelope.ciphertext;
+    const vaultKeys = parsed.keyEnvelope
+      ? (unlocked ? unpackKeys(session.secret, parsed) : (parsed.keyMetadata || []).map(k => ({...k, secret:""})))
+      : (Array.isArray(parsed.vaultKeys) ? parsed.vaultKeys : (parsed.apiKey ? [{id:"legacy",provider, label:"Key 1",secret:parsed.apiKey}] : []));
+    const apiKey = selectedKey(vaultKeys, provider, parsed.keySelection)?.secret || "";
     return {
       ...DEFAULT_VAULT,
       ...parsed,
+      apiKey,
+      vaultKeys,
+      keyLocked: Boolean(parsed.keyEnvelope && !unlocked),
       provider,
+      defaultsVersion: Object.hasOwn(parsed, "defaultsVersion") ? parsed.defaultsVersion : 1,
       useCustomModel,
       customModel,
       model: effectiveModel,
+      previewPrompt: Object.hasOwn(parsed, "previewPrompt") ? Boolean(parsed.previewPrompt) : true,
+      ...normalizeGenerationSettings(parsed),
     };
   } catch {
-    return { ...DEFAULT_VAULT };
+    return { ...DEFAULT_VAULT, vaultKeys: [] };
   }
 }
 
 /** Save isolated AI vault patch to `localStorage`. */
 export function writeAiVault(patch, storage = globalThis.localStorage) {
-  const merged = { ...readAiVault(storage), ...patch };
+  const previous = readAiVault(storage);
+  if (Object.hasOwn(patch, "keyEnvelope") || Object.hasOwn(patch, "vaultKeys")) throw new Error("Use the encrypted-key controls to change protection.");
+  if (previous.keyEnvelope && Object.hasOwn(patch, "apiKey") && patch.apiKey !== previous.apiKey) throw new Error("Unlock and use the passphrase to replace a protected key.");
+  const merged = { ...previous, ...patch };
+  let keys = previous.vaultKeys.map(k => ({...k}));
+  if (!previous.keyEnvelope && Object.hasOwn(patch, "apiKey")) {
+    const key = selectedKey(keys, merged.provider, merged.keySelection);
+    if (key) key.secret = patch.apiKey;
+    else if (patch.apiKey) keys.push({id:keys.some(k => k.id === "legacy") ? `legacy-${merged.provider}` : "legacy",provider:merged.provider,label:"Key 1",secret:patch.apiKey});
+    keys = keys.filter(k => k.secret);
+  }
+  delete merged.keyLocked;
+  merged.apiKey = "";
+  if (previous.keyEnvelope && !previous.keyMetadata && !previous.keyLegacyProvider) merged.keyLegacyProvider = previous.provider;
+  merged.vaultKeys = previous.keyEnvelope ? [] : keys;
   merged.model = resolveEffectiveModel(merged);
+  Object.assign(merged, normalizeGenerationSettings(merged));
   if (storage && typeof storage.setItem === "function") {
     storage.setItem(AI_VAULT_STORAGE_KEY, JSON.stringify(merged));
+    vaultChanged(storage);
+    return readAiVault(storage);
   }
-  return merged;
+  return {...merged, vaultKeys:keys, apiKey:selectedKey(keys, merged.provider, merged.keySelection)?.secret || ""};
 }
 
 /** Wipe API key and reset isolated AI vault. */
 export function clearAiVault(storage = globalThis.localStorage) {
   if (storage && typeof storage.removeItem === "function") {
     storage.removeItem(AI_VAULT_STORAGE_KEY);
+    unlockedKeys.delete(storage);
+    vaultChanged(storage);
   }
-  return { ...DEFAULT_VAULT };
+  return { ...DEFAULT_VAULT, vaultKeys: [] };
 }
 
 /** Mask an API key for UI display (e.g. `AIza••••••7xQ`). */
@@ -255,6 +475,8 @@ export function buildAiRequestPayload({
   systemPrompt,
   history = [], // [{ role: "user"|"assistant", text: string }] up to 8 turns
   userMessage,
+  maxOutputTokens,
+  stream = false,
 }) {
   const rawProvider =
     vault.provider === undefined || vault.provider === null || vault.provider === ""
@@ -263,7 +485,11 @@ export function buildAiRequestPayload({
   const providerCfg = validateAiProvider(rawProvider);
   const provider = providerCfg.id;
   const model = resolveEffectiveModel({ ...vault, provider });
-  const boundedHistory = history.slice(-8);
+  // Reserve space for the pending user message as well as immutable grounding.
+  const budget = PROVIDER_LIMITS[provider].tokenBudget - estimateTokens(userMessage);
+  const settings = normalizeGenerationSettings(vault);
+  const outputTokens = maxOutputTokens === 8 ? 8 : settings.maxOutputTokens;
+  const boundedHistory = trimHistoryByBudget(history.slice(-settings.historyTurns), systemPrompt, budget);
 
   if (provider === "gemini") {
     const contents = [
@@ -276,10 +502,11 @@ export function buildAiRequestPayload({
     const bodyObj = {
       system_instruction: { parts: [{ text: systemPrompt }] },
       contents,
-      generationConfig: { temperature: 0.2, maxOutputTokens: 1024 },
+      generationConfig: { temperature: settings.temperature, maxOutputTokens: outputTokens },
     };
     const bodyString = JSON.stringify(bodyObj, null, 2);
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(vault.apiKey || "")}`;
+    const method = stream ? "streamGenerateContent?alt=sse&key=" : "generateContent?key=";
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:${method}${encodeURIComponent(vault.apiKey || "")}`;
     return {
       provider,
       providerLabel: providerCfg.label,
@@ -287,6 +514,7 @@ export function buildAiRequestPayload({
       endpoint,
       headers: { "Content-Type": "application/json" },
       bodyString,
+      streaming: Boolean(stream),
     };
   }
 
@@ -294,6 +522,8 @@ export function buildAiRequestPayload({
   const endpoint =
     provider === "groq"
       ? "https://api.groq.com/openai/v1/chat/completions"
+      : provider === "nvidia"
+      ? "https://integrate.api.nvidia.com/v1/chat/completions"
       : "https://openrouter.ai/api/v1/chat/completions";
 
   const messages = [
@@ -304,8 +534,9 @@ export function buildAiRequestPayload({
   const bodyObj = {
     model,
     messages,
-    temperature: 0.2,
-    max_tokens: 1024,
+    temperature: settings.temperature,
+    max_tokens: outputTokens,
+    ...(stream ? { stream: true } : {}),
   };
   const bodyString = JSON.stringify(bodyObj, null, 2);
   return {
@@ -318,36 +549,175 @@ export function buildAiRequestPayload({
       Authorization: `Bearer ${vault.apiKey || ""}`,
     },
     bodyString,
+    streaming: Boolean(stream),
   };
 }
 
-/** Execute a built AI request with `AbortSignal`, using `req.bodyString` byte-for-byte. */
-export async function sendBuiltAiRequest(req, { signal } = {}) {
+/** Provider errors retain only safe diagnostics, never the body or credentials. */
+export class AiProviderError extends Error {
+  constructor(message, classification, status = 0) {
+    super(message);
+    this.name = "AiProviderError";
+    this.classification = classification;
+    this.status = status;
+  }
+}
+
+function responseUsage(raw, isGemini) {
+  if (!raw) return null;
+  const number = value => Number.isFinite(Number(value)) ? Math.max(0, Number(value)) : 0;
+  const total = isGemini ? raw.totalTokenCount : raw.total_tokens;
+  return { promptTokens:number(isGemini ? raw.promptTokenCount : raw.prompt_tokens),
+    outputTokens:number(isGemini ? raw.candidatesTokenCount : raw.completion_tokens),
+    ...(total != null && Number.isFinite(Number(total)) ? { totalTokens:number(total) } : {}) };
+}
+async function readEventStream(response, isGemini, onChunk) {
+  if (!response.body?.getReader) throw new AiProviderError("Provider stream is unavailable.", {kind:"network"});
+  const reader = response.body.getReader(), decoder = new TextDecoder();
+  let buffer = "", text = "", finish = "", usage = null, doneMarker = false;
+  function consume(frame) {
+    const data = frame.split(/\r?\n/).filter(line => line.startsWith("data:"))
+      .map(line => line.slice(5).replace(/^ /, "")).join("\n");
+    if (!data) return;
+    if (data === "[DONE]") { doneMarker = true; return; }
+    let event;
+    try { event = JSON.parse(data); } catch { throw new AiProviderError("Invalid provider stream.", {kind:"network"}); }
+    if (event.error) throw new AiProviderError("Provider stream failed.", {kind:"network"});
+    const chunk = isGemini ? (event.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("")
+      : (event.choices?.[0]?.delta?.content || "");
+    if (chunk) { text += chunk; onChunk(chunk); }
+    finish = (isGemini ? event.candidates?.[0]?.finishReason : event.choices?.[0]?.finish_reason) || finish;
+    usage = responseUsage(isGemini ? event.usageMetadata : (event.usage || event.x_groq?.usage), isGemini) || usage;
+  }
+  try {
+    while (!doneMarker) {
+      const part = await reader.read();
+      buffer += decoder.decode(part.value || new Uint8Array(), {stream:!part.done});
+      let match;
+      while ((match = /\r?\n\r?\n/.exec(buffer))) {
+        const frame = buffer.slice(0, match.index);
+        buffer = buffer.slice(match.index + match[0].length);
+        consume(frame);
+      }
+      if (part.done) { if (buffer.trim()) consume(buffer); break; }
+    }
+    // A terminated connection without a provider completion marker is not a
+    // complete answer: expose Continue instead of silently claiming success.
+    return {text, usage, truncated: finish === "MAX_TOKENS" || finish === "length" || (!finish && !doneMarker)};
+  } finally { reader.releaseLock(); }
+}
+
+/** Change only the credential, retaining the byte-exact previewed body. */
+export function withAiRequestKey(request, secret) {
+  validateAiProvider(request.provider);
+  if (request.provider === "gemini") {
+    const endpoint = new URL(request.endpoint);
+    if (endpoint.origin !== "https://generativelanguage.googleapis.com") throw new Error("Unsupported provider endpoint.");
+    endpoint.searchParams.set("key", secret);
+    return {...request, endpoint:endpoint.toString()};
+  }
+  return {...request, headers:{...request.headers, Authorization:`Bearer ${secret}`}};
+}
+
+// Only the explicitly started loopback server marks its document. Hosted
+// deployments (including preview hosts) must never send credentials to a relay.
+export function localNvidiaRelayAvailable() {
+  return typeof location !== "undefined" && location.protocol === "http:" &&
+    ["localhost", "127.0.0.1"].includes(location.hostname) &&
+    typeof document !== "undefined" &&
+    !!document.querySelector('meta[name="jelet-nvidia-local-relay"][content="1"]');
+}
+
+async function nvidiaTransportEndpoint(req, signal) {
+  if (req.provider !== "nvidia" || !localNvidiaRelayAvailable()) return req.endpoint;
+  // A stale cached shell must not cause a POST to an unrelated static server.
+  try {
+    const response = await fetch("/__jelet_nvidia_relay__/health", {cache: "no-store", signal});
+    const status = await response.json();
+    if (!response.ok || status.service !== "jelet-nvidia-local-relay" || status.version !== 1) throw new Error();
+    return "/__jelet_nvidia_relay__/chat/completions";
+  } catch (error) {
+    if (signal.aborted) throw error;
+    throw new AiProviderError("Local NVIDIA relay unavailable. Restart the local server.", {kind: "network"});
+  }
+}
+
+/** Execute exactly the previewed body; deadline covers fetch AND response parsing. */
+export async function sendBuiltAiRequest(req, { signal, timeoutMs = 45000, onChunk = () => {} } = {}) {
   validateAiProvider(req?.provider);
   const endpoint = String(req?.endpoint || "");
   if (!KNOWN_ENDPOINT_ORIGINS.some((origin) => endpoint.startsWith(origin))) {
-    throw new Error(
-      `Unsupported provider endpoint "${endpoint || "(empty)"}". Choose Google Gemini, Groq, or OpenRouter.`
-    );
+    throw new Error("Unsupported provider endpoint. Choose Gemini, Groq, OpenRouter or NVIDIA NIM.");
   }
-  const res = await fetch(endpoint, {
-    method: "POST",
-    headers: req.headers,
-    body: req.bodyString,
-    signal,
-  });
-  const json = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    const msg =
-      json?.error?.message ||
-      `Provider returned HTTP ${res.status}. Check your API key, model name (${req.model}), or quota in You & AI.`;
-    throw new Error(msg);
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  if (signal?.aborted) throw new DOMException("Generation stopped.", "AbortError");
+  signal?.addEventListener("abort", abort, { once: true });
+  let timer;
+  let rejectOnAbort;
+  const started = Date.now();
+  let received = "";
+  try {
+    return await Promise.race([
+      (async () => {
+        const transportEndpoint = await nvidiaTransportEndpoint(req, controller.signal);
+        const res = await fetch(transportEndpoint, { method: "POST", headers: req.headers,
+          body: req.bodyString, signal: controller.signal });
+        const isGemini = req.provider === "gemini";
+        if (res.ok && req.streaming && /text\/event-stream/i.test(res.headers.get("content-type") || "")) {
+          const result = await readEventStream(res, isGemini, chunk => { received += chunk; onChunk(chunk); });
+          return { ...result, text:result.text || "No response text returned.", providerLatencyMs:Date.now() - started };
+        }
+        const json = await res.json().catch(() => ({}));
+        const usage = responseUsage(isGemini ? json?.usageMetadata : json?.usage, isGemini);
+        if (!res.ok) {
+          const relayLocal = transportEndpoint === "/__jelet_nvidia_relay__/chat/completions" && res.headers.get("X-Jelet-Relay-Source") === "local";
+          const classification = relayLocal ? {kind:"local-relay", retryAfterMs:null} : classifyProviderError(res.status, JSON.stringify(json), res.headers);
+          const relayUnknown = transportEndpoint === "/__jelet_nvidia_relay__/chat/completions" && !res.headers.get("X-Jelet-Relay-Source");
+          const source = relayLocal ? "Local NVIDIA relay" : relayUnknown ? "NVIDIA or local relay" : req.provider === "nvidia" ? "NVIDIA endpoint" : "Provider";
+          const note = relayLocal ? (res.status === 502 ? " The relay could not complete the NVIDIA request; the key was not verified." : " Request was blocked before forwarding; restart the local relay and open its localhost page.")
+            : relayUnknown && classification.kind === "auth" ? " Rejection source is unconfirmed; restart the local relay to distinguish a relay rejection from NVIDIA access."
+            : classification.kind === "auth" && req.provider === "nvidia"
+            ? (res.status === 403 ? " Access denied: check this key’s permissions and model access; a 403 does not prove the key is expired." : " Authentication rejected: check that this is the selected NVIDIA key and that it is valid; NVIDIA keys may expire.")
+            : classification.kind === "not-found" ? " The model or endpoint may be unavailable; check your provider and model." : "";
+          const error = new AiProviderError(`${source} HTTP ${res.status}.${note}`, classification, res.status);
+          error.usage = usage;
+          throw error;
+        }
+        const text = isGemini
+          ? (json?.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("")
+          : json?.choices?.[0]?.message?.content;
+        const finish = isGemini ? json?.candidates?.[0]?.finishReason : json?.choices?.[0]?.finish_reason;
+        return { text: text || "No response text returned.", usage,
+          truncated: finish === "MAX_TOKENS" || finish === "length", providerLatencyMs: Date.now() - started };
+      })(),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => {
+          controller.abort();
+          reject(new AiProviderError("Provider request timed out.", { kind: "network", retryAfterMs: null }));
+        }, Math.max(0, timeoutMs));
+        rejectOnAbort = () => reject(new DOMException("Generation stopped.", "AbortError"));
+        signal?.addEventListener("abort", rejectOnAbort, { once: true });
+      }),
+    ]);
+  } catch (error) {
+    // Browsers deliberately hide CORS/network details from JavaScript. Do not
+    // misdiagnose a blocked request as an invalid key or leak endpoint/keys.
+    if (error instanceof TypeError) {
+      const message = req.provider === "nvidia"
+        ? (localNvidiaRelayAvailable() ? "Could not reach the local NVIDIA relay or NVIDIA. Restart the relay and check your connection; the key was not verified." : "Could not reach NVIDIA from this browser. NVIDIA may block direct browser requests (CORS), or the network may be unavailable; the key was not verified.")
+        : "Could not reach the provider from this browser. Check your connection or browser network restrictions; the key was not verified.";
+      const safeError = new AiProviderError(message, { kind: "network", retryAfterMs: null });
+      if (received) safeError.partialText = received;
+      throw safeError;
+    }
+    if (received) error.partialText = received;
+    throw error;
+  } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener("abort", abort);
+    if (rejectOnAbort) signal?.removeEventListener("abort", rejectOnAbort);
   }
-  if (req.provider === "gemini") {
-    const parts = json?.candidates?.[0]?.content?.parts || [];
-    return parts.map((p) => p.text || "").join("") || "No response text returned.";
-  }
-  return json?.choices?.[0]?.message?.content || "No response text returned.";
 }
 
 /** Minimal zero-study-data connection test (`docs/04 §2.3`: `Reply with OK`, `maxOutputTokens: 8`). */
@@ -362,8 +732,9 @@ export async function testAiConnection(vault) {
     systemPrompt: "Reply strictly with OK.",
     history: [],
     userMessage: "Reply with OK",
+    maxOutputTokens: 8,
   });
-  const text = await sendBuiltAiRequest(req);
+  const { text } = await sendBuiltAiRequest(req);
   const latencyMs = Math.round(performance.now() - t0);
   return { ok: true, latencyMs, model: req.model, sample: text.trim().slice(0, 24) };
 }

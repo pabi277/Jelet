@@ -6,7 +6,7 @@
 
 ## 1. Core Architectural Principles
 
-1. **Zero Server, Zero Shared Key, Zero Proxy:** Browser `fetch()` communicates directly from the user's device to their chosen provider (`https://generativelanguage.googleapis.com/...` for **Google Gemini** default; optional **Groq** / **OpenRouter**).
+1. **No hosted proxy or shared key:** Hosted/static deployments send browser `fetch()` directly to the chosen provider. Owner-approved exception (2026-11-25): the optional `scripts/serve_local.py` runs only on the user’s device and accepts same-origin requests for a fixed NVIDIA HTTPS endpoint. It does not store or log keys or prompts. The browser uses it only when the app is served by this explicitly started loopback server; all other providers remain direct. NVIDIA may otherwise block browser CORS.
 2. **Read & Explain Only:** The AI Tutor explains verified steps, diagnoses why a student's chosen option was a trap, translates explanations into **Bengali / Hinglish / Simple English**, and suggests which of the 42 syllabus units to revise. It **never** alters scores, keys, or question records.
 3. **100% Optional:** Every feature of JELET Study Hub (all 500 PYQs, all 500 SymPy-verified solutions, all 42 unit workbooks, full timed OMR mocks, Leitner review) works **100% offline with zero AI setup**. If no key is saved, clicking an `✦` AI chip opens a friendly, non-intrusive card linking to `You & AI → Setup Free Gemini Key`.
 
@@ -14,15 +14,19 @@
 
 ## 2. Key Storage & Privacy Isolation (`jelet_ai_vault_v1`)
 
-1. **Isolated Storage Key:** Stored separately from `jelet_hub_v1` IndexedDB under `localStorage["jelet_ai_vault_v1"]` (optionally wrapped with Web Crypto AES-GCM session passphrase if the user is on a shared lab PC, plus a `"Remember on this personal device"` toggle).
+1. **Isolated Storage Key:** Stored separately from `jelet_hub_v1` IndexedDB under `localStorage["jelet_ai_vault_v1"]` (optionally protected with Web Crypto AES-GCM and a passphrase, using PBKDF2-SHA256; an unlocked key stays in the current tab's memory until locked or reloaded). Existing plaintext vaults remain unchanged until the user chooses Protect key. A forgotten passphrase cannot be recovered, and protection cannot prevent malicious same-origin code accessing a key while unlocked.
 2. **Strict Export Exclusion:** `exportStudyBackup()` is forbidden by unit test from ever reading `jelet_ai_vault_v1`. Sharing a `.json` study backup with a friend on Telegram will **never** expose the user's API key.
 3. **Setup Flow in `You & AI` (`/you`):**
    * **Provider Selector:**
-     * `Google Gemini` *(Recommended — Free tier via Google AI Studio: `https://aistudio.google.com/apikey`, default model `gemini-2.5-flash`)*
+     * `Google Gemini` *(Recommended — Free tier via Google AI Studio: `https://aistudio.google.com/apikey`, fresh-vault default model `gemini-3.1-flash-lite`)*
      * `Groq` *(Optional fast inference)*
      * `OpenRouter` *(Optional)*
-   * **Save & Test Connection:** Clicking **`Test Connection`** sends a fixed minimal request (`maxOutputTokens: 8`, prompt `"Reply with OK"`, zero user study data) and displays exact HTTP status / latency (`Connected · 340 ms`) or human-readable quota/invalid-key diagnostics.
-   * **Clear Key:** Single-tap wipe of `jelet_ai_vault_v1` + in-memory chat history.
+     * `NVIDIA NIM` *(Optional; direct browser CORS may fail, optional local-only relay available)*
+   * **Save & Test Connection:** The UI identifies the selected key label and route, distinguishes local relay rejections from forwarded errors where supported, and does not misdiagnose 403 as necessarily expired. Clicking **`Test Connection`** sends a fixed minimal request (`maxOutputTokens: 8`, prompt `"Reply with OK"`, zero user study data) and displays exact HTTP status / latency (`Connected · 340 ms`) or human-readable quota/invalid-key diagnostics.
+   * **Multiple keys (owner decision, 2026-11-26):** Save up to 20 keys in the isolated vault, including multiple keys per provider. The legacy single key retains its original provider. The user chooses Auto or a specific key in You & AI or the compact chat selector. Auto tries another key **only within the same provider and model** after authentication, quota or rate-limit rejection; manual selection never switches. No switching after partial output, on network, model, or generic server errors. Every attempt remains under the same provider-wide atomic pacing/daily budget, at most two automatic retries, and the 70-second window (including Retry-After). Account quotas and costs may be shared or different. Test Connection tests only the currently selected key. Successful auto switching becomes the starting key for future sends. The prompt body remains byte-identical to the preview on each attempt.
+   * **Explicit cross-provider fallback (owner decision):** If NVIDIA fails, offer Try Gemini without sending anything to another provider automatically. Show Google, its default Gemini model, the selected key label, relevant context/history and cost/terms notice, plus the exact Gemini body for preview. Only an explicit Send to Gemini confirmation starts a fresh governed request. Cancel or missing/changed/locked Gemini key sends nothing. The NVIDIA provider selection does not change. Preserve timed-mock lock, grounding, no secret in preview and provider-specific quota accounting. This manual send is distinct from bounded same-provider automatic retries.
+   * **Passphrase:** Protect encrypts all saved keys together. Adding or removing a protected key requires the passphrase and re-encrypts the collection. No plaintext keys enter IndexedDB, backup, sync or logs. Unlock is tab-local.
+   * **Remove key / Clear All Keys:** Remove individual keys in You & AI; clearing all resets the vault after confirmation.
 
 ---
 
@@ -31,7 +35,7 @@
 Just like `CodeC` (`AiCopy.WELCOME_TITLE`), before the composer renders for the first time on a `WELCOME_VERSION`, the AI drawer displays the 4-bullet agreement card:
 
 1. **Study companion, not the examiner.** Explanations are generated by your selected model, anchored to this app's verified WBJEEB keys and solutions.
-2. **Your API key, your quota, your rate limits.** JELET Study Hub runs 100% on your device, hosts no server, and pays for no requests; calls go directly from your browser to your provider under their terms.
+2. **Your API key, your quota, your rate limits.** JELET Study Hub hosts no relay and pays for no requests; calls go directly from your browser to your provider under their terms, except NVIDIA can pass through the optional local-only server on your own device.
 3. **Independent vs. Assisted honesty.** Opening AI help during an active practice question marks that single attempt as *Assisted* so your *Independent Accuracy* stays truthful. (During a **Timed Full Mock**, AI Tutor is locked until you submit!)
 4. **Always verify steps on paper.** Solving derivatives, circuits, and stoichiometry with pen-and-paper is what builds JELET exam speed.
 
@@ -41,9 +45,9 @@ Button: **`I understand — open AI Tutor`**. Nothing is transmitted until the u
 
 ## 4. Transparent `"Check Prompt Before Sending"` Preview (`12-phone-codec-ai-tutor.png` & `10-codec-ai-tutor-and-results.png`)
 
-Every outgoing request builds a deterministic `AiPromptPreview` object shown in the collapsible **`▼ Check prompt before sending`** bar directly above the chat stream:
+Every outgoing request builds a deterministic request body. The collapsible **`▼ Check prompt before sending`** bar is OFF by default for fresh vaults and can be enabled in You & AI; saved vault choices are preserved (owner amendment, 2026-11-25). When enabled, it appears above the chat stream:
 
-* Displays: **Provider** (`Google Gemini`), **Model** (`gemini-2.5-flash`), **Context Attached** (`JELET 2025 Q16 · Official Key + SymPy Solution`), and the **exact JSON/text payload** that will leave the browser.
+* Displays: **Provider** (`Google Gemini`), **Model** (`gemini-3.1-flash-lite` for fresh vaults), **Context Attached** (`JELET 2025 Q16 · Official Key + SymPy Solution`), and the **exact JSON/text payload** that will leave the browser.
 * Invariant (enforced by test, identical to CodeC `GeminiRequest.body`): *The exact strings displayed in the preview box are byte-for-byte the strings sent over `fetch()`.*
 * **Streaming & Abort:** Uses `AbortController` wired to a visible **`Stop`** button—clicking `Stop` immediately aborts the underlying HTTP stream (not merely hiding UI output).
 * **Bounded Session Memory:** Retains up to **8 turns** in memory per active question/lesson context (`Clear Chat` resets immediately). If truncated by token cap, a **`Continue`** button builds a fresh preview rather than silently re-firing.

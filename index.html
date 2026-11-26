@@ -51,16 +51,20 @@
     <!-- ===== Scoped, Corpus-Grounded Codec AI Tutor Sheet ===== -->
     <section class="bottom-sheet ai-sheet" id="aiSheet" role="dialog" aria-modal="true" aria-label="Codec AI Tutor" aria-hidden="true">
       <div class="bottom-sheet__handle" aria-hidden="true"></div>
-      <div class="bottom-sheet__header">
-        <div class="cluster-xs" style="flex:1;min-width:0">
-          <h2 class="bottom-sheet__title" style="flex:0 1 auto">Codec AI Tutor</h2>
-          <span class="pill" id="aiSheetModeBadge">Corpus Verified</span>
-        </div>
-        <button class="btn btn--ghost" id="aiHistoryBtn" type="button" aria-label="Conversation history" aria-expanded="false" aria-controls="aiSheetBody">
-          <svg class="ico" aria-hidden="true"><use href="./assets/icons/icons.svg#icon-layers"/></svg>
+      <div class="bottom-sheet__header ai-sheet__header">
+        <button class="btn btn--ghost ai-header-icon" id="closeAiSheetBtn" type="button" aria-label="Close AI Tutor">
+          <svg class="ico" aria-hidden="true"><use href="./assets/icons/icons.svg#icon-back"/></svg>
         </button>
-        <button class="btn btn--ghost" id="closeAiSheetBtn" type="button" aria-label="Close AI Tutor">
-          <svg class="ico" aria-hidden="true"><use href="./assets/icons/icons.svg#icon-close"/></svg>
+        <button class="btn btn--ghost ai-header-icon ai-history-trigger" id="aiHistoryBtn" type="button" aria-label="Conversation history" aria-expanded="false" aria-controls="aiHistoryDrawer">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="ai-header-title">
+          <h2 class="bottom-sheet__title">Codec AI Tutor</h2>
+          <span id="aiSheetModeBadge">Corpus Tutor · Offline</span>
+        </div>
+        <button class="btn btn--ghost btn--sm ai-pin-btn" id="aiPinBtn" type="button" aria-pressed="false">Pin</button>
+        <button class="btn btn--ghost ai-header-icon ai-context-trigger" id="aiContextInfoBtn" type="button" aria-label="Show tutor context" aria-expanded="false" aria-controls="aiContextPanel">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 10.5v5M12 7.5h.01"/></svg>
         </button>
       </div>
       <div class="bottom-sheet__body ai-sheet__body" id="aiSheetBody"></div>

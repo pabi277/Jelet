@@ -63,7 +63,7 @@ export const SYNC_META_APP_KEY = "app";
 export const SYNC_TOMB_KEY = "syncTombs";
 
 /** meta records that are device-local and NEVER synced. */
-export const SYNC_LOCAL_META_KEYS = ["sync", "syncOutbox", "aiHistory"];
+export const SYNC_LOCAL_META_KEYS = ["sync", "syncOutbox", "aiHistory", "aiGovernor"];
 
 export const OUTBOX_MAX_ENTRIES = 200;
 export const MERGE_LOG_MAX_ENTRIES = 40;

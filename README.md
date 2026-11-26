@@ -42,8 +42,56 @@ The app is a **zero-build, 100% static, installable offline PWA**. Preview it
 locally with:
 
 ```bash
-python3 -m http.server 8000   # then open http://localhost:8000/
+python3 -m http.server 8000 --bind 127.0.0.1   # then open http://localhost:8000/
 ```
+
+### Multiple AI keys
+
+In **You & AI**, select a provider and add keys one at a time. Choose **Auto
+switch** or a specific key there or in the tutor composer. Auto only tries
+another key for the same provider and model after a rejected key, quota or
+rate-limit error; manual selection does not switch. App pacing and daily limits
+still apply across all keys for that provider, and keys may share a provider
+quota or have different costs. The connection test checks the currently active
+key only. All keys stay in the isolated local vault, outside backups and sync.
+Optional passphrase protection encrypts all of them; enter the passphrase to add
+or remove a key from a protected vault. Unlocking remains tab-local.
+
+If an NVIDIA tutor request fails, **Try Gemini…** lets you review and explicitly
+confirm a one-time send of the same question, relevant prior conversation and
+JELET context to Google Gemini. It uses the default Gemini model and a saved,
+unlocked Gemini key; it does not change your selected provider. Gemini may have
+different availability, terms and costs. No Gemini request is sent if you cancel.
+The exact Gemini request can be previewed before confirming.
+
+For an NVIDIA connection-test failure, check which key and route the diagnostic
+names. An NVIDIA HTTP 401 can indicate a rejected or invalid key; HTTP 403 can
+also mean insufficient model access or permissions, not necessarily expiration.
+A local relay rejection is identified separately by the updated relay. Select
+and test each key individually; don't share keys in screenshots or support chats.
+
+### Optional NVIDIA relay on your own phone (Termux)
+
+NVIDIA may block direct browser requests through CORS even when a key is valid.
+An optional server can serve JELET and relay NVIDIA requests from your phone to
+NVIDIA over HTTPS. In Termux, from this repository directory:
+
+```bash
+pkg install python -y
+python scripts/serve_local.py
+```
+
+Open **http://localhost:8000/** in the browser on the same phone, choose NVIDIA
+in **You & AI**, save/unlock your key, and use **Test Connection**. Leave Termux
+running while using NVIDIA; press Ctrl+C to stop. Use `--port 8001` and the
+corresponding localhost URL if port 8000 is in use. The relay listens only on
+127.0.0.1, accepts same-origin requests, forwards only to NVIDIA, and does not
+store or log keys or prompts. NVIDIA still receives your key and request under
+its own terms. Other AI providers remain direct; static/hosted versions never
+use this relay. If the test fails, the model, key, network, quota or provider
+availability may also be responsible. Do not expose this server to a network or
+use a remote proxy. Browser storage is specific to the exact origin (including
+port), so you may need to set up your key again locally.
 
 It deploys to **any static host** (GitHub Pages, Netlify, Vercel, Cloudflare
 Pages, S3, Termux) — see **[`DEPLOY.md`](./DEPLOY.md)** for per-host steps,

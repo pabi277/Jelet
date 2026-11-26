@@ -44,12 +44,12 @@ Every human contributor and AI coding agent working in this repository MUST obey
 
 ## 4. Privacy, Storage & CodeC-Style AI Law
 
-1. **100% Local-First & ₹0 Hosting:** No backend server, no Firebase/Supabase login wall, no analytics trackers, no cookies. All study state lives in versioned **IndexedDB (`jelet_hub_v1`)**.
+1. **100% Local-First & ₹0 Hosting:** No hosted backend server, no Firebase/Supabase login wall, no analytics trackers, no cookies. All study state lives in versioned **IndexedDB (`jelet_hub_v1`)**. Owner-approved exception: optional `scripts/serve_local.py` runs only on loopback on the user’s own device and relays NVIDIA requests only to its fixed NVIDIA HTTPS endpoint, without storing or logging keys or prompts. Hosted deployments remain direct-to-provider.
 2. **Never Fake User Metrics:** Streaks, practiced counts, accuracy percentages, subject progress bars, and mock bests MUST compute strictly from real user submissions stored in IndexedDB (`0` and `—` on a fresh device). Viewing a page never increments practiced counts.
 3. **CodeC BYOK AI Discipline (`docs/04-CODEC-AI-TUTOR-SPEC.md`):**
    - Optional BYOK key (`Google Gemini` default, `Groq` / `OpenRouter` optional) stored in isolated local storage (`jelet_ai_vault_v1`) and **NEVER included in Study Backup JSON exports**.
    - Require the one-time **"Before you ask"** agreement before showing the composer.
-   - Always render the collapsible **"Check prompt before sending"** preview showing exact provider, model, and payload.
+   - Fresh vaults default the collapsible **"Check prompt before sending"** preview OFF; users can enable it in You & AI. When enabled, it shows the exact provider, model, and transmitted payload (owner amendment 2026-11-25).
    - **Ground-Truth Lock:** Every AI request on a question or lesson MUST inject the verified question JSON, official key, marking rule, and SymPy-verified solution with a system instruction forbidding contradiction of the official WBJEEB key.
 
 ---
