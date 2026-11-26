@@ -214,22 +214,21 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
       </section>
 
       <!-- Card 2: CodeC BYOK AI Tutor Vault (13-phone-you-ai-and-ju-hub.png — always open, no disclosure header) -->
-      <section class="card stack-s" id="youAiSection">
-        <div class="row-between" style="flex-wrap:wrap;gap:var(--space-xs)">
-          <div>
-            <h3 class="card__title" style="margin:0">Codec BYOK AI Tutor</h3>
-            <p class="card__meta">Optional — Offline Corpus Tutor works without any key.</p>
-          </div>
+      <!-- Compact layout: essentials stay visible; advanced/protect/usage collapse into nested details. -->
+      <section class="card card--compact stack-xs" id="youAiSection">
+        <div class="row-between ai-compact-head">
+          <h3 class="card__title ai-compact-title">Codec BYOK AI Tutor</h3>
           <span class="pill" id="aiVaultStatusPill"></span>
         </div>
+        <p class="card__meta ai-compact-sub">Optional · Offline tutor works without a key.</p>
 
-        <div class="mono card__meta" id="aiMaskedKeyLine"></div>
-        <div id="aiDefaultUpgradeNotice" class="worked-example" ${hasAiDefaultUpgradeNotice() ? "" : "hidden"}>
+        <div class="mono card__meta ai-masked-line" id="aiMaskedKeyLine"></div>
+        <div id="aiDefaultUpgradeNotice" class="worked-example ai-notice" ${hasAiDefaultUpgradeNotice() ? "" : "hidden"}>
           A new free-tier Gemini default is available (gemini-3.1-flash-lite). Your saved provider, model and preview choice are unchanged.
           <button type="button" class="btn btn--ghost btn--sm" id="dismissAiDefaultNotice">Dismiss</button>
         </div>
 
-        <div class="form-grid-2">
+        <div class="form-grid-2 form-grid-2--compact">
           <label class="form-field">
             <span class="form-label">Provider</span>
             <select class="input-select" id="aiProviderSelect">
@@ -248,6 +247,24 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
               <option value="custom" ${vault.useCustomModel ? "selected" : ""}>Custom model</option>
             </select>
           </label>
+          <label class="form-field">
+            <span class="form-label">Tutor language</span>
+            <select class="input-select" id="aiLanguageSelect">
+              <option value="English" ${vault.preferredLanguage === "English" ? "selected" : ""}>English</option>
+              <option value="Bengali" ${vault.preferredLanguage === "Bengali" ? "selected" : ""}>বাংলা</option>
+              <option value="Hinglish" ${vault.preferredLanguage === "Hinglish" ? "selected" : ""}>Hinglish</option>
+              <option value="Simple English" ${vault.preferredLanguage === "Simple English" ? "selected" : ""}>Simple English</option>
+            </select>
+          </label>
+          <div class="form-field ai-preview-field">
+            <span class="form-label">Preview prompt</span>
+            <div class="toggle-row ai-preview-row">
+              <span class="card__meta">Inspect payload before sending</span>
+              <button type="button" class="switch-btn" id="aiPreviewToggleBtn" role="switch" aria-checked="${Boolean(vault.previewPrompt)}" aria-label="Preview prompt before sending">
+                <span class="switch-btn__thumb"></span>
+              </button>
+            </div>
+          </div>
         </div>
 
         <p class="card__meta" id="aiModelFreeTierNote"></p>
@@ -258,31 +275,29 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
           <span class="card__meta">Test the connection after saving a custom model.</span>
         </div>
 
-        <label class="form-field">
-          <span class="form-label">Tutor language</span>
-          <select class="input-select" id="aiLanguageSelect">
-            <option value="English" ${vault.preferredLanguage === "English" ? "selected" : ""}>English</option>
-            <option value="Bengali" ${vault.preferredLanguage === "Bengali" ? "selected" : ""}>বাংলা</option>
-            <option value="Hinglish" ${vault.preferredLanguage === "Hinglish" ? "selected" : ""}>Hinglish</option>
-            <option value="Simple English" ${vault.preferredLanguage === "Simple English" ? "selected" : ""}>Simple English</option>
-          </select>
-        </label>
-
-        <div class="form-grid-2">
-          <label class="form-field"><span class="form-label">Temperature (0–1)</span><input class="input-field" id="aiTemperature" type="number" min="0" max="1" step="0.1" value="${vault.temperature}" /></label>
-          <label class="form-field"><span class="form-label">Max output tokens (256–4096)</span><input class="input-field" id="aiMaxOutputTokens" type="number" min="256" max="4096" step="1" value="${vault.maxOutputTokens}" /></label>
-          <label class="form-field"><span class="form-label">History turns (2–8)</span><input class="input-field" id="aiHistoryTurns" type="number" min="2" max="8" step="1" value="${vault.historyTurns}" /></label>
-        </div>
-        <p class="card__meta">More output and history can use more of your free token quota. Higher temperature makes answers less predictable.</p>
+        <details class="ai-advanced" id="aiAdvancedDetails">
+          <summary class="ai-advanced__summary">
+            <span class="ai-advanced__title">Advanced generation settings</span>
+            <span class="ai-advanced__status mono" id="aiGenSummaryStatus"></span>
+          </summary>
+          <div class="stack-xs ai-advanced__body">
+            <div class="form-grid-2 form-grid-2--compact">
+              <label class="form-field"><span class="form-label">Temperature (0–1)</span><input class="input-field" id="aiTemperature" type="number" min="0" max="1" step="0.1" value="${vault.temperature}" /></label>
+              <label class="form-field"><span class="form-label">Max output tokens (256–4096)</span><input class="input-field" id="aiMaxOutputTokens" type="number" min="256" max="4096" step="1" value="${vault.maxOutputTokens}" /></label>
+              <label class="form-field"><span class="form-label">History turns (2–8)</span><input class="input-field" id="aiHistoryTurns" type="number" min="2" max="8" step="1" value="${vault.historyTurns}" /></label>
+            </div>
+            <p class="card__meta">More output and history can use more of your free token quota. Higher temperature makes answers less predictable.</p>
+          </div>
+        </details>
 
         <label class="form-field">
           <span class="form-label">Active key for this provider</span>
           <select class="input-select" id="aiKeyChoice" aria-label="Active AI key"></select>
         </label>
         <div id="aiSavedKeys" class="stack-xs"></div>
-        <p class="card__meta">The model shown beside Gemini keys is the current provider model, not a model assigned to an individual key. Auto tries another saved key for this provider after a quota, rate-limit or rejected-key error. Provider-wide app pacing and daily limits still apply. Different keys can have different costs or shared account quotas.</p>
+        <p class="card__meta">Auto switches keys on quota / rate-limit errors. Pacing limits apply per provider.</p>
         <label class="form-field">
-          <span class="form-label">Add API key for selected provider (stored only on this device)</span>
+          <span class="form-label">Add API key (stored only on this device)</span>
           <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
         </label>
 
@@ -292,33 +307,35 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
           <button type="button" class="btn btn--ghost btn--sm" id="clearAiKeyBtn">Clear All Keys</button>
         </div>
         <div id="aiConnDiagnostic" class="card__meta" role="status"></div>
-        <div class="worked-example stack-xs">
-          <strong>Protect your API key with a passphrase</strong>
-          <p class="card__meta">All saved keys are unencrypted until you choose Protect key. To add or remove keys in a protected vault, enter the passphrase below first. Optional AES-GCM protection unlocks only in this tab until it is locked or reloaded. Do not forget your passphrase: it cannot be recovered. This does not protect against malicious code while the vault is unlocked.</p>
-          <label class="form-field"><span class="form-label">Passphrase (at least 8 characters)</span><input type="password" class="input-field" id="aiKeyPassphrase" autocomplete="new-password" /></label>
-          <label class="form-field"><span class="form-label">Confirm passphrase when protecting</span><input type="password" class="input-field" id="aiKeyPassphraseConfirm" autocomplete="new-password" /></label>
-          <div class="cluster-xs">
-            <button type="button" class="btn btn--ghost btn--sm" id="protectAiKeyBtn">Protect key</button>
-            <button type="button" class="btn btn--ghost btn--sm" id="unlockAiKeyBtn">Unlock key</button>
-            <button type="button" class="btn btn--ghost btn--sm" id="lockAiKeyBtn">Lock key</button>
-          </div>
-          <div class="card__meta" id="aiProtectionStatus" role="status"></div>
-        </div>
 
-        <div class="toggle-row">
-          <div>
-            <strong>Preview prompt before sending</strong>
-            <div class="card__meta">Inspect exact model &amp; JSON payload in Codec AI Tutor</div>
+        <details class="ai-advanced" id="aiProtectDetails">
+          <summary class="ai-advanced__summary">
+            <span class="ai-advanced__title">Protect key with passphrase</span>
+            <span class="ai-advanced__status" id="aiProtectionSummaryStatus"></span>
+          </summary>
+          <div class="stack-xs ai-advanced__body">
+            <p class="card__meta">All saved keys are unencrypted until you choose Protect key. To add or remove keys in a protected vault, enter the passphrase below first. Optional AES-GCM protection unlocks only in this tab until it is locked or reloaded. Do not forget your passphrase: it cannot be recovered. This does not protect against malicious code while the vault is unlocked.</p>
+            <label class="form-field"><span class="form-label">Passphrase (at least 8 characters)</span><input type="password" class="input-field" id="aiKeyPassphrase" autocomplete="new-password" /></label>
+            <label class="form-field"><span class="form-label">Confirm passphrase when protecting</span><input type="password" class="input-field" id="aiKeyPassphraseConfirm" autocomplete="new-password" /></label>
+            <div class="cluster-xs">
+              <button type="button" class="btn btn--ghost btn--sm" id="protectAiKeyBtn">Protect key</button>
+              <button type="button" class="btn btn--ghost btn--sm" id="unlockAiKeyBtn">Unlock key</button>
+              <button type="button" class="btn btn--ghost btn--sm" id="lockAiKeyBtn">Lock key</button>
+            </div>
+            <div class="card__meta" id="aiProtectionStatus" role="status"></div>
           </div>
-          <button type="button" class="switch-btn" id="aiPreviewToggleBtn" role="switch" aria-checked="${Boolean(vault.previewPrompt)}">
-            <span class="switch-btn__thumb"></span>
-          </button>
-        </div>
-        <div class="stack-xs" aria-label="Free-tier usage on this device">
-          <strong>Free-tier usage (this device)</strong>
-          <div id="aiUsageDashboard" class="stack-xs" aria-live="polite">Loading local counters…</div>
-          <p class="card__meta">Resets at local midnight. App pacing and daily budgets are conservative estimates, not provider guarantees. Counters stay on this device, are never synced, and contain no question content.</p>
-        </div>
+        </details>
+
+        <details class="ai-advanced" id="aiUsageDetails">
+          <summary class="ai-advanced__summary">
+            <span class="ai-advanced__title">Free-tier usage (this device)</span>
+            <span class="ai-advanced__status mono" id="aiUsageSummaryStatus"></span>
+          </summary>
+          <div class="stack-xs ai-advanced__body" aria-label="Free-tier usage on this device">
+            <div id="aiUsageDashboard" class="stack-xs" aria-live="polite">Loading local counters…</div>
+            <p class="card__meta">Resets at local midnight. App pacing and daily budgets are conservative estimates, not provider guarantees. Counters stay on this device, are never synced, and contain no question content.</p>
+          </div>
+        </details>
       </section>
 
       <!-- Readiness Snapshot (Phase 07 · Slice 4 — compact disclosure below JU & AI, closed by default) -->
@@ -746,6 +763,14 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     pill.textContent = vault.keyLocked ? "Key locked · Offline" : hasKey ? `${pCfg.label} · Key Saved` : "Offline Corpus Mode";
     $("#aiMaskedKeyLine", root).textContent = `Key: ${vault.keyLocked ? "Encrypted and locked" : maskApiKey(vault.apiKey)} · Model: ${effectiveModel}`;
     $("#aiProtectionStatus", root).textContent = vault.keyEnvelope ? (vault.keyLocked ? "Encrypted key is locked in this tab." : "Encrypted key is unlocked in this tab.") : "Key is not passphrase-protected.";
+    const protectSummary = $("#aiProtectionSummaryStatus", root);
+    if (protectSummary) {
+      protectSummary.textContent = vault.keyEnvelope ? (vault.keyLocked ? "Locked" : "Unlocked") : "Not protected";
+    }
+    const genSummary = $("#aiGenSummaryStatus", root);
+    if (genSummary) {
+      genSummary.textContent = `T ${vault.temperature} · ${vault.maxOutputTokens} tok · ${vault.historyTurns} turns`;
+    }
     $("#unlockAiKeyBtn", root).disabled = !vault.keyEnvelope || !vault.keyLocked;
     $("#lockAiKeyBtn", root).disabled = !vault.keyEnvelope || vault.keyLocked;
     const modeSelect = $("#aiModelModeSelect", root);
@@ -786,11 +811,21 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     try {
       const state = await loadGovernor();
       if (!slot.isConnected) return;
-      slot.innerHTML = getGovernorDashboard(state).map(row => {
+      const rows = getGovernorDashboard(state);
+      slot.innerHTML = rows.map(row => {
         const last = row.lastError ? ` · last error: ${escapeHtml(row.lastError.kind)}${Number.isFinite(row.lastError.at) ? ` (${escapeHtml(new Date(row.lastError.at).toLocaleString())})` : ""}` : " · no recorded error";
         return `<div class="card__meta"><strong>${escapeHtml(AI_PROVIDERS[row.provider].label)}</strong>: ${row.requests} / ${row.dailyMax} asks today (warn ${row.dailyWarn}) · ${row.totalTokens} tokens (provider reported; may be incomplete)${last}<br>${row.rpm} asks/min · ${row.minGapMs / 1000}s minimum gap</div>`;
       }).join("");
-    } catch { slot.textContent = "Local usage counters are unavailable."; }
+      const usageSummary = $("#aiUsageSummaryStatus", root);
+      if (usageSummary) {
+        const totalToday = rows.reduce((sum, r) => sum + (r.requests || 0), 0);
+        usageSummary.textContent = totalToday > 0 ? `${totalToday} asks today` : "0 asks today";
+      }
+    } catch {
+      slot.textContent = "Local usage counters are unavailable.";
+      const usageSummary = $("#aiUsageSummaryStatus", root);
+      if (usageSummary) usageSummary.textContent = "";
+    }
   }
   void renderAiUsage();
   const unsubscribeUsage = onSync(notice => {
@@ -806,6 +841,11 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
       const normalized = normalizeGenerationSettings({ ...readAiVault(), [field]: event.target.value });
       writeAiVault(normalized);
       event.target.value = normalized[field];
+      const genSummary = $("#aiGenSummaryStatus", root);
+      if (genSummary) {
+        const v = readAiVault();
+        genSummary.textContent = `T ${v.temperature} · ${v.maxOutputTokens} tok · ${v.historyTurns} turns`;
+      }
     });
   }
 

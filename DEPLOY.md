@@ -191,6 +191,67 @@ clear "sync pending" state with the last error.
   build works at `http://localhost:8000/`, `/Jelet/`, and
   `https://<user>.github.io/<repo>/`.
 
+## Updates, cache & safe auto-reload (Task 2)
+
+When you update the project and deploy it, every open browser must pick up
+the new version **without data loss** and **without relying on the old
+cache**. The mechanism lives in `assets/js/core/update-manager.js` +
+`sw.js` + `version.json`:
+
+- **`version.json` (repo root)** is the single deploy stamp:
+  `{ version, build, swVersion, updatedAt }`. It is always fetched with
+  `cache: "no-store"` and the Service Worker passes it straight through —
+  neither the HTTP cache nor any SW cache can serve a stale copy.
+- **Release flow:**
+  ```bash
+  node scripts/bump_version.mjs --bump   # stamps new build + bumps SW_VERSION
+  # commit version.json + sw.js + assets/js/core/update-manager.js together
+  node scripts/bump_version.mjs --check  # verifies all three are in sync
+  ```
+- **Detection:** each tab checks `version.json` on load, on `online`, when
+  the tab becomes visible, and every 30 minutes. A `build` mismatch means a
+  newer deploy is live → the SW `update()` runs, the waiting worker gets a
+  `SKIP_WAITING` message, and it activates immediately (no need to close
+  all tabs).
+- **Safe reload:** on `controllerchange` (new worker in control) the tab
+  reloads **once** — and only when safe: never mid-exam
+  (`#/exam/…`), never mid-practice-run (`#/practice-run/…`), never while
+  typing in a field or while an AI reply is streaming. A `sessionStorage`
+  guard (`jelet_last_reload_build`) makes reload loops impossible. An
+  informational banner ("Reload now / Later") is shown; auto-reload happens
+  regardless when the tab reaches a safe state.
+- **No data loss:** study state lives in IndexedDB `jelet_hub_v1` and the
+  BYOK vault in isolated local storage. The SW only ever touches Cache
+  Storage (purges old version caches on activate, re-precaches fresh
+  shell/corpus). Exams/practice sessions also persist to IndexedDB every
+  few seconds as a belt-and-braces resume point.
+- **No old-cache reliance:** same-origin GETs are **network-first** in the
+  SW (online = always the fresh deploy, offline = cached fallback that
+  refreshes on every successful response). Deployment headers mark
+  `index.html`, `sw.js` and `version.json` as `must-revalidate` (see
+  `_headers`, `vercel.json`, `netlify.toml` below). GitHub Pages serves
+  those three files with revalidation by default.
+
+## SEO (search & social)
+
+`index.html` ships the full on-page SEO surface (self-referential to the
+GitHub Pages origin — update the origin if you deploy elsewhere):
+
+- `<title>` + meta description/keywords, `robots`/`googlebot` index meta,
+  `lang="en"`, canonical link, Open Graph (`og:type|title|description|
+  url|image|site_name|locale`) and Twitter card tags.
+- JSON-LD structured data: `WebApplication` (free, educational) +
+  `EducationalOrganization` on `schema.org`.
+- `robots.txt` (allow-all + `Sitemap:` line) and `sitemap.xml` listing the
+  root and all five hash destinations plus the four paper deep links.
+- `404.html` is `noindex` and links back to the five destinations.
+- PWA/SEO extras: `manifest.webmanifest`, theme-color, apple touch icons.
+
+When you move to a custom domain, update in one pass: the canonical/OG/
+Twitter URLs and `og:image` in `index.html`, `Sitemap:` in `robots.txt`,
+every `<loc>` in `sitemap.xml`, and the two URLs in the JSON-LD block.
+Gates: `tests/deployment-seo.test.mjs` enforces all of the above.
+
 ## CI gates before shipping
 
 Run all of these from the repository root (all must exit 0):
@@ -201,6 +262,10 @@ node tests/scoring.test.mjs
 node tests/ai-vault.test.mjs
 node tests/app-integrity.test.mjs
 node tests/pwa.test.mjs
+node tests/ai-compact.test.mjs
+node tests/update-manager.test.mjs
+node tests/deployment-seo.test.mjs
+node scripts/bump_version.mjs --check
 node scripts/check_tokens_and_links.mjs
 python3 scripts/verify_corpus.py
 python3 scripts/verify_solutions_sympy.py

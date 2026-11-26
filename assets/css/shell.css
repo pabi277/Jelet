@@ -485,3 +485,50 @@ body {
   }
 }
 
+
+/* ------------------------------------------------------------------ *
+ * Update banner (safe auto-update — see assets/js/core/update-manager.js)
+ * Non-blocking strip above the bottom nav; auto-reload happens when safe
+ * regardless of whether the user taps "Reload now".
+ * ------------------------------------------------------------------ */
+.update-banner {
+  position: fixed;
+  left: var(--space-s);
+  right: var(--space-s);
+  bottom: calc(var(--bottom-nav-h) + var(--space-s) + env(safe-area-inset-bottom));
+  z-index: var(--z-toast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  padding: var(--space-xs) var(--space-s);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: var(--fs-caption);
+  box-shadow: var(--shadow-l);
+}
+
+.update-banner[hidden] {
+  display: none;
+}
+
+.update-banner__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .update-banner {
+    left: calc(var(--icon-rail-w) + var(--space-xl));
+    right: var(--space-2xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .update-banner {
+    left: calc(var(--rail-w) + var(--space-2xl));
+    right: var(--space-3xl);
+  }
+}

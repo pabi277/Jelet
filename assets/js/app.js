@@ -9,6 +9,7 @@
 
 import { openDB, getMeta, setMeta, onSync, isMemoryMode, storageStatus } from "./db/indexeddb.js";
 import { initSyncEngine } from "./db/sync.js";
+import { initUpdateManager } from "./core/update-manager.js";
 import { $, el, icon, showToast } from "./core/ui.js";
 
 /**
@@ -39,6 +40,8 @@ function showStorageNotice() {
  * Register the offline Service Worker (sw.js) once the shell is ready.
  * Fails silently when SW support is missing (private mode, file://, old
  * webviews) — the app remains fully functional online without it.
+ * Update detection + safe auto-reload lives in `core/update-manager.js`
+ * (wired in `init()` below) — this function only registers the worker.
  */
 async function registerServiceWorker() {
   try {
@@ -49,18 +52,10 @@ async function registerServiceWorker() {
     const reg = await navigator.serviceWorker.register("./sw.js", {
       scope: "./",
     });
-    // Notify when a new SW version is waiting so the user can reload.
-    reg.addEventListener("updatefound", () => {
-      const nw = reg.installing;
-      if (!nw) return;
-      nw.addEventListener("statechange", () => {
-        if (nw.state === "installed" && navigator.serviceWorker.controller) {
-          showToast("JELET Hub updated — reload to apply.");
-        }
-      });
-    });
+    return reg;
   } catch {
     /* SW registration is best-effort; never block the app */
+    return null;
   }
 }
 import { renderPapersLibrary, renderPaperReader } from "./views/papers.js";
@@ -429,8 +424,15 @@ async function init() {
   window.addEventListener("hashchange", () => render());
   await render();
 
-  // Offline PWA: register the Service Worker after first paint.
-  registerServiceWorker();
+  // Offline PWA: register the Service Worker after first paint, then start
+  // the safe auto-update manager (version.json checks + SKIP_WAITING +
+  // controllerchange → safe reload). Neither touches IndexedDB/localStorage.
+  const swRegistration = await registerServiceWorker();
+  try {
+    initUpdateManager({ registration: swRegistration });
+  } catch {
+    /* update manager is best-effort; never block the app */
+  }
 }
 
 if (document.readyState === "loading") {
