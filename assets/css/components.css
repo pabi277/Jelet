@@ -3192,3 +3192,28 @@
 #aiTokenHint { font-size: var(--fs-micro); }
 
 .ai-empty a { color: var(--brand-primary); }
+
+/* The explicit provider-consent preview remains scrollable on short screens. */
+.ai-state-card[data-kind="confirm-gemini"] { flex: 0 0 auto; max-height: 40%; overflow-y: auto; align-items: stretch; }
+.ai-state-card[data-kind="confirm-gemini"] > span,
+.ai-state-card[data-kind="confirm-gemini"] > strong,
+.ai-state-card[data-kind="confirm-gemini"] > details { flex: 0 0 100%; min-width: 0; }
+
+/* Compact tutor controls: context on demand, floating jump, and a single toolbar. */
+.ai-context-trigger { color: var(--brand-primary); background: var(--brand-tint); border-radius: var(--radius-pill); }
+.ai-context-card[hidden] { display: none; }
+.ai-context-card { flex: 0 0 auto; max-height: 25%; overflow-y: auto; }
+.ai-thread-region { position: relative; display: flex; flex: 1 1 auto; min-width: 0; min-height: 0; }
+.ai-thread-region .ai-chat-thread { flex: 1 1 auto; width: 100%; min-width: 0; min-height: 0; }
+.ai-jump-latest { position: absolute; left: 50%; bottom: var(--space-xs); transform: translateX(-50%); z-index: var(--z-base); width: var(--tap-min); min-width: var(--tap-min); height: var(--tap-min); min-height: var(--tap-min); padding: 0; border: 1px solid var(--border-subtle); border-radius: var(--radius-pill); background: var(--bg-surface); box-shadow: var(--shadow-m); }
+.ai-composer__input-row { display: flex; align-items: center; gap: var(--space-2xs); padding-right: var(--space-3xs); }
+.ai-composer__input-row .input-field { flex: 1 1 auto; width: 0; min-width: 0; }
+.ai-composer__input-row .btn { flex: 0 0 auto; }
+.ai-composer__toolbar { justify-content: space-between; }
+.ai-composer__toolbar .ai-suggestions-toggle { min-height: var(--tap-min); padding: 0 var(--space-xs); border: 0; background: transparent; }
+.ai-composer__key { display: flex; justify-content: flex-end; }
+.ai-composer__key select { width: 100%; text-overflow: ellipsis; font-size: var(--fs-caption); }
+
+.ai-saved-key-row { gap: var(--space-xs); }
+.ai-saved-key-row .card__meta { min-width: 0; overflow-wrap: anywhere; }
+.ai-saved-key-row .btn { flex: 0 0 auto; }

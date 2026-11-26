@@ -280,7 +280,7 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
           <select class="input-select" id="aiKeyChoice" aria-label="Active AI key"></select>
         </label>
         <div id="aiSavedKeys" class="stack-xs"></div>
-        <p class="card__meta">Auto tries another saved key for this provider after a quota, rate-limit or rejected-key error. Provider-wide app pacing and daily limits still apply. Different keys can have different costs or shared account quotas.</p>
+        <p class="card__meta">The model shown beside Gemini keys is the current provider model, not a model assigned to an individual key. Auto tries another saved key for this provider after a quota, rate-limit or rejected-key error. Provider-wide app pacing and daily limits still apply. Different keys can have different costs or shared account quotas.</p>
         <label class="form-field">
           <span class="form-label">Add API key for selected provider (stored only on this device)</span>
           <input type="password" class="input-field mono" id="aiKeyInput" placeholder="Paste Gemini / Groq / OpenRouter key…" autocomplete="off" />
@@ -737,9 +737,10 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
     $("#aiDefaultUpgradeNotice", root).hidden = !hasAiDefaultUpgradeNotice();
     const providerKeys = vault.vaultKeys.filter(k => k.provider === vault.provider);
     const choice = $("#aiKeyChoice", root);
-    choice.innerHTML = `<option value="auto">Auto switch${providerKeys.length ? ` · ${escapeHtml(providerKeys.find(k => k.id === vault.keySelection?.[vault.provider])?.label || providerKeys[0].label)}` : ""}</option>` + providerKeys.map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)}</option>`).join("");
+    const keyName = k => `${k.label}${vault.provider === "gemini" ? ` · ${effectiveModel}` : ""}`;
+    choice.innerHTML = `<option value="auto">Auto switch${providerKeys.length ? ` · ${escapeHtml(keyName(providerKeys.find(k => k.id === vault.keySelection?.[vault.provider]) || providerKeys[0]))}` : ""}</option>` + providerKeys.map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(keyName(k))}</option>`).join("");
     choice.value = vault.keyModes?.[vault.provider] === "manual" && providerKeys.some(k => k.id === vault.keySelection?.[vault.provider]) ? vault.keySelection[vault.provider] : "auto";
-    $("#aiSavedKeys", root).innerHTML = providerKeys.map(k => `<div class="row-between"><span class="card__meta">${escapeHtml(k.label)} · ${vault.keyLocked ? "Locked" : escapeHtml(maskApiKey(k.secret))}</span><button type="button" class="btn btn--ghost btn--sm" data-remove-ai-key="${escapeHtml(k.id)}" aria-label="Remove ${escapeHtml(k.label)}">Remove</button></div>`).join("") || '<span class="card__meta">No keys saved for this provider.</span>';
+    $("#aiSavedKeys", root).innerHTML = providerKeys.map(k => `<div class="row-between ai-saved-key-row"><span class="card__meta">${escapeHtml(keyName(k))} · ${vault.keyLocked ? "Locked" : escapeHtml(maskApiKey(k.secret))}</span><button type="button" class="btn btn--ghost btn--sm" data-remove-ai-key="${escapeHtml(k.id)}" aria-label="Remove ${escapeHtml(k.label)}">Remove</button></div>`).join("") || '<span class="card__meta">No keys saved for this provider.</span>';
     const pill = $("#aiVaultStatusPill", root);
     pill.className = hasKey ? "badge badge--correct" : "pill";
     pill.textContent = vault.keyLocked ? "Key locked · Offline" : hasKey ? `${pCfg.label} · Key Saved` : "Offline Corpus Mode";
@@ -918,12 +919,15 @@ export async function renderYouHub(main, { onThemeToggle, invite = null } = {}) 
       model: base.model,
       apiKey: typed || base.apiKey,
     };
-    diag.textContent = `Testing connection to ${AI_PROVIDERS[p]?.label || p}…`;
+    const selected = base.vaultKeys.find(k => k.provider === p && k.secret && k.secret === base.apiKey);
+    const keyLabel = typed ? "pasted key (not saved)" : selected?.label || "no saved key";
+    const route = p === "nvidia" ? (localNvidiaRelayAvailable() ? "local relay" : "direct browser") : "direct browser";
+    diag.textContent = `Testing ${keyLabel} via ${route}…`;
     try {
       const res = await testAiConnection(testVault);
-      diag.textContent = `✔ Connected to ${res.model} (${res.latencyMs} ms) — zero study data sent.`;
+      diag.textContent = `✔ ${keyLabel} via ${route}: connected to ${res.model} (${res.latencyMs} ms) — zero study data sent.`;
     } catch (err) {
-      diag.textContent = `✗ Connection failed: ${err.message}`;
+      diag.textContent = `✗ ${keyLabel} via ${route}: ${err.message}`;
     }
   });
 

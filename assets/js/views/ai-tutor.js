@@ -345,12 +345,14 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
   let retryText = "";
   let opener = null;
   let pendingWelcomeAction = null;
+  let pendingGeminiOffer = null; // memory-only, tied to the current exchange
   let historyOpen = false; // history panel visibility (Gap C)
   let activeHistoryKey = null; // tutorContextKey for the open conversation
   let thinking = false; // show the "thinking" bubble while a reply is being produced
   let streaming = null; // partial live text for the current exchange
   let typing = null; // in-progress typewriter reveal { text, source, tokens, idx, wordsPerTick, timer }
   let suggestionsOpen = false; // compact by default; expand when needed
+  let contextOpen = false;
 
   /**
    * Persist the current conversation into the device-local aiHistory record.
@@ -377,6 +379,39 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     if (!requestState) { slot.hidden = true; slot.textContent = ""; delete slot.dataset.kind; renderComposerState(); return; }
     slot.hidden = false;
     const kind = requestState.kind;
+    if (kind === "confirm-gemini") {
+      const offer = pendingGeminiOffer;
+      if (!offer?.prepared) { requestState = null; renderRequestState(); return; }
+      const prep = offer.prepared;
+      slot.dataset.kind = kind;
+      slot.innerHTML = `<strong>Send this question to Google Gemini?</strong>
+        <span data-gemini-question></span>
+        <span>The question, relevant chat history and JELET context will be sent to Google using ${escapeHtml(prep.request.model)} and ${escapeHtml(prep.keyLabel)}. Provider terms and costs may differ. Your selected provider will not change.</span>
+        <div class="cluster-xs"><button type="button" class="btn btn--primary btn--sm" data-confirm-gemini>Send to Gemini</button><button type="button" class="btn btn--ghost btn--sm" data-cancel-gemini>Cancel</button></div>
+        <details ${readAiVault().previewPrompt ? "open" : ""}><summary>Preview exact Gemini request</summary><pre class="ai-prompt-pre mono" data-gemini-preview></pre></details>`;
+      $("[data-gemini-question]", slot).textContent = `Question: ${offer.userText.length > 160 ? offer.userText.slice(0, 160) + "…" : offer.userText}`;
+      $("[data-gemini-preview]", slot).textContent = prep.request.bodyString;
+      $("[data-confirm-gemini]", slot).addEventListener("click", () => {
+        if (activeAbortController || location.hash.startsWith("#/exam/") || !sheet.classList.contains("is-open")) return;
+        const current = readAiVault();
+        const keys = current.vaultKeys.filter(k => k.provider === "gemini" && k.secret);
+        const selected = keys.find(k => k.id === current.keySelection?.gemini) || keys[0];
+        if (current.keyLocked || Number(current.acceptedWelcomeVersion || 0) < WELCOME_VERSION || !selected || selected.id !== prep.keyId || selected.secret !== prep.vault.apiKey) {
+          pendingGeminiOffer.prepared = null;
+          requestState = {kind:"gemini-key-changed"}; renderRequestState(); return;
+        }
+        const snapshot = pendingGeminiOffer;
+        pendingGeminiOffer = null;
+        void handleAsk(snapshot.userText, {geminiFallback:snapshot});
+      });
+      $("[data-cancel-gemini]", slot).addEventListener("click", () => {
+        offer.prepared = null;
+        requestState = offer.originalState;
+        renderRequestState();
+      });
+      renderComposerState();
+      return;
+    }
     let message = "";
     if (kind === "pacing" || kind === "retry") {
       const seconds = Math.ceil(requestState.retryInMs / 1000);
@@ -387,8 +422,11 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     else if (kind === "daily-warn") message = `Approximately ${requestState.remaining} free asks left today.`;
     else if (kind === "daily-quota") message = "Free daily quota used up — resets at midnight · Offline Corpus answers today.";
     else if (kind === "auth") message = requestState.provider === "nvidia"
-      ? "Key looks invalid or expired — NVIDIA free nvapi keys expire after 6 months; renew at build.nvidia.com."
-      : "Key looks invalid or expired — check your key in You & AI.";
+      ? "NVIDIA rejected authentication or access. Test the selected key and check its validity, permissions and model access in You & AI."
+      : "Key or access rejected — check your key and model permissions in You & AI.";
+    else if (kind === "local-relay") message = "The local NVIDIA relay could not complete the request. Restart the relay and check the connection; the key was not verified.";
+    else if (kind === "gemini-key-changed") message = "Gemini key or agreement changed, or the key is locked. Check You & AI or start a new question to accept the agreement.";
+    else if (kind === "gemini-unavailable") message = "Add and unlock a Gemini key in You & AI before sending to Gemini.";
     else if (kind === "storage") message = "Device quota storage is unavailable — Offline Corpus answer shown. Enable browser storage to use live AI safely.";
     else if (kind === "locked") message = "Encrypted key is locked — unlock it in You & AI. Offline Corpus is available.";
     else if (kind === "bad-request") message = "The provider rejected this request — check your model in AI settings.";
@@ -406,9 +444,10 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     }
     slot.dataset.kind = kind;
     const showSettings = !waiting && kind !== "daily-warn" && kind !== "offline";
-    slot.innerHTML = `<span data-state-message>${escapeHtml(message)}</span>${waiting ? '<button type="button" class="btn btn--ghost btn--sm" data-use-offline>Use Offline Corpus now</button>' : ''}${showSettings ? '<a href="#/you" data-ai-settings>AI settings →</a>' : ''}${["network", "server", "window-expired"].includes(kind) ? '<button type="button" class="btn btn--ghost btn--sm" data-retry>Retry</button>' : ''}`;
+    slot.innerHTML = `<span data-state-message>${escapeHtml(message)}</span>${waiting ? '<button type="button" class="btn btn--ghost btn--sm" data-use-offline>Use Offline Corpus now</button>' : ''}${showSettings ? '<a href="#/you" data-ai-settings>AI settings →</a>' : ''}${pendingGeminiOffer && !waiting && kind !== "offline" ? '<button type="button" class="btn btn--ghost btn--sm" data-try-gemini>Try Gemini…</button>' : ''}${["network", "server", "window-expired"].includes(kind) ? '<button type="button" class="btn btn--ghost btn--sm" data-retry>Retry</button>' : ''}`;
     $("[data-use-offline]", slot)?.addEventListener("click", () => { offlineRequested = true; activeAbortController?.abort(); });
     $("[data-ai-settings]", slot)?.addEventListener("click", () => closeTutor());
+    $("[data-try-gemini]", slot)?.addEventListener("click", prepareGeminiFallback);
     $("[data-retry]", slot)?.addEventListener("click", () => { if (retryText) void handleAsk(retryText); });
     renderComposerState();
   }
@@ -427,6 +466,21 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       languageMode: vault.preferredLanguage || "English",
       origin: activeContext.origin, sectionHeading: activeContext.section,
     });
+  }
+
+  function prepareGeminiFallback() {
+    if (!pendingGeminiOffer || activeAbortController || location.hash.startsWith("#/exam/")) return;
+    const current = readAiVault();
+    const keys = current.vaultKeys.filter(k => k.provider === "gemini" && k.secret);
+    const selected = keys.find(k => k.id === current.keySelection?.gemini) || keys[0];
+    if (current.keyLocked || !selected) { requestState = {kind:"gemini-unavailable"}; renderRequestState(); return; }
+    const vault = {...current, provider:"gemini", model:AI_PROVIDERS.gemini.defaultModel,
+      useCustomModel:false, customModel:"", apiKey:selected.secret};
+    const request = buildAiRequestPayload({vault, systemPrompt:pendingGeminiOffer.systemPrompt,
+      history:pendingGeminiOffer.priorTurns, userMessage:pendingGeminiOffer.userText, stream:true});
+    pendingGeminiOffer.prepared = {vault, request, keyId:selected.id, keyLabel:selected.label};
+    requestState = {kind:"confirm-gemini"};
+    renderRequestState();
   }
 
   function updatePreview(built = null) {
@@ -955,6 +1009,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     const input = $("#aiComposerInput", body);
     if (input) input.value = "";
     pendingWelcomeAction = null;
+    pendingGeminiOffer = null;
     historyOpen = false;
     suggestionsOpen = false;
     const thread = $("#aiChatThread", body);
@@ -980,6 +1035,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
   }
 
   function closeTutor({ closeOverlay = true, restoreFocus = true } = {}) {
+    pendingGeminiOffer = null;
     closeHistoryDrawer({ returnFocus: false });
     exchangeId++;
     if (activeAbortController) {
@@ -1006,7 +1062,15 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       event.preventDefault();
       event.stopImmediatePropagation();
       if (historyOpen) closeHistoryDrawer();
-      else closeTutor();
+      else if (contextOpen) {
+        contextOpen = false;
+        const panel = $("#aiContextPanel", body);
+        if (panel) panel.hidden = true;
+        const trigger = document.getElementById("aiContextInfoBtn");
+        trigger?.setAttribute("aria-expanded", "false");
+        trigger?.setAttribute("aria-label", "Show tutor context");
+        trigger?.focus();
+      } else closeTutor();
       return;
     }
     if (event.key !== "Tab") return;
@@ -1034,9 +1098,10 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     }
     const keyChoice = $("#aiChatKeyChoice", body);
     if (keyChoice) {
-      keyChoice.setAttribute("aria-label", `Choose API key for ${provider.label}`);
+      const model = resolveEffectiveModel(vault);
+      keyChoice.setAttribute("aria-label", `Choose API key for ${provider.label}, model ${model}`);
       const keys = vault.vaultKeys.filter(k => k.provider === vault.provider);
-      keyChoice.innerHTML = `<option value="auto">Auto · ${escapeHtml(keys.find(k => k.id === vault.keySelection?.[vault.provider])?.label || keys[0]?.label || provider.label)}</option>` + keys.map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)} · ${escapeHtml(provider.label)}</option>`).join("");
+      keyChoice.innerHTML = `<option value="auto">Auto · ${escapeHtml(keys.find(k => k.id === vault.keySelection?.[vault.provider])?.label || keys[0]?.label || provider.label)} · ${escapeHtml(model)}</option>` + keys.map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)} · ${escapeHtml(model)}</option>`).join("");
       keyChoice.value = vault.keyModes?.[vault.provider] === "manual" && keys.some(k => k.id === vault.keySelection?.[vault.provider]) ? vault.keySelection[vault.provider] : "auto";
     }
     const hint = $("#aiTokenHint", body);
@@ -1047,6 +1112,15 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
   window.addEventListener("storage", event => { if (event.key === "jelet_ai_vault_v1") refreshVaultForOpenSheet(); });
 
   closeBtn?.addEventListener("click", () => closeTutor());
+  const contextInfoBtn = document.getElementById("aiContextInfoBtn");
+  contextInfoBtn?.addEventListener("click", () => {
+    const panel = $("#aiContextPanel", body);
+    if (!panel) return;
+    contextOpen = !contextOpen;
+    panel.hidden = !contextOpen;
+    contextInfoBtn.setAttribute("aria-expanded", String(contextOpen));
+    contextInfoBtn.setAttribute("aria-label", contextOpen ? "Hide tutor context" : "Show tutor context");
+  });
   const pinBtn = document.getElementById("aiPinBtn");
   pinBtn?.addEventListener("click", () => {
     const pinned = sheet.dataset.pinned !== "true";
@@ -1096,6 +1170,10 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     cancelTyping();
     clearThinking();
 
+    // Context is available from the header but starts closed for every conversation.
+    contextOpen = false;
+    document.getElementById("aiContextInfoBtn")?.setAttribute("aria-expanded", "false");
+    document.getElementById("aiContextInfoBtn")?.setAttribute("aria-label", "Show tutor context");
     // Canonical context: accept both caller naming styles forever (Bug A fix).
     activeContext = normalizeTutorContext(ctx);
     if (activeContext.question && !activeContext.solution) {
@@ -1111,6 +1189,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     requestState = null;
     retryText = "";
     pendingWelcomeAction = null;
+    pendingGeminiOffer = null;
     let restored = false;
     try {
       const record = await loadAiHistory();
@@ -1242,37 +1321,33 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     // History is an overlay; this conversation remains mounted underneath it.
     const threadSectionHtml = `
         <!-- Chat Thread -->
-        <div class="ai-chat-thread" id="aiChatThread" role="log" aria-live="polite"></div>
-        <button type="button" class="btn btn--ghost btn--sm" id="aiJumpLatest" hidden>↓ Latest</button>
+        <div class="ai-thread-region">
+          <div class="ai-chat-thread" id="aiChatThread" role="log" aria-live="polite"></div>
+          <button type="button" class="btn btn--ghost ai-jump-latest" id="aiJumpLatest" aria-label="Jump to latest message" title="Jump to latest message" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v13M6 12l6 6 6-6"/></svg></button>
+        </div>
         <div id="aiRequestState" class="ai-state-card" role="status" aria-live="polite" hidden></div>
 
-        <!-- Preset Prompt Chips (collapsible to save phone space) -->
-        <div class="ai-suggestions" ${thinking || typing || activeAbortController ? "hidden" : ""}>
-          <button type="button" class="btn btn--ghost btn--sm ai-suggestions-toggle" id="aiSuggestionsToggle" aria-expanded="${suggestionsOpen}">
-            <span class="ai-suggestions-label">Suggestions</span>
-            <span class="ai-suggestions-chev" aria-hidden="true">${suggestionsOpen ? "\u25BE" : "\u25B8"}</span>
-          </button>
-          <div class="chip-row ai-chips-row" id="aiChipsRow" ${suggestionsOpen ? "" : "hidden"}>
-            ${chips
-              .map(
-                (c) =>
-                  `<button type="button" class="chip ai-preset-chip" data-prompt="${escapeHtml(c)}">${escapeHtml(c)}</button>`
-              )
-              .join("")}
-          </div>
+        <!-- Presets expand above the composer; the toggle shares its toolbar. -->
+        <div class="chip-row ai-chips-row" id="aiChipsRow" ${suggestionsOpen && !thinking && !typing && !activeAbortController ? "" : "hidden"}>
+          ${chips.map(c => `<button type="button" class="chip ai-preset-chip" data-prompt="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join("")}
         </div>
-
-        <!-- Composer Row -->
         <form class="ai-composer" id="aiComposerForm">
-          <input type="text" class="input-field" id="aiComposerInput" placeholder="${chatHistory.length ? "Ask a follow-up…" : "Ask a JELET doubt…"}" autocomplete="off" />
+          <div class="ai-composer__input-row">
+            <input type="text" class="input-field" id="aiComposerInput" placeholder="${chatHistory.length ? "Ask a follow-up…" : "Ask a JELET doubt…"}" autocomplete="off" />
+            <button type="submit" class="btn btn--primary btn--sm" id="aiSendBtn">${activeAbortController ? "Stop" : "Send"}</button>
+          </div>
           <div class="ai-composer__toolbar">
+            <div class="ai-suggestions" ${thinking || typing || activeAbortController ? "hidden" : ""}>
+              <button type="button" class="btn btn--ghost btn--sm ai-suggestions-toggle" id="aiSuggestionsToggle" aria-expanded="${suggestionsOpen}" aria-controls="aiChipsRow">
+                <span class="ai-suggestions-label">Suggestions</span><span class="ai-suggestions-chev" aria-hidden="true">${suggestionsOpen ? "\u25BE" : "\u25B8"}</span>
+              </button>
+            </div>
             <label class="ai-composer__key"><span class="ai-visually-hidden">Choose API key</span>
-              <select id="aiChatKeyChoice" aria-label="Choose API key for ${escapeHtml(pInfo.label)}">
-                <option value="auto">Auto · ${escapeHtml(vault.vaultKeys.filter(k => k.provider === vault.provider).find(k => k.id === vault.keySelection?.[vault.provider])?.label || vault.vaultKeys.find(k => k.provider === vault.provider)?.label || pInfo.label)}</option>
-                ${vault.vaultKeys.filter(k => k.provider === vault.provider).map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)} · ${escapeHtml(pInfo.label)}</option>`).join("")}
+              <select id="aiChatKeyChoice" aria-label="Choose API key for ${escapeHtml(pInfo.label)}, model ${escapeHtml(resolveEffectiveModel(vault))}">
+                <option value="auto">Auto · ${escapeHtml(vault.vaultKeys.filter(k => k.provider === vault.provider).find(k => k.id === vault.keySelection?.[vault.provider])?.label || vault.vaultKeys.find(k => k.provider === vault.provider)?.label || pInfo.label)} · ${escapeHtml(resolveEffectiveModel(vault))}</option>
+                ${vault.vaultKeys.filter(k => k.provider === vault.provider).map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.label)} · ${escapeHtml(resolveEffectiveModel(vault))}</option>`).join("")}
               </select>
             </label>
-            <button type="submit" class="btn btn--primary btn--sm" id="aiSendBtn">${activeAbortController ? "Stop" : "Send"}</button>
           </div>
         </form>
         <div class="card__meta" id="aiTokenHint">${byokActive ? `~${estimateTokens(sysPrompt) + chatHistory.reduce((n, m) => n + estimateTokens(m.text), 0) + estimateTokens(visibleDraft)} tokens this ask${pacingLeft === null ? "" : ` · ${pacingLeft} left before pacing`}` : "0 tokens · offline corpus"}</div>`;
@@ -1290,7 +1365,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     const wrap = el(`
       <div class="ai-tutor-wrap">
         <!-- Scoped Context Card -->
-        <div class="ai-context-card" ${q || u || f || activeContext.origin ? "" : "hidden"}>
+        <div class="ai-context-card" id="aiContextPanel" role="region" aria-label="Tutor context" ${contextOpen ? "" : "hidden"}>
           <div class="row-between" style="gap:var(--space-xs)">
             <strong class="ai-context-card__title">${escapeHtml(contextTitle)}</strong>
 
@@ -1309,6 +1384,8 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     `);
 
     body.appendChild(wrap);
+    contextInfoBtn?.setAttribute("aria-expanded", String(contextOpen));
+    contextInfoBtn?.setAttribute("aria-label", contextOpen ? "Hide tutor context" : "Show tutor context");
     const restoredInput = $("#aiComposerInput", wrap);
     if (restoredInput) {
       restoredInput.value = draftValue;
@@ -1413,10 +1490,10 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     });
   }
 
-  async function handleAsk(userText, { forceOfflineFirst = false, continueFrom = null } = {}) {
+  async function handleAsk(userText, { forceOfflineFirst = false, continueFrom = null, geminiFallback = null } = {}) {
     if (location.hash.startsWith("#/exam/")) { closeTutor(); return; }
     if (activeAbortController || thinking) return;
-    const vault = readAiVault();
+    const vault = geminiFallback ? geminiFallback.prepared.vault : readAiVault();
     const byokReady = Boolean(vault.apiKey && vault.apiKey.trim()) && !forceOfflineFirst;
 
     // Enforce one-time "Before you ask" welcome agreement before first BYOK call!
@@ -1426,14 +1503,17 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       return;
     }
 
+    pendingGeminiOffer = null;
     requestState = vault.keyLocked && !forceOfflineFirst ? { kind: "locked" } : null;
     retryText = userText;
     // If a previous reply is still being typed out, commit it first.
     if (typing) finalizeTyping();
 
     const userTurn = { role: "user", text: userText };
-    chatHistory.push(userTurn);
-    appendMessage(userTurn);
+    if (!geminiFallback) {
+      chatHistory.push(userTurn);
+      appendMessage(userTurn);
+    }
     renderRequestState();
 
     if (!byokReady) {
@@ -1452,10 +1532,10 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
     }
 
     // Live BYOK Request with byte-exact payload & AbortController
-    const sysPrompt = currentSystemPrompt(vault);
+    const sysPrompt = geminiFallback ? geminiFallback.systemPrompt : currentSystemPrompt(vault);
 
     const continuationIndex = continueFrom ? chatHistory.indexOf(continueFrom) : -1;
-    const priorTurns = (continuationIndex >= 0 ? chatHistory.slice(0, continuationIndex + 1) : chatHistory.slice(0, -1))
+    const priorTurns = geminiFallback ? geminiFallback.priorTurns : (continuationIndex >= 0 ? chatHistory.slice(0, continuationIndex + 1) : chatHistory.slice(0, -1))
       .map((m) => ({ role: m.role, text: m.text }));
 
     activeAbortController = new AbortController();
@@ -1473,7 +1553,7 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
       const firstKeyId = activeKey?.id;
       const triedKeys = new Set(activeKey ? [activeKey.id] : []);
       const makeInitial = () => buildAiRequestPayload({ vault:{...vault,apiKey:activeKey?.secret || vault.apiKey}, systemPrompt: sysPrompt, history: priorTurns, userMessage: userText, stream: true });
-      const req = makeInitial();
+      const req = geminiFallback ? geminiFallback.prepared.request : makeInitial();
       const result = await sendGovernedAiRequest({
         request: req,
         signal: controller.signal,
@@ -1555,6 +1635,9 @@ export function initAiTutor({ openOverlay, closeAllSheets }) {
           else appendMessage(partial);
         }
         requestState = { kind: offlineRequested ? "offline" : (err.kind || "network"), provider: vault.provider };
+        if (!offlineRequested && vault.provider === "nvidia" && err.kind !== "storage") {
+          pendingGeminiOffer = {userText, systemPrompt:sysPrompt, priorTurns, originalState:{...requestState}};
+        }
         startTyping(fallback, "Offline Fallback · Corpus Verified");
       }
     }

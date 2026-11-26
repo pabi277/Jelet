@@ -192,6 +192,21 @@ try {
     });
     await tutor.waitForSelector('#aiComposerInput');
     assert.equal(await tutor.$eval('#aiChatThread', n => n.getAttribute('aria-live')), 'polite');
+    assert.equal(await tutor.$eval('#aiContextPanel', n => n.hidden), true);
+    assert.equal(await tutor.$eval('#aiContextInfoBtn', n => n.getAttribute('aria-expanded')), 'false');
+    await tutor.click('#aiContextInfoBtn');
+    assert.equal(await tutor.$eval('#aiContextPanel', n => n.hidden), false);
+    assert.match(await tutor.$eval('#aiContextPanel', n => n.textContent), /All 42 JELET Syllabus Units.*400 PYQs/s);
+    assert.match(await tutor.$eval('#aiContextPanel', n => n.textContent), /From Draft fixture/);
+    assert.equal(await tutor.$eval('#aiContextInfoBtn', n => n.getAttribute('aria-expanded')), 'true');
+    await tutor.keyboard.press('Escape');
+    assert.equal(await tutor.$eval('#aiContextPanel', n => n.hidden), true);
+    assert.equal(await tutor.evaluate(()=>document.activeElement.id), 'aiContextInfoBtn');
+    assert.equal(await tutor.$eval('#aiSheet', n => n.getAttribute('aria-hidden')), 'false');
+    assert.ok(await tutor.evaluate(()=>{
+      const a=document.querySelector('#aiSuggestionsToggle').getBoundingClientRect(),b=document.querySelector('#aiChatKeyChoice').getBoundingClientRect(),i=document.querySelector('#aiComposerInput').getBoundingClientRect(),s=document.querySelector('#aiSendBtn').getBoundingClientRect();
+      return Math.abs((a.top+a.bottom-b.top-b.bottom)/2)<2 && Math.abs((i.top+i.bottom-s.top-s.bottom)/2)<2 && s.left>=i.right-1 && s.width>=48;
+    }), 'suggestions and model share a row; send sits in the input row');
     assert.equal(await tutor.$$eval('.ai-suggestions', nodes => nodes.length), 1, 'exactly one suggestions control');
     assert.ok(await tutor.$eval('#aiComposerInput', n => n.getBoundingClientRect().height >= 48));
     await tutor.type('#aiComposerInput', 'Keep this draft');
@@ -304,7 +319,7 @@ try {
     await phone.waitForSelector('#aiComposerInput');
     await phone.type('#aiComposerInput', 'Test card');
     await phone.$eval('#aiComposerForm', n => n.requestSubmit());
-    await phone.waitForFunction(() => document.querySelector('#aiRequestState')?.textContent.includes('Key looks invalid'));
+    await phone.waitForFunction(() => document.querySelector('#aiRequestState')?.textContent.includes('Key or access rejected'));
     assert.ok(await phone.evaluate(() => {
       const s=document.querySelector('#aiSheet'), c=document.querySelector('#aiRequestState');
       return document.documentElement.scrollWidth <= innerWidth + 1 && s.scrollWidth <= s.clientWidth + 1 && c.scrollWidth <= c.clientWidth + 1;
@@ -422,6 +437,9 @@ try {
       (await import('./assets/js/app.js')).openAiTutorContext({question:paper.questions[0]});
     });
     await p.waitForFunction(()=>document.querySelector('#aiChatThread')?.textContent.includes('SymPy & WBJEEB Corpus'));
+    assert.equal(await p.$eval('#aiContextPanel',n=>n.hidden),true);
+    await p.$eval('#aiContextInfoBtn',n=>n.click());
+    assert.match(await p.$eval('#aiContextPanel',n=>n.textContent),/Official Key:/);
     assert.equal(await p.evaluate(()=>window.providerCount),0);
     checks++;
     await ctx.close();
@@ -581,11 +599,128 @@ try {
     assert.equal(await p.evaluate(async()=> (await import('./assets/js/core/ai-vault.js')).readAiVault().keyModes.nvidia),'manual');
     await p.evaluate(async()=>{const db=await import('./assets/js/db/indexeddb.js'); const rec=await db.get('meta','aiGovernor');rec.providers.nvidia.sends=[]; await db.put('meta',rec);});
     await p.type('#aiComposerInput','Manual key'); await p.$eval('#aiComposerForm',n=>n.requestSubmit());
-    await p.waitForFunction(()=>document.querySelector('#aiRequestState')?.textContent.includes('invalid or expired'),{timeout:12000});
+    await p.waitForFunction(()=>document.querySelector('#aiRequestState')?.textContent.includes('rejected authentication or access'),{timeout:12000});
     assert.equal(await p.evaluate(()=>window.multiSends.length),3);
     const database=await p.evaluate(async()=>JSON.stringify(await (await import('./assets/js/db/indexeddb.js')).collectStores()));
     assert.ok(!database.includes('bad-fixture-key') && !database.includes('good-fixture-key'));
     checks += 3; await ctx.close();
+  }
+  // Connection tests identify the selected key without disclosing credentials.
+  {
+    const ctx=await browser.createBrowserContext(), p=await ctx.newPage();
+    p.on('pageerror', e=>errors.push(e.message));
+    await p.goto(base+'#/you',{waitUntil:'networkidle0'});
+    await p.evaluate(()=>{
+      localStorage.setItem('jelet_ai_vault_v1',JSON.stringify({provider:'nvidia',model:'nvidia/nemotron-3.5-lightning-30b-a3b',
+        vaultKeys:[{id:'one',provider:'nvidia',label:'Key 1',secret:'test-key-one'}, {id:'two',provider:'nvidia',label:'Key 2',secret:'test-key-two'}]}));
+    });
+    await p.reload({waitUntil:'networkidle0'});
+    await p.evaluate(()=>{
+      const original=window.fetch; window.testSends=[];
+      window.fetch=(url,options)=>{
+        if(String(url).startsWith('https://integrate.api.nvidia.com/')) {
+          window.testSends.push({auth:options.headers.Authorization, body:options.body});
+          if(options.headers.Authorization.endsWith('test-key-one')) return Promise.resolve(new Response('{"error":"test-key-one"}',{status:403}));
+          return Promise.resolve(new Response(JSON.stringify({choices:[{message:{content:'OK'}}]}),{status:200,headers:{'Content-Type':'application/json'}}));
+        }
+        return original(url,options);
+      };
+    });
+    await p.click('#testAiConnBtn');
+    await p.waitForFunction(()=>document.querySelector('#aiConnDiagnostic')?.textContent.includes('HTTP 403'));
+    const err=await p.$eval('#aiConnDiagnostic',n=>n.textContent);
+    assert.match(err,/Key 1.*direct browser.*permissions/); assert.ok(!err.includes('test-key-one'));
+    await p.select('#aiKeyChoice','two'); await p.click('#testAiConnBtn');
+    await p.waitForFunction(()=>document.querySelector('#aiConnDiagnostic')?.textContent.includes('connected to'));
+    assert.match(await p.$eval('#aiConnDiagnostic',n=>n.textContent),/Key 2.*zero study data sent/);
+    const sends=await p.evaluate(()=>window.testSends);
+    assert.deepEqual(sends.map(s=>s.auth),['Bearer test-key-one','Bearer test-key-two']);
+    assert.ok(sends.every(s=>JSON.parse(s.body).max_tokens===8 && !s.body.includes('test-key')));
+    checks += 2; await ctx.close();
+  }
+  // Explicit cross-provider consent: never contact Gemini before confirmation.
+  {
+    const ctx = await browser.createBrowserContext(), p = await ctx.newPage();
+    p.on('pageerror', e => errors.push(e.message));
+    await p.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
+    await p.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}]);
+    await p.goto(base+'#/',{waitUntil:'networkidle0'});
+    await p.evaluate(async()=>{
+      localStorage.setItem('jelet_ai_vault_v1', JSON.stringify({provider:'nvidia',model:'nvidia/nemotron-3.5-lightning-30b-a3b',acceptedWelcomeVersion:1,previewPrompt:true,
+        vaultKeys:[{id:'nv',provider:'nvidia',label:'Key 1',secret:'nvidia-fixture'}, {id:'gem',provider:'gemini',label:'Key 1',secret:'gemini-fixture'}]}));
+      const original=window.fetch; window.providerSends=[];
+      window.fetch=(url,options)=>{
+        if(String(url).startsWith('https://integrate.api.nvidia.com/')) {window.providerSends.push({provider:'nvidia',body:options.body}); return Promise.resolve(new Response('{}',{status:401}));}
+        if(String(url).startsWith('https://generativelanguage.googleapis.com/')) {
+          window.providerSends.push({provider:'gemini',body:options.body,preview:document.querySelector('#promptJsonPre')?.textContent});
+          return Promise.resolve(new Response(JSON.stringify({candidates:[{content:{parts:[{text:'Gemini confirmed answer'}]},finishReason:'STOP'}]}),{status:200,headers:{'Content-Type':'application/json'}}));
+        }
+        return original(url,options);
+      };
+      (await import('./assets/js/app.js')).openAiTutorContext({origin:'Consent fixture'});
+    });
+    await p.waitForSelector('#aiComposerInput'); await p.type('#aiComposerInput','Explain Kirchhoff');
+    await p.$eval('#aiComposerForm',n=>n.requestSubmit());
+    await p.waitForSelector('[data-try-gemini]',{timeout:12000});
+    assert.deepEqual(await p.evaluate(()=>window.providerSends.map(x=>x.provider)),['nvidia']);
+    await p.$eval('[data-try-gemini]',n=>n.click());
+    assert.match(await p.$eval('#aiRequestState',n=>n.textContent),/Google Gemini.*gemini-3.1-flash-lite/s);
+    assert.ok(await p.evaluate(()=>{const card=document.querySelector('#aiRequestState').getBoundingClientRect(), button=document.querySelector('[data-confirm-gemini]').getBoundingClientRect(); return button.top >= card.top && button.bottom <= card.bottom && button.bottom <= innerHeight;}), 'Gemini confirmation controls visible on phone');
+    const preview=await p.$eval('[data-gemini-preview]',n=>n.textContent);
+    assert.ok(preview.includes('Explain Kirchhoff')); assert.ok(!preview.includes('nvidia-fixture') && !preview.includes('gemini-fixture'));
+    await p.$eval('[data-cancel-gemini]',n=>n.click());
+    assert.deepEqual(await p.evaluate(()=>window.providerSends.map(x=>x.provider)),['nvidia']);
+    await p.evaluate(async()=> (await import('./assets/js/core/ai-vault.js')).updateAiKeys({removeId:'gem'}));
+    await p.$eval('[data-try-gemini]',n=>n.click());
+    assert.match(await p.$eval('#aiRequestState',n=>n.textContent),/Add and unlock a Gemini key/);
+    assert.deepEqual(await p.evaluate(()=>window.providerSends.map(x=>x.provider)),['nvidia']);
+    await p.evaluate(async()=> (await import('./assets/js/core/ai-vault.js')).updateAiKeys({add:{provider:'gemini',secret:'gemini-fixture'}}));
+    await p.$eval('[data-try-gemini]',n=>n.click());
+    await p.evaluate(async()=>{const ai=await import('./assets/js/core/ai-vault.js');const k=ai.readAiVault().vaultKeys.find(k=>k.provider==='gemini');await ai.updateAiKeys({removeId:k.id});});
+    await p.$eval('[data-confirm-gemini]',n=>n.click());
+    assert.match(await p.$eval('#aiRequestState',n=>n.textContent),/Gemini key or agreement changed/);
+    assert.deepEqual(await p.evaluate(()=>window.providerSends.map(x=>x.provider)),['nvidia']);
+    await p.evaluate(async()=> (await import('./assets/js/core/ai-vault.js')).updateAiKeys({add:{provider:'gemini',secret:'gemini-fixture'}}));
+    await p.$eval('[data-try-gemini]',n=>n.click()); await p.$eval('[data-confirm-gemini]',n=>n.click());
+    await p.waitForFunction(()=>document.querySelector('#aiChatThread')?.textContent.includes('Gemini confirmed answer'),{timeout:12000});
+    const sends=await p.evaluate(()=>window.providerSends);
+    assert.deepEqual(sends.map(x=>x.provider),['nvidia','gemini']);
+    assert.equal(sends[1].body,preview); assert.equal(sends[1].preview,preview);
+    assert.equal(await p.$$eval('#aiChatThread .ai-msg--user', ns=>ns.length),1);
+    assert.match(await p.$eval('#aiChatThread',n=>n.textContent),/Google Gemini/);
+    assert.equal(await p.evaluate(async()=> (await import('./assets/js/core/ai-vault.js')).readAiVault().provider),'nvidia');
+    const ledger=await p.evaluate(async()=> (await import('./assets/js/db/indexeddb.js')).get('meta','aiGovernor'));
+    assert.equal(ledger.ledger.nvidia.requests,1); assert.equal(ledger.ledger.gemini.requests,1);
+    checks += 3; await ctx.close();
+  }
+  // Context toggle, centered jump-to-latest arrow, and current Gemini model labels.
+  {
+    const ctx=await browser.createBrowserContext(), p=await ctx.newPage();
+    p.on('pageerror',e=>errors.push(e.message));
+    await p.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
+    await p.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}]);
+    await p.goto(base+'#/you',{waitUntil:'networkidle0'});
+    await p.evaluate(()=>localStorage.setItem('jelet_ai_vault_v1',JSON.stringify({provider:'gemini',model:'gemini-2.5-flash',acceptedWelcomeVersion:1,vaultKeys:[{id:'gem-one',provider:'gemini',label:'Key 1',secret:'gem-fixture-one'},{id:'gem-two',provider:'gemini',label:'Key 2',secret:'gem-fixture-two'}]})));
+    await p.reload({waitUntil:'networkidle0'});
+    assert.match(await p.$eval('#aiKeyChoice',n=>n.textContent),/Key 1 · gemini-2.5-flash/);
+    assert.match(await p.$eval('#aiSavedKeys',n=>n.textContent),/Key 2 · gemini-2.5-flash/);
+    await p.select('#aiModelModeSelect','default');
+    assert.match(await p.$eval('#aiKeyChoice',n=>n.textContent),/Key 1 · gemini-3.1-flash-lite/);
+    await p.evaluate(async()=> (await import('./assets/js/app.js')).openAiTutorContext({origin:'Learn Explorer'}));
+    await p.waitForSelector('#aiComposerInput');
+    assert.match(await p.$eval('#aiChatKeyChoice',n=>n.textContent),/Key 1 · gemini-3.1-flash-lite/);
+    await p.click('#aiContextInfoBtn');
+    assert.match(await p.$eval('#aiContextPanel',n=>n.textContent),/From Learn Explorer/);
+    await p.click('#aiContextInfoBtn');
+    await p.evaluate(()=>{const thread=document.querySelector('#aiChatThread');const content=document.createElement('div');content.style.height='2000px';content.style.flexShrink='0';content.id='jump-test-content';thread.append(content);thread.scrollTop=0;thread.dispatchEvent(new Event('scroll'));});
+    await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+    await p.waitForFunction(()=>!document.querySelector('#aiJumpLatest')?.hidden);
+    assert.equal(await p.$eval('#aiJumpLatest',n=>n.hidden),false);
+    assert.ok(await p.evaluate(()=>{const b=document.querySelector('#aiJumpLatest').getBoundingClientRect(),r=document.querySelector('.ai-thread-region').getBoundingClientRect();return Math.abs((b.left+b.right-r.left-r.right)/2)<1 && b.width>=48 && b.width<r.width/2 && b.left>r.left && b.right<r.right;}));
+    await p.click('#aiJumpLatest');
+    assert.equal(await p.$eval('#aiJumpLatest',n=>n.hidden),true);
+    assert.ok(await p.$eval('#aiChatThread',n=>n.scrollTop+n.clientHeight>=n.scrollHeight-2));
+    checks+=3; await ctx.close();
   }
   // NVIDIA browser network failures must not claim the key is invalid.
   {
@@ -694,7 +829,7 @@ try {
     });
     await tutor.type('#aiComposerInput', 'Auth fixture');
     await tutor.$eval('#aiComposerForm', n => n.requestSubmit());
-    await tutor.waitForFunction(() => document.querySelector('#aiRequestState')?.textContent.includes('Key looks invalid or expired'));
+    await tutor.waitForFunction(() => document.querySelector('#aiRequestState')?.textContent.includes('Key or access rejected'));
     assert.equal(await tutor.evaluate(() => window.aiTestRequests.length), 3, 'auth errors are not retried');
     // A network error produces an offline answer and a retry action.
     await tutor.evaluate(async () => {

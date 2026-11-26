@@ -56,6 +56,9 @@ class RelayTests(unittest.TestCase):
                 self.assertNotEqual(self.request('POST', relay.CHAT, {**headers, **changes}, b'{}')[0], 200)
             self.assertEqual(self.request('POST', '/anything-else', headers, b'{}')[0], 403)
             self.assertEqual(self.request('POST', relay.CHAT, {**headers, 'Content-Length': str(relay.MAX_BODY + 1)}, b'')[0], 413)
+            status, _, marked = self.request('POST', relay.CHAT, {**headers, 'Origin':'https://evil.example'}, b'{}')
+            self.assertEqual(status, 403)
+            self.assertEqual(marked['X-Jelet-Relay-Source'], 'local')
             upstream.assert_not_called()
 
     def test_exact_body_fixed_destination_stream_and_no_logs(self):
@@ -79,6 +82,7 @@ class RelayTests(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertEqual(response, b'data: one\n\ndata: [DONE]\n\n')
         self.assertEqual(headers['Cache-Control'], 'no-store')
+        self.assertEqual(headers['X-Jelet-Relay-Source'], 'upstream')
         self.assertEqual(captured[0].host, 'integrate.api.nvidia.com')
         self.assertEqual(captured[0].sent[:3], ('POST', '/v1/chat/completions', body))
         self.assertEqual(captured[0].sent[3]['Authorization'], 'Bearer private-test-key')
@@ -87,10 +91,26 @@ class RelayTests(unittest.TestCase):
             self.request('GET', '/?secret-prompt=private-test-key')
             self.assertEqual(output.getvalue(), '')
 
+    def test_upstream_auth_status_is_not_mislabeled_local(self):
+        class FakeResponse:
+            status = 403
+            def getheader(self, name, default=None): return 'application/json' if name == 'Content-Type' else default
+            def read1(self, size): return b''
+        class FakeConnection:
+            def __init__(self, host, timeout): self.host = host
+            def request(self, method, path, body, headers): pass
+            def getresponse(self): return FakeResponse()
+            def close(self): pass
+        with patch.object(relay.http.client, 'HTTPSConnection', FakeConnection):
+            status, _, headers = self.request('POST', relay.CHAT, self.headers(), b'{}')
+        self.assertEqual(status, 403)
+        self.assertEqual(headers['X-Jelet-Relay-Source'], 'upstream')
+
     def test_upstream_failure_is_safe(self):
         with patch.object(relay.http.client, 'HTTPSConnection', side_effect=OSError('private-test-key secret prompt')):
-            status, data, _ = self.request('POST', relay.CHAT, self.headers(), b'{"secret":"prompt"}')
+            status, data, headers = self.request('POST', relay.CHAT, self.headers(), b'{"secret":"prompt"}')
         self.assertEqual(status, 502)
+        self.assertEqual(headers['X-Jelet-Relay-Source'], 'local')
         self.assertNotIn(b'private-test-key', data)
         self.assertNotIn(b'secret prompt', data)
 

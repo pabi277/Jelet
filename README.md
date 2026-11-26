@@ -57,6 +57,19 @@ key only. All keys stay in the isolated local vault, outside backups and sync.
 Optional passphrase protection encrypts all of them; enter the passphrase to add
 or remove a key from a protected vault. Unlocking remains tab-local.
 
+If an NVIDIA tutor request fails, **Try Gemini…** lets you review and explicitly
+confirm a one-time send of the same question, relevant prior conversation and
+JELET context to Google Gemini. It uses the default Gemini model and a saved,
+unlocked Gemini key; it does not change your selected provider. Gemini may have
+different availability, terms and costs. No Gemini request is sent if you cancel.
+The exact Gemini request can be previewed before confirming.
+
+For an NVIDIA connection-test failure, check which key and route the diagnostic
+names. An NVIDIA HTTP 401 can indicate a rejected or invalid key; HTTP 403 can
+also mean insufficient model access or permissions, not necessarily expiration.
+A local relay rejection is identified separately by the updated relay. Select
+and test each key individually; don't share keys in screenshots or support chats.
+
 ### Optional NVIDIA relay on your own phone (Termux)
 
 NVIDIA may block direct browser requests through CORS even when a key is valid.

@@ -372,3 +372,22 @@ test('NVIDIA relay only on explicitly marked loopback document, preserves exact 
     if (oldDocument === undefined) delete globalThis.document; else globalThis.document = oldDocument;
   }
 });
+
+test('NVIDIA authorization and relay errors report safe, accurate source', async () => {
+  const oldFetch = globalThis.fetch, oldLocation = globalThis.location, oldDocument = globalThis.document;
+  const req = buildAiRequestPayload({vault:{provider:'nvidia',apiKey:'nvapi-secret'},systemPrompt:'test',history:[],userMessage:'private question'});
+  try {
+    globalThis.location = {protocol:'http:',hostname:'localhost'};
+    globalThis.document = {querySelector: () => ({})};
+    for (const [status, marker, expected, kind] of [[403,'local',/Local NVIDIA relay HTTP 403/, 'local-relay'],[401,'upstream',/NVIDIA endpoint HTTP 401/, 'auth'],[403,'upstream',/NVIDIA endpoint HTTP 403.*permissions/, 'auth']]) {
+      globalThis.fetch = async url => String(url).endsWith('/health')
+        ? new Response(JSON.stringify({service:'jelet-nvidia-local-relay',version:1}))
+        : new Response(JSON.stringify({error:'nvapi-secret private question'}),{status,headers:{'X-Jelet-Relay-Source':marker}});
+      await assert.rejects(sendBuiltAiRequest(req), err => {
+        assert.match(err.message,expected); assert.equal(err.classification.kind,kind);
+        assert.ok(!err.message.includes('nvapi-secret') && !err.message.includes('private question'));
+        return true;
+      });
+    }
+  } finally {globalThis.fetch=oldFetch; if(oldLocation===undefined) delete globalThis.location; else globalThis.location=oldLocation; if(oldDocument===undefined) delete globalThis.document; else globalThis.document=oldDocument;}
+});

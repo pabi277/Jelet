@@ -671,11 +671,16 @@ export async function sendBuiltAiRequest(req, { signal, timeoutMs = 45000, onChu
         const json = await res.json().catch(() => ({}));
         const usage = responseUsage(isGemini ? json?.usageMetadata : json?.usage, isGemini);
         if (!res.ok) {
-          const classification = classifyProviderError(res.status, JSON.stringify(json), res.headers);
-          const note = classification.kind === "auth" && req.provider === "nvidia"
-            ? " NVIDIA nvapi keys can expire after six months; renew at build.nvidia.com."
+          const relayLocal = transportEndpoint === "/__jelet_nvidia_relay__/chat/completions" && res.headers.get("X-Jelet-Relay-Source") === "local";
+          const classification = relayLocal ? {kind:"local-relay", retryAfterMs:null} : classifyProviderError(res.status, JSON.stringify(json), res.headers);
+          const relayUnknown = transportEndpoint === "/__jelet_nvidia_relay__/chat/completions" && !res.headers.get("X-Jelet-Relay-Source");
+          const source = relayLocal ? "Local NVIDIA relay" : relayUnknown ? "NVIDIA or local relay" : req.provider === "nvidia" ? "NVIDIA endpoint" : "Provider";
+          const note = relayLocal ? (res.status === 502 ? " The relay could not complete the NVIDIA request; the key was not verified." : " Request was blocked before forwarding; restart the local relay and open its localhost page.")
+            : relayUnknown && classification.kind === "auth" ? " Rejection source is unconfirmed; restart the local relay to distinguish a relay rejection from NVIDIA access."
+            : classification.kind === "auth" && req.provider === "nvidia"
+            ? (res.status === 403 ? " Access denied: check this key’s permissions and model access; a 403 does not prove the key is expired." : " Authentication rejected: check that this is the selected NVIDIA key and that it is valid; NVIDIA keys may expire.")
             : classification.kind === "not-found" ? " The model or endpoint may be unavailable; check your provider and model." : "";
-          const error = new AiProviderError(`Provider HTTP ${res.status}.${note}`, classification, res.status);
+          const error = new AiProviderError(`${source} HTTP ${res.status}.${note}`, classification, res.status);
           error.usage = usage;
           throw error;
         }
@@ -700,7 +705,7 @@ export async function sendBuiltAiRequest(req, { signal, timeoutMs = 45000, onChu
     // misdiagnose a blocked request as an invalid key or leak endpoint/keys.
     if (error instanceof TypeError) {
       const message = req.provider === "nvidia"
-        ? "Could not reach NVIDIA from this browser. NVIDIA may block direct browser requests (CORS), or the network may be unavailable; the key was not verified."
+        ? (localNvidiaRelayAvailable() ? "Could not reach the local NVIDIA relay or NVIDIA. Restart the relay and check your connection; the key was not verified." : "Could not reach NVIDIA from this browser. NVIDIA may block direct browser requests (CORS), or the network may be unavailable; the key was not verified.")
         : "Could not reach the provider from this browser. Check your connection or browser network restrictions; the key was not verified.";
       const safeError = new AiProviderError(message, { kind: "network", retryAfterMs: null });
       if (received) safeError.partialText = received;

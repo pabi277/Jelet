@@ -129,3 +129,38 @@ local vault isolation and offline fallback remain in force. No PR or merge.
   checks passed; responsive audit 43/43 and community audit 61 checks passed.
   Browser fixtures tested auto/manual selection, credential switching and exact
   preview bodies against a mocked provider, not real NVIDIA credentials.
+
+### Follow-up: NVIDIA diagnostics and consent-based Gemini fallback
+
+- The user reported Test Connection failing with an authentication/access error;
+  no credential or exact HTTP status was supplied. The test now names the key
+  label and route, distinguishes relay-generated errors from forwarded responses
+  when the updated relay is running, and treats NVIDIA 403 as an access/permission
+  issue rather than proof of key expiration. No real NVIDIA key was tested.
+- On a failed NVIDIA tutor request the user may choose Try Gemini, review the
+  exact Gemini request, then explicitly confirm or cancel. The default Gemini
+  model and a saved, unlocked Gemini key are used; no provider switch occurs
+  automatically or changes the saved provider. The fresh manual request is
+  independently governed and preserves the original grounding and prior history.
+- Verification: 173 Node tests, 5 local relay tests, token/link, corpus and
+  independent SymPy checks pass; responsive audit 43/43 and community audit 66
+  pass. Browser fixtures cover selected-key diagnostics, cancellation, missing
+  or changed Gemini keys, explicit consent, exact body and provider quota ledgers;
+  they use mocked provider responses, not live credentials.
+
+### Follow-up: compact tutor controls
+
+- Moved the full tutor context into an initially collapsed region toggled by an
+  accessible information icon in the tutor header. Question key and origin
+  information remain available; Escape closes the region without closing chat.
+- Replaced the full-width Latest button with a centered floating arrow, and
+  aligned Suggestions and the key/model selector in one composer toolbar with
+  Send/Stop beside the input. Suggestions remain hidden during generation.
+- Gemini key labels now show the current Gemini provider model in both You & AI
+  and chat. This is a display of the shared selected model, not a new per-key
+  model assignment.
+- Verification: 173 Node tests, 5 relay tests, token/link, corpus and SymPy gates
+  pass; responsive audit 43/43 and community audit 69 checks pass. Browser
+  coverage includes context disclosure, keyboard dismissal, centered latest
+  control, compact composer alignment, current Gemini model labels, and the
+  earlier explicit-consent fallback.

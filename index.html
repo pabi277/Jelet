@@ -63,7 +63,9 @@
           <span id="aiSheetModeBadge">Corpus Tutor · Offline</span>
         </div>
         <button class="btn btn--ghost btn--sm ai-pin-btn" id="aiPinBtn" type="button" aria-pressed="false">Pin</button>
-        <span class="ai-header-avatar" aria-hidden="true"><svg class="ico"><use href="./assets/icons/icons.svg#icon-spark"/></svg></span>
+        <button class="btn btn--ghost ai-header-icon ai-context-trigger" id="aiContextInfoBtn" type="button" aria-label="Show tutor context" aria-expanded="false" aria-controls="aiContextPanel">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 10.5v5M12 7.5h.01"/></svg>
+        </button>
       </div>
       <div class="bottom-sheet__body ai-sheet__body" id="aiSheetBody"></div>
     </section>

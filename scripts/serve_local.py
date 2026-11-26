@@ -51,6 +51,8 @@ class LocalHandler(SimpleHTTPRequestHandler):
         self.send_header('Content-Length', str(len(data)))
         self.send_header('Cache-Control', 'no-store')
         self.send_header('X-Content-Type-Options', 'nosniff')
+        if status >= 400 and urlsplit(self.path).path == CHAT:
+            self.send_header('X-Jelet-Relay-Source', 'local')
         self.end_headers()
         if self.command != 'HEAD':
             self.wfile.write(data)
@@ -125,6 +127,7 @@ class LocalHandler(SimpleHTTPRequestHandler):
             self.send_header('Content-Type', upstream.getheader('Content-Type', 'application/json'))
             self.send_header('Cache-Control', 'no-store')
             self.send_header('X-Content-Type-Options', 'nosniff')
+            self.send_header('X-Jelet-Relay-Source', 'upstream')
             retry_after = upstream.getheader('Retry-After')
             if retry_after:
                 self.send_header('Retry-After', retry_after)
